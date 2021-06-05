@@ -5,10 +5,8 @@ import Reset from "../styles/Reset"
 import theme, { darkModeColors } from "../styles/theme"
 
 function MyApp({ Component, pageProps }) {
-  const darkMode = useMediaQuery("(prefers-color-scheme: dark)")
-
   return (
-    <ThemeProvider theme={darkMode ? { ...theme, ...darkModeColors } : theme}>
+    <ThemeProvider theme={theme}>
       <Reset />
       <GlobalStyle />
       <Component {...pageProps} />

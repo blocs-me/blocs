@@ -19,21 +19,18 @@ const variants = variant({
       bg: "primary.dark",
       color: "background",
     },
+    primary: {
+      border: "none",
+      outline: "none",
+      background: "primary.dark",
+      color: "primary.lightest",
+      fontWeight: "300",
+      fontSize: "sm",
+      cursor: "pointer",
+    },
   },
 })
 
-const Button = styled("button")(
-  {
-    border: "none",
-    outline: "none",
-    bg: "primary.dark",
-    color: "primary.lightest",
-    fontWeight: "300",
-    fontSize: "sm",
-    cursor: "pointer",
-  },
-  buttonStyles,
-  variants
-)
+const Button = styled("button")(buttonStyles, variants)
 
 export default Button

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 17 17">
+  <g id="Group_371" data-name="Group 371" transform="translate(-3258 856)">
+    <g id="checkbox" transform="translate(3258 -856)">
+      <rect id="Rectangle_43" data-name="Rectangle 43" width="17" height="17" rx="5" fill="#0070e0"/>
+      <path id="Path_120" data-name="Path 120" d="M3668-548.333l2.667,2.667L3676-551" transform="translate(-3663.5 556.833)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+    </g>
+    <g id="checkbox-2" data-name="checkbox" transform="translate(3258 -856)">
+      <g id="Rectangle_43-2" data-name="Rectangle 43" fill="none" stroke="#292929" stroke-width="1">
+        <rect width="17" height="17" rx="5" stroke="none"/>
+        <rect x="0.5" y="0.5" width="16" height="16" rx="4.5" fill="none"/>
+      </g>
+    </g>
+  </g>
+</svg>
