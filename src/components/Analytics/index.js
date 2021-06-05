@@ -81,6 +81,7 @@ const Analytics = ({
               fontWeight="300"
               fontSize="0.5rem"
               pt={0}
+              mb={0}
               color="primary.light"
             >
               Jan 7th - Feb 7th 2021
@@ -339,6 +340,39 @@ const Analytics = ({
               </text>
             </g>
           </svg>
+        </Flex>
+        <Flex
+          justifyContent="space-between"
+          alignItems="center"
+          width="100%"
+          pt="sm"
+          px="sm"
+        >
+          <Box>
+            <Text fontSize="0.55rem" fontWeight="bold" lineHeight={0.2} m={0}>
+              total
+            </Text>
+            <Text fontSize="xs" fontWeight="bold" m={0}>
+              8 hrs
+            </Text>
+          </Box>
+
+          <Flex>
+            <Box as="button" width="13px" mr="md" minWidth="13px" p={0}>
+              <Icon as="span">
+                <Arrow
+                  css={{
+                    transform: "rotate(-180deg)",
+                  }}
+                />
+              </Icon>
+            </Box>
+            <Box as="button" width="13px" minWidth="13px" p={0}>
+              <Icon as="span">
+                <Arrow />
+              </Icon>
+            </Box>
+          </Flex>
         </Flex>
       </div>
     </WidgetLayout>
