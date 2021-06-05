@@ -115,7 +115,7 @@ const WaterTracker = () => {
               100 -
               (selectedVolumeIndex !== null ? selectedVolumeIndex + 2 : 0) * 25
             }%) translateZ(0)`,
-            transition: "transform cubic-bezier(.62,0,.37,.84) 0.5s",
+            transition: "transform cubic-bezier(.62,0,.37,.84) 1s",
           }}
         >
           <Wave
@@ -125,16 +125,6 @@ const WaterTracker = () => {
             options={{
               width: "500%",
               amplitude: 10,
-              speed: 0.2,
-              points: 30,
-            }}
-          />
-          <Wave
-            css={{ height: "400px", marginTop: "-2rem" }}
-            fill="deepskyblue"
-            options={{
-              width: "500%",
-              amplitude: 25,
               speed: 0.2,
               points: 30,
             }}
