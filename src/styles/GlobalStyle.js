@@ -36,6 +36,17 @@ const GlobalStyle = () => {
           font-display: swap;
         }
 
+        ::-webkit-scrollbar {
+          background: #eaeaea;
+          width: 5px;
+          border-radius: 50px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+          background: black;
+          border-radius: 50px;
+        }
+
         html {
           font-size: 20px;
         }
@@ -44,7 +55,7 @@ const GlobalStyle = () => {
           font-family: "Karla", sans-serif;
           font-weight: 400;
           line-height: 1.75;
-          /* font-kerning: normal; */
+          font-kerning: normal;
           /* font-feature-settings: 'kern', 'liga', 'clig', 'calt'; */
           background: ${theme.colors.bg.default};
         }

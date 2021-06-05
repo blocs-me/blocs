@@ -28,6 +28,7 @@ const space = {
 }
 
 const fontSizes = {
+  xxs: "0.6rem",
   xs: "0.694rem",
   sm: "0.833rem",
   md: "1rem",
