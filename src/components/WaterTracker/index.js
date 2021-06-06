@@ -62,7 +62,7 @@ const WaterIndicator = ({
 const WaterTracker = () => {
   const [pause, setPause] = useState(true)
   const [waterlinePos, setWaterlinePos] = useState(0)
-  const [selectedVolumeIndex, setSelectedVolumeIndex] = useState(null)
+  const [selectedVolumeIndex, setSelectedVolumeIndex] = useState(0)
   const water = useRef(null)
 
   useEffect(() => {}, [selectedVolumeIndex])
