@@ -75,6 +75,8 @@ const WaterTracker = () => {
       to: getYPos(selectedVolumeIndex),
       duration: 1000,
       type: "spring",
+      bounce: 0.5,
+      stiffness: 25,
       onUpdate: (yPos) =>
         (water.current.style.transform = `translateY(${yPos}%) translateX(-${
           yPos / 4
