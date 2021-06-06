@@ -201,6 +201,7 @@ const Streaks = () => {
           left="0"
           width="100%"
           height="50px"
+          borderRadius="lg"
           css={{
             backgroundImage:
               "linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,1))",

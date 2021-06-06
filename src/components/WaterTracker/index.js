@@ -11,6 +11,7 @@ import Text from "../Text"
 import useWaterPath from "./useWaterPath"
 import RoundedLine from "./line.svg"
 import { scale } from "style-value-types"
+import { animate } from "popmotion"
 
 const WaterIndicatorBubble = styled(Flex)`
   width: 32px;
@@ -64,8 +65,28 @@ const WaterTracker = () => {
   const [waterlinePos, setWaterlinePos] = useState(0)
   const [selectedVolumeIndex, setSelectedVolumeIndex] = useState(0)
   const water = useRef(null)
+  const previousVolumeIndex = useRef(-1)
 
-  useEffect(() => {}, [selectedVolumeIndex])
+  useEffect(() => {
+    const translateX = -10 * selectedVolumeIndex
+    const getYPos = (index) => 100 - (index + 2) * 25
+
+    animate({
+      from: getYPos(previousVolumeIndex.current),
+      to: getYPos(selectedVolumeIndex),
+      duration: 1000,
+      type: "spring",
+      onUpdate: (yPos) =>
+        (water.current.style.transform = `translateY(${yPos}%) translateX(-${
+          yPos / 4
+        }%)`),
+    })
+  }, [selectedVolumeIndex])
+
+  const handleIndexChange = (i) => {
+    previousVolumeIndex.current = selectedVolumeIndex
+    setSelectedVolumeIndex(i)
+  }
 
   return (
     <WidgetLayout>
@@ -108,15 +129,7 @@ const WaterTracker = () => {
           left="0"
           height="100%"
           width="calc(350px * 5)"
-          style={{
-            transform: `
-            translateX(-${10 * selectedVolumeIndex}%)
-            translateY(${
-              100 -
-              (selectedVolumeIndex !== null ? selectedVolumeIndex + 2 : 0) * 25
-            }%) translateZ(0)`,
-            transition: "transform cubic-bezier(.62,0,.37,.84) 1s",
-          }}
+          ref={water}
         >
           <Wave
             css={{ height: "350px" }}
@@ -140,16 +153,14 @@ const WaterTracker = () => {
           pb="lg"
         >
           <WaterIndicator
-            setWaterlinePos={setWaterlinePos}
-            setSelectedVolumeIndex={setSelectedVolumeIndex}
+            setSelectedVolumeIndex={handleIndexChange}
             index={2}
             selected={selectedVolumeIndex === 2}
           >
             3L
           </WaterIndicator>
           <WaterIndicator
-            setWaterlinePos={setWaterlinePos}
-            setSelectedVolumeIndex={setSelectedVolumeIndex}
+            setSelectedVolumeIndex={handleIndexChange}
             index={1}
             selected={selectedVolumeIndex === 1}
           >
@@ -157,7 +168,7 @@ const WaterTracker = () => {
           </WaterIndicator>
           <WaterIndicator
             setWaterlinePos={setWaterlinePos}
-            setSelectedVolumeIndex={setSelectedVolumeIndex}
+            setSelectedVolumeIndex={handleIndexChange}
             index={0}
             selected={selectedVolumeIndex === 0}
           >
