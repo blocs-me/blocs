@@ -49,6 +49,13 @@ const GlobalStyle = () => {
 
         html {
           font-size: 20px;
+          background: #fff;
+        }
+
+        @media (prefers-color-scheme: dark) {
+          html {
+            background: #2f3437;
+          }
         }
 
         body {
@@ -57,7 +64,7 @@ const GlobalStyle = () => {
           line-height: 1.75;
           font-kerning: normal;
           /* font-feature-settings: 'kern', 'liga', 'clig', 'calt'; */
-          background: ${theme.colors.bg.default};
+          /* background: ${theme.colors.bg.default}; */
         }
 
         p {
