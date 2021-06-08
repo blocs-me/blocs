@@ -15,23 +15,20 @@ const Analytics = ({
   data = defaultAnalyticsData,
   startDate,
   endDate,
+  yAxis = ["0 hr", "1 hr", "2 hr", "3 hr", "4 hr"],
+  total = "8 hrs",
 }) => {
-  const pathIds = ["Path_100", "Path_103", "Path_109", "Path_108", "Path_101"]
-
-  const hidePaths = () => {
-    pathIds.forEach((pathId) => {
-      const path = document.getElementById(pathId)
-
-      path.style.transition = "opacity 0.2s ease, stroke-dashoffset 0.5s ease"
+  const hidePaths = (paths) => {
+    paths.forEach((path) => {
+      path.style.transition = "opacity 1s ease, stroke-dashoffset 0.5s ease"
       path.style.strokeDasharray = "100%"
       path.style.strokeDashoffset = "-100%"
     })
   }
 
-  const revealPaths = () => {
+  const revealPaths = (paths) => {
     setTimeout(() => {
-      pathIds.forEach((pathId) => {
-        const path = document.getElementById(pathId)
+      paths.forEach((path) => {
         path.style.strokeDashoffset = "0%"
         path.style.opacity = "1"
       })
@@ -39,8 +36,9 @@ const Analytics = ({
   }
 
   const handleClick = () => {
-    hidePaths()
-    revealPaths()
+    const paths = Array.from(document.querySelectorAll(".bar"))
+    hidePaths(paths)
+    revealPaths(paths)
   }
 
   useEffect(() => {
@@ -49,7 +47,7 @@ const Analytics = ({
 
   return (
     <WidgetLayout icon={<BackArrow />}>
-      <div onClick={() => handleClick()}>
+      <div>
         <Box pt="calc(25px + 1rem)" />
         <Flex
           width="100%"
@@ -109,16 +107,10 @@ const Analytics = ({
         </Flex>
 
         <Flex width="100%" justifyContent="center">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="237.5"
-            height="154.871"
-            viewBox="0 0 237.5 154.871"
-          >
+          <svg width="237.5" height="154.871" viewBox="0 0 237.5 154.871">
             <g id="Group_231" transform="translate(-82 -202.129)">
               <g id="Group_230" transform="translate(82 202.129)">
                 <path
-                  id="Path_104"
                   d="M1610,1684.7h209.767"
                   transform="translate(-1582.767 -1586.301)"
                   fill="none"
@@ -128,7 +120,6 @@ const Analytics = ({
                   strokeDasharray="0 6"
                 />
                 <path
-                  id="Path_110"
                   d="M1610,1684.7h209.767"
                   transform="translate(-1582.767 -1556.739)"
                   fill="none"
@@ -138,7 +129,6 @@ const Analytics = ({
                   strokeDasharray="0 6"
                 />
                 <path
-                  id="Path_105"
                   d="M1610,1684.7h209.767"
                   transform="translate(-1582.767 -1617.635)"
                   fill="none"
@@ -148,7 +138,6 @@ const Analytics = ({
                   strokeDasharray="0 6"
                 />
                 <path
-                  id="Path_106"
                   d="M1610,1684.7h209.767"
                   transform="translate(-1582.767 -1647.986)"
                   fill="none"
@@ -158,7 +147,6 @@ const Analytics = ({
                   strokeDasharray="0 6"
                 />
                 <path
-                  id="Path_107"
                   d="M1610,1684.7h209.767"
                   transform="translate(-1582.767 -1676.863)"
                   fill="none"
@@ -168,7 +156,7 @@ const Analytics = ({
                   strokeDasharray="0 6"
                 />
                 <path
-                  id="Path_100"
+                  className="bar"
                   d="M1661.981,1647.732V1708.1"
                   transform="translate(-1615.898 -1581.135)"
                   fill="none"
@@ -178,7 +166,7 @@ const Analytics = ({
                   opacity="0"
                 />
                 <path
-                  id="Path_101"
+                  className="bar"
                   d="M1661.981,1647.732v28.562"
                   transform="translate(-1575.169 -1549.332)"
                   fill="none"
@@ -188,7 +176,7 @@ const Analytics = ({
                   opacity="0"
                 />
                 <path
-                  id="Path_103"
+                  className="bar"
                   d="M1661.981,1647.732v90.247"
                   transform="translate(-1534.44 -1611.017)"
                   fill="none"
@@ -198,7 +186,7 @@ const Analytics = ({
                   opacity="0"
                 />
                 <path
-                  id="Path_108"
+                  className="bar"
                   d="M1661.981,1647.732v45.658"
                   transform="translate(-1493.711 -1566.428)"
                   fill="none"
@@ -208,7 +196,7 @@ const Analytics = ({
                   opacity="0"
                 />
                 <path
-                  id="Path_109"
+                  className="bar"
                   d="M1661.981,1647.732v16.329"
                   transform="translate(-1451.25 -1537.1)"
                   fill="none"
@@ -226,7 +214,7 @@ const Analytics = ({
                   fontWeight="300"
                 >
                   <tspan x="0" y="0">
-                    1 hr
+                    {yAxis[1]}
                   </tspan>
                 </text>
                 <text
@@ -238,7 +226,7 @@ const Analytics = ({
                   fontWeight="300"
                 >
                   <tspan x="0" y="0">
-                    0 hr
+                    {yAxis[0]}
                   </tspan>
                 </text>
                 <text
@@ -250,7 +238,7 @@ const Analytics = ({
                   fontWeight="300"
                 >
                   <tspan x="0" y="0">
-                    2 hr
+                    {yAxis[2]}
                   </tspan>
                 </text>
                 <text
@@ -262,7 +250,7 @@ const Analytics = ({
                   fontWeight="300"
                 >
                   <tspan x="0" y="0">
-                    3 hr
+                    {yAxis[3]}
                   </tspan>
                 </text>
                 <text
@@ -274,7 +262,7 @@ const Analytics = ({
                   fontWeight="300"
                 >
                   <tspan x="0" y="0">
-                    4 hr
+                    {yAxis[4]}
                   </tspan>
                 </text>
               </g>
@@ -353,7 +341,7 @@ const Analytics = ({
               total
             </Text>
             <Text fontSize="xs" fontWeight="bold" m={0}>
-              8 hrs
+              {total}
             </Text>
           </Box>
 

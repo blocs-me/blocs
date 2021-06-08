@@ -8,9 +8,7 @@ import Icon from "../Icon"
 import WidgetLayout from "../WidgetLayout"
 import Drop from "../../icons/droplet.svg"
 import Text from "../Text"
-import useWaterPath from "./useWaterPath"
 import RoundedLine from "./line.svg"
-import { scale } from "style-value-types"
 import { animate } from "popmotion"
 
 const WaterIndicatorBubble = styled(Flex)`
@@ -60,9 +58,9 @@ const WaterIndicator = ({
   )
 }
 
-const WaterTracker = () => {
+const WaterTracker = ({ startingVolume = -1 }) => {
   const [pause, setPause] = useState(true)
-  const [selectedVolumeIndex, setSelectedVolumeIndex] = useState(-1)
+  const [selectedVolumeIndex, setSelectedVolumeIndex] = useState(startingVolume)
   const water = useRef(null)
   const previousVolumeIndex = useRef(-1)
 

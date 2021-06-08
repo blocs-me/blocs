@@ -77,7 +77,7 @@ const GlobalStyle = () => {
         h4,
         h5 {
           margin: 3rem 0 1.38rem;
-          font-family: "Pacifico", cursive;
+          font-family: "Karla", sans-serif;
           font-weight: 400;
           line-height: 1.3;
         }
