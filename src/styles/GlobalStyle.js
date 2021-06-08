@@ -53,7 +53,7 @@ const GlobalStyle = () => {
         }
 
         @media (prefers-color-scheme: dark) {
-          html {
+          [data-theme="dark-mode-enabled"] {
             background: #2f3437;
           }
         }

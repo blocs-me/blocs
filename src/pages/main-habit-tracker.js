@@ -7,6 +7,7 @@ const MainHabitTracker = () => (
     height="100vh"
     alignItems="center"
     justifyContent="center"
+    data-theme="dark-mode-enabled"
   >
     <HabitTracker />
   </Flex>

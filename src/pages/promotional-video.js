@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 
-import { css, Global, keyframes } from "@emotion/react"
+import { css, Global, keyframes, useTheme } from "@emotion/react"
 import { motion } from "framer-motion"
 import { animate } from "popmotion"
 import { useEffect, useState } from "react"
@@ -71,8 +71,9 @@ const TypeAnim = ({
     overflow="hidden"
   >
     <Text
-      color="primary.light"
-      fontWeight="300"
+      color="primary.default"
+      fontSize="lg"
+      fontWeight="bold"
       {...textProps}
       css={{ whiteSpace: "nowrap" }}
     >
@@ -112,7 +113,7 @@ const HabitTrackerAnim = () => {
           </Flex>
           <Box mt="md">
             <TypeAnim duration="2s" steps="43" p={0} m={0}>
-              get <Mark>inspired</Mark> by maintaining your{" "}
+              <Mark>inspire</Mark> yourself by maintaining your{" "}
               <Mark>🔥 streaks</Mark>
             </TypeAnim>
           </Box>
@@ -267,6 +268,7 @@ const Intro = () => (
 )
 
 const BlocksLogoAnim = () => {
+  const theme = useTheme()
   return (
     <>
       <motion.div
@@ -279,12 +281,12 @@ const BlocksLogoAnim = () => {
             opacity: [0, 1],
             scale: [0, 3, 2],
           }}
-          transition={{
-            duration: 1,
-            type: "spring",
-            stiffness: 0,
-            damping: 50,
-          }}
+          // transition={{
+          //   duration: 1,
+          //   type: "spring",
+          //   stiffness: 0,
+          //   damping: 50,
+          // }}
         >
           <svg width="69.851" height="83.07" viewBox="0 0 69.851 83.07">
             <g
@@ -292,61 +294,58 @@ const BlocksLogoAnim = () => {
               data-name="Group 147"
               transform="translate(0 118.981)"
             >
-              <path
-                id="Path_75"
-                data-name="Path 75"
-                d="M1.792-76.767H26.113v-24.321H1.792Z"
-                transform="translate(0 -4.972)"
-                stroke="#000"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="3.584"
-                fill-rule="evenodd"
-              />
-              <path
-                id="Path_76"
-                data-name="Path 76"
-                d="M56.514-117.189l-23.491,6.294L39.318-87.4,62.809-93.7Z"
-                transform="translate(-9.644)"
-                stroke="#000"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="3.584"
-                fill-rule="evenodd"
-              />
-              <path
-                id="Path_77"
-                data-name="Path 77"
-                d="M39.115-63.154H14.8l0,24.321H39.113Z"
-                transform="translate(-4.014 -16.685)"
-                stroke="#000"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="3.584"
-                fill-rule="evenodd"
-              />
-              <path
-                id="Path_78"
-                data-name="Path 78"
-                d="M39.455-21.8,62.947-15.5l6.295-23.492L45.75-45.287Z"
-                transform="translate(-11.63 -22.202)"
-                stroke="#000"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="3.584"
-                fill-rule="evenodd"
-              />
-              <path
-                id="Path_79"
-                data-name="Path 79"
-                d="M62.477-55.3H86.8V-79.625H62.477Z"
-                transform="translate(-18.738 -11.599)"
-                stroke="#000"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="3.584"
-                fill-rule="evenodd"
-              />
+              <g fill={theme.colors.secondary} stroke={theme.colors.secondary}>
+                <path
+                  id="Path_75"
+                  data-name="Path 75"
+                  d="M1.792-76.767H26.113v-24.321H1.792Z"
+                  transform="translate(0 -4.972)"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="3.584"
+                  fill-rule="evenodd"
+                />
+                <path
+                  id="Path_76"
+                  data-name="Path 76"
+                  d="M56.514-117.189l-23.491,6.294L39.318-87.4,62.809-93.7Z"
+                  transform="translate(-9.644)"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="3.584"
+                  fill-rule="evenodd"
+                />
+                <path
+                  id="Path_77"
+                  data-name="Path 77"
+                  d="M39.115-63.154H14.8l0,24.321H39.113Z"
+                  transform="translate(-4.014 -16.685)"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="3.584"
+                  fill-rule="evenodd"
+                />
+                <path
+                  id="Path_78"
+                  data-name="Path 78"
+                  d="M39.455-21.8,62.947-15.5l6.295-23.492L45.75-45.287Z"
+                  transform="translate(-11.63 -22.202)"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="3.584"
+                  fill-rule="evenodd"
+                />
+                <path
+                  id="Path_79"
+                  data-name="Path 79"
+                  d="M62.477-55.3H86.8V-79.625H62.477Z"
+                  transform="translate(-18.738 -11.599)"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="3.584"
+                  fill-rule="evenodd"
+                />
+              </g>
               <text
                 id="b"
                 transform="translate(7.956 -88.116)"
@@ -462,7 +461,6 @@ const PromotionalVideo = () => {
     const outroInterval = setTimeout(() => setShowOutro(true), 22000)
 
     return () => {
-      clearTimeout(introInterval)
       clearTimeout(pomInterval)
       clearTimeout(habitInterval)
       clearTimeout(waterInterval)
