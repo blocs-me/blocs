@@ -94,34 +94,31 @@ const StreakItem = ({
 
 const Timeline = ({ from = "Jan 1st, 2021", to = "May 1st, 2021" }) => (
   <svg width="77" height="42" viewBox="0 0 77 42">
-    <g id="Group_376" data-name="Group 376" transform="translate(-203 -187)">
+    <g id="Group_376" transform="translate(-203 -187)">
       <text
         id="Jan_1st_2021"
-        data-name="Jan 1st, 2021"
         transform="translate(251 194)"
         fill="#292929"
-        font-size="8"
-        font-family="Karla-Regular, Karla"
-        letter-spacing="0.08em"
+        fontSize="8"
+        fontFamily="Karla-Regular, Karla"
+        letterSpacing="0.08em"
       >
         <tspan x="-26.066" y="0">
           {from}
         </tspan>
       </text>
-      <g id="Group_375" data-name="Group 375">
+      <g id="Group_375">
         <path
           id="Path_137"
-          data-name="Path 137"
           d="M3717,1384.479v12.033"
           transform="translate(-3509 -1182.479)"
           fill="none"
           stroke="#292929"
-          stroke-linecap="round"
-          stroke-width="2"
+          strokeLinecap="round"
+          strokeWidth="2"
         />
         <circle
           id="Ellipse_16"
-          data-name="Ellipse 16"
           cx="5"
           cy="5"
           r="5"
@@ -129,7 +126,6 @@ const Timeline = ({ from = "Jan 1st, 2021", to = "May 1st, 2021" }) => (
         />
         <circle
           id="Ellipse_17"
-          data-name="Ellipse 17"
           cx="5"
           cy="5"
           r="5"
@@ -138,12 +134,11 @@ const Timeline = ({ from = "Jan 1st, 2021", to = "May 1st, 2021" }) => (
       </g>
       <text
         id="May_1st_2021"
-        data-name="May 1st, 2021"
         transform="translate(252 227)"
         fill="#292929"
-        font-size="8"
-        font-family="Karla-Regular, Karla"
-        letter-spacing="0.08em"
+        fontSize="8"
+        fontFamily="Karla-Regular, Karla"
+        letterSpacing="0.08em"
       >
         <tspan x="-27.288" y="0">
           {to}

@@ -21,7 +21,6 @@ const Checkbox = ({ checked = false }) => (
         <g id="checkbox" transform="translate(3258 -856)">
           <rect
             id="Rectangle_43"
-            data-name="Rectangle 43"
             width="17"
             height="17"
             rx="5"
@@ -29,30 +28,19 @@ const Checkbox = ({ checked = false }) => (
           />
           <path
             id="Path_120"
-            data-name="Path 120"
             d="M3668-548.333l2.667,2.667L3676-551"
             transform="translate(-3663.5 556.833)"
             fill="none"
             stroke="#fff"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
           />
         </g>
       )}
       {!checked && (
-        <g
-          id="checkbox-2"
-          data-name="checkbox"
-          transform="translate(3258 -856)"
-        >
-          <g
-            id="Rectangle_43-2"
-            data-name="Rectangle 43"
-            fill="none"
-            stroke="#292929"
-            stroke-width="1"
-          >
+        <g id="checkbox-2" transform="translate(3258 -856)">
+          <g id="Rectangle_43-2" fill="none" stroke="#292929" strokeWidth="1">
             <rect width="17" height="17" rx="5" stroke="none" />
             <rect x="0.5" y="0.5" width="16" height="16" rx="4.5" fill="none" />
           </g>
@@ -142,8 +130,8 @@ const HabitTracker = () => {
           </Flex>
         </Box>
         <Flex flex="1" flexDirection="column" pl="sm">
-          {todos.map((todo) => (
-            <ToDoItem todo={todo} />
+          {todos.map((todo, i) => (
+            <ToDoItem todo={todo} key={i} />
           ))}
         </Flex>
         <Box px="sm">
