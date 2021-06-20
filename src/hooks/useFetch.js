@@ -28,24 +28,29 @@ const useFetch = (url, options = {}) => {
   const cacheData = (data) =>
     shouldCache && localStorage.setItem(url, JSON.stringify(data))
 
-  const handleReq = useCallback(async () => {
-    setLoading(true)
+  const handleReq = async (mounted) => {
+    mounted.value && setLoading(true)
     const res = await fetcher(url, body, options)
 
-    if (res.status !== 200) {
-      setLoading(false)
-      setError(true)
-      onError()
+    if (!res.ok) {
+      if (mounted.value) {
+        setLoading(false)
+        setError(true)
+        onError(mounted)
+      }
     } else {
-      const resData = await res.json()
-      setData(resData.data)
-      setLoading(false)
-      cacheData(resData)
-      onSuccess(resData)
+      if (mounted.value) {
+        const resData = await res.json()
+        setData(resData.data)
+        setLoading(false)
+        cacheData(resData)
+        onSuccess(resData)
+      }
     }
-  }, [error, body, url, options])
+  }
 
   useEffect(() => {
+    let mounted = { value: true }
     const cachedData = shouldCache
       ? JSON.parse(localStorage.getItem(url) || JSON.stringify(""))
       : {}
@@ -55,7 +60,11 @@ const useFetch = (url, options = {}) => {
     if (cachedData?.data) {
       setData(cachedData.data)
     } else {
-      shouldFetch && handleReq()
+      shouldFetch && handleReq(mounted)
+    }
+
+    return () => {
+      mounted.value = false
     }
   }, [shouldFetch])
 
