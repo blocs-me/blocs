@@ -14,8 +14,6 @@ import Flex from "../Flex"
 import Text from "../Text"
 import Stack from "../Stack"
 
-const getNotionAuthURL = () => encodeURI("")
-
 const SlideIndicator = ({ currentIndex, numberOfItems = 3, setIndex }) => (
   <Stack display="flex" ml="xs">
     {Array(numberOfItems)
@@ -36,40 +34,6 @@ const SlideIndicator = ({ currentIndex, numberOfItems = 3, setIndex }) => (
         />
       ))}
   </Stack>
-)
-
-const ShowCaseItem = ({ Component1, Component2, passProps, title = "" }) => (
-  <Flex
-    flexDirection={["column", "column", "", "", "row"]}
-    css={{ transform: "scale(0.7)" }}
-  >
-    <Component1 {...passProps} />
-    {Component2 && (
-      <>
-        <Box pl={[0, 0, "", "", "md"]}>
-          <Component2 {...passProps} />
-        </Box>
-      </>
-    )}
-  </Flex>
-)
-
-const PomodoroShowcase = () => (
-  <ShowCaseItem Component1={Pomodoro} Component2={Analytics} title="POMODORO" />
-)
-const HabitTrackerShowcase = () => (
-  <ShowCaseItem
-    Component1={HabitTracker}
-    Component2={Streaks}
-    title="HABIT TRACKER"
-  />
-)
-const WaterTrackerShowcase = () => (
-  <ShowCaseItem
-    Component1={WaterTracker}
-    passProps={{ startingVolume: 2 }}
-    title="WATER TRACKER"
-  />
 )
 
 const showcaseItems = [
@@ -102,7 +66,7 @@ const mappedItems = (index) =>
               <Text fontSize="md" mb="sm" textAlign="center" fontWeight="bold">
                 {title}
               </Text>
-              {<Component />}
+              {<Component startingVolume={2} />}
             </m.div>
           </LazyMotion>
         )}
