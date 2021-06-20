@@ -152,7 +152,7 @@ const Nav = ({ title = "", links = [] }) => {
               <BetaWrapper css={{ padding: "0px" }}>
                 <Text
                   letterSpacing="md"
-                  fontSize={["xs", "xs", , "md", "lg"]}
+                  fontSize={["xs", "xs", , "sm", "md", "lg"]}
                   mb={0}
                   fontWeight="bold"
                   color="primary.default"
@@ -177,8 +177,8 @@ const Nav = ({ title = "", links = [] }) => {
           </Flex>
           <Box
             ref={mobileNavContainer}
-            position={["fixed", "fixed", "", , "relative"]}
-            right={["md", "sm", , 0]}
+            position={["fixed", "fixed", , , "relative"]}
+            right={["sm", "sm", , , 0]}
             top={["calc(80px + 1rem)", "calc(80px + 1rem)", , , 0]}
             bg={["background", "background", , , "transparent"]}
             p={["sm", "sm", , , 0]}
