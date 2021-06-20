@@ -16,10 +16,9 @@ export const useClickOutside = ({ element, onClickOutside = () => {} }) => {
 
   useEffect(() => {
     const handleClick = (event) => {
-      if (!element.current || element.current.contains(event.target)) {
-        return
+      if (!element?.current?.contains(event.target)) {
+        onClickOutside(event)
       }
-      onClickOutside(event)
     }
 
     document.addEventListener("click", handleClick, true)
@@ -27,5 +26,5 @@ export const useClickOutside = ({ element, onClickOutside = () => {} }) => {
     return () => {
       document.removeEventListener("click", handleClick, true)
     }
-  }, [element])
+  }, [element, callback])
 }
