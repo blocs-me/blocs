@@ -89,7 +89,7 @@ const Dashboard = ({ links }) => {
         </Flex>
         <Grid
           width="100%"
-          gridTemplateColumns="repeat(auto-fill, 300px)"
+          gridTemplateColumns="repeat(auto-fit, 300px)"
           justifyContent="center"
           gridGap={["xs", "xs", , "sm"]}
           mt={"sm"}
