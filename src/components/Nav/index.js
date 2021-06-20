@@ -178,7 +178,7 @@ const Nav = ({ title = "", links = [] }) => {
           <Box
             ref={mobileNavContainer}
             position={["fixed", "fixed", "", , "relative"]}
-            right={["md", "sm", , "8%", 0]}
+            right={["md", "sm", , 0]}
             top={["calc(80px + 1rem)", "calc(80px + 1rem)", , , 0]}
             bg={["background", "background", , , "transparent"]}
             p={["sm", "sm", , , 0]}
