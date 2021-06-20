@@ -22,7 +22,6 @@ const PageLayout = ({ children, navTitle, links }) => (
       position="relative"
       overflowX="hidden"
     >
-      <Nav title={navTitle} links={links} />
       <PageGutters>{children}</PageGutters>
       <Footer />
     </Box>
