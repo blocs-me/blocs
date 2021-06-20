@@ -36,26 +36,9 @@ const GlobalStyle = () => {
           font-display: swap;
         }
 
-        ::-webkit-scrollbar {
-          background: #eaeaea;
-          width: 5px;
-          border-radius: 50px;
-        }
-
-        ::-webkit-scrollbar-thumb {
-          background: black;
-          border-radius: 50px;
-        }
-
         html {
           font-size: 20px;
           background: #fff;
-        }
-
-        @media (prefers-color-scheme: dark) {
-          [data-theme="dark-mode-enabled"] {
-            background: #2f3437;
-          }
         }
 
         body {

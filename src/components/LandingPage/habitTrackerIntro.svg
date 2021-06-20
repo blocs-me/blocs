@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 745 534.205">
+  <defs>
+    <filter id="a" x="0" y="106.44" viewBox="0 0 745 427.765" filterUnits="userSpaceOnUse">
+      <feOffset dy="5" input="SourceAlpha" />
+      <feGaussianBlur stdDeviation="10" result="b" />
+      <feFlood flood-color="#585858" flood-opacity="0.149" />
+      <feComposite operator="in" in2="b" />
+      <feComposite in="SourceGraphic" />
+    </filter>
+    <filter id="c" x="72.456" y="155.981" width="313.903" height="313.903" filterUnits="userSpaceOnUse">
+      <feOffset dy="3" input="SourceAlpha" />
+      <feGaussianBlur stdDeviation="15" result="d" />
+      <feFlood flood-color="#1d1d1d" flood-opacity="0.341" />
+      <feComposite operator="in" in2="d" />
+      <feComposite in="SourceGraphic" />
+    </filter>
+    <filter id="e" x="136.209" y="0" width="390.301" height="183.359" filterUnits="userSpaceOnUse">
+      <feOffset dy="5" input="SourceAlpha" />
+      <feGaussianBlur stdDeviation="10" result="f" />
+      <feFlood flood-opacity="0.384" />
+      <feComposite operator="in" in2="f" />
+      <feComposite in="SourceGraphic" />
+    </filter>
+  </defs>
+  <g transform="translate(-945 -2827.56)">
+    <g transform="matrix(1, 0, 0, 1, 945, 2827.56)">
+      <rect width="685" height="367.765" rx="46" transform="translate(30 131.44)" fill="#fafafa" />
+    </g>
+    <g transform="translate(1072.456 3035.54)">
+      <g transform="translate(0 0)">
+        <g transform="matrix(1, 0, 0, 1, -127.46, -207.98)">
+          <path d="M10-106.435A101.951,101.951,0,0,0,111.951-4.484,102,102,0,0,0,213.9-106.435,101.953,101.953,0,0,0,111.951-208.387,101.953,101.953,0,0,1,213.9-106.435,102,102,0,0,1,111.951-4.484,101.951,101.951,0,0,1,10-106.435Z" transform="translate(117.46 416.37)" fill="#292929" stroke="#292929" stroke-linecap="round" stroke-linejoin="round" stroke-width="20" />
+        </g>
+      </g>
+      <text transform="translate(108.403 116.075)" fill="#292929" font-size="44" font-family="Karla-Regular, Karla" letter-spacing="0.08em">
+        <tspan x="-42.229" y="0">75%</tspan>
+      </text>
+    </g>
+    <g transform="translate(1365.841 3048.444)">
+      <g transform="translate(0 0)">
+        <g transform="translate(0 0)">
+          <rect width="40.552" height="40.552" rx="15" fill="#0070e0" />
+          <path d="M3668-545.859l5.14,5.141L3683.422-551" transform="translate(-3655.327 565.984)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" />
+        </g>
+      </g>
+      <path d="M0,0H124.508" transform="translate(75.651 20.636)" fill="none" stroke="#e3e3e3" stroke-linecap="round" stroke-width="10" />
+      <g transform="translate(0 68.99)">
+        <g transform="translate(0)">
+          <rect width="40.552" height="40.552" rx="15" fill="#0070e0" />
+          <path d="M3668-545.859l5.14,5.141L3683.422-551" transform="translate(-3655.327 565.984)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" />
+        </g>
+      </g>
+      <path d="M0,0H124.508" transform="translate(75.651 89.694)" fill="none" stroke="#e3e3e3" stroke-linecap="round" stroke-width="10" />
+      <g transform="translate(0 137.976)">
+        <g transform="translate(0)">
+          <rect width="40.552" height="40.552" rx="15" fill="#0070e0" />
+          <path d="M3668-545.859l5.14,5.141L3683.422-551" transform="translate(-3655.327 565.984)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" />
+        </g>
+      </g>
+      <path d="M0,0H124.508" transform="translate(75.651 158.613)" fill="none" stroke="#e3e3e3" stroke-linecap="round" stroke-width="10" />
+    </g>
+    <g transform="translate(1111.209 2852.56)">
+      <g transform="matrix(1, 0, 0, 1, -166.21, -25)">
+        <path d="M22.02,0H308.281c12.161,0,22.02,9.007,22.02,20.117v68.4c0,11.11-9.859,20.117-22.02,20.117H69.964l-13.5,14.727L44.319,108.632H22.02C9.859,108.632,0,99.625,0,88.515v-68.4C0,9.007,9.859,0,22.02,0Z" transform="translate(166.21 25)" />
+      </g>
+      <text transform="translate(20.597 45.864)" fill="#f2f2f2" font-size="22" font-family="Karla-Bold, Karla" font-weight="700">
+        <tspan x="0" y="0"></tspan>
+        <tspan y="0" font-family="AppleColorEmoji, Apple Color Emoji" font-weight="400">🔥</tspan>
+        <tspan y="0" xml:space="preserve"> 90 / 120 days</tspan>
+      </text>
+      <text transform="translate(155.792 73.44)" fill="#fff" font-size="13" font-family="Karla-Regular, Karla" letter-spacing="0.08em">
+        <tspan x="-124.15" y="0">your longest streak was for 90 days </tspan>
+      </text>
+    </g>
+  </g>
+</svg>

@@ -26,11 +26,13 @@ const TimerSvg = ({ progress = 50 }) => {
       from: [previousProgressAmount.current || 0, progress],
       duration: 1000,
       onUpdate: (val) => {
-        timerCircumference.current.style.strokeDashoffset = `${getTimerDashoffset(
-          progress
-        )}px`
-        timerTail.current.style.cx = circleEndX
-        timerTail.current.style.cy = circleEndY
+        if (timerCircumference.current && timerTail.current) {
+          timerCircumference.current.style.strokeDashoffset = `${getTimerDashoffset(
+            progress
+          )}px`
+          timerTail.current.style.cx = circleEndX
+          timerTail.current.style.cy = circleEndY
+        }
       },
     })
   }, [progress])

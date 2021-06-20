@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 725 451.44">
+  <defs>
+    <filter id="a" x="0" y="57.44" width="725" height="394" filterUnits="userSpaceOnUse">
+      <feOffset dy="5" />
+      <feGaussianBlur stdDeviation="10" result="b" />
+      <feFlood flood-opacity=".22" />
+      <feComposite operator="in" in2="b" />
+      <feComposite in="SourceGraphic" />
+    </filter>
+    <filter id="b" x="107.604" y="0" width="366.343" height="174.411" filterUnits="userSpaceOnUse">
+      <feOffset dy="5" />
+      <feGaussianBlur stdDeviation="10" result="d" />
+      <feFlood flood-opacity=".314" />
+      <feComposite operator="in" in2="d" />
+      <feComposite in="SourceGraphic" />
+    </filter>
+  </defs>
+  <path d="M77 82.44h571a47 47 0 0147 47v240a47 47 0 01-47 47H77a47 47 0 01-47-47v-240a47 47 0 0147-47z" fill="#292929" />
+  <path d="M144.405 235.329h521.953M144.405 308.885h521.953M144.405 157.363h521.953" fill="none" stroke="#8b8b8b" stroke-linecap="round" stroke-width="2" stroke-dasharray="0 6" />
+  <path d="M191.307 156.196v150.2M292.652 235.329v71.068M393.997 179.301v127.1M495.342 207.537v98.861M600.994 265.766v40.632" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="10" />
+  <text transform="translate(76.642 238.657)" fill="#f2f2f2" font-size="24" font-family="Karla-Light, Karla" font-weight="300">
+    <tspan x="0" y="0">1 hr</tspan>
+  </text>
+  <text transform="translate(76.642 310.848)" fill="#f2f2f2" font-size="22" font-family="Karla-Light, Karla" font-weight="300">
+    <tspan x="0" y="0">0 hr</tspan>
+  </text>
+  <text transform="translate(76.642 161.267)" fill="#f2f2f2" font-size="22" font-family="Karla-Light, Karla" font-weight="300">
+    <tspan x="0" y="0">2 hr</tspan>
+  </text>
+  <text transform="translate(163.807 367.512)" fill="#eaeaea" font-size="24" font-family="Karla-Light, Karla" font-weight="300">
+    <tspan x="0" y="0">mon</tspan>
+  </text>
+  <text transform="translate(273.997 367.512)" fill="#eaeaea" font-size="24" font-family="Karla-Light, Karla" font-weight="300">
+    <tspan x="0" y="0">tue</tspan>
+  </text>
+  <text transform="translate(371.029 367.512)" fill="#eaeaea" font-size="24" font-family="Karla-Light, Karla" font-weight="300">
+    <tspan x="0" y="0">wed</tspan>
+  </text>
+  <text transform="translate(474.64 367.512)" fill="#eaeaea" font-size="24" font-family="Karla-Light, Karla" font-weight="300">
+    <tspan x="0" y="0">thu</tspan>
+  </text>
+  <text transform="translate(589.764 367.512)" fill="#eaeaea" font-size="24" font-family="Karla-Light, Karla" font-weight="300">
+    <tspan x="0" y="0">fri</tspan>
+  </text>
+  <g>
+    <text transform="translate(556.493 61.94)" font-size="20" font-family="AppleColorEmoji, Apple Color Emoji">
+      <tspan x="0" y="0">👩‍🎓</tspan>
+      <tspan y="0" font-size="30" font-family="Karla-Bold, Karla" font-weight="700">study</tspan>
+    </text>
+    <path d="M685.835 60.28l8.711-8.246a1.4 1.4 0 000-2.056l-1.446-1.37a1.593 1.593 0 00-2.172 0l-6.182 5.839-6.176-5.845a1.593 1.593 0 00-2.172 0l-1.452 1.37a1.4 1.4 0 000 2.056l8.713 8.247a1.6 1.6 0 002.178.006z" />
+  </g>
+  <g>
+    <g transform="translate(.004)">
+      <path d="M158.023 25h265.5c11.279 0 20.423 8.353 20.423 18.658v63.436c0 10.3-9.144 18.658-20.423 18.658H202.489l-12.518 13.659-11.271-13.659h-20.677c-11.279 0-20.423-8.352-20.423-18.658V43.658C137.6 33.353 146.744 25 158.023 25z" />
+    </g>
+    <text transform="translate(168.707 67.409)" fill="#f2f2f2" font-size="21" font-family="Karla-Regular, Karla">
+      <tspan x="0" y="0">you showed up for </tspan>
+      <tspan y="0" font-family="Karla-Bold, Karla" font-weight="700">2 hrs</tspan>
+      <tspan x="0" y="24">to </tspan>
+      <tspan y="24" fill="#fff" font-family="Karla-Bold, Karla" font-weight="700">study</tspan>
+      <tspan y="24"> last monday</tspan>
+    </text>
+  </g>
+</svg>

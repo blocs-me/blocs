@@ -2,17 +2,16 @@
 
 import { css, Global, keyframes, useTheme } from "@emotion/react"
 import { motion } from "framer-motion"
-import { animate } from "popmotion"
 import { useEffect, useState } from "react"
-import Analytics from "../components/Analytics"
-import Box from "../components/Box"
-import Flex from "../components/Flex"
-import HabitTracker from "../components/HabitTracker"
-import Pomodoro from "../components/Pomodoro"
-import Streaks from "../components/Streaks"
-import Text from "../components/Text"
-import WaterTracker from "../components/WaterTracker"
-import Notion from "../icons/notion.svg"
+import Analytics from "../Analytics"
+import Box from "../Box"
+import Flex from "../Flex"
+import HabitTracker from "../HabitTracker"
+import Pomodoro from "../Pomodoro"
+import Streaks from "../Streaks"
+import Text from "../Text"
+import WaterTracker from "../WaterTracker"
+import Notion from "../../icons/notion.svg"
 
 const typeAnim = keyframes`
  100% {
@@ -93,7 +92,7 @@ const Center = ({ children }) => (
   </Box>
 )
 
-const HabitTrackerAnim = () => {
+export const HabitTrackerAnim = () => {
   return (
     <Center>
       <div css={{ animation: `${fadeAnim} 1.5s ease 4s forwards` }}>
@@ -123,7 +122,7 @@ const HabitTrackerAnim = () => {
   )
 }
 
-const PomorodoAnim = () => {
+export const PomorodoAnim = () => {
   return (
     <Center>
       <div css={{ animation: `${fadeAnim} 1.5s ease 3.5s forwards` }}>
@@ -153,7 +152,7 @@ const PomorodoAnim = () => {
   )
 }
 
-const WaterTrackerAnim = () => {
+export const WaterTrackerAnim = () => {
   const [volume, setVolume] = useState(1)
 
   useState(() => {

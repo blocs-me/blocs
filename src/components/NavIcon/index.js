@@ -12,7 +12,7 @@ const NavButton = styled.button`
     opacity: 0.9;
   }
 
-  transition: opacity 0.2s ease, trransform 0.2s ease;
+  transition: opacity 0.2s ease, transform 0.2s ease;
 `
 
 const NavIcon = ({ children, props }) => (

@@ -76,6 +76,7 @@ const WaterTracker = ({ startingVolume = -1 }) => {
       bounce: 0.5,
       stiffness: 25,
       onUpdate: (yPos) =>
+        water.current &&
         (water.current.style.transform = `translateY(${yPos}%) translateX(-${
           yPos / 4
         }%)`),

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 62 62">
+  <defs>
+    <filter id=" a" x=" 0" y=" 0" width=" 62" height=" 62" filterUnits=" userSpaceOnUse">
+      <feOffset dy=" 3" input=" SourceAlpha" />
+      <feGaussianBlur stdDeviation=" 5" result=" b" />
+      <feFlood flood-color=" #272727" flood-opacity=" 0.173" />
+      <feComposite operator=" in" in2=" b" />
+      <feComposite in=" SourceGraphic" />
+    </filter>
+  </defs>
+  <g transform=" translate(-373.5 -597.434)">
+    <g transform=" matrix(1, 0, 0, 1, 373.5, 597.43)" filter=" url(#a)">
+      <path d=" M10,0H22A10,10,0,0,1,32,10V22A10,10,0,0,1,22,32H10A10,10,0,0,1,0,22V10A10,10,0,0,1,10,0Z" transform=" translate(15 12)" fill=" #fafbff" />
+    </g>
+    <path d=" M16.5,5.625H3.75a1.5,1.5,0,0,0-1.5,1.5V16.5A1.5,1.5,0,0,0,3.75,18H16.5A1.5,1.5,0,0,0,18,16.5V7.125A1.5,1.5,0,0,0,16.5,5.625Zm-.187,3.188-6.187,4.125L3.938,8.813v-1.5l6.188,4.125,6.188-4.125Z" transform=" translate(394.375 613.809)" fill=" #1f1f1f" />
+  </g>
+</svg>

@@ -1,4 +1,5 @@
 /** @jsxImportSource @emotion/react */
+import styled from "@emotion/styled"
 import WidgetLayout from "../WidgetLayout"
 import Fire from "../../icons/fire.svg"
 import Text from "../Text"
@@ -55,6 +56,21 @@ const DonutChart = ({ progress = 25 }) => {
     </svg>
   )
 }
+
+const Wrapper = styled.div`
+  * {
+    div::-webkit-scrollbar {
+      background: #eaeaea;
+      width: 5px;
+      border-radius: 50px;
+    }
+
+    div::-webkit-scrollbar-thumb {
+      background: black;
+      border-radius: 50px;
+    }
+  }
+`
 
 const StreakItem = ({
   from = "",
@@ -150,60 +166,62 @@ const Timeline = ({ from = "Jan 1st, 2021", to = "May 1st, 2021" }) => (
 
 const Streaks = () => {
   return (
-    <WidgetLayout>
-      <Box p="sm" position="relative">
-        <Flex alignItems="center">
-          <Fire />
-          <Box pl="xs" />
-          <Text fontSize="sm" fontWeight="bold" mb={0}>
-            streaks
-          </Text>
-        </Flex>
-        <Box pt="sm" />
-        <Box height="280px" overflowY="scroll">
-          <StreakItem
-            streak="90 / 120 days"
-            progress={75}
-            from="Jan 1st, 2021"
-            to="May 1st, 2021"
-            habit="WORKOUT"
-          />
-          <StreakItem
-            streak="30 / 60 days"
-            progress={50}
-            from="Jan 1st, 2021"
-            to="Feb 1st, 2021"
-            habit="SLEEP EARLY"
-          />
-          <StreakItem
-            streak="30 / 60 days"
-            progress={50}
-            from="Jan 1st, 2021"
-            to="Feb 1st, 2021"
-            habit="STUDY"
-          />
-          <StreakItem
-            streak="60 / 180 days"
-            progress={30}
-            from="Jan 1st, 2021"
-            to="Jun 1st, 2021"
-            habit="GUITAR"
+    <Wrapper>
+      <WidgetLayout>
+        <Box p="sm" position="relative">
+          <Flex alignItems="center">
+            <Fire />
+            <Box pl="xs" />
+            <Text fontSize="sm" fontWeight="bold" mb={0}>
+              streaks
+            </Text>
+          </Flex>
+          <Box pt="sm" />
+          <Box height="280px" overflowY="scroll">
+            <StreakItem
+              streak="90 / 120 days"
+              progress={75}
+              from="Jan 1st, 2021"
+              to="May 1st, 2021"
+              habit="WORKOUT"
+            />
+            <StreakItem
+              streak="30 / 60 days"
+              progress={50}
+              from="Jan 1st, 2021"
+              to="Feb 1st, 2021"
+              habit="SLEEP EARLY"
+            />
+            <StreakItem
+              streak="30 / 60 days"
+              progress={50}
+              from="Jan 1st, 2021"
+              to="Feb 1st, 2021"
+              habit="STUDY"
+            />
+            <StreakItem
+              streak="60 / 180 days"
+              progress={30}
+              from="Jan 1st, 2021"
+              to="Jun 1st, 2021"
+              habit="GUITAR"
+            />
+          </Box>
+          <Box
+            position="absolute"
+            bottom="sm"
+            left="0"
+            width="100%"
+            height="50px"
+            borderRadius="lg"
+            css={{
+              backgroundImage:
+                "linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,1))",
+            }}
           />
         </Box>
-        <Box
-          position="absolute"
-          bottom="sm"
-          left="0"
-          width="100%"
-          height="50px"
-          borderRadius="lg"
-          css={{
-            backgroundImage:
-              "linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,1))",
-          }}
-        />
-      </Box>
-    </WidgetLayout>
+      </WidgetLayout>
+    </Wrapper>
   )
 }
 

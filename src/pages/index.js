@@ -1,17 +1,8 @@
-import { Flex } from "rebass"
-import Pomodoro from "../components/Pomodoro"
+import LandingPage from "../components/LandingPage"
+import { A, NavLink } from "../components/Nav"
 
-Pomodoro
-
-export default function Home() {
-  return (
-    <Flex
-      width="100vw"
-      height="100vh"
-      alignItems="center"
-      justifyContent="center"
-    >
-      <Pomodoro />
-    </Flex>
-  )
+function Landing() {
+  return <LandingPage />
 }
+
+export default Landing

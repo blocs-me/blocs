@@ -1,5 +1,6 @@
 import styled from "@emotion/styled"
 import {
+  border,
   color,
   compose,
   layout,
@@ -8,9 +9,8 @@ import {
   typography,
   variant,
 } from "styled-system"
-import shouldForwardProp from "@styled-system/should-forward-prop"
 
-const buttonStyles = compose(layout, color, space, padding, typography)
+const buttonStyles = compose(layout, color, space, padding, typography, border)
 
 const variants = variant({
   variants: {

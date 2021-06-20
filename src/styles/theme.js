@@ -57,6 +57,10 @@ const shadows = {
     rgba(50, 50, 50, 0.05) 0px 5px 20px,
     rgba(0, 0, 0, 0.03) 0px 10px 30px
   `,
+  md: `
+  rgba(70, 70, 70, 0.05) 0px 4px 10px,
+  rgba(70, 70, 70, 0.02) 0px 8px 16px
+  `,
   lg: `
     rgba(50, 50, 50, 0.1) 0px 5px 12px,
     rgba(50, 50, 50, 0.07) 0px 7px 25px,
@@ -85,6 +89,10 @@ const buttons = {
     borderRadius: "50%",
     pd: "xs",
   },
+}
+
+const zIndices = {
+  nav: 1000000,
 }
 
 export const darkModeColors = {
@@ -116,4 +124,5 @@ export default {
   lineHeights,
   letterSpacings,
   buttons,
+  zIndices,
 }
