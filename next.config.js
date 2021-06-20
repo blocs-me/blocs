@@ -7,4 +7,5 @@ module.exports = {
 
     return config
   },
+  webpack5: true,
 }
