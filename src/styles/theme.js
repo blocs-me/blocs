@@ -93,6 +93,7 @@ const buttons = {
 
 const zIndices = {
   nav: 1000000,
+  modal: 1000001,
 }
 
 export const darkModeColors = {
@@ -113,7 +114,7 @@ export const darkModeColors = {
   },
 }
 
-export default {
+const theme = {
   colors,
   space,
   fontSizes,
@@ -126,3 +127,5 @@ export default {
   buttons,
   zIndices,
 }
+
+export default theme
