@@ -24,8 +24,6 @@ const saveUser = async (userData) => {
 
   if (userExists) return userExists.data
 
-  console.log(userExists, "user existing")
-
   if (!userExists) {
     try {
       const user = await faunaClient.query(
@@ -65,7 +63,7 @@ const handler = async (req, res) => {
         .status(200)
         .json({ data: user, status: 200, access_token: authData.access_token })
     } catch (err) {
-      console.log(err)
+      console.error(err)
       res.status(400).json({ err, status: 400 })
     }
   }
