@@ -20,6 +20,7 @@ import { useClickOutside } from "../../hooks/useClickOutside"
 import Avatar from "../Avatar"
 import useUser from "../../hooks/useUser"
 import globalContext from "../../contexts/GlobalContextProvider/globalContext"
+import { LOADING } from "../../constants/fetchStates"
 
 export const A = styled(Text)`
   text-decoration: none;
@@ -68,6 +69,7 @@ const Nav = ({ title = "", links = [] }) => {
 
   const { user, logout } = useUser({ shouldFetch: false })
   const { avatar_url } = user
+  const [{ authValid, authState }] = useContext(globalContext)
 
   const handleScroll = (ev) => {
     const currentPos = window.scrollY
@@ -217,10 +219,14 @@ const Nav = ({ title = "", links = [] }) => {
                   why blocs?
                 </A>
               )}
-              {avatar_url && !isDashboard && (
+              {!isDashboard && (authValid || authState === LOADING) && (
                 <Link href="/dashboard">
                   <a>
-                    <Avatar variant="sm" src={avatar_url} />
+                    <Avatar
+                      variant="sm"
+                      src={avatar_url}
+                      loading={authState === LOADING}
+                    />
                   </a>
                 </Link>
               )}

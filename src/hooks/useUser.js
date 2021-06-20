@@ -12,10 +12,9 @@ import useAuth from "./useAuth"
 import useFetch from "./useFetch"
 import useLogout from "./useLogout"
 
-const useUser = (options = {}) => {
-  const { shouldFetch = true } = options
+const useUser = () => {
   const router = useRouter()
-  const { code } = router.query
+  const { code, error: notionError } = router.query
   const body = useMemo(() => ({ code }), [code])
   const [{ authState }, dispatch] = useContext(globalContext)
   const [loggingOut, setLoggingOut] = useState(false)
@@ -29,13 +28,15 @@ const useUser = (options = {}) => {
   const { data, loading, error } = useFetch(USER_PATH, {
     method: "POST",
     body,
-    shouldFetch: !!code && shouldFetch,
+    shouldFetch: !!code && !notionError,
     onSuccess: () => {
       dispatch(setAuthValid(true))
+      dispatch(setAuthState(SUCCESS))
       router.push("/dashboard")
     },
     onError: () => {
       dispatch(setAuthState(ERROR))
+      router.push("/dashboard")
     },
   })
 
@@ -45,6 +46,13 @@ const useUser = (options = {}) => {
       dispatch(setAuthState(ERROR))
     }
   }, [loading, dispatch, loggingOut, data])
+
+  useEffect(() => {
+    if (notionError && authState !== ERROR) {
+      setAuthState(ERROR)
+      router.push("/dashboard")
+    }
+  }, [notionError, authState, router])
 
   return {
     user: data || {},

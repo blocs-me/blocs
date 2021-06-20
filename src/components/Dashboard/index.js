@@ -1,15 +1,16 @@
 /** @jsxImportSource @emotion/react */
-import { useRouter } from "next/router"
-import { useContext, useEffect } from "react"
+import { useContext, useEffect, useState } from "react"
+import { ERROR } from "../../constants/fetchStates"
 import globalContext from "../../contexts/GlobalContextProvider/globalContext"
-import useAuth from "../../hooks/useAuth"
 import useUser from "../../hooks/useUser"
-import getAccessToken from "../../utils/getAccessToken"
 import Avatar from "../Avatar"
 import Box from "../Box"
 import Flex from "../Flex"
 import Grid from "../Grid"
 import HabitTracker from "../HabitTracker"
+import Link from "../Link"
+import Modal from "../Modal.js"
+import NotionSignInButton from "../NotionSignInButton"
 import PageLayout from "../PageLayout"
 import Pomodoro from "../Pomodoro"
 import Skeleton from "../Skeleton"
@@ -28,7 +29,7 @@ const ProductWrapper = ({ children, title, lastItem }) => (
   >
     <Text
       textAlign="center"
-      fontSize="sm"
+      fontSize="md"
       fontWeight="bold"
       color="primary.default"
       letterSpacing="sm"
@@ -72,8 +73,8 @@ const Dashboard = ({ links }) => {
               fontWeight="400"
               textAlign="center"
               lineHeight={0}
-              // letterSpacing="sm"
-              fontSize="sm"
+              letterSpacing="sm"
+              fontSize="xs"
             >
               {!loading && userName}
             </Text>
@@ -105,7 +106,7 @@ const Dashboard = ({ links }) => {
             <WaterTracker startingVolume={2} />
           </ProductWrapper>
         </Grid>
-      </Flex>{" "}
+      </Flex>
     </PageLayout>
   )
 }
