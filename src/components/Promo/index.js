@@ -299,59 +299,59 @@ const BlocksLogoAnim = () => {
                   data-name="Path 75"
                   d="M1.792-76.767H26.113v-24.321H1.792Z"
                   transform="translate(0 -4.972)"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="3.584"
-                  fill-rule="evenodd"
+                  strokLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="3.584"
+                  fillRule="evenodd"
                 />
                 <path
                   id="Path_76"
                   data-name="Path 76"
                   d="M56.514-117.189l-23.491,6.294L39.318-87.4,62.809-93.7Z"
                   transform="translate(-9.644)"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="3.584"
-                  fill-rule="evenodd"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="3.584"
+                  fillRule="evenodd"
                 />
                 <path
                   id="Path_77"
                   data-name="Path 77"
                   d="M39.115-63.154H14.8l0,24.321H39.113Z"
                   transform="translate(-4.014 -16.685)"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="3.584"
-                  fill-rule="evenodd"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="3.584"
+                  fillRule="evenodd"
                 />
                 <path
                   id="Path_78"
                   data-name="Path 78"
                   d="M39.455-21.8,62.947-15.5l6.295-23.492L45.75-45.287Z"
                   transform="translate(-11.63 -22.202)"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="3.584"
-                  fill-rule="evenodd"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="3.584"
+                  fillRule="evenodd"
                 />
                 <path
                   id="Path_79"
                   data-name="Path 79"
                   d="M62.477-55.3H86.8V-79.625H62.477Z"
                   transform="translate(-18.738 -11.599)"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="3.584"
-                  fill-rule="evenodd"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="3.584"
+                  fillRule="evenodd"
                 />
               </g>
               <text
                 id="b"
                 transform="translate(7.956 -88.116)"
                 fill="#fff"
-                font-size="17"
-                font-family="Helvetica-Bold, Helvetica"
-                font-weight="700"
+                fontSize="17"
+                fontFamily="Helvetica-Bold, Helvetica"
+                fontWeight="700"
               >
                 <tspan x="0" y="0">
                   b
@@ -361,9 +361,9 @@ const BlocksLogoAnim = () => {
                 id="l"
                 transform="translate(36.91 -97.442) rotate(-15.009)"
                 fill="#fff"
-                font-size="15"
-                font-family="Helvetica-Bold, Helvetica"
-                font-weight="700"
+                fontSize="15"
+                fontFamily="Helvetica-Bold, Helvetica"
+                fontWeight="700"
               >
                 <tspan x="0" y="0">
                   l
@@ -373,9 +373,9 @@ const BlocksLogoAnim = () => {
                 id="s"
                 transform="translate(18.332 -64.552) rotate(0.009)"
                 fill="#fff"
-                font-size="16"
-                font-family="Helvetica-Bold, Helvetica"
-                font-weight="700"
+                fontSize="16"
+                fontFamily="Helvetica-Bold, Helvetica"
+                fontWeight="700"
               >
                 <tspan x="0" y="0">
                   s
@@ -385,9 +385,9 @@ const BlocksLogoAnim = () => {
                 id="c"
                 transform="matrix(0.966, 0.259, -0.259, 0.966, 35.865, -49.328)"
                 fill="#fff"
-                font-size="15"
-                font-family="Helvetica-Bold, Helvetica"
-                font-weight="700"
+                fontSize="15"
+                fontFamily="Helvetica-Bold, Helvetica"
+                fontWeight="700"
               >
                 <tspan x="0" y="0">
                   c
@@ -397,9 +397,9 @@ const BlocksLogoAnim = () => {
                 id="o"
                 transform="translate(50.202 -74.951)"
                 fill="#fff"
-                font-size="17"
-                font-family="Helvetica-Bold, Helvetica"
-                font-weight="700"
+                fontSize="17"
+                fontFamily="Helvetica-Bold, Helvetica"
+                fontWeight="700"
               >
                 <tspan x="0" y="0">
                   o
