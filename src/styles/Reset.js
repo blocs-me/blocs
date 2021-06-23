@@ -37,6 +37,10 @@ const Reset = () => (
         list-style: none;
       }
 
+      ul {
+        padding: 0;
+      }
+
       /* Set core root defaults */
       html:focus-within {
         scroll-behavior: smooth;

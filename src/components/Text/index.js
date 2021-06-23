@@ -4,6 +4,8 @@ import { color, space, system, typography, variant } from "styled-system"
 
 const p = {
   fontSize: ["sm", "sm", , "md"],
+  color: "primary.light",
+  fontWeight: "300",
 }
 
 const li = {
@@ -32,7 +34,8 @@ const Text = styled("p", { shouldForwardProp })(
   space,
   typography,
   textTransform,
-  color
+  color,
+  variants
 )
 
 export default Text
