@@ -54,7 +54,12 @@ const Footer = () => (
           </Text>
           <Text fontSize="sm" fontWeight="400" color="primary.light">
             take a little looksy 👀 at our{" "}
-            <Link href="mailto:moniet@blocs.me" passHref inline underline>
+            <Link
+              href="https://www.notion.so/81a847e283ca4d3583651d7d0d55f692?v=eb4ecf38b53949a6b531e387e90df22a"
+              passHref
+              inline
+              underline
+            >
               roadmap
             </Link>{" "}
             on notion
