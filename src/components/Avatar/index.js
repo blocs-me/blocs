@@ -36,7 +36,7 @@ const variants = variant({
 
 const Container = styled(Box)(variants)
 
-const Avatar = ({ src = false, variant = "md", loading = false }) => (
+const Avatar = ({ src = false, variant = "md", loading = false, alt }) => (
   <Container
     variant={variant}
     borderRadius="50%"
@@ -45,7 +45,7 @@ const Avatar = ({ src = false, variant = "md", loading = false }) => (
     position="relative"
   >
     {loading && <Skeleton width="100%" height="100%" borderRadius="50%" />}
-    {src && !loading && <Image src={src} alt="users avatar" />}
+    {src && !loading && <Image src={src} alt={alt} />}
     <Box position="absolute" size="100%" top="0" left="0" borderRadius="50%" />
   </Container>
 )
