@@ -1,16 +1,12 @@
 /** @jsxImportSource @emotion/react */
-import { useContext, useEffect, useState } from "react"
-import { ERROR } from "../../constants/fetchStates"
-import globalContext from "../../contexts/GlobalContextProvider/globalContext"
 import useUser from "../../hooks/useUser"
+import fadeIn from "../../keyframes/fadeIn"
 import Avatar from "../Avatar"
 import Box from "../Box"
+import FadeIn from "../FadeIn"
 import Flex from "../Flex"
 import Grid from "../Grid"
 import HabitTracker from "../HabitTracker"
-import Link from "../Link"
-import Modal from "../Modal.js"
-import NotionSignInButton from "../NotionSignInButton"
 import PageLayout from "../PageLayout"
 import Pomodoro from "../Pomodoro"
 import Skeleton from "../Skeleton"
@@ -18,7 +14,7 @@ import Stack from "../Stack"
 import Text from "../Text"
 import WaterTracker from "../WaterTracker"
 
-const ProductWrapper = ({ children, title, lastItem }) => (
+const ProductWrapper = ({ children, title }) => (
   <Stack
     height="100%"
     width="100%"
@@ -88,6 +84,7 @@ const Dashboard = ({ links }) => {
             mt="sm"
           />
         </Flex>
+
         <Grid
           width="100%"
           gridTemplateColumns="repeat(auto-fit, 300px)"
