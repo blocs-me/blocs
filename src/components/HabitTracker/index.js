@@ -143,6 +143,7 @@ const HabitTracker = () => {
             my="sm"
           />
           <Button
+            ariaLabel="add a new habit"
             bg="primary.dark"
             color="primary.lightest"
             fontSize="xs"

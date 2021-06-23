@@ -76,6 +76,7 @@ const Pomodoro = () => {
           height="35px"
           fontSize="xs"
           letterSpacing="sm"
+          ariaLabel="Start or stop timer"
         >
           {timeStart ? "stop" : "start"}
         </Button>

@@ -40,11 +40,9 @@ export const NavLink = ({ href, text = "", passHref = false, as = "a" }) => {
   const { pathname } = useRouter()
 
   const active = (() => {
-    if (pathname === "/" && href === "/") {
-      return true
-    }
+    if (pathname === "/" && href === "/") return true
 
-    pathname === href ? true : pathname.includes(href)
+    return pathname === href
   })()
 
   return (
@@ -69,7 +67,7 @@ const Nav = ({ title = "", links = [] }) => {
 
   const { user, logout } = useUser({ shouldFetch: false })
   const { avatar_url } = user
-  const [{ authValid, authState }] = useContext(globalContext)
+  const [{ authValid, authState, avatarLink }] = useContext(globalContext)
 
   const handleScroll = (ev) => {
     const currentPos = window.scrollY
@@ -171,7 +169,7 @@ const Nav = ({ title = "", links = [] }) => {
             flex={1}
             as="button"
             onClick={() => toggleMobileNav()}
-            aria-label="Navigation Links"
+            ariaLabel="Navigation Links Menu Button"
           >
             <Icon size="20px" css={{ lineHeight: 0, height: "fit-content" }}>
               <Hamburger css={{ verticalAlign: "middle" }} />
@@ -224,8 +222,9 @@ const Nav = ({ title = "", links = [] }) => {
                   <a>
                     <Avatar
                       variant="sm"
-                      src={avatar_url}
+                      src={avatarLink}
                       loading={authState === LOADING}
+                      alt="profile picture"
                     />
                   </a>
                 </Link>

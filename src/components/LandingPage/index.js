@@ -1,12 +1,13 @@
 /** @jsxImportSource @emotion/react */
 import { useEffect, useRef } from "react"
+import Head from "next/head"
 import styled from "@emotion/styled"
-import { keyframes } from "@emotion/react"
+import { useMediaQuery } from "beautiful-react-hooks"
+import { animate } from "popmotion"
 import Box from "../Box"
 import Flex from "../Flex"
 import PageLayout from "../PageLayout"
 import Text from "../Text"
-import Quote from "../../icons/quote.svg"
 import Icon from "../Icon"
 import Avatar from "../Avatar"
 import Linkedin from "../../icons/linkedin.svg"
@@ -20,9 +21,7 @@ import Link from "../Link"
 import Plant from "../../icons/plant.svg"
 import WaterTrackerIntro from "./WaterTrackerIntro"
 import BetaWrapper from "../BetaWrapper"
-import { animate } from "popmotion"
 import NotionSignInButton from "../NotionSignInButton"
-import { useMediaQuery } from "beautiful-react-hooks"
 import FadeIn from "../FadeIn"
 
 const SocialIcon = styled.a`
@@ -41,7 +40,13 @@ const SlideInWrapper = styled.div`
 
 const QuoteWrapper = styled.div`
   position: relative;
+
   &::after {
+    display: none;
+    @media (min-width: 500px) {
+      display: block;
+    }
+
     @media (max-width: 500px) {
       width: 30px;
       height: 30px;
@@ -55,7 +60,6 @@ const QuoteWrapper = styled.div`
     }
 
     content: "";
-    display: block;
     position: absolute;
     top: 0;
     left: 0;
@@ -139,6 +143,13 @@ const LandingPage = () => {
 
   return (
     <PageLayout>
+      <Head>
+        <title>blocs | notion habit builder</title>
+        <meta
+          name="description"
+          content="Blocs helps users build habits with widgets inside notion. You can do everything from water tracking to pomodoros with blocs. Streamline your habits with blocs."
+        />
+      </Head>
       <Flex
         pt="80px"
         mt={["md", "lg", , , 0]}
@@ -176,7 +187,10 @@ const LandingPage = () => {
               alignItems="center"
               flexDirection={["column", "column", , , "row"]}
             >
-              <Avatar src="/moniet.jpg" />
+              <Avatar
+                src="/moniet.png"
+                alt="Headshot of blocs founder moniet sawhney"
+              />
               <Box pl={[0, 0, , , "sm"]} mt={["sm", "sm", , , 0]}>
                 <Text
                   lineHeight={1}
@@ -208,18 +222,23 @@ const LandingPage = () => {
                 >
                   <SocialIcon
                     href="https://linkedin.com/in/moniet"
+                    rel="noopener"
                     target="_blank"
                   >
                     <Icon size="50px">
                       <Linkedin />
                     </Icon>
                   </SocialIcon>
-                  <SocialIcon href="https://codepen.com/moniet" target="_blank">
+                  <SocialIcon
+                    href="https://codepen.com/moniet"
+                    rel="noopenner"
+                    target="_blank"
+                  >
                     <Icon size="50px">
                       <Codepen />
                     </Icon>
                   </SocialIcon>
-                  <SocialIcon href="mailto:moniet@blocs.me">
+                  <SocialIcon href="mailto:moniet@blocs.me" rel="noopenner">
                     <Icon size="50px">
                       <Email />
                     </Icon>
@@ -287,7 +306,6 @@ const LandingPage = () => {
           </FadeIn>
         </Flex>
       </Flex>
-
       <DetailSection title="POMODORO" art={<PomodoroIntro />}>
         <Text fontSize="md" lineHeight="1.5" variant="p" fontWeight="300">
           blocs is bringing pomodoros to notion with{" "}
@@ -350,7 +368,7 @@ const LandingPage = () => {
           css={{ transform: "translate(calc(100%), 150%)" }}
         >
           <Icon width="50px">
-            <img src="/bottle@2x.png" />
+            <img src="/bottle@2x.png" alt="" />
           </Icon>
         </Box>
       </Box>
