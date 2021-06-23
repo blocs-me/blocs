@@ -1,4 +1,5 @@
 import styled from "@emotion/styled"
+import shouldForwardProp from "@styled-system/should-forward-prop"
 import {
   border,
   color,
@@ -31,6 +32,17 @@ const variants = variant({
   },
 })
 
-const Button = styled("button")(buttonStyles, variants)
+const Button = styled("button", {
+  shouldForwardProp,
+})(
+  {
+    transition: "transform 0.5s ease",
+    "&:active": {
+      transform: "scale(0.96)",
+    },
+  },
+  buttonStyles,
+  variants
+)
 
 export default Button
