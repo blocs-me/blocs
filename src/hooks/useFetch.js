@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useLayoutEffect, useState } from "react"
 
 const reqOptions = (data, options) => ({
-  method: options.method || "GET",
+  method: options.method ?? "GET",
   headers: {
     "Content-Type": "application/json",
     ...(options.headers || {}),
@@ -24,41 +24,43 @@ const useFetch = (url, options = {}) => {
   const [data, setData] = useState(null)
   const [error, setError] = useState(false)
   const [loading, setLoading] = useState(true)
+  const [fetching, setFetching] = useState(false)
 
   const cacheData = (data) =>
     shouldCache && localStorage.setItem(url, JSON.stringify(data))
 
   const handleReq = async (mounted) => {
-    mounted.value && setLoading(true)
+    mounted?.value && setLoading(true)
     const res = await fetcher(url, body, options)
 
     if (!res.ok) {
-      if (mounted.value) {
+      if (mounted?.value) {
         setLoading(false)
         setError(true)
-        onError(mounted)
       }
+      onError(res)
     } else {
-      if (mounted.value) {
-        const resData = await res.json()
-        setData(resData.data)
-        setLoading(false)
-        cacheData(resData)
-        onSuccess(resData)
-      }
+      const resData = await res.json()
+      mounted?.value && setData(resData.data)
+      mounted?.value && setLoading(false)
+
+      cacheData(resData)
+      onSuccess(resData)
     }
   }
 
+  let mounted = { value: true, fetching: false }
+
   useEffect(() => {
-    let mounted = { value: true }
     const cachedData = shouldCache
       ? JSON.parse(localStorage.getItem(url) || JSON.stringify(""))
       : {}
 
-    !shouldFetch && setLoading(false)
+    !shouldFetch && loading && setLoading(false)
 
     if (cachedData?.data) {
       setData(cachedData.data)
+      setLoading(false)
     } else {
       shouldFetch && handleReq(mounted)
     }
@@ -66,10 +68,10 @@ const useFetch = (url, options = {}) => {
     return () => {
       mounted.value = false
     }
-  }, [shouldFetch])
+  }, [])
 
   return {
-    fetcher: handleReq,
+    fetcher: () => handleReq(mounted),
     loading,
     error,
     data,

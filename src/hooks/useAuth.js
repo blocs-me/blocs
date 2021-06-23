@@ -2,8 +2,10 @@ import { useRouter } from "next/router"
 import { useContext, useEffect } from "react"
 import { DEFAULT, ERROR, LOADING, SUCCESS } from "../constants/fetchStates"
 import {
+  setAccessToken,
   setAuthState,
   setAuthValid,
+  setAvatarLink,
 } from "../contexts/GlobalContextProvider/globalActions"
 import globalContext from "../contexts/GlobalContextProvider/globalContext"
 import getAccessToken from "../utils/getAccessToken"
@@ -12,7 +14,7 @@ import useFetch from "./useFetch"
 
 const useAuth = (options = {}) => {
   const [{ authValid, authState }, dispatch] = useContext(globalContext)
-  const { access_token } = getAccessToken() || {}
+  const { access_token, data: user } = getAccessToken() || {}
 
   const { loading, error, fetcher } = useFetch(VALIDATE_USER_AUTH_PATH, {
     method: "POST",
@@ -23,6 +25,8 @@ const useAuth = (options = {}) => {
       if (data?.authValid) {
         dispatch(setAuthValid(true))
         dispatch(setAuthState(SUCCESS))
+        dispatch(setAccessToken(access_token))
+        dispatch(setAvatarLink(user?.avatar_url))
       } else {
         dispatch(setAuthValid(false))
         dispatch(setAuthState(ERROR))
@@ -39,6 +43,8 @@ const useAuth = (options = {}) => {
       dispatch(setAuthState(LOADING))
     } else if (authState === LOADING) {
       dispatch(setAuthState(DEFAULT))
+    } else if (!access_token) {
+      dispatch(setAuthState(ERROR))
     }
   }, [loading, dispatch, access_token, authValid])
 

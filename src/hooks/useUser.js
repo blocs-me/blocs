@@ -5,6 +5,7 @@ import {
   setAccessToken,
   setAuthState,
   setAuthValid,
+  setAvatarLink,
 } from "../contexts/GlobalContextProvider/globalActions"
 import globalContext from "../contexts/GlobalContextProvider/globalContext"
 import { USER_PATH } from "../utils/paths"
@@ -12,10 +13,15 @@ import useAuth from "./useAuth"
 import useFetch from "./useFetch"
 import useLogout from "./useLogout"
 
-const useUser = () => {
+const useUser = (options = {}) => {
   const router = useRouter()
-  const { code, error: notionError } = router.query
-  const body = useMemo(() => ({ code }), [code])
+  const { shouldFetch = true } = options
+  const { code, error: notionError, state } = router.query
+  const preregisteredForPremium = state === "pre-register-for-premium"
+  const body = useMemo(
+    () => ({ code, preregisteredForPremium }),
+    [code, preregisteredForPremium]
+  )
   const [{ authState }, dispatch] = useContext(globalContext)
   const [loggingOut, setLoggingOut] = useState(false)
   const logout = useLogout()
@@ -28,13 +34,16 @@ const useUser = () => {
   const { data, loading, error } = useFetch(USER_PATH, {
     method: "POST",
     body,
-    shouldFetch: !!code && !notionError,
-    onSuccess: () => {
+    shouldFetch: !!code && !notionError && shouldFetch,
+    onSuccess: (res = {}) => {
       dispatch(setAuthValid(true))
       dispatch(setAuthState(SUCCESS))
+      dispatch(setAccessToken(res.access_token))
+      dispatch(setAvatarLink(res.data?.avatar_url))
       router.push("/dashboard")
     },
     onError: () => {
+      console.log("handling err")
       dispatch(setAuthState(ERROR))
       router.push("/dashboard")
     },
@@ -49,7 +58,7 @@ const useUser = () => {
 
   useEffect(() => {
     if (notionError && authState !== ERROR) {
-      setAuthState(ERROR)
+      dispatch(setAuthState(ERROR))
       router.push("/dashboard")
     }
   }, [notionError, authState, router])
