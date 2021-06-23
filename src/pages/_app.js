@@ -6,12 +6,22 @@ import GlobalStyle from "../styles/GlobalStyle"
 import Reset from "../styles/Reset"
 import theme from "../styles/theme"
 import Script from "next/script"
+import { useRouter } from "next/router"
 
 function MyApp({ Component, pageProps }) {
+  const { pathname } = useRouter()
+
+  const getNavTitle = () => {
+    if (pathname?.includes("dashboard")) return "DASHBOARD"
+    if (pathname?.includes("pricing")) return "PRICING"
+    return ""
+  }
+
   return (
     <ThemeProvider theme={theme}>
       <Head>
-        <Script
+        <script
+          defer
           src="https://static.cloudflareinsights.com/beacon.min.js"
           data-cf-beacon='{"token": "a9429c8dbd674c38bf769344e4abc7d8"}'
         />
@@ -19,7 +29,7 @@ function MyApp({ Component, pageProps }) {
       <GlobalProvider>
         <Reset />
         <GlobalStyle />
-        <Nav />
+        <Nav title={getNavTitle()} />
         <Component {...pageProps} />
       </GlobalProvider>
     </ThemeProvider>
