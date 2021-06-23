@@ -13,6 +13,7 @@ import Icon from "../Icon"
 import Flex from "../Flex"
 import Text from "../Text"
 import Stack from "../Stack"
+import fadeIn from "../../keyframes/fadeIn"
 
 const SlideIndicator = ({ currentIndex, numberOfItems = 3, setIndex }) => (
   <Stack display="flex" ml="xs">
@@ -108,6 +109,10 @@ const Showcase = () => {
       flexDirection="column"
       justifyContent="space-between"
       overflow="hidden"
+      css={{
+        animation: `${fadeIn} 1s ease ${(3 * 7) / 10}s forwards`,
+        opacity: 0,
+      }}
     >
       <Box mx="auto" width="100%" position="relative">
         {mappedItems(showcaseIndex)}
