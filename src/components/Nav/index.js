@@ -113,7 +113,7 @@ const Nav = ({ title = "", links = [] }) => {
     <Box
       as="nav"
       width="100%"
-      aria-label="Main Navigaiton"
+      aria-label="Main Navigation"
       alignItems="center"
       position="fixed"
       top="0"
