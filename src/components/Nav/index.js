@@ -67,7 +67,8 @@ const Nav = ({ title = "", links = [] }) => {
 
   const { user, logout } = useUser({ shouldFetch: false })
   const { avatar_url } = user
-  const [{ authValid, authState, avatarLink }] = useContext(globalContext)
+  const [{ authValid, authState, avatarLink, loggingOut }] =
+    useContext(globalContext)
 
   const handleScroll = (ev) => {
     const currentPos = window.scrollY
@@ -217,18 +218,20 @@ const Nav = ({ title = "", links = [] }) => {
                   why blocs?
                 </A>
               )}
-              {!isDashboard && (authValid || authState === LOADING) && (
-                <Link href="/dashboard">
-                  <a>
-                    <Avatar
-                      variant="sm"
-                      src={avatarLink}
-                      loading={authState === LOADING}
-                      alt="profile picture"
-                    />
-                  </a>
-                </Link>
-              )}
+              {!isDashboard &&
+                (authValid || authState === LOADING) &&
+                !loggingOut && (
+                  <Link href="/dashboard">
+                    <a>
+                      <Avatar
+                        variant="sm"
+                        src={avatarLink}
+                        loading={authState === LOADING}
+                        alt="profile picture"
+                      />
+                    </a>
+                  </Link>
+                )}
               {isDashboard && (
                 <A as="button" color="primary.light" onClick={() => logout()}>
                   🖖 Logout

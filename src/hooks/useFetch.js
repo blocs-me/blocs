@@ -58,7 +58,7 @@ const useFetch = (url, options = {}) => {
 
     !shouldFetch && loading && setLoading(false)
 
-    if (cachedData?.data) {
+    if (cachedData?.data && !shouldFetch) {
       setData(cachedData.data)
       setLoading(false)
     } else {

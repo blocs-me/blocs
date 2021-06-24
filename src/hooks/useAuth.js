@@ -6,6 +6,7 @@ import {
   setAuthState,
   setAuthValid,
   setAvatarLink,
+  setUserLoggingOut,
 } from "../contexts/GlobalContextProvider/globalActions"
 import globalContext from "../contexts/GlobalContextProvider/globalContext"
 import getAccessToken from "../utils/getAccessToken"
@@ -13,13 +14,14 @@ import { USER_PATH, VALIDATE_USER_AUTH_PATH } from "../utils/paths"
 import useFetch from "./useFetch"
 
 const useAuth = (options = {}) => {
-  const [{ authValid, authState }, dispatch] = useContext(globalContext)
+  const [{ authValid, authState, loggingOut }, dispatch] =
+    useContext(globalContext)
   const { access_token, data: user } = getAccessToken() || {}
 
   const { loading, error, fetcher } = useFetch(VALIDATE_USER_AUTH_PATH, {
     method: "POST",
     body: { access_token },
-    shouldFetch: access_token && !authValid,
+    shouldFetch: access_token && !authValid && !loggingOut,
     shouldCache: false,
     onSuccess: (data) => {
       if (data?.authValid) {
@@ -43,10 +45,17 @@ const useAuth = (options = {}) => {
       dispatch(setAuthState(LOADING))
     } else if (authState === LOADING) {
       dispatch(setAuthState(DEFAULT))
-    } else if (!access_token) {
+    } else if (!access_token && !loggingOut) {
       dispatch(setAuthState(ERROR))
+      dispatch(setAuthValid(false))
     }
-  }, [loading, dispatch, access_token, authValid])
+
+    return () => {
+      if (loggingOut) {
+        dispatch(setUserLoggingOut(false))
+      }
+    }
+  }, [loading, access_token, authValid, loggingOut, authState, dispatch])
 
   return {
     loading,

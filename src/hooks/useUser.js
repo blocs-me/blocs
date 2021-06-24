@@ -51,10 +51,14 @@ const useUser = (options = {}) => {
 
   useEffect(() => {
     if (loading) dispatch(setAuthState(LOADING))
-    if (!loading && !data && !loggingOut) {
+    if (!loading && !data) {
       dispatch(setAuthState(ERROR))
     }
-  }, [loading, dispatch, loggingOut, data])
+
+    return () => {
+      dispatch(setLoggingOut(false))
+    }
+  }, [loading, dispatch, data])
 
   useEffect(() => {
     if (notionError && authState !== ERROR) {
