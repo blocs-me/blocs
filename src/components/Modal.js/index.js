@@ -21,6 +21,11 @@ const Modal = ({
   const container = global.window ? document.createElement("div") : false
   const router = useRouter()
 
+  const handleExit = () => {
+    hideModal()
+    router.push(redirectTo)
+  }
+
   useClickOutside({
     element: ref,
     onClickOutside: hideModal,
@@ -70,7 +75,7 @@ const Modal = ({
                   as="button"
                   top="xs"
                   left="xs"
-                  onClick={() => router.push(redirectTo)}
+                  onClick={() => handleExit()}
                 >
                   <Icon size="15px">
                     <BackArrow />
