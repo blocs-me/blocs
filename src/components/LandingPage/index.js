@@ -231,14 +231,14 @@ const LandingPage = () => {
                   </SocialIcon>
                   <SocialIcon
                     href="https://codepen.com/moniet"
-                    rel="noopenner"
+                    rel="noopener"
                     target="_blank"
                   >
                     <Icon size="50px">
                       <Codepen />
                     </Icon>
                   </SocialIcon>
-                  <SocialIcon href="mailto:moniet@blocs.me" rel="noopenner">
+                  <SocialIcon href="mailto:moniet@blocs.me" rel="noopener">
                     <Icon size="50px">
                       <Email />
                     </Icon>
