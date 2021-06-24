@@ -41,8 +41,12 @@ const ProductWrapper = ({ children, title }) => (
 )
 
 const Dashboard = ({ links }) => {
-  const { loading, user } = useUser()
-  const { avatar_url: avatarLink, name: userName } = user || {}
+  const { user, loading } = useUser()
+  const {
+    avatar_url: avatarLink,
+    name: userName,
+    preregisteredForPremium,
+  } = user || {}
 
   return (
     <PageLayout navTitle="DASHBOARD" links={links}>
@@ -58,22 +62,55 @@ const Dashboard = ({ links }) => {
       >
         <Flex alignItems="center" flexDirection="column">
           <Avatar src={avatarLink} loading={loading} />
-          <Flex alignItems="flex-start" minHeight="20px" mt="sm">
-            {loading && (
-              <Skeleton width="100px" height="10px" borderRadius="sm" />
-            )}
-            <Text
-              m={0}
-              p={0}
-              color="primary.default"
-              fontWeight="400"
-              textAlign="center"
-              lineHeight={0}
-              letterSpacing="sm"
-              fontSize="xs"
+          <Flex
+            justifyContent="flex-start"
+            flexDirection="column"
+            alignItems="center"
+            minHeight="20px"
+            mt="sm"
+            postition="relative"
+          >
+            <Box minHeight="10px">
+              {loading && (
+                <Skeleton width="100px" height="10px" borderRadius="sm" />
+              )}
+              <Text
+                m={0}
+                p={0}
+                color="primary.default"
+                fontWeight="400"
+                textAlign="center"
+                lineHeight={0}
+                letterSpacing="sm"
+                fontSize="xs"
+              >
+                {!loading && userName}
+              </Text>
+            </Box>
+            <Flex
+              alignItems="center"
+              bg="primary.default"
+              height="15px"
+              mt="xxs"
+              mb="sm"
+              px="5px"
+              py="10px"
+              borderRadius="5px"
+              css={{
+                opacity: preregisteredForPremium ? 1 : 0,
+                transition: "opacity 0.5s ease",
+              }}
             >
-              {!loading && userName}
-            </Text>
+              <Text
+                as="small"
+                fontSize="10px"
+                color="primary.lightest"
+                textAlign="center"
+                letterSpacing="sm"
+              >
+                premium
+              </Text>
+            </Flex>
           </Flex>
           <Box
             width="18px"
@@ -81,7 +118,6 @@ const Dashboard = ({ links }) => {
             bg="primary.dark"
             mx="auto"
             borderRadius="5px"
-            mt="sm"
           />
         </Flex>
 
