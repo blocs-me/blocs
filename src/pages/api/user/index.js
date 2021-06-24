@@ -19,9 +19,24 @@ const checkIfUserExists = async (email) => {
 }
 
 const saveUser = async (userData, preregisteredForPremium = false) => {
-  // see if user exists
   const { person } = userData
   const userExists = await checkIfUserExists(person?.email)
+
+  if (
+    // if user already signed up but uses the pre-register button, we update the user's data
+    userExists &&
+    !userExists.data.preregisteredForPremium &&
+    preregisteredForPremium
+  ) {
+    const updatedUser = await updateUserData(userExists, {
+      preregisteredForPremium,
+    })
+    return {
+      ...userExists.data,
+      ...updatedUser.data,
+      firstTimeSignIn: true,
+    }
+  }
 
   if (userExists) return userExists.data
 
@@ -66,6 +81,11 @@ const handler = async (req, res) => {
       const authData = await authenticateNotionUser(code)
       const notionUser = await getNotionUser(authData?.access_token)
       const user = await saveUser(notionUser, preregisteredForPremium)
+
+      console.log("")
+
+      if (!user) res.status(400).json({ err })
+
       res
         .status(200)
         .json({ data: user, status: 200, access_token: authData.access_token })
