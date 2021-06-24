@@ -29,12 +29,13 @@ const saveUser = async (userData, preregisteredForPremium = false) => {
     preregisteredForPremium
   ) {
     const updatedUser = await updateUserData(userExists, {
-      preregisteredForPremium,
+      preregisteredForPremium: true,
     })
     return {
       ...userExists.data,
       ...updatedUser.data,
       firstTimeSignIn: true,
+      preregisteredForPremium: true,
     }
   }
 
@@ -82,8 +83,6 @@ const handler = async (req, res) => {
       const notionUser = await getNotionUser(authData?.access_token)
       const user = await saveUser(notionUser, preregisteredForPremium)
 
-      console.log("")
-
       if (!user) res.status(400).json({ err })
 
       res
@@ -112,14 +111,17 @@ const handler = async (req, res) => {
           preregisteredForPremium,
         })
 
-        console.log(
-          preregisteredForPremium,
-          "pre reg",
-          updateUserData,
-          "updated"
-        )
+        const recentlySignedUpForPremium =
+          !existingUser.data?.preregisteredForPremium && preregisteredForPremium
+        const showThankYouMessageOnClient = recentlySignedUpForPremium
+          ? { firstTimeSignIn: true, preregisteredForPremium: true }
+          : {}
 
-        res.status(200).json({ data: updatedUser, status: 200, access_token })
+        res.status(200).json({
+          data: { ...updatedUser, ...showThankYouMessageOnClient },
+          status: 200,
+          access_token,
+        })
       }
     } catch (err) {
       console.error(err)
