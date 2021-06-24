@@ -18,7 +18,7 @@ const Image = styled.img`
   object-fit: cover;
   background-color: ${themeGet("colors.primary.lightest")};
   opacity: 0;
-  animation: ${fadeIn} 1s ease forwards;
+  animation: ${fadeIn} 1s ease 0.1s forwards;
 `
 
 const variants = variant({
