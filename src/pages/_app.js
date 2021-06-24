@@ -11,11 +11,11 @@ import { useRouter } from "next/router"
 function MyApp({ Component, pageProps }) {
   const { pathname } = useRouter()
 
-  const getNavTitle = () => {
-    if (pathname?.includes("dashboard")) return "DASHBOARD"
-    if (pathname?.includes("pricing")) return "PRICING"
-    return ""
-  }
+  // const getNavTitle = () => {
+  //   if (pathname?.includes("dashboard")) return "DASHBOARD"
+  //   if (pathname?.includes("pricing")) return "PRICING"
+  //   return ""
+  // }
 
   return (
     <ThemeProvider theme={theme}>
@@ -29,7 +29,6 @@ function MyApp({ Component, pageProps }) {
       <GlobalProvider>
         <Reset />
         <GlobalStyle />
-        <Nav title={getNavTitle()} />
         <Component {...pageProps} />
       </GlobalProvider>
     </ThemeProvider>

@@ -16,6 +16,7 @@ export const PageGutters = (props) => (
 
 const PageLayout = ({ children, navTitle, links }) => (
   <>
+    <Nav title={navTitle} />
     <Box
       width="100vw"
       minHeight="calc(100vh - 80px)"
