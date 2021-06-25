@@ -1,4 +1,5 @@
 /** @jsxImportSource @emotion/react */
+import { useEffect, useState } from "react"
 import styled from "@emotion/styled"
 import { themeGet } from "@styled-system/theme-get"
 import Head from "next/head"
@@ -16,8 +17,9 @@ import globalContext from "../contexts/GlobalContextProvider/globalContext"
 import useAuth from "../hooks/useAuth"
 import useFetch from "../hooks/useFetch"
 import useUser from "../hooks/useUser"
-import getAccessToken from "../utils/getAccessToken"
 import { USER_PATH } from "../utils/paths"
+import Modal from "../components/Modal.js"
+import Link from "../components/Link"
 
 const Li = styled.li`
   text-transform: lowercase;
@@ -39,6 +41,7 @@ const Li = styled.li`
 
 const PricingPage = () => {
   const [{ authValid, accessToken }] = useContext(globalContext)
+  const [showErrorModal, setShowErrorModal] = useState(false)
   const { user } = useUser({
     shouldFetch: false,
   })
@@ -58,15 +61,27 @@ const PricingPage = () => {
   })
 
   const preregisteredForPremium =
-    user.preregisteredForPremium || updateUserData?.preregisteredForPremium
+    user.preregisteredForPremium || updatedUserdata?.preregisteredForPremium
 
   useAuth()
 
+  useEffect(() => {
+    if (error) {
+      setShowErrorModal(true)
+    }
+  }, [error])
+
   return (
-    <PageLayout>
+    <PageLayout navTitle="PRICING">
       <Head>
         <title>Pricing | Notion habit builder</title>
+        <meta
+          name="description"
+          content="Blocs notion widgets, Price: $15 per month"
+        />
+        <link name="canonical" href="https://blocs.me/pricing" />
       </Head>
+
       <Box mt="80px" pt={["lg", "lg", , , "0"]} />
       <Flex
         width="100%"
@@ -161,7 +176,11 @@ const PricingPage = () => {
                   )}
 
                   {updatingUser && (
-                    <Flex alignItems="center" justifyContent="center">
+                    <Flex
+                      alignItems="center"
+                      justifyContent="center"
+                      minWidth="200px"
+                    >
                       <Loader />
                     </Flex>
                   )}
@@ -305,6 +324,37 @@ const PricingPage = () => {
           </Grid>
         </Text>
       </Flex>
+
+      <Modal
+        visible={showErrorModal}
+        hideModal={() => setShowErrorModal(false)}
+        backButton
+        redirectTo="/"
+      >
+        <Text as="div" textAlign="center">
+          <Text
+            color="primary.default"
+            fontWeight="bold"
+            fontSize="md"
+            as="h3"
+            mb="xs"
+            mt={0}
+          >
+            oh no ! 😞
+          </Text>
+          <Text color="primary.light" fontWeight="300" fontSize="sm">
+            looks like something went wrong <br />
+            try signing up again
+          </Text>
+          <NotionSignInButton text="sign up with notion" mx="auto" mb="md" />
+          <Text fontSize="xxs" mb={0}>
+            if the problem persists contact{" "}
+            <Link inline underline passHref href="mailto:moniet@blocs.me">
+              moniet@blocs.me
+            </Link>
+          </Text>
+        </Text>
+      </Modal>
     </PageLayout>
   )
 }
