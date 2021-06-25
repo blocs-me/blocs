@@ -16,6 +16,7 @@ const MainDashboard = () => {
   const [{ authState, authValid, loggingOut }] = useContext(globalContext)
   const [promptUserSignIn, setPromptUserSignIn] = useState(false)
   const [preregisterThankYou, setPreregisterThankYou] = useState(false)
+  const [showThankYou, setShowThankYou] = useState(false)
 
   useAuth() // auth checker
 
@@ -31,7 +32,11 @@ const MainDashboard = () => {
     if (authValid) {
       const user = getAccessToken() || {}
       const { firstTimeSignIn, preregisteredForPremium } = user.data || {}
-      firstTimeSignIn && preregisteredForPremium && setPreregisterThankYou(true)
+      preregisteredForPremium && setPreregisterThankYou(true)
+
+      if ((firstTimeSignIn && preregisteredForPremium) || firstTimeSignIn) {
+        setShowThankYou(true)
+      }
 
       localStorage.setItem(
         USER_PATH,
@@ -55,8 +60,8 @@ const MainDashboard = () => {
       </Head>
       <Dashboard title="DASHBOARD" />
       <Modal
-        visible={preregisterThankYou}
-        hideModal={() => setPreregisterThankYou(false)}
+        visible={showThankYou}
+        hideModal={() => setShowThankYou(false)}
         backButton
         redirectTo="/dashboard"
       >
@@ -72,9 +77,10 @@ const MainDashboard = () => {
             Thank you 🎉
           </Text>
           <Text color="primary.light" fontWeight="300" fontSize="sm">
-            Thanks for register for premium
+            {(preregisterThankYou && "Thank you for signing up for premium") ||
+              "Thank you for signing up"}
             <br />
-            We&#39;re working hard to get it out ASAP
+            We&#39;re working hard to get blocs out ASAP
           </Text>
           <Text fontSize="xxs" mb={0}>
             keep updated on our progress :{" "}
@@ -84,6 +90,7 @@ const MainDashboard = () => {
               inline
               underline
               color="secondary"
+              rel="noopener"
             >
               notion roadmap
             </Link>{" "}
@@ -109,9 +116,9 @@ const MainDashboard = () => {
           </Text>
           <Text color="primary.light" fontWeight="300" fontSize="sm">
             looks like something went wrong <br />
-            try signing in again
+            try logging in again
           </Text>
-          <NotionSignInButton mx="auto" mb="md" />
+          <NotionSignInButton mx="auto" mb="md" text="login with notion" />
           <Text fontSize="xxs" mb={0}>
             if the problem persists contact{" "}
             <Link inline underline passHref href="mailto:moniet@blocs.me">
