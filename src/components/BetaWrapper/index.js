@@ -35,6 +35,14 @@ const BetaWrapper = styled.div`
       border-radius: 5px;
     }
   }
+
+  @media (max-width: ${theme.breakpoints[2]}) {
+    &::after {
+      font-size: 0.3rem;
+      padding: 2px;
+      border-radius: 5px;
+    }
+  }
 `
 
 export default BetaWrapper
