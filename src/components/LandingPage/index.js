@@ -2,7 +2,7 @@
 import { useEffect, useRef } from "react"
 import Head from "next/head"
 import styled from "@emotion/styled"
-import { useMediaQuery } from "beautiful-react-hooks"
+// import { useMediaQuery } from "beautiful-react-hooks"
 import { animate } from "popmotion"
 import Box from "../Box"
 import Flex from "../Flex"
@@ -13,7 +13,6 @@ import Avatar from "../Avatar"
 import Linkedin from "../../icons/linkedin.svg"
 import Codepen from "../../icons/codepen.svg"
 import Email from "../../icons/email.svg"
-import Button from "../Button"
 import Showcase from "./Showcase"
 import PomodoroIntro from "./pomodoroIntro.svg"
 import HabitTrackerIntro from "./habitTrackerIntro.svg"
@@ -23,6 +22,7 @@ import WaterTrackerIntro from "./WaterTrackerIntro"
 import BetaWrapper from "../BetaWrapper"
 import NotionSignInButton from "../NotionSignInButton"
 import FadeIn from "../FadeIn"
+import useMediaQuery from "../../hooks/useMediaQuery"
 
 const SocialIcon = styled.a`
   &:hover {
@@ -42,32 +42,36 @@ const QuoteWrapper = styled.div`
   position: relative;
 
   &::after {
-    display: none;
-    @media (min-width: 500px) {
-      display: block;
+    @media (max-width: 991px) {
+      width: 65px;
+      height: 65px;
+      background-position: right;
     }
 
-    @media (max-width: 500px) {
-      width: 30px;
-      height: 30px;
-      background-position: center;
+    @media (max-width: 650px) {
+      width: 40px;
+      height: 40px;
+      transform: translateX(-90%);
     }
 
-    @media (max-width: 992px) {
-      width: 50px;
-      height: 50px;
-      background-position: center;
+    @media (max-width: 415px) {
+      display: none;
+      width: calc(22px + 1vw);
+      height: calc(22px + 1vw);
+      transform: translateX(-100%);
     }
 
+    display: block;
     content: "";
     position: absolute;
     top: 0;
     left: 0;
     width: 50px;
     height: 50px;
-    transform: translateX(-50%);
+    transform: translateX(-100%);
     background-repeat: no-repeat;
-    background-position: left;
+    background-position: center;
+    background-size: 70%;
     background-image: url("data:image/svg+xml, %3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 70' width='100%25' height='100%25'%3E%3Ctext transform='translate(0 55)' fill='%23292929' font-size='60' font-family='Karla-Bold, Karla' font-weight='700' letter-spacing='0.06em'%3E%3Ctspan x='0' y='0'%3E“%3C/tspan%3E%3C/text%3E%3C/svg%3E");
   }
 `
@@ -123,7 +127,7 @@ const DetailSection = ({ title = "", children, art = <div />, kf }) => (
           </Text>
         </Box>
       </SlideIn>
-      <Box width={["50%", "100%", "60%", , "50%"]}>
+      <Box width={["50%", "100%", "80%", , "60%", "50%"]}>
         <SlideIn>{art}</SlideIn>
       </Box>
     </Flex>
@@ -144,10 +148,51 @@ const LandingPage = () => {
   return (
     <PageLayout>
       <Head>
-        <title>blocs | notion habit builder</title>
+        <title>blocs | notion widgets for habit building</title>
         <meta
           name="description"
-          content="Blocs helps users build habits with widgets inside notion. You can do everything from water tracking to pomodoros with blocs. Streamline your habits with blocs."
+          content="Blocs notion widgets helps you build habits with amazing insights to understand yourself better. Track all your habits in one place !"
+        />
+        <link name="canonical" href="https://blocs.me" />
+
+        <title>blocs | notion widgets for habit building</title>
+        <meta
+          name="title"
+          content="blocs | notion widgets for habit building"
+        />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://www.blocs.me/" />
+        <meta
+          property="og:title"
+          content="blocs | notion widgets for habit building"
+        />
+        <meta
+          property="og:description"
+          content="Blocs notion widgets helps you build habits with amazing insights to understand yourself better. Track all your habits in one place !"
+        />
+        <meta
+          property="og:image"
+          content="https://www.blocs.me/blocs-social-banner.png"
+        />
+        <meta property="og:site_name" content="blocs" />
+
+        {/* twitter */}
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@_moniet" />
+        <meta name="twitter:creator" content="@_moniet" />
+        <meta property="twitter:url" content="https://www.blocs.me/" />
+        <meta
+          property="twitter:title"
+          content="blocs | notion widgets for habit building"
+        />
+        <meta
+          property="twitter:description"
+          content="Blocs notion widgets helps you build habits with amazing insights to understand yourself better. Track all your habits in one place !"
+        />
+        <meta
+          property="twitter:image"
+          content="https://www.blocs.me/blocs-social-banner.png"
         />
       </Head>
       <Flex
@@ -290,8 +335,7 @@ const LandingPage = () => {
           pl={[0, 0, , , "lg", "xl"]}
         >
           <Showcase />
-
-          <FadeIn delay="2s">
+          <FadeIn index={3}>
             <Text
               as="button"
               p={0}
@@ -301,7 +345,7 @@ const LandingPage = () => {
               mb={["lg", "lg", , , 0]}
               onClick={() => howItWorks()}
             >
-              HOW IT WORKS 👇
+              LEARN MORE 👇
             </Text>
           </FadeIn>
         </Flex>
@@ -322,6 +366,7 @@ const LandingPage = () => {
             underline
             passHref
             inline
+            rel="noopener"
           >
             check it out
           </Link>
@@ -353,6 +398,7 @@ const LandingPage = () => {
           <Text as="div" textAlign={["center", "center", , , "left"]}>
             <Link
               href="https://www.notion.so/widgets-demo-cdf30a30ba704d5b8a55dc7a196d3e7b"
+              rel="noopener"
               underline
               passHref
               inline
@@ -365,11 +411,10 @@ const LandingPage = () => {
           position="absolute"
           bottom="0"
           right="0"
+          display={["none", "none", , "block"]}
           css={{ transform: "translate(calc(100%), 150%)" }}
         >
-          <Icon width="50px">
-            <img src="/bottle@2x.png" alt="" />
-          </Icon>
+          <img src="/bottle@2x.png" alt="" width="50px" height="60px" />
         </Box>
       </Box>
       <DetailSection title="WATER TRACKER" art={<WaterTrackerIntro />}>
@@ -384,6 +429,7 @@ const LandingPage = () => {
         <Text as="div" textAlign={["center", "center", , , "left"]}>
           <Link
             href="https://www.notion.so/widgets-demo-cdf30a30ba704d5b8a55dc7a196d3e7b"
+            rel="noopener"
             passHref
             underline
             inline
@@ -406,6 +452,7 @@ const LandingPage = () => {
             inline
             underline
             href="https://www.notion.so/81a847e283ca4d3583651d7d0d55f692?v=eb4ecf38b53949a6b531e387e90df22a"
+            rel="noopener"
           >
             roadmap
           </Link>{" "}
