@@ -59,6 +59,7 @@ const Footer = () => (
               passHref
               inline
               underline
+              rel="noopener"
             >
               roadmap
             </Link>{" "}
@@ -79,7 +80,7 @@ const Footer = () => (
           <Text fontSize="sm" fontWeight="400" color="primary.light">
             if you like to have a candid chat about all things productivity you
             can join our{" "}
-            <Link href="" passHref inline underline>
+            <Link href="" rel="noopener" passHref inline underline>
               discord server
             </Link>
           </Text>

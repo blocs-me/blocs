@@ -16,7 +16,7 @@ const Checkbox = ({ checked = false }) => (
     height="17"
     viewBox="0 0 17 17"
   >
-    <g id="Group_371" data-name="Group 371" transform="translate(-3258 856)">
+    <g id="Group_371" transform="translate(-3258 856)">
       {checked && (
         <g id="checkbox" transform="translate(3258 -856)">
           <rect

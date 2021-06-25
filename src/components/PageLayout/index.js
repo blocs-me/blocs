@@ -1,6 +1,7 @@
 import Box from "../Box"
 import Footer from "../Footer"
 import Nav from "../Nav"
+import Head from "next/head"
 
 export const PageGutters = (props) => (
   <Box
@@ -16,6 +17,20 @@ export const PageGutters = (props) => (
 
 const PageLayout = ({ children, navTitle, links }) => (
   <>
+    <Head>
+      <link
+        rel="icon"
+        type="image/png"
+        sizes="192x192"
+        href="/android-icon-192x192.png"
+      />
+      <link
+        rel="apple-touch-icon"
+        sizes="180x180"
+        href="/apple-icon-180x180.png"
+      />
+      <meta name="theme-color" content="#ffffff" />
+    </Head>
     <Nav title={navTitle} />
     <Box
       width="100vw"

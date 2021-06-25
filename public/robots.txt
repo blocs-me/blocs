@@ -1,0 +1,11 @@
+# *
+User-agent: *
+Allow: /
+
+Disallow: https://blocs.me/dashboard/*
+
+# Host
+Host: https://blocs.me
+
+# Sitemaps
+Sitemap: https://blocs.me/sitemap.xml

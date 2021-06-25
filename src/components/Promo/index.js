@@ -288,15 +288,10 @@ const BlocksLogoAnim = () => {
           // }}
         >
           <svg width="69.851" height="83.07" viewBox="0 0 69.851 83.07">
-            <g
-              id="Group_147"
-              data-name="Group 147"
-              transform="translate(0 118.981)"
-            >
+            <g id="Group_147" transform="translate(0 118.981)">
               <g fill={theme.colors.secondary} stroke={theme.colors.secondary}>
                 <path
                   id="Path_75"
-                  data-name="Path 75"
                   d="M1.792-76.767H26.113v-24.321H1.792Z"
                   transform="translate(0 -4.972)"
                   strokLinecap="round"
@@ -306,7 +301,6 @@ const BlocksLogoAnim = () => {
                 />
                 <path
                   id="Path_76"
-                  data-name="Path 76"
                   d="M56.514-117.189l-23.491,6.294L39.318-87.4,62.809-93.7Z"
                   transform="translate(-9.644)"
                   strokeLinecap="round"
@@ -316,7 +310,6 @@ const BlocksLogoAnim = () => {
                 />
                 <path
                   id="Path_77"
-                  data-name="Path 77"
                   d="M39.115-63.154H14.8l0,24.321H39.113Z"
                   transform="translate(-4.014 -16.685)"
                   strokeLinecap="round"
@@ -326,7 +319,6 @@ const BlocksLogoAnim = () => {
                 />
                 <path
                   id="Path_78"
-                  data-name="Path 78"
                   d="M39.455-21.8,62.947-15.5l6.295-23.492L45.75-45.287Z"
                   transform="translate(-11.63 -22.202)"
                   strokeLinecap="round"
@@ -336,7 +328,6 @@ const BlocksLogoAnim = () => {
                 />
                 <path
                   id="Path_79"
-                  data-name="Path 79"
                   d="M62.477-55.3H86.8V-79.625H62.477Z"
                   transform="translate(-18.738 -11.599)"
                   strokeLinecap="round"
