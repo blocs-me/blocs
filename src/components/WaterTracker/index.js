@@ -109,7 +109,7 @@ const WaterTracker = ({ startingVolume = -1 }) => {
             <Icon
               as="span"
               display="inline-block"
-              width="0.5rem"
+              width="0.5rem"  
               mr="xs"
               mb="-2px"
             >
