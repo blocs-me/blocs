@@ -43,7 +43,6 @@ const useUser = (options = {}) => {
       router.push("/dashboard")
     },
     onError: () => {
-      console.log("handling err")
       dispatch(setAuthState(ERROR))
       router.push("/dashboard")
     },
