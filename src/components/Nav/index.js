@@ -15,12 +15,16 @@ import Text from "../Text"
 import Stack from "../Stack"
 import BetaWrapper from "../BetaWrapper"
 import Hamburger from "../../icons/hamburger.svg"
-import { useMediaQuery } from "beautiful-react-hooks"
+
 import { useClickOutside } from "../../hooks/useClickOutside"
 import Avatar from "../Avatar"
 import useUser from "../../hooks/useUser"
 import globalContext from "../../contexts/GlobalContextProvider/globalContext"
 import { LOADING } from "../../constants/fetchStates"
+import { DASHBOARD_SIGN_IN_REDIRECT_URL } from "../../utils/paths"
+import Button from "../Button"
+import Notion from "../../icons/notion.svg"
+import useMediaQuery from "../../hooks/useMediaQuery"
 
 export const A = styled(Text)`
   text-decoration: none;
@@ -56,8 +60,8 @@ export const NavLink = ({ href, text = "", passHref = false, as = "a" }) => {
 
 const Nav = ({ title = "", links = [] }) => {
   const [hideNav, setHideNav] = useState(false)
-  const [showMobileNav, setShowMobileNav] = useState(true)
-  const isDesktop = useMediaQuery("(min-width: 992px")
+  const [showMobileNav, setShowMobileNav] = useState(false)
+  const isDesktop = useMediaQuery("(min-width: 992px)")
   const mobileNavContainer = useRef(null)
   const prevScrollPos = useRef(0)
 
@@ -95,7 +99,8 @@ const Nav = ({ title = "", links = [] }) => {
   }
 
   useClickOutside({
-    onClickOutside: () => !isDesktop && setShowMobileNav(false),
+    onClickOutside: () =>
+      isDesktop ? setShowMobileNav(true) : setShowMobileNav(false),
     element: mobileNavContainer,
   })
 
@@ -200,8 +205,8 @@ const Nav = ({ title = "", links = [] }) => {
           >
             <Stack
               display="flex"
-              pl={[0, 0, , , "sm"]}
-              pt={["xs", "xs", , , "0"]}
+              ml={[0, 0, , , "sm"]}
+              mt={["xs", "xs", , , "0"]}
               flexDirection={["column", "column", , , "row"]}
               alignItems="center"
               justifyContent="flex-end"
@@ -214,9 +219,38 @@ const Nav = ({ title = "", links = [] }) => {
                   color="primary.light"
                   onClick={() => scrollToWhyBlocs()}
                   key={3}
+                  css={{ padding: 0 }}
                 >
                   why blocs?
                 </A>
+              )}
+              {!authValid && authState !== LOADING && (
+                <div>
+                  <Button
+                    border="solid 1px"
+                    borderColor="primary.default"
+                    color="primary.default"
+                    borderRadius="sm"
+                    as="a"
+                    href={`https://api.notion.com/v1/oauth/authorize?client_id=ef982612-81f0-46ef-ad49-8f9d4af75f3d&redirect_uri=${DASHBOARD_SIGN_IN_REDIRECT_URL}&response_type=code`}
+                    text="login"
+                    px="xs"
+                    fontSize="sm"
+                    display="flex"
+                    css={{ alignItems: "center" }}
+                    mt={["sm", "xs", , , 0]}
+                  >
+                    <Icon
+                      size="20px"
+                      maxWidth="20px"
+                      mr="xxs"
+                      display="inline-flex"
+                    >
+                      <img src="/notion-logo.png" alt="Notion logo" />
+                    </Icon>
+                    login
+                  </Button>
+                </div>
               )}
               {!isDashboard &&
                 (authValid || authState === LOADING) &&
