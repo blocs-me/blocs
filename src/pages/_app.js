@@ -17,6 +17,13 @@ function MyApp({ Component, pageProps }) {
     return ""
   }
 
+  const showNav = (() => {
+    if (pathname?.includes("dashboard")) return true
+    if (pathname?.includes("pricing")) return true
+    if (pathname === "/") return true
+    return false
+  })()
+
   return (
     <ThemeProvider theme={theme}>
       <Head>
@@ -29,7 +36,7 @@ function MyApp({ Component, pageProps }) {
       <GlobalProvider>
         <Reset />
         <GlobalStyle />
-        <Nav title={getNavTitle()} />
+        {showNav && <Nav title={getNavTitle()} />}
         <Component {...pageProps} />
       </GlobalProvider>
     </ThemeProvider>
