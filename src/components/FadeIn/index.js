@@ -4,9 +4,9 @@ import fadeIn from "../../keyframes/fadeIn"
 const FadeIn = (props) => (
   <div
     css={{
-      animation: `${fadeIn} ${props.duration || "1s"} ease-in-out ${
-        (props.index * 7) / 10
-      }s forwards`,
+      animation: `${fadeIn} ${props.duration || "0.5s"} ease-in-out ${
+        props.delay || ""
+      } forwards`,
       opacity: 0,
     }}
   >

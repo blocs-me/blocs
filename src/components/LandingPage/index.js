@@ -204,7 +204,7 @@ const LandingPage = () => {
         flexDirection={["column", "column", , , "row"]}
       >
         <Flex flex="1" flexDirection="column" mb={["lg", "lg", , , 0]}>
-          <FadeIn duration="2s" index={0}>
+          <FadeIn duration="0.5s" index={0}>
             <Flex maxWidth="500px" position="relative">
               <QuoteWrapper>
                 <Text
@@ -224,7 +224,7 @@ const LandingPage = () => {
               </QuoteWrapper>
             </Flex>
           </FadeIn>
-          <FadeIn index={1}>
+          <FadeIn delay="0.5s">
             <Flex
               alignItems="center"
               flexDirection={["column", "column", , , "row"]}
@@ -295,7 +295,7 @@ const LandingPage = () => {
               </Box>
             </Flex>
           </FadeIn>
-          <FadeIn index={2}>
+          <FadeIn delay="0.8s">
             <Flex
               flexDirection="column"
               alignItems={["center", "center", , , "flex-start"]}
@@ -338,7 +338,7 @@ const LandingPage = () => {
           pl={[0, 0, , , "lg", "xl"]}
         >
           <Showcase />
-          <FadeIn index={3}>
+          <FadeIn delay="1.3s">
             <Text
               as="button"
               p={0}

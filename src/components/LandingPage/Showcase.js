@@ -110,7 +110,7 @@ const Showcase = () => {
       justifyContent="space-between"
       overflow="hidden"
       css={{
-        animation: `${fadeIn} 1s ease ${(3 * 7) / 10}s forwards`,
+        animation: `${fadeIn} 0.5s ease 1.3s forwards`,
         opacity: 0,
       }}
     >
