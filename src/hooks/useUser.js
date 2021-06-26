@@ -50,9 +50,6 @@ const useUser = (options = {}) => {
 
   useEffect(() => {
     if (loading) dispatch(setAuthState(LOADING))
-    if (!loading && !data) {
-      dispatch(setAuthState(ERROR))
-    }
 
     return () => {
       dispatch(setLoggingOut(false))
