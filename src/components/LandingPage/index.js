@@ -1,9 +1,10 @@
 /** @jsxImportSource @emotion/react */
-import { useEffect, useRef } from "react"
+import { useContext, useEffect, useRef, useState } from "react"
 import Head from "next/head"
 import styled from "@emotion/styled"
 // import { useMediaQuery } from "beautiful-react-hooks"
 import { animate } from "popmotion"
+import Confetti from "react-dom-confetti"
 import Box from "../Box"
 import Flex from "../Flex"
 import PageLayout from "../PageLayout"
@@ -23,6 +24,25 @@ import BetaWrapper from "../BetaWrapper"
 import NotionSignInButton from "../NotionSignInButton"
 import FadeIn from "../FadeIn"
 import useMediaQuery from "../../hooks/useMediaQuery"
+import useAuth from "../../hooks/useAuth"
+import globalContext from "../../contexts/GlobalContextProvider/globalContext"
+import Button from "../Button"
+import { LOADING, SUCCESS } from "../../constants/fetchStates"
+import Loader from "../Loader"
+
+const confettiConfig = {
+  angle: 90,
+  spread: 360,
+  startVelocity: 40,
+  elementCount: "116",
+  dragFriction: 0.12,
+  duration: 3000,
+  stagger: 3,
+  width: "10px",
+  height: "10px",
+  perspective: "500px",
+  colors: ["#a864fd", "#29cdff", "#78ff44", "#ff718d", "#fdff6a"],
+}
 
 const SocialIcon = styled.a`
   &:hover {
@@ -133,6 +153,10 @@ const DetailSection = ({ title = "", children, art = <div />, kf }) => (
 
 const LandingPage = () => {
   const isLandscape = useMediaQuery("(orientation: landscape)")
+  const [{ authValid, authState }] = useContext(globalContext)
+  const [confetti, setConfetti] = useState(false)
+
+  useAuth()
 
   const howItWorks = () =>
     isLandscape &&
@@ -141,6 +165,14 @@ const LandingPage = () => {
       to: window.innerHeight,
       onUpdate: (yPos) => window.scrollTo(0, yPos),
     })
+
+  useEffect(() => {
+    if (authValid && authState === SUCCESS) {
+      setTimeout(() => {
+        setConfetti(true)
+      }, 500)
+    }
+  }, [authValid, authState])
 
   return (
     <PageLayout>
@@ -301,19 +333,61 @@ const LandingPage = () => {
               alignItems={["center", "center", , , "flex-start"]}
               mt={["md", "lg", "lg"]}
             >
-              <NotionSignInButton />
+              {!authValid && authState === LOADING && (
+                <Flex
+                  as="div"
+                  alignItems="center"
+                  justifyContent="center"
+                  minWidth="200px"
+                  fontSize={["xs", "xs", "sm"]}
+                  bg="primary.dark"
+                  color="primary.lightest"
+                  borderRadius="sm"
+                  px="md"
+                  py="xs"
+                  letterSpacing="sm"
+                >
+                  <Loader />
+                </Flex>
+              )}
+              {!authValid && authState !== LOADING && <NotionSignInButton />}
+              {authValid && (
+                <Flex flexDirection="column" alignItems="center">
+                  <Confetti config={confettiConfig} active={confetti} />
+                  <Button
+                    bg="primary.dark"
+                    borderRadius="sm"
+                    p="sm"
+                    minWidth="300px"
+                    color="primary.lightest"
+                    css={{ textAlign: "center" }}
+                    fontSize="sm"
+                    fontWeight="300"
+                    onClick={() => {
+                      setConfetti(false)
+                      setTimeout(() => {
+                        setConfetti(true)
+                      }, 0)
+                    }}
+                  >
+                    🎉 Thank you for signing up{" "}
+                  </Button>
+                </Flex>
+              )}
 
-              <Text
-                fontSize="xxs"
-                mt={["xs", "xs", , , "sm"]}
-                color="primary.light"
-                letterSpacing="sm"
-              >
-                get started for{" "}
-                <Box as="span" color="secondary">
-                  free !
-                </Box>
-              </Text>
+              {!authValid && authState !== LOADING && (
+                <Text
+                  fontSize="xxs"
+                  mt={["xs", "xs", , , "sm"]}
+                  color="primary.light"
+                  letterSpacing="sm"
+                >
+                  get started for{" "}
+                  <Box as="span" color="secondary">
+                    free !
+                  </Box>
+                </Text>
+              )}
             </Flex>
           </FadeIn>
         </Flex>

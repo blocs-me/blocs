@@ -4,6 +4,7 @@ import styled from "@emotion/styled"
 import { themeGet } from "@styled-system/theme-get"
 import Head from "next/head"
 import { useContext } from "react"
+import Confetti from "react-dom-confetti"
 import Box from "../components/Box"
 import Button from "../components/Button"
 import Flex from "../components/Flex"
@@ -41,10 +42,25 @@ const Li = styled.li`
   }
 `
 
+const confettiConfig = {
+  angle: 90,
+  spread: 360,
+  startVelocity: 40,
+  elementCount: "116",
+  dragFriction: 0.12,
+  duration: 3000,
+  stagger: 3,
+  width: "10px",
+  height: "10px",
+  perspective: "500px",
+  colors: ["#a864fd", "#29cdff", "#78ff44", "#ff718d", "#fdff6a"],
+}
+
 const PricingPage = () => {
   const [{ authValid, accessToken, authState }] = useContext(globalContext)
   const [showErrorModal, setShowErrorModal] = useState(false)
   const [showThankYou, setShowThankYou] = useState(false)
+  const [confetti, setConfetti] = useState(false)
   const { user } = useUser({
     shouldFetch: false,
   })
@@ -60,7 +76,7 @@ const PricingPage = () => {
           preregisteredForPremium: true,
           firstTimeSignIn: false,
         },
-        access_token
+        access_token,
       })
     )
     setShowThankYou(true)
@@ -91,6 +107,12 @@ const PricingPage = () => {
       setShowErrorModal(true)
     }
   }, [error, updatingUser])
+
+  useEffect(() => {
+    if (preregisteredForPremium) {
+      setConfetti(preregisteredForPremium)
+    }
+  }, [preregisteredForPremium])
 
   return (
     <PageLayout navTitle="PRICING">
@@ -227,16 +249,23 @@ const PricingPage = () => {
                 </Flex>
               )}
               {preregisteredForPremium && (
-                <Button
-                  variant="primary"
-                  bg="primary.dark"
-                  p="sm"
-                  borderRadius="sm"
-                  as="div"
-                >
-                  {" "}
-                  🎉 Thank you for signing up for premium
-                </Button>
+                <Flex flexDirection="column" alignItems="center">
+                  <Confetti config={confettiConfig} active={confetti} />
+                  <Button
+                    variant="primary"
+                    bg="primary.dark"
+                    p="sm"
+                    borderRadius="sm"
+                    as="div"
+                    onClick={() => {
+                      setConfetti(false)
+                      setTimeout(() => setConfetti(true), 0)
+                    }}
+                  >
+                    {" "}
+                    🎉 Thank you for signing up for premium
+                  </Button>
+                </Flex>
               )}
               <Text
                 color="danger"
