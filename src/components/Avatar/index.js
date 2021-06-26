@@ -36,7 +36,12 @@ const variants = variant({
 
 const Container = styled(Box)(variants)
 
-const Avatar = ({ src = false, variant = "md", loading = false, alt }) => (
+const Avatar = ({
+  src = "/profile.svg",
+  variant = "md",
+  loading = false,
+  alt,
+}) => (
   <Container
     variant={variant}
     borderRadius="50%"
