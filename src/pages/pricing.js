@@ -21,6 +21,7 @@ import { USER_PATH } from "../utils/paths"
 import Modal from "../components/Modal.js"
 import Link from "../components/Link"
 import { LOADING } from "../constants/fetchStates"
+import getAccessToken from "../utils/getAccessToken"
 
 const Li = styled.li`
   text-transform: lowercase;
@@ -49,17 +50,20 @@ const PricingPage = () => {
   })
 
   const handleSuccess = () => {
-    setShowThankYou(true)
-    globa.window?.localStorage.setItem(
+    const { access_token } = getAccessToken() || {}
+
+    localStorage.setItem(
       USER_PATH,
       JSON.stringify({
-        ...user,
         data: {
-          ...user.data,
+          ...user,
+          preregisteredForPremium: true,
           firstTimeSignIn: false,
         },
+        access_token
       })
     )
+    setShowThankYou(true)
   }
 
   const {

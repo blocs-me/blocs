@@ -49,7 +49,7 @@ const MainDashboard = () => {
         })
       )
     } else {
-      setPreregisterThankYou(false)
+      setShowThankYou(false)
     }
   }, [authValid])
 
