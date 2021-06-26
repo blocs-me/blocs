@@ -20,7 +20,7 @@ const ProductWrapper = ({ children, title }) => (
     width="100%"
     flexDirection="column"
     mt="sm"
-    css={{ transform: "scale(0.8)" }}
+    css={{ transform: "scale(0.9)" }}
     alignItems="center"
   >
     <Text
@@ -125,7 +125,7 @@ const Dashboard = ({ links }) => {
           width="100%"
           gridTemplateColumns="repeat(auto-fit, 300px)"
           justifyContent="center"
-          gridGap={["xs", "xs", , "sm"]}
+          gridGap={["sm", "sm", , "md"]}
           mt={"sm"}
           pb={["md", "lg", , , 0]}
         >
