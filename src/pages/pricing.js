@@ -112,9 +112,6 @@ const PricingPage = () => {
           justifyContent="center"
           flexDirection="column"
           height="calc(100vh - 80px)"
-          borderRightWidth="1px"
-          borderRightColor="primary.lightest"
-          borderRightStyle={["none", "none", , , "solid"]}
         >
           <div>
             <Text as="div" textAlign="center">
@@ -361,6 +358,17 @@ const PricingPage = () => {
           </Grid>
         </Text>
       </Flex>
+
+      <Box
+        position="absolute"
+        top="0"
+        left="calc(50% - 1px)"
+        height="100%"
+        borderLeftWidth="1px"
+        borderLeftColor="primary.lightest"
+        borderLeftStyle={["none", "none", , , "solid"]}
+        zIndex="-1"
+      />
 
       <Modal
         visible={showThankYou}
