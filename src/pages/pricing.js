@@ -281,7 +281,8 @@ const PricingPage = () => {
               <Li>habit tracker</Li>
               <Li>goal setter</Li>
               <Li>sleep tracker</Li>
-              <Li>notion recurring task manager</Li>
+              <Li>recurring task manager</Li>
+              <Li>database visualizer</Li>
               <Li>
                 <Text color="highlight" as="span">
                   and tons more...
