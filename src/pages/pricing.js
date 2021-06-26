@@ -95,6 +95,9 @@ const PricingPage = () => {
           justifyContent="center"
           flexDirection="column"
           height="calc(100vh - 80px)"
+          borderRightWidth="1px"
+          borderRightColor="primary.lightest"
+          borderRightStyle={["none", "none", , , "solid"]}
         >
           <div>
             <Text as="div" textAlign="center">
@@ -220,9 +223,6 @@ const PricingPage = () => {
             gridGap={["sm", "sm", , "md", 0]}
             py="lg"
             gridTemplateColumns="repeat(2, minmax(min-content, 225px))"
-            borderLeftWidth="1px"
-            borderLeftColor="primary.lightest"
-            borderLeftStyle={["none", "none", , , "solid"]}
             justifyContent={["center", "center", , , "end"]}
           >
             <Text
