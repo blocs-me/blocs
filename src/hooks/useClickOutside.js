@@ -26,5 +26,5 @@ export const useClickOutside = ({ element, onClickOutside = () => {} }) => {
     return () => {
       document.removeEventListener("click", handleClick, true)
     }
-  }, [element, callback])
+  }, [element, onClickOutside])
 }
