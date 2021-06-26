@@ -23,29 +23,30 @@ const useFetch = (url, options = {}) => {
 
   const [data, setData] = useState(null)
   const [error, setError] = useState(false)
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(false)
   const [fetching, setFetching] = useState(false)
 
   const cacheData = (data) =>
     shouldCache && localStorage.setItem(url, JSON.stringify(data))
 
   const handleReq = async (mounted) => {
-    mounted?.value && setLoading(true)
-    const res = await fetcher(url, body, options)
+    if (!loading) {
+      mounted?.value && setLoading(true)
+      const res = await fetcher(url, body, options)
+      if (!res.ok) {
+        if (mounted?.value) {
+          setLoading(false)
+          setError(true)
+        }
+        onError(res)
+      } else {
+        const resData = await res.json()
+        mounted?.value && setData(resData.data)
+        mounted?.value && setLoading(false)
 
-    if (!res.ok) {
-      if (mounted?.value) {
-        setLoading(false)
-        setError(true)
+        cacheData(resData)
+        onSuccess(resData)
       }
-      onError(res)
-    } else {
-      const resData = await res.json()
-      mounted?.value && setData(resData.data)
-      mounted?.value && setLoading(false)
-
-      cacheData(resData)
-      onSuccess(resData)
     }
   }
 
