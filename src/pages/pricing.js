@@ -48,6 +48,20 @@ const PricingPage = () => {
     shouldFetch: false,
   })
 
+  const handleSuccess = () => {
+    setShowThankYou(true)
+    globa.window?.localStorage.setItem(
+      USER_PATH,
+      JSON.stringify({
+        ...user,
+        data: {
+          ...user.data,
+          firstTimeSignIn: false,
+        },
+      })
+    )
+  }
+
   const {
     fetcher: updateUserData,
     loading: updatingUser,
@@ -55,7 +69,7 @@ const PricingPage = () => {
     error,
   } = useFetch(USER_PATH, {
     method: "PATCH",
-    onSuccess: () => setShowThankYou(true),
+    onSuccess: handleSuccess,
     body: {
       access_token: accessToken,
       preregisteredForPremium: true,
