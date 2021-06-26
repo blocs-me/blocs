@@ -266,7 +266,7 @@ const LandingPage = () => {
                     href="https://linkedin.com/in/moniet"
                     rel="noopener"
                     target="_blank"
-                    ariaLabel="Blocs founders Linkedin"
+                    aria-label="Blocs founders Linkedin"
                   >
                     <Icon size="50px">
                       <Linkedin />
@@ -276,7 +276,7 @@ const LandingPage = () => {
                     href="https://codepen.com/moniet"
                     rel="noopener"
                     target="_blank"
-                    ariaLabel="Blocs founders Codepen"
+                    aria-label="Blocs founders Codepen"
                   >
                     <Icon size="50px">
                       <Codepen />
@@ -285,7 +285,7 @@ const LandingPage = () => {
                   <SocialIcon
                     href="mailto:moniet@blocs.me"
                     rel="noopener"
-                    ariaLabel="Blocs founders Email address"
+                    aria-label="Blocs founders Email address"
                   >
                     <Icon size="50px">
                       <Email />

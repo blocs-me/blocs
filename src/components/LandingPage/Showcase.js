@@ -118,7 +118,15 @@ const Showcase = () => {
         {mappedItems(showcaseIndex)}
       </Box>
       <Flex px="xs" width="100%" alignItems="center" position="relative">
-        <Icon width="90px" as="button" p={0} m={0} onClick={() => togglePlay()}>
+        <Icon
+          width="90px"
+          as="button"
+          p={0}
+          m={0}
+          onClick={() => togglePlay()}
+          aria-label="Play or Pause Button"
+          aria-pressed={play}
+        >
           {!play && <Play />}
           {play && <Pause />}
         </Icon>

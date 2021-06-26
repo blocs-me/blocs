@@ -174,7 +174,8 @@ const Nav = ({ title = "", links = [] }) => {
             flex={1}
             as="button"
             onClick={() => toggleMobileNav()}
-            ariaLabel="Navigation Links Menu Button"
+            aria-label="Open / Close Main Navigation"
+            aria-pressed={showMobileNav}
           >
             <Icon size="20px" css={{ lineHeight: 0, height: "fit-content" }}>
               <Hamburger css={{ verticalAlign: "middle" }} />
