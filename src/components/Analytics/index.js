@@ -20,16 +20,18 @@ const Analytics = ({
 }) => {
   const hidePaths = (paths) => {
     paths.forEach((path) => {
-      path.style.transition = "opacity 1s ease, stroke-dashoffset 0.5s ease"
-      path.style.strokeDasharray = "100%"
-      path.style.strokeDashoffset = "-100%"
+      path.style.transition =
+        "opacity 1s, stroke-dashoffset 0.5s, stroke-dasharray 0.5s"
+      path.style.strokeDasharray = "100px"
+      path.style.strokeDashoffset = "100px"
     })
   }
 
   const revealPaths = (paths) => {
     setTimeout(() => {
       paths.forEach((path) => {
-        path.style.strokeDashoffset = "0%"
+        path.style.strokeDashoffset = "200px"
+        path.style.strokeDasharray = "100px"
         path.style.opacity = "1"
       })
     }, 1000)
