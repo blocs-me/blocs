@@ -63,7 +63,7 @@ const Footer = () => (
             >
               roadmap
             </Link>{" "}
-            on notion
+            to see how we&quot;re progressing
           </Text>
         </Box>
         <Box width="min(100%, 350px)">
@@ -78,8 +78,8 @@ const Footer = () => (
             COMMUNITY
           </Text>
           <Text fontSize="sm" fontWeight="400" color="primary.light">
-            if you like to have a candid chat about all things productivity you
-            can join our{" "}
+            if you like to have a chat about all things productivity you can
+            join our{" "}
             <Link href="" rel="noopener" passHref inline underline>
               discord server
             </Link>

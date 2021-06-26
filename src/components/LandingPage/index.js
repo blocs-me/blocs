@@ -483,7 +483,7 @@ const LandingPage = () => {
               </Text>
               <Text fontWeight="300" fontSize="md" variant="p">
                 The whole idea of blocs came to me because I wanted to cut down
-                the digital noise in my life
+                on the digital noise in my life
               </Text>
               <Text tfontWeight="300" fontSize="md" variant="p">
                 I thought it would be so cool if I could have my habit tracker,
