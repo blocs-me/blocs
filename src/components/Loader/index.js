@@ -14,8 +14,8 @@ const Container = styled.div`
   border-color: ${themeGet("colors.primary.light")};
   border-left-color: ${themeGet("colors.primary.lightest")};
   animation: ${rotate} 2s linear infinite;
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
 `
 

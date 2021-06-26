@@ -20,6 +20,7 @@ import useUser from "../hooks/useUser"
 import { USER_PATH } from "../utils/paths"
 import Modal from "../components/Modal.js"
 import Link from "../components/Link"
+import { LOADING } from "../constants/fetchStates"
 
 const Li = styled.li`
   text-transform: lowercase;
@@ -40,8 +41,9 @@ const Li = styled.li`
 `
 
 const PricingPage = () => {
-  const [{ authValid, accessToken }] = useContext(globalContext)
+  const [{ authValid, accessToken, authState }] = useContext(globalContext)
   const [showErrorModal, setShowErrorModal] = useState(false)
+  const [showThankYou, setShowThankYou] = useState(false)
   const { user } = useUser({
     shouldFetch: false,
   })
@@ -53,6 +55,7 @@ const PricingPage = () => {
     error,
   } = useFetch(USER_PATH, {
     method: "PATCH",
+    onSuccess: () => setShowThankYou(true),
     body: {
       access_token: accessToken,
       preregisteredForPremium: true,
@@ -69,7 +72,7 @@ const PricingPage = () => {
     if (error) {
       setShowErrorModal(true)
     }
-  }, [error])
+  }, [error, updatingUser])
 
   return (
     <PageLayout navTitle="PRICING">
@@ -138,12 +141,14 @@ const PricingPage = () => {
               </Text>
             </Text>
             <Text as="div" textAlign="center" mt="md" letterSpacing="sm">
-              {!preregisteredForPremium && !authValid && (
-                <NotionSignInButton
-                  state="pre-register-for-premium"
-                  text="pre-register for premium"
-                />
-              )}
+              {!preregisteredForPremium &&
+                !authValid &&
+                authState !== LOADING && (
+                  <NotionSignInButton
+                    state="pre-register-for-premium"
+                    text="pre-register for premium"
+                  />
+                )}
 
               {authValid && !preregisteredForPremium && (
                 <Button
@@ -188,6 +193,23 @@ const PricingPage = () => {
                     </Flex>
                   )}
                 </Button>
+              )}
+              {!authValid && authState === LOADING && !preregisteredForPremium && (
+                <Flex
+                  as="div"
+                  alignItems="center"
+                  justifyContent="center"
+                  minWidth="200px"
+                  fontSize={["xs", "xs", "sm"]}
+                  bg="primary.dark"
+                  color="primary.lightest"
+                  borderRadius="sm"
+                  px="md"
+                  py="xs"
+                  letterSpacing="sm"
+                >
+                  <Loader />
+                </Flex>
               )}
               {preregisteredForPremium && (
                 <Button
@@ -327,10 +349,48 @@ const PricingPage = () => {
       </Flex>
 
       <Modal
+        visible={showThankYou}
+        hideModal={() => setShowThankYou(false)}
+        backButton
+        redirectTo="/pricing"
+      >
+        <Text as="div" textAlign="center">
+          <Text
+            color="primary.default"
+            fontWeight="bold"
+            fontSize="md"
+            as="h3"
+            mb="xs"
+            mt={0}
+          >
+            Thank you 🎉
+          </Text>
+          <Text color="primary.light" fontWeight="300" fontSize="sm">
+            Thank you for signing up for premium
+            <br />
+            We&#39;re working hard to get blocs out ASAP
+          </Text>
+          <Text fontSize="xxs" mb={0}>
+            keep updated on our progress :{" "}
+            <Link
+              href="https://www.notion.so/81a847e283ca4d3583651d7d0d55f692?v=eb4ecf38b53949a6b531e387e90df22a"
+              passHref
+              inline
+              underline
+              color="secondary"
+              rel="noopener"
+            >
+              notion roadmap
+            </Link>{" "}
+          </Text>
+        </Text>
+      </Modal>
+
+      <Modal
         visible={showErrorModal}
         hideModal={() => setShowErrorModal(false)}
         backButton
-        redirectTo="/"
+        redirectTo="/pricing"
       >
         <Text as="div" textAlign="center">
           <Text
@@ -345,9 +405,54 @@ const PricingPage = () => {
           </Text>
           <Text color="primary.light" fontWeight="300" fontSize="sm">
             looks like something went wrong <br />
-            try signing up again
+            try pre-registering again
           </Text>
-          <NotionSignInButton text="sign up with notion" mx="auto" mb="md" />
+
+          {authValid && !preregisteredForPremium && (
+            <Button
+              fontSize={["xs", "xs", "sm"]}
+              bg="primary.dark"
+              color="primary.lightest"
+              borderRadius="sm"
+              css={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                whiteSpace: "nowrap",
+              }}
+              px="md"
+              py="xs"
+              variant="primary"
+              width="fit-content"
+              letterSpacing="sm"
+              onClick={() => updateUserData()}
+              alt="pre-register for premium features"
+              mb="sm"
+            >
+              {!updatingUser && (
+                <>
+                  <Box
+                    as="img"
+                    mr={["xs", "xs", "sm"]}
+                    src="/notion-logo.png"
+                    size={["40px"]}
+                    alt=""
+                  />
+                  pre-register for premium
+                </>
+              )}
+
+              {updatingUser && (
+                <Flex
+                  alignItems="center"
+                  justifyContent="center"
+                  minWidth="200px"
+                >
+                  <Loader />
+                </Flex>
+              )}
+            </Button>
+          )}
           <Text fontSize="xxs" mb={0}>
             if the problem persists contact{" "}
             <Link inline underline passHref href="mailto:moniet@blocs.me">
