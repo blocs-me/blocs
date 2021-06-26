@@ -18,6 +18,7 @@ export const PageGutters = (props) => (
 const PageLayout = ({ children, navTitle, links }) => (
   <>
     <Head>
+      <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
       <link
         rel="icon"
         type="image/png"
