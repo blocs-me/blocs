@@ -148,7 +148,7 @@ const LandingPage = () => {
         <title>blocs | notion widgets for habit building</title>
         <meta
           name="description"
-          content="Blocs notion widgets helps you build habits with amazing insights to understand yourself better. Track all your habits in one place !"
+          content="Blocs notion widgets help you build habits with amazing insights to understand yourself better. Track all your habits in one place !"
         />
         <link name="canonical" href="https://blocs.me" />
 
@@ -166,7 +166,7 @@ const LandingPage = () => {
         />
         <meta
           property="og:description"
-          content="Blocs notion widgets helps you build habits with amazing insights to understand yourself better. Track all your habits in one place !"
+          content="Blocs notion widgets help you build habits with amazing insights to understand yourself better. Track all your habits in one place !"
         />
         <meta
           property="og:image"
@@ -185,7 +185,7 @@ const LandingPage = () => {
         />
         <meta
           property="twitter:description"
-          content="Blocs notion widgets helps you build habits with amazing insights to understand yourself better. Track all your habits in one place !"
+          content="Blocs notion widgets help you build habits with amazing insights to understand yourself better. Track all your habits in one place !"
         />
         <meta
           property="twitter:image"
