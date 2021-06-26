@@ -69,7 +69,7 @@ const QuoteWrapper = styled.div`
     background-repeat: no-repeat;
     background-position: left;
     background-size: 70%;
-    background-image: url("data:image/svg+xml, %3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 70' width='100%25' height='100%25'%3E%3Ctext transform='translate(0 55)' fill='%23292929' font-size='60' font-family='Karla-Bold, Karla' font-weight='700' letter-spacing='0.06em'%3E%3Ctspan x='0' y='0'%3E“%3C/tspan%3E%3C/text%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml, %3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 70' width='100%25' height='100%25'%3E%3Ctext transform='translate(0 55)' fill='%23292929' font-size='60' font-family='Karla, sans-serif' font-weight='700' letter-spacing='0.06em'%3E%3Ctspan x='0' y='0'%3E“%3C/tspan%3E%3C/text%3E%3C/svg%3E");
   }
 `
 
