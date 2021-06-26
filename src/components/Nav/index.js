@@ -99,8 +99,7 @@ const Nav = ({ title = "", links = [] }) => {
   }
 
   useClickOutside({
-    onClickOutside: () =>
-      isDesktop ? setShowMobileNav(true) : setShowMobileNav(false),
+    onClickOutside: () => !isDesktop && setShowMobileNav(false),
     element: mobileNavContainer,
   })
 
