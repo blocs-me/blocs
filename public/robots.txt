@@ -1,8 +1,7 @@
 # *
 User-agent: *
 Allow: /
-
-Disallow: https://blocs.me/dashboard/*
+Disallow: /dashboard/*
 
 # Host
 Host: https://blocs.me
