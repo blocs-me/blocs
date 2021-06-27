@@ -136,7 +136,7 @@ const Dashboard = ({ links }) => {
             <HabitTracker />
           </ProductWrapper>
           <ProductWrapper title="WATER TRACKER" lastItem>
-            <WaterTracker startingVolume={2} />
+            <WaterTracker />
           </ProductWrapper>
         </Grid>
       </Flex>
