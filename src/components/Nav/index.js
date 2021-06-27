@@ -3,7 +3,7 @@ import themeGet from "@styled-system/theme-get"
 import { useContext, useEffect, useRef, useState } from "react"
 import { animate } from "popmotion"
 import { useRouter } from "next/router"
-import { color } from "styled-system"
+import { color, shadow } from "styled-system"
 import styled from "@emotion/styled"
 import Link from "next/link"
 import Flex from "../Flex"
@@ -14,7 +14,6 @@ import { PageGutters } from "../PageLayout"
 import Text from "../Text"
 import Stack from "../Stack"
 import BetaWrapper from "../BetaWrapper"
-import Hamburger from "../../icons/hamburger.svg"
 
 import { useClickOutside } from "../../hooks/useClickOutside"
 import Avatar from "../Avatar"
@@ -58,6 +57,39 @@ export const NavLink = ({ href, text = "", passHref = false, as = "a" }) => {
   )
 }
 
+const Hamburger = ({ open }) => {
+  return (
+    <Flex justifyContent="center" alignItems="center" flexDirection="column">
+      <Box
+        width="20px"
+        height="2px"
+        borderRadius="2px"
+        bg="primary.dark"
+        css={{
+          transition: "transform 0.5s ease",
+          transform: open
+            ? "rotate(45deg) translateY(1px)"
+            : "rotate(0deg) translateY(-2px)",
+          transformOrigin: "center center",
+        }}
+      />
+      <Box
+        width="20px"
+        height="2px"
+        borderRadius="2px"
+        bg="primary.dark"
+        css={{
+          transition: "transform 0.5s ease",
+          transform: open
+            ? "rotate(-45deg) translateY(-1px)"
+            : "rotate(0deg) translateY(2px)",
+          transformOrigin: "center center",
+        }}
+      />
+    </Flex>
+  )
+}
+
 const Nav = ({ title = "", links = [] }) => {
   const [hideNav, setHideNav] = useState(false)
   const [showMobileNav, setShowMobileNav] = useState(false)
@@ -84,7 +116,9 @@ const Nav = ({ title = "", links = [] }) => {
     prevScrollPos.current = currentPos
   }
 
-  const toggleMobileNav = () => !showMobileNav && setShowMobileNav(true)
+  const toggleMobileNav = (e) => {
+    setShowMobileNav(!showMobileNav)
+  }
 
   const scrollToWhyBlocs = () => {
     const currentYPos = window.scrollY
@@ -117,6 +151,7 @@ const Nav = ({ title = "", links = [] }) => {
   return (
     <Box
       as="nav"
+      ref={mobileNavContainer}
       width="100%"
       aria-label="Main Navigation"
       alignItems="center"
@@ -173,16 +208,15 @@ const Nav = ({ title = "", links = [] }) => {
             alignItems="center"
             flex={1}
             as="button"
-            onClick={() => toggleMobileNav()}
+            onClick={(e) => toggleMobileNav()}
             aria-label="Open / Close Main Navigation"
             aria-pressed={showMobileNav}
           >
             <Icon size="20px" css={{ lineHeight: 0, height: "fit-content" }}>
-              <Hamburger css={{ verticalAlign: "middle" }} />
+              <Hamburger open={showMobileNav} />
             </Icon>
           </Flex>
           <Box
-            ref={mobileNavContainer}
             position={["fixed", "fixed", , , "relative"]}
             right={["sm", "sm", , , 0]}
             top={["calc(80px + 1rem)", "calc(80px + 1rem)", , , 0]}
