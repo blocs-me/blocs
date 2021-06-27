@@ -423,8 +423,8 @@ const PricingPage = () => {
           <Text color="primary.light" fontWeight="300" fontSize="sm">
             Thank you for signing up for premium
             <br />
-            We&#39;re working hard to get blocs out and we&#39;ll inform you as
-            soon as it&#39;s ready
+            We&#39;re working hard to release blocs ASAP and we&#39;ll inform
+            when it&#39;s ready
           </Text>
           <Text fontSize="xxs" mb={0}>
             keep updated on our progress :{" "}
