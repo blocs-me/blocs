@@ -1,5 +1,6 @@
 import Head from "next/head"
 import { useContext, useEffect, useState } from "react"
+import Box from "../../components/Box"
 import Dashboard from "../../components/Dashboard"
 import Link from "../../components/Link"
 import Modal from "../../components/Modal.js"
@@ -65,37 +66,41 @@ const MainDashboard = () => {
         backButton
         redirectTo="/dashboard"
       >
-        <Text as="div" textAlign="center">
-          <Text
-            color="primary.default"
-            fontWeight="bold"
-            fontSize="md"
-            as="h3"
-            mb="xs"
-            mt={0}
-          >
-            Thank you 🎉
-          </Text>
-          <Text color="primary.light" fontWeight="300" fontSize="sm">
-            {(preregisterThankYou && "Thank you for signing up for premium") ||
-              "Thank you for signing up"}
-            <br />
-            We&#39;re working hard to get blocs out ASAP
-          </Text>
-          <Text fontSize="xxs" mb={0}>
-            keep updated on our progress :{" "}
-            <Link
-              href="https://www.notion.so/81a847e283ca4d3583651d7d0d55f692?v=eb4ecf38b53949a6b531e387e90df22a"
-              passHref
-              inline
-              underline
-              color="secondary"
-              rel="noopener"
+        <Box maxWidth="350px">
+          <Text as="div" textAlign="center">
+            <Text
+              color="primary.default"
+              fontWeight="bold"
+              fontSize="md"
+              as="h3"
+              mb="xs"
+              mt={0}
             >
-              notion roadmap
-            </Link>{" "}
+              Thank you 🎉
+            </Text>
+            <Text color="primary.light" fontWeight="300" fontSize="sm">
+              {(preregisterThankYou &&
+                "Thank you for signing up for premium") ||
+                "Thank you for signing up"}
+              <br />
+              We&#39;re working hard to get blocs out and we&#39;ll inform you
+              as soon as it&#39;s ready
+            </Text>
+            <Text fontSize="xxs" mb={0}>
+              keep updated on our progress :{" "}
+              <Link
+                href="https://www.notion.so/81a847e283ca4d3583651d7d0d55f692?v=eb4ecf38b53949a6b531e387e90df22a"
+                passHref
+                inline
+                underline
+                color="secondary"
+                rel="noopener"
+              >
+                notion roadmap
+              </Link>{" "}
+            </Text>
           </Text>
-        </Text>
+        </Box>
       </Modal>
       <Modal
         visible={promptUserSignIn}
