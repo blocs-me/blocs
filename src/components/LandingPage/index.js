@@ -338,7 +338,7 @@ const LandingPage = () => {
                   as="div"
                   alignItems="center"
                   justifyContent="center"
-                  minWidth="200px"
+                  width="min(100%, 300px)"
                   fontSize={["xs", "xs", "sm"]}
                   bg="primary.dark"
                   color="primary.lightest"
