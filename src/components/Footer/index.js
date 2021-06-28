@@ -63,7 +63,7 @@ const Footer = () => (
             >
               roadmap
             </Link>{" "}
-            to see how we&quot;re progressing
+            to see how we&#39;re progressing
           </Text>
         </Box>
         <Box width="min(100%, 350px)">
