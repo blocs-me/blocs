@@ -80,7 +80,13 @@ const Footer = () => (
           <Text fontSize="sm" fontWeight="400" color="primary.light">
             if you like to have a chat about all things productivity you can
             join our{" "}
-            <Link href="" rel="noopener" passHref inline underline>
+            <Link
+              href="https://discord.gg/AS6mSgPm"
+              rel="noopener"
+              passHref
+              inline
+              underline
+            >
               discord server
             </Link>
           </Text>
