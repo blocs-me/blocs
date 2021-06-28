@@ -35,7 +35,7 @@ const Text = styled.span`
 
 const BetaWrapper = ({ children, color = "primary.default" }) => {
   return (
-    <Box position="relative" color={color} width="fit-content">
+    <Box position="relative" color={color} width="fit-content" as="span">
       {children}
       <Box
         as="a"
