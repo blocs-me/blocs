@@ -16,7 +16,7 @@ const handler = async (req, res) => {
     } catch (err) {
       console.error("Notion error : Could not validate notion user")
       res
-        .send(401)
+        .status(401)
         .json({ err: "Notion error : Could not validate notion user" })
     }
   }
