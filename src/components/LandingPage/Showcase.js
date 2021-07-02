@@ -114,7 +114,12 @@ const Showcase = () => {
         opacity: 0,
       }}
     >
-      <Box mx="auto" width="100%" position="relative">
+      <Box
+        mx="auto"
+        width="100%"
+        position="relative"
+        onClick={() => setPlay(false)}
+      >
         {mappedItems(showcaseIndex)}
       </Box>
       <Flex px="xs" width="100%" alignItems="center" position="relative">
