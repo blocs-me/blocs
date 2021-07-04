@@ -20,10 +20,9 @@ import Avatar from "../Avatar"
 import useUser from "../../hooks/useUser"
 import globalContext from "../../contexts/GlobalContextProvider/globalContext"
 import { LOADING } from "../../constants/fetchStates"
-import { DASHBOARD_SIGN_IN_REDIRECT_URL } from "../../utils/paths"
 import Button from "../Button"
-import Notion from "../../icons/notion.svg"
 import useMediaQuery from "../../hooks/useMediaQuery"
+import notionOAuthData from "../../utils/notionOAuthData"
 
 export const A = styled(Text)`
   text-decoration: none;
@@ -89,6 +88,8 @@ const Hamburger = ({ open }) => {
     </Flex>
   )
 }
+
+const { CLIENT_ID, REDIRECT_URL } = notionOAuthData
 
 const Nav = ({ title = "", links = [] }) => {
   const [hideNav, setHideNav] = useState(false)
@@ -266,7 +267,7 @@ const Nav = ({ title = "", links = [] }) => {
                     color="primary.default"
                     borderRadius="sm"
                     as="a"
-                    href={`https://api.notion.com/v1/oauth/authorize?client_id=ef982612-81f0-46ef-ad49-8f9d4af75f3d&redirect_uri=${DASHBOARD_SIGN_IN_REDIRECT_URL}&response_type=code`}
+                    href={`https://api.notion.com/v1/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URL}&response_type=code`}
                     text="login"
                     px="xs"
                     fontSize="sm"

@@ -1,8 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
 import faunaClient from "../../../lambda-functions/faunaClient"
-import { Client } from "@notionhq/client/build/src"
-import { Collection, Create, Get, Index, Match } from "faunadb"
+import { Collection, Create, Get, Index, Match, query } from "faunadb"
 import authenticateNotionUser from "../../../lambda-functions/helpers/authenticateNotionUser"
 import getNotionUser from "../../../lambda-functions/helpers/getNotionUser"
 import updateUserData from "../../../lambda-functions/helpers/updateUserData"
@@ -38,8 +37,6 @@ const saveUser = async (userData, preregisteredForPremium = false) => {
       preregisteredForPremium: true,
     }
   }
-
-  if (userExists) return userExists.data
 
   if (!userExists) {
     try {
@@ -106,7 +103,6 @@ const handler = async (req, res) => {
 
       if (person) {
         const existingUser = await checkIfUserExists(person?.email)
-        console.log(existingUser.ref, "existing user")
         const updatedUser = await updateUserData(existingUser, {
           preregisteredForPremium,
         })

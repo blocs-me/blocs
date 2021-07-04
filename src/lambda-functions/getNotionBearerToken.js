@@ -1,5 +1,5 @@
 const getNotionBearerToken = () => {
-  const clientId = process.env.NOTION_OAUTH_CLIENT_ID
+  const clientId = process.env.NEXT_PUBLIC_NOTION_OAUTH_CLIENT_ID
   const secret = process.env.NOTION_OAUTH_SECRET
 
   const str = `${clientId}:${secret}` + ""
