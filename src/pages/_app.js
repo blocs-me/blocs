@@ -5,7 +5,6 @@ import GlobalProvider from "../contexts/GlobalContextProvider/GlobalContextProvi
 import GlobalStyle from "../styles/GlobalStyle"
 import Reset from "../styles/Reset"
 import theme from "../styles/theme"
-import Script from "next/script"
 import { useRouter } from "next/router"
 
 function MyApp({ Component, pageProps }) {

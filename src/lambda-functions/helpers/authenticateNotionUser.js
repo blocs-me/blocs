@@ -1,5 +1,4 @@
 import fetch from "isomorphic-fetch"
-import { DASHBOARD_SIGN_IN_REDIRECT_URL } from "../../utils/paths"
 import getNotionBearerToken from "../getNotionBearerToken"
 
 const authenticateNotionUser = async (code) => {
@@ -16,7 +15,7 @@ const authenticateNotionUser = async (code) => {
       body: JSON.stringify({
         code,
         grant_type: "authorization_code",
-        redirect_uri: DASHBOARD_SIGN_IN_REDIRECT_URL,
+        redirect_uri: process.env.NEXT_PUBLIC_NOTION_OAUTH_REDIRECT_URL,
       }),
     })
 
