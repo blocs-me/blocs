@@ -22,7 +22,7 @@ const saveUser = async (userData, preregisteredForPremium = false) => {
   const userExists = await checkIfUserExists(person?.email)
 
   if (
-    // if user already signed up but uses the pre-register button, we update the user's data
+    // if already signed up user clicks the pre-register button on the pricing page
     userExists &&
     !userExists.data.preregisteredForPremium &&
     preregisteredForPremium
