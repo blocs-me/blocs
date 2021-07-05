@@ -38,6 +38,8 @@ const saveUser = async (userData, preregisteredForPremium = false) => {
     }
   }
 
+  if (userExists) return userExists.data
+
   if (!userExists) {
     try {
       const user = await faunaClient.query(
