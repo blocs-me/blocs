@@ -138,6 +138,7 @@ const PricingPage = () => {
           justifyContent="center"
           flexDirection="column"
           height="calc(100vh - 80px)"
+          overflow="hidden"
         >
           <div>
             <Text as="div" textAlign="center">
