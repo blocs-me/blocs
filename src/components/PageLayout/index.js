@@ -34,7 +34,7 @@ const PageLayout = ({ children, navTitle, links }) => (
       <meta name="theme-color" content="#ffffff" />
     </Head>
     <Box
-      width="100vw"
+      width="100%"
       minHeight="calc(100vh - 80px)"
       position="relative"
       overflowX="hidden"
