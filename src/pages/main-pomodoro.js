@@ -1,7 +1,5 @@
-import { Flex } from "rebass"
-import Pomodoro from "../components/Pomodoro"
-
-Pomodoro
+import Flex from "@/helpers/Flex"
+import Pomodoro from "@/widgets/Pomodoro"
 
 export default function Home() {
   return (

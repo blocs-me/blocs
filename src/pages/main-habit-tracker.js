@@ -1,5 +1,5 @@
-import { Flex } from "rebass"
-import HabitTracker from "../components/HabitTracker"
+import Flex from "@/helpers/Flex"
+import HabitTracker from "@/widgets/HabitTracker"
 
 const MainHabitTracker = () => (
   <Flex

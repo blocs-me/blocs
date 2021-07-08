@@ -24,7 +24,6 @@ const useFetch = (url, options = {}) => {
   const [data, setData] = useState(null)
   const [error, setError] = useState(false)
   const [loading, setLoading] = useState(false)
-  const [fetching, setFetching] = useState(false)
 
   const cacheData = (data) =>
     shouldCache && localStorage.setItem(url, JSON.stringify(data))

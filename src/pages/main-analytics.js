@@ -1,5 +1,5 @@
-import Analytics from "../components/Analytics"
-import Flex from "../components/Flex"
+import Analytics from "../components/widgets/Analytics"
+import Flex from "../components/helpers/Flex"
 
 const MainAnalytics = () => (
   <Flex

@@ -1,6 +1,4 @@
-import LandingPage from "../components/LandingPage"
-import { A, NavLink } from "../components/Nav"
-import useAuth from "../hooks/useAuth"
+import LandingPage from "../components/pages/LandingPage"
 
 function Landing() {
   return <LandingPage />

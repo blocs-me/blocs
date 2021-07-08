@@ -1,11 +1,11 @@
 import Head from "next/head"
 import { ThemeProvider } from "@emotion/react"
-import Nav from "../components/Nav"
 import GlobalProvider from "../contexts/GlobalContextProvider/GlobalContextProvider"
 import GlobalStyle from "../styles/GlobalStyle"
 import Reset from "../styles/Reset"
 import theme from "../styles/theme"
 import { useRouter } from "next/router"
+import Nav from "@/design-system/Nav"
 
 function MyApp({ Component, pageProps }) {
   const { pathname } = useRouter()
