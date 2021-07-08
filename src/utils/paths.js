@@ -1,8 +1,5 @@
-export const isDevelopmentEnv = ["development", "preview"].includes(
-  process.env.VERCEL_ENV
-)
 const BASE_URL =
-  process.env.NODE_ENV.toLowerCase() === "development"
+  process.env.NEXT_PUBLIC_ENV.toLowerCase() === "local"
     ? "http://localhost:3000/api"
     : "/api"
 
