@@ -8,7 +8,7 @@ import {
   setAvatarLink,
 } from "../contexts/GlobalContextProvider/globalActions"
 import globalContext from "../contexts/GlobalContextProvider/globalContext"
-import { USER_PATH } from "../utils/paths"
+import { USER_PATH } from "../utils/apiPaths"
 import useFetch from "./useFetch"
 import useLogout from "./useLogout"
 

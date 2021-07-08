@@ -1,6 +1,5 @@
-import { useRouter } from "next/router"
 import { useContext, useEffect } from "react"
-import { DEFAULT, ERROR, LOADING, SUCCESS } from "../constants/fetchStates"
+import { DEFAULT, ERROR, LOADING, SUCCESS } from "@/constants/fetchStates"
 import {
   setAccessToken,
   setAuthState,
@@ -8,9 +7,9 @@ import {
   setAvatarLink,
   setUserLoggingOut,
 } from "../contexts/GlobalContextProvider/globalActions"
-import globalContext from "../contexts/GlobalContextProvider/globalContext"
-import getAccessToken from "../utils/getAccessToken"
-import { USER_PATH, VALIDATE_USER_AUTH_PATH } from "../utils/paths"
+import globalContext from "@/contexts/GlobalContextProvider/globalContext"
+import getAccessToken from "@/utils/getAccessToken"
+import { VALIDATE_USER_AUTH_PATH } from "@/utils/apiPaths"
 import useFetch from "./useFetch"
 
 const useAuth = (options = {}) => {

@@ -1,5 +1,5 @@
-import Flex from "../components/Flex"
-import Streaks from "../components/Streaks"
+import Flex from "@/helpers/Flex"
+import Streaks from "@/widgets/Streaks"
 
 const MainStreaks = () => (
   <Flex

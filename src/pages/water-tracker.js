@@ -1,5 +1,5 @@
-import Flex from "../components/Flex"
-import WaterTracker from "../components/WaterTracker"
+import Flex from "@/helpers/Flex"
+import WaterTracker from "@/widgets/WaterTracker"
 
 const Tracker = () => (
   <Flex
