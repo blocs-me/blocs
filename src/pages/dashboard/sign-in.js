@@ -1,11 +1,11 @@
 import { useRouter } from "next/router"
 import { useEffect } from "react"
-import Dashboard from "../../components/Dashboard"
-import { ERROR } from "../../constants/fetchStates"
+import { ERROR } from "@/constants/fetchStates"
+import Dashboard from "@/pages/Dashboard"
 import {
   setAuthState,
   setAuthValid,
-} from "../../contexts/GlobalContextProvider/globalActions"
+} from "@/contexts/GlobalContextProvider/globalActions"
 
 const DashboardSignIn = ({ code }) => {
   const router = useRouter()
