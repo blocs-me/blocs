@@ -1,5 +1,5 @@
+import fadeIn from "@/keyframes/fadeIn"
 /** @jsxImportSource @emotion/react */
-import fadeIn from "../../../keyframes/fadeIn"
 
 const FadeIn = (props) => (
   <div

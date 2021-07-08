@@ -1,14 +1,14 @@
 import { useRouter } from "next/router"
 import { useContext, useEffect, useMemo, useState } from "react"
-import { ERROR, LOADING, SUCCESS } from "../constants/fetchStates"
+import globalContext from "@/contexts/GlobalContextProvider/globalContext"
+import { USER_PATH } from "@/utils/apiPaths"
+import { ERROR, LOADING, SUCCESS } from "@/constants/fetchStates"
 import {
   setAccessToken,
   setAuthState,
   setAuthValid,
   setAvatarLink,
 } from "../contexts/GlobalContextProvider/globalActions"
-import globalContext from "../contexts/GlobalContextProvider/globalContext"
-import { USER_PATH } from "../utils/apiPaths"
 import useFetch from "./useFetch"
 import useLogout from "./useLogout"
 

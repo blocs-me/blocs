@@ -82,11 +82,11 @@ const lineHeights = {
 const buttons = {
   default: {
     bg: "red",
-    color: colors.primary["600"],
+    color: colors.primary["accent-4"],
   },
   defaultRound: {
-    bg: colors.primary["600"],
-    color: colors.primary["300"],
+    bg: colors.primary["accent-4"],
+    color: colors.primary["accent-1"],
     borderRadius: "50%",
     pd: "xs",
   },
