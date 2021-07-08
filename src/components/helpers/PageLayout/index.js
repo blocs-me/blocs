@@ -1,6 +1,6 @@
-import Box from "../Box"
-import Footer from "../../design-system/Footer"
 import Head from "next/head"
+import Footer from "@/design-system/Footer"
+import Box from "../Box"
 
 export const PageGutters = (props) => (
   <Box

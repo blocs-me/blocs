@@ -1,17 +1,16 @@
 import Head from "next/head"
 import { useContext, useEffect, useState } from "react"
-
 import { ERROR } from "@/constants/fetchStates"
 import globalContext from "@/contexts/GlobalContextProvider/globalContext"
 import useAuth from "@/hooks/useAuth"
-import getAccessToken from "../../utils/getAccessToken"
-import { USER_PATH } from "../../utils/apiPaths"
 import Dashboard from "@/pages/Dashboard"
 import Box from "@/helpers/Box"
 import Link from "@/design-system/Link/index.js"
 import Modal from "@/design-system/Modal.js"
 import NotionSignInButton from "@/helpers/NotionSignInButton"
 import Text from "@/design-system/Text"
+import { USER_PATH } from "@/utils/apiPaths"
+import getAccessToken from "@/utils/getAccessToken"
 
 const MainDashboard = () => {
   const [{ authState, authValid, loggingOut }] = useContext(globalContext)

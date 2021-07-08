@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import Button from "@/design-system/Button"
+import notionOAuthData from "@/utils/notionOAuthData"
 import Box from "../Box"
-import notionOAuthData from "../../../utils/notionOAuthData"
 
 const getStateParam = ({ state }) => (state ? `&state=${state}` : "")
 const { CLIENT_ID, REDIRECT_URL } = notionOAuthData
