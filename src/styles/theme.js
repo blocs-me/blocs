@@ -1,19 +1,20 @@
 const colors = {
   primary: {
-    lightest: "#eaeaea",
-    light: "#646464",
-    default: "#333333",
-    dark: "#1F1F1F",
+    "accent-1": "#eaeaea",
+    "accent-2": "#646464",
+    "accent-3": "#333333",
+    "accent-4": "#1F1F1F",
   },
   background: "#FFFFFF",
-  foreground: "#333333",
+  foreground: "#000000",
   secondary: "#e00079",
   success: "#0070e0",
   danger: "#e22b2b",
   highlight: "#402be2",
   bg: {
-    default: "#FFF",
-    dark: "#FCFCFC",
+    notion: "#FFF",
+    500: "#FFF",
+    600: "#FCFCFC",
   },
 }
 
@@ -81,11 +82,11 @@ const lineHeights = {
 const buttons = {
   default: {
     bg: "red",
-    color: colors.primary.dark,
+    color: colors.primary["600"],
   },
   defaultRound: {
-    bg: colors.primary.dark,
-    color: colors.primary.lightest,
+    bg: colors.primary["600"],
+    color: colors.primary["300"],
     borderRadius: "50%",
     pd: "xs",
   },

@@ -43,8 +43,8 @@ const WaterIndicator = ({
       <RoundedLine />
       <Box pr="sm" as="span" />
       <WaterIndicatorBubble
-        bg="primary.default"
-        color="primary.lightest"
+        bg="primary.accent-3"
+        color="primary.accent-1"
         alignItems="center"
         justifyContent="center"
         selected={selected}
@@ -102,14 +102,14 @@ const WaterTracker = ({ startingVolume = -1 }) => {
             fontSize="sm"
             fontWeight="bold"
             lineHeight={1}
-            color="primary.default"
+            color="primary.accent-3"
             pb="0"
             mb="0"
           >
             <Icon
               as="span"
               display="inline-block"
-              width="0.5rem"  
+              width="0.5rem"
               mr="xs"
               mb="-2px"
             >
@@ -117,7 +117,7 @@ const WaterTracker = ({ startingVolume = -1 }) => {
             </Icon>
             water tracker
           </Text>
-          <Text fontSize="xs" color="primary.light" fontWeight="300">
+          <Text fontSize="xs" color="primary.accent-2" fontWeight="300">
             {Math.round((selectedVolumeIndex + 1 || 0) * 33.33)}%
           </Text>
         </div>

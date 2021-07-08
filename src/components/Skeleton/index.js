@@ -17,7 +17,7 @@ const Skeleton = (props) => {
   return (
     <Box
       {...props}
-      bg="primary.lightest"
+      bg="primary.accent-1"
       css={css`
         animation: ${animation(theme)} 1s ease-in-out alternate infinite;
       `}

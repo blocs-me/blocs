@@ -70,14 +70,16 @@ const ToDoItem = ({ todo }) => {
         fontSize="xs"
         lineHeight="1"
         color={
-          checked ? theme.colors.primary.light : theme.colors.primary.default
+          checked
+            ? theme.colors.primary["accent-2"]
+            : theme.colors.primary["accent-3"]
         }
         css={{ textDecoration: checked ? "line-through" : "none" }}
       >
         {todo.description}
         <Text
           as="span"
-          color={checked ? "primary.light" : "success"}
+          color={checked ? "primary.accent-2" : "success"}
           lineHeight="1"
           mb={0}
         >
@@ -120,7 +122,7 @@ const HabitTracker = () => {
             <Text
               fontWeight="bold"
               fontSize="sm"
-              color="primary.default"
+              color="primary.accent-3"
               mb="0"
               pl="sm"
             >
@@ -139,13 +141,13 @@ const HabitTracker = () => {
             height="1px"
             width="100%"
             px="sm"
-            bg="primary.lightest"
+            bg="primary.accent-1"
             my="sm"
           />
           <Button
             ariaLabel="add a new habit"
-            bg="primary.dark"
-            color="primary.lightest"
+            bg="primary.accent-4"
+            color="primary.accent-1"
             fontSize="xs"
             fontWeight="300"
             px="sm"

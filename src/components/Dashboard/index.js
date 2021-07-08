@@ -27,7 +27,7 @@ const ProductWrapper = ({ children, title }) => (
       textAlign="center"
       fontSize="md"
       fontWeight="bold"
-      color="primary.default"
+      color="primary.accent-3"
       letterSpacing="sm"
       mb={0}
     >
@@ -77,7 +77,7 @@ const Dashboard = ({ links }) => {
               <Text
                 m={0}
                 p={0}
-                color="primary.default"
+                color="primary.accent-3"
                 fontWeight="400"
                 textAlign="center"
                 lineHeight={0}
@@ -89,7 +89,7 @@ const Dashboard = ({ links }) => {
             </Box>
             <Flex
               alignItems="center"
-              bg="primary.default"
+              bg="primary.accent-3"
               height="15px"
               mt="xxs"
               mb="sm"
@@ -104,7 +104,7 @@ const Dashboard = ({ links }) => {
               <Text
                 as="small"
                 fontSize="10px"
-                color="primary.lightest"
+                color="primary.accent-1"
                 textAlign="center"
                 letterSpacing="sm"
               >
@@ -115,7 +115,7 @@ const Dashboard = ({ links }) => {
           <Box
             width="18px"
             height="4px"
-            bg="primary.dark"
+            bg="primary.accent-4"
             mx="auto"
             borderRadius="5px"
           />

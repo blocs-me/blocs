@@ -54,7 +54,7 @@ const TimerSvg = ({ progress = 50 }) => {
       </defs>
       <circle
         name="timer muted background"
-        stroke={theme.colors.primary.lightest}
+        stroke={theme.colors.primary["accent-1"]}
         strokeWidth={timerStrokeWidth}
         fill="none"
         cx={center}
@@ -64,7 +64,7 @@ const TimerSvg = ({ progress = 50 }) => {
       />
       <circle
         name="timer data-visual circumference tail"
-        fill={theme.colors.primary.dark}
+        fill={theme.colors.primary["accent-4"]}
         cx={circleEndX}
         cy={circleEndY}
         r="14"
@@ -72,7 +72,7 @@ const TimerSvg = ({ progress = 50 }) => {
       />
       <circle
         name="timer data-visual circumference"
-        stroke={theme.colors.primary.dark}
+        stroke={theme.colors.primary["accent-4"]}
         strokeWidth={timerStrokeWidth}
         fill="none"
         strokeDasharray={(Math.PI * 2 * radius).toFixed(2)}

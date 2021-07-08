@@ -133,7 +133,7 @@ const DetailSection = ({ title = "", children, art = <div />, kf }) => (
             as="h2"
             fontWeight="bold"
             fontSize="lg"
-            color="primary.default"
+            color="primary.accent-3"
             mt={["sm", "sm", , , 0]}
             textAlign={["center", "center", , , "left"]}
           >
@@ -232,7 +232,7 @@ const LandingPage = () => {
         alignItems="center"
         borderBottomWidth="1px"
         borderBottomStyle="solid"
-        borderBottomColor="primary.lightest"
+        borderBottomColor="primary.accent-1"
         flexDirection={["column", "column", , , "row"]}
       >
         <Flex flex="1" flexDirection="column" mb={["lg", "lg", , , 0]}>
@@ -244,7 +244,7 @@ const LandingPage = () => {
                   fontSize={["md", "lg", "xl"]}
                   as="h1"
                   mb="sm"
-                  color="primary.default"
+                  color="primary.accent-3"
                   lineHeight="1.15"
                   letterSpacing="sm"
                   textAlign={["center", "center", , , "left"]}
@@ -271,7 +271,7 @@ const LandingPage = () => {
                   fontWeight="bold"
                   fontSize="sm"
                   letterSpacing="sm"
-                  color="primary.default"
+                  color="primary.accent-3"
                   mb={0}
                   textAlign={["center", "center", , , "left"]}
                 >
@@ -279,7 +279,7 @@ const LandingPage = () => {
                 </Text>
                 <Text
                   fontSize="xxs"
-                  color="primary.light"
+                  color="primary.accent-2"
                   fontWeight="300"
                   letterSpacing="sm"
                   mb={0}
@@ -340,8 +340,8 @@ const LandingPage = () => {
                   justifyContent="center"
                   width="min(100%, 300px)"
                   fontSize={["xs", "xs", "sm"]}
-                  bg="primary.dark"
-                  color="primary.lightest"
+                  bg="primary.accent-4"
+                  color="primary.accent-1"
                   borderRadius="sm"
                   px="md"
                   py="xs"
@@ -355,11 +355,11 @@ const LandingPage = () => {
                 <Flex flexDirection="column" alignItems="center">
                   <Confetti config={confettiConfig} active={confetti} />
                   <Button
-                    bg="primary.dark"
+                    bg="primary.accent-4"
                     borderRadius="sm"
                     p="sm"
                     minWidth="300px"
-                    color="primary.lightest"
+                    color="primary.accent-1"
                     css={{ textAlign: "center" }}
                     fontSize="sm"
                     fontWeight="300"
@@ -379,7 +379,7 @@ const LandingPage = () => {
                 <Text
                   fontSize="xxs"
                   mt={["xs", "xs", , , "sm"]}
-                  color="primary.light"
+                  color="primary.accent-2"
                   letterSpacing="sm"
                 >
                   get started for{" "}
@@ -430,7 +430,7 @@ const LandingPage = () => {
       <DetailSection title="POMODORO" art={<PomodoroIntro />}>
         <Text fontSize="md" lineHeight="1.5" variant="p" fontWeight="300">
           blocs is bringing pomodoros to notion with{" "}
-          <Text as="b" color="primary.default">
+          <Text as="b" color="primary.accent-3">
             so much more !
           </Text>
         </Text>
@@ -467,7 +467,7 @@ const LandingPage = () => {
           </Text>
           <Text fontSize="md" lineHeight="1.5" variant="p" fontWeight="300">
             track and view your habits right on your{" "}
-            <Text as="b" color="primary.default">
+            <Text as="b" color="primary.accent-3">
               notion
             </Text>{" "}
             dashboard
@@ -537,7 +537,7 @@ const LandingPage = () => {
         </Text>
       </DetailSection>
       <Box
-        borderTopColor="primary.lightest"
+        borderTopColor="primary.accent-1"
         borderTopWidth="1px"
         borderTopStyle="solid"
         py="xl"
@@ -548,7 +548,7 @@ const LandingPage = () => {
         <SlideIn>
           <Box maxWidth="600px" m={["0 auto", "0 auto", , , "0"]}>
             <Text as="div" textAlign={["center", "center", , , "left"]}>
-              <Text fontWeight="bold" fontSize="lg" color="primary.default">
+              <Text fontWeight="bold" fontSize="lg" color="primary.accent-3">
                 WHY BLOCS ?
               </Text>
               <Text fontWeight="300" fontSize="md" variant="p">

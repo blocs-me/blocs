@@ -17,14 +17,14 @@ const variants = variant({
   variants: {
     round: {
       borderRadius: "lg",
-      bg: "primary.dark",
+      bg: "primary.accent-4",
       color: "background",
     },
     primary: {
       border: "none",
       outline: "none",
-      background: "primary.dark",
-      color: "primary.lightest",
+      background: "primary.accent-4",
+      color: "primary.accent-1",
       fontWeight: "300",
       fontSize: "sm",
       cursor: "pointer",
