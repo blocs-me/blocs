@@ -11,8 +11,8 @@ const rotate = keyframes`
 
 const Container = styled.div`
   border: solid 5px;
-  border-color: ${themeGet("colors.primary.light")};
-  border-left-color: ${themeGet("colors.primary.lightest")};
+  border-color: ${themeGet("colors.primary.accent-2")};
+  border-left-color: ${themeGet("colors.primary.accent-1")};
   animation: ${rotate} 2s linear infinite;
   width: 40px;
   height: 40px;

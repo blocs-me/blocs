@@ -69,7 +69,7 @@ const MainDashboard = () => {
         <Box maxWidth="350px">
           <Text as="div" textAlign="center">
             <Text
-              color="primary.default"
+              color="primary.accent-3"
               fontWeight="bold"
               fontSize="md"
               as="h3"
@@ -78,7 +78,7 @@ const MainDashboard = () => {
             >
               Thank you 🎉
             </Text>
-            <Text color="primary.light" fontWeight="300" fontSize="sm">
+            <Text color="primary.accent-2" fontWeight="300" fontSize="sm">
               {(preregisterThankYou &&
                 "Thank you for signing up for premium") ||
                 "Thank you for signing up"}
@@ -110,7 +110,7 @@ const MainDashboard = () => {
       >
         <Text as="div" textAlign="center">
           <Text
-            color="primary.default"
+            color="primary.accent-3"
             fontWeight="bold"
             fontSize="md"
             as="h3"
@@ -119,7 +119,7 @@ const MainDashboard = () => {
           >
             oh no ! 😞
           </Text>
-          <Text color="primary.light" fontWeight="300" fontSize="sm">
+          <Text color="primary.accent-2" fontWeight="300" fontSize="sm">
             looks like something went wrong <br />
             try logging in again
           </Text>

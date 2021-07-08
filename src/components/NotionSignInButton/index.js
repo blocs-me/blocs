@@ -16,8 +16,8 @@ const NotionSignInButton = (props) => {
         )}`
       )}
       fontSize={["xs", "xs", "sm"]}
-      bg="primary.dark"
-      color="primary.lightest"
+      bg="primary.accent-4"
+      color="primary.accent-1"
       borderRadius="sm"
       css={{
         display: "flex",

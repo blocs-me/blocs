@@ -4,7 +4,7 @@ import { color, space, system, typography, variant } from "styled-system"
 
 const p = {
   fontSize: ["sm", "sm", , "md"],
-  color: "primary.light",
+  color: "primary.accent-2",
   fontWeight: "300",
 }
 

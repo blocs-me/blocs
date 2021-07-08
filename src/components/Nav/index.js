@@ -31,7 +31,7 @@ export const A = styled(Text)`
   ${color}
 
   &:hover {
-    color: ${themeGet("colors.primary.dark")};
+    color: ${themeGet("colors.primary.accent-4")};
   }
 
   cursor: pointer;
@@ -49,7 +49,11 @@ export const NavLink = ({ href, text = "", passHref = false, as = "a" }) => {
 
   return (
     <Link href={href} passHref={passHref}>
-      <A as={as} color={active ? "highlight" : "primary.light"} fontSize="sm">
+      <A
+        as={as}
+        color={active ? "highlight" : "primary.accent-2"}
+        fontSize="sm"
+      >
         {text}
       </A>
     </Link>
@@ -63,7 +67,7 @@ const Hamburger = ({ open }) => {
         width="20px"
         height="2px"
         borderRadius="2px"
-        bg="primary.dark"
+        bg="primary.accent-4"
         css={{
           transition: "transform 0.5s ease",
           transform: open
@@ -76,7 +80,7 @@ const Hamburger = ({ open }) => {
         width="20px"
         height="2px"
         borderRadius="2px"
-        bg="primary.dark"
+        bg="primary.accent-4"
         css={{
           transition: "transform 0.5s ease",
           transform: open
@@ -168,7 +172,7 @@ const Nav = ({ title = "", links = [] }) => {
       }}
       style={{ "--translateY": hideNav ? "-100%" : "0" }}
       borderBottom="solid 1px"
-      borderBottomColor="primary.lightest"
+      borderBottomColor="primary.accent-1"
     >
       <PageGutters height="80px">
         <Flex
@@ -196,7 +200,7 @@ const Nav = ({ title = "", links = [] }) => {
                   fontSize={["xs", "xs", , "sm", "md", "lg"]}
                   mb={0}
                   fontWeight="bold"
-                  color="primary.default"
+                  color="primary.accent-3"
                 >
                   {title}
                 </Text>
@@ -251,7 +255,7 @@ const Nav = ({ title = "", links = [] }) => {
               {!isDashboard && !isPricing && (
                 <A
                   as="button"
-                  color="primary.light"
+                  color="primary.accent-2"
                   onClick={() => scrollToWhyBlocs()}
                   key={3}
                   css={{ padding: 0 }}
@@ -263,8 +267,8 @@ const Nav = ({ title = "", links = [] }) => {
                 <div>
                   <Button
                     border="solid 1px"
-                    borderColor="primary.default"
-                    color="primary.default"
+                    borderColor="primary.accent-3"
+                    color="primary.accent-3"
                     borderRadius="sm"
                     as="a"
                     href={`https://api.notion.com/v1/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URL}&response_type=code`}
@@ -302,7 +306,11 @@ const Nav = ({ title = "", links = [] }) => {
                   </Link>
                 )}
               {isDashboard && (
-                <A as="button" color="primary.light" onClick={() => logout()}>
+                <A
+                  as="button"
+                  color="primary.accent-2"
+                  onClick={() => logout()}
+                >
                   🖖 Logout
                 </A>
               )}

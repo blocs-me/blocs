@@ -30,7 +30,7 @@ const Li = styled.li`
   font-size: ${themeGet("fontSizes.sm")};
   font-weight: 300;
   letter-spacing: ${themeGet("letterSpacings.sm")};
-  color: ${themeGet("colors.primary.light")};
+  color: ${themeGet("colors.primary.accent-2")};
   padding: 0;
   line-height: 1;
 
@@ -147,7 +147,7 @@ const PricingPage = () => {
                 m="0"
                 p="0"
                 fontWeight="300"
-                color="primary.light"
+                color="primary.accent-2"
                 letterSpacing="sm"
               >
                 BASIC FEATURES ARE{" "}
@@ -160,7 +160,7 @@ const PricingPage = () => {
                 letterSpacing={["sm", "sm", "lg"]}
                 fontSize={["xl", "xl", "gigantic"]}
                 fontWeight="bold"
-                color="primary.default"
+                color="primary.accent-3"
                 mt="sm"
                 mb="0"
                 p={0}
@@ -169,7 +169,7 @@ const PricingPage = () => {
               </Text>
               <Text
                 fontSize={["xxs", "xxs", "xs"]}
-                color="primary.light"
+                color="primary.accent-2"
                 fontWeight="300"
                 p={0}
                 m={0}
@@ -191,8 +191,8 @@ const PricingPage = () => {
               {authValid && !preregisteredForPremium && (
                 <Button
                   fontSize={["xs", "xs", "sm"]}
-                  bg="primary.dark"
-                  color="primary.lightest"
+                  bg="primary.accent-4"
+                  color="primary.accent-1"
                   borderRadius="sm"
                   css={{
                     display: "flex",
@@ -239,8 +239,8 @@ const PricingPage = () => {
                   justifyContent="center"
                   minWidth="200px"
                   fontSize={["xs", "xs", "sm"]}
-                  bg="primary.dark"
-                  color="primary.lightest"
+                  bg="primary.accent-4"
+                  color="primary.accent-1"
                   borderRadius="sm"
                   px="md"
                   py="xs"
@@ -254,7 +254,7 @@ const PricingPage = () => {
                   <Confetti config={confettiConfig} active={confetti} />
                   <Button
                     variant="primary"
-                    bg="primary.dark"
+                    bg="primary.accent-4"
                     p="sm"
                     borderRadius="sm"
                     as="div"
@@ -318,7 +318,7 @@ const PricingPage = () => {
               as="h4"
               fontSize="sm"
               fontWeight="500"
-              color="primary.default"
+              color="primary.accent-3"
               letterSpacing="sm"
               m={0}
               mt="lg"
@@ -329,7 +329,7 @@ const PricingPage = () => {
               as="h4"
               fontSize="sm"
               fontWeight="500"
-              color="primary.default"
+              color="primary.accent-3"
               letterSpacing="sm"
               m={0}
               mt="lg"
@@ -360,7 +360,7 @@ const PricingPage = () => {
               as="h4"
               fontSize="sm"
               fontWeight="500"
-              color="primary.default"
+              color="primary.accent-3"
               letterSpacing="sm"
               m={0}
               mt="lg"
@@ -371,7 +371,7 @@ const PricingPage = () => {
               as="h4"
               fontSize="sm"
               fontWeight="500"
-              color="primary.default"
+              color="primary.accent-3"
               letterSpacing="sm"
               m={0}
               mt="lg"
@@ -399,7 +399,7 @@ const PricingPage = () => {
         left="calc(50% - 1px)"
         height="100%"
         borderLeftWidth="1px"
-        borderLeftColor="primary.lightest"
+        borderLeftColor="primary.accent-1"
         borderLeftStyle={["none", "none", , , "solid"]}
         zIndex="-1"
       />
@@ -412,7 +412,7 @@ const PricingPage = () => {
       >
         <Text as="div" textAlign="center">
           <Text
-            color="primary.default"
+            color="primary.accent-3"
             fontWeight="bold"
             fontSize="md"
             as="h3"
@@ -421,7 +421,7 @@ const PricingPage = () => {
           >
             Thank you 🎉
           </Text>
-          <Text color="primary.light" fontWeight="300" fontSize="sm">
+          <Text color="primary.accent-2" fontWeight="300" fontSize="sm">
             Thank you for signing up for premium
             <br />
             We&#39;re working hard to release blocs ASAP and we&#39;ll inform
@@ -451,7 +451,7 @@ const PricingPage = () => {
       >
         <Text as="div" textAlign="center">
           <Text
-            color="primary.default"
+            color="primary.accent-3"
             fontWeight="bold"
             fontSize="md"
             as="h3"
@@ -460,7 +460,7 @@ const PricingPage = () => {
           >
             oh no ! 😞
           </Text>
-          <Text color="primary.light" fontWeight="300" fontSize="sm">
+          <Text color="primary.accent-2" fontWeight="300" fontSize="sm">
             looks like something went wrong <br />
             try pre-registering again
           </Text>
@@ -468,8 +468,8 @@ const PricingPage = () => {
           {authValid && !preregisteredForPremium && (
             <Button
               fontSize={["xs", "xs", "sm"]}
-              bg="primary.dark"
-              color="primary.lightest"
+              bg="primary.accent-4"
+              color="primary.accent-1"
               borderRadius="sm"
               css={{
                 display: "flex",

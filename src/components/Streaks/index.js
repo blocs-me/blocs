@@ -89,7 +89,7 @@ const StreakItem = ({
     >
       <Box>
         <Text
-          color="primary.default"
+          color="primary.accent-3"
           fontSize="xs"
           fontWeight="bold"
           letterSpacing="sm"
@@ -98,7 +98,7 @@ const StreakItem = ({
         >
           {habit}
         </Text>
-        <Text fontSize="xxs" color="primary.default" mb={0}>
+        <Text fontSize="xxs" color="primary.accent-3" mb={0}>
           🔥 {streak}
         </Text>
       </Box>

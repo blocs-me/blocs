@@ -64,7 +64,7 @@ const Analytics = ({
               mb={0}
               pb={0}
               lineHeight="0.9"
-              color="primary.default"
+              color="primary.accent-3"
             >
               {title}
               <Icon
@@ -82,7 +82,7 @@ const Analytics = ({
               fontSize="0.5rem"
               pt={0}
               mb={0}
-              color="primary.light"
+              color="primary.accent-2"
             >
               Jan 7th - Feb 7th 2021
             </Text>
@@ -91,7 +91,7 @@ const Analytics = ({
             <Text
               fontWeight="400"
               fontSize="0.6rem"
-              color="primary.default"
+              color="primary.accent-3"
               lineHeight={"0.9"}
             >
               weekly

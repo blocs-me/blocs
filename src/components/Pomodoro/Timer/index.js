@@ -30,7 +30,7 @@ const Timer = ({ progressInMilliseconds, progress }) => (
         <Text
           fontSize="lg"
           fontWeight="bold"
-          color="primary.default"
+          color="primary.accent-3"
           lineHeight={0}
           textAlign="right"
           css={{ width: "2ch" }}
@@ -41,7 +41,7 @@ const Timer = ({ progressInMilliseconds, progress }) => (
         <Text
           fontSize="lg"
           fontWeight="bold"
-          color="primary.default"
+          color="primary.accent-3"
           lineHeight={0}
           textAlign="center"
           css={{ width: "1ch" }}
@@ -52,7 +52,7 @@ const Timer = ({ progressInMilliseconds, progress }) => (
         <Text
           fontSize="lg"
           fontWeight="bold"
-          color="primary.default"
+          color="primary.accent-3"
           lineHeight={0}
           textAlign="left"
           css={{ width: "2ch" }}
@@ -64,7 +64,7 @@ const Timer = ({ progressInMilliseconds, progress }) => (
       <Text
         fontSize="xs"
         fontWeight="300"
-        color="primary.light"
+        color="primary.accent-2"
         textAlign="center"
         m="0"
       >

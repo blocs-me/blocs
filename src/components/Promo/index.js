@@ -70,7 +70,7 @@ const TypeAnim = ({
     overflow="hidden"
   >
     <Text
-      color="primary.default"
+      color="primary.accent-3"
       fontSize="lg"
       fontWeight="bold"
       {...textProps}
@@ -215,7 +215,7 @@ const Intro = () => (
               Build better habits inside{" "}
               <Box
                 as="span"
-                bg="primary.lightest"
+                bg="primary.accent-1"
                 px="sm"
                 py="sm"
                 borderRadius="md"
@@ -417,7 +417,7 @@ const Outro = () => {
           delay="2s"
           textProps={{
             fontSize: "lg",
-            color: "primary.default",
+            color: "primary.accent-3",
             fontWeight: "bold",
             px: "sm",
             mt: "lg",

@@ -13,7 +13,7 @@ const Text = styled.span`
   font-family: inherit;
   padding: 3px 4px;
   background: ${tg("colors.secondary")};
-  color: ${tg("colors.primary.lightest")};
+  color: ${tg("colors.primary.accent-1")};
   font-weight: 400;
   font-size: 0.5rem;
   line-height: 1;
@@ -33,7 +33,7 @@ const Text = styled.span`
   }
 `
 
-const BetaWrapper = ({ children, color = "primary.default" }) => {
+const BetaWrapper = ({ children, color = "primary.accent-3" }) => {
   return (
     <Box position="relative" color={color} width="fit-content" as="span">
       {children}

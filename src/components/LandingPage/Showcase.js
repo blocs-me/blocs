@@ -31,7 +31,7 @@ const SlideIndicator = ({ currentIndex, numberOfItems = 3, setIndex }) => (
           }}
           size="8px"
           borderRadius="50%"
-          bg={currentIndex === i ? "secondary" : "primary.lightest"}
+          bg={currentIndex === i ? "secondary" : "primary.accent-1"}
         />
       ))}
   </Stack>

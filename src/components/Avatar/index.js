@@ -16,7 +16,7 @@ const Image = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
-  background-color: ${themeGet("colors.primary.lightest")};
+  background-color: ${themeGet("colors.primary.accent-1")};
   opacity: 0;
   animation: ${fadeIn} 1s ease 0.1s forwards;
 `
