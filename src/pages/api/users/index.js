@@ -3,6 +3,7 @@ import faunaClient from "@/lambda/faunaClient"
 import updateUserData from "@/lambda/helpers/updateUserData"
 import getNotionUser from "@/lambda/helpers/getNotionUser"
 import authenticateNotionUser from "@/lambda/helpers/authenticateNotionUser"
+import addUserToMailingList from "@/lambda/helpers/addUserToMailingList"
 
 const checkIfUserExists = async (email) => {
   try {
