@@ -2,7 +2,7 @@ import md5 from "md5"
 import mailchimp from "../mailchimpMarketingClient"
 import mailchimpSubscriptionStates from "@/constants/mailchimpSubscriptionStates"
 
-const listId = process.env.MAILCHIMP_BLOCS_UPDATES_AUDIENCE_ID
+const listId = process.env.MAILCHIMP_LIST_ID
 
 const checkIfUserIsSubscribed = async (user) => {
   if (!user)
