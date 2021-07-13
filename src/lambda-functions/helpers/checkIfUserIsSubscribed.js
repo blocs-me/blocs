@@ -17,8 +17,10 @@ const checkIfUserIsSubscribed = async (user) => {
     const response = await mailchimp.lists.getListMember(listId, subscriberHash)
     return Object.values(mailchimpSubscriptionStates).includes(response.status)
   } catch (error) {
-    console.log(error, "checkifusererr")
-    return false
+    if (error.status === 404) {
+      return false
+    }
+    throw error
   }
 }
 
