@@ -1,10 +1,8 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-
-import faunaClient from "../../../lambda-functions/faunaClient"
 import { Collection, Create, Get, Index, Match, query } from "faunadb"
-import authenticateNotionUser from "../../../lambda-functions/helpers/authenticateNotionUser"
-import getNotionUser from "../../../lambda-functions/helpers/getNotionUser"
-import updateUserData from "../../../lambda-functions/helpers/updateUserData"
+import faunaClient from "@/lambda/faunaClient"
+import updateUserData from "@/lambda/helpers/updateUserData"
+import getNotionUser from "@/lambda/helpers/getNotionUser"
+import authenticateNotionUser from "@/lambda/helpers/authenticateNotionUser"
 
 const checkIfUserExists = async (email) => {
   try {
@@ -19,10 +17,11 @@ const checkIfUserExists = async (email) => {
 
 const saveUser = async (userData, preregisteredForPremium = false) => {
   const { person } = userData
+
   const userExists = await checkIfUserExists(person?.email)
 
+  // if already signed up user clicks the pre-register button on the pricing page
   if (
-    // if already signed up user clicks the pre-register button on the pricing page
     userExists &&
     !userExists.data.preregisteredForPremium &&
     preregisteredForPremium
@@ -42,6 +41,7 @@ const saveUser = async (userData, preregisteredForPremium = false) => {
 
   if (!userExists) {
     try {
+      await addUserToMailingList(person) // add to mailchimp
       const user = await faunaClient.query(
         Create(Collection("users"), {
           data: {
