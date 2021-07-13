@@ -42,7 +42,6 @@ const saveUser = async (userData, preregisteredForPremium = false) => {
 
   if (!userExists) {
     try {
-      await addUserToMailingList(person) // add to mailchimp
       const user = await faunaClient.query(
         Create(Collection("users"), {
           data: {
@@ -53,6 +52,11 @@ const saveUser = async (userData, preregisteredForPremium = false) => {
           },
         })
       )
+
+      await addUserToMailingList({
+        name: userData.name,
+        email: userData.person.email,
+      })
 
       return { ...user.data, firstTimeSignIn: true }
     } catch (error) {
