@@ -44,7 +44,6 @@ const GlobalStyle = () => {
         body {
           font-family: "Karla", sans-serif;
           font-weight: 400;
-          line-height: 1.75;
           font-kerning: normal;
           /* font-feature-settings: 'kern', 'liga', 'clig', 'calt'; */
           /* background: ${theme.colors.bg.default}; */
@@ -52,6 +51,7 @@ const GlobalStyle = () => {
 
         p {
           margin-bottom: 1rem;
+          line-height: 1.75;
         }
 
         h1,
@@ -89,6 +89,30 @@ const GlobalStyle = () => {
         small,
         .text_small {
           font-size: 0.833rem;
+        }
+
+        @keyframes slideIn {
+          0% {
+            opacity: 0;
+            transform: translate3d(0, 10px, 0);
+          }
+
+          100% {
+            opacity: 1;
+            transform: translate3d(0, 0, 0);
+          }
+        }
+
+        @keyframes slideOut {
+          0% {
+            opacity: 1;
+            transform: translate3d(0, 0, 0);
+          }
+
+          100% {
+            opacity: 0;
+            transform: translate3d(0, 10px, 0);
+          }
         }
       `}
     />
