@@ -3,7 +3,7 @@ import themeGet from "@styled-system/theme-get"
 import { useContext, useEffect, useRef, useState } from "react"
 import { animate } from "popmotion"
 import { useRouter } from "next/router"
-import { color, shadow } from "styled-system"
+import { color } from "styled-system"
 import styled from "@emotion/styled"
 import Link from "next/link"
 import Logo from "../../../icons/blocs-logo.svg"
@@ -183,7 +183,11 @@ const Nav = ({ title = "", links = [] }) => {
           <div css={{ flex: 1 }}>
             <Link href="/">
               <a>
-                <Icon css={{ svg: { verticalAlign: "middle" } }}>
+                <Icon
+                  css={{ svg: { verticalAlign: "middle" } }}
+                  stroke="secondary"
+                  fill="secondary"
+                >
                   <Box width={["32px", "32px", "50px"]}>
                     <Logo />
                   </Box>

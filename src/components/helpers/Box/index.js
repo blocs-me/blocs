@@ -14,7 +14,15 @@ import {
   zIndex,
 } from "styled-system"
 import shouldForwardProp from "@styled-system/should-forward-prop"
-import { css } from "@emotion/react"
+import { themeGet } from "@styled-system/theme-get"
+
+const hoverColor = (props) => ({
+  "p:hover, span:hover": {
+    color: props.hoverColor
+      ? themeGet(`colors.${props.hoverColor}`)(props)
+      : "inherit",
+  },
+})
 
 const boxStylesProps = compose(
   space,
@@ -30,6 +38,6 @@ const boxStylesProps = compose(
 
 const Box = styled("div", {
   shouldForwardProp,
-})(boxStylesProps)
+})(hoverColor, boxStylesProps)
 
 export default Box

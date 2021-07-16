@@ -21,6 +21,9 @@ const h4 = {
 const textTransform = system({
   textTransform: true,
 })
+const whiteSpace = system({
+  whiteSpace: true,
+})
 
 const variants = variant({
   variants: {
@@ -34,6 +37,7 @@ const Text = styled("p", { shouldForwardProp })(
   space,
   typography,
   textTransform,
+  whiteSpace,
   color,
   variants
 )
