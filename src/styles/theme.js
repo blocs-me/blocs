@@ -1,5 +1,6 @@
 const colors = {
   primary: {
+    "accent-0.5": "#fcfcfc",
     "accent-1": "#eaeaea",
     "accent-2": "#646464",
     "accent-3": "#333333",
@@ -12,6 +13,7 @@ const colors = {
   danger: "#e22b2b",
   highlight: "#402be2",
   bg: {
+    default: "#FFF",
     notion: "#FFF",
     500: "#FFF",
     600: "#FCFCFC",
@@ -29,7 +31,7 @@ const space = {
 }
 
 const fontSizes = {
-  xxs: "0.6rem",
+  xxs: "0.579rem",
   xs: "0.694rem",
   sm: "0.833rem",
   md: "1rem",

@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { useRouter } from "next/router"
-import { useEffect, useRef } from "react"
+import { useEffect, useRef } from "react" 
 import { createPortal } from "react-dom"
 import BackArrow from "../../../icons/back-arrow-dark.svg"
 import fadeIn from "@/keyframes/fadeIn"

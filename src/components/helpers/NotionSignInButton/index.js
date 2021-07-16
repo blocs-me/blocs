@@ -30,7 +30,7 @@ const NotionSignInButton = (props) => {
       variant="primary"
       width="fit-content"
       {...props}
-      ariaLabel="sign up to blocs with notion"
+      aria-label="sign up to blocs with notion"
       rel="noopener"
     >
       <Box

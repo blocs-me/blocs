@@ -1,28 +1,43 @@
 /** @jsxImportSource @emotion/react */
 import Box from "../Box"
-import NavIcon from "../NavIcon"
-import MainMenuIcon from "../../../icons/menu.svg"
+import MenuIcon from "./MenuIcon"
+import { useRouter } from "next/router"
 
-const WidgetLayout = ({ children, icon = <MainMenuIcon /> }) => (
-  <Box
-    width="280px"
-    height="350px"
-    boxShadow="default"
-    borderRadius="lg"
-    bg="bg.default"
-    overflow="hidden"
-    position="relative"
-  >
-    {children}
+const WidgetLayout = ({ children }) => {
+  const { pathname } = useRouter()
+
+  const getAriaLabel = () => {
+    if (pathname === "/") {
+      return "Main Navigation Menu"
+    }
+
+    return "Go back"
+  }
+
+  return (
     <Box
-      position="absolute"
-      top="0"
-      right="0"
-      css={{ transform: "translate(25%, -25%)" }}
+      width="280px"
+      height="350px"
+      boxShadow="default"
+      borderRadius="lg"
+      bg="bg.default"
+      overflow="hidden"
+      position="relative"
     >
-      <NavIcon>{icon}</NavIcon>
+      {children}
+      <Box
+        top={0}
+        right={0}
+        position="absolute"
+        zIndex="nav"
+        css={{ transform: "translate(25%, -25%)" }}
+      >
+        <button aria-label={getAriaLabel()}>
+          <MenuIcon />
+        </button>
+      </Box>
     </Box>
-  </Box>
-)
+  )
+}
 
 export default WidgetLayout

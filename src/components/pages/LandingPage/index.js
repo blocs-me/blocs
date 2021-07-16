@@ -300,7 +300,7 @@ const LandingPage = () => {
                     target="_blank"
                     aria-label="Blocs founders Linkedin"
                   >
-                    <Icon size="50px">
+                    <Icon size="50px" fill="primary.accent-4">
                       <Linkedin />
                     </Icon>
                   </SocialIcon>
@@ -310,7 +310,7 @@ const LandingPage = () => {
                     target="_blank"
                     aria-label="Blocs founders Codepen"
                   >
-                    <Icon size="50px">
+                    <Icon size="50px" fill="primary.accent-4">
                       <Codepen />
                     </Icon>
                   </SocialIcon>
@@ -319,7 +319,7 @@ const LandingPage = () => {
                     rel="noopener"
                     aria-label="Blocs founders Email address"
                   >
-                    <Icon size="50px">
+                    <Icon size="50px" stroke="initial" fill="initial">
                       <Email />
                     </Icon>
                   </SocialIcon>
