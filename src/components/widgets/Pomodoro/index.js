@@ -1,40 +1,35 @@
 /** @jsxImportSource @emotion/react */
-import { animate } from "popmotion"
-import { useContext, useEffect, useState } from "react"
-import Link from "next/link"
+import { useEffect, useState } from "react"
 import WidgetLayout from "@/helpers/WidgetLayout"
 import Timer from "./Timer"
 import Button from "@/design-system/Button"
 import Flex from "@/helpers/Flex"
-import PomodoroContextProvider from "./PomodoroContextProvider"
 import Grid from "@/helpers/Grid"
-
+import { usePomodoroStore, usePomodoroDispatch } from "./usePomodoroStore"
 import Icon from "@/helpers/Icon"
 import Heart from "../../../icons/heart.svg"
-import pomodoroContext from "./pomodoroContext"
-
-import Stack from "@/helpers/Stack"
 import QuickAccessMenu from "./QuickAccessMenu"
+import { setDocumentTimelineStart, setStartedAt } from "./pomodoroActions"
 
 const FavouriteButton = () => {
-  const [isFavourite, setIsFavourite] = useState(true)
-  const [
-    {
-      favourites = [],
-      timer: { settings },
-    },
-  ] = useContext(pomodoroContext)
+  const [isFavorite, setIsFavourite] = useState(false)
+  const {
+    favorites = [],
+    session: { startedAt, endedAt },
+    sessionSettings,
+  } = usePomodoroStore()
 
   useEffect(() => {
     if (
-      favourites.some(
-        (favourite) =>
-          settings.time === favourite.time && settings.label === favourite.label
+      favorites.find(
+        (favorite) =>
+          sessionSettings.interval === favorite.interval &&
+          sessionSettings.label === favorite.label
       )
     ) {
       setIsFavourite(true)
     }
-  }, [])
+  }, [favorites]) // eslint-disable-line
 
   return (
     <Flex
@@ -43,12 +38,12 @@ const FavouriteButton = () => {
       position="relative"
       overflow="visible"
       aria-label="Quick access menu"
-      onClick={() => setIsFavourite(!isFavourite)}
+      onClick={() => setIsFavourite(!isFavorite)}
     >
       <Icon
         size="22px"
-        stroke={isFavourite ? "danger" : "primary.accent-2"}
-        fill={isFavourite ? "danger" : "bg.default"}
+        stroke={isFavorite ? "danger" : "primary.accent-2"}
+        fill={isFavorite ? "danger" : "bg.default"}
       >
         <Heart />
       </Icon>
@@ -57,95 +52,58 @@ const FavouriteButton = () => {
 }
 
 const Pomodoro = () => {
-  const pomodoroTime = 1000 * 60 * 5
-  const [progress, setProgress] = useState(0)
-  const [progressInMilliseconds, setProgressInMilliseconds] =
-    useState(pomodoroTime)
-  const [timeStart, setTimeStart] = useState(false)
+  const {
+    session: { startedAt },
+  } = usePomodoroStore()
 
-  const handleTimeout = () => {
-    const millisecondsProgressed = new Date().getTime() - timeStart
-    const percentProgressed = (millisecondsProgressed * 100) / pomodoroTime
+  const pomodoroDispatch = usePomodoroDispatch()
 
-    if (millisecondsProgressed <= pomodoroTime) {
-      setProgressInMilliseconds(millisecondsProgressed)
-      setProgress(percentProgressed)
-    } else {
-      setTimeStart(false)
-      setProgress(0)
-      setProgressInMilliseconds(pomodoroTime)
-    }
-  }
-
-  useEffect(() => {
-    let progressInterval
-
-    if (timeStart) progressInterval = setTimeout(() => handleTimeout(), 1000)
-
-    return () => {
-      clearTimeout(progressInterval)
-    }
-  }, [progress, timeStart])
-
-  const handleClick = (ev) => {
-    ev.preventDefault()
-    if (timeStart) {
-      animate({
-        from: progress,
-        to: 0,
-        duration: 20 * progress,
-        onUpdate: (percent) => {
-          setProgress(percent)
-        },
-      })
-
-      setProgressInMilliseconds(pomodoroTime)
-      return setTimeStart(false)
+  const handleClick = () => {
+    if (startedAt) {
+      pomodoroDispatch(setStartedAt(null))
+      // TO DO, handle database update
+      return null
     }
 
-    setTimeStart(new Date().getTime())
+    pomodoroDispatch(setDocumentTimelineStart(document.timeline.currentTime))
+    pomodoroDispatch(setStartedAt(Date.now()))
   }
 
   return (
-    <PomodoroContextProvider>
-      <WidgetLayout>
-        <Flex
+    <WidgetLayout>
+      <Flex
+        width="100%"
+        height="100%"
+        justifyContent="center"
+        alignItems="center"
+        flexDirection="column"
+      >
+        <Timer />
+        <Grid
+          gridTemplateColumns="1fr 1fr 1fr"
+          justifyContent="space-between"
           width="100%"
-          height="100%"
-          justifyContent="center"
+          mx="auto"
           alignItems="center"
-          flexDirection="column"
+          mt="sm"
         >
-          <Timer
-            progress={progress}
-            progressInMilliseconds={progressInMilliseconds}
-          />
-          <Grid
-            gridTemplateColumns="1fr 1fr 1fr"
-            justifyContent="space-between"
-            width="100%"
-            mx="auto"
-            alignItems="center"
-            mt="sm"
+          <QuickAccessMenu />
+          <Button
+            onClick={(ev) => handleClick(ev)}
+            width="100px"
+            variant="round"
+            height="35px"
+            fontSize="xs"
+            letterSpacing="sm"
+            aria-label="Start or stop timer"
+            bg="primary.accent-3"
           >
-            <QuickAccessMenu />
-            <Button
-              onClick={(ev) => handleClick(ev)}
-              width="100px"
-              variant="round"
-              height="35px"
-              fontSize="xs"
-              letterSpacing="sm"
-              aria-label="Start or stop timer"
-              bg="primary.accent-3"
-            >
-              {timeStart ? "stop" : "start"}
-            </Button>
-            <FavouriteButton />
-          </Grid>
-        </Flex>
-      </WidgetLayout>
-    </PomodoroContextProvider>
+            {startedAt ? "stop" : "start"}
+          </Button>
+          <FavouriteButton />
+        </Grid>
+      </Flex>
+    </WidgetLayout>
   )
 }
 
