@@ -12,7 +12,8 @@ const Icon = styled("div", {
     svg: {
       width: "100%",
       maxWidth: "100%",
-      "& path": {
+      maxHeight: "100%",
+      "& path, circle": {
         fill: props.fill ? themeGet(`colors.${props.fill}`)(props) : " none",
         stroke: props.stroke
           ? themeGet(`colors.${props.stroke}`)(props)
