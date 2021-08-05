@@ -3,10 +3,12 @@ import Box from "../Box"
 import MenuIcon from "./MenuIcon"
 import { useRouter } from "next/router"
 
-const WidgetLayout = ({ children }) => {
+const WidgetLayout = ({ children, onMenuClick, menuAria, iconType }) => {
   const { pathname } = useRouter()
 
   const getAriaLabel = () => {
+    if (menuAria) return menuAria()
+
     if (pathname === "/") {
       return "Main Navigation Menu"
     }
@@ -32,8 +34,8 @@ const WidgetLayout = ({ children }) => {
         zIndex="nav"
         css={{ transform: "translate(25%, -25%)" }}
       >
-        <button aria-label={getAriaLabel()}>
-          <MenuIcon />
+        <button aria-label={getAriaLabel()} onClick={() => onMenuClick()}>
+          <MenuIcon iconType={iconType} />
         </button>
       </Box>
     </Box>
