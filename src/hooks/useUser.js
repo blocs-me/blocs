@@ -1,7 +1,7 @@
 import { useRouter } from "next/router"
 import { useContext, useEffect, useMemo, useState } from "react"
 import globalContext from "@/contexts/GlobalContextProvider/globalContext"
-import { USER_PATH } from "@/utils/apiPaths"
+import { USER_PATH } from "@/utils/endpoints"
 import { ERROR, LOADING, SUCCESS } from "@/constants/fetchStates"
 import {
   setAccessToken,

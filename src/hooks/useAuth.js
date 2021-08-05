@@ -9,7 +9,7 @@ import {
 } from "../contexts/GlobalContextProvider/globalActions"
 import globalContext from "@/contexts/GlobalContextProvider/globalContext"
 import getAccessToken from "@/utils/getAccessToken"
-import { VALIDATE_USER_AUTH_PATH } from "@/utils/apiPaths"
+import { VALIDATE_USER_AUTH_PATH } from "@/utils/endpoints"
 import useFetch from "./useFetch"
 
 const useAuth = (options = {}) => {
