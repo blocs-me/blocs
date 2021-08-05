@@ -1,6 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="18.5" height="16.336" viewBox="0 0 18.5 16.336">
-  <g id="Group_161" transform="translate(0 28.618)">
-    <path id="Path_82" d="M1.25-14.05h16" transform="translate(0 -6.4)" fill="none" stroke="#f2f2f2" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" />
-    <path id="Path_83" d="M7.65-14.05l-6.4-6.4,6.4-6.4" fill="none" stroke="#f2f2f2" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" />
+<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50">
+  <g id="Group_521" data-name="Group 521" transform="translate(908 616)">
+    <circle id="Ellipse_83" data-name="Ellipse 83" cx="25" cy="25" r="25" transform="translate(-908 -616)" fill="#e00079"/>
+    <g id="Group_161" data-name="Group 161" transform="translate(-896.654 -562.352)">
+      <path id="Path_82" data-name="Path 82" d="M1.25-14.05h12.4" transform="translate(0 -7.838)" fill="none" stroke="#eaeaea" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"/>
+      <path id="Path_83" data-name="Path 83" d="M6.212-16.927,1.25-21.888,6.212-26.85" fill="none" stroke="#eaeaea" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"/>
+    </g>
   </g>
 </svg>
