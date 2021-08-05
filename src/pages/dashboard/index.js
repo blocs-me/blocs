@@ -9,7 +9,7 @@ import Link from "@/design-system/Link/index.js"
 import Modal from "@/design-system/Modal.js"
 import NotionSignInButton from "@/helpers/NotionSignInButton"
 import Text from "@/design-system/Text"
-import { USER_PATH } from "@/utils/apiPaths"
+import { USER_PATH } from "@/utils/endpoints"
 import getAccessToken from "@/utils/getAccessToken"
 
 const MainDashboard = () => {
