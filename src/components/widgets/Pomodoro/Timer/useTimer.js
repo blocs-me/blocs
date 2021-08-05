@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react"
 import { usePomodoroStore, usePomodoroDispatch } from "../usePomodoroStore"
 import { setStartedAt } from "../pomodoroActions"
+import minsAsms from "@/utils/minsAsms"
 
 const msToSeconds = (ms) => {
   const minutes = Math.floor(ms / (1000 * 60))
@@ -24,11 +25,11 @@ const useTimer = () => {
   const [percentProgressed, setPercentProgressed] = useState(0)
 
   const handleTimeout = (elapsed) => {
-    const elapsedTimePercent = (elapsed * 100) / interval
+    const elapsedTimePercent = (elapsed * 100) / minsAsms(interval)
 
     if (elapsedTimePercent >= 100) {
       console.log("timer finished", elapsedTimePercent)
-      setProgressInMilliseconds(interval)
+      setProgressInMilliseconds(minsAsms(interval))
       setPercentProgressed(0)
       pomodoroDispatch(setStartedAt(null))
       return null
@@ -64,7 +65,7 @@ const useTimer = () => {
     } else {
       controller.current?.abort()
       clearTimeout(timerTimeout.current)
-      setProgressInMilliseconds(interval)
+      setProgressInMilliseconds(minsAsms(interval))
       setPercentProgressed(0)
     }
   }, [startedAt]) // eslint-disable-line
