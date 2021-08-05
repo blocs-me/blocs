@@ -9,6 +9,9 @@ import useTimer from "./useTimer"
 
 const Timer = () => {
   const { clock, percentProgressed } = useTimer()
+  const {
+    sessionSettings: { label = "", labelColor = "#000" },
+  } = usePomodoroStore()
 
   return (
     <Flex width="80%" height="auto" css={{ position: "relative" }}>
@@ -68,9 +71,9 @@ const Timer = () => {
             display="inline-block"
             borderRadius="xs"
             mr="xxs"
-            bg="blue"
+            bg={labelColor}
           />
-          work
+          {label}
         </Text>
       </Box>
     </Flex>

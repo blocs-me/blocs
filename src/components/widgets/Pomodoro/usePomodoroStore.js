@@ -8,7 +8,9 @@ const initialState = {
     endedAt: null,
   },
   sessionSettings: {
-    interval: 1000 * 60 * 25,
+    interval: 25,
+    longBreakInterval: 10,
+    shortBreakInterval: 5,
     label: "work",
     labelColor: "#0070e0",
     id: "",
