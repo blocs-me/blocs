@@ -1,4 +1,8 @@
 const colors = {
+  fade: {
+    from: "rgba(255,255,255,0)",
+    to: "rgba(255,255,255,1)",
+  },
   primary: {
     "accent-0.5": "#fcfcfc",
     "accent-1": "#eaeaea",
@@ -16,7 +20,7 @@ const colors = {
     default: "#FFF",
     notion: "#FFF",
     500: "#FFF",
-    600: "#FCFCFC",
+    light: "#FCFCFC",
   },
 }
 
