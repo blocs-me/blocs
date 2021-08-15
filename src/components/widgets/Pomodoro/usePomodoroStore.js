@@ -1,11 +1,27 @@
 import makeStore from "src/lib/makeStore"
 import pomodoroReducer from "./pomodoroReducer"
 
+const getCachedPomodoroPreferences = () => {
+  if (global.window) {
+    const preferences = window.localStorage.getItem("pomodoroPreferences")
+    if (preferences) return JSON.parse(preferences)
+  }
+
+  return {}
+}
+
 const initialState = {
   favorites: [],
   session: {
     startedAt: null,
     endedAt: null,
+  },
+  preferences: {
+    autoSetTheme: true,
+    deepFocus: true,
+    startLongBreakAfter: 5,
+    alarmVolume: 50,
+    ...getCachedPomodoroPreferences(),
   },
   sessionSettings: {
     interval: 25,

@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { forwardRef, useState } from "react"
 import { useTheme } from "@emotion/react"
 import themeGet from "@styled-system/theme-get"
 import styled from "@emotion/styled"
@@ -18,6 +18,8 @@ const Input = styled.input`
   text-align: center;
   background-color: ${themeGet("colors.bg.light")};
 
+  appearance: none;
+
   &:focus-visible,
   &:focus {
     outline: none;
@@ -25,27 +27,58 @@ const Input = styled.input`
   }
 `
 
-const TinyInput = ({
-  register,
-  required,
-  label = "",
-  name = "",
-  pattern = null,
-  id,
-  type = "text",
-  width = "50px",
-  height = "30px",
-}) => {
-  return (
-    <Flex alignItems="center">
-      <Box width={width} height={height} mr="xs">
-        <Input {...register(name, { required, pattern })} id={id} type={type} />
-      </Box>
-      <Text fontWeight={600} fontSize="xs" m={0} htmlFor={id}>
-        {label}
-      </Text>
-    </Flex>
-  )
-}
+/* eslint-disable  react/display-name */
+
+const TinyInput = forwardRef(
+  (
+    {
+      label = "",
+      name = "",
+      pattern = null,
+      id,
+      type = "text",
+      width = "50px",
+      height = "30px",
+      placeholder = "",
+      min,
+      max,
+      onChange,
+      onBlur = () => {},
+    },
+    ref
+  ) => {
+    const dynamicProps = (() => {
+      switch (type) {
+        case "number":
+          return {
+            min,
+            max,
+          }
+        default:
+          return {}
+      }
+    })()
+
+    return (
+      <Flex alignItems="center">
+        <Box width={width} height={height} mr="xs">
+          <Input
+            ref={ref}
+            onChange={(value) => onChange(value)}
+            name={name}
+            id={id}
+            type={type}
+            placeholder={placeholder}
+            onBlur={onBlur}
+            {...dynamicProps}
+          />
+        </Box>
+        <Text fontWeight={600} fontSize="xs" m={0} htmlFor={id}>
+          {label}
+        </Text>
+      </Flex>
+    )
+  }
+)
 
 export default TinyInput

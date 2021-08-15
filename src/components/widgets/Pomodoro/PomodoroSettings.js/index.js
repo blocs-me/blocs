@@ -51,24 +51,42 @@ const Para = ({ children }) => (
 )
 
 const PomodoroSettings = () => {
-  const { sessionSettings } = usePomodoroStore()
+  const { sessionSettings, preferences } = usePomodoroStore()
   const dispatch = usePomodoroDispatch()
   const numCheckRegex = /\d./
-  const sessionSettingsDefault = useMemo(() => sessionSettings, [])
+  const sessionSettingsDefault = useMemo(() => {
+    return sessionSettings
+  }, [])
+  const preferencesDefault = useMemo(() => {
+    return preferences
+  }, [])
   const { register, formState, handleSubmit, setValue, watch, getValues } =
     useForm({
       mode: "onChange",
       defaultValues: {
         sessionSettings: sessionSettingsDefault,
+        preferences: preferencesDefault,
       },
     })
 
   useEffect(() => {
     return () => {
-      dispatch(setPomodoroSessionSettings(getValues().sessionSettings))
-      dispatch(setPomodoroPreferences(getValues().preferences))
+      handleSubmit(() => {
+        localStorage.setItem(
+          "pomodoroPreferences",
+          JSON.stringify(getValues().preferences)
+        )
+        dispatch(setPomodoroSessionSettings(getValues().sessionSettings))
+        dispatch(setPomodoroPreferences(getValues().preferences))
+      })()
     }
   }, [])
+
+  const handleLongBreakInput = (value) => {
+    if (numCheckRegex.test(value)) {
+      setValue("preferences", value)
+    }
+  }
 
   return (
     <Flex
@@ -81,47 +99,30 @@ const PomodoroSettings = () => {
       <MenuHeader icon={<Clock />} title="settings" />
       <ScrollProvider>
         <section aria-label="Set Pomodoro Time">
-          <Header>Set time</Header>
+          <Header>pomodoro</Header>
           <MenuItem>
-            <Para>pomodoro</Para>
-            <TinyInput
-              type="text"
-              id="interval"
-              label="mins"
-              name="sessionSettings.interval"
-              pattern={numCheckRegex}
-              register={register}
-            />
+            <Flex alignItems="center">
+              <Box mr="xs">
+                <Para css={{ display: "inline-block" }}>long break after</Para>
+              </Box>
+              <Flex>
+                <TinyInput
+                  type="number"
+                  min="0"
+                  max="20"
+                  id="interval"
+                  label="sessions"
+                  {...register("preferences.startLongBreakAfter", {
+                    pattern: numCheckRegex,
+                  })}
+                  onChange={handleLongBreakInput}
+                />
+              </Flex>
+            </Flex>
           </MenuItem>
           <MenuItem>
-            <Para>long break</Para>
-            <TinyInput
-              type="text"
-              id="longBreak"
-              name="sessionSettings.longBreakInterval"
-              label="mins"
-              pattern={numCheckRegex}
-              register={register}
-            />
-          </MenuItem>
-          <MenuItem>
-            <Para>short break</Para>
-            <TinyInput
-              type="text"
-              id="shortBreak"
-              name="sessionSettings.shortBreakInterval"
-              label="mins"
-              register={register}
-              pattern={numCheckRegex}
-            />
-          </MenuItem>
-        </section>
-        <section aria-label="Set Preferences">
-          <Header>Preferences</Header>
-          <MenuItem>
-            <Para>auto start pomodoro</Para>
+            <Para css={{ display: "inline-block" }}>auto start session</Para>
             <Switch
-              checked={formState.autoStartPomodoro}
               register={register("preferences.autoStartPomodoro")}
               ariaLabel={"auto start pomodoro"}
             />
@@ -129,17 +130,28 @@ const PomodoroSettings = () => {
           <MenuItem>
             <Para>auto start break</Para>
             <Switch
-              checked={formState.autoStartPomodoro}
               register={register("preferences.autoStartBreak")}
               ariaLabel={"auto start break"}
             />
           </MenuItem>
+        </section>
+        <section aria-label="Set Preferences">
+          <Header>preferences</Header>
+
           <MenuItem>
             <Para>deep focus mode</Para>
             <Switch
-              checked={formState.autoStartPomodoro}
+              checked={formState.deepFocus}
               register={register("preferences.deepFocus")}
               ariaLabel={"deep focus"}
+            />
+          </MenuItem>
+          <MenuItem>
+            <Para>auto set theme</Para>
+            <Switch
+              checked={formState.autoSetTheme}
+              register={register("preferences.autoSetTheme")}
+              ariaLabel={"auto set theme"}
             />
           </MenuItem>
           <MenuItem>
@@ -147,6 +159,7 @@ const PomodoroSettings = () => {
             <Slider
               width={100}
               setValue={setValue}
+              defaultValue={preferencesDefault.alarmVolume}
               name="preferences.alarmVolume"
             />
           </MenuItem>
