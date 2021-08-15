@@ -4,6 +4,7 @@ import themeGet from "@styled-system/theme-get"
 import styled from "@emotion/styled"
 import Box from "@/helpers/Box"
 import Flex from "@/helpers/Flex"
+import { useDebouncedFn } from "beautiful-react-hooks"
 
 const Track = styled.div`
   --translateX: -100%;
@@ -37,12 +38,13 @@ const Slider = forwardRef(
     {
       width = 100,
       name,
+      onChange,
       ariaLabel,
       required = false,
       minValue = 0,
       maxValue = 100,
       setValue,
-      defaultValue = 24,
+      defaultValue,
     },
     ref
   ) => {
@@ -50,19 +52,16 @@ const Slider = forwardRef(
     const thumbRef = useRef(null)
     const trackRef = useRef(null)
     const pointerDown = useRef(false)
+    const [inputValue, setInputValue] = useState(defaultValue)
 
-    const [inputValue, setInputValue] = useState(0)
-
-    const timeout = useRef(null)
-
-    const handleChange = (translatePercent) => {
-      setInputValue(100 - Math.round(maxValue * (translatePercent / 100)))
+    const handleChange = useDebouncedFn((translatePercent) => {
       const inputEl = document.querySelector(`${Thumb} + input`)
       const val = maxValue - Math.round(maxValue * (translatePercent / 100))
 
       setValue(name, val, { required })
+      setInputValue(inputValue)
       inputEl.value = val
-    }
+    })
 
     const getTranslateX = (e) => {
       const clientLeft = e.clientX
@@ -102,12 +101,12 @@ const Slider = forwardRef(
 
     useEffect(() => {
       if (defaultValue) {
+        console.log("defaultvalue")
         const valuePercent = 100 - Math.round((defaultValue / maxValue) * 100)
         setTrackTranslateX(valuePercent)
       }
 
       const inputEl = document.querySelector(`${Thumb} + input`)
-      inputEl.addEventListener("change", console.log)
     }, [defaultValue, maxValue]) // eslint-disable-line
 
     return (
@@ -135,6 +134,7 @@ const Slider = forwardRef(
         </Box>
         <Thumb ref={thumbRef} />
         <input
+          value={inputValue}
           type="hidden"
           css={{
             width: "100%",
@@ -143,7 +143,6 @@ const Slider = forwardRef(
             left: -10,
             bottom: 0,
           }}
-          value={inputValue}
         />
       </Flex>
     )
