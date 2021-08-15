@@ -58,23 +58,23 @@ const LabelItem = ({ selected = false, label = [] }) => {
     <Flex
       ref={container}
       justifyContent="space-between"
-      width="100%"
-      height="50px"
-      border="solid 1px"
-      borderColor={selected ? "primary.accent-4" : "primary.accent-1"}
-      borderRadius="md"
-      padding="xs"
       alignItems="center"
       overflow="visible"
       position="relative"
-      boxShadow={selected ? "md" : "none"}
-      css={{ transition: "border ease 0.2s, box-shadow ease 0.2s" }}
-      onMouseOver={() => handleMouseOver()}
-      onMouseLeave={() => handleMouseLeave()}
     >
       <Flex
+        onMouseOver={() => handleMouseOver()}
+        onMouseLeave={() => handleMouseLeave()}
+        width="100%"
+        padding="xs"
+        mr="sm"
+        css={{ transition: "border ease 0.2s, box-shadow ease 0.2s" }}
+        boxShadow={selected ? "md" : "none"}
+        border="solid 1px"
+        borderColor={selected ? "primary.accent-4" : "primary.accent-1"}
+        borderRadius="md"
         position="relative"
-        height="100%"
+        height="50px"
         alignItems="center"
         as="button"
         onClick={() => handleClick()}
@@ -110,10 +110,10 @@ const LabelItem = ({ selected = false, label = [] }) => {
           bottom="0%"
           right="0"
           zIndex="10"
-          css={{ transform: "translate(0%, calc(75%))" }}
+          css={{ transform: "translate(0%, calc(0.5rem + 75%))" }}
         >
           <FadeIn duration="0.2s">
-            <Card borderRadius="sm" p="xs" css={{ textAlign: "left" }}>
+            <Card borderRadius="md" px="xs" py="sm" css={{ textAlign: "left" }}>
               <Stack display="flex" flexDirection="column" mt="xs">
                 <Text
                   as="button"
