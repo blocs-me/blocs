@@ -53,6 +53,7 @@ const Para = ({ children }) => (
 const PomodoroSettings = () => {
   const { sessionSettings, preferences } = usePomodoroStore()
   const dispatch = usePomodoroDispatch()
+  const alarmAudio = useMemo(() => new Audio("/sound-effects/chime.mp3"), [])
   const numCheckRegex = /\d./
   const sessionSettingsDefault = useMemo(() => {
     return sessionSettings
@@ -70,6 +71,8 @@ const PomodoroSettings = () => {
     })
 
   useEffect(() => {
+    alarmAudio.volume = preferencesDefault.alarmVolume / 100
+
     return () => {
       handleSubmit(() => {
         localStorage.setItem(
@@ -86,6 +89,37 @@ const PomodoroSettings = () => {
     if (numCheckRegex.test(value)) {
       setValue("preferences", value)
     }
+  }
+
+  const handleAudioLoop = () => {
+    const currentTime = alarmAudio.currentTime
+
+    if (currentTime > 2500) {
+      alarmAudio.pause()
+      alarmAudio.play()
+    }
+
+    requestAnimationFrame(handleAudioLoop)
+  }
+
+  const playAudio = () => {
+    if (alarmAudio?.readyState) {
+      alarmAudio.currentTime = 0
+      alarmAudio.loop = true
+      alarmAudio.pause()
+      alarmAudio.play()
+    }
+  }
+
+  const stopAudio = () => {
+    if (!alarmAudio?.ended) {
+      alarmAudio.loop = false
+    }
+  }
+
+  const setAlarmVolumeIRL = (value) => {
+    const volume = value * 0.01
+    alarmAudio.volume = volume
   }
 
   return (
@@ -157,6 +191,11 @@ const PomodoroSettings = () => {
           <MenuItem>
             <Para>alarm volume</Para>
             <Slider
+              onMouseDown={playAudio}
+              onMouseUp={stopAudio}
+              onCancel={stopAudio}
+              onMouseLeave={stopAudio}
+              onChange={setAlarmVolumeIRL}
               width={100}
               setValue={setValue}
               defaultValue={preferencesDefault.alarmVolume}

@@ -39,6 +39,10 @@ const Slider = forwardRef(
       width = 100,
       name,
       onChange,
+      onCancel,
+      onMouseDown,
+      onMouseLeave,
+      onMouseUp,
       ariaLabel,
       required = false,
       minValue = 0,
@@ -61,6 +65,7 @@ const Slider = forwardRef(
       setValue(name, val, { required })
       setInputValue(inputValue)
       inputEl.value = val
+      onChange?.(val)
     })
 
     const getTranslateX = (e) => {
@@ -83,20 +88,32 @@ const Slider = forwardRef(
 
     const handlePointerUp = (e) => {
       pointerDown.current = false
-      const xPos = getTranslateX(e)
-      setTrackTranslateX(xPos)
-      handleChange(xPos)
+      // const xPos = getTranslateX(e)
+      // setTrackTranslateX(xPos)
+      // handleChange(xPos)
+      onMouseUp?.(e)
     }
     const handlerPointerLeave = (e) => {
       pointerDown.current = false
+      onMouseLeave?.(e)
     }
-    const handlePointerDown = (e) => (pointerDown.current = true)
+    const handlePointerDown = (e) => {
+      pointerDown.current = true
+      const xPos = getTranslateX(e)
+      setTrackTranslateX(xPos)
+      handleChange(xPos)
+      onMouseDown?.(e)
+    }
     const handlePointerMove = (e) => {
       if (pointerDown.current) {
         const translateX = getTranslateX(e)
         setTrackTranslateX(translateX)
         handleChange(translateX)
       }
+    }
+
+    const handlePointerCancel = (e) => {
+      onCancel?.(e)
     }
 
     useEffect(() => {
@@ -121,6 +138,7 @@ const Slider = forwardRef(
         onPointerMove={(e) => handlePointerMove(e)}
         onPointerDown={(e) => handlePointerDown(e)}
         onPointerLeave={(e) => handlerPointerLeave(e)}
+        onPointerCancel={(e) => handlePointerCancel?.(e)}
       >
         <Box
           height="5px"
