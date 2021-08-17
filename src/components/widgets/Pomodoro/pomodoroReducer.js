@@ -5,6 +5,7 @@ import {
   SET_SESSION_SETTINGS,
   SET_PREFERENCES,
   SET_SESSION_LABEL,
+  SET_CURRENT_POMODORO_PRESET,
 } from "./pomodoroActions"
 import { initialState } from "./usePomodoroStore"
 
@@ -30,6 +31,17 @@ const pomodoroReducer = (state = initialState, action = {}) => {
       return {
         ...state,
         sessionSettings: { ...state.sessionSettings, ...label },
+      }
+
+    case SET_CURRENT_POMODORO_PRESET:
+      const { preset } = action
+      global?.window?.localStorage.setItem(
+        SET_CURRENT_POMODORO_PRESET,
+        JSON.stringify(preset)
+      )
+      return {
+        ...state,
+        currentPreset: preset,
       }
     default:
       return state

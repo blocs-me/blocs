@@ -1,4 +1,5 @@
 import makeStore from "src/lib/makeStore"
+import { SET_CURRENT_POMODORO_PRESET } from "./pomodoroActions"
 import pomodoroReducer from "./pomodoroReducer"
 
 const getCachedPomodoroPreferences = () => {
@@ -22,6 +23,12 @@ const initialState = {
     startLongBreakAfter: 5,
     alarmVolume: 50,
     ...getCachedPomodoroPreferences(),
+  },
+  currentPreset: {
+    ...JSON.parse(
+      global?.window?.localStorage.getItem(SET_CURRENT_POMODORO_PRESET) ||
+        JSON.stringify({})
+    ),
   },
   sessionSettings: {
     interval: 25,

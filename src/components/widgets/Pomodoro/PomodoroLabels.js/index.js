@@ -1,20 +1,23 @@
 import Flex from "@/helpers/Flex"
 import MenuHeader from "../Typography/MenuHeader"
-import Label from "../../../../icons/label.svg"
+import Clock from "../../../../icons/clock.svg"
 import ScrollProvider from "@/design-system/ScrollProvider"
 import useSWR from "swr"
-import { SETTINGS_PATH } from "@/utils/endpoints"
+import { POMODORO_PRESETS_PATH, SETTINGS_PATH } from "@/utils/endpoints"
 import fetcher from "@/utils/fetcher"
-import { useMemo } from "react"
 import Stack from "@/helpers/Stack"
 import Skeleton from "@/helpers/Skeleton"
 import Box from "@/helpers/Box"
 import LabelItem from "./LabelItem"
 import { usePomodoroStore } from "../usePomodoroStore"
+import Text from "@/design-system/Text"
+import Icon from "@/helpers/Icon"
+import Plus from "../../../../icons/plus.svg"
+import Button from "@/design-system/Button"
 
 const PomodoroLabels = () => {
-  const { data: settings, error } = useSWR(SETTINGS_PATH, fetcher)
-  const { sessionSettings } = usePomodoroStore()
+  const { data: settings, error } = useSWR(POMODORO_PRESETS_PATH, fetcher)
+  const { currentPreset } = usePomodoroStore()
 
   if (!settings) {
     return (
@@ -24,7 +27,7 @@ const PomodoroLabels = () => {
         height="100%"
         position="relative"
       >
-        <MenuHeader icon={<Label />} title="labels" />
+        <MenuHeader icon={<Clock />} title="pomodoro" />
 
         <ScrollProvider height="100%">
           <Box px="sm" height="100%">
@@ -48,17 +51,37 @@ const PomodoroLabels = () => {
 
   return (
     <Flex flexDirection="column" width="100%" height="100%" position="relative">
-      <MenuHeader icon={<Label />} title="labels" />
-      <ScrollProvider px="sm">
-        <Stack mt="sm">
-          {settings?.data.map((setting) => (
+      <MenuHeader icon={<Clock />} title="pomodoro" />
+      <ScrollProvider px="sm" height="100%">
+        <Stack mt="sm" flex="1">
+          <Button
+            as="button"
+            alignItems="center"
+            borderRadius="md"
+            bg="primary.accent-1"
+            width="calc(100% - 40px)"
+            p="xs"
+            css={{ display: "flex", alignItems: "center" }}
+            variant="lightBg"
+          >
+            <Flex bg="primary.accent-4" borderRadius="sm" p="xxs" mr="xs">
+              <Icon stroke="bg.default" width="20px" m="auto" display="flex">
+                <Plus />
+              </Icon>
+            </Flex>
+            <Text fontSize="xs" fontWeight="400" m={0}>
+              new session
+            </Text>
+          </Button>
+          {settings?.data?.map((setting) => (
             <LabelItem
-              {...setting}
+              preset={setting}
               key={setting.id}
-              selected={sessionSettings.id === setting.label[1]}
+              selected={currentPreset.id === setting.id}
             />
           ))}
         </Stack>
+        <Box height="50px" />
       </ScrollProvider>
     </Flex>
   )
