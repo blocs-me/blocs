@@ -1,9 +1,8 @@
 import React, { useReducer, useContext } from "react"
 
-const context = React.createContext()
-const dispatchContext = React.createContext()
-
 export default function makeStore({ initialState, reducer }) {
+  const context = React.createContext()
+  const dispatchContext = React.createContext()
   const useDispatch = () => useContext(dispatchContext)
   const useStore = () => useContext(context)
 
