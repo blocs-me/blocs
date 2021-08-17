@@ -16,13 +16,16 @@ import {
 import shouldForwardProp from "@styled-system/should-forward-prop"
 import { themeGet } from "@styled-system/theme-get"
 
-const hoverColor = (props) => ({
-  "p:hover, span:hover": {
-    color: props.hoverColor
-      ? themeGet(`colors.${props.hoverColor}`)(props)
-      : "inherit",
-  },
-})
+const hoverColor = (props) =>
+  props.hoverColor
+    ? {
+        "p:hover, span:hover": {
+          color: props.hoverColor
+            ? themeGet(`colors.${props.hoverColor}`)(props)
+            : "inherit",
+        },
+      }
+    : {}
 
 const boxStylesProps = compose(
   space,
