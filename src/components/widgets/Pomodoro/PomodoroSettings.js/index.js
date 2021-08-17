@@ -18,6 +18,8 @@ import {
   setPomodoroSessionSettings,
   setPomodoroPreferences,
 } from "../pomodoroActions"
+import useNotifications from "@/design-system/Notifications/useNotifications"
+import usePreviousValue from "@/hooks/usePreviousValue"
 
 const Header = ({ children }) => (
   <Box
@@ -52,38 +54,19 @@ const Para = ({ children }) => (
 
 const PomodoroSettings = () => {
   const { sessionSettings, preferences } = usePomodoroStore()
+  const notifs = useNotifications()
   const dispatch = usePomodoroDispatch()
   const alarmAudio = useMemo(() => new Audio("/sound-effects/chime.mp3"), [])
   const numCheckRegex = /\d./
-  const sessionSettingsDefault = useMemo(() => {
-    return sessionSettings
-  }, [])
   const preferencesDefault = useMemo(() => {
     return preferences
   }, [])
-  const { register, formState, handleSubmit, setValue, watch, getValues } =
-    useForm({
-      mode: "onChange",
-      defaultValues: {
-        sessionSettings: sessionSettingsDefault,
-        preferences: preferencesDefault,
-      },
-    })
-
-  useEffect(() => {
-    alarmAudio.volume = preferencesDefault.alarmVolume / 100
-
-    return () => {
-      handleSubmit(() => {
-        localStorage.setItem(
-          "pomodoroPreferences",
-          JSON.stringify(getValues().preferences)
-        )
-        dispatch(setPomodoroSessionSettings(getValues().sessionSettings))
-        dispatch(setPomodoroPreferences(getValues().preferences))
-      })()
-    }
-  }, [])
+  const { register, handleSubmit, setValue, watch, getValues } = useForm({
+    mode: "onChange",
+    defaultValues: {
+      preferences: preferencesDefault,
+    },
+  })
 
   const handleLongBreakInput = (value) => {
     if (numCheckRegex.test(value)) {
@@ -121,6 +104,55 @@ const PomodoroSettings = () => {
     const volume = value * 0.01
     alarmAudio.volume = volume
   }
+
+  useEffect(() => {
+    alarmAudio.volume = preferencesDefault.alarmVolume / 100
+
+    return () => {
+      handleSubmit(() => {
+        localStorage.setItem(
+          "pomodoroPreferences",
+          JSON.stringify(getValues().preferences)
+        )
+        dispatch(setPomodoroPreferences(getValues().preferences))
+      })()
+    }
+  }, [
+    alarmAudio,
+    dispatch,
+    getValues,
+    handleSubmit,
+    preferencesDefault.alarmVolume,
+  ])
+
+  const deepFocus = watch("preferences.deepFocus")
+  const autoSetTheme = watch("preferences.autoSetTheme")
+  const autoStartPomodoro = watch("preferences.autoStartPomodoro")
+  const autoStartBreak = watch("preferences.autoStartBreak")
+  const deepFocusPrev = usePreviousValue(deepFocus)
+  const autoSetThemePrev = usePreviousValue(autoSetTheme)
+  const autoStartPomodoroPrev = usePreviousValue(autoStartPomodoro)
+  const autoStartBreakPrev = usePreviousValue(autoStartBreak)
+
+  useEffect(() => {
+    if (deepFocus && !deepFocusPrev)
+      notifs.createInfo("deep focus mode hides all UI except for the clock")
+  }, [deepFocus, deepFocusPrev, notifs])
+
+  useEffect(() => {
+    if (autoSetTheme && !autoSetThemePrev)
+      notifs.createInfo("sets theme based on your device")
+  }, [autoSetTheme, autoSetThemePrev, notifs])
+
+  useEffect(() => {
+    if (autoStartPomodoro && !autoStartPomodoroPrev)
+      notifs.createInfo("auto starts pomodoro after a break ends")
+  }, [autoStartPomodoro, autoStartPomodoroPrev, notifs])
+
+  useEffect(() => {
+    if (autoStartBreak && !autoStartBreakPrev)
+      notifs.createInfo("auto starts break after a pomodoro session ends")
+  }, [autoStartBreak, autoStartBreakPrev, notifs])
 
   return (
     <Flex
@@ -175,17 +207,15 @@ const PomodoroSettings = () => {
           <MenuItem>
             <Para>deep focus mode</Para>
             <Switch
-              checked={formState.deepFocus}
               register={register("preferences.deepFocus")}
-              ariaLabel={"deep focus"}
+              ariaLabel="deep focus"
             />
           </MenuItem>
           <MenuItem>
             <Para>auto set theme</Para>
             <Switch
-              checked={formState.autoSetTheme}
               register={register("preferences.autoSetTheme")}
-              ariaLabel={"auto set theme"}
+              ariaLabel="auto set theme"
             />
           </MenuItem>
           <MenuItem>
