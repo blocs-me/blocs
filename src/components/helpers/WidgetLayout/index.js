@@ -26,7 +26,6 @@ const WidgetLayout = ({ children, onMenuClick, menuAria, iconType }) => {
       overflow="hidden"
       position="relative"
     >
-      {children}
       <Box
         top={0}
         right={0}
@@ -38,6 +37,7 @@ const WidgetLayout = ({ children, onMenuClick, menuAria, iconType }) => {
           <MenuIcon iconType={iconType} />
         </button>
       </Box>
+      {children}
     </Box>
   )
 }
