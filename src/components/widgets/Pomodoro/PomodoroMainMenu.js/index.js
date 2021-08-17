@@ -1,36 +1,46 @@
 import Box from "@/helpers/Box"
 import Flex from "@/helpers/Flex"
 import Avatar from "@/design-system/Avatar"
+import Gear from "../../../../icons/gear.svg"
 import Clock from "../../../../icons/clock.svg"
-import Label from "../../../../icons/label.svg"
 import Stats from "../../../../icons/stats.svg"
 import Heart from "../../../../icons/heart.svg"
 import WidgetMenu from "@/widgets/WidgetMenu"
 import Icon from "@/helpers/icon"
 import Sun from "../../../../icons/sun.svg"
-import ImageIcon from "../../../../icons/image.svg"
+import ThemeIcon from "../../../../icons/invert-color.svg"
+import Plant from "../../../../icons/plant.svg"
 
 const menuItems = [
   {
     href: "/pomodoro/settings",
     title: "settings",
-    icon: <Clock />,
+    itemIcon: <Gear />,
   },
   {
     href: "/pomodoro/labels",
-    title: "labels",
-    icon: <Label />,
+    title: "pomodoro",
+    itemIcon: <Clock />,
   },
   {
-    href: "/pomodoro/stats",
-    title: "stats",
-    icon: <Stats />,
+    href: "/pomodoro/theme",
+    title: "theme",
+    itemIcon: <ThemeIcon />,
+    iconProps: {
+      fill: "primary.accent-3",
+      stroke: 2,
+    },
   },
-  {
-    href: "/pomodoro/favorites",
-    title: "favorites",
-    icon: <Heart />,
-  },
+  // {
+  //   href: "/pomodoro/stats",
+  //   title: "stats",
+  //   icon: <Stats />,
+  // },
+  // {
+  //   href: "/pomodoro/favorites",
+  //   title: "favorites",
+  //   icon: <Heart />,
+  // },
 ]
 
 const PomodoroMainMenu = () => {
@@ -42,7 +52,7 @@ const PomodoroMainMenu = () => {
       <Box m="auto">
         <WidgetMenu menuItems={menuItems} />
       </Box>
-      <Flex
+      {/* <Flex
         borderRadius="999px"
         size="35px"
         position="absolute"
@@ -56,7 +66,11 @@ const PomodoroMainMenu = () => {
         <Icon size="17px" fill="primary.accent-3" m="auto" display="flex">
           <Sun />
         </Icon>
-      </Flex>
+      </Flex> */}
+
+      <Box position="absolute" bottom="md" right="md" width="0.866rem">
+        <Plant />
+      </Box>
     </Flex>
   )
 }
