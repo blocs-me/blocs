@@ -29,6 +29,19 @@ const variants = variant({
       fontSize: "sm",
       cursor: "pointer",
     },
+    lightBg: {
+      border: "none",
+      outline: "none",
+      background: "primary.accent-1",
+      color: "primary.accent-4",
+      fontWeight: "300",
+      fontSize: "sm",
+      cursor: "pointer",
+      "&:hover": {
+        bg: "primary.accent-4",
+        color: "primary.accent-1",
+      },
+    },
   },
 })
 
@@ -36,7 +49,7 @@ const Button = styled("button", {
   shouldForwardProp,
 })(
   {
-    transition: "transform 0.5s ease",
+    transition: "transform 0.5s ease, color 0.2s ease,  background 0.2s ease",
     "&:active": {
       transform: "scale(0.96)",
     },

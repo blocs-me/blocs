@@ -2,8 +2,11 @@ import { useRef, useState } from "react"
 import DropdownMenu from "@/design-system/DropdownMenu"
 import Text from "@/design-system/Text"
 import Flex from "@/helpers/Flex"
-import { setPomodoroSessionLabel } from "../pomodoroActions"
-import { usePomodoroDispatch } from "../usePomodoroStore"
+import {
+  setCurrentPomodoroPreset,
+  setPomodoroSessionLabel,
+} from "../pomodoroActions"
+import { usePomodoroDispatch, usePomodoroStore } from "../usePomodoroStore"
 import Ellipses from "../../../../icons/ellipses.svg"
 import Trash from "../../../../icons/trash.svg"
 import Pencil from "../../../../icons/pencil.svg"
@@ -13,6 +16,8 @@ import FadeIn from "@/helpers/FadeIn"
 import Box from "@/helpers/Box"
 import { useClickOutside } from "@/hooks/useClickOutside"
 import Stack from "@/helpers/Stack"
+import minsAsms from "@/utils/minsAsms"
+import msToMins from "@/utils/msToMins"
 
 const EllipsesIcon = ({ selected, menuOpen }) => (
   <Icon
@@ -23,12 +28,19 @@ const EllipsesIcon = ({ selected, menuOpen }) => (
   </Icon>
 )
 
-const LabelItem = ({ selected = false, label = [] }) => {
+const LabelItem = ({ selected = false, preset = {} }) => {
   const [menuOpen, setMenuOpen] = useState(false)
   const dispatch = usePomodoroDispatch()
-  const [name, id, color] = label
   const container = useRef()
   const swatch = useRef()
+  const {
+    labelColor,
+    label,
+    pomodoroInterval,
+    longBreakInterval,
+    shortBreakInterval,
+    id,
+  } = preset
 
   useClickOutside({
     element: container,
@@ -36,13 +48,7 @@ const LabelItem = ({ selected = false, label = [] }) => {
   })
 
   const handleClick = () => {
-    dispatch(
-      setPomodoroSessionLabel({
-        label: name,
-        labelColor: color,
-        id,
-      })
-    )
+    dispatch(setCurrentPomodoroPreset(preset))
   }
 
   const handleDelete = () => {}
@@ -68,37 +74,80 @@ const LabelItem = ({ selected = false, label = [] }) => {
         width="100%"
         padding="xs"
         mr="sm"
-        css={{ transition: "border ease 0.2s, box-shadow ease 0.2s" }}
+        css={{
+          transition:
+            "border ease 0.2s, box-shadow ease 0.2s, height ease 0.2s",
+        }}
         boxShadow={selected ? "md" : "none"}
         border="solid 1px"
         borderColor={selected ? "primary.accent-4" : "primary.accent-1"}
         borderRadius="md"
         position="relative"
-        height="50px"
+        minHeight="55px"
         alignItems="center"
         as="button"
         onClick={() => handleClick()}
-        hoverColor="primary.accent-4"
       >
         <Flex
           width="30px"
-          height="100%"
           borderRadius="sm"
           bg="var(--bg)"
           mr="xs"
-          style={{ "--bg": color, "--opacity": selected ? 1 : 0.5 }}
+          style={{ "--bg": labelColor, "--opacity": selected ? 1 : 0.5 }}
           css={{ transition: "opacity 0.2s ease", opacity: "var(--opacity)" }}
           ref={swatch}
+          alignSelf="stretch"
         />
-        <Text
-          m={0}
-          p={0}
-          fontWeight="400"
-          color={selected ? "primary.accent-4" : "primary.accent-2"}
-          css={{ transition: "color 0.2s ease" }}
+        <Flex
+          position="relative"
+          flex="1"
+          flexDirection="column"
+          alignItems="start"
+          py="xs"
+          pl="xs"
         >
-          {name}
-        </Text>
+          <Text
+            color={selected ? "primary.accent-4" : "primary.accent-2"}
+            m={0}
+            p={0}
+            fontWeight="400"
+            lineHeight={0}
+          >
+            {label}
+          </Text>
+
+          <Text
+            fontSize="xxs"
+            color={"primary.accent-2"}
+            mb={0}
+            mt="sm"
+            lineHeight={0}
+          >
+            {selected && "pomodoro :"} {msToMins(pomodoroInterval) + " mins"}
+          </Text>
+          {selected && (
+            <Text
+              fontSize="xxs"
+              color={"primary.accent-2"}
+              mb={0}
+              mt="sm"
+              lineHeight={0}
+            >
+              long break : {msToMins(longBreakInterval) + " mins"}
+            </Text>
+          )}
+          {selected && (
+            <Text
+              fontSize="xxs"
+              color={"primary.accent-2"}
+              mb={0}
+              mt="sm"
+              lineHeight={0}
+            >
+              short break : {msToMins(shortBreakInterval) + " mins"}
+            </Text>
+          )}
+        </Flex>
       </Flex>
       <button onClick={() => setMenuOpen(!menuOpen)} css={{ padding: 0 }}>
         <EllipsesIcon selected={selected} menuOpen={menuOpen} />
