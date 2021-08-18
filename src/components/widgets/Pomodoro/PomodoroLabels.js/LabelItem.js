@@ -149,60 +149,68 @@ const LabelItem = ({ selected = false, preset = {} }) => {
           )}
         </Flex>
       </Flex>
-      <button onClick={() => setMenuOpen(!menuOpen)} css={{ padding: 0 }}>
-        <EllipsesIcon selected={selected} menuOpen={menuOpen} />
-      </button>
 
-      {menuOpen && (
-        <Box
-          position="absolute"
-          bottom="0%"
-          right="0"
-          zIndex="10"
-          css={{ transform: "translate(0%, calc(0.5rem + 75%))" }}
-        >
-          <FadeIn duration="0.2s">
-            <Card borderRadius="md" px="xs" py="sm" css={{ textAlign: "left" }}>
-              <Stack display="flex" flexDirection="column" mt="xs">
-                <Text
-                  as="button"
-                  fontSize="xs"
-                  color="primary.accent-3"
-                  textAlign="left"
-                >
-                  <Icon
-                    as="span"
-                    display="inline-block"
-                    mb={0}
-                    mr="xs"
-                    fill="primary"
+      <Box position="relative" overflow="visible">
+        <button onClick={() => setMenuOpen(!menuOpen)} css={{ padding: 0 }}>
+          <EllipsesIcon selected={selected} menuOpen={menuOpen} />
+        </button>
+
+        {menuOpen && (
+          <Box
+            position="absolute"
+            top="1rem"
+            right="0"
+            zIndex="10"
+            width="100px"
+          >
+            <FadeIn duration="0.2s">
+              <Card
+                borderRadius="md"
+                px="xs"
+                py="sm"
+                css={{ textAlign: "left" }}
+              >
+                <Stack display="flex" flexDirection="column" mt="xs">
+                  <Text
+                    as="button"
+                    fontSize="xs"
+                    color="primary.accent-3"
+                    textAlign="left"
                   >
-                    <Pencil />
-                  </Icon>
-                  edit
-                </Text>
-                <Text
-                  as="button"
-                  fontSize="xs"
-                  color="primary.accent-3"
-                  textAlign="left"
-                >
-                  <Icon
-                    as="span"
-                    display="inline-block"
-                    mb={0}
-                    mr="xs"
-                    fill="danger"
+                    <Icon
+                      as="span"
+                      display="inline-block"
+                      mb={0}
+                      mr="xs"
+                      fill="primary"
+                    >
+                      <Pencil />
+                    </Icon>
+                    edit
+                  </Text>
+                  <Text
+                    as="button"
+                    fontSize="xs"
+                    color="primary.accent-3"
+                    textAlign="left"
                   >
-                    <Trash />
-                  </Icon>
-                  delete
-                </Text>
-              </Stack>
-            </Card>
-          </FadeIn>
-        </Box>
-      )}
+                    <Icon
+                      as="span"
+                      display="inline-block"
+                      mb={0}
+                      mr="xs"
+                      fill="danger"
+                    >
+                      <Trash />
+                    </Icon>
+                    delete
+                  </Text>
+                </Stack>
+              </Card>
+            </FadeIn>
+          </Box>
+        )}
+      </Box>
     </Flex>
   )
 }
