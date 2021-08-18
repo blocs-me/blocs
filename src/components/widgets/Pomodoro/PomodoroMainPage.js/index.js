@@ -4,54 +4,8 @@ import Flex from "@/helpers/Flex"
 import Grid from "@/helpers/Grid"
 import Icon from "@/helpers/Icon"
 import Heart from "../../../../icons/heart.svg"
-import QuickAccessMenu from "../QuickAccessMenu"
-import { useEffect, useState } from "react"
-import {
-  usePomodoroStore,
-  usePomodoroDispatch,
-  initialState,
-} from "../usePomodoroStore"
+import { usePomodoroStore, usePomodoroDispatch } from "../usePomodoroStore"
 import { setDocumentTimelineStart, setStartedAt } from "../pomodoroActions"
-
-const FavouriteButton = () => {
-  const [isFavorite, setIsFavourite] = useState(false)
-  const {
-    favorites = [],
-    session: { startedAt, endedAt },
-    sessionSettings,
-  } = usePomodoroStore()
-
-  useEffect(() => {
-    if (
-      favorites.find(
-        (favorite) =>
-          sessionSettings.interval === favorite.interval &&
-          sessionSettings.label === favorite.label
-      )
-    ) {
-      setIsFavourite(true)
-    }
-  }, [favorites]) // eslint-disable-line
-
-  return (
-    <Flex
-      as="button"
-      justifyContent="center"
-      position="relative"
-      overflow="visible"
-      aria-label="Quick access menu"
-      onClick={() => setIsFavourite(!isFavorite)}
-    >
-      <Icon
-        size="22px"
-        stroke={isFavorite ? "danger" : "primary.accent-2"}
-        fill={isFavorite ? "danger" : "bg.default"}
-      >
-        <Heart />
-      </Icon>
-    </Flex>
-  )
-}
 
 const PomodoroMainPage = () => {
   const {
@@ -80,20 +34,12 @@ const PomodoroMainPage = () => {
       flexDirection="column"
     >
       <Timer />
-      <Grid
-        gridTemplateColumns="1fr 1fr 1fr"
-        justifyContent="space-between"
-        width="100%"
-        mx="auto"
-        alignItems="center"
-        mt="sm"
-      >
-        <QuickAccessMenu />
+      <Flex justifyContent="center" mt="sm">
         <Button
           onClick={(ev) => handleClick(ev)}
           width="100px"
           variant="round"
-          height="35px"
+          height="40px"
           fontSize="xs"
           letterSpacing="sm"
           aria-label="Start or stop timer"
@@ -101,8 +47,7 @@ const PomodoroMainPage = () => {
         >
           {startedAt ? "stop" : "start"}
         </Button>
-        <FavouriteButton />
-      </Grid>
+      </Flex>
     </Flex>
   )
 }
