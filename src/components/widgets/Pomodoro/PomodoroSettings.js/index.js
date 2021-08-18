@@ -101,8 +101,10 @@ const PomodoroSettings = () => {
   }
 
   const setAlarmVolumeIRL = (value) => {
-    const volume = value * 0.01
-    alarmAudio.volume = volume
+    if (value >= 0) {
+      const volume = value * 0.01
+      alarmAudio.volume = volume
+    }
   }
 
   useEffect(() => {
