@@ -8,3 +8,4 @@ const getPath = (path) => `${BASE_URL}${path}`
 export const USER_PATH = getPath("/users")
 export const VALIDATE_USER_AUTH_PATH = getPath("/auth/validate")
 export const SETTINGS_PATH = getPath("/pomodoro/settings")
+export const POMODORO_PRESETS_PATH = getPath("/pomodoro/presets")
