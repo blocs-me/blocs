@@ -1,4 +1,4 @@
-import { USER_PATH } from "./apiPaths"
+import { USER_PATH } from "./endpoints"
 
 const getAccessToken = () =>
   JSON.parse(
