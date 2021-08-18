@@ -5,15 +5,27 @@ import Stack from "@/helpers/Stack"
 import Box from "@/helpers/Box"
 import Text from "@/design-system/Text"
 
-const WidgetMenuItem = ({ href, icon, title }) => {
+const WidgetMenuItem = ({ href, itemIcon, title, iconProps = {} }) => {
   return (
     <Box as="li" hoverColor="secondary" css={{ cursor: " pointer" }}>
       <Link href={href}>
         <a css={{ display: "flex", alignItems: "center" }}>
-          <Icon size="20px" stroke="primary.accent-3" mr="sm" display="flex">
-            {icon}
+          <Icon
+            size="20px"
+            stroke="primary.accent-3"
+            mr="sm"
+            display="flex"
+            {...iconProps}
+          >
+            {itemIcon}
           </Icon>
-          <Text fontSize="md" fontWeight="400" color="primary.accent-3" mb={0}>
+          <Text
+            fontSize="md"
+            fontWeight="400"
+            color="primary.accent-3"
+            lineHeight={1.5}
+            mb={0}
+          >
             {title}
           </Text>
         </a>
@@ -22,7 +34,7 @@ const WidgetMenuItem = ({ href, icon, title }) => {
   )
 }
 
-const WidgetMenu = ({ menuItems = [], gap = "xs" }) => {
+const WidgetMenu = ({ menuItems = [], gap = "sm" }) => {
   return (
     <Stack mt={gap} as="ul">
       {menuItems.map((item, id) => (
