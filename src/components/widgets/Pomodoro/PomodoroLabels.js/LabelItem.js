@@ -172,6 +172,7 @@ const LabelItem = ({ selected = false, preset = {} }) => {
               >
                 <Stack display="flex" flexDirection="column" mt="xs">
                   <Text
+                    css={{ display: "flex" }}
                     as="button"
                     fontSize="xs"
                     color="primary.accent-3"
@@ -189,6 +190,7 @@ const LabelItem = ({ selected = false, preset = {} }) => {
                     edit
                   </Text>
                   <Text
+                    css={{ display: "flex" }}
                     as="button"
                     fontSize="xs"
                     color="primary.accent-3"
@@ -200,6 +202,7 @@ const LabelItem = ({ selected = false, preset = {} }) => {
                       mb={0}
                       mr="xs"
                       fill="danger"
+                      width="8px"
                     >
                       <Trash />
                     </Icon>
