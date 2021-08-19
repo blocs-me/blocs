@@ -6,8 +6,8 @@ const ScrollProvider = styled(Box)`
   overflow: auto;
 
   &::-webkit-scrollbar {
-    background: ${themeGet("colors.bg.default")};
-    width: 5px;
+    background: ${themeGet("colors.primary.accent-1")};
+    width: 4px;
     border-radius: 50px;
   }
 
