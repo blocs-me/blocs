@@ -98,7 +98,7 @@ const LabelForm = ({ hideForm = () => {}, formAction }) => {
               role="form"
             >
               <TextInput
-                placeholder="e.g : 'workout'"
+                placeholder="e.g : 'chores'"
                 label="label"
                 ariaLabel="label name for pomodoro session"
                 {...register("label", {
@@ -115,6 +115,19 @@ const LabelForm = ({ hideForm = () => {}, formAction }) => {
                 })}
               />
 
+              <NumberInput
+                label="pomodoro"
+                min={5}
+                max={120}
+                error={
+                  errors.pomodoroInterval ? "pomodoro must be >= 5 minutes" : ""
+                }
+                {...register("pomodoroInterval", {
+                  required: true,
+                  valueAsNumber: true,
+                })}
+                placeholder="e.g : 25 mins"
+              />
               <NumberInput
                 type="number"
                 label="long break"
