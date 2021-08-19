@@ -2,12 +2,12 @@
 import { AnimatePresence, m, domAnimation, LazyMotion } from "framer-motion"
 import { useRouter } from "next/router"
 import WidgetLayout from "@/helpers/WidgetLayout"
-import PomodoroMainPage from "./PomodoroMainPage.js"
-import PomodoroMainMenu from "./PomodoroMainMenu.js"
-import PomodoroSettings from "./PomodoroSettings.js"
+import PomodoroMainPage from "./PomodoroMainPage/index.js"
+import PomodoroMainMenu from "./PomodoroMainMenu"
+import PomodoroSettings from "./PomodoroSettings"
 import { PomodoroProvider } from "./usePomodoroStore"
 
-import PomodoroLabels from "./PomodoroLabels.js/index.js"
+import PomodoroLabels from "./PomodoroPresets/index.js"
 import Notifications from "@/design-system/Notifications/index.js"
 import useNotifications from "@/design-system/Notifications/useNotifications.js"
 
@@ -47,32 +47,34 @@ const Pomodoro = () => {
 
   return (
     <PomodoroProvider>
-      <WidgetLayout onMenuClick={onMenuClick} iconType={getIconType()}>
-        <Notifications>
-          <AnimatePresence exitBeforeEnter initial={false}>
-            {mainPage && (
-              <FadeIn id="main-page" key={1}>
-                <PomodoroMainPage />
-              </FadeIn>
-            )}
-            {mainMenu && (
-              <FadeIn id="main-menu" key={2}>
-                <PomodoroMainMenu />
-              </FadeIn>
-            )}
-            {settingsMenu && (
-              <FadeIn id="settings" key={3}>
-                <PomodoroSettings />
-              </FadeIn>
-            )}
-            {labelsMenu && (
-              <FadeIn id="lables" key={4}>
-                <PomodoroLabels />
-              </FadeIn>
-            )}
-          </AnimatePresence>
-        </Notifications>
-      </WidgetLayout>
+      <NotifProvider>
+        <WidgetLayout onMenuClick={onMenuClick} iconType={getIconType()}>
+          <Notifications>
+            <AnimatePresence exitBeforeEnter initial={false}>
+              {mainPage && (
+                <FadeIn id="main-page" key={1}>
+                  <PomodoroMainPage />
+                </FadeIn>
+              )}
+              {mainMenu && (
+                <FadeIn id="main-menu" key={2}>
+                  <PomodoroMainMenu />
+                </FadeIn>
+              )}
+              {settingsMenu && (
+                <FadeIn id="settings" key={3}>
+                  <PomodoroSettings />
+                </FadeIn>
+              )}
+              {labelsMenu && (
+                <FadeIn id="lables" key={4}>
+                  <PomodoroLabels />
+                </FadeIn>
+              )}
+            </AnimatePresence>
+          </Notifications>
+        </WidgetLayout>
+      </NotifProvider>
     </PomodoroProvider>
   )
 }
