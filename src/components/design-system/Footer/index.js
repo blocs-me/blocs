@@ -80,7 +80,7 @@ const Footer = () => (
             if you like to have a chat about all things productivity you can
             join our{" "}
             <Link
-              href="https://discord.gg/AS6mSgPm"
+              href="https://discord.gg/CwxXza8xwz"
               rel="noopener"
               passHref
               inline
