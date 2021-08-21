@@ -1,3 +1,5 @@
+import { AnimatePresence, domAnimation, LazyMotion, m } from "framer-motion"
+import { useState } from "react"
 import Box from "@/helpers/Box"
 import Flex from "@/helpers/Flex"
 import Avatar from "@/design-system/Avatar"
@@ -10,6 +12,10 @@ import Icon from "@/helpers/icon"
 import Sun from "../../../../icons/sun.svg"
 import ThemeIcon from "../../../../icons/invert-color.svg"
 import Plant from "../../../../icons/plant.svg"
+import Card from "@/design-system/Card"
+import Stack from "@/helpers/Stack"
+import Text from "@/design-system/Text"
+import Link from "@/design-system/Link"
 
 const menuItems = [
   {
@@ -44,10 +50,52 @@ const menuItems = [
 ]
 
 const PomodoroMainMenu = () => {
+  const [avatarMenu, setAvatarMenu] = useState(false)
+
+  const handleMenuOpen = () => {}
+
   return (
     <Flex width="100%" height="100%" position="relative" p="md" center>
       <Box position="absolute" top="sm" left="sm">
-        <Avatar alt="" variant="sm" />
+        <Box
+          position="relative"
+          onMouseOver={() => setAvatarMenu(true)}
+          onClick={() => setAvatarMenu(!avatarMenu)}
+          onMouseLeave={() => setAvatarMenu(false)}
+        >
+          <div css={{ cursor: "pointer" }}>
+            <Avatar alt="" variant="sm" />
+          </div>
+          <AnimatePresence>
+            {avatarMenu && (
+              <LazyMotion features={domAnimation}>
+                <m.div
+                  key="avatar-menu"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 20 }}
+                >
+                  <Card p="sm" mt="xs">
+                    <Stack flexDirection="column" mt="xs">
+                      <Link href="">
+                        <Text variant="pSmall">🏠 dashboard</Text>
+                      </Link>
+                      <Link href="">
+                        <Text variant="pSmall">🤔 FAQs</Text>
+                      </Link>
+                      <Link href="">
+                        <Text variant="pSmall">😫 help</Text>
+                      </Link>
+                      <Link href="">
+                        <Text variant="pSmall">⏰ guide</Text>
+                      </Link>
+                    </Stack>
+                  </Card>
+                </m.div>
+              </LazyMotion>
+            )}
+          </AnimatePresence>
+        </Box>
       </Box>
       <Box m="auto">
         <WidgetMenu menuItems={menuItems} />
