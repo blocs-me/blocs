@@ -31,6 +31,7 @@ const NotifItem = ({ type, content = "", isLastItem }) => {
         position: "absolute",
         top: 0,
         animation: `${slideIn} 0.2s ease forwards`,
+        zIndex: theme.zIndices.notification,
       }}
     >
       <Flex

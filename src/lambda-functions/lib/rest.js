@@ -28,32 +28,34 @@ class Rest {
     if (middlewaresOfMethod?.length === 0) return null
     if (!middlewaresOfMethod) throw new Error("incorrect method provided")
 
-    try {
-      await Promise.all(middlewaresOfMethod.map((mw) => mw(this.req, this.res)))
-    } catch (error) {
-      console.error("middlware failed")
-      throw error
+    for (let mw of middlewaresOfMethod) {
+      try {
+        await mw(this.req, this.res)
+      } catch (error) {
+        console.error("middlware failed")
+        throw error
+      }
     }
   }
 
   async get(router = () => {}) {
-    this.handleRouter(router, "get")
+    await this.handleRouter(router, "get")
   }
 
   async post(router = () => {}) {
-    this.handleRouter(router, "post")
+    await this.handleRouter(router, "post")
   }
 
   async patch(router = () => {}) {
-    this.handleRouter(router, "patch")
+    await this.handleRouter(router, "patch")
   }
 
   async delete(router = () => {}) {
-    this.handleRouter(router, "delete")
+    await this.handleRouter(router, "delete")
   }
 
   async put(router = () => {}) {
-    this.handleRouter(router, "put")
+    await this.handleRouter(router, "put")
   }
 
   async handleRouter(router, method) {
@@ -65,7 +67,9 @@ class Rest {
       //   this.res.status(500).json({ error: {} })
       // }
 
-      router(this.req, this.res)
+      await router(this.req, this.res)
+    } else {
+      return null
     }
   }
 }

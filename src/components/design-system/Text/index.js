@@ -8,6 +8,13 @@ const p = {
   fontWeight: "300",
 }
 
+const pSmall = {
+  fontSize: "xs",
+  mb: 0,
+  lineHeight: 1.25,
+  color: "primary.accent-2",
+}
+
 const li = {
   fontSize: p.fontSize,
 }
@@ -27,6 +34,7 @@ const whiteSpace = system({
 
 const variants = variant({
   variants: {
+    pSmall,
     p,
     h4,
     li,

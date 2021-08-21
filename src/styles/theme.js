@@ -19,7 +19,6 @@ const colors = {
   bg: {
     default: "#FFF",
     notion: "#FFF",
-    500: "#FFF",
     light: "#FCFCFC",
   },
 }
@@ -101,6 +100,7 @@ const buttons = {
 const zIndices = {
   nav: 1000000,
   modal: 1000001,
+  notification: 10000001,
 }
 
 export const darkModeColors = {
