@@ -4,54 +4,62 @@ import { mutate } from "swr"
 import { setCurrentPomodoroPreset } from "../pomodoroActions"
 import { usePomodoroDispatch } from "../usePomodoroStore"
 
-const usePresetApi = (presetData) => {
+const usePresetApi = (presetData, presets, options = {}) => {
   const dispatch = usePomodoroDispatch()
 
+  const { onSuccess, onError } = options
+
   const mutatePost = (res = {}) => {
-    const { data: newPreset } = res?.data || {}
-    newPreset &&
-      mutate(POMODORO_PRESETS_PATH, (presets) => [...presets, newPreset])
+    onSuccess?.()
+    const { data: newPreset } = res
+
+    mutate(POMODORO_PRESETS_PATH, {
+      data: [...presets?.data, newPreset],
+    })
   }
 
   const mutateDelete = (res = {}) => {
-    const { data: deletedPreset } = res?.data || {}
+    onSuccess?.()
+    const { data: deletedPreset } = res || {}
     deletedPreset &&
-      mutate(POMODORO_PRESETS_PATH, (presets) => {
-        const presetIndex = presets.findIndex(
-          (preset) => preset.id === deletedPreset.id
-        )
+      mutate(POMODORO_PRESETS_PATH, {
+        data: (() => {
+          const presetIndex = presets?.data?.findIndex(
+            (preset) => preset.id === deletedPreset.id
+          )
 
-        if (presetIndex > -1) {
-          const newPresets = [
-            ...presets.slice(0, presetIndex),
-            ...presets.slice(presetIndex + 1),
-          ]
+          if (presetIndex > -1) {
+            const newPresets = [
+              ...presets.data.slice(0, presetIndex),
+              ...presets.data.slice(presetIndex + 1),
+            ]
 
-          dispatch(setCurrentPomodoroPreset(newPresets[0]))
-          return newPresets
-        }
+            return newPresets
+          }
 
-        return presets
+          return presets?.data
+        })(),
       })
   }
 
   const mutatePatch = (res = {}) => {
-    const { data: updatedPreset } = res?.data || {}
+    onSuccess?.()
+    const { data: updatedPreset } = res || {}
     updatedPreset &&
-      mutate(POMODORO_PRESETS_PATH, (presets) => {
-        const presetIndex = presets.findIndex(
-          (preset) => preset.id === updatedPreset.id
-        )
-
-        if (presetIndex > -1) {
-          return [
-            ...presets.slice(0, presetIndex),
-            updatedPreset,
-            ...presets.slice(presetIndex + 1),
-          ]
-        }
-
-        return presets
+      mutate(POMODORO_PRESETS_PATH, {
+        data: (() => {
+          const presetIndex = presets?.data?.findIndex(
+            (preset) => preset.id === updatedPreset.id
+          )
+          if (presetIndex > -1) {
+            return [
+              ...presets?.data?.slice(0, presetIndex),
+              updatedPreset,
+              ...presets?.data?.slice(presetIndex + 1),
+            ]
+          }
+          return presets?.data
+        })(),
       })
   }
 
@@ -63,11 +71,13 @@ const usePresetApi = (presetData) => {
   } = useFetch(POMODORO_PRESETS_PATH, {
     shouldFetch: false,
     body: presetData,
+    shouldCache: false,
     method: "POST",
     headers: {
       credentials: "same-origin",
     },
     onSuccess: mutatePost,
+    onError,
   })
 
   const {
@@ -77,9 +87,11 @@ const usePresetApi = (presetData) => {
     data: patchPresetData,
   } = useFetch(POMODORO_PRESETS_PATH, {
     shouldFetch: false,
+    shouldCache: false,
     body: presetData,
     method: "PATCH",
     onSuccess: mutatePatch,
+    onError,
     headers: {
       credentials: "same-origin",
     },
@@ -92,21 +104,25 @@ const usePresetApi = (presetData) => {
     data: deletePresetData,
   } = useFetch(POMODORO_PRESETS_PATH, {
     shouldFetch: false,
-    body: { id: presetData.id },
+    body: presetData,
+    shouldCache: false,
     method: "DELETE",
     headers: {
       credentials: "same-origin",
     },
     onSuccess: mutateDelete,
+    onError,
   })
 
   const loading = postPresetLoading || patchPresetLoading || deletePresetLoading
   const error = postPresetError || patchPresetError || deletePresetError
+  const data = postPresetData || patchPresetData || deletePresetData
 
   return {
     postPreset,
     patchPreset,
     deletePreset,
+    data,
     postPresetData,
     patchPresetData,
     deletePresetData,
