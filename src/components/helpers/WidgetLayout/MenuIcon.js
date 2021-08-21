@@ -1,5 +1,4 @@
 import { useTheme } from "@emotion/react"
-import useMediaQuery from "@/hooks/useMediaQuery"
 
 const Hamburger = ({ theme }) => (
   <svg
