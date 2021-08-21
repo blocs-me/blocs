@@ -68,15 +68,15 @@ const PomodoroLabels = () => {
   }, [presets])
 
   useEffect(() => {
-    const currentPresetExists = presets?.data?.find(
-      (preset) => preset?.id === currentPreset?.id
-    )
+    const currentPresetExists =
+      currentPreset?.id === "0" ||
+      presets?.data?.find((preset) => preset?.id === currentPreset?.id)
 
     if (!currentPresetExists && !showDeleteModal) {
       const newPreset = presets?.data?.find(
         (preset) => preset?.id !== currentPreset?.id
       )
-      dispatch(setCurrentPomodoroPreset(newPreset))
+      !!newPreset && dispatch(setCurrentPomodoroPreset(newPreset))
     }
   }, [currentPreset?.id, dispatch, presets?.data, showDeleteModal])
 
