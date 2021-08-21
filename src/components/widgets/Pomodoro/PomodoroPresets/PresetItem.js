@@ -45,6 +45,7 @@ const LabelItem = ({
     longBreakInterval,
     shortBreakInterval,
     id,
+    notEditable,
   } = preset
 
   useClickOutside({
@@ -56,10 +57,12 @@ const LabelItem = ({
     dispatch(setCurrentPomodoroPreset(preset))
   }
 
-  const handleDelete = () => {
+  const handleDelete = (e) => {
+    e.stopPropagation()
     initDeleteForm()
   }
-  const handleEdit = () => {
+  const handleEdit = (e) => {
+    e.stopPropagation()
     initEditForm()
   }
   const handleMouseOver = () => {
@@ -125,7 +128,8 @@ const LabelItem = ({
             m={0}
             p={0}
             fontWeight="400"
-            lineHeight={0}
+            lineHeight={1}
+            textAlign="left"
           >
             {label}
           </Text>
@@ -134,7 +138,7 @@ const LabelItem = ({
             fontSize="xxs"
             color={"primary.accent-2"}
             mb={0}
-            mt="sm"
+            mt="xs"
             lineHeight={0}
           >
             {selected && "pomodoro :"} {msToMins(pomodoroInterval) + " mins"}
@@ -165,9 +169,11 @@ const LabelItem = ({
       </Flex>
 
       <Box position="relative" overflow="visible">
-        <button onClick={() => handleMenuOpen()} css={{ padding: 0 }}>
-          <EllipsesIcon selected={selected} menuOpen={menuOpen} />
-        </button>
+        {!notEditable && (
+          <button onClick={() => handleMenuOpen()} css={{ padding: 0 }}>
+            <EllipsesIcon selected={selected} menuOpen={menuOpen} />
+          </button>
+        )}
 
         {menuOpen && (
           <Box
@@ -191,7 +197,7 @@ const LabelItem = ({
                     fontSize="xs"
                     color="primary.accent-3"
                     textAlign="left"
-                    onClick={() => handleEdit()}
+                    onClick={(e) => handleEdit(e)}
                   >
                     <Icon
                       as="span"
@@ -210,7 +216,7 @@ const LabelItem = ({
                     fontSize="xs"
                     color="primary.accent-3"
                     textAlign="left"
-                    onClick={() => handleDelete()}
+                    onClick={(e) => handleDelete(e)}
                   >
                     <Icon
                       as="span"

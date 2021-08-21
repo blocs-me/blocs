@@ -25,6 +25,12 @@ const initialState = {
     ...getCachedPomodoroPreferences(),
   },
   currentPreset: {
+    id: "0",
+    longBreakInterval: 600000,
+    shortBreakInterval: 300000,
+    pomodoroInterval: 1500000,
+    label: "work",
+    labelColor: "#00d1e0",
     ...JSON.parse(
       global?.window?.localStorage.getItem(SET_CURRENT_POMODORO_PRESET) ||
         JSON.stringify({})

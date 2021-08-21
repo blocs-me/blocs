@@ -16,8 +16,8 @@ export const useClickOutside = ({ element, onClickOutside = () => {} }) => {
 
   useEffect(() => {
     const handleClick = (event) => {
-      if (!element?.current?.contains(event.target)) {
-        onClickOutside(event)
+      if (element?.current && !element?.current?.contains(event.target)) {
+        onClickOutside?.(event)
       }
     }
 

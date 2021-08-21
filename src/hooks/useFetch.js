@@ -1,4 +1,10 @@
-import { useCallback, useEffect, useLayoutEffect, useState } from "react"
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react"
 
 const reqOptions = (data, options) => ({
   method: options.method ?? "GET",
@@ -9,7 +15,7 @@ const reqOptions = (data, options) => ({
   body: JSON.stringify(data),
 })
 
-const fetcher = (path, body, options = {}) =>
+const defaultFetcher = (path, body, options = {}) =>
   fetch(path, reqOptions(body, options))
 
 const useFetch = (url, options = {}) => {
@@ -19,11 +25,14 @@ const useFetch = (url, options = {}) => {
     shouldCache = true,
     onSuccess = () => {},
     onError = () => {},
+    fetcher = defaultFetcher,
   } = options
 
   const [data, setData] = useState(null)
   const [error, setError] = useState(false)
   const [loading, setLoading] = useState(false)
+
+  const controller = useRef(null)
 
   const cacheData = (data) =>
     shouldCache && localStorage.setItem(url, JSON.stringify(data))
@@ -37,7 +46,9 @@ const useFetch = (url, options = {}) => {
           setLoading(false)
           setError(true)
         }
-        onError(res)
+        const resData = await res.json()
+        onError(resData)
+        return null
       } else {
         const resData = await res.json()
         mounted?.value && setData(resData.data)
@@ -45,6 +56,7 @@ const useFetch = (url, options = {}) => {
 
         cacheData(resData)
         onSuccess(resData)
+        return res
       }
     }
   }

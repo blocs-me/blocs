@@ -1,62 +1,86 @@
-import { useEffect, useRef } from "react"
+import { useEffect, useMemo } from "react"
 import { useForm } from "react-hook-form"
-import Card from "@/design-system/Card"
 import TextInput from "@/design-system/TextInput"
 import Box from "@/helpers/Box"
-import Flex from "@/helpers/Flex"
 import Stack from "@/helpers/Stack"
 import ScrollProvider from "@/design-system/ScrollProvider"
 import ColorInput from "@/design-system/ColorInput"
-import FadeProvider from "@/design-system/FadeProvider"
 import Button from "@/design-system/Button"
-import Text from "@/design-system/Text"
 import NumberInput from "@/design-system/NumberInput"
-import { useClickOutside } from "@/hooks/useClickOutside"
-import slideIn from "@/keyframes/slideIn"
 import Loader from "@/design-system/Loader"
-import useNotifications from "@/design-system/Notifications/useNotifications"
-import { usePreviousValue } from "beautiful-react-hooks"
 import usePresetApi from "./usePresetApi"
 import { usePomodoroStore } from "../usePomodoroStore"
 import minsAsms from "@/utils/minsAsms"
 import msToMins from "@/utils/msToMins"
+import WidgetModal from "@/widgets/WidgetModal.js"
+import PresetFormLoadingState from "./PresetFormLoadingState"
+import PresetFormSuccessState from "./PresetFormSuccessState"
+import { usersList } from "@notionhq/client/build/src/api-endpoints"
+import useNotifications from "@/design-system/Notifications/useNotifications"
 
-const LabelForm = ({ hideForm = () => {}, formAction }) => {
+const PresetForm = ({
+  hideForm = () => {
+    console.log("empty function")
+  },
+  formAction,
+  presets,
+  open,
+}) => {
   const { currentPreset = {} } = usePomodoroStore()
 
-  const defaultValues = (() => {
-    if (formAction === "EDIT")
+  const defaultValues = useMemo(() => {
+    if (formAction === "EDIT") {
       return {
         ...currentPreset,
-        ...{
-          shortBreakInterval: msToMins(currentPreset?.shortBreakInterval) || {},
-        },
-        ...{
-          longBreakInterval: msToMins(currentPreset?.longBreakInterval) || {},
-        },
+        pomodoroInterval: msToMins(currentPreset?.pomodoroInterval) || null,
+        shortBreakInterval: msToMins(currentPreset?.shortBreakInterval) || null,
+        longBreakInterval: msToMins(currentPreset?.longBreakInterval) || null,
       }
+    }
 
     return {
       labelColor: "#e00079",
     }
-  })()
+  }, [formAction, currentPreset])
 
   const {
     register,
     formState: { errors },
     handleSubmit,
     watch,
+    reset,
   } = useForm({
     defaultValues,
   })
-  const container = useRef(null)
+
   const formData = watch()
 
-  const { loading, error, postPreset, patchPreset } = usePresetApi(formData)
+  const createForm = formAction !== "CREATE"
 
-  useClickOutside({
-    element: container,
-    onClickOutside: hideForm,
+  const requestBody = {
+    ...formData,
+    id: createForm ? currentPreset?.id : null,
+    pomodoroInterval: minsAsms(formData?.pomodoroInterval),
+    shortBreakInterval: minsAsms(formData?.shortBreakInterval),
+    longBreakInterval: minsAsms(formData?.longBreakInterval),
+  }
+
+  const notifs = useNotifications()
+
+  const handleError = (res) => {
+    const message = res?.error
+    if (message) notifs.createError(message)
+  }
+
+  const {
+    loading,
+    error,
+    postPreset,
+    patchPreset,
+    data: apiResponse,
+  } = usePresetApi(requestBody, presets, {
+    onSuccess: reset,
+    onError: handleError,
   })
 
   const handleApiReq = (data) => {
@@ -66,30 +90,24 @@ const LabelForm = ({ hideForm = () => {}, formAction }) => {
 
   const handleClick = (e) => {
     e.preventDefault()
+    e.stopPropagation()
     handleSubmit(handleApiReq)()
   }
 
+  const framerKey = `preset-form-modal`
+
   return (
-    <Box
-      position="sticky"
-      top="0%"
-      left="0%"
-      zIndex="modal"
-      p="sm"
-      width="100%"
-      height="100%"
-      css={{ animation: `${slideIn} 1s ease forwards` }}
-    >
-      <Card
-        position="relative"
-        width="100%"
-        height="100%"
-        px="xs"
-        py="sm"
-        ref={container}
-      >
-        <ScrollProvider height="100%" width="100%">
-          <Box p="sm">
+    <WidgetModal open={open} framerKey={framerKey} hideModal={hideForm}>
+      {apiResponse && (
+        <PresetFormSuccessState
+          formAction={formAction}
+          preset={apiResponse}
+          hideForm={hideForm}
+        />
+      )}
+      <ScrollProvider height="100%" width="100%">
+        <Box p="sm">
+          {!apiResponse && (
             <Stack
               display="flex"
               flexDirection="column"
@@ -97,71 +115,77 @@ const LabelForm = ({ hideForm = () => {}, formAction }) => {
               alignItems="center"
               role="form"
             >
-              <TextInput
-                placeholder="e.g : 'chores'"
-                label="label"
-                ariaLabel="label name for pomodoro session"
-                {...register("label", {
-                  required: true,
-                })}
-              />
-              <ColorInput
-                defaultValue={formData?.labelColor}
-                label="color"
-                htmlFor="labelColor"
-                ariaLabel="set color to be associated with pomodoro label"
-                {...register("labelColor", {
-                  required: true,
-                })}
-              />
+              {loading && <PresetFormLoadingState />}
+              {!loading && (
+                <>
+                  <TextInput
+                    placeholder="e.g : 'chores'"
+                    label="label"
+                    ariaLabel="label name for pomodoro session"
+                    {...register("label", {
+                      required: true,
+                    })}
+                  />
 
-              <NumberInput
-                label="pomodoro"
-                min={5}
-                max={120}
-                error={
-                  errors.pomodoroInterval ? "pomodoro must be >= 5 minutes" : ""
-                }
-                {...register("pomodoroInterval", {
-                  required: true,
-                  valueAsNumber: true,
-                })}
-                placeholder="e.g : 25 mins"
-              />
-              <NumberInput
-                type="number"
-                label="long break"
-                min={0}
-                max={120}
-                error={
-                  errors.longBreakInterval
-                    ? "long break must be greater than short break or be '0'"
-                    : ""
-                }
-                {...register("longBreakInterval", {
-                  required: true,
-                  valueAsNumber: true,
-                  validate: (value) =>
-                    value > formData?.shortBreakInterval || value === 0,
-                })}
-                placeholder="e.g : 15 mins"
-              />
-
-              <NumberInput
-                type="number"
-                label="short break"
-                min={0}
-                max={120}
-                placeholder="e.g : 5 mins "
-                {...register("shortBreakInterval", {
-                  valueAsNumber: true,
-                  required: true,
-                  setValueAs: (v) => minsAsms(v),
-                })}
-              />
-
-              {/* <div /> */}
-
+                  <ColorInput
+                    defaultValue={formData?.labelColor}
+                    label="color"
+                    htmlFor="labelColor"
+                    ariaLabel="set color to be associated with pomodoro label"
+                    {...register("labelColor", {
+                      required: true,
+                    })}
+                  />
+                  <NumberInput
+                    label="pomodoro"
+                    min={5}
+                    max={120}
+                    error={
+                      errors.pomodoroInterval
+                        ? "pomodoro must be >= 5 minutes"
+                        : ""
+                    }
+                    {...register("pomodoroInterval", {
+                      required: true,
+                      valueAsNumber: true,
+                      min: 5,
+                      setValueAs: (v) => minsAsms(v),
+                    })}
+                    placeholder="e.g : 25 mins"
+                  />
+                  <NumberInput
+                    type="number"
+                    label="long break"
+                    min={0}
+                    max={120}
+                    error={
+                      errors.longBreakInterval
+                        ? "long break must be greater than short break or be '0'"
+                        : ""
+                    }
+                    {...register("longBreakInterval", {
+                      required: true,
+                      valueAsNumber: true,
+                      setValueAs: (v) => minsAsms(v),
+                      validate: (value) =>
+                        value > formData?.shortBreakInterval || value === 0,
+                    })}
+                    placeholder="e.g : 15 mins"
+                  />
+                  <NumberInput
+                    type="number"
+                    label="short break"
+                    min={0}
+                    max={120}
+                    placeholder="e.g : 5 mins "
+                    {...register("shortBreakInterval", {
+                      valueAsNumber: true,
+                      required: true,
+                      setValueAs: (v) => minsAsms(v),
+                    })}
+                  />
+                </>
+              )}
               {!loading && (
                 <Button
                   onClick={(e) => handleClick(e)}
@@ -182,11 +206,11 @@ const LabelForm = ({ hideForm = () => {}, formAction }) => {
               {loading && <Loader width="30px" height="30px" />}
               <Box />
             </Stack>
-          </Box>
-        </ScrollProvider>
-      </Card>
-    </Box>
+          )}
+        </Box>
+      </ScrollProvider>
+    </WidgetModal>
   )
 }
 
-export default LabelForm
+export default PresetForm

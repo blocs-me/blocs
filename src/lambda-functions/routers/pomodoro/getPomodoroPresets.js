@@ -1,5 +1,5 @@
 import faunaClient from "@/lambda/faunaClient"
-import { Call, query as q } from "faunadb"
+import { Call, query as q, Select } from "faunadb"
 
 const getPomodoroPresets = async (req, res) => {
   // const { blocsUser } = req.body
@@ -12,7 +12,14 @@ const getPomodoroPresets = async (req, res) => {
           q.Ref(q.Collection("users"), "303985067693179406")
         ),
 
-        q.Lambda("preset", q.Var("preset"))
+        q.Lambda("preset", {
+          id: q.Select(["id"], q.Var("preset")),
+          longBreakInterval: q.Select(["longBreakInterval"], q.Var("preset")),
+          shortBreakInterval: q.Select(["shortBreakInterval"], q.Var("preset")),
+          pomodoroInterval: q.Select(["pomodoroInterval"], q.Var("preset")),
+          label: q.Select(["label"], q.Var("preset")),
+          labelColor: q.Select(["labelColor"], q.Var("preset")),
+        })
       )
     )
 
