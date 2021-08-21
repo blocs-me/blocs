@@ -8,7 +8,6 @@ import Link from "@/design-system/Link"
 import Modal from "@/design-system/Modal.js"
 import getAccessToken from "@/utils/getAccessToken"
 import { LOADING } from "@/constants/fetchStates"
-import { USER_PATH } from "@/utils/apiPaths"
 import useUser from "@/hooks/useUser"
 import useAuth from "@/hooks/useAuth"
 import globalContext from "@/contexts/GlobalContextProvider/globalContext"
@@ -22,6 +21,7 @@ import Flex from "@/helpers/Flex"
 import Button from "@/design-system/Button"
 import Box from "@/helpers/Box"
 import useFetch from "@/hooks/useFetch"
+import { USER_PATH } from "@/utils/endpoints"
 
 const Li = styled.li`
   text-transform: lowercase;
