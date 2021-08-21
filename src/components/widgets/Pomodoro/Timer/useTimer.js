@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from "react"
 import { usePomodoroStore, usePomodoroDispatch } from "../usePomodoroStore"
 import { setStartedAt } from "../pomodoroActions"
 import minsAsms from "@/utils/minsAsms"
+import msToMins from "@/utils/msToMins"
 
 const msToSeconds = (ms) => {
   const minutes = Math.floor(ms / (1000 * 60))
@@ -18,16 +19,25 @@ const useTimer = () => {
   const {
     documentTimelineStart,
     session: { startedAt },
-    sessionSettings: { interval },
+    currentPreset: { pomodoroInterval },
+    preferences: { alarmVolume },
   } = usePomodoroStore()
+  const interval = msToMins(pomodoroInterval)
   const pomodoroDispatch = usePomodoroDispatch()
   const [progressInMilliseconds, setProgressInMilliseconds] = useState(0)
   const [percentProgressed, setPercentProgressed] = useState(0)
+
+  const handleTimerComplete = () => {
+    const chime = new Audio("/sound-effects/chime.mp3")
+    chime.volume = alarmVolume / 100
+    chime.play()
+  }
 
   const handleTimeout = (elapsed) => {
     const elapsedTimePercent = (elapsed * 100) / minsAsms(interval)
 
     if (elapsedTimePercent >= 100) {
+      handleTimerComplete()
       console.log("timer finished", elapsedTimePercent)
       setProgressInMilliseconds(minsAsms(interval))
       setPercentProgressed(0)
