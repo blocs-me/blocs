@@ -1,11 +1,8 @@
 import { useRef, useState } from "react"
-import DropdownMenu from "@/design-system/DropdownMenu"
+
 import Text from "@/design-system/Text"
 import Flex from "@/helpers/Flex"
-import {
-  setCurrentPomodoroPreset,
-  setPomodoroSessionLabel,
-} from "../pomodoroActions"
+import { setCurrentPomodoroPreset } from "../pomodoroActions"
 import { usePomodoroDispatch, usePomodoroStore } from "../usePomodoroStore"
 import Ellipses from "../../../../icons/ellipses.svg"
 import Trash from "../../../../icons/trash.svg"

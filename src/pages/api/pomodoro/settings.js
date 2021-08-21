@@ -1,5 +1,5 @@
 import Rest from "@/lambda/lib/rest"
-import cors from "@/lambda/auth/cors"
+// import cors from "@/lambda/auth/cors"
 import getPomdoroSettings from "@/lambda/routers/pomodoro/getPomdoroSettings"
 
 const handler = async (req, res) => {
