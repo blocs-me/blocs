@@ -10,8 +10,10 @@ import useTimer from "./useTimer"
 const Timer = () => {
   const { clock, percentProgressed } = useTimer()
   const {
-    sessionSettings: { label = "", labelColor = "#000" },
+    currentPreset: { label = "", labelColor = "#000" },
   } = usePomodoroStore()
+
+  console.log(labelColor)
 
   return (
     <Flex width="80%" height="auto" css={{ position: "relative" }}>
@@ -23,7 +25,7 @@ const Timer = () => {
         width="100%"
         css={{ transform: "translate(-50%, -25%)" }}
       >
-        <Flex justifyContent="center" mb="xs">
+        <Flex justifyContent="center" pb="xs">
           <Text
             fontSize="lg"
             fontWeight="bold"
@@ -63,15 +65,18 @@ const Timer = () => {
           fontWeight="300"
           color="primary.accent-2"
           textAlign="center"
-          m="0"
+          mb="0"
+          mt="xs"
         >
           <Box
             as="span"
-            size="7px"
+            size="15px"
             display="inline-block"
             borderRadius="xs"
             mr="xxs"
-            bg={labelColor}
+            bg={"var(--bg)"}
+            css={{ verticalAlign: "middle" }}
+            style={{ "--bg": labelColor }}
           />
           {label}
         </Text>
