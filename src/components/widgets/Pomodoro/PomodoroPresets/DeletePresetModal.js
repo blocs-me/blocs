@@ -10,7 +10,6 @@ const { default: WidgetModal } = require("@/widgets/WidgetModal.js")
 const { usePomodoroStore, usePomodoroDispatch } = require("../usePomodoroStore")
 const { default: usePresetApi } = require("./usePresetApi")
 import Check from "../../../../icons/check-circle.svg"
-import { setCurrentPomodoroPreset } from "../pomodoroActions"
 
 const DeletePresetModal = ({ formAction, open, hideModal, presets }) => {
   const { currentPreset } = usePomodoroStore()

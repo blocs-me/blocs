@@ -1,7 +1,6 @@
 import useFetch from "@/hooks/useFetch"
 import { POMODORO_PRESETS_PATH } from "@/utils/endpoints"
 import { mutate } from "swr"
-import { setCurrentPomodoroPreset } from "../pomodoroActions"
 import { usePomodoroDispatch } from "../usePomodoroStore"
 
 const usePresetApi = (presetData, presets, options = {}) => {
