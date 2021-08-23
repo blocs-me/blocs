@@ -1,8 +1,18 @@
-import { useState, useRef, useEffect } from "react"
+import { useState, useRef, useEffect, useCallback } from "react"
 import { usePomodoroStore, usePomodoroDispatch } from "../usePomodoroStore"
-import { setStartedAt } from "../pomodoroActions"
-import minsAsms from "@/utils/minsAsms"
-import msToMins from "@/utils/msToMins"
+import {
+  resetPomodoroSession,
+  setDocumentTimelineStart,
+  setPomodoroPresetMode,
+  setPomodoroSessionCount,
+  setStartedAt,
+  showPomodoroActiveSessionMenu,
+} from "../pomodoroActions"
+import {
+  POMODORO_INTERVAL_MODE,
+  POMODORO_LONG_BREAK_MODE,
+  POMODORO_SHORT_BREAK_MODE,
+} from "../pomodoroPresetModes"
 
 const msToSeconds = (ms) => {
   const minutes = Math.floor(ms / (1000 * 60))
@@ -19,46 +29,126 @@ const useTimer = () => {
   const {
     documentTimelineStart,
     session: { startedAt },
-    currentPreset: { pomodoroInterval },
-    preferences: { alarmVolume },
+    sessionCount = 0,
+    currentPreset: { pomodoroInterval, longBreakInterval, shortBreakInterval },
+    preferences: {
+      alarmVolume,
+      autoStartBreak,
+      startLongBreakAfter,
+      autoStartPomodoro,
+    },
+    presetMode,
   } = usePomodoroStore()
-  const interval = msToMins(pomodoroInterval)
+  const interval = (() => {
+    if (presetMode === POMODORO_INTERVAL_MODE) return pomodoroInterval
+    if (presetMode === POMODORO_LONG_BREAK_MODE) return longBreakInterval
+    if (presetMode === POMODORO_SHORT_BREAK_MODE) return shortBreakInterval
+  })()
   const pomodoroDispatch = usePomodoroDispatch()
   const [progressInMilliseconds, setProgressInMilliseconds] = useState(0)
   const [percentProgressed, setPercentProgressed] = useState(0)
+  const controller = useRef(null)
+  const timerTimeout = useRef(null)
 
-  const handleTimerComplete = () => {
+  const startTimer = useCallback(() => {
+    pomodoroDispatch(setDocumentTimelineStart(document.timeline.currentTime))
+    pomodoroDispatch(setStartedAt(Date.now()))
+  }, [pomodoroDispatch])
+  const startLongBreak = useCallback(() => {
+    pomodoroDispatch(setPomodoroPresetMode(POMODORO_LONG_BREAK_MODE))
+    startTimer()
+  }, [pomodoroDispatch, startTimer])
+  const startShortBreak = useCallback(() => {
+    pomodoroDispatch(setPomodoroPresetMode(POMODORO_SHORT_BREAK_MODE))
+    startTimer()
+  }, [pomodoroDispatch, startTimer])
+  const startPomodoroInterval = useCallback(() => {
+    pomodoroDispatch(setPomodoroPresetMode(POMODORO_INTERVAL_MODE))
+    startTimer()
+  }, [pomodoroDispatch, startTimer])
+
+  const handleAutoPlay = useCallback(() => {
+    const isInterval = presetMode === POMODORO_INTERVAL_MODE
+
+    const shouldAutoPlayBreak = autoStartBreak && isInterval
+
+    const shouldAutoPlayShortBreak =
+      shouldAutoPlayBreak &&
+      sessionCount < startLongBreakAfter - 1 &&
+      !!shortBreakInterval
+
+    const shouldAutoPlayLongBreak =
+      shouldAutoPlayBreak &&
+      sessionCount === startLongBreakAfter - 1 &&
+      !!longBreakInterval
+
+    const isShortBreak = POMODORO_SHORT_BREAK_MODE === presetMode
+    const isLongBreak = POMODORO_LONG_BREAK_MODE === presetMode
+
+    if (shouldAutoPlayShortBreak) startShortBreak()
+    if (shouldAutoPlayLongBreak) startLongBreak()
+    if (sessionCount < startLongBreakAfter - 1)
+      pomodoroDispatch(setPomodoroSessionCount(sessionCount + 1))
+    if (
+      isShortBreak &&
+      autoStartPomodoro &&
+      sessionCount < startLongBreakAfter - 1
+    )
+      startPomodoroInterval()
+    if (
+      isLongBreak &&
+      sessionCount === startLongBreakAfter - 1 &&
+      autoStartPomodoro
+    ) {
+      pomodoroDispatch(resetPomodoroSession())
+      pomodoroDispatch(showPomodoroActiveSessionMenu(true))
+    }
+  }, [
+    autoStartBreak,
+    autoStartPomodoro,
+    longBreakInterval,
+    pomodoroDispatch,
+    presetMode,
+    sessionCount,
+    shortBreakInterval,
+    startLongBreak,
+    startLongBreakAfter,
+    startPomodoroInterval,
+    startShortBreak,
+  ])
+
+  const playChime = () => {
     const chime = new Audio("/sound-effects/chime.mp3")
     chime.volume = alarmVolume / 100
     chime.play()
   }
 
+  const handleTimerComplete = () => {
+    playChime()
+    handleAutoPlay()
+  }
+
   const handleTimeout = (elapsed) => {
-    const elapsedTimePercent = (elapsed * 100) / minsAsms(interval)
+    const elapsedTimePercent = (elapsed * 100) / interval
 
     if (elapsedTimePercent >= 100) {
-      handleTimerComplete()
-      console.log("timer finished", elapsedTimePercent)
-      setProgressInMilliseconds(minsAsms(interval))
-      setPercentProgressed(0)
+      setProgressInMilliseconds(interval)
       pomodoroDispatch(setStartedAt(null))
+      setTimeout(() => handleTimerComplete(), 0)
       return null
     }
 
-    setProgressInMilliseconds(elapsed)
+    setProgressInMilliseconds(interval - elapsed)
     setPercentProgressed(elapsedTimePercent)
   }
 
-  const controller = useRef(null)
-  const timerTimeout = useRef(null)
-
-  const frame = (time) => {
+  function frame(time) {
     const signal = controller.current.signal
     if (signal.aborted) return null
     scheduleFrame(time)
   }
 
-  const scheduleFrame = (time) => {
+  function scheduleFrame(time) {
     const elapsed = time - documentTimelineStart
     const roundedElapsed = Math.round(elapsed / 1000) * 1000
     const targetNext = documentTimelineStart + roundedElapsed + 1000
@@ -75,8 +165,12 @@ const useTimer = () => {
     } else {
       controller.current?.abort()
       clearTimeout(timerTimeout.current)
-      setProgressInMilliseconds(minsAsms(interval))
+      setProgressInMilliseconds(interval)
       setPercentProgressed(0)
+    }
+
+    return () => {
+      controller.current?.abort()
     }
   }, [startedAt]) // eslint-disable-line
 
