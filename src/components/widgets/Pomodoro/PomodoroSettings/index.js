@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form"
 import Flex from "@/helpers/Flex"
 import Box from "@/helpers/Box"
 import MenuHeader from "../Typography/MenuHeader"
-import Clock from "../../../../icons/clock.svg"
+import Gear from "../../../../icons/Gear.svg"
 import Text from "@/design-system/Text"
 import TinyInput from "@/design-system/TinyInput"
 import { usePomodoroDispatch, usePomodoroStore } from "../usePomodoroStore"
@@ -27,7 +27,14 @@ const Header = ({ children }) => (
     borderBottom="solid 1px"
     borderBottomColor="primary.accent-1"
   >
-    <Text fontWeight="500" py="xs" px="sm" fontSize="sm" m={0}>
+    <Text
+      color="primary.accent-4"
+      fontWeight="500"
+      py="xs"
+      px="sm"
+      fontSize="sm"
+      m={0}
+    >
       {children}
     </Text>
   </Box>
@@ -41,6 +48,7 @@ const MenuItem = ({ children, lastItem }) => (
     px="sm"
     justifyContent="space-between"
     alignItems="center"
+    color="primary.accent-3"
   >
     {children}
   </Flex>
@@ -164,7 +172,7 @@ const PomodoroSettings = () => {
       position="relative"
       as="form"
     >
-      <MenuHeader icon={<Clock />} title="settings" />
+      <MenuHeader icon={<Gear />} title="settings" />
       <ScrollProvider>
         <section aria-label="Set Pomodoro Time">
           <Header>pomodoro</Header>
@@ -206,13 +214,13 @@ const PomodoroSettings = () => {
         <section aria-label="Set Preferences">
           <Header>preferences</Header>
 
-          <MenuItem>
+          {/* <MenuItem>
             <Para>deep focus mode</Para>
             <Switch
               register={register("preferences.deepFocus")}
               ariaLabel="deep focus"
             />
-          </MenuItem>
+          </MenuItem> */}
           <MenuItem>
             <Para>auto set theme</Para>
             <Switch
@@ -236,7 +244,7 @@ const PomodoroSettings = () => {
           </MenuItem>
         </section>
         <Box height="50px" />
-        <FadeProvider position="bottom" />
+        {/* <FadeProvider position="bottom" /> */}
       </ScrollProvider>
     </Flex>
   )
