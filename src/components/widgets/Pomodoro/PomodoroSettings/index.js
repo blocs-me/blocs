@@ -189,7 +189,7 @@ const PomodoroSettings = () => {
             </Flex>
           </MenuItem>
           <MenuItem>
-            <Para css={{ display: "inline-block" }}>auto start session</Para>
+            <Para css={{ display: "inline-block" }}>auto start pomodoro</Para>
             <Switch
               register={register("preferences.autoStartPomodoro")}
               ariaLabel={"auto start pomodoro"}
