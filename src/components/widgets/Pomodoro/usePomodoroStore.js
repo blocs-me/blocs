@@ -1,5 +1,9 @@
 import makeStore from "src/lib/makeStore"
-import { SET_CURRENT_POMODORO_PRESET } from "./pomodoroActions"
+import {
+  SET_CURRENT_POMODORO_PRESET,
+  SET_POMODORO_SESSION_COUNT,
+} from "./pomodoroActions"
+import { POMODORO_INTERVAL_MODE } from "./pomodoroPresetModes"
 import pomodoroReducer from "./pomodoroReducer"
 
 const getCachedPomodoroPreferences = () => {
@@ -13,12 +17,18 @@ const getCachedPomodoroPreferences = () => {
 
 const initialState = {
   favorites: [],
+  activeSessionMenu: false,
+  sessionCount:
+    Number(global.window?.localStorage.getItem(SET_POMODORO_SESSION_COUNT)) ||
+    0,
+  presetMode: POMODORO_INTERVAL_MODE,
   session: {
     startedAt: null,
     endedAt: null,
   },
   preferences: {
     autoSetTheme: true,
+    autoStartBreak: false,
     deepFocus: true,
     startLongBreakAfter: 5,
     alarmVolume: 50,
@@ -35,14 +45,6 @@ const initialState = {
       global?.window?.localStorage.getItem(SET_CURRENT_POMODORO_PRESET) ||
         JSON.stringify({})
     ),
-  },
-  sessionSettings: {
-    interval: 25,
-    longBreakInterval: 10,
-    shortBreakInterval: 5,
-    label: "work",
-    labelColor: "#0070e0",
-    id: "",
   },
 }
 

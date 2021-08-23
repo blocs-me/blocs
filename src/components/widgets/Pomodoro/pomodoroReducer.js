@@ -1,3 +1,4 @@
+import storage from "@/utils/storage"
 import {
   SET_STARTED_AT,
   SET_DOCUMENT_TIMELINE_START,
@@ -6,7 +7,12 @@ import {
   SET_PREFERENCES,
   SET_SESSION_LABEL,
   SET_CURRENT_POMODORO_PRESET,
+  SET_POMODORO_SESSION_COUNT,
+  SET_POMODORO_PRESET_MODE,
+  RESET_POMODORO_SESSION,
+  SHOW_POMODORO_ACTIVE_SESSION_MENU,
 } from "./pomodoroActions"
+import { POMODORO_INTERVAL_MODE } from "./pomodoroPresetModes"
 import { initialState } from "./usePomodoroStore"
 
 const pomodoroReducer = (state = initialState, action = {}) => {
@@ -32,16 +38,38 @@ const pomodoroReducer = (state = initialState, action = {}) => {
         ...state,
         sessionSettings: { ...state.sessionSettings, ...label },
       }
-
     case SET_CURRENT_POMODORO_PRESET:
       const { preset } = action
-      global?.window?.localStorage.setItem(
-        SET_CURRENT_POMODORO_PRESET,
-        JSON.stringify(preset)
-      )
+      storage.setItem(SET_CURRENT_POMODORO_PRESET, JSON.stringify(preset))
       return {
         ...state,
         currentPreset: preset,
+      }
+    case SET_POMODORO_SESSION_COUNT:
+      const { sessionCount } = action
+      storage.setItem(SET_POMODORO_SESSION_COUNT, JSON.stringify(sessionCount))
+      return {
+        ...state,
+        sessionCount,
+      }
+    case SET_POMODORO_PRESET_MODE:
+      const { presetMode } = action
+      return {
+        ...state,
+        presetMode,
+      }
+    case SHOW_POMODORO_ACTIVE_SESSION_MENU:
+      const { activeSessionMenu } = action
+      return {
+        ...state,
+        activeSessionMenu,
+      }
+    case RESET_POMODORO_SESSION:
+      storage.setItem(SET_POMODORO_SESSION_COUNT, JSON.stringify(0))
+      return {
+        ...state,
+        sessionCount: 0,
+        presetMode: POMODORO_INTERVAL_MODE,
       }
     default:
       return state
