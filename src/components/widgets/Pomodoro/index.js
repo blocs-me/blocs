@@ -10,6 +10,8 @@ import { PomodoroProvider } from "./usePomodoroStore"
 import PomodoroLabels from "./PomodoroPresets/index.js"
 import Notifications from "@/design-system/Notifications/index.js"
 import useNotifications from "@/design-system/Notifications/useNotifications.js"
+import ClientSideOnly from "@/helpers/ClientSideOnly/index.js"
+import PomodoroThemeMenu from "./PomdoroThemeMenu/index.js"
 
 const FadeIn = ({ id, children }) => (
   <LazyMotion features={domAnimation}>
@@ -34,6 +36,7 @@ const Pomodoro = () => {
   const mainMenu = slug && slug[0] === "main-menu"
   const settingsMenu = slug && slug[0] === "settings"
   const labelsMenu = slug && slug[0] === "labels"
+  const themeMenu = slug && slug[0] === "theme"
 
   const onMenuClick = () => {
     if (mainPage) router.push("/pomodoro/main-menu")
@@ -69,6 +72,11 @@ const Pomodoro = () => {
               {labelsMenu && (
                 <FadeIn id="labels" key={4}>
                   <PomodoroLabels />
+                </FadeIn>
+              )}
+              {themeMenu && (
+                <FadeIn id="themeMenu" key={5}>
+                  <PomodoroThemeMenu />
                 </FadeIn>
               )}
             </AnimatePresence>

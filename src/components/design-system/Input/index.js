@@ -4,7 +4,6 @@ import { themeGet } from "@styled-system/theme-get"
 const Input = styled.input`
   border-radius: ${themeGet("radii.md")};
   border: solid 1px ${themeGet("colors.primary.accent-4")};
-  border-bottom-width: 3px;
   padding: ${themeGet("space.sm")};
   font-size: ${themeGet("fontSizes.sm")};
   font-weight: 400;
@@ -12,6 +11,7 @@ const Input = styled.input`
   height: 45px;
   width: 100%;
   outline: none;
+  background: none;
 
   &:focus,
   &:active {

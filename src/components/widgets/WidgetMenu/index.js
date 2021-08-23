@@ -7,7 +7,7 @@ import Text from "@/design-system/Text"
 
 const WidgetMenuItem = ({ href, itemIcon, title, iconProps = {} }) => {
   return (
-    <Box as="li" hoverColor="secondary" css={{ cursor: " pointer" }}>
+    <Box as="li" hoverColor="primary.accent-2" css={{ cursor: " pointer" }}>
       <Link href={href}>
         <a css={{ display: "flex", alignItems: "center" }}>
           <Icon
