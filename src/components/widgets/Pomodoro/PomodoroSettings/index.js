@@ -183,11 +183,12 @@ const PomodoroSettings = () => {
               </Box>
               <Flex>
                 <TinyInput
+                  width="45px"
                   type="number"
                   min="0"
                   max="20"
                   id="interval"
-                  label="sessions"
+                  label="pomodoros"
                   {...register("preferences.startLongBreakAfter", {
                     pattern: numCheckRegex,
                   })}
@@ -214,20 +215,20 @@ const PomodoroSettings = () => {
         <section aria-label="Set Preferences">
           <Header>preferences</Header>
 
-          {/* <MenuItem>
+          <MenuItem>
             <Para>deep focus mode</Para>
             <Switch
               register={register("preferences.deepFocus")}
               ariaLabel="deep focus"
             />
-          </MenuItem> */}
-          <MenuItem>
+          </MenuItem>
+          {/* <MenuItem>
             <Para>auto set theme</Para>
             <Switch
               register={register("preferences.autoSetTheme")}
               ariaLabel="auto set theme"
             />
-          </MenuItem>
+          </MenuItem> */}
           <MenuItem>
             <Para>alarm volume</Para>
             <Slider
