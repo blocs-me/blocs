@@ -209,7 +209,7 @@ const PomodoroActiveSessionMenu = () => {
                 hideInterval
                 onClick={() => resetSessions()}
               >
-                <PresetButtonContent label={"reset sessions"} hideInterval />
+                <PresetButtonContent label={"reset pomodoros"} hideInterval />
               </IconButton>
             )}
           </Stack>
