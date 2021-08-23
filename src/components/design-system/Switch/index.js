@@ -13,7 +13,7 @@ const Circle = styled.div`
   width: 14px;
   height: 14px;
   border-radius: 999px;
-  background: ${themeGet("colors.bg.light")};
+  background: ${themeGet("colors.bg.default")};
   position: absolute;
   left: 4px;
   top: 3px;

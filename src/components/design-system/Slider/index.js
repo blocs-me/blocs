@@ -118,7 +118,6 @@ const Slider = forwardRef(
 
     useEffect(() => {
       if (defaultValue) {
-        console.log("defaultvalue")
         const valuePercent = 100 - Math.round((defaultValue / maxValue) * 100)
         setTrackTranslateX(valuePercent)
       }

@@ -101,8 +101,6 @@ const PomodoroActiveSessionMenu = () => {
     dispatch(resetPomodoroSession())
   }
 
-  console.log(presetMode)
-
   const startSession = () => {
     dispatch(setDocumentTimelineStart(document.timeline.currentTime))
     dispatch(setStartedAt(Date.now()))
@@ -150,7 +148,9 @@ const PomodoroActiveSessionMenu = () => {
           </Text>
         )}
         {startedAt && (
-          <Text>Pomodoro is in progress, stop to see the options</Text>
+          <Text color="primary.accent-4">
+            Pomodoro is in progress, stop to see the options
+          </Text>
         )}
         {startedAt && (
           <Button

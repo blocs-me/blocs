@@ -9,7 +9,7 @@ import Text from "@/design-system/Text"
 const Input = styled.input`
   border: solid 1px ${themeGet("colors.primary.accent-3")};
   border-radius: ${themeGet("radii.sm")};
-  border-bottom: solid 3px;
+  /* border-bottom: solid 3px ${themeGet('colors.primary.accent-2')}; */
   padding: ${themeGet("spaces.xl")};
   width: 100%;
   height: 100%;
