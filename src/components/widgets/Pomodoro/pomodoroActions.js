@@ -5,6 +5,11 @@ export const SET_SESSION_SETTINGS = "SET_SESSION_SETTINGS"
 export const SET_PREFERENCES = "SET_PREFERENCES"
 export const SET_SESSION_LABEL = "SET_SESSION_LAB"
 export const SET_CURRENT_POMODORO_PRESET = "SET_CURRENT_POMODORO_PRESET"
+export const SET_POMODORO_PRESET_MODE = "SET_POMODORO_PRESET_MODE"
+export const SET_POMODORO_SESSION_COUNT = "SET_POMODORO_SESSION_COUNT"
+export const RESET_POMODORO_SESSION = "RESET_POMODORO_SESSION"
+export const SHOW_POMODORO_ACTIVE_SESSION_MENU =
+  "SHOW_POMODORO_ACTIVE_SESSION_MENU"
 
 export const setStartedAt = (startedAt) => ({
   startedAt,
@@ -39,4 +44,23 @@ export const setPomodoroSessionLabel = (label) => ({
 export const setCurrentPomodoroPreset = (preset) => ({
   preset,
   type: SET_CURRENT_POMODORO_PRESET,
+})
+
+export const setPomodoroPresetMode = (presetMode) => ({
+  presetMode,
+  type: SET_POMODORO_PRESET_MODE,
+})
+
+export const setPomodoroSessionCount = (sessionCount) => ({
+  sessionCount,
+  type: SET_POMODORO_SESSION_COUNT,
+})
+
+export const resetPomodoroSession = () => ({
+  type: RESET_POMODORO_SESSION,
+})
+
+export const showPomodoroActiveSessionMenu = (activeSessionMenu) => ({
+  activeSessionMenu,
+  type: SHOW_POMODORO_ACTIVE_SESSION_MENU,
 })
