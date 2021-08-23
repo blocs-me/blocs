@@ -28,10 +28,10 @@ const initialState = {
   },
   preferences: {
     autoSetTheme: true,
-    autoStartBreak: false,
+    autoStartBreak: true,
     deepFocus: true,
-    startLongBreakAfter: 5,
-    alarmVolume: 50,
+    startLongBreakAfter: 4,
+    alarmVolume: 30,
     ...getCachedPomodoroPreferences(),
   },
   currentPreset: {

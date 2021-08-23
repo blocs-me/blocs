@@ -31,7 +31,10 @@ const WidgetLayout = ({ children, onMenuClick, menuAria, iconType }) => {
         right={0}
         position="absolute"
         zIndex="nav"
-        css={{ transform: "translate(25%, -25%)" }}
+        css={{
+          transform: "translate(25%, -25%)",
+          transition: "opacity 0.5s ease",
+        }}
       >
         <button aria-label={getAriaLabel()} onClick={() => onMenuClick()}>
           <MenuIcon iconType={iconType} />
