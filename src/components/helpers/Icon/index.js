@@ -13,7 +13,7 @@ const Icon = styled("div", {
       width: "100%",
       maxWidth: "100%",
       maxHeight: "100%",
-      "& path, circle": {
+      "& path, circle, rect": {
         fill: props.fill ? themeGet(`colors.${props.fill}`)(props) : " none",
         stroke: props.stroke
           ? themeGet(`colors.${props.stroke}`)(props)
