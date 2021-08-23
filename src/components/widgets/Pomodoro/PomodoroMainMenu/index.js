@@ -12,6 +12,8 @@ import Card from "@/design-system/Card"
 import Stack from "@/helpers/Stack"
 import Text from "@/design-system/Text"
 import Link from "@/design-system/Link"
+import Icon from "@/helpers/Icon"
+import useColorMode, { useColorModeStore } from "@/hooks/useColorMode"
 
 const menuItems = [
   {
@@ -33,20 +35,11 @@ const menuItems = [
       stroke: 2,
     },
   },
-  // {
-  //   href: "/pomodoro/stats",
-  //   title: "stats",
-  //   icon: <Stats />,
-  // },
-  // {
-  //   href: "/pomodoro/favorites",
-  //   title: "favorites",
-  //   icon: <Heart />,
-  // },
 ]
 
 const PomodoroMainMenu = () => {
   const [avatarMenu, setAvatarMenu] = useState(false)
+  const colorMode = useColorModeStore()
 
   const handleMenuOpen = () => {}
 
@@ -60,7 +53,7 @@ const PomodoroMainMenu = () => {
           onMouseLeave={() => setAvatarMenu(false)}
         >
           <div css={{ cursor: "pointer" }}>
-            <Avatar alt="" variant="sm" />
+            <Avatar alt="profile picture" variant="sm" />
           </div>
           <AnimatePresence>
             {avatarMenu && (
@@ -74,16 +67,24 @@ const PomodoroMainMenu = () => {
                   <Card p="sm" mt="xs">
                     <Stack flexDirection="column" mt="xs">
                       <Link href="">
-                        <Text variant="pSmall">🏠 dashboard</Text>
+                        <Text color="primary.accent-2" fontSize="xs" mb={0}>
+                          🏠 dashboard
+                        </Text>
                       </Link>
                       <Link href="">
-                        <Text variant="pSmall">🤔 FAQs</Text>
+                        <Text color="primary.accent-2" fontSize="xs" mb={0}>
+                          🤔 FAQs
+                        </Text>
                       </Link>
                       <Link href="">
-                        <Text variant="pSmall">😫 help</Text>
+                        <Text color="primary.accent-2" fontSize="xs" mb={0}>
+                          😫 help
+                        </Text>
                       </Link>
                       <Link href="">
-                        <Text variant="pSmall">⏰ guide</Text>
+                        <Text color="primary.accent-2" fontSize="xs" mb={0}>
+                          ⏰ guide
+                        </Text>
                       </Link>
                     </Stack>
                   </Card>
@@ -112,9 +113,11 @@ const PomodoroMainMenu = () => {
         </Icon>
       </Flex> */}
 
-      <Box position="absolute" bottom="md" right="md" width="0.866rem">
-        <Plant />
-      </Box>
+      {colorMode === "light" && (
+        <Box position="absolute" bottom="md" right="md" width="0.866rem">
+          <Plant />
+        </Box>
+      )}
     </Flex>
   )
 }

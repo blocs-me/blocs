@@ -19,8 +19,6 @@ const ColorInput = forwardRef(
     const setColorBg = (e) => {
       const input = colorBg.current
 
-      console.log(e)
-
       if (input) {
         input.style.setProperty("--bg", e?.target?.value)
       }

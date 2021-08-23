@@ -103,24 +103,6 @@ const zIndices = {
   notification: 10000001,
 }
 
-export const darkModeColors = {
-  colors: {
-    ...colors,
-    primary: {
-      default: "#fcfcfc",
-      dark: "##eaeaea",
-      light: "#646464",
-      lightest: "#1F1F1F",
-    },
-    foreground: "#FFFFFF",
-    background: "#333333",
-    bg: {
-      default: "#333333",
-      dark: "#1f1f1f",
-    },
-  },
-}
-
 const theme = {
   colors,
   space,
@@ -133,6 +115,43 @@ const theme = {
   letterSpacings,
   buttons,
   zIndices,
+}
+
+export const darkModeColors = {
+  ...theme,
+  colors: {
+    ...colors,
+    primary: {
+      "accent-0.5": "#fcfcfc",
+      "accent-4": "#f1f1f1",
+      "accent-3": "#d1d1d1",
+      "accent-2": "#999",
+      "accent-1": "#333",
+    },
+    highlight: "",
+    success: "#eaeaea",
+    danger: "#F29191",
+    secondary: "#eaeaea",
+    foreground: "#FFFFFF",
+    background: "#333333",
+    bg: {
+      notion: "#2f3437",
+      default: "#1f1f1f",
+      dark: "#1f1f1f",
+    },
+  },
+  shadows: {
+    default: `
+    rgba(0, 0, 0, 0.25) -5px -5px 10px 2px,
+    rgba(200, 200, 200, 0.06) 5px 5px 10px
+    `,
+    md: `none
+    `,
+    lg: `
+    rgba(10, 10, 10, 0.5) -2px -2px 5px,
+    rgba(255, 255, 255, 0.04) 2px 2px 5px
+    `,
+  },
 }
 
 export default theme
