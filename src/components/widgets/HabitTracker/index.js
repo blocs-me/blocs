@@ -8,6 +8,7 @@ import Text from "@/design-system/Text"
 import Box from "@/helpers/Box"
 import Flex from "@/helpers/Flex"
 import WidgetLayout from "@/helpers/WidgetLayout"
+import Icon from "@/helpers/Icon"
 
 const Checkbox = ({ checked = false }) => (
   <svg
@@ -151,15 +152,22 @@ const HabitTracker = () => {
             fontSize="xs"
             fontWeight="300"
             px="sm"
-            py="xxs"
+            py="xs"
             css={{
               borderRadius: "50px",
               textAlign: "left",
             }}
           >
-            <Box as="span" mr="xxs" css={{ verticalAlign: "middle" }}>
+            <Icon
+              as="span"
+              size="20px"
+              stroke="primary.accent-1"
+              display="inline-block"
+              mr="xs"
+              css={{ verticalAlign: 'middle'}}
+            >
               <Plus />
-            </Box>{" "}
+            </Icon>
             new habit
           </Button>
         </Box>
