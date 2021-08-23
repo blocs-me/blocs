@@ -22,7 +22,11 @@ import { AnimatePresence, AnimateSharedLayout } from "framer-motion"
 import { setCurrentPomodoroPreset } from "../pomodoroActions"
 
 const PomodoroLabels = () => {
-  const { data: presets, error } = useSWR(POMODORO_PRESETS_PATH, fetcher, {
+  const {
+    data: presets,
+    error,
+    isValidating,
+  } = useSWR(POMODORO_PRESETS_PATH, fetcher, {
     revalidateOnFocus: false,
   })
   const { currentPreset } = usePomodoroStore()
@@ -76,11 +80,14 @@ const PomodoroLabels = () => {
       const newPreset = presets?.data?.find(
         (preset) => preset?.id !== currentPreset?.id
       )
-      !!newPreset && dispatch(setCurrentPomodoroPreset(newPreset))
+
+      if (!!newPreset) {
+        dispatch(setCurrentPomodoroPreset(newPreset))
+      }
     }
   }, [currentPreset?.id, dispatch, presets?.data, showDeleteModal])
 
-  if (!presets) {
+  if (!presets?.data) {
     return (
       <Flex
         flexDirection="column"
