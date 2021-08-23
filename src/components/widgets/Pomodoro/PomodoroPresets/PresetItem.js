@@ -2,7 +2,10 @@ import { useRef, useState } from "react"
 
 import Text from "@/design-system/Text"
 import Flex from "@/helpers/Flex"
-import { setCurrentPomodoroPreset } from "../pomodoroActions"
+import {
+  resetPomodoroSession,
+  setCurrentPomodoroPreset,
+} from "../pomodoroActions"
 import { usePomodoroDispatch, usePomodoroStore } from "../usePomodoroStore"
 import Ellipses from "../../../../icons/ellipses.svg"
 import Trash from "../../../../icons/trash.svg"
@@ -51,6 +54,7 @@ const LabelItem = ({
   })
 
   const handleClick = () => {
+    dispatch(resetPomodoroSession())
     dispatch(setCurrentPomodoroPreset(preset))
   }
 
