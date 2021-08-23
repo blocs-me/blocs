@@ -1,5 +1,7 @@
+import Flex from "@/helpers/Flex"
 import { useClickOutside } from "@/hooks/useClickOutside"
 import { useRef } from "react"
+import CrossIcon from '../../../icons/cross.svg'
 
 const { useTheme } = require("@emotion/react")
 const {
@@ -16,6 +18,7 @@ const WidgetModal = ({
   framerKey = "",
   hideModal,
   onAnimationComplete,
+  p = "sm",
 }) => {
   const theme = useTheme()
 
@@ -49,8 +52,11 @@ const WidgetModal = ({
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 40 }}
           >
-            <Card width="100%" height="100%" p="sm" ref={containerRef}>
+            <Card width="100%" height="100%" p={p} position="relative"ref={containerRef}>
               {children}
+              <Flex>
+
+              </Flex>
             </Card>
           </m.div>
         </LazyMotion>
