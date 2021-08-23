@@ -67,7 +67,7 @@ const Pomodoro = () => {
                 </FadeIn>
               )}
               {labelsMenu && (
-                <FadeIn id="lables" key={4}>
+                <FadeIn id="labels" key={4}>
                   <PomodoroLabels />
                 </FadeIn>
               )}
