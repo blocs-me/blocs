@@ -8,7 +8,6 @@ import Moon from "../../../../icons/moon.svg"
 import Sun from "../../../../icons/Sun.svg"
 import AutoThemeIcon from "../../../../icons/auto-theme.svg"
 import Text from "@/design-system/Text"
-import ClientSideOnly from "@/helpers/ClientSideOnly"
 
 const modes = [
   {
