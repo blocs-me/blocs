@@ -80,7 +80,7 @@ const useFetch = (url, options = {}) => {
     return () => {
       mounted.value = false
     }
-  }, [])
+  }, [shouldFetch])
 
   return {
     fetcher: () => handleReq(mounted),

@@ -12,6 +12,7 @@ import Notifications from "@/design-system/Notifications/index.js"
 import useNotifications from "@/design-system/Notifications/useNotifications.js"
 import ClientSideOnly from "@/helpers/ClientSideOnly/index.js"
 import PomodoroThemeMenu from "./PomdoroThemeMenu/index.js"
+import useWidgetAuth, { useWidgetAuthDispatch } from "@/hooks/useWidgetAuth.js"
 
 const FadeIn = ({ id, children }) => (
   <LazyMotion features={domAnimation}>
@@ -48,10 +49,16 @@ const Pomodoro = () => {
     return "back-arrow"
   }
 
+  const auth = useWidgetAuth()
+
   return (
     <PomodoroProvider>
       <NotifProvider>
-        <WidgetLayout onMenuClick={onMenuClick} iconType={getIconType()}>
+        <WidgetLayout
+          onMenuClick={onMenuClick}
+          iconType={getIconType()}
+          hideMenuIcon={false}
+        >
           <Notifications>
             <AnimatePresence exitBeforeEnter initial={false}>
               {mainPage && (
