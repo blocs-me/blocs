@@ -19,6 +19,7 @@ import getAccessToken from "@/utils/getAccessToken"
 import useClipboard from "@/hooks/useClipboard"
 import Modal from "@/design-system/Modal/index.js"
 import Confetti from "react-dom-confetti"
+import DummyPomodoro from "@/widgets/Pomodoro/DummyPomodoro"
 
 const confettiConfig = {
   angle: 90,
@@ -214,7 +215,7 @@ const Dashboard = ({ links }) => {
               }}
               showCopyLink
             >
-              <Pomodoro />
+              <DummyPomodoro />
             </ProductWrapper>
             <ProductWrapper title="HABIT TRACKER">
               <HabitTracker />
