@@ -235,7 +235,7 @@ const Dashboard = ({ links }) => {
           Hooray ! 🥳
         </Text>
         <Text variant="pSmall" textAlign="center">
-          We copied the pomodoro link to you clipboard. <br />
+          We copied the pomodoro link to your clipboard. <br />
         </Text>
         <Text variant="pSmall" textAlign="center" mt="xxs">
           It will be valid for{" "}
