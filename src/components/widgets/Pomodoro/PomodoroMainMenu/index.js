@@ -47,8 +47,6 @@ const PomodoroMainMenu = () => {
     shouldFetch: false,
   })
 
-  const handleMenuOpen = () => {}
-
   return (
     <Flex width="100%" height="100%" position="relative" p="md" center>
       <Box position="absolute" top="sm" left="sm">
@@ -62,7 +60,7 @@ const PomodoroMainMenu = () => {
             <Avatar
               alt="profile picture"
               variant="sm"
-              src={userData?.data?.avatar_url}
+              src={userData?.avatar_url}
             />
           </div>
           <AnimatePresence>
