@@ -5,7 +5,6 @@ import Play from "../../../icons/play.svg"
 import Pause from "../../../icons/pause.svg"
 import fadeIn from "../../../keyframes/fadeIn"
 import HabitTracker from "@/widgets/HabitTracker"
-import Pomodoro from "@/widgets/Pomodoro"
 import Streaks from "@/widgets/Streaks"
 import WaterTracker from "@/widgets/WaterTracker"
 import Icon from "@/helpers/Icon"
@@ -14,6 +13,7 @@ import Text from "@/design-system/Text"
 import Stack from "@/helpers/Stack"
 import Box from "@/helpers/Box"
 import Analytics from "@/widgets/Analytics"
+import Pomodoro from "@/widgets/Pomodoro/DummyPomodoro"
 
 const SlideIndicator = ({ currentIndex, numberOfItems = 3, setIndex }) => (
   <Stack display="flex" ml="xs">

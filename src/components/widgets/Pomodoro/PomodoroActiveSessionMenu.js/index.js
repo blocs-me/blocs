@@ -3,7 +3,7 @@ import Text from "@/design-system/Text"
 import Flex from "@/helpers/Flex"
 import Icon from "@/helpers/Icon"
 import msToMins from "@/utils/msToMins"
-import WidgetModal from "@/widgets/WidgetModal.js"
+import WidgetModal from "@/widgets/WidgetModal/index.js"
 import {
   resetPomodoroSession,
   setDocumentTimelineStart,
