@@ -11,8 +11,11 @@ const Link = ({
   fontWeight = "400",
   inline = false,
   color = "secondary",
+  className,
+  target,
 }) => (
   <Box
+    className={className}
     borderBottomColor="secondary"
     borderBottomStyle="solid"
     borderBottomWidth={underline ? "1px" : 0}
@@ -26,7 +29,12 @@ const Link = ({
     as="span"
   >
     <L href={href} passHref={passHref}>
-      <Text as="a" color={color} fontWeight={fontWeight}>
+      <Text
+        as="a"
+        color={color}
+        fontWeight={fontWeight}
+        {...(target ? { target } : {})}
+      >
         {children}
       </Text>
     </L>
