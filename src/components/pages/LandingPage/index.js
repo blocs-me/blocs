@@ -300,9 +300,7 @@ const LandingPage = () => {
                     target="_blank"
                     aria-label="Blocs founders Linkedin"
                   >
-                    <Icon size="50px" fill="primary.accent-4">
-                      <Linkedin />
-                    </Icon>
+                    <Linkedin css={{ width: "50px" }} />
                   </SocialIcon>
                   <SocialIcon
                     href="https://codepen.com/moniet"
@@ -310,9 +308,10 @@ const LandingPage = () => {
                     target="_blank"
                     aria-label="Blocs founders Codepen"
                   >
-                    <Icon size="50px" fill="primary.accent-4">
-                      <Codepen />
-                    </Icon>
+                    {/* <Icon size="50px" stroke="primary.accent-4"> */}
+
+                    <Codepen css={{ width: "50px" }} />
+                    {/* </Icon> */}
                   </SocialIcon>
                   <SocialIcon
                     href="mailto:moniet@blocs.me"
