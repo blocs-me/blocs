@@ -18,6 +18,8 @@ import Text from "@/design-system/Text/index.js"
 import Flex from "@/helpers/Flex/index.js"
 import Button from "@/design-system/Button/index.js"
 import Link from "@/design-system/Link/index.js"
+import useDidMount from "@/hooks/useDidMount.js"
+import { useEffect, useState } from "react"
 
 const FadeIn = ({ id, children }) => (
   <LazyMotion features={domAnimation}>
@@ -54,7 +56,11 @@ const Pomodoro = () => {
     return "back-arrow"
   }
 
-  const auth = useWidgetAuth()
+  const [authModal, setAuthModal] = useState(false)
+
+  const { isLoggingIn, isLoggedIn } = useWidgetAuth({
+    onError: () => setAuthModal(true),
+  })
 
   return (
     <>
@@ -63,7 +69,7 @@ const Pomodoro = () => {
           <WidgetLayout
             onMenuClick={onMenuClick}
             iconType={getIconType()}
-            hideMenuIcon={false}
+            hideMenuIcon={!isLoggedIn}
           >
             <Notifications>
               <AnimatePresence exitBeforeEnter initial={false}>
@@ -97,7 +103,7 @@ const Pomodoro = () => {
 
             <WidgetModal
               framerKey="pomodo-unauth"
-              open={!auth.isLoggedIn && !auth.isLoggingIn}
+              open={authModal}
               hideModal={() => {}}
               readonly
             >
