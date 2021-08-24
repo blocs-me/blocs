@@ -15,6 +15,7 @@ import Skeleton from "@/helpers/Skeleton"
 import PomodoroActiveSessionMenu from "../PomodoroActiveSessionMenu.js"
 import { useState } from "react/cjs/react.development"
 import { useTheme } from "@emotion/react"
+import useWidgetAuth, { useWidgetAuthStore } from "@/hooks/useWidgetAuth"
 
 const PomodoroMainPage = () => {
   const {
@@ -34,6 +35,9 @@ const PomodoroMainPage = () => {
     onError: () => handleGetPresetsError,
     revalidateOnFocus: false,
   })
+
+  const { isLoggingIn } = useWidgetAuthStore() || {}
+  const loading = isLoggingIn
 
   const theme = useTheme()
 
@@ -63,7 +67,7 @@ const PomodoroMainPage = () => {
         onMouseOver={() => setHovering(true)}
         onMouseLeave={() => setHovering(false)}
       >
-        <Timer loading={!presets} />
+        <Timer loading={!presets || loading} />
         <Flex
           justifyContent="center"
           overflow="hidden"
@@ -80,10 +84,10 @@ const PomodoroMainPage = () => {
             marginTop: deepFocus && startedAt && !hovering ? 0 : theme.space.sm,
           }}
         >
-          {!presets && (
+          {(!presets || loading) && (
             <Skeleton width="100px" height="40px" borderRadius="lg" />
           )}
-          {presets && (
+          {presets && !loading && (
             <Button
               onClick={(ev) => handleClick(ev)}
               width="100px"
