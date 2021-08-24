@@ -67,7 +67,6 @@ const PomodoroMainPage = () => {
   }
 
   useEffect(() => {
-    console.log(presets)
     if (presets?.data?.length === 1) {
       const preset = presets.data[0]
 
