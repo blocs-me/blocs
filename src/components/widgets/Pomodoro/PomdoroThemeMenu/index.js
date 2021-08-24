@@ -5,7 +5,7 @@ import useColorMode, { useColorModeStore } from "@/hooks/useColorMode"
 import ThemeIcon from "../../../../icons/invert-color.svg"
 import MenuHeader from "../Typography/MenuHeader"
 import Moon from "../../../../icons/moon.svg"
-import Sun from "../../../../icons/Sun.svg"
+import Sun from "../../../../icons/sun.svg"
 import AutoThemeIcon from "../../../../icons/auto-theme.svg"
 import Text from "@/design-system/Text"
 

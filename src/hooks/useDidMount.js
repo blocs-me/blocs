@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { useEffect } from "react/cjs/react.development"
+import { useEffect } from "react"
 
 const useDidMount = () => {
   const [mounted, setMounted] = useState(false)

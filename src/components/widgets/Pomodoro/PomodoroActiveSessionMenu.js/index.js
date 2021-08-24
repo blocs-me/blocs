@@ -17,8 +17,6 @@ import CupIcon from "../../../../icons/cup.svg"
 import Trash from "../../../../icons/trash-can.svg"
 import ScrollProvider from "@/design-system/ScrollProvider"
 import Stack from "@/helpers/Stack"
-import { useEffect, useRef } from "react/cjs/react.development"
-import { useClickOutside } from "@/hooks/useClickOutside"
 import {
   POMODORO_INTERVAL_MODE,
   POMODORO_LONG_BREAK_MODE,
