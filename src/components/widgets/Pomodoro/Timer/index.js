@@ -14,6 +14,7 @@ import {
   POMODORO_SHORT_BREAK_MODE,
 } from "../pomodoroPresetModes"
 import { showPomodoroActiveSessionMenu } from "../pomodoroActions"
+import { useWidgetAuthStore } from "@/hooks/useWidgetAuth"
 
 const Timer = ({ loading }) => {
   const { clock, percentProgressed } = useTimer()
@@ -29,10 +30,13 @@ const Timer = ({ loading }) => {
   }, [])
 
   const dispatch = usePomodoroDispatch()
+  const { isLoggedIn } = useWidgetAuthStore() || {}
 
   const handleClick = (e) => {
     e?.stopPropagation()
-    dispatch(showPomodoroActiveSessionMenu(true))
+    if (isLoggedIn) {
+      dispatch(showPomodoroActiveSessionMenu(true))
+    }
   }
 
   if (!mounted) return null

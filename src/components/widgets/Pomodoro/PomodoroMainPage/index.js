@@ -5,7 +5,11 @@ import Grid from "@/helpers/Grid"
 import Icon from "@/helpers/Icon"
 import Heart from "../../../../icons/heart.svg"
 import { usePomodoroStore, usePomodoroDispatch } from "../usePomodoroStore"
-import { setDocumentTimelineStart, setStartedAt } from "../pomodoroActions"
+import {
+  setCurrentPomodoroPreset,
+  setDocumentTimelineStart,
+  setStartedAt,
+} from "../pomodoroActions"
 import useSWR from "swr"
 import { POMODORO_PRESETS_PATH } from "@/utils/endpoints"
 import fetcher from "@/utils/fetcher"
@@ -13,15 +17,22 @@ import useNotifications from "@/design-system/Notifications/useNotifications"
 import fetchWithToken from "src/services/fetchWithToken"
 import Skeleton from "@/helpers/Skeleton"
 import PomodoroActiveSessionMenu from "../PomodoroActiveSessionMenu.js"
-import { useState } from "react/cjs/react.development"
+import { useEffect, useState } from "react/cjs/react.development"
 import { useTheme } from "@emotion/react"
 import useWidgetAuth, { useWidgetAuthStore } from "@/hooks/useWidgetAuth"
+import { useRouter } from "next/router"
 
 const PomodoroMainPage = () => {
+  const { token } = useRouter().query
+  const { isLoggingIn, isLoggedIn } = useWidgetAuthStore() || {}
+  const loading = isLoggingIn || !token
+
   const {
     session: { startedAt },
     preferences: { deepFocus },
+    currentPreset,
   } = usePomodoroStore()
+
   const pomodoroDispatch = usePomodoroDispatch()
   const notifs = useNotifications()
   const [hovering, setHovering] = useState(false)
@@ -31,28 +42,40 @@ const PomodoroMainPage = () => {
     notifs.createError(
       "Uh oh ! We were not able to fetch your pomodoro presets"
     )
-  const { data: presets } = useSWR(POMODORO_PRESETS_PATH, fetchWithToken(), {
-    onError: () => handleGetPresetsError,
-    revalidateOnFocus: false,
-  })
-
-  const { isLoggingIn } = useWidgetAuthStore() || {}
-  const loading = isLoggingIn
+  const { data: presets } = useSWR(
+    loading || !isLoggedIn ? null : POMODORO_PRESETS_PATH,
+    fetcher,
+    {
+      onError: () => handleGetPresetsError,
+      revalidateOnFocus: false,
+    }
+  )
 
   const theme = useTheme()
 
   const handleClick = () => {
+    if (loading) return null
     if (startedAt) {
       // stopping the session
       pomodoroDispatch(setStartedAt(null))
       // TO DO, handle database update
       return null
     }
-
     // start the session
     pomodoroDispatch(setDocumentTimelineStart(document.timeline.currentTime))
     pomodoroDispatch(setStartedAt(Date.now()))
   }
+
+  useEffect(() => {
+    console.log(presets)
+    if (presets?.data?.length === 1) {
+      const preset = presets.data[0]
+
+      if (preset.id !== currentPreset?.id) {
+        pomodoroDispatch(setCurrentPomodoroPreset(preset))
+      }
+    }
+  }, [presets, currentPreset])
 
   return (
     <>

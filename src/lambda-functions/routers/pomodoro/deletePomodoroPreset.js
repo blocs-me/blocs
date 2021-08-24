@@ -30,7 +30,6 @@ const deletePomodoroPreset = async (req, res) => {
     const canDelete = userPresets?.data?.length > 1
 
     if (!canDelete) {
-      console.log("user-presets", userPresets)
       const error = new Error(
         "Cannot delete,you  need at least than one pomodoro preset"
       )

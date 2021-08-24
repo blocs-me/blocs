@@ -87,6 +87,16 @@ const PomodoroLabels = () => {
     }
   }, [currentPreset?.id, dispatch, presets?.data, showDeleteModal])
 
+  useEffect(() => {
+    if (presets?.data?.length === 1) {
+      const preset = presets.data[0]
+
+      if (preset.id !== currentPreset?.id) {
+        dispatch(setCurrentPomodoroPreset(preset))
+      }
+    }
+  }, [presets, currentPreset])
+
   if (!presets?.data) {
     return (
       <Flex

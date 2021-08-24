@@ -5,6 +5,7 @@ import {
 import storage from "@/utils/storage"
 import { useRouter } from "next/router"
 import { useEffect, useLayoutEffect } from "react"
+import useDidMount from "./useDidMount"
 import useFetch from "./useFetch"
 
 const { default: makeStore } = require("src/lib/makeStore")
@@ -44,12 +45,11 @@ const [WidgetAuthProvider, useWidgetAuthStore, useWidgetAuthDispatch] =
 
 export { WidgetAuthProvider, useWidgetAuthStore, useWidgetAuthDispatch }
 
-const useWidgetAuth = () => {
-  // unauth modal
-
+const useWidgetAuth = ({ onError = () => {} }) => {
   const dispatch = useWidgetAuthDispatch()
   const store = useWidgetAuthStore() || initalState
-  const { token } = useRouter().query
+  const router = useRouter()
+  const { token } = router.query
 
   const setIsLoggedIn = (isLoggedIn) =>
     dispatch({
@@ -62,12 +62,6 @@ const useWidgetAuth = () => {
       isLoggingIn,
       type: SET_IS_LOGGING_IN,
     })
-
-  useEffect(() => {
-    if (!token) {
-      setIsLoggingIn(false)
-    }
-  }, [token]) // eslint-disable-line
 
   const hasPrevLoggedIn = Boolean(storage.getItem("hasPrevLoggedIn"))
 
@@ -82,7 +76,10 @@ const useWidgetAuth = () => {
       setIsLoggedIn(true)
       setIsLoggingIn(false)
     },
-    onError: () => setIsLoggingIn(false),
+    onError: (error) => {
+      setIsLoggingIn(false)
+      onError(error)
+    },
   })
 
   const { error: validationError, data: validated } = useFetch(
@@ -90,8 +87,7 @@ const useWidgetAuth = () => {
     {
       method: "POST",
       shouldCache: false,
-      shouldFetch:
-        !!hasPrevLoggedIn && !store?.isLoggedIn && !store?.isLoggingIn,
+      shouldFetch: !!hasPrevLoggedIn && !store?.isLoggedIn,
       headers: {
         credentials: "same-origin",
       },
@@ -99,7 +95,10 @@ const useWidgetAuth = () => {
         setIsLoggedIn(true)
         setIsLoggingIn(false)
       },
-      onError: () => setIsLoggingIn(false),
+      onError: (e) => {
+        setIsLoggingIn(false)
+        onError(e)
+      },
     }
   )
 
