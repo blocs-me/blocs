@@ -13,6 +13,11 @@ import useNotifications from "@/design-system/Notifications/useNotifications.js"
 import ClientSideOnly from "@/helpers/ClientSideOnly/index.js"
 import PomodoroThemeMenu from "./PomdoroThemeMenu/index.js"
 import useWidgetAuth, { useWidgetAuthDispatch } from "@/hooks/useWidgetAuth.js"
+import WidgetModal from "../WidgetModal/index.js"
+import Text from "@/design-system/Text/index.js"
+import Flex from "@/helpers/Flex/index.js"
+import Button from "@/design-system/Button/index.js"
+import Link from "@/design-system/Link/index.js"
 
 const FadeIn = ({ id, children }) => (
   <LazyMotion features={domAnimation}>
@@ -52,45 +57,83 @@ const Pomodoro = () => {
   const auth = useWidgetAuth()
 
   return (
-    <PomodoroProvider>
-      <NotifProvider>
-        <WidgetLayout
-          onMenuClick={onMenuClick}
-          iconType={getIconType()}
-          hideMenuIcon={false}
-        >
-          <Notifications>
-            <AnimatePresence exitBeforeEnter initial={false}>
-              {mainPage && (
-                <FadeIn id="main-page" key={1}>
-                  <PomodoroMainPage />
-                </FadeIn>
-              )}
-              {mainMenu && (
-                <FadeIn id="main-menu" key={2}>
-                  <PomodoroMainMenu />
-                </FadeIn>
-              )}
-              {settingsMenu && (
-                <FadeIn id="settings" key={3}>
-                  <PomodoroSettings />
-                </FadeIn>
-              )}
-              {labelsMenu && (
-                <FadeIn id="labels" key={4}>
-                  <PomodoroLabels />
-                </FadeIn>
-              )}
-              {themeMenu && (
-                <FadeIn id="themeMenu" key={5}>
-                  <PomodoroThemeMenu />
-                </FadeIn>
-              )}
-            </AnimatePresence>
-          </Notifications>
-        </WidgetLayout>
-      </NotifProvider>
-    </PomodoroProvider>
+    <>
+      <PomodoroProvider>
+        <NotifProvider>
+          <WidgetLayout
+            onMenuClick={onMenuClick}
+            iconType={getIconType()}
+            hideMenuIcon={false}
+          >
+            <Notifications>
+              <AnimatePresence exitBeforeEnter initial={false}>
+                {mainPage && (
+                  <FadeIn id="main-page" key={1}>
+                    <PomodoroMainPage />
+                  </FadeIn>
+                )}
+                {mainMenu && (
+                  <FadeIn id="main-menu" key={2}>
+                    <PomodoroMainMenu />
+                  </FadeIn>
+                )}
+                {settingsMenu && (
+                  <FadeIn id="settings" key={3}>
+                    <PomodoroSettings />
+                  </FadeIn>
+                )}
+                {labelsMenu && (
+                  <FadeIn id="labels" key={4}>
+                    <PomodoroLabels />
+                  </FadeIn>
+                )}
+                {themeMenu && (
+                  <FadeIn id="themeMenu" key={5}>
+                    <PomodoroThemeMenu />
+                  </FadeIn>
+                )}
+              </AnimatePresence>
+            </Notifications>
+
+            <WidgetModal
+              framerKey="pomodo-unauth"
+              open={!auth.isLoggedIn && !auth.isLoggingIn}
+              hideModal={() => {}}
+              readonly
+            >
+              <Flex
+                css={{ textAlign: "center" }}
+                alignItems="center"
+                justifyContent="center"
+                flexDirection="column"
+                size="100%"
+              >
+                <Text fontSize="md" color="primary.accent-3">
+                  😞 Uh oh !
+                </Text>
+                <Text variant="pSmall">Looks like the link expired</Text>
+                <Text variant="pSmall" mt="xs">
+                  You will need to go back to the dashboard and create another
+                  link
+                </Text>
+
+                <Button
+                  mt="md"
+                  variant="default"
+                  bg="primary.accent-4"
+                  borderRadius="md"
+                  as="a"
+                  href="https://blocs.me/dashboard"
+                  target="_blank"
+                >
+                  To the dashboard 🚀
+                </Button>
+              </Flex>
+            </WidgetModal>
+          </WidgetLayout>
+        </NotifProvider>
+      </PomodoroProvider>
+    </>
   )
 }
 

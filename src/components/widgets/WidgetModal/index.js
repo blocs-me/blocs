@@ -19,6 +19,7 @@ const WidgetModal = ({
   framerKey = "",
   hideModal,
   onAnimationComplete,
+  readonly,
   p = "sm",
 }) => {
   const theme = useTheme()
@@ -61,23 +62,25 @@ const WidgetModal = ({
               ref={containerRef}
             >
               {children}
-              <Flex
-                onClick={(e) => hideModal(e)}
-                as="button"
-                position="absolute"
-                top={0}
-                left={0}
-                css={{ transform: "translate(-25%, -25%)" }}
-                bg="danger"
-                size="25px"
-                borderRadius="50%"
-                alignItems="center"
-                justifyContent="center"
-              >
-                <Icon fill="primary.accent-1" p="1px">
-                  <CrossIcon />
-                </Icon>
-              </Flex>
+              {!readonly && (
+                <Flex
+                  onClick={(e) => hideModal(e)}
+                  as="button"
+                  position="absolute"
+                  top={0}
+                  left={0}
+                  css={{ transform: "translate(-25%, -25%)" }}
+                  bg="danger"
+                  size="25px"
+                  borderRadius="50%"
+                  alignItems="center"
+                  justifyContent="center"
+                >
+                  <Icon fill="primary.accent-1" p="1px">
+                    <CrossIcon />
+                  </Icon>
+                </Flex>
+              )}
             </Card>
           </m.div>
         </LazyMotion>
