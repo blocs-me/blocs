@@ -277,6 +277,7 @@ const Nav = ({ title = "", links = [] }) => {
                     href={`https://api.notion.com/v1/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URL}&response_type=code`}
                     text="login"
                     px="xs"
+                    py="xxs"
                     fontSize="sm"
                     display="flex"
                     css={{ alignItems: "center" }}
