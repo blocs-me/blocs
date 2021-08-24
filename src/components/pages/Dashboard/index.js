@@ -20,6 +20,8 @@ import useClipboard from "@/hooks/useClipboard"
 import Modal from "@/design-system/Modal/index.js"
 import Confetti from "react-dom-confetti"
 import DummyPomodoro from "@/widgets/Pomodoro/DummyPomodoro"
+import Image from "next/image"
+import Link from "@/design-system/Link"
 
 const confettiConfig = {
   angle: 90,
@@ -242,7 +244,17 @@ const Dashboard = ({ links }) => {
           </Text>
         </Text>
         <Text variant="pSmall" textAlign="center" mt="sm">
-          Paste the embed in Notion like this :
+          Check out the guide{" "}
+          <Link
+            passHref
+            inline
+            fontWeight="bold"
+            underline
+            target="_blank"
+            href="https://glittery-ankle-1a8.notion.site/Pomodoro-Guide-8c1c69370f904b1084b221dc3e4acd3a"
+          >
+            on notion
+          </Link>
         </Text>
       </Modal>
     </>
