@@ -2,6 +2,8 @@
 import Box from "../Box"
 import MenuIcon from "./MenuIcon"
 import { useRouter } from "next/router"
+import FadeIn from "../FadeIn"
+import fadeIn from "@/keyframes/fadeIn"
 
 const WidgetLayout = ({
   children,
@@ -41,6 +43,7 @@ const WidgetLayout = ({
           css={{
             transform: "translate(25%, -25%)",
             transition: "opacity 0.5s ease",
+            animation: `${fadeIn} 1s ease`,
           }}
         >
           <button aria-label={getAriaLabel()} onClick={() => onMenuClick()}>

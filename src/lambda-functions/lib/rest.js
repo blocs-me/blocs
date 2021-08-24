@@ -12,23 +12,25 @@ class Rest {
       get: [],
       "*": [],
     }
+    this.terminated = false
   }
 
-  use(method, middleware) {
+  async use(method, middleware) {
     if (!method)
       throw new Error("rest() : method must be defined for middlewares")
     if (!middleware) throw new Error("rest() : middleware is not defined")
 
-    this.middlewares[method]?.push(middleware)
+    this.middlewares[method?.toLowerCase()]?.push(middleware)
 
     return this
   }
 
   async applyMiddlewares(method) {
-    const middlewaresOfMethod = this.middlewares[method]
+    const middlewaresOfMethod = this.middlewares[method?.toLowerCase()]
 
     if (middlewaresOfMethod?.length === 0) return null
-    if (!middlewaresOfMethod) throw new Error("incorrect method provided")
+    if (!middlewaresOfMethod)
+      throw new Error("incorrect method provided, method : " + method)
 
     for (let mw of middlewaresOfMethod) {
       try {
@@ -61,17 +63,20 @@ class Rest {
   }
 
   async handleRouter(router, method) {
+    if (this.terminated) return null
+
     if (this.req.method?.toLowerCase() === method) {
-      // try {
-      //   await this.applyMiddlewares("*")
-      //   await this.applyMiddlewares(this.req.method)
-      // } catch (error) {
-      //   this.res.status(500).json({ error: {} })
-      // }
+      await this.applyMiddlewares("*")
+      await this.applyMiddlewares(this.req.method)
       await router(this.req, this.res, this)
+      this.terminate()
     } else {
       return null
     }
+  }
+
+  terminate() {
+    this.terminated = true
   }
 }
 

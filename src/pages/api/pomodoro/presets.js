@@ -1,4 +1,6 @@
+import { getBlocsUser } from "@/lambda/faunadb/getBlocsUserRef"
 import Rest from "@/lambda/lib/rest"
+import authWidgetUser from "@/lambda/middlewares/authWidgetUser"
 import deletePomodoroPreset from "@/lambda/routers/pomodoro/deletePomodoroPreset"
 import getPomodoroPresets from "@/lambda/routers/pomodoro/getPomodoroPresets"
 import patchPomodoroPreset from "@/lambda/routers/pomodoro/patchPomodoroPreset"
@@ -8,18 +10,13 @@ import { query as q } from "faunadb"
 const handler = async (req, res) => {
   const rest = new Rest(req, res)
 
-  // res.use(cors)
-  // rest.use(authenticateBlocsUser)
-  // rest.use("*", async (req, res) => {
-  //   req.user = {
-  //     ref: q.Ref(q.Collection("users"), "303985067693179406"),
-  //   }
-  // })
+  await authWidgetUser(req, res, rest)
+  await getBlocsUser(req, res, rest)
 
-  rest.get(getPomodoroPresets)
-  rest.post(postPomodoroPreset)
-  rest.delete(deletePomodoroPreset)
-  rest.patch(patchPomodoroPreset)
+  await rest.get(getPomodoroPresets)
+  await rest.post(postPomodoroPreset)
+  await rest.delete(deletePomodoroPreset)
+  await rest.patch(patchPomodoroPreset)
 }
 
 export default handler

@@ -2,8 +2,9 @@ import faunaClient from "@/lambda/faunaClient"
 import { validatePomodoroPreset } from "@/lambda/lib/jsonValidator"
 import { query as q } from "faunadb"
 
-const patchPomodoroPreset = async (req, res) => {
-  const { user, body: preset } = req
+const patchPomodoroPreset = async (req, res, rest) => {
+  const { body: preset } = req
+  const { userRef } = rest
 
   const isValid = validatePomodoroPreset(preset)
   if (!isValid) {
@@ -15,9 +16,6 @@ const patchPomodoroPreset = async (req, res) => {
   }
 
   try {
-    const userId = "303985067693179406"
-    const userRef = q.Ref(q.Collection("users"), userId)
-
     const updatedPreset = await faunaClient.query(
       q.Call(q.Function("update_pomodoro_preset"), [
         preset?.id,
