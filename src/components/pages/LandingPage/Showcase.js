@@ -131,6 +131,7 @@ const Showcase = () => {
           onClick={() => togglePlay()}
           aria-label="Play or Pause Button"
           aria-pressed={play}
+          stroke="primary.accent-4"
         >
           {!play && <Play />}
           {play && <Pause />}
