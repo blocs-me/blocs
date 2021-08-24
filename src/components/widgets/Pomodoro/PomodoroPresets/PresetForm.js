@@ -18,14 +18,7 @@ import PresetFormSuccessState from "./PresetFormSuccessState"
 import { usersList } from "@notionhq/client/build/src/api-endpoints"
 import useNotifications from "@/design-system/Notifications/useNotifications"
 
-const PresetForm = ({
-  hideForm = () => {
-    console.log("empty function")
-  },
-  formAction,
-  presets,
-  open,
-}) => {
+const PresetForm = ({ hideForm = () => {}, formAction, presets, open }) => {
   const { currentPreset = {} } = usePomodoroStore()
 
   const defaultValues = useMemo(() => {
