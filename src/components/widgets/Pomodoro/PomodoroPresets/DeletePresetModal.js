@@ -2,7 +2,7 @@ import Flex from "@/helpers/Flex"
 import Icon from "@/helpers/Icon"
 import Skeleton from "@/helpers/Skeleton"
 import Stack from "@/helpers/Stack"
-import { useEffect } from "react/cjs/react.development"
+import { useEffect } from "react"
 
 const { default: Button } = require("@/design-system/Button")
 const { default: Text } = require("@/design-system/Text")
