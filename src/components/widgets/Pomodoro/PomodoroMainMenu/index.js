@@ -14,6 +14,8 @@ import Text from "@/design-system/Text"
 import Link from "@/design-system/Link"
 import Icon from "@/helpers/Icon"
 import useColorMode, { useColorModeStore } from "@/hooks/useColorMode"
+import useFetch from "@/hooks/useFetch"
+import { WIDGET_LOGIN_PATH } from "@/utils/endpoints"
 
 const menuItems = [
   {
@@ -41,6 +43,10 @@ const PomodoroMainMenu = () => {
   const [avatarMenu, setAvatarMenu] = useState(false)
   const colorMode = useColorModeStore()
 
+  const { data: userData } = useFetch(WIDGET_LOGIN_PATH, {
+    shouldFetch: false,
+  })
+
   const handleMenuOpen = () => {}
 
   return (
@@ -53,7 +59,11 @@ const PomodoroMainMenu = () => {
           onMouseLeave={() => setAvatarMenu(false)}
         >
           <div css={{ cursor: "pointer" }}>
-            <Avatar alt="profile picture" variant="sm" />
+            <Avatar
+              alt="profile picture"
+              variant="sm"
+              src={userData?.data?.avatar_url}
+            />
           </div>
           <AnimatePresence>
             {avatarMenu && (

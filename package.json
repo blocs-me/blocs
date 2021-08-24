@@ -19,6 +19,7 @@
     "ajv": "^6.12.6",
     "bcrypt": "^5.0.1",
     "beautiful-react-hooks": "^0.35.0",
+    "cookies": "^0.8.0",
     "cors": "^2.8.5",
     "faunadb": "^4.3.0",
     "framer-motion": "^4.1.17",
@@ -36,7 +37,8 @@
     "react-wavify": "^1.5.2",
     "rebass": "^4.0.7",
     "styled-system": "^5.1.5",
-    "swr": "^0.5.6"
+    "swr": "^0.5.6",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@svgr/webpack": "^5.5.0",

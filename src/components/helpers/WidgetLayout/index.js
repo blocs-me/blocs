@@ -3,7 +3,13 @@ import Box from "../Box"
 import MenuIcon from "./MenuIcon"
 import { useRouter } from "next/router"
 
-const WidgetLayout = ({ children, onMenuClick, menuAria, iconType }) => {
+const WidgetLayout = ({
+  children,
+  onMenuClick,
+  menuAria,
+  iconType,
+  hideMenuIcon,
+}) => {
   const { pathname } = useRouter()
 
   const getAriaLabel = () => {
@@ -26,20 +32,22 @@ const WidgetLayout = ({ children, onMenuClick, menuAria, iconType }) => {
       overflow="hidden"
       position="relative"
     >
-      <Box
-        top={0}
-        right={0}
-        position="absolute"
-        zIndex="nav"
-        css={{
-          transform: "translate(25%, -25%)",
-          transition: "opacity 0.5s ease",
-        }}
-      >
-        <button aria-label={getAriaLabel()} onClick={() => onMenuClick()}>
-          <MenuIcon iconType={iconType} />
-        </button>
-      </Box>
+      {!hideMenuIcon && (
+        <Box
+          top={0}
+          right={0}
+          position="absolute"
+          zIndex="nav"
+          css={{
+            transform: "translate(25%, -25%)",
+            transition: "opacity 0.5s ease",
+          }}
+        >
+          <button aria-label={getAriaLabel()} onClick={() => onMenuClick()}>
+            <MenuIcon iconType={iconType} />
+          </button>
+        </Box>
+      )}
       {children}
     </Box>
   )

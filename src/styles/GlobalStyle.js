@@ -114,6 +114,17 @@ const GlobalStyle = () => {
             transform: translate3d(0, 10px, 0);
           }
         }
+
+        @media (prefers-color-scheme: dark) {
+          [data-theme="notion-bg"] {
+            background: #2f3437;
+          }
+        }
+        @media (prefers-color-scheme: light) {
+          [data-theme="notion-bg"] {
+            background: #ffffff;
+          }
+        }
       `}
     />
   )

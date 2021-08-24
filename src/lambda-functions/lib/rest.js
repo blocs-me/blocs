@@ -1,3 +1,5 @@
+import Cookie from "cookies"
+
 class Rest {
   constructor(req, res) {
     this.res = res
@@ -39,23 +41,23 @@ class Rest {
   }
 
   async get(router = () => {}) {
-    await this.handleRouter(router, "get")
+    return await this.handleRouter(router, "get")
   }
 
   async post(router = () => {}) {
-    await this.handleRouter(router, "post")
+    return await this.handleRouter(router, "post")
   }
 
   async patch(router = () => {}) {
-    await this.handleRouter(router, "patch")
+    return await this.handleRouter(router, "patch")
   }
 
   async delete(router = () => {}) {
-    await this.handleRouter(router, "delete")
+    return await this.handleRouter(router, "delete")
   }
 
   async put(router = () => {}) {
-    await this.handleRouter(router, "put")
+    return await this.handleRouter(router, "put")
   }
 
   async handleRouter(router, method) {
@@ -66,8 +68,7 @@ class Rest {
       // } catch (error) {
       //   this.res.status(500).json({ error: {} })
       // }
-
-      await router(this.req, this.res)
+      await router(this.req, this.res, this)
     } else {
       return null
     }
