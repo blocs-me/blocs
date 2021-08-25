@@ -1,12 +1,12 @@
 import useFetch from "@/hooks/useFetch"
-import { POMODORO_PRESETS_PATH } from "@/utils/endpoints"
+import useFetchCache from "@/hooks/useFetchCache"
+import { POMODORO_PRESETS_PATH, WIDGET_LOGIN_PATH } from "@/utils/endpoints"
 import { mutate } from "swr"
 import { usePomodoroDispatch } from "../usePomodoroStore"
 
 const usePresetApi = (presetData, presets, options = {}) => {
-  const dispatch = usePomodoroDispatch()
-
   const { onSuccess, onError } = options
+  const { token } = useFetchCache(WIDGET_LOGIN_PATH)
 
   const mutatePost = (res = {}) => {
     onSuccess?.()
@@ -62,6 +62,11 @@ const usePresetApi = (presetData, presets, options = {}) => {
       })
   }
 
+  const headers = {
+    Authorization: `Bearer ${token}`,
+    credentials: "same-origin",
+  }
+
   const {
     fetcher: postPreset,
     loading: postPresetLoading,
@@ -72,9 +77,7 @@ const usePresetApi = (presetData, presets, options = {}) => {
     body: presetData,
     shouldCache: false,
     method: "POST",
-    headers: {
-      credentials: "same-origin",
-    },
+    headers,
     onSuccess: mutatePost,
     onError,
   })
@@ -91,9 +94,7 @@ const usePresetApi = (presetData, presets, options = {}) => {
     method: "PATCH",
     onSuccess: mutatePatch,
     onError,
-    headers: {
-      credentials: "same-origin",
-    },
+    headers,
   })
 
   const {
@@ -106,9 +107,7 @@ const usePresetApi = (presetData, presets, options = {}) => {
     body: presetData,
     shouldCache: false,
     method: "DELETE",
-    headers: {
-      credentials: "same-origin",
-    },
+    headers,
     onSuccess: mutateDelete,
     onError,
   })

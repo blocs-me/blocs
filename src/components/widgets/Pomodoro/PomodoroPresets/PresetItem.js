@@ -28,7 +28,7 @@ const EllipsesIcon = ({ selected, menuOpen }) => (
   </Icon>
 )
 
-const LabelItem = ({
+const PresetItem = ({
   selected = false,
   preset = {},
   initEditForm,
@@ -241,4 +241,4 @@ const LabelItem = ({
   )
 }
 
-export default LabelItem
+export default PresetItem

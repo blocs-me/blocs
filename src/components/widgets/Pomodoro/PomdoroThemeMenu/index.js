@@ -90,7 +90,7 @@ const PomodoroThemeMenu = () => {
       />
 
       <Grid gridTemplateColumns="repeat(2, 1fr)" p="sm" gridGap="sm">
-        {modes.map((mode, key) => (
+        {modes.map((mode) => (
           <ThemeItem key={mode.colorModeKey} {...mode} colorMode={colorMode} />
         ))}
       </Grid>

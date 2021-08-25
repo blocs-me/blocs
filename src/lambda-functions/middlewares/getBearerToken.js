@@ -1,8 +1,8 @@
-const getBearerToken = async (req, res, rest) => {
+export const getBearerToken = async (req, res, rest) => {
   const bearer = req.headers.authorization
 
   if (!bearer) {
-    req.status(401).json({ error: "Unauthorized" })
+    res.status(401).json({ error: "Unauthorized" })
     rest.terminate()
     return
   }
