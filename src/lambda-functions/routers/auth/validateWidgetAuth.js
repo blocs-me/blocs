@@ -1,24 +1,17 @@
 import Cookie from "cookies"
 import jwt from "jsonwebtoken"
 
-const validateWidgetAuth = async (req, res) => {
-  const cookie = new Cookie(req, res)
-  const tokenCookie = cookie.get("accessToken")
+const validateWidgetAuth = async (req, res, rest) => {
+  const token = rest.bearerToken
 
-  if (!tokenCookie) res.status(401).json({ error: "Unauthorized acccess" })
+  if (!token) res.status(401).json({ error: "Unauthorized acccess" })
 
   const salt = process.env.JWT_SALT
-  let tokenData = null
 
   try {
-    try {
-      tokenData = jwt.verify(tokenCookie, salt, {
-        algorithms: ["HS256"],
-      })
-    } catch (error) {
-      error.data = tokenData
-      throw error
-    }
+    const tokenData = jwt.verify(token, salt, {
+      algorithms: ["HS256"],
+    })
 
     const { userId } = tokenData
     if (!userId) {
@@ -34,7 +27,7 @@ const validateWidgetAuth = async (req, res) => {
     console.log(error)
 
     if (error?.name === "TokenExpiredError") {
-      const { userId } = jwt.decode(tokenCookie)
+      const { userId } = jwt.decode(token)
       const tokenExpires = Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 7
 
       const newAccessToken = jwt.sign(
@@ -48,15 +41,11 @@ const validateWidgetAuth = async (req, res) => {
         }
       )
 
-      const cookie = new Cookie(req, res)
-      cookie.set("accessToken", newAccessToken, {
-        httpOnly: true,
-      })
-
       return res.status(200).json({
         data: {
           valid: true,
         },
+        token: newAccessToken,
       })
     }
 

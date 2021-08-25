@@ -1,15 +1,11 @@
 const defaultOptions = {}
 
-const fetchWithToken =
-  (options = {}) =>
-  (path) =>
-    fetch(path, {
-      ...options,
-      method: options.method || "GET",
-      headers: {
-        credentials: "same-origin",
-        ...(options?.headers || {}),
-      },
-    })
+const fetchWithToken = (path, token) =>
+  fetch(path, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
 
 export default fetchWithToken
