@@ -7,6 +7,7 @@ import { useRouter } from "next/router"
 import { useEffect, useLayoutEffect } from "react"
 import useDidMount from "./useDidMount"
 import useFetch from "./useFetch"
+import useFetchCache from "./useFetchCache"
 
 const { default: makeStore } = require("src/lib/makeStore")
 
@@ -17,6 +18,7 @@ const initalState = {
 
 export const SET_IS_LOGGING_IN = "SET_IS_LOGGING_IN"
 export const SET_IS_LOGGED_IN = "SET_IS_LOGGED_IN"
+export const SET_TOKEN = "SET_TOKEN"
 
 const reducer = (state = initalState, action) => {
   switch (action.type) {
@@ -31,6 +33,12 @@ const reducer = (state = initalState, action) => {
       return {
         ...state,
         isLoggingIn,
+      }
+    case SET_TOKEN:
+      const { token } = action
+      return {
+        ...state,
+        token,
       }
     default:
       return state
@@ -63,6 +71,12 @@ const useWidgetAuth = ({ onError = () => {} }) => {
       type: SET_IS_LOGGING_IN,
     })
 
+  const setToken = (token) =>
+    dispatch({
+      token,
+      type: SET_TOKEN,
+    })
+
   const hasPrevLoggedIn = Boolean(storage.getItem("hasPrevLoggedIn"))
 
   const { error: loginError, data: user } = useFetch(WIDGET_LOGIN_PATH, {
@@ -71,8 +85,9 @@ const useWidgetAuth = ({ onError = () => {} }) => {
     body: {
       token,
     },
-    onSuccess: () => {
+    onSuccess: (res) => {
       storage.setItem("hasPrevLoggedIn", true)
+      setToken(res?.token)
       setIsLoggedIn(true)
       setIsLoggingIn(false)
     },
@@ -82,16 +97,29 @@ const useWidgetAuth = ({ onError = () => {} }) => {
     },
   })
 
+  const { token: accessToken } = useFetchCache(WIDGET_LOGIN_PATH)
+
   const { error: validationError, data: validated } = useFetch(
     WIDGET_LOGIN_VALIDATION_PATH,
     {
       method: "POST",
       shouldCache: false,
-      shouldFetch: !!hasPrevLoggedIn && !store?.isLoggedIn,
+      shouldFetch: !!hasPrevLoggedIn && !store?.isLoggedIn && accessToken,
       headers: {
         credentials: "same-origin",
+        Authorization: `Bearer ${accessToken}`,
       },
-      onSuccess: () => {
+      onSuccess: (res) => {
+        if (res.token && user) {
+          storage.setItem(
+            WIDGET_LOGIN_PATH,
+            JSON.stringify({
+              token: res.token,
+              data: user,
+            })
+          )
+        }
+
         setIsLoggedIn(true)
         setIsLoggingIn(false)
       },
@@ -101,6 +129,12 @@ const useWidgetAuth = ({ onError = () => {} }) => {
       },
     }
   )
+
+  useEffect(() => {
+    if (accessToken) {
+      setToken(accessToken)
+    }
+  }, [accessToken]) // eslint-disable-line
 
   return {
     ...store,

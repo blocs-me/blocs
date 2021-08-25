@@ -24,8 +24,12 @@ import { useRouter } from "next/router"
 
 const PomodoroMainPage = () => {
   const { token } = useRouter().query
-  const { isLoggingIn, isLoggedIn } = useWidgetAuthStore() || {}
-  const loading = isLoggingIn || !token
+  const {
+    isLoggingIn,
+    isLoggedIn,
+    token: accessToken,
+  } = useWidgetAuthStore() || {}
+  const loading = isLoggingIn || !isLoggedIn
 
   const {
     session: { startedAt },
@@ -42,9 +46,12 @@ const PomodoroMainPage = () => {
     notifs.createError(
       "Uh oh ! We were not able to fetch your pomodoro presets"
     )
+
   const { data: presets } = useSWR(
-    loading || !isLoggedIn ? null : POMODORO_PRESETS_PATH,
-    fetcher,
+    (loading || !isLoggedIn) && !accessToken
+      ? null
+      : [POMODORO_PRESETS_PATH, accessToken],
+    fetchWithToken,
     {
       onError: () => handleGetPresetsError,
       revalidateOnFocus: false,

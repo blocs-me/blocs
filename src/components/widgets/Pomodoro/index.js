@@ -6,7 +6,7 @@ import PomodoroMainPage from "./PomodoroMainPage/index.js"
 import PomodoroMainMenu from "./PomodoroMainMenu"
 import PomodoroSettings from "./PomodoroSettings"
 import { PomodoroProvider } from "./usePomodoroStore"
-import PomodoroLabels from "./PomodoroPresets/index.js"
+import PomodoroPresets from "./PomodoroPresets/index.js"
 import Notifications from "@/design-system/Notifications/index.js"
 import useNotifications from "@/design-system/Notifications/useNotifications.js"
 import PomodoroThemeMenu from "./PomdoroThemeMenu/index.js"
@@ -88,7 +88,7 @@ const Pomodoro = () => {
                 )}
                 {labelsMenu && (
                   <FadeIn id="labels" key={4}>
-                    <PomodoroLabels />
+                    <PomodoroPresets />
                   </FadeIn>
                 )}
                 {themeMenu && (

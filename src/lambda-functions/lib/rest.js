@@ -68,11 +68,17 @@ class Rest {
     if (this.req.method?.toLowerCase() === method) {
       await this.applyMiddlewares("*")
       await this.applyMiddlewares(this.req.method)
-      await router(this.req, this.res, this)
+
+      try {
+        await router(this.req, this.res, this)
+      } catch {
+        this.terminate()
+      }
+
       this.terminate()
-    } else {
-      return null
     }
+
+    return null
   }
 
   terminate() {

@@ -20,13 +20,15 @@ import useNotifications from "@/design-system/Notifications/useNotifications"
 import DeletePresetModal from "./DeletePresetModal"
 import { AnimatePresence, AnimateSharedLayout } from "framer-motion"
 import { setCurrentPomodoroPreset } from "../pomodoroActions"
+import { useWidgetAuthStore } from "@/hooks/useWidgetAuth"
 
-const PomodoroLabels = () => {
+const PomodoroPresets = () => {
+  const { token } = useWidgetAuthStore() || {}
   const {
     data: presets,
     error,
     isValidating,
-  } = useSWR(POMODORO_PRESETS_PATH, fetcher, {
+  } = useSWR(token ? [POMODORO_PRESETS_PATH, token] : null, fetcher, {
     revalidateOnFocus: false,
   })
   const { currentPreset } = usePomodoroStore()
@@ -95,7 +97,7 @@ const PomodoroLabels = () => {
         dispatch(setCurrentPomodoroPreset(preset))
       }
     }
-  }, [presets, currentPreset])
+  }, [presets, currentPreset]) // eslint-disable-line
 
   if (!presets?.data) {
     return (
@@ -210,4 +212,4 @@ const PomodoroLabels = () => {
   )
 }
 
-export default PomodoroLabels
+export default PomodoroPresets

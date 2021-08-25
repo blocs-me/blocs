@@ -1,7 +1,8 @@
 import { query as q } from "faunadb"
-import faunaClient from "../faunaClient"
 
 export const getBlocsUser = async (req, res, rest) => {
+  if (rest.terminated) return null
+
   const { userId } = rest
 
   if (!userId) {

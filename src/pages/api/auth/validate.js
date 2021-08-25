@@ -4,7 +4,7 @@ const handler = async (req, res) => {
   const { access_token } = req.body
 
   if (!access_token)
-    res.send(400).json({ err: "Client Error : Access token required" })
+    res.status(400).json({ err: "Client Error : Access token required" })
 
   if (req.method === "POST") {
     try {

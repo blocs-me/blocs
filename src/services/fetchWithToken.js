@@ -6,6 +6,6 @@ const fetchWithToken = (path, token) =>
     headers: {
       Authorization: `Bearer ${token}`,
     },
-  })
+  }).then((res) => res.json())
 
 export default fetchWithToken

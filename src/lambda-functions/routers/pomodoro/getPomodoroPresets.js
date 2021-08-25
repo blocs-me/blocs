@@ -23,6 +23,7 @@ const getPomodoroPresets = async (req, res, rest) => {
         q.Create(q.Collection("pomodoro_presets"), {
           data: {
             ...defaultPresetData,
+            id: q.NewId(),
             userId,
           },
         })
