@@ -6,7 +6,6 @@ import Box from "@/helpers/Box"
 import Flex from "@/helpers/Flex"
 import Grid from "@/helpers/Grid"
 import PageLayout from "@/helpers/PageLayout"
-import Pomodoro from "@/widgets/Pomodoro"
 import Skeleton from "@/helpers/Skeleton"
 import Stack from "@/helpers/Stack"
 import Text from "@/design-system/Text"
@@ -18,24 +17,13 @@ import { TEMP_ACCESS_TOKEN_PATH } from "@/utils/endpoints"
 import getAccessToken from "@/utils/getAccessToken"
 import useClipboard from "@/hooks/useClipboard"
 import Modal from "@/design-system/Modal/index.js"
-import Confetti from "react-dom-confetti"
 import DummyPomodoro from "@/widgets/Pomodoro/DummyPomodoro"
-import Image from "next/image"
 import Link from "@/design-system/Link"
-
-const confettiConfig = {
-  angle: 90,
-  spread: 360,
-  startVelocity: 40,
-  elementCount: "116",
-  dragFriction: 0.12,
-  duration: 3000,
-  stagger: 3,
-  width: "10px",
-  height: "10px",
-  perspective: "500px",
-  colors: ["#a864fd", "#29cdff", "#78ff44", "#ff718d", "#fdff6a"],
-}
+import { themeGet } from "@styled-system/theme-get"
+import styled from "@emotion/styled"
+import CopyIcon from "../../../icons/copy.svg"
+import Icon from "@/helpers/Icon"
+import { useTheme } from "@emotion/react"
 
 const ProductWrapper = ({
   children,
@@ -90,6 +78,20 @@ const ProductWrapper = ({
   </Stack>
 )
 
+const ClipboardInput = styled.input`
+  border: solid 1px ${themeGet("colors.secondary")};
+  border-radius: ${themeGet("space.xs")};
+  padding: ${themeGet("space.sm")} ${themeGet("space.sm")};
+  font-size: ${themeGet("space.sm")};
+  font-weight: 300;
+  color: ${themeGet("colors.primary.accent-2")};
+  width: 100%;
+
+  &:focus {
+    outline: none;
+  }
+`
+
 const Dashboard = ({ links }) => {
   const { user, loading } = useUser()
   const {
@@ -100,6 +102,7 @@ const Dashboard = ({ links }) => {
 
   const [pomodoroModal, setPomodoroModal] = useState(false)
   const [showConfetti, setShowConfetti] = useState(false)
+  const [pomodoroToken, setPomodoroToken] = useState(null)
 
   const clipboard = useClipboard()
 
@@ -107,10 +110,10 @@ const Dashboard = ({ links }) => {
 
   const handlePomodoroLinkSuccess = (res) => {
     const { token } = res?.data || {}
-    const link = `https://blocs.me/pomodoro?token=${token}`
-    clipboard(link)
-    setPomodoroModal(true)
 
+    clipboard(`https://blocs.me/pomodoro?token=${token}`)
+    setPomodoroModal(true)
+    setPomodoroToken(token)
     // setTimeout(() => {
     //   setShowConfetti(true)
     // }, 500)
@@ -126,6 +129,8 @@ const Dashboard = ({ links }) => {
         access_token,
       },
     })
+
+  const theme = useTheme()
 
   return (
     <>
@@ -229,20 +234,57 @@ const Dashboard = ({ links }) => {
         </Flex>
       </PageLayout>
 
-      <Modal visible={pomodoroModal} hideModal={() => setPomodoroModal(false)}>
-        <Confetti config={confettiConfig} active={showConfetti} />
+      <Modal visible={pomodoroModal}>
         <Text fontSize="md" color="primary.accent-3" textAlign="center">
           Hooray ! 🥳
         </Text>
         <Text variant="pSmall" textAlign="center">
-          We copied the pomodoro link to your clipboard. <br />
+          Here&apos;s your link, we&apos;ve copied it to your clipboard : <br />
+          Keep it safe, and avoid putting it on public pages{" "}
         </Text>
-        <Text variant="pSmall" textAlign="center" mt="xxs">
-          It will be valid for{" "}
-          <Text as="b" color="secondary">
-            5 minutes
-          </Text>
-        </Text>
+        <Box mt="sm" />
+
+        <div css={{ position: "relative" }}>
+          <ClipboardInput
+            type="text"
+            value={`https://blocs.me/pomodoro?token=${pomodoroToken}`}
+          />
+          <Flex
+            css={{
+              transform: "translateY(-50%)",
+              transition: "transform ease 0.1s",
+              "&:hover": {
+                background: theme.colors.primary["accent-0.5"],
+              },
+              "&:active": {
+                transform: "translateY(-50%) scale(0.9)",
+              },
+            }}
+            bg="white"
+            position="absolute"
+            top="50%"
+            right="10px"
+            borderRadius="sm"
+            height="calc(100% - 20px)"
+            width="45px"
+            // border="solid 1px"
+            as="button"
+            boxShadow="default"
+            onClick={() => {
+              clipboard(`https://blocs.me/pomodoro?token=${pomodoroToken}`)
+            }}
+            title="copy to clipboard"
+          >
+            <Icon
+              display="flex"
+              m="auto"
+              width="20px"
+              stroke="primary.accent-4"
+            >
+              <CopyIcon css={{ margin: "auto" }} />
+            </Icon>
+          </Flex>
+        </div>
         <Text variant="pSmall" textAlign="center" mt="sm">
           Check out the guide{" "}
           <Link
@@ -256,6 +298,26 @@ const Dashboard = ({ links }) => {
             on notion
           </Link>
         </Text>
+        <Flex mt="md" hoverColor="secondary">
+          <Button
+            m="auto"
+            borderRadius="sm"
+            px="sm"
+            py="xs"
+            fontSize="xs"
+            bg="primary.accent-1"
+            color="primary.accent-4"
+            css={{
+              "&:hover": {
+                background: theme.colors.primary["accent-3"],
+                color: theme.colors.primary["accent-1"],
+              },
+            }}
+            onClick={() => setPomodoroModal(false)}
+          >
+            close
+          </Button>
+        </Flex>
       </Modal>
     </>
   )
