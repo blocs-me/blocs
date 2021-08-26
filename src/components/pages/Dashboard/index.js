@@ -281,7 +281,7 @@ const Dashboard = ({ links }) => {
               width="20px"
               stroke="primary.accent-4"
             >
-              <CopyIcon css={{ margin: "auto" }} />
+              <CopyIcon css={{ margin: "auto" }} readonly />
             </Icon>
           </Flex>
         </div>
