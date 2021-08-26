@@ -65,7 +65,7 @@ const Timer = ({ loading }) => {
                 color="primary.accent-3"
                 lineHeight={0}
                 textAlign="right"
-                css={{ width: "2ch" }}
+                css={{ width: "fit-content" }}
                 m={0}
               >
                 {clock.minutes}
