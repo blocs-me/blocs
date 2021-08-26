@@ -52,7 +52,9 @@ const deletePomodoroPreset = async (req, res) => {
   } catch (error) {
     console.log(error)
     res.status(500).json({
-      message: "Uh oh ! We were not able to delete your pomodoro preset.",
+      message:
+        error?.message ||
+        "Uh oh ! We were not able to delete your pomodoro preset.",
     })
   }
 }

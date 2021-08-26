@@ -1,12 +1,11 @@
 import useFetch from "@/hooks/useFetch"
-import useFetchCache from "@/hooks/useFetchCache"
+import { useWidgetAuthStore } from "@/hooks/useWidgetAuth"
 import { POMODORO_PRESETS_PATH, WIDGET_LOGIN_PATH } from "@/utils/endpoints"
 import { mutate } from "swr"
-import { usePomodoroDispatch } from "../usePomodoroStore"
 
 const usePresetApi = (presetData, presets, options = {}) => {
   const { onSuccess, onError } = options
-  const { token } = useFetchCache(WIDGET_LOGIN_PATH)
+  const { token } = useWidgetAuthStore() || {}
 
   const mutatePost = (res = {}) => {
     onSuccess?.()

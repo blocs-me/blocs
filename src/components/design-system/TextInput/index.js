@@ -30,7 +30,7 @@ const TextInput = forwardRef(
         <Input
           className={className}
           id={name}
-          aria-Box={ariaLabel}
+          aria-label={ariaLabel}
           name={name}
           onChange={(v) => onChange?.(v)}
           onBlur={(v) => onBlur?.(v)}
