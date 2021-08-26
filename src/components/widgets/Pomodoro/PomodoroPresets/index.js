@@ -21,6 +21,7 @@ import DeletePresetModal from "./DeletePresetModal"
 import { AnimatePresence, AnimateSharedLayout } from "framer-motion"
 import { setCurrentPomodoroPreset } from "../pomodoroActions"
 import { useWidgetAuthStore } from "@/hooks/useWidgetAuth"
+import fetchWithToken from "src/services/fetchWithToken"
 
 const PomodoroPresets = () => {
   const { token } = useWidgetAuthStore() || {}
@@ -28,7 +29,7 @@ const PomodoroPresets = () => {
     data: presets,
     error,
     isValidating,
-  } = useSWR(token ? [POMODORO_PRESETS_PATH, token] : null, fetcher, {
+  } = useSWR(token ? [POMODORO_PRESETS_PATH, token] : null, fetchWithToken, {
     revalidateOnFocus: false,
     revalidateOnMount: true,
   })

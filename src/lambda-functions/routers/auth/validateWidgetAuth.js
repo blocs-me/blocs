@@ -29,8 +29,6 @@ const validateWidgetAuth = async (req, res, rest) => {
 
     const user = await faunaClient.query(q.Get(rest.userRef))
 
-    console.log(user)
-
     res.status(200).json({
       data: {
         valid: true,
@@ -40,31 +38,6 @@ const validateWidgetAuth = async (req, res, rest) => {
       },
     })
   } catch (error) {
-    console.log(error)
-
-    if (error?.name === "TokenExpiredError") {
-      const { userId } = jwt.decode(token)
-      const tokenExpires = Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 7
-
-      const newAccessToken = jwt.sign(
-        {
-          userId,
-          exp: tokenExpires,
-        },
-        salt,
-        {
-          algorithm: "HS256",
-        }
-      )
-
-      return res.status(200).json({
-        data: {
-          valid: true,
-        },
-        token: newAccessToken,
-      })
-    }
-
     res.status(500).json({
       error: "Something went wrong when logging in",
       data: {
