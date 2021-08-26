@@ -61,7 +61,6 @@ const PresetForm = ({ hideForm = () => {}, formAction, presets, open }) => {
   const notifs = useNotifications()
 
   const handleError = (res) => {
-    console.log("error", res)
     const message = "Uh oh ! something went wrong"
     notifs.createError(message)
   }
