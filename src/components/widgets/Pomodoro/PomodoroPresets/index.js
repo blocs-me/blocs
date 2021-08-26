@@ -30,6 +30,7 @@ const PomodoroPresets = () => {
     isValidating,
   } = useSWR(token ? [POMODORO_PRESETS_PATH, token] : null, fetcher, {
     revalidateOnFocus: false,
+    revalidateOnMount: true,
   })
   const { currentPreset } = usePomodoroStore()
   const [showForm, setShowForm] = useState(false)

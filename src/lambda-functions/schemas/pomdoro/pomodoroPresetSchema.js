@@ -28,6 +28,9 @@ const pomodoroPresetSchema = {
     id: {
       type: ["string", "null"],
     },
+    defaultPreset: {
+      type: "boolean",
+    },
   },
   required: [
     "id",
