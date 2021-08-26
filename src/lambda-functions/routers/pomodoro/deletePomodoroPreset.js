@@ -2,10 +2,8 @@ import faunaClient from "@/lambda/faunaClient"
 import { validatePomodoroPreset } from "@/lambda/lib/jsonValidator"
 import { query as q } from "faunadb"
 
-const deletePomodoroPreset = async (req, res) => {
+const deletePomodoroPreset = async (req, res, rest) => {
   const { user, body: preset } = req
-
-  // TO DO : Get User
 
   const isValid = validatePomodoroPreset(preset)
 
@@ -17,12 +15,9 @@ const deletePomodoroPreset = async (req, res) => {
     })
   }
 
-  try {
-    // TO DO : validate whether preset belongs to user
-    //  ^^^^^
+  const { userRef } = rest
 
-    const userId = "303985067693179406"
-    const userRef = q.Ref(q.Collection("users"), userId)
+  try {
     const userPresets = await faunaClient.query(
       q.Call(q.Function("get_pomodoro_presets_by_user_ref"), userRef)
     )
@@ -56,4 +51,3 @@ const deletePomodoroPreset = async (req, res) => {
 }
 
 export default deletePomodoroPreset
-;("")
