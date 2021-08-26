@@ -61,8 +61,9 @@ const PresetForm = ({ hideForm = () => {}, formAction, presets, open }) => {
   const notifs = useNotifications()
 
   const handleError = (res) => {
-    const message = res?.error
-    if (message) notifs.createError(message)
+    console.log("error", res)
+    const message = "Uh oh ! something went wrong"
+    notifs.createError(message)
   }
 
   const {
@@ -135,13 +136,14 @@ const PresetForm = ({ hideForm = () => {}, formAction, presets, open }) => {
                     max={120}
                     error={
                       errors.pomodoroInterval
-                        ? "pomodoro must be >= 5 minutes"
+                        ? "pomodoro must be >= 5 minutes and <= 120"
                         : ""
                     }
                     {...register("pomodoroInterval", {
                       required: true,
                       valueAsNumber: true,
                       min: 5,
+                      max: 120,
                       setValueAs: (v) => minsAsms(v),
                     })}
                     placeholder="e.g : 25 mins"
