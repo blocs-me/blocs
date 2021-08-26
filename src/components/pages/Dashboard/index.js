@@ -239,10 +239,12 @@ const Dashboard = ({ links }) => {
           Hooray ! 🥳
         </Text>
         <Text variant="pSmall" textAlign="center">
-          Here&apos;s your link, we&apos;ve copied it to your clipboard : <br />
+          Here&apos;s your link, we&apos;ve auto copied it to your clipboard.
+        </Text>
+        <Text variant="pSmall" mt="xxs" textAlign="center">
           Keep it safe, and avoid putting it on public pages{" "}
         </Text>
-        <Box mt="sm" />
+        <Box mt="md" />
 
         <div css={{ position: "relative" }}>
           <ClipboardInput
