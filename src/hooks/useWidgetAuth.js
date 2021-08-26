@@ -90,28 +90,6 @@ const useWidgetAuth = ({ onError = () => {} }) => {
       type: SET_USER,
     })
 
-  // const hasPrevLoggedIn = Boolean(storage.getItem("hasPrevLoggedIn"))
-
-  // const { error: loginError, data: user } = useFetch(WIDGET_LOGIN_PATH, {
-  //   method: "POST",
-  //   shouldFetch: !!token && !hasPrevLoggedIn,
-  //   body: {
-  //     token,
-  //   },
-  //   onSuccess: (res) => {
-  //     storage.setItem("hasPrevLoggedIn", true)
-  //     setToken(res?.token)
-  //     setIsLoggedIn(true)
-  //     setIsLoggingIn(false)
-  //   },
-  //   onError: (error) => {
-  //     setIsLoggingIn(false)
-  //     onError(error)
-  //   },
-  // })
-
-  // const { token: accessToken } = useFetchCache(WIDGET_LOGIN_PATH)
-
   const { isLoggedIn } = useWidgetAuthStore() || initalState
 
   const { error: validationError, data: validated } = useFetch(
