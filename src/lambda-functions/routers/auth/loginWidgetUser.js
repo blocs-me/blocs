@@ -13,7 +13,6 @@ const loginWidgetUser = async (req, res) => {
       q.Call(q.Function("is_temp_access_token_valid"), tempAccessToken)
     )
 
-    console.log(tokenData?.data)
     const blocsUserId = tokenData?.data?.userId
     if (!blocsUserId) {
       throw new Error("Token is invalid")
@@ -25,7 +24,6 @@ const loginWidgetUser = async (req, res) => {
 
     const salt = process.env.JWT_SALT
     const tokenExpires = Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 7
-    // const tokenExpires = Math.floor(Date.now() / 1000) + 60
 
     const accessToken = jwt.sign(
       {
@@ -38,13 +36,9 @@ const loginWidgetUser = async (req, res) => {
       }
     )
 
-    const cookie = new Cookie(req, res)
-    cookie.set("accessToken", accessToken, {
-      httpOnly: true,
-    })
-
     res.json({
       data: blocsUser?.data,
+      token: accessToken,
     })
   } catch (err) {
     console.log(err)

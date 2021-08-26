@@ -16,6 +16,7 @@ import Icon from "@/helpers/Icon"
 import useColorMode, { useColorModeStore } from "@/hooks/useColorMode"
 import useFetch from "@/hooks/useFetch"
 import { WIDGET_LOGIN_PATH } from "@/utils/endpoints"
+import { useWidgetAuthStore } from "@/hooks/useWidgetAuth"
 
 const menuItems = [
   {
@@ -43,9 +44,11 @@ const PomodoroMainMenu = () => {
   const [avatarMenu, setAvatarMenu] = useState(false)
   const colorMode = useColorModeStore()
 
-  const { data: userData } = useFetch(WIDGET_LOGIN_PATH, {
-    shouldFetch: false,
-  })
+  // const { data: userData } = useFetch(WIDGET_LOGIN_PATH, {
+  //   shouldFetch: false,
+  // })
+
+  const { user } = useWidgetAuthStore() || {}
 
   return (
     <Flex width="100%" height="100%" position="relative" p="md" center>
@@ -60,7 +63,7 @@ const PomodoroMainMenu = () => {
             <Avatar
               alt="profile picture"
               variant="sm"
-              src={userData?.avatar_url}
+              src={user?.avatar_url}
             />
           </div>
           <AnimatePresence>

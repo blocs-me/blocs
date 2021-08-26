@@ -1,65 +1,15 @@
 import useFetch from "@/hooks/useFetch"
-import { POMODORO_PRESETS_PATH } from "@/utils/endpoints"
+import { useWidgetAuthStore } from "@/hooks/useWidgetAuth"
+import { POMODORO_PRESETS_PATH, WIDGET_LOGIN_PATH } from "@/utils/endpoints"
 import { mutate } from "swr"
-import { usePomodoroDispatch } from "../usePomodoroStore"
 
 const usePresetApi = (presetData, presets, options = {}) => {
-  const dispatch = usePomodoroDispatch()
-
   const { onSuccess, onError } = options
+  const { token } = useWidgetAuthStore() || {}
 
-  const mutatePost = (res = {}) => {
-    onSuccess?.()
-    const { data: newPreset } = res
-
-    mutate(POMODORO_PRESETS_PATH, {
-      data: [...presets?.data, newPreset],
-    })
-  }
-
-  const mutateDelete = (res = {}) => {
-    onSuccess?.()
-    const { data: deletedPreset } = res || {}
-    deletedPreset &&
-      mutate(POMODORO_PRESETS_PATH, {
-        data: (() => {
-          const presetIndex = presets?.data?.findIndex(
-            (preset) => preset.id === deletedPreset.id
-          )
-
-          if (presetIndex > -1) {
-            const newPresets = [
-              ...presets.data.slice(0, presetIndex),
-              ...presets.data.slice(presetIndex + 1),
-            ]
-
-            return newPresets
-          }
-
-          return presets?.data
-        })(),
-      })
-  }
-
-  const mutatePatch = (res = {}) => {
-    onSuccess?.()
-    const { data: updatedPreset } = res || {}
-    updatedPreset &&
-      mutate(POMODORO_PRESETS_PATH, {
-        data: (() => {
-          const presetIndex = presets?.data?.findIndex(
-            (preset) => preset.id === updatedPreset.id
-          )
-          if (presetIndex > -1) {
-            return [
-              ...presets?.data?.slice(0, presetIndex),
-              updatedPreset,
-              ...presets?.data?.slice(presetIndex + 1),
-            ]
-          }
-          return presets?.data
-        })(),
-      })
+  const headers = {
+    Authorization: `Bearer ${token}`,
+    credentials: "same-origin",
   }
 
   const {
@@ -72,10 +22,7 @@ const usePresetApi = (presetData, presets, options = {}) => {
     body: presetData,
     shouldCache: false,
     method: "POST",
-    headers: {
-      credentials: "same-origin",
-    },
-    onSuccess: mutatePost,
+    headers,
     onError,
   })
 
@@ -89,11 +36,8 @@ const usePresetApi = (presetData, presets, options = {}) => {
     shouldCache: false,
     body: presetData,
     method: "PATCH",
-    onSuccess: mutatePatch,
     onError,
-    headers: {
-      credentials: "same-origin",
-    },
+    headers,
   })
 
   const {
@@ -106,10 +50,7 @@ const usePresetApi = (presetData, presets, options = {}) => {
     body: presetData,
     shouldCache: false,
     method: "DELETE",
-    headers: {
-      credentials: "same-origin",
-    },
-    onSuccess: mutateDelete,
+    headers,
     onError,
   })
 
@@ -117,10 +58,76 @@ const usePresetApi = (presetData, presets, options = {}) => {
   const error = postPresetError || patchPresetError || deletePresetError
   const data = postPresetData || patchPresetData || deletePresetData
 
+  const createPreset = async () => {
+    await mutate(
+      [POMODORO_PRESETS_PATH, token],
+      (data) => ({ ...data, data: [...data?.data, presetData] }),
+      false
+    )
+    await postPreset()
+    await mutate([POMODORO_PRESETS_PATH, token])
+  }
+
+  const updatePreset = async () => {
+    await mutate(
+      [POMODORO_PRESETS_PATH, token],
+      (presets) => {
+        const presetIndex = presets?.data?.findIndex(
+          (preset) => preset.id === presetData.id
+        )
+        if (presetIndex > -1) {
+          return {
+            ...presets,
+            data: [
+              ...presets?.data?.slice(0, presetIndex),
+              presetData,
+              ...presets?.data?.slice(presetIndex + 1),
+            ],
+          }
+        }
+
+        return presets
+      },
+      false
+    )
+
+    await patchPreset()
+    await mutate([POMODORO_PRESETS_PATH, token])
+  }
+
+  const deleteAPreset = async () => {
+    await mutate(
+      [POMODORO_PRESETS_PATH, token],
+      (presets) => {
+        const presetIndex = presets?.data?.findIndex(
+          (preset) => preset.id === presetData.id
+        )
+
+        if (presetIndex > -1) {
+          const newPresets = [
+            ...presets.data.slice(0, presetIndex),
+            ...presets.data.slice(presetIndex + 1),
+          ]
+
+          return {
+            ...presets,
+            data: newPresets,
+          }
+        }
+
+        return presets?.data
+      },
+      false
+    )
+
+    await deletePreset()
+    await mutate(POMODORO_PRESETS_PATH)
+  }
+
   return {
-    postPreset,
-    patchPreset,
-    deletePreset,
+    postPreset: createPreset,
+    patchPreset: updatePreset,
+    deletePreset: deleteAPreset,
     data,
     postPresetData,
     patchPresetData,

@@ -1,49 +1,34 @@
 import Cookie from "cookies"
+import { query as q } from "faunadb"
 import jwt from "jsonwebtoken"
+import faunaClient from "../faunaClient"
 
 const authWidgetUser = async (req, res, rest) => {
-  const cookie = Cookie(req, res)
-  const tokenCookie = cookie.get("accessToken")
+  const token = rest.bearerToken
   const salt = process.env.JWT_SALT
 
   try {
-    if (!tokenCookie) {
+    if (!token) {
       throw new Error("Unauthorized access")
     }
 
-    const tokenData = jwt.verify(tokenCookie, salt, {
-      algorithms: ["HS256"],
-    })
+    // const tokenData = jwt.verify(token, salt, {
+    //   algorithms: ["HS256"],
+    // })
 
-    const { userId } = tokenData
+    const user = await faunaClient.query(
+      q.Get(q.Match(q.Index("temp_access_tokens_by_token"), token))
+    )
 
+    if (!user?.data?.userId) {
+      throw new Error("Unauthorized access")
+    }
+
+    const { userId } = user?.data
     rest.userId = userId
   } catch (error) {
-    console.log(error)
-    if (error?.name === "TokenExpiredError") {
-      const { userId } = jwt.decode(tokenCookie)
-      const tokenExpires = Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 7
-
-      const newAccessToken = jwt.sign(
-        {
-          userId,
-          exp: tokenExpires,
-        },
-        salt,
-        {
-          algorithm: "HS256",
-        }
-      )
-
-      const cookie = new Cookie(req, res)
-      cookie.set("accessToken", newAccessToken, {
-        httpOnly: true,
-      })
-
-      rest.userId = userId
-    } else {
-      res.status(401).json({ error: "Unauthorized" })
-    }
+    rest.terminate()
+    res.status(401).json({ error: "Unauthorized" })
   }
 }
 

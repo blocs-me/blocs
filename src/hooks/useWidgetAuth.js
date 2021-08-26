@@ -4,9 +4,10 @@ import {
 } from "@/utils/endpoints"
 import storage from "@/utils/storage"
 import { useRouter } from "next/router"
-import { useEffect, useLayoutEffect } from "react"
+import { useEffect, useLayoutEffect, useState } from "react"
 import useDidMount from "./useDidMount"
 import useFetch from "./useFetch"
+import useFetchCache from "./useFetchCache"
 
 const { default: makeStore } = require("src/lib/makeStore")
 
@@ -17,6 +18,8 @@ const initalState = {
 
 export const SET_IS_LOGGING_IN = "SET_IS_LOGGING_IN"
 export const SET_IS_LOGGED_IN = "SET_IS_LOGGED_IN"
+export const SET_TOKEN = "SET_TOKEN"
+export const SET_USER = "SET_USER"
 
 const reducer = (state = initalState, action) => {
   switch (action.type) {
@@ -31,6 +34,18 @@ const reducer = (state = initalState, action) => {
       return {
         ...state,
         isLoggingIn,
+      }
+    case SET_TOKEN:
+      const { token } = action
+      return {
+        ...state,
+        token,
+      }
+    case SET_USER:
+      const { user } = action
+      return {
+        ...state,
+        user,
       }
     default:
       return state
@@ -63,35 +78,42 @@ const useWidgetAuth = ({ onError = () => {} }) => {
       type: SET_IS_LOGGING_IN,
     })
 
-  const hasPrevLoggedIn = Boolean(storage.getItem("hasPrevLoggedIn"))
-
-  const { error: loginError, data: user } = useFetch(WIDGET_LOGIN_PATH, {
-    method: "POST",
-    shouldFetch: !!token && !hasPrevLoggedIn,
-    body: {
+  const setToken = (token) =>
+    dispatch({
       token,
-    },
-    onSuccess: () => {
-      storage.setItem("hasPrevLoggedIn", true)
-      setIsLoggedIn(true)
-      setIsLoggingIn(false)
-    },
-    onError: (error) => {
-      setIsLoggingIn(false)
-      onError(error)
-    },
-  })
+      type: SET_TOKEN,
+    })
+
+  const setUser = (user) =>
+    dispatch({
+      user,
+      type: SET_USER,
+    })
+
+  const { isLoggedIn } = useWidgetAuthStore() || initalState
 
   const { error: validationError, data: validated } = useFetch(
     WIDGET_LOGIN_VALIDATION_PATH,
     {
       method: "POST",
       shouldCache: false,
-      shouldFetch: !!hasPrevLoggedIn && !store?.isLoggedIn,
+      shouldFetch: !!token && !isLoggedIn,
       headers: {
         credentials: "same-origin",
+        Authorization: `Bearer ${token}`,
       },
-      onSuccess: () => {
+      onSuccess: (res) => {
+        // if (res.token && user) {
+        //   storage.setItem(
+        //     WIDGET_LOGIN_PATH,
+        //     JSON.stringify({
+        //       token: res.token,
+        //       data: user,
+        //     })
+        //   )
+        // }
+        setUser(res?.data?.user)
+        setToken(token)
         setIsLoggedIn(true)
         setIsLoggingIn(false)
       },
@@ -102,9 +124,15 @@ const useWidgetAuth = ({ onError = () => {} }) => {
     }
   )
 
+  // useEffect(() => {
+  //   if (accessToken) {
+  //     setToken(accessToken)
+  //   }
+  // }, [accessToken]) // eslint-disable-line
+
   return {
     ...store,
-    user: user?.data,
+    // user: user?.data,
   }
 }
 
