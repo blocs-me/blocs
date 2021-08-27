@@ -54,7 +54,7 @@ const ProductWrapper = ({
     </Text>
     <Flex justifyContent="center">{children}</Flex>
 
-    {showCopyLink && !loading && (
+    {showCopyLink && !loading && !!user && (
       <Button
         variant="default"
         // height=""
