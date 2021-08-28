@@ -112,6 +112,7 @@ const WaterTracker = ({ startingVolume = -1 }) => {
               width="0.5rem"
               mr="xs"
               mb="-2px"
+              fill="primary.accent-4"
             >
               <Drop />
             </Icon>
