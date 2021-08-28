@@ -215,7 +215,7 @@ const Dashboard = ({ links }) => {
             pb={["md", "lg", , , 0]}
           >
             <ProductWrapper
-              loading={pomodoroTokenLoading}
+              loading={pomodoroTokenLoading || loading}
               title="POMODORO"
               onClick={() => {
                 fetchPomodoroToken()
