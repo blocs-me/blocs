@@ -205,7 +205,8 @@ const PresetItem = ({
                       display="inline-block"
                       mb={0}
                       mr="xs"
-                      fill="primary"
+                      fill="primary.accent-4"
+                      width="9px"
                     >
                       <Pencil />
                     </Icon>
