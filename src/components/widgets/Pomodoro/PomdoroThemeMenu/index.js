@@ -11,7 +11,6 @@ import AutoThemeIcon from "../../../../icons/auto-theme.svg"
 import Text from "@/design-system/Text"
 import ScrollProvider from "@/design-system/ScrollProvider"
 import { useCallback } from "react"
-import useNotifications from "@/design-system/Notifications/useNotifications"
 
 const modes = [
   {
@@ -89,12 +88,9 @@ const Header = ({ children }) => (
 const PomodoroThemeMenu = () => {
   const { colorMode, backgroundColorMode } = useColorModeStore() || {}
   const { setTheme, setBackground } = useColorMode()
-  const notifs = useNotifications()
 
   const handleColorModeChange = useCallback(
     (colorModeKey) => {
-      notifs.createInfo(`theme set to ${colorModeKey}`)
-
       setTheme(colorModeKey)
     },
     [setTheme]
