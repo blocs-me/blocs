@@ -5,9 +5,13 @@ import useColorMode, { useColorModeStore } from "@/hooks/useColorMode"
 import ThemeIcon from "../../../../icons/invert-color.svg"
 import MenuHeader from "../Typography/MenuHeader"
 import Moon from "../../../../icons/moon.svg"
+import Pencil from "../../../../icons/pencil.svg"
 import Sun from "../../../../icons/sun.svg"
 import AutoThemeIcon from "../../../../icons/auto-theme.svg"
 import Text from "@/design-system/Text"
+import ScrollProvider from "@/design-system/ScrollProvider"
+import { useCallback } from "react/cjs/react.development"
+import useNotifications from "@/design-system/Notifications/useNotifications"
 
 const modes = [
   {
@@ -35,48 +39,71 @@ const modes = [
   // },
 ]
 
+const backgroundModes = [...modes]
+
 const ThemeItem = ({
   title,
-  colorModeKey,
-  colorMode,
   themeIcon,
   size = "20px",
+  handleClick,
+  selected,
 }) => {
-  const { setTheme } = useColorMode()
-
-  const handleClick = (e) => {
-    setTheme(colorModeKey)
-  }
-
   return (
     <Flex
       as="button"
       height="50px"
-      width="fit-content"
+      width="100%"
       alignItems="center"
       justifyContent="center"
       border="solid 1px"
-      borderColor={
-        colorMode === colorModeKey ? "primary.accent-4" : "primary.accent-1"
-      }
+      borderColor={selected ? "primary.accent-4" : "primary.accent-1"}
       bg="primary.accent-0.5"
       p="sm"
       borderRadius="lg"
-      onClick={(e) => handleClick(e)}
+      onClick={(e) => handleClick?.(e)}
       css={{ transition: "border 0.2s ease" }}
     >
       <Icon size={size} mr="xs" fill="primary.accent-4" display="flex">
         {themeIcon}
       </Icon>
-      <Text color="primary.accent-4" fontWeight="400" fontSize="sm" mb={0}>
+      <Text color="primary.accent-4" fontWeight="300" fontSize="sm" mb={0}>
         {title}
       </Text>
     </Flex>
   )
 }
 
+const Header = ({ children }) => (
+  <Text
+    fontSize="sm"
+    ml="sm"
+    color="primary.accent-3"
+    mb="xxs"
+    lineHeight={1}
+    fontWeight="400"
+  >
+    {children}
+  </Text>
+)
+
 const PomodoroThemeMenu = () => {
-  const colorMode = useColorModeStore()
+  const { colorMode, backgroundColorMode } = useColorModeStore() || {}
+  const { setTheme, setBackground } = useColorMode()
+  const notifs = useNotifications()
+
+  const handleColorModeChange = useCallback(
+    (colorModeKey) => {
+      notifs.createInfo(`theme set to ${colorModeKey}`)
+
+      setTheme(colorModeKey)
+    },
+    [setTheme]
+  )
+
+  const handleBackgroundChange = useCallback(
+    (colorModeKey) => setBackground(colorModeKey),
+    [setBackground]
+  )
 
   return (
     <Flex flexDirection="column" size="100%">
@@ -89,11 +116,33 @@ const PomodoroThemeMenu = () => {
         title="theme"
       />
 
-      <Grid gridTemplateColumns="repeat(2, 1fr)" p="sm" gridGap="sm">
-        {modes.map((mode) => (
-          <ThemeItem key={mode.colorModeKey} {...mode} colorMode={colorMode} />
-        ))}
-      </Grid>
+      <ScrollProvider pt="sm">
+        <Header>Widget</Header>
+        <Grid gridTemplateColumns="repeat(2, 1fr)" p="sm" gridGap="sm" mb="sm">
+          {modes.map((mode) => (
+            <ThemeItem
+              key={mode.colorModeKey}
+              {...mode}
+              colorMode={colorMode}
+              handleClick={() => handleColorModeChange(mode.colorModeKey)}
+              selected={colorMode === mode.colorModeKey}
+            />
+          ))}
+        </Grid>
+
+        <Header>Background</Header>
+        <Grid gridTemplateColumns="repeat(2, 1fr)" p="sm" gridGap="sm">
+          {backgroundModes.map((mode) => (
+            <ThemeItem
+              key={mode.colorModeKey}
+              {...mode}
+              text={colorMode}
+              handleClick={() => handleBackgroundChange(mode.colorModeKey)}
+              selected={mode.colorModeKey === backgroundColorMode}
+            />
+          ))}
+        </Grid>
+      </ScrollProvider>
     </Flex>
   )
 }

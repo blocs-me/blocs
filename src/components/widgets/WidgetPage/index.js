@@ -1,11 +1,10 @@
+const { ThemeProvider, useTheme } = require("@emotion/react")
 import useColorMode from "@/hooks/useColorMode"
-import useDidMount from "@/hooks/useDidMount"
 
 const { default: Flex } = require("@/helpers/Flex")
-const { ThemeProvider } = require("@emotion/react")
 
 const WidgetPage = ({ children }) => {
-  const { theme } = useColorMode()
+  const { theme, backgroundColor } = useColorMode()
 
   return (
     <ThemeProvider theme={theme}>
@@ -14,7 +13,7 @@ const WidgetPage = ({ children }) => {
         height="100vh"
         alignItems="center"
         justifyContent="center"
-        data-theme="notion-bg"
+        bg={backgroundColor || "bg.default"}
       >
         {children}
       </Flex>

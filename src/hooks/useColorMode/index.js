@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from "react"
+import { useCallback, useEffect, useMemo } from "react"
 import useDarkMode from "../useDarkMode"
 
 const { default: storage } = require("@/utils/storage")
@@ -14,44 +14,72 @@ const colorModes = {
   dark: darkModeColors,
 }
 
+const backgroundColors = {
+  light: "#FFF",
+  dark: "#1f1f1f",
+}
+
 const DEFAULT_COLOR_MODE = "light"
 export const SET_COLOR_MODE = "SET_COLOR_MODE"
+export const SET_BACKGROUND_COLOR_MODE = "SET_BACKGROUND_COLOR_MODE"
 
-const reducer = (state, action) => {
-  if (action.type === SET_COLOR_MODE) {
-    return action.colorMode
-  }
+const reducer = (state, action = {}) => {
+  const { colorMode, backgroundColorMode } = action
+
+  if (action.type === SET_COLOR_MODE) return { ...state, colorMode }
+  if (action.type === SET_BACKGROUND_COLOR_MODE)
+    return { ...state, backgroundColorMode }
+
   return state
 }
 
+const initialState = {
+  colorMode: DEFAULT_COLOR_MODE,
+  background: DEFAULT_COLOR_MODE,
+}
+
 const [ColorModeProvider, useColorModeStore, useColorModeDispatch] = makeStore({
-  initialState: DEFAULT_COLOR_MODE,
+  initialState,
   reducer,
 })
 
 const useColorMode = (customColorModes) => {
-  const currentColorMode = useColorModeStore()
+  const { colorMode, backgroundColorMode } = useColorModeStore() || initialState
   const dispatch = useColorModeDispatch()
   const cachedColorMode = storage.getItem("colorMode")
+  const cachedBackgroundColorMode = storage.getItem("backgroundColorMode")
   const isDarkMode = useDarkMode()
   const autoColorMode = isDarkMode ? "dark" : "light"
 
-  const setTheme = (colorMode) => {
-    setTimeout(() => {
-      storage.setItem("colorMode", colorMode)
-      dispatch(
-        {
+  const setTheme = useCallback(
+    (colorMode) => {
+      setTimeout(() => {
+        storage.setItem("colorMode", colorMode)
+        dispatch({
           type: SET_COLOR_MODE,
           colorMode,
-        },
-        0
-      )
-    })
-  }
+        })
+      }, 0)
+    },
+    [dispatch]
+  )
+
+  const setBackground = useCallback(
+    (backgroundColorMode) => {
+      setTimeout(() => {
+        storage.setItem("backgroundColorMode", backgroundColorMode)
+        dispatch({
+          type: SET_BACKGROUND_COLOR_MODE,
+          backgroundColorMode,
+        })
+      }, 0)
+    },
+    [dispatch]
+  )
 
   const getTheme = (themeKey) => colorModes[themeKey]
 
-  const currentTheme = (() => {
+  const currentTheme = useMemo(() => {
     if (!cachedColorMode || cachedColorMode?.toLowerCase() === "auto") {
       setTheme("auto")
       return getTheme(autoColorMode)
@@ -62,21 +90,40 @@ const useColorMode = (customColorModes) => {
     }
     setTheme(DEFAULT_COLOR_MODE)
     return getTheme(DEFAULT_COLOR_MODE)
-  })()
+  }, [cachedColorMode, autoColorMode]) // eslint-disable-line
 
-  // useEffect(() => {
-  //   if (!cachedColorMode || cachedColorMode?.toLowerCase() === "auto") {
-  //     dispatch({
-  //       type: SET_COLOR_MODE,
-  //       colorMode: autoColorMode,
-  //     })
-  //   }
-  // }, [isDarkMode]) // eslint-disable-line
+  const getBackgroundColor = (colorMode) => backgroundColors[colorMode]
+
+  const backgroundColor = useMemo(() => {
+    if (
+      !cachedBackgroundColorMode ||
+      backgroundColorMode?.toLowerCase() === "auto"
+    ) {
+      setBackground("auto")
+      return getBackgroundColor(autoColorMode)
+    }
+
+    if (cachedBackgroundColorMode) {
+      setBackground(cachedBackgroundColorMode)
+      return getBackgroundColor(cachedBackgroundColorMode)
+    }
+
+    return getBackgroundColor(backgroundColorMode)
+  }, [
+    cachedBackgroundColorMode,
+    autoColorMode,
+    backgroundColorMode,
+    setBackground,
+  ])
 
   return {
     theme: currentTheme,
+    colorMode: colorMode || DEFAULT_COLOR_MODE,
+    backgroundColorMode,
     setTheme,
     ColorModeProvider,
+    setBackground,
+    backgroundColor,
   }
 }
 
