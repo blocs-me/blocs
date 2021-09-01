@@ -10,7 +10,7 @@ import Sun from "../../../../icons/sun.svg"
 import AutoThemeIcon from "../../../../icons/auto-theme.svg"
 import Text from "@/design-system/Text"
 import ScrollProvider from "@/design-system/ScrollProvider"
-import { useCallback } from "react/cjs/react.development"
+import { useCallback } from "react"
 import useNotifications from "@/design-system/Notifications/useNotifications"
 
 const modes = [
