@@ -52,7 +52,7 @@ const useColorMode = (customColorModes) => {
     (colorMode) => {
       setTimeout(() => {
         storage.setItem("colorMode", colorMode)
-        dispatch({
+        dispatch?.({
           type: SET_COLOR_MODE,
           colorMode,
         })
@@ -65,7 +65,7 @@ const useColorMode = (customColorModes) => {
     (backgroundColorMode) => {
       setTimeout(() => {
         storage.setItem("backgroundColorMode", backgroundColorMode)
-        dispatch({
+        dispatch?.({
           type: SET_BACKGROUND_COLOR_MODE,
           backgroundColorMode,
         })
