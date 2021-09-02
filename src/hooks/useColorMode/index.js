@@ -3,15 +3,12 @@ import useDarkMode from "../useDarkMode"
 
 const { default: storage } = require("@/utils/storage")
 const { default: makeStore } = require("src/lib/makeStore")
-const {
-  default: theme,
-  darkModeColors,
-  nightSkyColors,
-} = require("src/styles/theme")
+const { default: theme, darkModeColors, nightSky } = require("src/styles/theme")
 
 const colorModes = {
   light: theme,
   dark: darkModeColors,
+  nightSky,
 }
 
 const backgroundColors = {
@@ -55,7 +52,7 @@ const useColorMode = (customColorModes) => {
     (colorMode) => {
       setTimeout(() => {
         storage.setItem("colorMode", colorMode)
-        dispatch({
+        dispatch?.({
           type: SET_COLOR_MODE,
           colorMode,
         })
@@ -68,7 +65,7 @@ const useColorMode = (customColorModes) => {
     (backgroundColorMode) => {
       setTimeout(() => {
         storage.setItem("backgroundColorMode", backgroundColorMode)
-        dispatch({
+        dispatch?.({
           type: SET_BACKGROUND_COLOR_MODE,
           backgroundColorMode,
         })

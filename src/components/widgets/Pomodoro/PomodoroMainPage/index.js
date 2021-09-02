@@ -21,9 +21,9 @@ import { useEffect, useState } from "react"
 import { useTheme } from "@emotion/react"
 import useWidgetAuth, { useWidgetAuthStore } from "@/hooks/useWidgetAuth"
 import { useRouter } from "next/router"
+import { $ } from "src/lib/JSelectors"
 
 const PomodoroMainPage = () => {
-  const { token } = useRouter().query
   const {
     isLoggingIn,
     isLoggedIn,
@@ -40,6 +40,7 @@ const PomodoroMainPage = () => {
   const pomodoroDispatch = usePomodoroDispatch()
   const notifs = useNotifications()
   const [hovering, setHovering] = useState(false)
+  const widgetLayout = $("#widget-layout")
 
   const credentials = "same-origin"
   const handleGetPresetsError = () =>
@@ -83,18 +84,29 @@ const PomodoroMainPage = () => {
     }
   }, [presets, currentPreset])
 
+  const handleMouseOver = (e) => {
+    if (widgetLayout?.contains(e.target)) {
+      setHovering(true)
+    }
+  }
+
+  const handleMouseLeave = (e) => {
+    setHovering(false)
+  }
+
   return (
     <>
       <PomodoroActiveSessionMenu />
-
+      <div id="widget-underlay" />
       <Flex
         width="100%"
         height="100%"
         justifyContent="center"
         alignItems="center"
         flexDirection="column"
-        onMouseOver={() => setHovering(true)}
-        onMouseLeave={() => setHovering(false)}
+        onMouseOver={(e) => handleMouseOver(e)}
+        onMouseLeave={(e) => handleMouseLeave(e)}
+        id="pomodoro-container"
       >
         <Timer loading={!presets || loading} />
         <Flex
@@ -112,6 +124,7 @@ const PomodoroMainPage = () => {
             "--opacity": deepFocus && startedAt && !hovering ? 0 : 1,
             marginTop: deepFocus && startedAt && !hovering ? 0 : theme.space.sm,
           }}
+          zIndex="10"
         >
           {(!presets || loading) && (
             <Skeleton width="100px" height="40px" borderRadius="lg" />
@@ -126,6 +139,7 @@ const PomodoroMainPage = () => {
               letterSpacing="sm"
               aria-label="Start or stop timer"
               bg="primary.accent-3"
+              zIndex="10"
             >
               {startedAt ? "stop" : "start"}
             </Button>

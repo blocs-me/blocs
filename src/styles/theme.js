@@ -63,6 +63,11 @@ const shadows = {
     rgba(50, 50, 50, 0.05) 0px 5px 20px,
     rgba(0, 0, 0, 0.03) 0px 10px 30px
   `,
+  widgetLayout: `
+    rgba(50, 50, 50, 0.08) 0px 2px 10px,
+    rgba(50, 50, 50, 0.05) 0px 5px 20px,
+    rgba(0, 0, 0, 0.03) 0px 10px 30px
+  `,
   md: `
   rgba(70, 70, 70, 0.05) 0px 4px 10px,
   rgba(70, 70, 70, 0.02) 0px 8px 16px
@@ -145,12 +150,43 @@ export const darkModeColors = {
     rgba(0, 0, 0, 0.25) -5px -5px 10px 2px,
     rgba(200, 200, 200, 0.06) 5px 5px 10px
     `,
+    widgetLayout: `
+    rgba(0, 0, 0, 0.25) -5px -5px 10px 2px,
+    rgba(200, 200, 200, 0.06) 5px 5px 10px
+    `,
     md: `none
     `,
     lg: `
     rgba(10, 10, 10, 0.5) -2px -2px 5px,
     rgba(255, 255, 255, 0.04) 2px 2px 5px
     `,
+  },
+}
+
+export const nightSky = {
+  ...theme,
+  colors: {
+    ...darkModeColors.colors,
+    secondary: "#eaeaea",
+    danger: "#FA7A7A",
+    success: "#001940",
+    primary: {
+      ...darkModeColors.colors.primary,
+      "accent-1": "#003FA5",
+      "accent-2": "rgba(255,255,255,0.8)",
+      "accent-3": "rgba(255,255,255,0.7)",
+      "accent-4": "#FFF",
+    },
+    bg: {
+      ...darkModeColors.bg,
+      default: "#003180",
+      light: "#013486",
+    },
+  },
+  shadows: {
+    default: `0px 0px 10px #002560`,
+    lg: `5px 5px 10px #002560,
+    -5px -5px 10px #003da0`,
   },
 }
 
