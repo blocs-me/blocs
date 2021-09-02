@@ -92,6 +92,62 @@ const ClipboardInput = styled.input`
   }
 `
 
+const ClipboardSection = ({ pomodoroToken }) => {
+  const [showCopied, setShowCopied] = useState(showCopied)
+  const clipboard = useClipboard()
+  const theme = useTheme()
+
+  return (
+    <>
+      <div css={{ position: "relative" }}>
+        <ClipboardInput
+          type="text"
+          value={`https://blocs.me/pomodoro?token=${pomodoroToken}`}
+        />
+        <Flex
+          css={{
+            transform: "translateY(-50%)",
+            transition: "transform ease 0.1s",
+            "&:hover": {
+              background: theme.colors.primary["accent-0.5"],
+            },
+            "&:active": {
+              transform: "translateY(-50%) scale(0.9)",
+            },
+          }}
+          bg="white"
+          position="absolute"
+          top="50%"
+          right="10px"
+          borderRadius="sm"
+          height="calc(100% - 20px)"
+          width="45px"
+          // border="solid 1px"
+          as="button"
+          boxShadow="default"
+          onClick={() => {
+            setShowCopied(true)
+            setTimeout(() => {
+              setShowCopied(false)
+            }, 3000)
+            clipboard(`https://blocs.me/pomodoro?token=${pomodoroToken}`)
+          }}
+          title="copy to clipboard"
+        >
+          <Icon display="flex" m="auto" width="20px" stroke="primary.accent-4">
+            <CopyIcon css={{ margin: "auto" }} readonly />
+          </Icon>
+        </Flex>
+      </div>
+      {showCopied && (
+        <Text fontSize="xxs" color="success" textAlign="right" mr="xs">
+          copied
+        </Text>
+      )}
+    </>
+  )
+}
+
 const Dashboard = ({ links }) => {
   const { user, loading } = useUser()
   const {
@@ -103,6 +159,7 @@ const Dashboard = ({ links }) => {
   const [pomodoroModal, setPomodoroModal] = useState(false)
   const [showConfetti, setShowConfetti] = useState(false)
   const [pomodoroToken, setPomodoroToken] = useState(null)
+  const [showCopied, setShowCopied] = useState(null)
 
   const clipboard = useClipboard()
 
@@ -245,48 +302,7 @@ const Dashboard = ({ links }) => {
           Keep it safe, and avoid putting it on public pages{" "}
         </Text>
         <Box mt="md" />
-
-        <div css={{ position: "relative" }}>
-          <ClipboardInput
-            type="text"
-            value={`https://blocs.me/pomodoro?token=${pomodoroToken}`}
-          />
-          <Flex
-            css={{
-              transform: "translateY(-50%)",
-              transition: "transform ease 0.1s",
-              "&:hover": {
-                background: theme.colors.primary["accent-0.5"],
-              },
-              "&:active": {
-                transform: "translateY(-50%) scale(0.9)",
-              },
-            }}
-            bg="white"
-            position="absolute"
-            top="50%"
-            right="10px"
-            borderRadius="sm"
-            height="calc(100% - 20px)"
-            width="45px"
-            // border="solid 1px"
-            as="button"
-            boxShadow="default"
-            onClick={() => {
-              clipboard(`https://blocs.me/pomodoro?token=${pomodoroToken}`)
-            }}
-            title="copy to clipboard"
-          >
-            <Icon
-              display="flex"
-              m="auto"
-              width="20px"
-              stroke="primary.accent-4"
-            >
-              <CopyIcon css={{ margin: "auto" }} readonly />
-            </Icon>
-          </Flex>
-        </div>
+        <ClipboardSection pomodoroToken={pomodoroToken} />
         <Text variant="pSmall" textAlign="center" mt="sm">
           Check out the guide{" "}
           <Link
