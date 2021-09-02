@@ -2,8 +2,9 @@
 import Box from "../Box"
 import MenuIcon from "./MenuIcon"
 import { useRouter } from "next/router"
-import FadeIn from "../FadeIn"
 import fadeIn from "@/keyframes/fadeIn"
+import { useRef } from "react"
+import { useState } from "react"
 
 const WidgetLayout = ({
   children,
@@ -13,6 +14,7 @@ const WidgetLayout = ({
   hideMenuIcon,
 }) => {
   const { pathname } = useRouter()
+  const container = useRef()
 
   const getAriaLabel = () => {
     if (menuAria) return menuAria()
@@ -24,17 +26,35 @@ const WidgetLayout = ({
     return "Go back"
   }
 
+  const [hovering, setHovering] = useState(false)
+
+  const handleMouseOver = (e) => {
+    if (container.current?.contains(e.target)) {
+      setHovering(true)
+    }
+  }
+
+  const handleMouseLeave = (e) => {
+    setHovering(false)
+  }
+
+  const showMenuIcon = hovering ? true : !hideMenuIcon
+
   return (
     <Box
       width="280px"
       height="350px"
-      boxShadow="default"
+      boxShadow="widgetLayout"
       borderRadius="lg"
       bg="bg.default"
       overflow="hidden"
       position="relative"
+      id="widget-layout"
+      ref={container}
+      onMouseOver={(e) => handleMouseOver(e)}
+      onMouseLeave={(e) => handleMouseLeave(e)}
     >
-      {!hideMenuIcon && (
+      {showMenuIcon && (
         <Box
           top={0}
           right={0}

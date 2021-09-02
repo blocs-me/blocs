@@ -5,8 +5,8 @@ import useColorMode, { useColorModeStore } from "@/hooks/useColorMode"
 import ThemeIcon from "../../../../icons/invert-color.svg"
 import MenuHeader from "../Typography/MenuHeader"
 import Moon from "../../../../icons/moon.svg"
-import Pencil from "../../../../icons/pencil.svg"
 import Sun from "../../../../icons/sun.svg"
+import Star from "../../../../icons/star.svg"
 import AutoThemeIcon from "../../../../icons/auto-theme.svg"
 import Text from "@/design-system/Text"
 import ScrollProvider from "@/design-system/ScrollProvider"
@@ -26,6 +26,12 @@ const modes = [
     size: "22px",
   },
   {
+    title: "night",
+    themeIcon: <Star />,
+    colorModeKey: "nightSky",
+    size: "22px",
+  },
+  {
     title: "auto",
     themeIcon: <AutoThemeIcon />,
     colorModeKey: "auto",
@@ -38,7 +44,7 @@ const modes = [
   // },
 ]
 
-const backgroundModes = [...modes]
+const backgroundModes = [...modes.slice(0, 2), ...modes.slice(3)]
 
 const ThemeItem = ({
   title,
