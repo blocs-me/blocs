@@ -169,7 +169,7 @@ export const nightSky = {
     ...darkModeColors.colors,
     secondary: "#eaeaea",
     danger: "#FA7A7A",
-    success: "#001940",
+    success: "#FFF",
     primary: {
       ...darkModeColors.colors.primary,
       "accent-1": "#003FA5",
@@ -184,6 +184,7 @@ export const nightSky = {
     },
   },
   shadows: {
+    widgetLayout: shadows.default,
     default: `0px 0px 10px #002560`,
     lg: `5px 5px 10px #002560,
     -5px -5px 10px #003da0`,
