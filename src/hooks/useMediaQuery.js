@@ -3,18 +3,26 @@ import { useState, useEffect } from "react"
 const useMediaQuery = (mediaQuery) => {
   const [mediaMatches, setMediaMatches] = useState(false)
 
-  const handleMediaQueryChange = (ev) => {
-    setMediaMatches(ev.matches)
-  }
-
   useEffect(() => {
     const mql = window.matchMedia(mediaQuery)
-    mql.addEventListener("change", handleMediaQueryChange)
+    const handleMediaQueryChange = (ev) => {
+      setMediaMatches(ev.matches)
+    }
+
+    try {
+      mql.addEventListener("change", handleMediaQueryChange)
+    } catch (error) {
+      mql.addListener("change", handleMediaQueryChange)
+    }
 
     setMediaMatches(mql.matches)
 
     return () => {
-      mql.removeEventListener("change", handleMediaQueryChange)
+      try {
+        mql.removeEventListener("change", handleMediaQueryChange)
+      } catch (error) {
+        mql.removeListener("change", handleMediaQueryChange)
+      }
     }
   }, [mediaQuery])
 
