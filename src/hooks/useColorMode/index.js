@@ -74,7 +74,8 @@ const useColorMode = (customColorModes) => {
     [dispatch]
   )
 
-  const getTheme = (themeKey) => colorModes[themeKey]
+  const getTheme = (themeKey) =>
+    colorModes[themeKey] || colorModes[DEFAULT_COLOR_MODE]
 
   const currentTheme = useMemo(() => {
     if (!cachedColorMode || cachedColorMode?.toLowerCase() === "auto") {
