@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import Button from "@/design-system/Button"
+import { NOTION_OAUTH_URL_REDIRECT_URL } from "@/utils/endpoints"
 import notionOAuthData from "@/utils/notionOAuthData"
 import Box from "../Box"
 
@@ -11,9 +12,7 @@ const NotionSignInButton = (props) => {
     <Button
       as="a"
       href={encodeURI(
-        `https://api.notion.com/v1/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URL}&response_type=code${getStateParam(
-          props
-        )}`
+        `${NOTION_OAUTH_URL_REDIRECT_URL}${getStateParam(props)}`
       )}
       fontSize={["xs", "xs", "sm"]}
       bg="primary.accent-4"
