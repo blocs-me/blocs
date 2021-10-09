@@ -22,6 +22,7 @@ import useMediaQuery from "@/hooks/useMediaQuery"
 import { LOADING } from "@/constants/fetchStates"
 import globalContext from "@/contexts/GlobalContextProvider/globalContext"
 import useUser from "@/hooks/useUser"
+import { NOTION_OAUTH_URL_REDIRECT_URL } from "@/utils/endpoints"
 
 export const A = styled(Text)`
   text-decoration: none;
@@ -274,7 +275,7 @@ const Nav = ({ title = "", links = [] }) => {
                     color="primary.accent-3"
                     borderRadius="sm"
                     as="a"
-                    href={`https://api.notion.com/v1/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URL}&response_type=code`}
+                    href={NOTION_OAUTH_URL_REDIRECT_URL}
                     text="login"
                     px="xs"
                     py="xxs"
