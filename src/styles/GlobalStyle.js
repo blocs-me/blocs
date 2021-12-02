@@ -88,7 +88,7 @@ const GlobalStyle = () => {
 
         small,
         .text_small {
-          font-size: 0.833rem;
+          font-size: 0.579rem;
         }
 
         @keyframes slideIn {
