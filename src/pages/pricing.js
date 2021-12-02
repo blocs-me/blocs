@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { useEffect, useState, useContext } from "react"
+import Image from "next/image"
 import styled from "@emotion/styled"
 import { themeGet } from "@styled-system/theme-get"
 import Head from "next/head"
@@ -22,6 +23,7 @@ import Button from "@/design-system/Button"
 import Box from "@/helpers/Box"
 import useFetch from "@/hooks/useFetch"
 import { USER_PATH } from "@/utils/endpoints"
+import PricingCard from "@/pages/PricingPage/PricingCard"
 
 const Li = styled.li`
   text-transform: lowercase;
@@ -31,7 +33,7 @@ const Li = styled.li`
   letter-spacing: ${themeGet("letterSpacings.sm")};
   color: ${themeGet("colors.primary.accent-2")};
   padding: 0;
-  line-height: 1;
+  line-height: 1.25;
 
   @media (min-width: 320px) {
     font-size: ${themeGet("fontSizes.xs")};
@@ -124,184 +126,75 @@ const PricingPage = () => {
         <link name="canonical" href="https://blocs.me/pricing" />
       </Head>
 
-      <Box mt="80px" pt={["lg", "lg", , , "0"]} />
+      <Box mt="80px" pt={["sm", , , "md"]} />
       <Flex
         width="100%"
         minHeight="calc(100vh - 80px)"
-        flexDirection={["column", "column", , , "row"]}
+        flexDirection="column"
         position="relative"
       >
         <Flex
           flex="1"
-          alignItems={["center", "center", , , "start"]}
+          alignItems="center"
           justifyContent="center"
           flexDirection="column"
-          height="calc(100vh - 80px)"
-          overflow="hidden"
-        >
-          <div>
-            <Text as="div" textAlign="center">
-              <Text
-                fontSize={["xs", "xxs", "xs"]}
-                m="0"
-                p="0"
-                fontWeight="300"
-                color="primary.accent-2"
-                letterSpacing="sm"
-              >
-                BASIC FEATURES ARE{" "}
-                <Text as="span" fontWeight="400">
-                  TOTALLY FREE
-                </Text>
-              </Text>
-              <Text
-                as="h1"
-                letterSpacing={["sm", "sm", "lg"]}
-                fontSize={["xl", "xl", "gigantic"]}
-                fontWeight="bold"
-                color="primary.accent-3"
-                mt="sm"
-                mb="0"
-                p={0}
-              >
-                $15 / month
-              </Text>
-              <Text
-                fontSize={["xxs", "xxs", "xs"]}
-                color="primary.accent-2"
-                fontWeight="300"
-                p={0}
-                m={0}
-                letterSpacing="sm"
-              >
-                for all the widgets and premium features
-              </Text>
-            </Text>
-            <Text as="div" textAlign="center" mt="md" letterSpacing="sm">
-              {!preregisteredForPremium &&
-                !authValid &&
-                authState !== LOADING && (
-                  <NotionSignInButton
-                    state="pre-register-for-premium"
-                    text="pre-register for premium"
-                  />
-                )}
-
-              {authValid && !preregisteredForPremium && (
-                <Button
-                  fontSize={["xs", "xs", "sm"]}
-                  bg="primary.accent-4"
-                  color="primary.accent-1"
-                  borderRadius="sm"
-                  css={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    whiteSpace: "nowrap",
-                  }}
-                  px="md"
-                  py="xs"
-                  variant="primary"
-                  width="fit-content"
-                  letterSpacing="sm"
-                  onClick={() => updateUserData()}
-                  alt="pre-register for premium features"
-                >
-                  {!updatingUser && (
-                    <>
-                      <Box
-                        as="img"
-                        mr={["xs", "xs", "sm"]}
-                        src="/notion-logo.png"
-                        size={["40px"]}
-                        alt=""
-                      />
-                      pre-register for premium
-                    </>
-                  )}
-
-                  {updatingUser && (
-                    <Flex
-                      alignItems="center"
-                      justifyContent="center"
-                      minWidth="200px"
-                    >
-                      <Loader />
-                    </Flex>
-                  )}
-                </Button>
-              )}
-              {!authValid && authState === LOADING && !preregisteredForPremium && (
-                <Flex
-                  as="div"
-                  alignItems="center"
-                  justifyContent="center"
-                  minWidth="200px"
-                  fontSize={["xs", "xs", "sm"]}
-                  bg="primary.accent-4"
-                  color="primary.accent-1"
-                  borderRadius="sm"
-                  px="md"
-                  py="xs"
-                  letterSpacing="sm"
-                >
-                  <Loader />
-                </Flex>
-              )}
-              {preregisteredForPremium && (
-                <Flex flexDirection="column" alignItems="center">
-                  <Confetti config={confettiConfig} active={confetti} />
-                  <Button
-                    variant="primary"
-                    bg="primary.accent-4"
-                    p="sm"
-                    borderRadius="sm"
-                    as="div"
-                    onClick={() => {
-                      setConfetti(false)
-                      setTimeout(() => setConfetti(true), 0)
-                    }}
-                  >
-                    {" "}
-                    🎉 Thank you for signing up for premium
-                  </Button>
-                </Flex>
-              )}
-              <Text
-                color="danger"
-                fontSize={["xxs", "xxs", "xs"]}
-                fontWeight="300"
-                mt="xs"
-              >
-                no payment info required !
-              </Text>
-            </Text>
-          </div>
-        </Flex>
-        <Text
-          as="div"
-          textAlign={["center", "center", , , , "left"]}
-          css={{ flex: 1, position: "relative" }}
+          overflow="visible"
         >
           <Grid
-            gridAutoRows="minmax(min-content, max-content)"
-            pl={[0, 0, , , "md"]}
-            gridGap={["sm", "sm", , "md", 0]}
-            py="lg"
-            gridTemplateColumns="repeat(2, minmax(min-content, 225px))"
-            justifyContent={["center", "center", , , "end"]}
+            width="min(100%, 1000px)"
+            gridGap="md"
+            gridTemplateColumns={[
+              "repeat(auto-fit, 1fr)",
+              "repeat(2, 1fr)",
+              ,
+              "repeat(3, 1fr)",
+            ]}
+            placeItems={["stretch", , , "center"]}
+            p="sm"
           >
-            <Text
-              as="h3"
-              m={0}
-              fontWeight="500"
-              fontSize={["sm", "sm", , , , "md"]}
-              color="secondary"
-              letterSpacing="sm"
-            >
-              BASIC FEATURES
-            </Text>
-            <div>
+            <Grid gridColumn={["span 2", , "span 1"]}>
+              <PricingCard
+                title="FREE"
+                summary="access to basic features for :"
+                price="0"
+                priceSummary="it's free ya'll"
+              />
+            </Grid>
+
+            <Grid gridRow={["1"]} gridColumn={["1 / 3", , , "2 / 3"]}>
+              <PricingCard
+                title="LIFETIME ACCESS"
+                summary="unlimited access to all the widgets for :"
+                price="30"
+                priceSummary="pay only once, and then never again!"
+                borderColor="secondary"
+              />
+            </Grid>
+            <Grid gridColumn={["span 2", , "span 1"]}>
+              <PricingCard
+                title="PER WIDGET"
+                summary="buy any widget for :"
+                price="10"
+                priceSummary="own the widget forever!"
+              />
+            </Grid>
+          </Grid>
+        </Flex>
+
+        <Box css={{ flex: 1, position: "relative", textAlign: "center" }}>
+          <Grid
+            gridAutoRows="minmax(min-content, max-content)"
+            gridGap={["md", , , 0]}
+            pb="lg"
+            gridTemplateColumns={[
+              "repeat(1fr, auto)",
+              ,
+              "repeat(3, minmax(min-content, 1fr))",
+            ]}
+            maxWidth="1000px"
+            m="0 auto"
+          >
+            <Box pt="lg">
               <Text
                 as="h3"
                 m={0}
@@ -310,89 +203,214 @@ const PricingPage = () => {
                 color="secondary"
                 letterSpacing="sm"
               >
-                PREMIUM FEATURES
+                FREE FEATURES
               </Text>
-            </div>
-            <Text
-              as="h4"
-              fontSize="sm"
-              fontWeight="500"
-              color="primary.accent-3"
-              letterSpacing="sm"
-              m={0}
-              mt="lg"
-            >
-              WIDGETS
-            </Text>
-            <Text
-              as="h4"
-              fontSize="sm"
-              fontWeight="500"
-              color="primary.accent-3"
-              letterSpacing="sm"
-              m={0}
-              mt="lg"
-            >
-              WIDGETS
-            </Text>
+              <Text
+                as="h4"
+                fontSize="sm"
+                fontWeight="500"
+                color="primary.accent-3"
+                letterSpacing="sm"
+                m={0}
+                mt="md"
+              >
+                WIDGETS
+              </Text>
+              <Stack as="ul" mt="sm">
+                <Li>pomdoro</Li>
+                <Li>water tracker</Li>
+                <Li>habit tracker</Li>
+              </Stack>
+              <Text
+                as="h4"
+                fontSize="sm"
+                fontWeight="500"
+                color="primary.accent-3"
+                letterSpacing="sm"
+                m={0}
+                mt="lg"
+              >
+                ANALYTICS
+              </Text>
+              <Stack as="ul" mt="sm">
+                <Li>
+                  daily progress <br />
+                  <small>(available only locally)</small>
+                </Li>
+              </Stack>
+            </Box>
+            <Box pt="lg">
+              <Text
+                as="h3"
+                m={0}
+                fontWeight="500"
+                fontSize={["sm", "sm", , , , "md"]}
+                color="secondary"
+                letterSpacing="sm"
+              >
+                LIFETIME ACCESS FEATURES
+              </Text>
+              <Text
+                as="h4"
+                fontSize="sm"
+                fontWeight="500"
+                color="primary.accent-3"
+                letterSpacing="sm"
+                m={0}
+                mt="md"
+              >
+                WIDGETS
+              </Text>
 
-            <Stack as="ul" mt="sm">
-              <Li>pomdoro</Li>
-              <Li>water tracker</Li>
-              <Li>habit tracker</Li>
-            </Stack>
-            <Stack as="ul" mt="sm">
-              <Li>pomdoro</Li>
-              <Li>water tracker</Li>
-              <Li>habit tracker</Li>
-              <Li>goal setter</Li>
-              <Li>sleep tracker</Li>
-              <Li>recurring task manager</Li>
-              <Li>database visualizer</Li>
-              <Li>
-                <Text color="highlight" as="span">
-                  and tons more...
-                </Text>
-              </Li>
-            </Stack>
-            <Text
-              as="h4"
-              fontSize="sm"
-              fontWeight="500"
-              color="primary.accent-3"
-              letterSpacing="sm"
-              m={0}
-              mt="lg"
-            >
-              ANALYTICS
-            </Text>
-            <Text
-              as="h4"
-              fontSize="sm"
-              fontWeight="500"
-              color="primary.accent-3"
-              letterSpacing="sm"
-              m={0}
-              mt="lg"
-            >
-              ANALYTICS
-            </Text>
-            <Stack as="ul" mt="sm">
-              <Li>daily progress</Li>
-              <Li>weekly progress</Li>
-            </Stack>
-            <Stack as="ul" mt="sm">
-              <Li>daily progress</Li>
-              <Li>weekly progress</Li>
-              <Li>monthly progress</Li>
-              <Li>yearly progress</Li>
-              <Li>habit streaks 🔥</Li>
-            </Stack>
+              <Stack as="ul" mt="sm">
+                <Li>pomdoro</Li>
+                <Li>water tracker</Li>
+                <Li>habit tracker</Li>
+                <Li>time-boxing planner</Li>
+                <Li>database visualizer</Li>
+                <Li>
+                  <Text color="highlight" as="span">
+                    and more coming soon...
+                  </Text>
+                </Li>
+              </Stack>
+              <Text
+                as="h4"
+                fontSize="sm"
+                fontWeight="500"
+                color="primary.accent-3"
+                letterSpacing="sm"
+                m={0}
+                mt="md"
+              >
+                ANALYTICS
+              </Text>
+              <Stack as="ul" mt="sm">
+                <Li>daily progress</Li>
+                <Li>weekly progress</Li>
+                <Li>monthly progress</Li>
+                <Li>yearly progress</Li>
+                <Li>habit streaks 🔥</Li>
+              </Stack>
+              <Text
+                as="h4"
+                fontSize="sm"
+                fontWeight="500"
+                color="primary.accent-3"
+                letterSpacing="sm"
+                m={0}
+                mt="md"
+              >
+                EXTRAS
+              </Text>
+              <Stack as="ul" mt="sm">
+                <Li>
+                  save widget data to Notion{" "}
+                  <Box display="inline-block">
+                    <Image
+                      width="10px"
+                      height="10px"
+                      src="/notion-logo.png"
+                      alt="notion logo"
+                    />
+                  </Box>
+                </Li>
+                <Li>
+                  share your progress publically
+                  <br />
+                  <small>(others can help keep you accountable)</small>
+                </Li>
+              </Stack>
+            </Box>
+            <Box pt="lg">
+              <Text
+                as="h3"
+                m={0}
+                fontWeight="500"
+                fontSize={["sm", "sm", , , , "md"]}
+                color="secondary"
+                letterSpacing="sm"
+                css={{ position: "relative" }}
+              >
+                PER WIDGET FEATURES
+              </Text>
+              <Text
+                as="h4"
+                fontSize="sm"
+                fontWeight="500"
+                color="primary.accent-3"
+                letterSpacing="sm"
+                m={0}
+                mt="md"
+              >
+                WIDGETS
+              </Text>
+
+              <Stack as="ul" mt="sm">
+                <Li>pomdoro</Li>
+                <Li>water tracker</Li>
+                <Li>habit tracker</Li>
+                <Li>time-boxing planner</Li>
+                <Li>database visualizer</Li>
+                <Li>
+                  <Text color="highlight" as="span">
+                    and more coming soon...
+                  </Text>
+                </Li>
+              </Stack>
+              <Text
+                as="h4"
+                fontSize="sm"
+                fontWeight="500"
+                color="primary.accent-3"
+                letterSpacing="sm"
+                m={0}
+                mt="md"
+              >
+                ANALYTICS
+              </Text>
+              <Stack as="ul" mt="sm">
+                <Li>daily progress</Li>
+                <Li>weekly progress</Li>
+                <Li>monthly progress</Li>
+                <Li>yearly progress</Li>
+                <Li>habit streaks 🔥</Li>
+              </Stack>
+              <Text
+                as="h4"
+                fontSize="sm"
+                fontWeight="500"
+                color="primary.accent-3"
+                letterSpacing="sm"
+                m={0}
+                mt="md"
+              >
+                EXTRAS
+              </Text>
+              <Stack as="ul" mt="sm">
+                <Li>
+                  save widget data to Notion{" "}
+                  <Box display="inline-block">
+                    <Image
+                      width="10px"
+                      height="10px"
+                      src="/notion-logo.png"
+                      alt="notion logo"
+                    />
+                  </Box>
+                </Li>
+                <Li>
+                  share your progress publically
+                  <br />
+                  <small>(others can help keep you accountable)</small>
+                </Li>
+              </Stack>
+            </Box>
           </Grid>
-        </Text>
+        </Box>
       </Flex>
 
-      <Box
+      {/* <Box
         position="absolute"
         top="0"
         left="calc(50% - 1px)"
@@ -401,7 +419,7 @@ const PricingPage = () => {
         borderLeftColor="primary.accent-1"
         borderLeftStyle={["none", "none", , , "solid"]}
         zIndex="-1"
-      />
+      /> */}
 
       <Modal
         visible={showThankYou}

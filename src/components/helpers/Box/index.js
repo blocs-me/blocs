@@ -12,9 +12,14 @@ import {
   shadow,
   space,
   zIndex,
+  system,
 } from "styled-system"
 import shouldForwardProp from "@styled-system/should-forward-prop"
 import { themeGet } from "@styled-system/theme-get"
+
+const transform = system({
+  transform: true,
+})
 
 const hoverColor = (props) =>
   props.hoverColor
@@ -36,7 +41,8 @@ const boxStylesProps = compose(
   opacity,
   shadow,
   zIndex,
-  borderRadius
+  borderRadius,
+  transform
 )
 
 const Box = styled("div", {
