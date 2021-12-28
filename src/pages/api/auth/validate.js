@@ -1,4 +1,4 @@
-import getNotionUser from "../../../lambda-functions/helpers/getNotionUser"
+import getNotionUser from "../../../lambda-functions/helpers/notion/getNotionUser"
 
 const handler = async (req, res) => {
   const { access_token } = req.body

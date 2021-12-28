@@ -12,9 +12,6 @@ export const getBlocsUser = async (req, res, rest) => {
 
   const userRef = q.Ref(q.Collection("users"), userId)
 
-  // try {
-  // }
-  // const userExists = await faunaClient.query(q.Get(userRef))
 
   rest.userRef = userRef
 }

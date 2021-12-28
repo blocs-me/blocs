@@ -1,4 +1,4 @@
-import { getBlocsUser } from "@/lambda/faunadb/getBlocsUserRef"
+import { getBlocsUser } from "@/lambda/helpers/faunadb/getBlocsUserRef"
 import Rest from "@/lambda/lib/rest"
 import authWidgetUser from "@/lambda/middlewares/authWidgetUser"
 import { getBearerToken } from "@/lambda/middlewares/getBearerToken"

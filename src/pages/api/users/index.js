@@ -1,9 +1,9 @@
 import { Collection, Create, Get, Index, Match, query } from "faunadb"
 import faunaClient from "@/lambda/faunaClient"
-import updateUserData from "@/lambda/helpers/updateUserData"
-import getNotionUser from "@/lambda/helpers/getNotionUser"
-import authenticateNotionUser from "@/lambda/helpers/authenticateNotionUser"
-import addUserToMailingList from "@/lambda/helpers/addUserToMailingList"
+import updateUserData from "@/lambda/helpers/notion/updateUserData"
+import getNotionUser from "@/lambda/helpers/notion/getNotionUser"
+import authenticateNotionUser from "@/lambda/helpers/auth/authenticateNotionUser"
+import addUserToMailingList from "@/lambda/helpers/mailchimp/addUserToMailingList"
 
 const checkIfUserExists = async (email) => {
   try {

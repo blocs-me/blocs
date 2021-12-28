@@ -1,5 +1,5 @@
 import faunaClient from "@/lambda/faunaClient"
-import getNotionUser from "@/lambda/helpers/getNotionUser"
+import getNotionUser from "@/lambda/helpers/notion/getNotionUser"
 import { query as q, Ref } from "faunadb"
 import { v4 as uuid } from "uuid"
 

@@ -1,5 +1,5 @@
 import md5 from "md5"
-import mailchimp from "../mailchimpMarketingClient"
+import mailchimp from "../../mailchimpMarketingClient"
 import mailchimpSubscriptionStates from "@/constants/mailchimpSubscriptionStates"
 
 const listId = process.env.MAILCHIMP_LIST_ID

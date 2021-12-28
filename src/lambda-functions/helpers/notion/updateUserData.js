@@ -1,5 +1,5 @@
 import { Update } from "faunadb"
-import faunaClient from "../faunaClient"
+import faunaClient from "../../faunaClient"
 
 const updateUserData = async (user, data) => {
   try {

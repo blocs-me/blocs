@@ -1,5 +1,5 @@
 import fetch from "isomorphic-fetch"
-import getNotionBearerToken from "../getNotionBearerToken"
+import getNotionBearerToken from "../../getNotionBearerToken"
 
 const authenticateNotionUser = async (code) => {
   const notionUrl = "https://api.notion.com/v1/oauth/token"

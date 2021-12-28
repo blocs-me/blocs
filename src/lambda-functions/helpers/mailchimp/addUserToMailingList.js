@@ -1,4 +1,4 @@
-import mailchimp from "../mailchimpMarketingClient"
+import mailchimp from "../../mailchimpMarketingClient"
 import checkIfUserIsSubscribed from "./checkIfUserIsSubscribed"
 import mailchimpSubscriptionStates from "@/constants/mailchimpSubscriptionStates"
 

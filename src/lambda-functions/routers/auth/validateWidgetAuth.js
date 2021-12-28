@@ -1,5 +1,5 @@
 import faunaClient from "@/lambda/faunaClient"
-import { getBlocsUser } from "@/lambda/faunadb/getBlocsUserRef"
+import { getBlocsUser } from "@/lambda/helpers/faunadb/getBlocsUserRef"
 import Cookie from "cookies"
 import { query as q } from "faunadb"
 import jwt from "jsonwebtoken"
