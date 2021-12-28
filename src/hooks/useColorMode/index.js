@@ -1,24 +1,24 @@
 import { useCallback, useEffect, useMemo } from "react"
 import useDarkMode from "../useDarkMode"
+import ColorModeProvider from "./ColorModeProvider"
 
 const { default: storage } = require("@/utils/storage")
 const { default: makeStore } = require("src/lib/makeStore")
 const { default: theme, darkModeColors, nightSky } = require("src/styles/theme")
 
-const colorModes = {
+const defaultThemes = {
   light: theme,
   dark: darkModeColors,
-  nightSky,
 }
 
-const backgroundColors = {
+const defaultBackgroundColors = {
   light: "#FFF",
   dark: "#2f3437",
 }
 
-const DEFAULT_COLOR_MODE = "light"
-export const SET_COLOR_MODE = "SET_COLOR_MODE"
-export const SET_BACKGROUND_COLOR_MODE = "SET_BACKGROUND_COLOR_MODE"
+const FALLBACK_COLOR_MODE = "light"
+const SET_COLOR_MODE = "SET_COLOR_MODE"
+const SET_BACKGROUND_COLOR_MODE = "SET_BACKGROUND_COLOR_MODE"
 
 const reducer = (state, action = {}) => {
   const { colorMode, backgroundColorMode } = action
@@ -31,16 +31,21 @@ const reducer = (state, action = {}) => {
 }
 
 const initialState = {
-  colorMode: DEFAULT_COLOR_MODE,
-  background: DEFAULT_COLOR_MODE,
+  colorMode: FALLBACK_COLOR_MODE,
+  background: FALLBACK_COLOR_MODE,
 }
 
-const [ColorModeProvider, useColorModeStore, useColorModeDispatch] = makeStore({
+const [Provider, useColorModeStore, useColorModeDispatch] = makeStore({
   initialState,
   reducer,
 })
 
-const useColorMode = (customColorModes) => {
+const useColorMode = (options = {}) => {
+  const {
+    themes = defaultThemes,
+    defaultColorMode = FALLBACK_COLOR_MODE,
+    backgroundColors = defaultBackgroundColors,
+  } = options
   const { colorMode, backgroundColorMode } = useColorModeStore() || initialState
   const dispatch = useColorModeDispatch()
   const cachedColorMode = storage.getItem("colorMode")
@@ -73,22 +78,23 @@ const useColorMode = (customColorModes) => {
     },
     [dispatch]
   )
-
   const getTheme = (themeKey) =>
-    colorModes[themeKey] || colorModes[DEFAULT_COLOR_MODE]
+    themes[themeKey] || themes[defaultColorMode || FALLBACK_COLOR_MODE]
 
   const currentTheme = useMemo(() => {
-    if (!cachedColorMode || cachedColorMode?.toLowerCase() === "auto") {
+    if (cachedColorMode?.toLowerCase() === "auto") {
       setTheme("auto")
       return getTheme(autoColorMode)
     }
+
     if (cachedColorMode) {
       setTheme(cachedColorMode)
       return getTheme(cachedColorMode)
     }
-    setTheme(DEFAULT_COLOR_MODE)
-    return getTheme(DEFAULT_COLOR_MODE)
-  }, [cachedColorMode, autoColorMode]) // eslint-disable-line
+
+    setTheme(defaultColorMode || FALLBACK_COLOR_MODE)
+    return getTheme(defaultColorMode || FALLBACK_COLOR_MODE)
+  }, [cachedColorMode, autoColorMode, colorMode]) // eslint-disable-line
 
   const getBackgroundColor = (colorMode) => backgroundColors[colorMode]
 
@@ -107,23 +113,27 @@ const useColorMode = (customColorModes) => {
     }
 
     return getBackgroundColor(backgroundColorMode)
-  }, [
-    cachedBackgroundColorMode,
-    autoColorMode,
-    backgroundColorMode,
-    setBackground,
-  ])
+    // eslint-disable-next-line
+  }, [cachedBackgroundColorMode, autoColorMode, colorMode, backgroundColorMode])
 
   return {
     theme: currentTheme,
-    colorMode: colorMode || DEFAULT_COLOR_MODE,
+    colorMode: colorMode || FALLBACK_COLOR_MODE,
     backgroundColorMode,
     setTheme,
-    ColorModeProvider,
+    Provider,
     setBackground,
     backgroundColor,
   }
 }
 
 export default useColorMode
-export { ColorModeProvider, useColorModeStore, useColorModeDispatch }
+
+const DefaultProvider = Provider
+
+export {
+  ColorModeProvider,
+  useColorModeStore,
+  DefaultProvider,
+  useColorModeDispatch,
+}

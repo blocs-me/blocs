@@ -76,4 +76,5 @@ const useNotifications = () => {
   }
 }
 
+export const NotifProvider = Provider
 export default useNotifications

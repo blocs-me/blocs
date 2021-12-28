@@ -1,4 +1,4 @@
-const colors = {
+export const colors = {
   fade: {
     from: "rgba(255,255,255,0)",
     to: "rgba(255,255,255,1)",
@@ -23,7 +23,7 @@ const colors = {
   },
 }
 
-const space = {
+export const space = {
   xxs: "0.25rem",
   xs: "0.5rem",
   sm: "1rem",
@@ -33,7 +33,7 @@ const space = {
   xxl: "16rem",
 }
 
-const fontSizes = {
+export const fontSizes = {
   xxs: "0.579rem",
   xs: "0.694rem",
   sm: "0.833rem",
@@ -43,21 +43,21 @@ const fontSizes = {
   xxl: "2.986rem",
 }
 
-const fonts = {
+export const fonts = {
   header: "Pacifico, cursive",
   body: "Karla, 'Helvetica', sans-serif",
 }
 
-const radii = {
+export const radii = {
   xs: "2px",
   sm: "5px",
   md: "10px",
   lg: "15px",
 }
 
-const breakpoints = ["320px", "415px", "768px", "992px", "1200px"]
+export const breakpoints = ["320px", "415px", "768px", "992px", "1200px"]
 
-const shadows = {
+export const shadows = {
   default: `
     rgba(50, 50, 50, 0.08) 0px 2px 10px,
     rgba(50, 50, 50, 0.05) 0px 5px 20px,
@@ -79,17 +79,17 @@ const shadows = {
   `,
 }
 
-const letterSpacings = {
+export const letterSpacings = {
   sm: "1px",
   md: "2px",
   lg: "4px",
 }
 
-const lineHeights = {
+export const lineHeights = {
   li: "3rem",
 }
 
-const buttons = {
+export const buttons = {
   default: {
     bg: "red",
     color: colors.primary["accent-4"],
@@ -102,7 +102,7 @@ const buttons = {
   },
 }
 
-const zIndices = {
+export const zIndices = {
   nav: 1000000,
   modal: 1000001,
   notification: 10000001,
@@ -160,34 +160,6 @@ export const darkModeColors = {
     rgba(10, 10, 10, 0.5) -2px -2px 5px,
     rgba(255, 255, 255, 0.04) 2px 2px 5px
     `,
-  },
-}
-
-export const nightSky = {
-  ...theme,
-  colors: {
-    ...darkModeColors.colors,
-    secondary: "#eaeaea",
-    danger: "#FA7A7A",
-    success: "#FFF",
-    primary: {
-      ...darkModeColors.colors.primary,
-      "accent-1": "#003FA5",
-      "accent-2": "rgba(255,255,255,0.8)",
-      "accent-3": "rgba(255,255,255,0.7)",
-      "accent-4": "#FFF",
-    },
-    bg: {
-      ...darkModeColors.bg,
-      default: "#003180",
-      light: "#013486",
-    },
-  },
-  shadows: {
-    widgetLayout: shadows.default,
-    default: `0px 0px 10px #002560`,
-    lg: `5px 5px 10px #002560,
-    -5px -5px 10px #003da0`,
   },
 }
 
