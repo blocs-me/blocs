@@ -164,7 +164,7 @@ const HabitTracker = () => {
               stroke="primary.accent-1"
               display="inline-block"
               mr="xs"
-              css={{ verticalAlign: 'middle'}}
+              css={{ verticalAlign: "middle" }}
             >
               <Plus />
             </Icon>

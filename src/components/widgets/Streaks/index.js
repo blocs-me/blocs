@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { useEffect, useState } from "react"
 import styled from "@emotion/styled"
-import Fire from "../../../icons/fire.svg"
+// import Fire from "../../../icons/fire.svg"
 import Text from "@/design-system/Text"
 import Flex from "@/helpers/Flex"
 import WidgetLayout from "@/helpers/WidgetLayout"
@@ -170,7 +170,7 @@ const Streaks = () => {
       <WidgetLayout>
         <Box p="sm" position="relative">
           <Flex alignItems="center">
-            <Fire />
+            {/* <Fire /> */}
             <Box pl="xs" />
             <Text fontSize="sm" fontWeight="bold" mb={0}>
               streaks

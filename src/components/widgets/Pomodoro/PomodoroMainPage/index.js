@@ -82,7 +82,7 @@ const PomodoroMainPage = () => {
         pomodoroDispatch(setCurrentPomodoroPreset(preset))
       }
     }
-  }, [presets, currentPreset])
+  }, [presets, currentPreset]) // eslint-disable-line
 
   const handleMouseOver = (e) => {
     if (widgetLayout?.contains(e.target)) {

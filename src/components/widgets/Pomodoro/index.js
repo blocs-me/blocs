@@ -1,22 +1,20 @@
-/** @jsxImportSource @emotion/react */
+import { useState } from "react"
 import { AnimatePresence, m, domAnimation, LazyMotion } from "framer-motion"
 import { useRouter } from "next/router"
+import { usePomodoroStore } from "./usePomodoroStore"
+import useWidgetAuth from "@/hooks/useWidgetAuth.js"
 import WidgetLayout from "@/helpers/WidgetLayout"
 import PomodoroMainPage from "./PomodoroMainPage/index.js"
 import PomodoroMainMenu from "./PomodoroMainMenu"
 import PomodoroSettings from "./PomodoroSettings"
-import { PomodoroProvider, usePomodoroStore } from "./usePomodoroStore"
 import PomodoroPresets from "./PomodoroPresets/index.js"
 import Notifications from "@/design-system/Notifications/index.js"
-import useNotifications from "@/design-system/Notifications/useNotifications.js"
 import PomodoroThemeMenu from "./PomdoroThemeMenu/index.js"
-import useWidgetAuth, { useWidgetAuthDispatch } from "@/hooks/useWidgetAuth.js"
 import WidgetModal from "../WidgetModal/index.js"
 import Text from "@/design-system/Text/index.js"
 import Flex from "@/helpers/Flex/index.js"
 import Button from "@/design-system/Button/index.js"
-import Link from "@/design-system/Link/index.js"
-import { useEffect, useState } from "react"
+import Box from "@/helpers/Box/index.js"
 
 const FadeIn = ({ id, children }) => (
   <LazyMotion features={domAnimation}>
@@ -59,12 +57,12 @@ const Pomodoro = () => {
   }
 
   const [authModal, setAuthModal] = useState(false)
-  const { isLoggingIn, isLoggedIn } = useWidgetAuth({
+  const { isLoggedIn } = useWidgetAuth({
     onError: () => setAuthModal(true),
   })
 
   return (
-    <>
+    <Box width="280px" height="350px">
       <WidgetLayout
         onMenuClick={onMenuClick}
         iconType={getIconType()}
@@ -135,7 +133,7 @@ const Pomodoro = () => {
           </Flex>
         </WidgetModal>
       </WidgetLayout>
-    </>
+    </Box>
   )
 }
 

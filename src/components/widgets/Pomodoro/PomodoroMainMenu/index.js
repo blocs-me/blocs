@@ -12,10 +12,7 @@ import Card from "@/design-system/Card"
 import Stack from "@/helpers/Stack"
 import Text from "@/design-system/Text"
 import Link from "@/design-system/Link"
-import Icon from "@/helpers/Icon"
-import useColorMode, { useColorModeStore } from "@/hooks/useColorMode"
-import useFetch from "@/hooks/useFetch"
-import { WIDGET_LOGIN_PATH } from "@/utils/endpoints"
+import { useColorModeStore } from "@/hooks/useColorMode"
 import { useWidgetAuthStore } from "@/hooks/useWidgetAuth"
 
 const menuItems = [
@@ -60,11 +57,7 @@ const PomodoroMainMenu = () => {
           onMouseLeave={() => setAvatarMenu(false)}
         >
           <div css={{ cursor: "pointer" }}>
-            <Avatar
-              alt="profile picture"
-              variant="sm"
-              src={user?.avatar_url}
-            />
+            <Avatar alt="profile picture" variant="sm" src={user?.avatar_url} />
           </div>
           <AnimatePresence>
             {avatarMenu && (

@@ -42,8 +42,8 @@ const WidgetLayout = ({
 
   return (
     <Box
-      width="280px"
-      height="350px"
+      width="100%"
+      height="100%"
       boxShadow="widgetLayout"
       borderRadius="lg"
       bg="bg.default"

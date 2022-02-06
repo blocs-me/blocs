@@ -1,6 +1,6 @@
+import Box from "@/helpers/Box"
 import FadeIn from "@/helpers/FadeIn"
 import { default as Flex } from "@/helpers/Flex"
-import { Box } from "rebass"
 
 const DropdownMenu = ({ open, menuIcon = Ellipsed, children }) => (
   <Flex flexDirection="column" alignItems="center">
