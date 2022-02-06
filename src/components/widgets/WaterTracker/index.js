@@ -1,6 +1,5 @@
-/** @jsxImportSource @emotion/react */
-import { animate } from "popmotion"
 import { useEffect, useRef, useState } from "react"
+import { animate } from "popmotion"
 import styled from "@emotion/styled"
 import Wave from "react-wavify"
 import Flex from "@/helpers/Flex"
