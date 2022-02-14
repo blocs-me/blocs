@@ -2,7 +2,7 @@
 
 const Ajv = require("ajv")
 const {
-  default: pomodoroPresetSchema,
+  default: pomodoroPresetSchema
 } = require("../schemas/pomdoro/pomodoroPresetSchema")
 
 const ajv = new Ajv()

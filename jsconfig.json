@@ -12,7 +12,8 @@
       "@/hooks/*": ["./src/hooks/*"],
       "@/constants/*": ["./src/constants/*"],
       "@/contexts/*": ["./src/contexts/*"],
-      "@/icons/*": ["./src/icons/*.svg"]
+      "@/animation/*": ["./src/animation/*"],
+      "@/icons/*": ["./src/icons/*"]
     }
   }
 }

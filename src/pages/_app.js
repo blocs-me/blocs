@@ -7,6 +7,8 @@ import theme from "../styles/theme"
 import { useRouter } from "next/router"
 import Nav from "@/design-system/Nav"
 
+const IS_PROD_ENV = process.env.VERCEL_ENV !== "local"
+
 function MyApp({ Component, pageProps }) {
   const { pathname } = useRouter()
 
@@ -26,12 +28,15 @@ function MyApp({ Component, pageProps }) {
   return (
     <ThemeProvider theme={theme}>
       <Head>
-        <script
-          defer
-          src="https://static.cloudflareinsights.com/beacon.min.js"
-          data-cf-beacon='{"token": "a9429c8dbd674c38bf769344e4abc7d8"}'
-        />
+        {IS_PROD_ENV && (
+          <script
+            defer
+            src="https://static.cloudflareinsights.com/beacon.min.js"
+            data-cf-beacon='{"token": "a9429c8dbd674c38bf769344e4abc7d8"}'
+          />
+        )}
       </Head>
+
       <GlobalProvider>
         <Reset />
         <GlobalStyle />

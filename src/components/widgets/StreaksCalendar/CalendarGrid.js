@@ -1,17 +1,17 @@
-import { useEffect, useMemo, useRef, useState } from "react"
+import CalendarCell from "./CalendarCell"
 import Text from "@/design-system/Text"
+import Box from "@/helpers/Box"
+import Flex from "@/helpers/Flex"
+import Stack from "@/helpers/Stack"
 import {
   AnimatePresence,
   m,
   LazyMotion,
   domAnimation,
-  motion,
+  motion
 } from "framer-motion"
-import Box from "@/helpers/Box"
-import Stack from "@/helpers/Stack"
-import Flex from "@/helpers/Flex"
-import { useResizeObserver } from "beautiful-react-hooks"
-const { default: CalendarCell } = require("./CalendarCell")
+import { useEffect, useMemo, useRef, useState } from "react"
+import FadeIn from "src/components/animation/FadeIn/index"
 
 const NUMBER_OF_ROWS = 6
 const NUMBER_OF_COLUMNS = 7
@@ -38,28 +38,10 @@ const DayOfTheWeek = ({ day }) => (
   </Flex>
 )
 
-const GridAnimationWrapper = ({ currentDate, children }) => (
-  <motion.div
-    key={currentDate}
-    initial={{
-      x: 1000,
-    }}
-    animate={{
-      x: 0,
-    }}
-    exit={{
-      x: -1000,
-    }}
-    transition={{ duration: 0.5 }}
-  >
-    {children}
-  </motion.div>
-)
-
 const gridAnimation = {
-  initial: { x: 1000, y: 0 },
-  enter: { y: 0, x: 0 },
-  exit: { y: 0, x: -1000 },
+  initial: { opacity: 0 },
+  enter: { opacity: 1 },
+  exit: { opacity: 0 }
 }
 
 const CalendarGrid = ({ dates = [], currentDate }) => {
@@ -89,16 +71,22 @@ const CalendarGrid = ({ dates = [], currentDate }) => {
           <DayOfTheWeek key={day} day={day} />
         ))}
       </Stack>
-
-      <Stack mt="xxs">
-        {rows.map((weeks, i) => (
-          <Stack key={i} display="flex" ml="xs" justifyContent="space-between">
-            {weeks.map((data = {}) => (
-              <CalendarCell size={CELL_WIDTH} key={data.day} {...data} />
-            ))}
-          </Stack>
-        ))}
-      </Stack>
+      <FadeIn uuid={currentDate}>
+        <Stack mt="xxs">
+          {rows.map((weeks, i) => (
+            <Stack
+              key={i}
+              display="flex"
+              ml="xs"
+              justifyContent="space-between"
+            >
+              {weeks.map((data = {}) => (
+                <CalendarCell size={CELL_WIDTH} key={data.day} {...data} />
+              ))}
+            </Stack>
+          ))}
+        </Stack>
+      </FadeIn>
     </Box>
   )
 }
