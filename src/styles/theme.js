@@ -150,10 +150,7 @@ export const darkModeColors = {
     rgba(0, 0, 0, 0.25) -5px -5px 10px 2px,
     rgba(200, 200, 200, 0.06) 5px 5px 10px
     `,
-    widgetLayout: `
-    rgba(0, 0, 0, 0.25) -5px -5px 10px 2px,
-    rgba(200, 200, 200, 0.06) 5px 5px 10px
-    `,
+    widgetLayout: `-8px -8px 16px #0b0b0b,8px 8px 16px #191919`,
     md: `none
     `,
     lg: `
