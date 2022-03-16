@@ -117,7 +117,7 @@ const GlobalStyle = () => {
 
         @media (prefers-color-scheme: dark) {
           [data-theme="notion-bg"] {
-            background: #2f3437;
+            background: rgb(25, 25, 25);
           }
         }
         @media (prefers-color-scheme: light) {

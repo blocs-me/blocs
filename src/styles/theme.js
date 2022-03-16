@@ -140,7 +140,7 @@ export const darkModeColors = {
     foreground: "#FFFFFF",
     background: "#333333",
     bg: {
-      notion: "#2f3437",
+      notion: "rgb(25,25,25)",
       default: "#1f1f1f",
       dark: "#1f1f1f",
     },
