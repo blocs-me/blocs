@@ -13,7 +13,7 @@ const colorModes = {
 
 const backgroundColors = {
   light: "#FFF",
-  dark: "#2f3437",
+  dark: "rgb(25,25,25)",
 }
 
 const DEFAULT_COLOR_MODE = "light"
