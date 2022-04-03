@@ -1,15 +1,5 @@
-import {
-  useState,
-  useRef,
-  useEffect,
-  useCallback,
-  useLayoutEffect,
-} from "react"
-import {
-  usePomodoroStore,
-  usePomodoroDispatch,
-  initialState,
-} from "../usePomodoroStore"
+import { useState, useRef, useEffect, useCallback } from "react"
+import { usePomodoroStore, usePomodoroDispatch } from "../usePomodoroStore"
 import {
   resetPomodoroSession,
   setDocumentTimelineOffset,
@@ -17,8 +7,6 @@ import {
   setPomodoroPresetMode,
   setPomodoroSessionCount,
   setStartedAt,
-  SET_CURRENT_POMODORO_PRESET,
-  SET_DOCUMENT_TIMELINE_OFFSET,
   SET_STARTED_AT,
   showPomodoroActiveSessionMenu,
 } from "../pomodoroActions"
