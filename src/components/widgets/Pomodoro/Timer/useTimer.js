@@ -183,6 +183,8 @@ const useTimer = () => {
       const prevPercentProgress = Math.floor((prevElapsedTime / interval) * 100)
 
       if (prevPercentProgress >= 100) {
+        pomodoroDispatch(setStartedAt(null))
+        pomodoroDispatch(resetPomodoroSession())
         playChime()
         handleAutoPlay()
         return null
