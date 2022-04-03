@@ -160,7 +160,8 @@ const useTimer = () => {
   }
 
   function scheduleFrame(time) {
-    const elapsed = time - documentTimelineStart + documentTimelineOffset
+    const elapsed = time - documentTimelineStart
+    console.log(elapsed)
     const roundedElapsed = Math.round(elapsed / 1000) * 1000
     const targetNext = documentTimelineStart + roundedElapsed + 1000
     const delay = targetNext - performance.now()
@@ -189,7 +190,11 @@ const useTimer = () => {
 
       setPercentProgressed(prevPercentProgress)
       pomodoroDispatch(setDocumentTimelineOffset(prevElapsedTime))
-      pomodoroDispatch(setDocumentTimelineStart(document.timeline.currentTime))
+      pomodoroDispatch(
+        setDocumentTimelineStart(
+          document.timeline.currentTime - prevElapsedTime
+        )
+      )
       pomodoroDispatch(setStartedAt(cachedStartedAt))
     }
   }, [pomodoroDispatch, setPercentProgressed]) // eslint-disable-line
