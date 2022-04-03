@@ -7,8 +7,10 @@ import Heart from "../../../../icons/heart.svg"
 import { usePomodoroStore, usePomodoroDispatch } from "../usePomodoroStore"
 import {
   setCurrentPomodoroPreset,
+  setDocumentTimelineOffset,
   setDocumentTimelineStart,
   setStartedAt,
+  SET_STARTED_AT,
 } from "../pomodoroActions"
 import useSWR from "swr"
 import { POMODORO_PRESETS_PATH } from "@/utils/endpoints"
@@ -22,6 +24,7 @@ import { useTheme } from "@emotion/react"
 import useWidgetAuth, { useWidgetAuthStore } from "@/hooks/useWidgetAuth"
 import { useRouter } from "next/router"
 import { $ } from "src/lib/JSelectors"
+import storage from "@/utils/storage"
 
 const PomodoroMainPage = () => {
   const {
@@ -41,6 +44,7 @@ const PomodoroMainPage = () => {
   const notifs = useNotifications()
   const [hovering, setHovering] = useState(false)
   const widgetLayout = $("#widget-layout")
+  const cachedStartedAt = Number(storage.getItem(SET_STARTED_AT))
 
   const credentials = "same-origin"
   const handleGetPresetsError = () =>
@@ -66,6 +70,7 @@ const PomodoroMainPage = () => {
     if (startedAt) {
       // stopping the session
       pomodoroDispatch(setStartedAt(null))
+      pomodoroDispatch(setDocumentTimelineOffset(0))
       // TO DO, handle database update
       return null
     }

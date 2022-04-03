@@ -2,10 +2,12 @@ import { useState, useRef, useEffect, useCallback } from "react"
 import { usePomodoroStore, usePomodoroDispatch } from "../usePomodoroStore"
 import {
   resetPomodoroSession,
+  setDocumentTimelineOffset,
   setDocumentTimelineStart,
   setPomodoroPresetMode,
   setPomodoroSessionCount,
   setStartedAt,
+  SET_STARTED_AT,
   showPomodoroActiveSessionMenu,
 } from "../pomodoroActions"
 import {
@@ -13,6 +15,7 @@ import {
   POMODORO_LONG_BREAK_MODE,
   POMODORO_SHORT_BREAK_MODE,
 } from "../pomodoroPresetModes"
+import storage from "@/utils/storage"
 
 const msToSeconds = (ms) => {
   const minutes = Math.floor(ms / (1000 * 60))
@@ -28,6 +31,7 @@ const msToMinutes = (ms) => {
 const useTimer = () => {
   const {
     documentTimelineStart,
+    documentTimelineOffset,
     session: { startedAt },
     sessionCount = 0,
     currentPreset: { pomodoroInterval, longBreakInterval, shortBreakInterval },
@@ -49,19 +53,26 @@ const useTimer = () => {
   const [percentProgressed, setPercentProgressed] = useState(0)
   const controller = useRef(null)
   const timerTimeout = useRef(null)
+  const cachedStartedAt = Number(storage.getItem(SET_STARTED_AT))
 
   const startTimer = useCallback(() => {
-    pomodoroDispatch(setDocumentTimelineStart(document.timeline.currentTime))
-    pomodoroDispatch(setStartedAt(Date.now()))
+    const startedAt = Date.now()
+    const documentTimelineStart = document.timeline.currentTime
+
+    pomodoroDispatch(setDocumentTimelineStart(documentTimelineStart))
+    pomodoroDispatch(setStartedAt(startedAt))
   }, [pomodoroDispatch])
+
   const startLongBreak = useCallback(() => {
     pomodoroDispatch(setPomodoroPresetMode(POMODORO_LONG_BREAK_MODE))
     startTimer()
   }, [pomodoroDispatch, startTimer])
+
   const startShortBreak = useCallback(() => {
     pomodoroDispatch(setPomodoroPresetMode(POMODORO_SHORT_BREAK_MODE))
     startTimer()
   }, [pomodoroDispatch, startTimer])
+
   const startPomodoroInterval = useCallback(() => {
     pomodoroDispatch(setPomodoroPresetMode(POMODORO_INTERVAL_MODE))
     startTimer()
@@ -150,6 +161,7 @@ const useTimer = () => {
 
   function scheduleFrame(time) {
     const elapsed = time - documentTimelineStart
+    console.log(elapsed)
     const roundedElapsed = Math.round(elapsed / 1000) * 1000
     const targetNext = documentTimelineStart + roundedElapsed + 1000
     const delay = targetNext - performance.now()
@@ -158,11 +170,41 @@ const useTimer = () => {
     timerTimeout.current = setTimeout(() => requestAnimationFrame(frame), delay)
   }
 
+  const initTimer = () => {
+    controller.current = new AbortController()
+    scheduleFrame(documentTimelineStart)
+  }
+
+  useEffect(() => {
+    if (cachedStartedAt) {
+      const prevStartedAt = new Date(cachedStartedAt).getTime()
+      const prevElapsedTime =
+        Math.round((Date.now() - prevStartedAt) / 1000) * 1000
+      const prevPercentProgress = Math.floor((prevElapsedTime / interval) * 100)
+
+      if (prevPercentProgress >= 100) {
+        playChime()
+        handleAutoPlay()
+        return null
+      }
+
+      setPercentProgressed(prevPercentProgress)
+      pomodoroDispatch(setDocumentTimelineOffset(prevElapsedTime))
+      pomodoroDispatch(
+        setDocumentTimelineStart(
+          document.timeline.currentTime - prevElapsedTime
+        )
+      )
+      pomodoroDispatch(setStartedAt(cachedStartedAt))
+    }
+  }, [pomodoroDispatch, setPercentProgressed]) // eslint-disable-line
+
   useEffect(() => {
     if (startedAt) {
-      controller.current = new AbortController()
-      scheduleFrame(documentTimelineStart)
-    } else {
+      initTimer()
+    }
+
+    if (!startedAt && !cachedStartedAt) {
       controller.current?.abort()
       clearTimeout(timerTimeout.current)
       setProgressInMilliseconds(interval)
@@ -172,7 +214,7 @@ const useTimer = () => {
     return () => {
       controller.current?.abort()
     }
-  }, [startedAt]) // eslint-disable-line
+  }, [startedAt, cachedStartedAt]) // eslint-disable-line
 
   const minutes = msToMinutes(progressInMilliseconds)
   const seconds = msToSeconds(progressInMilliseconds)

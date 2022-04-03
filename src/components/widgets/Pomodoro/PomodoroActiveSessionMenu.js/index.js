@@ -9,6 +9,8 @@ import {
   setDocumentTimelineStart,
   setPomodoroPresetMode,
   setStartedAt,
+  SET_DOCUMENT_TIMELINE_START,
+  SET_STARTED_AT,
   showPomodoroActiveSessionMenu,
 } from "../pomodoroActions"
 import { usePomodoroDispatch, usePomodoroStore } from "../usePomodoroStore"
@@ -24,6 +26,7 @@ import {
 } from "../pomodoroPresetModes"
 import { useCallback } from "react"
 import Box from "@/helpers/Box"
+import storage from "@/utils/storage"
 
 const IconButton = ({
   bg,
@@ -100,8 +103,14 @@ const PomodoroActiveSessionMenu = () => {
   }
 
   const startSession = () => {
-    dispatch(setDocumentTimelineStart(document.timeline.currentTime))
-    dispatch(setStartedAt(Date.now()))
+    const documentTimelineStart = document.timeline.currentTime
+    const startedAt = Date.now()
+
+    localStorage?.setItem(SET_DOCUMENT_TIMELINE_START, documentTimelineStart)
+    localStorage?.setItem(SET_STARTED_AT, startedAt)
+
+    dispatch(setDocumentTimelineStart(documentTimelineStart))
+    dispatch(setStartedAt(startedAt))
     dispatch(showPomodoroActiveSessionMenu(false))
   }
 
