@@ -186,12 +186,8 @@ const useTimer = () => {
     scheduleFrame(documentTimelineStart)
   }
 
-  console.log("aborted", controller.current?.signal.aborted)
-
   useEffect(() => {
     if (cachedStartedAt) {
-      console.log("running cached starter funtion")
-
       const prevStartedAt = new Date(cachedStartedAt).getTime()
       const prevElapsedTime =
         Math.round((Date.now() - prevStartedAt) / 1000) * 1000
