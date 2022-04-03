@@ -74,7 +74,7 @@ const Pomodoro = () => {
           <AnimatePresence exitBeforeEnter initial={false}>
             {mainPage && (
               <FadeIn id="main-page" key={1}>
-                <PomodoroMainPage />
+              <PomodoroMainPage />
               </FadeIn>
             )}
             {mainMenu && (
