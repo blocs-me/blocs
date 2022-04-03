@@ -41,8 +41,7 @@ const loginWidgetUser = async (req, res) => {
       token: accessToken,
     })
   } catch (err) {
-    console.log(err)
-
+    console.error(err)
     res.status(401).json({ error: "The link has expired." })
   }
 }

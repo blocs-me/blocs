@@ -50,8 +50,6 @@ const TinyMenu = forwardRef((props, ref) => {
   const container = global.window ? document.createElement("div") : null
   const [viewportSize, setViewPortSize] = useState(0)
 
-  console.log(container?.clientHeight)
-
   useEffect(() => {
     const body = document.querySelector("body")
 
@@ -191,7 +189,6 @@ const QuickAccessMenu = () => {
 
   useEffect(() => {
     if (!Object.keys(menuDimensions).length) {
-      console.log(tinyMenuRef.current)
       setMenuDimensions(tinyMenuRef.current?.getBoundingClientRect() || {})
     }
   }, [tinyMenuRef])

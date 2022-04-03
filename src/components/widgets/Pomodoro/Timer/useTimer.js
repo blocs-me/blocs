@@ -161,7 +161,6 @@ const useTimer = () => {
 
   function scheduleFrame(time) {
     const elapsed = time - documentTimelineStart
-    console.log(elapsed)
     const roundedElapsed = Math.round(elapsed / 1000) * 1000
     const targetNext = documentTimelineStart + roundedElapsed + 1000
     const delay = targetNext - performance.now()
