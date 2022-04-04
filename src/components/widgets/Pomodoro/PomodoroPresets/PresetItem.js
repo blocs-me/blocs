@@ -5,8 +5,10 @@ import Flex from "@/helpers/Flex"
 import {
   resetPomodoroSession,
   setCurrentPomodoroPreset,
+  setPomodoroPresetMode,
+  setStartedAt,
 } from "../pomodoroActions"
-import { usePomodoroDispatch, usePomodoroStore } from "../usePomodoroStore"
+import { usePomodoroDispatch } from "../usePomodoroStore"
 import Ellipses from "../../../../icons/ellipses.svg"
 import Trash from "../../../../icons/trash.svg"
 import Pencil from "../../../../icons/pencil.svg"
@@ -18,6 +20,7 @@ import { useClickOutside } from "@/hooks/useClickOutside"
 import Stack from "@/helpers/Stack"
 import minsAsms from "@/utils/minsAsms"
 import msToMins from "@/utils/msToMins"
+import { POMODORO_INTERVAL_MODE } from "../pomodoroPresetModes"
 
 const EllipsesIcon = ({ selected, menuOpen }) => (
   <Icon
@@ -35,7 +38,7 @@ const PresetItem = ({
   initDeleteForm,
 }) => {
   const [menuOpen, setMenuOpen] = useState(false)
-  const dispatch = usePomodoroDispatch()
+  const pomodoroDispatch = usePomodoroDispatch()
   const container = useRef()
   const swatch = useRef()
   const {
@@ -53,9 +56,15 @@ const PresetItem = ({
     onClickOutside: () => menuOpen && setMenuOpen(false),
   })
 
+  const resetPomodoro = () => {
+    pomodoroDispatch(resetPomodoroSession())
+    pomodoroDispatch(setStartedAt(null))
+    pomodoroDispatch(setPomodoroPresetMode(POMODORO_INTERVAL_MODE))
+  }
+
   const handleClick = () => {
-    dispatch(resetPomodoroSession())
-    dispatch(setCurrentPomodoroPreset(preset))
+    resetPomodoro()
+    pomodoroDispatch(setCurrentPomodoroPreset(preset))
   }
 
   const handleDelete = (e) => {
