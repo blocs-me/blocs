@@ -5,6 +5,7 @@ import Flex from "@/helpers/Flex"
 import {
   resetPomodoroSession,
   setCurrentPomodoroPreset,
+  setPomodoroPresetMode,
   setStartedAt,
 } from "../pomodoroActions"
 import { usePomodoroDispatch } from "../usePomodoroStore"
@@ -19,6 +20,7 @@ import { useClickOutside } from "@/hooks/useClickOutside"
 import Stack from "@/helpers/Stack"
 import minsAsms from "@/utils/minsAsms"
 import msToMins from "@/utils/msToMins"
+import { POMODORO_INTERVAL_MODE } from "../pomodoroPresetModes"
 
 const EllipsesIcon = ({ selected, menuOpen }) => (
   <Icon
@@ -54,9 +56,14 @@ const PresetItem = ({
     onClickOutside: () => menuOpen && setMenuOpen(false),
   })
 
-  const handleClick = () => {
+  const resetPomodoro = () => {
     pomodoroDispatch(resetPomodoroSession())
     pomodoroDispatch(setStartedAt(null))
+    pomodoroDispatch(setPomodoroPresetMode(POMODORO_INTERVAL_MODE))
+  }
+
+  const handleClick = () => {
+    resetPomodoro()
     pomodoroDispatch(setCurrentPomodoroPreset(preset))
   }
 
