@@ -26,7 +26,6 @@ const initialState = {
   presetMode:
     storage.getItem(SET_POMODORO_PRESET_MODE) || POMODORO_INTERVAL_MODE,
   documentTimelineStart: 0,
-  documentTimelineOffset: 0,
   session: {
     startedAt: null,
     endedAt: null,

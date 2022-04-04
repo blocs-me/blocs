@@ -75,12 +75,6 @@ const pomodoroReducer = (state = initialState, action = {}) => {
         sessionCount: 0,
         presetMode: POMODORO_INTERVAL_MODE,
       }
-    case SET_DOCUMENT_TIMELINE_OFFSET:
-      const { documentTimelineOffset } = action
-      return {
-        ...state,
-        documentTimelineOffset,
-      }
     default:
       return state
   }

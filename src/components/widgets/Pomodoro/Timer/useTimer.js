@@ -2,7 +2,6 @@ import { useState, useRef, useEffect, useCallback } from "react"
 import { usePomodoroStore, usePomodoroDispatch } from "../usePomodoroStore"
 import {
   resetPomodoroSession,
-  setDocumentTimelineOffset,
   setDocumentTimelineStart,
   setPomodoroPresetMode,
   setPomodoroSessionCount,
@@ -32,7 +31,6 @@ const msToMinutes = (ms) => {
 const useTimer = () => {
   const {
     documentTimelineStart,
-    documentTimelineOffset,
     session: { startedAt },
     sessionCount = 0,
     currentPreset: { pomodoroInterval, longBreakInterval, shortBreakInterval },
@@ -191,7 +189,6 @@ const useTimer = () => {
       }
 
       setPercentProgressed(prevPercentProgress)
-      pomodoroDispatch(setDocumentTimelineOffset(prevElapsedTime))
       pomodoroDispatch(
         setDocumentTimelineStart(
           document.timeline.currentTime - prevElapsedTime
@@ -199,7 +196,14 @@ const useTimer = () => {
       )
       pomodoroDispatch(setStartedAt(cachedStartedAt))
     }
-  }, [pomodoroDispatch, setPercentProgressed]) // eslint-disable-line
+  }, [
+    pomodoroDispatch,
+    setPercentProgressed,
+    interval,
+    notifs,
+    cachedStartedAt,
+    handleAutoPlay,
+  ])
 
   useEffect(() => {
     if (startedAt) {
