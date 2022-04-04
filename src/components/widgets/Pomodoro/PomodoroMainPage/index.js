@@ -7,7 +7,6 @@ import Heart from "../../../../icons/heart.svg"
 import { usePomodoroStore, usePomodoroDispatch } from "../usePomodoroStore"
 import {
   setCurrentPomodoroPreset,
-  setDocumentTimelineOffset,
   setDocumentTimelineStart,
   setStartedAt,
   SET_STARTED_AT,
@@ -70,8 +69,7 @@ const PomodoroMainPage = () => {
     if (startedAt) {
       // stopping the session
       pomodoroDispatch(setStartedAt(null))
-      pomodoroDispatch(setDocumentTimelineOffset(0))
-      // TO DO, handle database update
+      // TO DO: handle database update
       return null
     }
     // start the session

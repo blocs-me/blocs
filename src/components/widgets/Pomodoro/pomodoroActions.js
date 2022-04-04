@@ -10,12 +10,6 @@ export const SET_POMODORO_SESSION_COUNT = "SET_POMODORO_SESSION_COUNT"
 export const RESET_POMODORO_SESSION = "RESET_POMODORO_SESSION"
 export const SHOW_POMODORO_ACTIVE_SESSION_MENU =
   "SHOW_POMODORO_ACTIVE_SESSION_MENU"
-export const SET_DOCUMENT_TIMELINE_OFFSET = "SET_DOCUMENT_TIMELINE_OFFSET"
-
-export const setDocumentTimelineOffset = (documentTimelineOffset) => ({
-  type: SET_DOCUMENT_TIMELINE_OFFSET,
-  documentTimelineOffset,
-})
 
 export const setStartedAt = (startedAt) => ({
   startedAt,
