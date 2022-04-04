@@ -16,6 +16,7 @@ import {
   POMODORO_SHORT_BREAK_MODE,
 } from "../pomodoroPresetModes"
 import storage from "@/utils/storage"
+import useNotifications from "@/design-system/Notifications/useNotifications"
 
 const msToSeconds = (ms) => {
   const minutes = Math.floor(ms / (1000 * 60))
@@ -54,6 +55,7 @@ const useTimer = () => {
   const controller = useRef(null)
   const timerTimeout = useRef(null)
   const cachedStartedAt = Number(storage.getItem(SET_STARTED_AT))
+  const notifs = useNotifications()
 
   const startTimer = useCallback(() => {
     const startedAt = Date.now()
@@ -161,7 +163,6 @@ const useTimer = () => {
 
   function scheduleFrame(time) {
     const elapsed = time - documentTimelineStart
-    console.log(elapsed)
     const roundedElapsed = Math.round(elapsed / 1000) * 1000
     const targetNext = documentTimelineStart + roundedElapsed + 1000
     const delay = targetNext - performance.now()
@@ -178,14 +179,13 @@ const useTimer = () => {
   useEffect(() => {
     if (cachedStartedAt) {
       const prevStartedAt = new Date(cachedStartedAt).getTime()
-      const prevElapsedTime =
-        Math.round((Date.now() - prevStartedAt) / 1000) * 1000
+      const prevElapsedTime = Date.now() - prevStartedAt
       const prevPercentProgress = Math.floor((prevElapsedTime / interval) * 100)
 
       if (prevPercentProgress >= 100) {
         pomodoroDispatch(setStartedAt(null))
         pomodoroDispatch(resetPomodoroSession())
-        playChime()
+        notifs.createInfo("Previous session was completed ✅")
         handleAutoPlay()
         return null
       }

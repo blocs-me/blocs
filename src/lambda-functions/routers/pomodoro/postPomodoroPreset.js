@@ -29,7 +29,7 @@ const postPomodoroPreset = async (req, res, rest) => {
     )
     res.status(200).json({ data: faundaRes?.data })
   } catch (err) {
-    console.log(err)
+    console.error(err)
     res.status(500).json({
       error: "Something went wrong when trying to create your preset",
     })
