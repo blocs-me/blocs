@@ -199,7 +199,14 @@ const useTimer = () => {
       )
       pomodoroDispatch(setStartedAt(cachedStartedAt))
     }
-  }, [pomodoroDispatch, setPercentProgressed]) // eslint-disable-line
+  }, [
+    pomodoroDispatch,
+    setPercentProgressed,
+    interval,
+    notifs,
+    cachedStartedAt,
+    handleAutoPlay,
+  ])
 
   useEffect(() => {
     if (startedAt) {
