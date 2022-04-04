@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useCallback } from "react"
+import { useState, useRef, useEffect, useCallback, useMemo } from "react"
 import { usePomodoroStore, usePomodoroDispatch } from "../usePomodoroStore"
 import {
   resetPomodoroSession,
@@ -42,11 +42,11 @@ const useTimer = () => {
     },
     presetMode,
   } = usePomodoroStore()
-  const interval = (() => {
+  const interval = useMemo(() => {
     if (presetMode === POMODORO_INTERVAL_MODE) return pomodoroInterval
     if (presetMode === POMODORO_LONG_BREAK_MODE) return longBreakInterval
     if (presetMode === POMODORO_SHORT_BREAK_MODE) return shortBreakInterval
-  })()
+  }, [presetMode, pomodoroInterval, longBreakInterval, shortBreakInterval])
   const pomodoroDispatch = usePomodoroDispatch()
   const [progressInMilliseconds, setProgressInMilliseconds] = useState(0)
   const [percentProgressed, setPercentProgressed] = useState(0)
@@ -196,21 +196,14 @@ const useTimer = () => {
       )
       pomodoroDispatch(setStartedAt(cachedStartedAt))
     }
-  }, [
-    pomodoroDispatch,
-    setPercentProgressed,
-    interval,
-    notifs,
-    cachedStartedAt,
-    handleAutoPlay,
-  ])
+  }, [cachedStartedAt, interval]) // eslint-disable-line
 
   useEffect(() => {
     if (startedAt) {
       initTimer()
     }
 
-    if (!startedAt && !cachedStartedAt) {
+    if (!startedAt) {
       controller.current?.abort()
       clearTimeout(timerTimeout.current)
       setProgressInMilliseconds(interval)
