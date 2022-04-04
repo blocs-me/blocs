@@ -5,8 +5,9 @@ import Flex from "@/helpers/Flex"
 import {
   resetPomodoroSession,
   setCurrentPomodoroPreset,
+  setStartedAt,
 } from "../pomodoroActions"
-import { usePomodoroDispatch, usePomodoroStore } from "../usePomodoroStore"
+import { usePomodoroDispatch } from "../usePomodoroStore"
 import Ellipses from "../../../../icons/ellipses.svg"
 import Trash from "../../../../icons/trash.svg"
 import Pencil from "../../../../icons/pencil.svg"
@@ -35,7 +36,7 @@ const PresetItem = ({
   initDeleteForm,
 }) => {
   const [menuOpen, setMenuOpen] = useState(false)
-  const dispatch = usePomodoroDispatch()
+  const pomodoroDispatch = usePomodoroDispatch()
   const container = useRef()
   const swatch = useRef()
   const {
@@ -54,8 +55,9 @@ const PresetItem = ({
   })
 
   const handleClick = () => {
-    dispatch(resetPomodoroSession())
-    dispatch(setCurrentPomodoroPreset(preset))
+    pomodoroDispatch(resetPomodoroSession())
+    pomodoroDispatch(setStartedAt(null))
+    pomodoroDispatch(setCurrentPomodoroPreset(preset))
   }
 
   const handleDelete = (e) => {
