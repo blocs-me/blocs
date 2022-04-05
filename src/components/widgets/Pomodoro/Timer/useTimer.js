@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useCallback } from "react"
+import { useState, useRef, useEffect, useCallback, useMemo } from "react"
 import { usePomodoroStore, usePomodoroDispatch } from "../usePomodoroStore"
 import {
   resetPomodoroSession,
@@ -6,6 +6,7 @@ import {
   setPomodoroPresetMode,
   setPomodoroSessionCount,
   setStartedAt,
+  SET_STARTED_AT,
   showPomodoroActiveSessionMenu,
 } from "../pomodoroActions"
 import {
@@ -13,6 +14,8 @@ import {
   POMODORO_LONG_BREAK_MODE,
   POMODORO_SHORT_BREAK_MODE,
 } from "../pomodoroPresetModes"
+import storage from "@/utils/storage"
+import useNotifications from "@/design-system/Notifications/useNotifications"
 
 const msToSeconds = (ms) => {
   const minutes = Math.floor(ms / (1000 * 60))
@@ -39,29 +42,37 @@ const useTimer = () => {
     },
     presetMode,
   } = usePomodoroStore()
-  const interval = (() => {
+  const interval = useMemo(() => {
     if (presetMode === POMODORO_INTERVAL_MODE) return pomodoroInterval
     if (presetMode === POMODORO_LONG_BREAK_MODE) return longBreakInterval
     if (presetMode === POMODORO_SHORT_BREAK_MODE) return shortBreakInterval
-  })()
+  }, [presetMode, pomodoroInterval, longBreakInterval, shortBreakInterval])
   const pomodoroDispatch = usePomodoroDispatch()
   const [progressInMilliseconds, setProgressInMilliseconds] = useState(0)
   const [percentProgressed, setPercentProgressed] = useState(0)
   const controller = useRef(null)
   const timerTimeout = useRef(null)
+  const cachedStartedAt = Number(storage.getItem(SET_STARTED_AT))
+  const notifs = useNotifications()
 
   const startTimer = useCallback(() => {
-    pomodoroDispatch(setDocumentTimelineStart(document.timeline.currentTime))
-    pomodoroDispatch(setStartedAt(Date.now()))
+    const startedAt = Date.now()
+    const documentTimelineStart = document.timeline.currentTime
+
+    pomodoroDispatch(setDocumentTimelineStart(documentTimelineStart))
+    pomodoroDispatch(setStartedAt(startedAt))
   }, [pomodoroDispatch])
+
   const startLongBreak = useCallback(() => {
     pomodoroDispatch(setPomodoroPresetMode(POMODORO_LONG_BREAK_MODE))
     startTimer()
   }, [pomodoroDispatch, startTimer])
+
   const startShortBreak = useCallback(() => {
     pomodoroDispatch(setPomodoroPresetMode(POMODORO_SHORT_BREAK_MODE))
     startTimer()
   }, [pomodoroDispatch, startTimer])
+
   const startPomodoroInterval = useCallback(() => {
     pomodoroDispatch(setPomodoroPresetMode(POMODORO_INTERVAL_MODE))
     startTimer()
@@ -158,11 +169,41 @@ const useTimer = () => {
     timerTimeout.current = setTimeout(() => requestAnimationFrame(frame), delay)
   }
 
+  const initTimer = () => {
+    controller.current = new AbortController()
+    scheduleFrame(documentTimelineStart)
+  }
+
+  useEffect(() => {
+    if (cachedStartedAt) {
+      const prevStartedAt = new Date(cachedStartedAt).getTime()
+      const prevElapsedTime = Date.now() - prevStartedAt
+      const prevPercentProgress = Math.floor((prevElapsedTime / interval) * 100)
+
+      if (prevPercentProgress >= 100) {
+        pomodoroDispatch(setStartedAt(null))
+        pomodoroDispatch(resetPomodoroSession())
+        notifs.createInfo("Previous session was completed ✅")
+        handleAutoPlay()
+        return null
+      }
+
+      setPercentProgressed(prevPercentProgress)
+      pomodoroDispatch(
+        setDocumentTimelineStart(
+          document.timeline.currentTime - prevElapsedTime
+        )
+      )
+      pomodoroDispatch(setStartedAt(cachedStartedAt))
+    }
+  }, [cachedStartedAt, interval]) // eslint-disable-line
+
   useEffect(() => {
     if (startedAt) {
-      controller.current = new AbortController()
-      scheduleFrame(documentTimelineStart)
-    } else {
+      initTimer()
+    }
+
+    if (!startedAt) {
       controller.current?.abort()
       clearTimeout(timerTimeout.current)
       setProgressInMilliseconds(interval)

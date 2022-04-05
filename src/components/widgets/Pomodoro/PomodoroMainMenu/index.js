@@ -44,10 +44,6 @@ const PomodoroMainMenu = () => {
   const [avatarMenu, setAvatarMenu] = useState(false)
   const colorMode = useColorModeStore()
 
-  // const { data: userData } = useFetch(WIDGET_LOGIN_PATH, {
-  //   shouldFetch: false,
-  // })
-
   const { user } = useWidgetAuthStore() || {}
 
   return (
@@ -60,11 +56,7 @@ const PomodoroMainMenu = () => {
           onMouseLeave={() => setAvatarMenu(false)}
         >
           <div css={{ cursor: "pointer" }}>
-            <Avatar
-              alt="profile picture"
-              variant="sm"
-              src={user?.avatar_url}
-            />
+            <Avatar alt="profile picture" variant="sm" src={user?.avatar_url} />
           </div>
           <AnimatePresence>
             {avatarMenu && (

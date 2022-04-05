@@ -22,8 +22,6 @@ const deletePomodoroPreset = async (req, res, rest) => {
       q.Call(q.Function("get_pomodoro_presets_by_user_ref"), userRef)
     )
 
-    console.log("user presets", userPresets)
-
     const canDelete = userPresets?.data?.length > 1
 
     if (!canDelete) {

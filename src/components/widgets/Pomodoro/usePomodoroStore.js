@@ -1,16 +1,20 @@
+import storage from "@/utils/storage"
 import makeStore from "src/lib/makeStore"
 import {
   SET_CURRENT_POMODORO_PRESET,
+  SET_DOCUMENT_TIMELINE_OFFSET,
+  SET_DOCUMENT_TIMELINE_START,
+  SET_POMODORO_PRESET_MODE,
   SET_POMODORO_SESSION_COUNT,
+  SET_STARTED_AT,
 } from "./pomodoroActions"
 import { POMODORO_INTERVAL_MODE } from "./pomodoroPresetModes"
 import pomodoroReducer from "./pomodoroReducer"
 
 const getCachedPomodoroPreferences = () => {
-  if (global.window) {
-    const preferences = window.localStorage.getItem("pomodoroPreferences")
-    if (preferences) return JSON.parse(preferences)
-  }
+  const preferences =
+    storage.getItem("pomodoroPreferences") || JSON.stringify("")
+  if (preferences) return JSON.parse(preferences)
 
   return {}
 }
@@ -18,10 +22,10 @@ const getCachedPomodoroPreferences = () => {
 const initialState = {
   favorites: [],
   activeSessionMenu: false,
-  sessionCount:
-    Number(global.window?.localStorage.getItem(SET_POMODORO_SESSION_COUNT)) ||
-    0,
-  presetMode: POMODORO_INTERVAL_MODE,
+  sessionCount: Number(storage.getItem(SET_POMODORO_SESSION_COUNT)) || 0,
+  presetMode:
+    storage.getItem(SET_POMODORO_PRESET_MODE) || POMODORO_INTERVAL_MODE,
+  documentTimelineStart: 0,
   session: {
     startedAt: null,
     endedAt: null,
@@ -42,8 +46,7 @@ const initialState = {
     label: "work",
     labelColor: "#00d1e0",
     ...JSON.parse(
-      global?.window?.localStorage.getItem(SET_CURRENT_POMODORO_PRESET) ||
-        JSON.stringify({})
+      storage.getItem(SET_CURRENT_POMODORO_PRESET) || JSON.stringify({})
     ),
   },
 }

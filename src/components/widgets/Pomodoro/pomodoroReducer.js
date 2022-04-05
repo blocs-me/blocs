@@ -11,6 +11,7 @@ import {
   SET_POMODORO_PRESET_MODE,
   RESET_POMODORO_SESSION,
   SHOW_POMODORO_ACTIVE_SESSION_MENU,
+  SET_DOCUMENT_TIMELINE_OFFSET,
 } from "./pomodoroActions"
 import { POMODORO_INTERVAL_MODE } from "./pomodoroPresetModes"
 import { initialState } from "./usePomodoroStore"
@@ -19,12 +20,14 @@ const pomodoroReducer = (state = initialState, action = {}) => {
   switch (action.type) {
     case SET_STARTED_AT:
       const { startedAt } = action
+      storage.setItem(SET_STARTED_AT, startedAt)
       return { ...state, session: { ...state.session, startedAt } }
     case SET_ENDED_AT:
       const { endedAt } = action
       return { ...state, session: { ...state.session, endedAt } }
     case SET_DOCUMENT_TIMELINE_START:
       const { documentTimelineStart } = action
+      storage.setItem(SET_DOCUMENT_TIMELINE_START, documentTimelineStart)
       return { ...state, documentTimelineStart }
     case SET_SESSION_SETTINGS:
       const { sessionSettings } = action
@@ -54,6 +57,7 @@ const pomodoroReducer = (state = initialState, action = {}) => {
       }
     case SET_POMODORO_PRESET_MODE:
       const { presetMode } = action
+      storage.setItem(SET_POMODORO_PRESET_MODE, presetMode)
       return {
         ...state,
         presetMode,
