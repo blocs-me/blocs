@@ -213,7 +213,7 @@ const useTimer = () => {
     return () => {
       controller.current?.abort()
     }
-  }, [startedAt, cachedStartedAt]) // eslint-disable-line
+  }, [startedAt]) // eslint-disable-line
 
   const minutes = msToMinutes(progressInMilliseconds)
   const seconds = msToSeconds(progressInMilliseconds)
