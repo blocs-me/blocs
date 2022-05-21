@@ -6,14 +6,14 @@
       "@/helpers/*": ["./src/components/helpers/*"],
       "@/widgets/*": ["./src/components/widgets/*"],
       "@/pages/*": ["./src/components/pages/*"],
-      "@/lambda/*": ["./src/lambda-functions/*"],
+      "@/lambda/*": ["src/lambdas/*"],
       "@/keyframes/*": ["./src/keyframes/*"],
       "@/utils/*": ["./src/utils/*"],
       "@/hooks/*": ["./src/hooks/*"],
       "@/constants/*": ["./src/constants/*"],
       "@/contexts/*": ["./src/contexts/*"],
       "@/icons/*": ["./src/icons/*.svg"],
-      "@/schemas/*": ["./src/lambda-functions/schemas/*"]
+      "@/schemas/*": ["src/lambdas/schemas/*"]
     }   
   }
 }
