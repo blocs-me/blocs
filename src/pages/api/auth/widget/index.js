@@ -1,4 +1,4 @@
-import cors from "@/lambda/middlewares/apiGuard/cors"
+import cors from "@/lambda/middlewares/apiHandler/cors"
 import Rest from "@/lambda/lib/rest"
 import loginWidgetUser from "@/lambda/routers/auth/loginWidgetUser"
 
