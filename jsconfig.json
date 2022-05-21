@@ -6,7 +6,7 @@
       "@/helpers/*": ["./src/components/helpers/*"],
       "@/widgets/*": ["./src/components/widgets/*"],
       "@/pages/*": ["./src/components/pages/*"],
-      "@/lambda/*": ["src/lambdas/*"],
+      "@/lambda/*": ["src/lambda-functions/*"],
       "@/keyframes/*": ["./src/keyframes/*"],
       "@/utils/*": ["./src/utils/*"],
       "@/hooks/*": ["./src/hooks/*"],
@@ -14,6 +14,6 @@
       "@/contexts/*": ["./src/contexts/*"],
       "@/icons/*": ["./src/icons/*.svg"],
       "@/schemas/*": ["src/lambdas/schemas/*"]
-    }   
+    }
   }
 }
