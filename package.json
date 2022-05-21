@@ -43,5 +43,8 @@
     "babel-plugin-inline-react-svg": "^2.0.1",
     "eslint": "^7.31.0",
     "eslint-config-next": "^12.1.6"
+  },
+  "volta": {
+    "node": "16.15.0"
   }
 }
