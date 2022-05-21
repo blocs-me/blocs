@@ -1,20 +1,12 @@
 import faunaClient from '@/lambda/faunaClient'
 import { getBlocsUser } from '@/lambda/helpers/faunadb/getBlocsUserRef'
-import Cookie from 'cookies'
 import { query as q } from 'faunadb'
-import jwt from 'jsonwebtoken'
 
 const validateWidgetAuth = async (req, res, rest) => {
   const token = rest.bearerToken
   if (!token) res.status(401).json({ error: 'Unauthorized acccess' })
 
-  // const salt = process.env.JWT_SALT
-
   try {
-    // const tokenData = jwt.verify(token, salt, {
-    //   algorithms: ["HS256"],
-    // })
-
     const widget = await faunaClient.query(
       q.Get(q.Match(q.Index('widget_access_tokens_by_token'), token))
     )
