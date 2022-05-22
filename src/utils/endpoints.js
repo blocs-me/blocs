@@ -1,7 +1,7 @@
 import { BASE_URL } from '@/constants/baseUrl'
 import notionOAuthData from './notionOAuthData'
 
-const BE_BASE_URL = BASE_URL ? `${BASE_URL}/api` : ''
+const BE_BASE_URL = `${BASE_URL || ''}/api`
 const { CLIENT_ID, REDIRECT_URL } = notionOAuthData
 export const getPath = (path = '') => `${BE_BASE_URL}${path}`
 
