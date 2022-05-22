@@ -1,25 +1,22 @@
-import {
-  WIDGET_LOGIN_PATH,
-  WIDGET_LOGIN_VALIDATION_PATH,
-} from "@/utils/endpoints"
-import storage from "@/utils/storage"
-import { useRouter } from "next/router"
-import { useEffect, useLayoutEffect, useState } from "react"
-import useDidMount from "./useDidMount"
-import useFetch from "./useFetch"
-import useFetchCache from "./useFetchCache"
+import { WIDGET_LOGIN_VALIDATION_PATH } from '@/utils/endpoints'
+import storage from '@/utils/storage'
+import { useRouter } from 'next/router'
+import { useEffect, useLayoutEffect, useState } from 'react'
+import useDidMount from './useDidMount'
+import useFetch from './useFetch'
+import useFetchCache from './useFetchCache'
 
-const { default: makeStore } = require("src/lib/makeStore")
+const { default: makeStore } = require('src/lib/makeStore')
 
 const initalState = {
   isLoggedIn: false, // after logging in / validation
-  isLoggingIn: true, // first time load with params, we can show the skeleton / during validation
+  isLoggingIn: true // first time load with params, we can show the skeleton / during validation
 }
 
-export const SET_IS_LOGGING_IN = "SET_IS_LOGGING_IN"
-export const SET_IS_LOGGED_IN = "SET_IS_LOGGED_IN"
-export const SET_TOKEN = "SET_TOKEN"
-export const SET_USER = "SET_USER"
+export const SET_IS_LOGGING_IN = 'SET_IS_LOGGING_IN'
+export const SET_IS_LOGGED_IN = 'SET_IS_LOGGED_IN'
+export const SET_TOKEN = 'SET_TOKEN'
+export const SET_USER = 'SET_USER'
 
 const reducer = (state = initalState, action) => {
   switch (action.type) {
@@ -27,25 +24,25 @@ const reducer = (state = initalState, action) => {
       const { isLoggedIn } = action
       return {
         ...state,
-        isLoggedIn,
+        isLoggedIn
       }
     case SET_IS_LOGGING_IN:
       const { isLoggingIn } = action
       return {
         ...state,
-        isLoggingIn,
+        isLoggingIn
       }
     case SET_TOKEN:
       const { token } = action
       return {
         ...state,
-        token,
+        token
       }
     case SET_USER:
       const { user } = action
       return {
         ...state,
-        user,
+        user
       }
     default:
       return state
@@ -55,7 +52,7 @@ const reducer = (state = initalState, action) => {
 const [WidgetAuthProvider, useWidgetAuthStore, useWidgetAuthDispatch] =
   makeStore({
     initalState,
-    reducer,
+    reducer
   })
 
 export { WidgetAuthProvider, useWidgetAuthStore, useWidgetAuthDispatch }
@@ -69,25 +66,25 @@ const useWidgetAuth = ({ onError = () => {} }) => {
   const setIsLoggedIn = (isLoggedIn) =>
     dispatch({
       isLoggedIn,
-      type: SET_IS_LOGGED_IN,
+      type: SET_IS_LOGGED_IN
     })
 
   const setIsLoggingIn = (isLoggingIn) =>
     dispatch({
       isLoggingIn,
-      type: SET_IS_LOGGING_IN,
+      type: SET_IS_LOGGING_IN
     })
 
   const setToken = (token) =>
     dispatch({
       token,
-      type: SET_TOKEN,
+      type: SET_TOKEN
     })
 
   const setUser = (user) =>
     dispatch({
       user,
-      type: SET_USER,
+      type: SET_USER
     })
 
   const { isLoggedIn } = useWidgetAuthStore() || initalState
@@ -95,12 +92,12 @@ const useWidgetAuth = ({ onError = () => {} }) => {
   const { error: validationError, data: validated } = useFetch(
     WIDGET_LOGIN_VALIDATION_PATH,
     {
-      method: "POST",
+      method: 'POST',
       shouldCache: false,
       shouldFetch: !!token && !isLoggedIn,
       headers: {
-        credentials: "same-origin",
-        Authorization: `Bearer ${token}`,
+        credentials: 'same-origin',
+        Authorization: `Bearer ${token}`
       },
       onSuccess: (res) => {
         // if (res.token && user) {
@@ -120,7 +117,7 @@ const useWidgetAuth = ({ onError = () => {} }) => {
       onError: (e) => {
         setIsLoggingIn(false)
         onError(e)
-      },
+      }
     }
   )
 
@@ -131,7 +128,7 @@ const useWidgetAuth = ({ onError = () => {} }) => {
   // }, [accessToken]) // eslint-disable-line
 
   return {
-    ...store,
+    ...store
     // user: user?.data,
   }
 }
