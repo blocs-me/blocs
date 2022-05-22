@@ -49,8 +49,6 @@ const createWidgetAccessToken = async (req, res) => {
       .then((res) => res?.data?.find(([type]) => type === widgetType))
       .catch(() => null)
 
-    console.log({ legacyTempTokens, widgetToken })
-
     const shouldCreateToken = !legacyTempTokens.data?.length && !widgetToken
 
     if (shouldCreateToken) {

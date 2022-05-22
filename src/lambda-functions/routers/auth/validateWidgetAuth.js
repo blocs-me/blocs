@@ -19,8 +19,6 @@ const validateWidgetAuth = async (req, res, rest) => {
       .then((res) => res)
       .catch(() => null)
 
-    console.log({ widget })
-
     const userId = widget?.data?.[0] || legacyTempToken?.data?.userId
 
     rest.userId = userId
