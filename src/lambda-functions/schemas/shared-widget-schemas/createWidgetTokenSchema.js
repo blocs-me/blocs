@@ -9,7 +9,7 @@ const createWidgetTokenSchema = {
       type: 'string'
     }
   },
-  required: ['widgetType']
+  required: ['widgetType', 'access_token']
 }
 
 export default createWidgetTokenSchema

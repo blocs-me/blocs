@@ -38,7 +38,7 @@ const createWidgetAccessToken = async (req, res) => {
         )
       )
       .then((res) => res)
-      .catch((err) => [])
+      .catch(() => null)
 
     const widgetToken = await faunaClient
       .query(
