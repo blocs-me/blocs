@@ -9,18 +9,13 @@ const getWidgetUser = async (req, res, rest) => {
       return res.status(401).json({ error: 'Unauthorized acccess' })
     }
 
-    const legacyTokenData = await faunaClient
-      .query(q.Get(q.Match(q.Index('temp_access_tokens_by_token'), [token])))
-      .then((data) => data)
-      .catch(() => null)
-
     const widget = await faunaClient
       .query(q.Get(q.Match(q.Index('widget_access_tokens_by_token'), token)))
       .then((data) => data)
       .catch((err) => null)
 
-    const userId = widget?.data?.userId || legacyTokenData?.data?.userId
-    const widgetToken = widget?.data?.token || legacyTokenData?.data?.token
+    const userId = widget?.data?.userId
+    const widgetToken = widget?.data?.token
 
     if (!userId || !widgetToken) {
       throw new Error('Unauthorized Access')

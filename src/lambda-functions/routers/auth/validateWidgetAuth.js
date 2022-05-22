@@ -1,17 +1,12 @@
 import faunaClient from '@/lambda/faunaClient'
 import { getBlocsUser } from '@/lambda/helpers/faunadb/getBlocsUserRef'
-import { Lambda, query as q } from 'faunadb'
+import { query as q } from 'faunadb'
 
 const validateWidgetAuth = async (req, res, rest) => {
   const token = rest.bearerToken
   if (!token) res.status(401).json({ error: 'Unauthorized acccess' })
 
   try {
-    const legacyTempToken = await faunaClient
-      .query(q.Get(q.Match(q.Index('temp_access_tokens_by_token'), token)))
-      .then((data) => data)
-      .catch(() => null)
-
     const widget = await faunaClient
       .query(
         q.Paginate(q.Match(q.Index('widget_access_tokens_by_token'), token))
@@ -19,7 +14,7 @@ const validateWidgetAuth = async (req, res, rest) => {
       .then((res) => res)
       .catch(() => null)
 
-    const userId = widget?.data?.[0] || legacyTempToken?.data?.userId
+    const userId = widget?.data?.[0]
 
     rest.userId = userId
 
