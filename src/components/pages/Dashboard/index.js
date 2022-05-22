@@ -102,6 +102,7 @@ const ClipboardSection = ({ pomodoroToken }) => {
     <>
       <div css={{ position: 'relative' }}>
         <ClipboardInput
+          readOnly
           type="text"
           value={`https://blocs.me/pomodoro?token=${pomodoroToken}`}
         />
@@ -136,7 +137,7 @@ const ClipboardSection = ({ pomodoroToken }) => {
           title="copy to clipboard"
         >
           <Icon display="flex" m="auto" width="20px" stroke="primary.accent-4">
-            <CopyIcon css={{ margin: 'auto' }} readonly />
+            <CopyIcon css={{ margin: 'auto' }} readOnly />
           </Icon>
         </Flex>
       </div>
