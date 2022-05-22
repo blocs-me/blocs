@@ -21,30 +21,39 @@ const createWidgetAccessToken = async (req, res) => {
     const notionUser = await getNotionUser(accessToken)
     const userEmail = notionUser?.person?.email
     const blocsUser = await faunaClient.query(
-      q.Get(q.Match(q.Index("all_users_by_email"), userEmail))
+      q.Get(q.Match(q.Index('all_users_by_email'), userEmail))
     )
 
-    if (!blocsUser?.ref) throw new Error("blocs user not defined")
+    if (!blocsUser?.ref) throw new Error('blocs user not defined')
 
     const blocsUserId = blocsUser?.ref?.id
 
-    // [ ] find users token by userId, and widgetType
-    // [ ] or create token with "widgetType: pomodoro" metadata
-
-    const userTokens = await faunaClient.query(
-      q.Paginate(
-        q.Match(q.Index('widget_access_tokens_by_user_id'), [
-          blocsUserId,
-          widgetType
-        ])
+    const legacyTempTokens = await faunaClient
+      .query(
+        q.Map(
+          q.Paginate(
+            q.Match(q.Index('temp_access_tokens_by_user_id'), [blocsUserId])
+          ),
+          q.Lambda('tokenRef', q.Select(['data'], q.Get(q.Var('tokenRef'))))
+        )
       )
-    )
+      .then((res) => res)
+      .catch((err) => [])
 
-    const requestedWidgetToken = userTokens.data[0]?.find(
-      ([currentWidgetType]) => currentWidgetType === widgetType
-    ).token
+    const widgetToken = await faunaClient
+      .query(
+        q.Paginate(
+          q.Match(q.Index('widget_access_tokens_by_user_id'), blocsUserId)
+        )
+      )
+      .then((res) => res?.data?.find(([type]) => type === widgetType))
+      .catch(() => null)
 
-    if (!requestedWidgetToken) {
+    console.log({ legacyTempTokens, widgetToken })
+
+    const shouldCreateToken = !legacyTempTokens.data?.length && !widgetToken
+
+    if (shouldCreateToken) {
       const newWidgetTokenData = await faunaClient.query(
         q.Call(q.Function('create_widget_access_token'), [
           blocsUserId,
@@ -63,7 +72,7 @@ const createWidgetAccessToken = async (req, res) => {
 
     res.status(200).json({
       data: {
-        token: requestedWidgetToken
+        token: legacyTempTokens?.data?.[0]?.token || widgetToken[2]
       }
     })
   } catch (error) {
