@@ -1,5 +1,3 @@
-import Cookie from "cookies"
-
 class Rest {
   constructor(req, res) {
     this.res = res
@@ -10,15 +8,15 @@ class Rest {
       put: [],
       delete: [],
       get: [],
-      "*": [],
+      '*': []
     }
     this.terminated = false
   }
 
   async use(method, middleware) {
     if (!method)
-      throw new Error("rest() : method must be defined for middlewares")
-    if (!middleware) throw new Error("rest() : middleware is not defined")
+      throw new Error('rest() : method must be defined for middlewares')
+    if (!middleware) throw new Error('rest() : middleware is not defined')
 
     this.middlewares[method?.toLowerCase()]?.push(middleware)
 
@@ -30,43 +28,43 @@ class Rest {
 
     if (middlewaresOfMethod?.length === 0) return null
     if (!middlewaresOfMethod)
-      throw new Error("incorrect method provided, method : " + method)
+      throw new Error('incorrect method provided, method : ' + method)
 
     for (let mw of middlewaresOfMethod) {
       try {
         await mw(this.req, this.res)
       } catch (error) {
-        console.error("middlware failed")
+        console.error('middlware failed')
         throw error
       }
     }
   }
 
   async get(router = () => {}) {
-    return await this.handleRouter(router, "get")
+    return await this.handleRouter(router, 'get')
   }
 
   async post(router = () => {}) {
-    return await this.handleRouter(router, "post")
+    return await this.handleRouter(router, 'post')
   }
 
   async patch(router = () => {}) {
-    return await this.handleRouter(router, "patch")
+    return await this.handleRouter(router, 'patch')
   }
 
   async delete(router = () => {}) {
-    return await this.handleRouter(router, "delete")
+    return await this.handleRouter(router, 'delete')
   }
 
   async put(router = () => {}) {
-    return await this.handleRouter(router, "put")
+    return await this.handleRouter(router, 'put')
   }
 
   async handleRouter(router, method) {
     if (this.terminated) return null
 
     if (this.req.method?.toLowerCase() === method) {
-      await this.applyMiddlewares("*")
+      await this.applyMiddlewares('*')
       await this.applyMiddlewares(this.req.method)
 
       try {

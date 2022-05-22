@@ -1,43 +1,40 @@
-import { AnimatePresence, domAnimation, LazyMotion, m } from "framer-motion"
-import { useState } from "react"
-import Box from "@/helpers/Box"
-import Flex from "@/helpers/Flex"
-import Avatar from "@/design-system/Avatar"
-import Gear from "../../../../icons/gear.svg"
-import Clock from "../../../../icons/clock.svg"
-import WidgetMenu from "@/widgets/WidgetMenu"
-import ThemeIcon from "../../../../icons/invert-color.svg"
-import Plant from "../../../../icons/plant.svg"
-import Card from "@/design-system/Card"
-import Stack from "@/helpers/Stack"
-import Text from "@/design-system/Text"
-import Link from "@/design-system/Link"
-import Icon from "@/helpers/Icon"
-import useColorMode, { useColorModeStore } from "@/hooks/useColorMode"
-import useFetch from "@/hooks/useFetch"
-import { WIDGET_LOGIN_PATH } from "@/utils/endpoints"
-import { useWidgetAuthStore } from "@/hooks/useWidgetAuth"
+import { AnimatePresence, domAnimation, LazyMotion, m } from 'framer-motion'
+import { useState } from 'react'
+import Box from '@/helpers/Box'
+import Flex from '@/helpers/Flex'
+import Avatar from '@/design-system/Avatar'
+import Gear from '../../../../icons/gear.svg'
+import Clock from '../../../../icons/clock.svg'
+import WidgetMenu from '@/widgets/WidgetMenu'
+import ThemeIcon from '../../../../icons/invert-color.svg'
+import Plant from '../../../../icons/plant.svg'
+import Card from '@/design-system/Card'
+import Stack from '@/helpers/Stack'
+import Text from '@/design-system/Text'
+import Link from '@/design-system/Link'
+import { useColorModeStore } from '@/hooks/useColorMode'
+import { useWidgetAuthStore } from '@/hooks/useWidgetAuth'
 
 const menuItems = [
   {
-    href: "/pomodoro/settings",
-    title: "settings",
-    itemIcon: <Gear />,
+    href: '/pomodoro/settings',
+    title: 'settings',
+    itemIcon: <Gear />
   },
   {
-    href: "/pomodoro/labels",
-    title: "pomodoro",
-    itemIcon: <Clock />,
+    href: '/pomodoro/labels',
+    title: 'pomodoro',
+    itemIcon: <Clock />
   },
   {
-    href: "/pomodoro/theme",
-    title: "theme",
+    href: '/pomodoro/theme',
+    title: 'theme',
     itemIcon: <ThemeIcon />,
     iconProps: {
-      fill: "primary.accent-3",
-      stroke: 2,
-    },
-  },
+      fill: 'primary.accent-3',
+      stroke: 2
+    }
+  }
 ]
 
 const PomodoroMainMenu = () => {
@@ -55,7 +52,7 @@ const PomodoroMainMenu = () => {
           onClick={() => setAvatarMenu(!avatarMenu)}
           onMouseLeave={() => setAvatarMenu(false)}
         >
-          <div css={{ cursor: "pointer" }}>
+          <div css={{ cursor: 'pointer' }}>
             <Avatar alt="profile picture" variant="sm" src={user?.avatar_url} />
           </div>
           <AnimatePresence>
@@ -145,7 +142,7 @@ const PomodoroMainMenu = () => {
         </Icon>
       </Flex> */}
 
-      {colorMode === "light" && (
+      {colorMode === 'light' && (
         <Box position="absolute" bottom="md" right="md" width="0.866rem">
           <Plant />
         </Box>
