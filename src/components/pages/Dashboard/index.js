@@ -24,6 +24,7 @@ import CopyIcon from '../../../icons/copy.svg'
 import Icon from '@/helpers/Icon'
 import { useTheme } from '@emotion/react'
 import widgetTypes from '@/constants/widgetTypes'
+import { BASE_URL } from '@/constants/baseUrl'
 
 const ProductWrapper = ({
   children,
@@ -130,7 +131,7 @@ const ClipboardSection = ({ pomodoroToken }) => {
             setTimeout(() => {
               setShowCopied(false)
             }, 3000)
-            clipboard(`https://blocs.me/pomodoro?token=${pomodoroToken}`)
+            clipboard(`${BASE_URL}/pomodoro?token=${pomodoroToken}`)
           }}
           title="copy to clipboard"
         >
@@ -157,18 +158,14 @@ const Dashboard = ({ links }) => {
   } = user || {}
 
   const [pomodoroModal, setPomodoroModal] = useState(false)
-  const [showConfetti, setShowConfetti] = useState(false)
   const [pomodoroToken, setPomodoroToken] = useState(null)
-  const [showCopied, setShowCopied] = useState(null)
-
   const clipboard = useClipboard()
-
   const { access_token } = getAccessToken() || {}
 
   const handlePomodoroLinkSuccess = (res) => {
     const { token } = res?.data || {}
 
-    clipboard(`https://blocs.me/pomodoro?token=${token}`)
+    clipboard(`${BASE_URL}/pomodoro?token=${pomodoroToken}`)
     setPomodoroModal(true)
     setPomodoroToken(token)
     // setTimeout(() => {

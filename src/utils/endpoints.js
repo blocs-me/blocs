@@ -1,13 +1,9 @@
+import { BASE_URL } from '@/constants/baseUrl'
 import notionOAuthData from './notionOAuthData'
 
-const BASE_URL =
-  process.env.NEXT_PUBLIC_ENV?.toLowerCase() === 'local'
-    ? 'http://localhost:3000/api'
-    : '/api'
-
-const getPath = (path) => `${BASE_URL}${path}`
-
+const BE_BASE_URL = BASE_URL ? `${BASE_URL}/api` : ''
 const { CLIENT_ID, REDIRECT_URL } = notionOAuthData
+export const getPath = (path = '') => `${BE_BASE_URL}${path}`
 
 export const USER_PATH = getPath('/users')
 export const VALIDATE_USER_AUTH_PATH = getPath('/auth/validate')
