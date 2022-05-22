@@ -5,7 +5,6 @@ import Clock from "../../../../icons/clock.svg"
 import ScrollProvider from "@/design-system/ScrollProvider"
 import useSWR, { mutate } from "swr"
 import { POMODORO_PRESETS_PATH } from "@/utils/endpoints"
-import fetcher from "@/utils/fetcher"
 import Stack from "@/helpers/Stack"
 import Skeleton from "@/helpers/Skeleton"
 import Box from "@/helpers/Box"
@@ -18,7 +17,6 @@ import Button from "@/design-system/Button"
 import PresetForm from "./PresetForm"
 import useNotifications from "@/design-system/Notifications/useNotifications"
 import DeletePresetModal from "./DeletePresetModal"
-import { AnimatePresence, AnimateSharedLayout } from "framer-motion"
 import { setCurrentPomodoroPreset } from "../pomodoroActions"
 import { useWidgetAuthStore } from "@/hooks/useWidgetAuth"
 import fetchWithToken from "src/services/fetchWithToken"
@@ -27,8 +25,6 @@ const PomodoroPresets = () => {
   const { token } = useWidgetAuthStore() || {}
   const {
     data: presets,
-    error,
-    isValidating,
   } = useSWR(token ? [POMODORO_PRESETS_PATH, token] : null, fetchWithToken, {
     revalidateOnFocus: false,
     revalidateOnMount: true,

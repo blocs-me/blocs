@@ -1,5 +1,5 @@
 import Rest from "@/lambda/lib/rest"
-import createTempAccessToken from "@/lambda/routers/auth/createTempAccessToken"
+import createWidgetAccessToken from "@/lambda/routers/auth/createWidgetAccessToken"
 
 export default async function handler(req, res) {
   const rest = new Rest(req, res)
@@ -8,5 +8,6 @@ export default async function handler(req, res) {
     res.status(200).json({ error: "access_token needed" })
   }
 
-  await rest.post(createTempAccessToken)
+  
+  await rest.post(createWidgetAccessToken)
 }

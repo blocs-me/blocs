@@ -1,43 +1,44 @@
-/** @jsxImportSource @emotion/react */
-import { useState } from "react"
-import useUser from "@/hooks/useUser"
-import Avatar from "@/design-system/Avatar"
-import Box from "@/helpers/Box"
-import Flex from "@/helpers/Flex"
-import Grid from "@/helpers/Grid"
-import PageLayout from "@/helpers/PageLayout"
-import Skeleton from "@/helpers/Skeleton"
-import Stack from "@/helpers/Stack"
-import Text from "@/design-system/Text"
-import WaterTracker from "@/widgets/WaterTracker"
-import HabitTracker from "@/widgets/HabitTracker"
-import Button from "@/design-system/Button"
-import useFetch from "@/hooks/useFetch"
-import { TEMP_ACCESS_TOKEN_PATH } from "@/utils/endpoints"
-import getAccessToken from "@/utils/getAccessToken"
-import useClipboard from "@/hooks/useClipboard"
-import Modal from "@/design-system/Modal/index.js"
-import DummyPomodoro from "@/widgets/Pomodoro/DummyPomodoro"
-import Link from "@/design-system/Link"
-import { themeGet } from "@styled-system/theme-get"
-import styled from "@emotion/styled"
-import CopyIcon from "../../../icons/copy.svg"
-import Icon from "@/helpers/Icon"
-import { useTheme } from "@emotion/react"
+import { useState } from 'react'
+import useUser from '@/hooks/useUser'
+import Avatar from '@/design-system/Avatar'
+import Box from '@/helpers/Box'
+import Flex from '@/helpers/Flex'
+import Grid from '@/helpers/Grid'
+import PageLayout from '@/helpers/PageLayout'
+import Skeleton from '@/helpers/Skeleton'
+import Stack from '@/helpers/Stack'
+import Text from '@/design-system/Text'
+import WaterTracker from '@/widgets/WaterTracker'
+import HabitTracker from '@/widgets/HabitTracker'
+import Button from '@/design-system/Button'
+import useFetch from '@/hooks/useFetch'
+import { TEMP_ACCESS_TOKEN_PATH } from '@/utils/endpoints'
+import getAccessToken from '@/utils/getAccessToken'
+import useClipboard from '@/hooks/useClipboard'
+import Modal from '@/design-system/Modal/index.js'
+import DummyPomodoro from '@/widgets/Pomodoro/DummyPomodoro'
+import Link from '@/design-system/Link'
+import { themeGet } from '@styled-system/theme-get'
+import styled from '@emotion/styled'
+import CopyIcon from '../../../icons/copy.svg'
+import Icon from '@/helpers/Icon'
+import { useTheme } from '@emotion/react'
+import widgetTypes from '@/constants/widgetTypes'
+import { BASE_URL } from '@/constants/baseUrl'
 
 const ProductWrapper = ({
   children,
   title,
   showCopyLink,
   onClick,
-  loading,
+  loading
 }) => (
   <Stack
     height="100%"
     width="100%"
     flexDirection="column"
     mt="sm"
-    css={{ transform: "scale(0.9)" }}
+    css={{ transform: 'scale(0.9)' }}
     alignItems="center"
     justifyContent="center"
     display="flex"
@@ -79,12 +80,12 @@ const ProductWrapper = ({
 )
 
 const ClipboardInput = styled.input`
-  border: solid 1px ${themeGet("colors.secondary")};
-  border-radius: ${themeGet("space.xs")};
-  padding: ${themeGet("space.sm")} ${themeGet("space.sm")};
-  font-size: ${themeGet("space.sm")};
+  border: solid 1px ${themeGet('colors.secondary')};
+  border-radius: ${themeGet('space.xs')};
+  padding: ${themeGet('space.sm')} ${themeGet('space.sm')};
+  font-size: ${themeGet('space.sm')};
   font-weight: 300;
-  color: ${themeGet("colors.primary.accent-2")};
+  color: ${themeGet('colors.primary.accent-2')};
   width: 100%;
 
   &:focus {
@@ -99,21 +100,22 @@ const ClipboardSection = ({ pomodoroToken }) => {
 
   return (
     <>
-      <div css={{ position: "relative" }}>
+      <div css={{ position: 'relative' }}>
         <ClipboardInput
+          readOnly
           type="text"
           value={`https://blocs.me/pomodoro?token=${pomodoroToken}`}
         />
         <Flex
           css={{
-            transform: "translateY(-50%)",
-            transition: "transform ease 0.1s",
-            "&:hover": {
-              background: theme.colors.primary["accent-0.5"],
+            transform: 'translateY(-50%)',
+            transition: 'transform ease 0.1s',
+            '&:hover': {
+              background: theme.colors.primary['accent-0.5']
             },
-            "&:active": {
-              transform: "translateY(-50%) scale(0.9)",
-            },
+            '&:active': {
+              transform: 'translateY(-50%) scale(0.9)'
+            }
           }}
           bg="white"
           position="absolute"
@@ -130,12 +132,12 @@ const ClipboardSection = ({ pomodoroToken }) => {
             setTimeout(() => {
               setShowCopied(false)
             }, 3000)
-            clipboard(`https://blocs.me/pomodoro?token=${pomodoroToken}`)
+            clipboard(`${BASE_URL}/pomodoro?token=${pomodoroToken}`)
           }}
           title="copy to clipboard"
         >
           <Icon display="flex" m="auto" width="20px" stroke="primary.accent-4">
-            <CopyIcon css={{ margin: "auto" }} readonly />
+            <CopyIcon css={{ margin: 'auto' }} readOnly />
           </Icon>
         </Flex>
       </div>
@@ -153,22 +155,18 @@ const Dashboard = ({ links }) => {
   const {
     avatar_url: avatarLink,
     name: userName,
-    preregisteredForPremium,
+    preregisteredForPremium
   } = user || {}
 
   const [pomodoroModal, setPomodoroModal] = useState(false)
-  const [showConfetti, setShowConfetti] = useState(false)
   const [pomodoroToken, setPomodoroToken] = useState(null)
-  const [showCopied, setShowCopied] = useState(null)
-
   const clipboard = useClipboard()
-
   const { access_token } = getAccessToken() || {}
 
   const handlePomodoroLinkSuccess = (res) => {
     const { token } = res?.data || {}
 
-    clipboard(`https://blocs.me/pomodoro?token=${token}`)
+    clipboard(`${BASE_URL}/pomodoro?token=${pomodoroToken}`)
     setPomodoroModal(true)
     setPomodoroToken(token)
     // setTimeout(() => {
@@ -180,11 +178,12 @@ const Dashboard = ({ links }) => {
     useFetch(TEMP_ACCESS_TOKEN_PATH, {
       shouldCache: false,
       shouldFetch: false,
-      method: "POST",
+      method: 'POST',
       onSuccess: handlePomodoroLinkSuccess,
       body: {
         access_token,
-      },
+        widgetType: widgetTypes.POMODORO
+      }
     })
 
   const theme = useTheme()
@@ -240,7 +239,7 @@ const Dashboard = ({ links }) => {
                 borderRadius="5px"
                 css={{
                   opacity: preregisteredForPremium ? 1 : 0,
-                  transition: "opacity 0.5s ease",
+                  transition: 'opacity 0.5s ease'
                 }}
               >
                 <Text
@@ -267,9 +266,9 @@ const Dashboard = ({ links }) => {
             width="100%"
             gridTemplateColumns="repeat(auto-fit, 300px)"
             justifyContent="center"
-            gridGap={["sm", "sm", , "md"]}
-            mt={"sm"}
-            pb={["md", "lg", , , 0]}
+            gridGap={['sm', 'sm', , 'md']}
+            mt={'sm'}
+            pb={['md', 'lg', , , 0]}
           >
             <ProductWrapper
               loading={pomodoroTokenLoading || loading}
@@ -299,12 +298,12 @@ const Dashboard = ({ links }) => {
           Here&apos;s your link, we&apos;ve auto copied it to your clipboard.
         </Text>
         <Text variant="pSmall" mt="xxs" textAlign="center">
-          Keep it safe, and avoid putting it on public pages{" "}
+          Keep it safe, and avoid putting it on public pages{' '}
         </Text>
         <Box mt="md" />
         <ClipboardSection pomodoroToken={pomodoroToken} />
         <Text variant="pSmall" textAlign="center" mt="sm">
-          Check out the guide{" "}
+          Check out the guide{' '}
           <Link
             passHref
             inline
@@ -326,10 +325,10 @@ const Dashboard = ({ links }) => {
             bg="primary.accent-1"
             color="primary.accent-4"
             css={{
-              "&:hover": {
-                background: theme.colors.primary["accent-3"],
-                color: theme.colors.primary["accent-1"],
-              },
+              '&:hover': {
+                background: theme.colors.primary['accent-3'],
+                color: theme.colors.primary['accent-1']
+              }
             }}
             onClick={() => setPomodoroModal(false)}
           >
