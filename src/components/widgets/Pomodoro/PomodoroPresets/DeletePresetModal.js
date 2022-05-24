@@ -1,27 +1,32 @@
-import Flex from "@/helpers/Flex"
-import Icon from "@/helpers/Icon"
-import Skeleton from "@/helpers/Skeleton"
-import Stack from "@/helpers/Stack"
-import { useEffect } from "react"
+import Flex from '@/helpers/Flex'
+import Icon from '@/helpers/Icon'
+import Skeleton from '@/helpers/Skeleton'
+import Stack from '@/helpers/Stack'
+import { useEffect } from 'react'
 
-const { default: Button } = require("@/design-system/Button")
-const { default: Text } = require("@/design-system/Text")
-const { default: WidgetModal } = require("@/widgets/WidgetModal/index.js")
-const { usePomodoroStore, usePomodoroDispatch } = require("../usePomodoroStore")
-const { default: usePresetApi } = require("./usePresetApi")
-import Check from "../../../../icons/check-circle.svg"
+const { default: Button } = require('@/design-system/Button')
+const { default: Text } = require('@/design-system/Text')
+const { default: WidgetModal } = require('@/widgets/WidgetModal/index.js')
+const { usePomodoroStore, usePomodoroDispatch } = require('../usePomodoroStore')
+const { default: usePresetApi } = require('./usePresetApi')
+import Check from '../../../../icons/check-circle.svg'
 
-const DeletePresetModal = ({ formAction, open, hideModal, presets }) => {
-  const { currentPreset } = usePomodoroStore()
+const DeletePresetModal = ({
+  formAction,
+  open,
+  hideModal,
+  presets,
+  currentPreset
+}) => {
   const dispatch = usePomodoroDispatch()
   const {
     deletePreset,
     error,
     loading,
-    data: apiResponse,
+    data: apiResponse
   } = usePresetApi(currentPreset, presets)
 
-  const isDelete = formAction === "DELETE"
+  const isDelete = formAction === 'DELETE'
 
   const handleDelete = (e) => {
     e.stopPropagation()
@@ -136,7 +141,7 @@ const DeletePresetModal = ({ formAction, open, hideModal, presets }) => {
               textAlign="center"
               mb="md"
             >
-              are you sure you want to delete{" "}
+              are you sure you want to delete{' '}
               <Text as="b" variant="b">{`"${currentPreset?.label}"`}</Text>
             </Text>
 
