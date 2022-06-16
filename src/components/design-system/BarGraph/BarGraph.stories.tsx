@@ -45,14 +45,8 @@ const dummyData: BarGraphData[] = [
   },
   {
     id: '8',
-    date: new Date('2022-01-05').toISOString(),
+    date: new Date('2022-01-07').toISOString(),
     value: 3,
-    unit: 'hrs'
-  },
-  {
-    id: '9',
-    date: new Date('2022-01-06').toISOString(),
-    value: 5,
     unit: 'hrs'
   }
 ]
