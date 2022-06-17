@@ -56,13 +56,18 @@ const Bar = ({
   return (
     <>
       <Rect x={x} y={y} height={barHeight} width={barWidth} />
-      <Text fontWeight="200" x={textX} y={y - paddingY / 2}>
+      <Text
+        fontWeight="200"
+        x={textX}
+        y={y - paddingY / 2}
+        dominantBaseline="auto"
+      >
         {yAxisValue}
       </Text>
       <Text
         fontFamily="Karla"
         fontWeight="600"
-        dominantBaseline="middle"
+        dominantBaseline="hanging"
         x={textX}
         y={height - paddingY / 2}
       >
@@ -72,7 +77,7 @@ const Bar = ({
   )
 }
 
-const BarGraph = ({
+const BarChart = ({
   data,
   paddingX = 5,
   paddingY = 10,
@@ -108,4 +113,4 @@ const BarGraph = ({
   )
 }
 
-export default BarGraph
+export default BarChart

@@ -3,7 +3,7 @@ import BarGraph from './BarChart'
 import { BarGraphData } from './types'
 
 export default {
-  title: 'BarGraph',
+  title: 'Design System/BarGraph',
   component: BarGraph,
   decorators: [
     (Story) => (
