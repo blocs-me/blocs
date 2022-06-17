@@ -3,7 +3,14 @@ import { BarGraphData } from './types'
 
 export default {
   title: 'BarGraph',
-  component: BarGraph
+  component: BarGraph,
+  decorators: [
+    (Story) => (
+      <div style={{ width: '500px' }}>
+        <Story />
+      </div>
+    )
+  ]
 }
 
 const dummyData: BarGraphData[] = [
@@ -51,8 +58,18 @@ const dummyData: BarGraphData[] = [
   }
 ]
 
-export const Basic = () => (
-  <div style={{ width: '500px' }}>
-    <BarGraph data={dummyData} />
-  </div>
+export const Basic = () => <BarGraph data={dummyData} />
+
+export const CustomPadding = () => (
+  <BarGraph data={dummyData} paddingX={10} paddingY={12} />
+)
+
+export const CustomDimensions = () => (
+  <BarGraph
+    data={dummyData}
+    paddingX={20}
+    paddingY={10}
+    height={125}
+    width={250}
+  />
 )
