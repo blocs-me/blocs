@@ -1,4 +1,5 @@
-import BarGraph from './BarGraph'
+import daysOfTheWeek from '../../../constants/daysOfTheWeek'
+import BarGraph from './BarChart'
 import { BarGraphData } from './types'
 
 export default {
@@ -58,14 +59,31 @@ const dummyData: BarGraphData[] = [
   }
 ]
 
-export const Basic = () => <BarGraph data={dummyData} />
+const getXAxisValue = ({ date }) => daysOfTheWeek[new Date(date).getDay()]
+const getYAxisValue = ({ value, unit }) => `${value} ${unit}`
+
+export const Basic = () => (
+  <BarGraph
+    data={dummyData}
+    getXAxisValue={getXAxisValue}
+    getYAxisValue={getYAxisValue}
+  />
+)
 
 export const CustomPadding = () => (
-  <BarGraph data={dummyData} paddingX={10} paddingY={12} />
+  <BarGraph
+    getYAxisValue={getYAxisValue}
+    data={dummyData}
+    paddingX={10}
+    paddingY={12}
+    getXAxisValue={getXAxisValue}
+  />
 )
 
 export const CustomDimensions = () => (
   <BarGraph
+    getYAxisValue={getYAxisValue}
+    getXAxisValue={getXAxisValue}
     data={dummyData}
     paddingX={20}
     paddingY={10}
