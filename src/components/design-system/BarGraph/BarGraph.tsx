@@ -62,7 +62,7 @@ const Bar = ({
         fontWeight="600"
         dominantBaseline="middle"
         x={textX}
-        y={90 - PADDING_Y / 2}
+        y={90 - PADDING_Y / 4}
       >
         {day}
       </Text>
