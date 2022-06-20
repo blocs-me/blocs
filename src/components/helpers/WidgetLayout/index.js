@@ -1,17 +1,17 @@
 /** @jsxImportSource @emotion/react */
-import Box from "../Box"
-import MenuIcon from "./MenuIcon"
-import { useRouter } from "next/router"
-import fadeIn from "@/keyframes/fadeIn"
-import { useRef } from "react"
-import { useState } from "react"
+import Box from '../Box'
+import MenuIcon from './MenuIcon'
+import { useRouter } from 'next/router'
+import fadeIn from '@/keyframes/fadeIn'
+import { useRef } from 'react'
+import { useState } from 'react'
 
 const WidgetLayout = ({
   children,
   onMenuClick,
   menuAria,
   iconType,
-  hideMenuIcon,
+  hideMenuIcon
 }) => {
   const { pathname } = useRouter()
   const container = useRef()
@@ -19,11 +19,11 @@ const WidgetLayout = ({
   const getAriaLabel = () => {
     if (menuAria) return menuAria()
 
-    if (pathname === "/") {
-      return "Main Navigation Menu"
+    if (pathname === '/') {
+      return 'Main Navigation Menu'
     }
 
-    return "Go back"
+    return 'Go back'
   }
 
   const [hovering, setHovering] = useState(false)
@@ -61,9 +61,9 @@ const WidgetLayout = ({
           position="absolute"
           zIndex="nav"
           css={{
-            transform: "translate(25%, -25%)",
-            transition: "opacity 0.5s ease",
-            animation: `${fadeIn} 1s ease`,
+            transform: 'translate(25%, -25%)',
+            transition: 'opacity 0.5s ease',
+            animation: `${fadeIn} 1s ease`
           }}
         >
           <button aria-label={getAriaLabel()} onClick={() => onMenuClick()}>

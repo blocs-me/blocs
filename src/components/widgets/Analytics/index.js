@@ -1,44 +1,44 @@
 /** @jsxImportSource @emotion/react */
-import { useEffect } from "react"
-import BackArrow from "../../../icons/back-arrow.svg"
-import Arrow from "../../../icons/arrow.svg"
-import Icon from "@/helpers/Icon"
-import WidgetLayout from "@/helpers/WidgetLayout"
-import Flex from "@/helpers/Flex"
-import Text from "@/design-system/Text"
-import Box from "@/helpers/Box"
+import { useEffect } from 'react'
+import BackArrow from '../../../icons/back-arrow.svg'
+import Arrow from '../../../icons/arrow.svg'
+import Icon from '@/helpers/Icon'
+import WidgetLayout from '@/helpers/WidgetLayout'
+import Flex from '@/helpers/Flex'
+import Text from '@/design-system/Text'
+import Box from '@/helpers/Box'
 
 const defaultAnalyticsData = [{}, {}, {}]
 
-const Analytics = ({
-  title = "work",
+export default ({
+  title = 'work',
   data = defaultAnalyticsData,
   startDate,
   endDate,
-  yAxis = ["0 hr", "1 hr", "2 hr", "3 hr", "4 hr"],
-  total = "8 hrs",
+  yAxis = ['0 hr', '1 hr', '2 hr', '3 hr', '4 hr'],
+  total = '8 hrs'
 }) => {
   const hidePaths = (paths) => {
     paths.forEach((path) => {
       path.style.transition =
-        "opacity 1s, stroke-dashoffset 0.5s, stroke-dasharray 0.5s"
-      path.style.strokeDasharray = "100px"
-      path.style.strokeDashoffset = "100px"
+        'opacity 1s, stroke-dashoffset 0.5s, stroke-dasharray 0.5s'
+      path.style.strokeDasharray = '100px'
+      path.style.strokeDashoffset = '100px'
     })
   }
 
   const revealPaths = (paths) => {
     setTimeout(() => {
       paths.forEach((path) => {
-        path.style.strokeDashoffset = "200px"
-        path.style.strokeDasharray = "100px"
-        path.style.opacity = "1"
+        path.style.strokeDashoffset = '200px'
+        path.style.strokeDasharray = '100px'
+        path.style.opacity = '1'
       })
     }, 1000)
   }
 
   const handleClick = () => {
-    const paths = Array.from(document.querySelectorAll(".bar"))
+    const paths = Array.from(document.querySelectorAll('.bar'))
     hidePaths(paths)
     revealPaths(paths)
   }
@@ -72,11 +72,11 @@ const Analytics = ({
                 display="inline-block"
                 width="0.35rem"
                 ml="xs"
-                css={{ transform: "rotate(90deg)" }}
+                css={{ transform: 'rotate(90deg)' }}
               >
                 <Arrow />
               </Icon>
-            </Text>{" "}
+            </Text>{' '}
             <Text
               fontWeight="300"
               fontSize="0.5rem"
@@ -92,7 +92,7 @@ const Analytics = ({
               fontWeight="400"
               fontSize="0.6rem"
               color="primary.accent-3"
-              lineHeight={"0.9"}
+              lineHeight={'0.9'}
             >
               weekly
               <Icon
@@ -100,7 +100,7 @@ const Analytics = ({
                 display="inline-block"
                 width="0.3rem"
                 ml="xxs"
-                css={{ transform: "rotate(90deg)" }}
+                css={{ transform: 'rotate(90deg)' }}
               >
                 <Arrow />
               </Icon>
@@ -352,7 +352,7 @@ const Analytics = ({
               <Icon as="span">
                 <Arrow
                   css={{
-                    transform: "rotate(-180deg)",
+                    transform: 'rotate(-180deg)'
                   }}
                 />
               </Icon>
@@ -368,5 +368,3 @@ const Analytics = ({
     </WidgetLayout>
   )
 }
-
-export default Analytics
