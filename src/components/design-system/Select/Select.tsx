@@ -1,10 +1,10 @@
+import { Dispatch, SetStateAction, useState, useRef } from 'react'
 import { FiChevronDown, FiChevronUp } from 'react-icons/fi'
 import Stack from '@/helpers/Stack'
-import Flex from '../../helpers/Flex'
-import Icon from '../../helpers/Icon'
-import { Dispatch, SetStateAction, useState, useRef } from 'react'
-import Box from '../../helpers/Box'
-import { useClickOutside } from '../../../hooks/useClickOutside'
+import Flex from '@/helpers/Flex'
+import Icon from '@/helpers/Icon'
+import { useClickOutside } from '@/hooks/useClickOutside'
+import Box from '@/helpers/Box'
 import { ISelectOption } from './types'
 import SelectOption from './SelectOption'
 
@@ -60,7 +60,6 @@ const Select = ({ options, selected, setSelected }: SelectProps) => {
           bottom={0}
           left={0}
           css={{
-            textAlign: 'center',
             fontWeight: 200,
             transform: 'translateY(100%)'
           }}
