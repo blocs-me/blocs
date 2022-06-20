@@ -1,4 +1,4 @@
-import BarGraph from './BarChart'
+import BarChart from './BarChart'
 
-export default BarGraph
+export default BarChart
 export * from './types'
