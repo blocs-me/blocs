@@ -4,7 +4,7 @@ import styled from '@emotion/styled'
 import { ISelectOption } from './types'
 
 const Option = styled.div<{ isSelected: boolean }>`
-  font-size: ${themeGet('fontSizes.sm')};
+  font-size: ${themeGet('fontSizes.xs')};
   cursor: pointer;
   transition: 0.2s ease color;
   color: ${({ isSelected }) =>
@@ -17,12 +17,12 @@ const Option = styled.div<{ isSelected: boolean }>`
   }
 `
 
-const SelectOption = (
-  props: ISelectOption & {
-    setSelected: Dispatch<SetStateAction<ISelectOption>>
-    isSelected: boolean
-  }
-) => {
+export type SelectOptionProps = ISelectOption & {
+  setSelected: Dispatch<SetStateAction<ISelectOption>>
+  isSelected: boolean
+}
+
+const SelectOption = (props: SelectOptionProps) => {
   const { setSelected, label, isSelected } = props
   return (
     <Option isSelected={isSelected} onClick={() => setSelected(props)}>

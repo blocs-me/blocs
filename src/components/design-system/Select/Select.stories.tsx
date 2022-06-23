@@ -1,6 +1,7 @@
-import Select from './Select'
-import { useState } from 'react'
+import { useEffect } from 'react'
+import Select, { useSelect } from '.'
 import { ISelectOption } from './types'
+import SelectDropdown from './SelectDropdown'
 
 export default {
   title: 'Design System/Select',
@@ -21,9 +22,18 @@ const options: ISelectOption[] = [
 ]
 
 export const Default = () => {
-  const [selected, setSelected] = useState(options[0])
+  // const [selected, setSelected] = useState(options[0])
+
+  const [selected, selectProps] = useSelect(options[0], options)
+
+  useEffect(() => {
+    ;(() => {})()
+    // some action on select
+  }, [selected])
 
   return (
-    <Select options={options} selected={selected} setSelected={setSelected} />
+    <Select {...selectProps}>
+      <SelectDropdown {...selectProps} />
+    </Select>
   )
 }

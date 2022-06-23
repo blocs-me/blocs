@@ -1,33 +1,25 @@
-import { Dispatch, SetStateAction, useState, useRef } from 'react'
-import { FiChevronDown, FiChevronUp } from 'react-icons/fi'
-import Stack from '@/helpers/Stack'
+import { Dispatch, SetStateAction, useState, useRef, ReactNode } from 'react'
 import Flex from '@/helpers/Flex'
-import Icon from '@/helpers/Icon'
 import { useClickOutside } from '@/hooks/useClickOutside'
-import Box from '@/helpers/Box'
-import { ISelectOption } from './types'
-import SelectOption from './SelectOption'
+import { ISelectOption, SelectProps } from './types'
+import SelectValueDisplay from './SelectValueDisplay'
+import SelectDropdown from './SelectDropdown'
 
-type SelectProps = {
-  options: ISelectOption[]
-  selected: ISelectOption
-  setSelected: Dispatch<SetStateAction<ISelectOption>>
-}
-
-const Select = ({ options, selected, setSelected }: SelectProps) => {
-  const [isOpen, setIsOpen] = useState(false)
-  const toggleDropdown = () => setIsOpen(!isOpen)
+const Select = ({
+  children,
+  isOpen,
+  setIsOpen,
+  selected,
+  className
+}: SelectProps & { children: ReactNode; className?: string }) => {
   const container = useRef()
-
-  const handleSelect = (option) => {
-    setSelected(option)
-    setIsOpen(false)
-  }
 
   useClickOutside({
     element: container,
     onClickOutside: () => setIsOpen(false)
   })
+
+  const toggleDropdown = () => setIsOpen(!isOpen)
 
   return (
     <Flex
@@ -37,58 +29,18 @@ const Select = ({ options, selected, setSelected }: SelectProps) => {
       position="relative"
       width="fit-content"
       css={{ userSelect: 'none' }}
+      className={className}
     >
-      <Flex
-        alignItems="center"
-        color="primary.accent-4"
-        css={{ textAlign: 'left', cursor: 'pointer', fontWeight: 400 }}
-        onClick={(e) => {
-          e.preventDefault()
-          e.stopPropagation()
-          toggleDropdown()
-        }}
-      >
-        {selected.value || 'select an an option'}
-        <Icon fill="primary.accent-4" width="30px">
-          {isOpen ? <FiChevronUp /> : <FiChevronDown />}
-        </Icon>
-      </Flex>
-
-      {isOpen && (
-        <Box
-          position="absolute"
-          bottom={0}
-          left={0}
-          css={{
-            fontWeight: 200,
-            transform: 'translateY(100%)'
-          }}
-          pt="xs"
-          zIndex={2}
-        >
-          <Box
-            bg="bg.default"
-            boxShadow="default"
-            borderRadius="md"
-            p="xs"
-            width="fit-content"
-            color="primary.accent-4"
-          >
-            <Stack pt="xs">
-              {options.map((optionData) => (
-                <SelectOption
-                  isSelected={selected.id === optionData.id}
-                  setSelected={handleSelect}
-                  key={optionData.id}
-                  {...optionData}
-                />
-              ))}
-            </Stack>
-          </Box>
-        </Box>
-      )}
+      <SelectValueDisplay
+        isOpen={isOpen}
+        toggleDropdown={toggleDropdown}
+        selected={selected}
+      />
+      {isOpen && children}
     </Flex>
   )
 }
+
+Select.Dropdown = SelectDropdown
 
 export default Select
