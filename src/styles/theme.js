@@ -20,7 +20,8 @@ const colors = {
     default: '#FFF',
     notion: '#FFF',
     light: '#FCFCFC',
-    mute: '#F8F8F8'
+    mute: '#F8F8F8',
+    dark: '#FFF'
   }
 }
 
@@ -143,15 +144,14 @@ export const darkModeColors = {
     bg: {
       notion: 'rgb(25,25,25)',
       default: '#1f1f1f',
-      dark: '#1f1f1f',
-      mute: '#313131'
+      dark: '#151515',
+      mute: '#292929'
     }
   },
   shadows: {
     ...shadows,
     default: `
-    rgba(0, 0, 0, 0.25) -5px -5px 10px 2px,
-    rgba(200, 200, 200, 0.06) 5px 5px 10px
+    rgba(0, 0, 0, 0.25) -2px -2px 10px
     `,
     widgetLayout: `
       rgba(0, 0, 0, 0.1) 5px 5px 10px,

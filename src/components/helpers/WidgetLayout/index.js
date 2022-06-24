@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import Box from '../Box'
 import MenuIcon from './MenuIcon'
 import { useRouter } from 'next/router'
