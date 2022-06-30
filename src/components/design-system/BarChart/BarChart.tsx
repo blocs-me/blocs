@@ -1,24 +1,13 @@
-import type { BarGraphData } from './types'
+import type {
+  BarChartData,
+  GetXAxisValue,
+  GetYAxisValue,
+  BarChartProps
+} from './types'
 import { useMemo } from 'react'
 import { Rect, Text, Svg } from './BarChart.styled'
 
-type GetXAxisValue = (args: { date: string }) => string
-type GetYAxisValue = (args: {
-  value: BarGraphData['value']
-  unit: BarGraphData['unit']
-}) => string
-
-type BarGraphProps = {
-  data: BarGraphData[]
-  paddingX?: number
-  paddingY?: number
-  width?: number
-  height?: number
-  getXAxisValue: GetXAxisValue
-  getYAxisValue: GetYAxisValue
-}
-
-type BarData = BarGraphData & {
+type BarData = BarChartData & {
   barWidth: number
   barHeightUnit: number
   index: number
@@ -66,7 +55,7 @@ const Bar = ({
       </Text>
       <Text
         fontFamily="Karla"
-        fontWeight="600"
+        fontWeight="400"
         dominantBaseline="hanging"
         x={textX}
         y={height - paddingY / 2}
@@ -85,7 +74,7 @@ const BarChart = ({
   height = 90,
   getXAxisValue,
   getYAxisValue
-}: BarGraphProps) => {
+}: BarChartProps) => {
   const max = useMemo(() => Math.max(...data.map((d) => d.value)), [data])
   const divisions = data.length
   const barWidth = parseFloat((width / divisions - paddingX).toFixed(4))
