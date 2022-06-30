@@ -1,11 +1,13 @@
-import Select, { useSelect } from '@/design-system/Select'
-import Text from '@/design-system/Text'
+import { useSelect } from '@/design-system/Select'
 import Flex from '@/helpers/Flex'
-import Stack from '@/helpers/Stack'
-import { useRef } from 'react'
 import daysOfTheWeek from '@/constants/daysOfTheWeek'
-import BarChart, { BarGraphData } from '@/design-system/BarChart'
-import Box from '@/helpers/Box'
+import AnalyticsSettings from './AnalyticsControls'
+import AnalyticsDataSummary from './AnalyticsDataSummaryItem'
+import AnalyticsLayout from './AnalyticsLayout'
+import AnalyticsHeader from './AnalyticsHeader'
+import AnalyticsBarChart from './AnalyticsBarChart'
+import { BarChartProps } from '@/design-system/BarChart'
+import AnalyticsFooter from './AnalyticsFooter'
 
 const getXAxisValue = ({ date }) => daysOfTheWeek[new Date(date).getDay()]
 const getYAxisValue = ({ value, unit }) => `${value} ${unit}`
@@ -34,7 +36,7 @@ const timeSettings = [
 ]
 
 const Analytics = () => {
-  const dummyData: BarGraphData[] = Array(7)
+  const dummyData: BarChartProps['data'] = Array(7)
     .fill('-')
     .map((_, i) => ({
       id: i,
@@ -44,51 +46,29 @@ const Analytics = () => {
         `2021-01-${i + 1 < 10 ? `0${i + 1}` : i + 1}`
       ).toISOString()
     }))
+
   const [selected, selectedProps] = useSelect(options[0], options)
   const [selectedTimeSetting, timeSettingProps] = useSelect(
     timeSettings[0],
     timeSettings
   )
-  const opts = useRef(options)
 
   return (
-    <Box
-      bg="bg.default"
-      boxShadow="default"
-      width="100%"
-      minWidth="280px"
-      maxWidth="600px"
-      borderRadius="lg"
-      mx="sm"
-      p="sm"
-    >
-      <Stack pt="xs">
-        <Flex justifyContent="space-between">
-          <Flex flexDirection="column">
-            <Text as="div" fontSize={['xs', 'xs', 'sm']}>
-              <Select {...selectedProps}>
-                <Select.Dropdown {...selectedProps} />
-              </Select>
-            </Text>
-          </Flex>
-          <Text as="div" fontSize={['xs', 'xs', 'xs']}>
-            <Select {...timeSettingProps}>
-              <Select.Dropdown {...timeSettingProps} />
-            </Select>
-          </Text>
-        </Flex>
-        <div>
-          <Box bg="bg.mute" px="sm" py="xs" borderRadius="lg">
-            <BarChart
-              data={dummyData}
-              paddingX={3}
-              getXAxisValue={getXAxisValue}
-              getYAxisValue={getYAxisValue}
-            />
-          </Box>
-        </div>
-      </Stack>
-    </Box>
+    <AnalyticsLayout>
+      <AnalyticsHeader>
+        <AnalyticsHeader.SelectHabit selectProps={selectedProps} />
+        <AnalyticsHeader.SelectTime selectProps={timeSettingProps} />
+      </AnalyticsHeader>
+      <AnalyticsBarChart
+        data={dummyData}
+        getXAxisValue={getXAxisValue}
+        getYAxisValue={getYAxisValue}
+      />
+      <AnalyticsFooter>
+        <AnalyticsFooter.DataSummary total="10 hrs" goal={'20 hrs / week'} />
+        <AnalyticsFooter.ChartControls />
+      </AnalyticsFooter>
+    </AnalyticsLayout>
   )
 }
 
