@@ -1,4 +1,4 @@
 import BarChart from './BarChart'
 
 export default BarChart
-export * from './types'
+export type { BarChartProps } from './types'
