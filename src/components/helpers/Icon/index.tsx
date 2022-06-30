@@ -19,6 +19,8 @@ const iconStyles = compose(color, layout, display, space)
 type Props = {
   fill?: string
   stroke?: string
+  strokeWidth?: string
+  selector?: 'path' | 'rect' | 'circle' | 'polyline'
 } & DisplayProps &
   ColorProps &
   LayoutProps &
@@ -32,15 +34,14 @@ const Icon = styled('div', {
       width: '100%',
       maxWidth: '100%',
       maxHeight: '100%',
-      '& path, circle, rect': {
-        fill: props.fill ? themeGet(`colors.${props.fill}`)(props) : ' none',
-        stroke: props.stroke
-          ? themeGet(`colors.${props.stroke}`)(props)
-          : 'none'
+      [props.selector ?? '& path, circle, rect, polyline']: {
+        fill: props.fill ? themeGet(`colors.${props.fill}`)(props) : 'none', 
+        stroke: props.stroke ? themeGet(`colors.${props.stroke}`)(props) : 'none',
+        strokeWidth: props.strokeWidth
       }
     }
   }),
-  iconStyles
+  iconStyles,
 )
 
 export default Icon

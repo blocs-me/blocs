@@ -1,18 +1,17 @@
-import { Dispatch, SetStateAction, useState, useRef, ReactNode } from 'react'
+import { useState, useRef, ReactNode, MouseEvent } from 'react'
 import Flex from '@/helpers/Flex'
 import { useClickOutside } from '@/hooks/useClickOutside'
-import { ISelectOption, SelectProps } from './types'
+import { SelectProps } from './types'
 import SelectValueDisplay from './SelectValueDisplay'
 import SelectDropdown from './SelectDropdown'
 
 const Select = ({
   children,
-  isOpen,
-  setIsOpen,
   selected,
   className
 }: SelectProps & { children: ReactNode; className?: string }) => {
   const container = useRef()
+  const [isOpen, setIsOpen] = useState(false)
 
   useClickOutside({
     element: container,
@@ -20,6 +19,11 @@ const Select = ({
   })
 
   const toggleDropdown = () => setIsOpen(!isOpen)
+  const handleClick = (e: MouseEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+    toggleDropdown()
+  }
 
   return (
     <Flex
@@ -30,11 +34,11 @@ const Select = ({
       width="fit-content"
       css={{ userSelect: 'none' }}
       className={className}
+      onClick={(e: MouseEvent) => handleClick(e)}
     >
       <SelectValueDisplay
-        isOpen={isOpen}
-        toggleDropdown={toggleDropdown}
         selected={selected}
+        isOpen={isOpen}
       />
       {isOpen && children}
     </Flex>
