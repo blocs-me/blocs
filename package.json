@@ -18,7 +18,7 @@
     "@styled-system/theme-get": "^5.1.2",
     "ajv": "^8.11.0",
     "bcrypt": "^5.0.1",
-    "beautiful-react-hooks": "^1.0.0",
+    "beautiful-react-hooks": "^1.2.0",
     "cookies": "^0.8.0",
     "cors": "^2.8.5",
     "faunadb": "^4.5.4",
