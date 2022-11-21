@@ -1,24 +1,24 @@
-import { useCallback, useEffect, useMemo } from "react"
-import useDarkMode from "../useDarkMode"
+import { useCallback, useEffect, useMemo } from 'react'
+import useDarkMode from '../useDarkMode'
 
-const { default: storage } = require("@/utils/storage")
-const { default: makeStore } = require("src/lib/makeStore")
-const { default: theme, darkModeColors, nightSky } = require("src/styles/theme")
+const { default: storage } = require('@/utils/storage')
+const { default: makeStore } = require('src/lib/makeStore')
+const { default: theme, darkModeColors, nightSky } = require('src/styles/theme')
 
 const colorModes = {
   light: theme,
   dark: darkModeColors,
-  nightSky,
+  nightSky
 }
 
 const backgroundColors = {
-  light: "#FFF",
-  dark: "rgb(25,25,25)",
+  light: '#FFF',
+  dark: 'rgb(25,25,25)'
 }
 
-const DEFAULT_COLOR_MODE = "light"
-export const SET_COLOR_MODE = "SET_COLOR_MODE"
-export const SET_BACKGROUND_COLOR_MODE = "SET_BACKGROUND_COLOR_MODE"
+const DEFAULT_COLOR_MODE = 'light'
+export const SET_COLOR_MODE = 'SET_COLOR_MODE'
+export const SET_BACKGROUND_COLOR_MODE = 'SET_BACKGROUND_COLOR_MODE'
 
 const reducer = (state, action = {}) => {
   const { colorMode, backgroundColorMode } = action
@@ -32,29 +32,29 @@ const reducer = (state, action = {}) => {
 
 const initialState = {
   colorMode: DEFAULT_COLOR_MODE,
-  background: DEFAULT_COLOR_MODE,
+  background: DEFAULT_COLOR_MODE
 }
 
 const [ColorModeProvider, useColorModeStore, useColorModeDispatch] = makeStore({
   initialState,
-  reducer,
+  reducer
 })
 
 const useColorMode = (customColorModes) => {
   const { colorMode, backgroundColorMode } = useColorModeStore() || initialState
   const dispatch = useColorModeDispatch()
-  const cachedColorMode = storage.getItem("colorMode")
-  const cachedBackgroundColorMode = storage.getItem("backgroundColorMode")
+  const cachedColorMode = storage.getItem('colorMode')
+  const cachedBackgroundColorMode = storage.getItem('backgroundColorMode')
   const isDarkMode = useDarkMode()
-  const autoColorMode = isDarkMode ? "dark" : "light"
+  const autoColorMode = isDarkMode ? 'dark' : 'light'
 
   const setTheme = useCallback(
     (colorMode) => {
       setTimeout(() => {
-        storage.setItem("colorMode", colorMode)
+        storage.setItem('colorMode', colorMode)
         dispatch?.({
           type: SET_COLOR_MODE,
-          colorMode,
+          colorMode
         })
       }, 0)
     },
@@ -64,10 +64,10 @@ const useColorMode = (customColorModes) => {
   const setBackground = useCallback(
     (backgroundColorMode) => {
       setTimeout(() => {
-        storage.setItem("backgroundColorMode", backgroundColorMode)
+        storage.setItem('backgroundColorMode', backgroundColorMode)
         dispatch?.({
           type: SET_BACKGROUND_COLOR_MODE,
-          backgroundColorMode,
+          backgroundColorMode
         })
       }, 0)
     },
@@ -78,8 +78,8 @@ const useColorMode = (customColorModes) => {
     colorModes[themeKey] || colorModes[DEFAULT_COLOR_MODE]
 
   const currentTheme = useMemo(() => {
-    if (!cachedColorMode || cachedColorMode?.toLowerCase() === "auto") {
-      setTheme("auto")
+    if (!cachedColorMode || cachedColorMode?.toLowerCase() === 'auto') {
+      setTheme('auto')
       return getTheme(autoColorMode)
     }
     if (cachedColorMode) {
@@ -95,9 +95,9 @@ const useColorMode = (customColorModes) => {
   const backgroundColor = useMemo(() => {
     if (
       !cachedBackgroundColorMode ||
-      backgroundColorMode?.toLowerCase() === "auto"
+      backgroundColorMode?.toLowerCase() === 'auto'
     ) {
-      setBackground("auto")
+      setBackground('auto')
       return getBackgroundColor(autoColorMode)
     }
 
@@ -111,7 +111,7 @@ const useColorMode = (customColorModes) => {
     cachedBackgroundColorMode,
     autoColorMode,
     backgroundColorMode,
-    setBackground,
+    setBackground
   ])
 
   return {
@@ -121,7 +121,7 @@ const useColorMode = (customColorModes) => {
     setTheme,
     ColorModeProvider,
     setBackground,
-    backgroundColor,
+    backgroundColor
   }
 }
 
