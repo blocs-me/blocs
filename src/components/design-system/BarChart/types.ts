@@ -8,8 +8,8 @@ export type BarChartProps = {
   }[]
   width?: string
   height?: string
-  formatYLabel?: (label: string | number) => string
-  timePeriod?: 'weekly' | 'monthly'
+  formatYLabel: (label: string | number) => string
+  timePeriod: 'weekly' | 'monthly'
   renderTooltip: (tooltipData: {
     value: number
     date: string

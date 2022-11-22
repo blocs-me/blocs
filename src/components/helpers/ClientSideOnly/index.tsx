@@ -1,13 +1,14 @@
-import { ReactNode } from 'react'
+import useDidMount from '@/hooks/useDidMount'
 
 const ClientSideOnly = ({
   children
 }: {
   children: JSX.Element | JSX.Element[]
 }) => {
-  if (!global.window) return null
+  const mounted = useDidMount()
+  if (!mounted) return null
 
-  return <>{children}</>
+  return <div>{children}</div>
 }
 
 export default ClientSideOnly
