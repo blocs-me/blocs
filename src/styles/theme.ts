@@ -5,13 +5,14 @@ const colors = {
   },
   primary: {
     'accent-0.5': '#fcfcfc',
-    'accent-1': '#eaeaea',
-    'accent-2': '#646464',
-    'accent-3': '#333333',
-    'accent-4': '#1F1F1F'
+    'accent-1': '#f5f5f5',
+    'accent-2': '#F9F9F9',
+    'accent-3': '#999999',
+    'accent-3.5': '#8b8b8b',
+    'accent-4': '#777777'
   },
   background: '#FFFFFF',
-  foreground: '#000000',
+  foreground: '#222222',
   secondary: '#e00079',
   success: '#0070e0',
   danger: '#e22b2b',
@@ -130,11 +131,11 @@ export const darkModeColors = {
     ...colors,
     primary: {
       'accent-0.5': '#eeeeee',
-      'accent-4': '#B4b4b4',
-      'accent-3.5': '#4d4d4d',
-      'accent-3': '#464646',
+      'accent-1': '#151515',
       'accent-2': '#2b2b2b',
-      'accent-1': '#151515'
+      'accent-3': '#464646',
+      'accent-3.5': '#4d4d4d',
+      'accent-4': '#B4b4b4'
     },
     highlight: '#FC7CD5',
     success: '#eaeaea',
