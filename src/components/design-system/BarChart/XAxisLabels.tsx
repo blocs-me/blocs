@@ -3,7 +3,7 @@ import Flex from '@/helpers/Flex'
 import Text from '../Text'
 import { UseBarChartReturn } from './useBarChart/useBarChart'
 import getDayOfTheWeek from '../../../utils/dateUtils/getDayOfTheWeek'
-import * as dateUtils from '@/utils/dateUtils'
+import prefixZero from '@/utils/dateUtils/prefixZero'
 
 type Props = Pick<UseBarChartReturn, 'data'>
 
@@ -40,7 +40,7 @@ const XAxisLabels = ({ data }: Props) => {
               m="0"
               fontWeight={200}
             >
-              {dateUtils.prefixZero(date)}
+              {prefixZero(date)}
             </Text>
           </Flex>
         ))}

@@ -13,7 +13,7 @@ export type UseBarChartReturn = {
   stepY: (tickIndex: number) => (string | number)[]
 }
 
-const useBarChart = ({ data }: BarChartProps): UseBarChartReturn => {
+const useBarChart = ({ data, height }: BarChartProps): UseBarChartReturn => {
   const sortedData = sortData(data)
   // TODO: handle x and y when there is less than 7 days data
   // TODO: handle when there is no data at all <-
@@ -37,7 +37,11 @@ const useBarChart = ({ data }: BarChartProps): UseBarChartReturn => {
 
   const stepY = (tickIndex: number) => {
     const currentStep = tickIndex * stepValue
-    return [currentStep, `calc(${(currentStep / maxTick) * 100}%)`]
+    return [
+      currentStep,
+      `${(currentStep / maxTick) * 100}%`,
+      `${Number(height.replace('px', '')) * (currentStep / maxTick)}px`
+    ]
   }
 
   return {

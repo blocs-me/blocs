@@ -9,6 +9,7 @@ const Bar = styled.div<any>`
   border-radius: 10px 10px 0 0;
   background: ${themeGet('colors.foreground')};
   height: ${({ height }) => height};
+  transition: height 0.3s ease;
 `
 
 type Props = Pick<UseBarChartReturn, 'data'> & Pick<BarChartProps, 'timePeriod'>

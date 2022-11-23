@@ -5,26 +5,30 @@ import { UseBarChartReturn } from './useBarChart/useBarChart'
 
 const YLabel = ({
   stepY,
-  ticksY,
   index,
+  ticksY,
   formatYLabel
 }: Props & { index: number }) => {
   return (
     <Box
       position="absolute"
-      top={stepY(ticksY - index)[1]}
-      transform="translateY(calc(-50% - 1px))"
+      top={0}
+      left={0}
+      style={{ '--pos': stepY(ticksY - index)[2] }}
+      css={{
+        transition: 'transform 0.3s ease',
+        transform: 'translateY(var(--pos))'
+      }}
     >
       <Text
         as="div"
         fontSize="xxs"
         fontWeight={200}
         color="primary.accent-4"
-        top={stepY(index)[1]}
         m={0}
         p={0}
         lineHeight={0}
-        css={{ verticalAlign: 'middle' }}
+        css={{ transform: 'translateY(-50% - 1px))', verticalAlign: 'middle' }}
       >
         {formatYLabel(stepY(index)[0])}
       </Text>
@@ -34,7 +38,7 @@ const YLabel = ({
 
 type Props = UseBarChartReturn & Pick<BarChartProps, 'formatYLabel'>
 
-const YAxisLabels = ({ ticksY, ...props }: Props) => {
+const YAxisLabels = ({ ticksY, height, ...props }: Props) => {
   return (
     <>
       {Array(ticksY + 1)

@@ -6,45 +6,7 @@ import YAxisLabels from './YAxisLabels'
 import XAxisLabels from './XAxisLabels'
 import Bars from './Bars'
 
-/*
-
-  - Bar chart plots dates evenly spaced along 'x axis'
-  - 'y axis' should plot the number values
-  - should be configurable to 'monthly' | 'weekly'
-  - x axis should have both 'date and day of week' for the weekly format
-  - smoothly resize in responsive mode
-
-  const data = [
-      { 
-        id: 1, 
-        date: '2022-10-01', 
-        value: ''
-      }
-  ]
-
-  const MyChart = () => {
-
-    const data = useSWR(['chart-data', pageNumber], fetch)
-
-    return (
-      <Box>
-          <ChartHeader />
-          <BarChart 
-            timePeriod="weekly | monthly"
-            formatYLabel={(label) => `${label} hrs`}
-            data={data}
-            p={10}
-          renderTooltip={(data) => {
-              <Tooltip ...data />
-            }}
-          />
-          <ChartFooter />
-      </Box>
-    )
-  }
-
-  
-*/
+// TODO: Re-calculate bars / axes positions on window width change
 
 const BarChart = (props: BarChartProps) => {
   const chart = useBarChart(props)
@@ -63,11 +25,17 @@ const BarChart = (props: BarChartProps) => {
           .map((_, index) => (
             <Box
               key={index}
+              data-id="grid"
               width="calc(100% - 35px)"
               height="1px"
               right="0px"
               position="absolute"
-              top={chart.stepY(index)[1]}
+              top={0}
+              style={{ '--pos': `translateY(${chart.stepY(index)[2]})` }}
+              css={{
+                transition: 'transform 0.3s ease',
+                transform: 'var(--pos)'
+              }}
             >
               <GridLine />
             </Box>
