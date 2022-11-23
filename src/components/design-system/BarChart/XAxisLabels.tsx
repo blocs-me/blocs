@@ -17,9 +17,13 @@ const XAxisLabels = ({ data }: Props) => {
         alignItems="end"
         pt="xs"
       >
-        {data.map(({ date, id }) => (
+        {data.map(({ date, id, isDifferentMonth }) => (
           <Flex key={id} width="10px" justifyContent="center">
-            <Text fontSize="xxs" color="foreground" m={0}>
+            <Text
+              fontSize="xxs"
+              color={isDifferentMonth ? 'danger.medium' : 'foreground'}
+              m={0}
+            >
               {getDayOfTheWeek(date)}
             </Text>
           </Flex>
@@ -31,11 +35,11 @@ const XAxisLabels = ({ data }: Props) => {
         justifyContent="space-between"
         alignItems="end"
       >
-        {data.map(({ date, id }) => (
+        {data.map(({ date, id, isDifferentMonth }) => (
           <Flex key={id} width="10px" justifyContent="center">
             <Text
               fontSize="xxs"
-              color="primary.accent-4"
+              color={isDifferentMonth ? 'danger.light' : 'primary.accent-4'}
               width="10px"
               m="0"
               fontWeight={200}
