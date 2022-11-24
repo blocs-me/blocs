@@ -1,47 +1,47 @@
-/** @jsxImportSource @emotion/react */
-import { useContext, useEffect, useRef, useState } from "react"
-import Head from "next/head"
-import styled from "@emotion/styled"
-// import { useMediaQuery } from "beautiful-react-hooks"
-import { animate } from "popmotion"
-import Confetti from "react-dom-confetti"
-import Linkedin from "../../../icons/linkedin.svg"
-import Codepen from "../../../icons/codepen.svg"
-import Email from "../../../icons/email.svg"
-import PomodoroIntro from "./pomodoroIntro.svg"
-import HabitTrackerIntro from "./habitTrackerIntro.svg"
-import Plant from "../../../icons/plant.svg"
-import Icon from "@/helpers/Icon"
-import PageLayout from "@/helpers/PageLayout"
-import Box from "@/helpers/Box"
-import Flex from "@/helpers/Flex"
-import Text from "@/design-system/Text"
-import Avatar from "@/design-system/Avatar"
-import Showcase from "./Showcase"
-import WaterTrackerIntro from "./WaterTrackerIntro"
-import FadeIn from "@/helpers/FadeIn"
-import NotionSignInButton from "@/helpers/NotionSignInButton"
-import useMediaQuery from "@/hooks/useMediaQuery"
-import useAuth from "@/hooks/useAuth"
-import globalContext from "@/contexts/GlobalContextProvider/globalContext"
-import Link from "@/design-system/Link"
-import BetaWrapper from "@/design-system/BetaWrapper"
-import Button from "@/design-system/Button"
-import { LOADING, SUCCESS } from "@/constants/fetchStates"
-import Loader from "@/design-system/Loader"
+import { useContext, useEffect, useRef, useState } from 'react'
+import Head from 'next/head'
+import styled from '@emotion/styled'
+import { animate } from 'popmotion'
+import Confetti from 'react-dom-confetti'
+import Linkedin from '../../../icons/linkedin.svg'
+import Codepen from '../../../icons/codepen.svg'
+import Email from '../../../icons/email.svg'
+import PomodoroIntro from './pomodoroIntro.svg'
+import HabitTrackerIntro from './habitTrackerIntro.svg'
+import Plant from '../../../icons/plant.svg'
+import Icon from '@/helpers/Icon'
+import PageLayout from '@/helpers/PageLayout'
+import Box from '@/helpers/Box'
+import Flex from '@/helpers/Flex'
+import Text from '@/design-system/Text'
+import Avatar from '@/design-system/Avatar'
+import Showcase from './Showcase'
+import WaterTrackerIntro from './WaterTrackerIntro'
+import FadeIn from '@/helpers/FadeIn'
+import NotionSignInButton from '@/helpers/NotionSignInButton'
+import useMediaQuery from '@/hooks/useMediaQuery'
+import useAuth from '@/hooks/useAuth'
+import globalContext from '@/contexts/GlobalContextProvider/globalContext'
+import Link from '@/design-system/Link'
+import BetaWrapper from '@/design-system/BetaWrapper'
+import Button from '@/design-system/Button'
+import { LOADING, SUCCESS } from '@/constants/fetchStates'
+import Loader from '@/design-system/Loader'
+import SmallBanner from '@/design-system/SmallBanner'
+import storage from '@/utils/storage'
 
 const confettiConfig = {
   angle: 90,
   spread: 360,
   startVelocity: 40,
-  elementCount: "116",
+  elementCount: '116',
   dragFriction: 0.12,
   duration: 3000,
   stagger: 3,
-  width: "10px",
-  height: "10px",
-  perspective: "500px",
-  colors: ["#a864fd", "#29cdff", "#78ff44", "#ff718d", "#fdff6a"],
+  width: '10px',
+  height: '10px',
+  perspective: '500px',
+  colors: ['#a864fd', '#29cdff', '#78ff44', '#ff718d', '#fdff6a']
 }
 
 const SocialIcon = styled.a`
@@ -79,7 +79,7 @@ const QuoteWrapper = styled.div`
     }
 
     display: block;
-    content: "";
+    content: '';
     position: absolute;
     top: 0;
     left: 10px;
@@ -100,7 +100,7 @@ const SlideIn = ({ children, delay = 0 }) => {
 
     if (entry.isIntersecting) {
       ref.current.style.opacity = 1
-      ref.current.style.transform = "translate3d(0, 0, 0)"
+      ref.current.style.transform = 'translate3d(0, 0, 0)'
     }
   }
 
@@ -116,11 +116,11 @@ const SlideIn = ({ children, delay = 0 }) => {
   )
 }
 
-const DetailSection = ({ title = "", children, art = <div />, kf }) => (
+const DetailSection = ({ title = '', children, art = <div />, kf }) => (
   <section>
     <Flex
       width="100%"
-      flexDirection={["column-reverse", "column-reverse", , , "row"]}
+      flexDirection={['column-reverse', 'column-reverse', , , 'row']}
       justifyContent="space-between"
       alignItems="center"
       position="relative"
@@ -128,23 +128,23 @@ const DetailSection = ({ title = "", children, art = <div />, kf }) => (
       mx="auto"
     >
       <SlideIn>
-        <Box width="min(100%, 400px)" m={["0 auto", "0 auto", , , 0]}>
+        <Box width="min(100%, 400px)" m={['0 auto', '0 auto', , , 0]}>
           <Text
             as="h2"
             fontWeight="bold"
             fontSize="lg"
             color="primary.accent-3"
-            mt={["sm", "sm", , , 0]}
-            textAlign={["center", "center", , , "left"]}
+            mt={['sm', 'sm', , , 0]}
+            textAlign={['center', 'center', , , 'left']}
           >
             {title}
           </Text>
-          <Text as="div" textAlign={["center", "center", , , "left"]}>
+          <Text as="div" textAlign={['center', 'center', , , 'left']}>
             {children}
           </Text>
         </Box>
       </SlideIn>
-      <Box width={["50%", "100%", "80%", , "60%", "50%"]}>
+      <Box width={['50%', '100%', '80%', , '60%', '50%']}>
         <SlideIn>{art}</SlideIn>
       </Box>
     </Flex>
@@ -152,7 +152,7 @@ const DetailSection = ({ title = "", children, art = <div />, kf }) => (
 )
 
 const LandingPage = () => {
-  const isLandscape = useMediaQuery("(orientation: landscape)")
+  const isLandscape = useMediaQuery('(orientation: landscape)')
   const [{ authValid, authState }] = useContext(globalContext)
   const [confetti, setConfetti] = useState(false)
 
@@ -163,7 +163,7 @@ const LandingPage = () => {
     animate({
       from: window.scrollY,
       to: window.innerHeight,
-      onUpdate: (yPos) => window.scrollTo(0, yPos),
+      onUpdate: (yPos) => window.scrollTo(0, yPos)
     })
 
   useEffect(() => {
@@ -224,32 +224,51 @@ const LandingPage = () => {
           content="https://www.blocs.me/blocs-social-banner.png"
         />
       </Head>
+      <Box mt={['md', 'lg', , ,]} pt="sm">
+        <SmallBanner cacheKey="blocs-1st-release" hasConfetti>
+          <Link
+            color="background"
+            fontWeight="400"
+            passHref
+            borderBottomColor="background"
+            inline
+            href="https://www.notion.so/81a847e283ca4d3583651d7d0d55f692?v=eb4ecf38b53949a6b531e387e90df22a"
+            rel="noopener"
+          >
+            Save the date 🙌 The new blocs widgets will be releasing between 8 &
+            10 December 🎉 🥳
+          </Link>
+        </SmallBanner>
+      </Box>
       <Flex
-        pt="80px"
-        mt={["md", "lg", , , 0]}
         width="100%"
-        minHeight="100vh"
+        minHeight="calc(100vh - 150px)"
         alignItems="center"
         borderBottomWidth="1px"
         borderBottomStyle="solid"
         borderBottomColor="primary.accent-1"
-        flexDirection={["column", "column", , , "row"]}
+        flexDirection={['column', 'column', , , 'row']}
       >
-        <Flex flex="1" flexDirection="column" mb={["lg", "lg", , , 0]}>
+        <Flex
+          flex="1"
+          flexDirection="column"
+          mb={['lg', 'lg', , , 0]}
+          pt={['sm', , , , 0]}
+        >
           <FadeIn duration="0.5s" index={0}>
             <Flex maxWidth="500px" position="relative">
               <QuoteWrapper>
                 <Text
                   fontWeight="bold"
-                  fontSize={["md", "lg", "xl"]}
+                  fontSize={['md', 'lg', 'xl']}
                   as="h1"
                   mb="sm"
                   color="primary.accent-3"
                   lineHeight="1.15"
                   letterSpacing="sm"
-                  textAlign={["center", "center", , , "left"]}
+                  textAlign={['center', 'center', , , 'left']}
                 >
-                  build better habits on notion with our beautiful{" "}
+                  build better habits on notion with our beautiful{' '}
                   <BetaWrapper color="secondary">widgets</BetaWrapper>
                   <br />
                 </Text>
@@ -259,13 +278,13 @@ const LandingPage = () => {
           <FadeIn delay="0.5s">
             <Flex
               alignItems="center"
-              flexDirection={["column", "column", , , "row"]}
+              flexDirection={['column', 'column', , , 'row']}
             >
               <Avatar
                 src="/moniet.png"
                 alt="Headshot of blocs founder moniet sawhney"
               />
-              <Box pl={[0, 0, , , "sm"]} mt={["sm", "sm", , , 0]}>
+              <Box pl={[0, 0, , , 'sm']} mt={['sm', 'sm', , , 0]}>
                 <Text
                   lineHeight={1}
                   fontWeight="bold"
@@ -273,7 +292,7 @@ const LandingPage = () => {
                   letterSpacing="sm"
                   color="primary.accent-3"
                   mb={0}
-                  textAlign={["center", "center", , , "left"]}
+                  textAlign={['center', 'center', , , 'left']}
                 >
                   Moniet Sawhney
                 </Text>
@@ -283,14 +302,14 @@ const LandingPage = () => {
                   fontWeight="300"
                   letterSpacing="sm"
                   mb={0}
-                  textAlign={["center", "center", , , "left"]}
+                  textAlign={['center', 'center', , , 'left']}
                 >
                   founder of blocs.me
                 </Text>
 
                 <Flex
                   display="flex"
-                  justifyContent={["center", "center", , , "flex-start"]}
+                  justifyContent={['center', 'center', , , 'flex-start']}
                   ml="-12px"
                   mb="-12px"
                 >
@@ -300,7 +319,7 @@ const LandingPage = () => {
                     target="_blank"
                     aria-label="Blocs founders Linkedin"
                   >
-                    <Linkedin css={{ width: "50px" }} />
+                    <Linkedin css={{ width: '50px' }} />
                   </SocialIcon>
                   <SocialIcon
                     href="https://codepen.com/moniet"
@@ -310,7 +329,7 @@ const LandingPage = () => {
                   >
                     {/* <Icon size="50px" stroke="primary.accent-4"> */}
 
-                    <Codepen css={{ width: "50px" }} />
+                    <Codepen css={{ width: '50px' }} />
                     {/* </Icon> */}
                   </SocialIcon>
                   <SocialIcon
@@ -329,8 +348,8 @@ const LandingPage = () => {
           <FadeIn delay="0.8s">
             <Flex
               flexDirection="column"
-              alignItems={["center", "center", , , "flex-start"]}
-              mt={["md", "lg", "lg"]}
+              alignItems={['center', 'center', , , 'flex-start']}
+              mt={['md', 'lg', 'lg']}
             >
               {!authValid && authState === LOADING && (
                 <Flex
@@ -338,7 +357,7 @@ const LandingPage = () => {
                   alignItems="center"
                   justifyContent="center"
                   width="min(100%, 300px)"
-                  fontSize={["xs", "xs", "sm"]}
+                  fontSize={['xs', 'xs', 'sm']}
                   bg="primary.accent-4"
                   color="primary.accent-1"
                   borderRadius="sm"
@@ -359,7 +378,7 @@ const LandingPage = () => {
                     p="sm"
                     minWidth="300px"
                     color="primary.accent-1"
-                    css={{ textAlign: "center" }}
+                    css={{ textAlign: 'center' }}
                     fontSize="sm"
                     fontWeight="300"
                     onClick={() => {
@@ -369,7 +388,9 @@ const LandingPage = () => {
                       }, 0)
                     }}
                   >
-                    🎉 Thank you for signing up{" "}
+                    {storage.getItem('hasPrevLoggedIn')
+                      ? 'Thank you for using blocs 🎉'
+                      : '🎉 Thank you for signing up'}{' '}
                   </Button>
                 </Flex>
               )}
@@ -377,11 +398,11 @@ const LandingPage = () => {
               {!authValid && authState !== LOADING && (
                 <Text
                   fontSize="xxs"
-                  mt={["xs", "xs", , , "sm"]}
+                  mt={['xs', 'xs', , , 'sm']}
                   color="primary.accent-2"
                   letterSpacing="sm"
                 >
-                  get started for{" "}
+                  get started for{' '}
                   <Box as="span" color="secondary">
                     free !
                   </Box>
@@ -391,7 +412,7 @@ const LandingPage = () => {
           </FadeIn>
         </Flex>
         <Box
-          display={["none", "none", , , "block"]}
+          display={['none', 'none', , , 'block']}
           width="50vw"
           height="100vh"
           position="absolute"
@@ -408,7 +429,7 @@ const LandingPage = () => {
           height="100%"
           width="100%"
           flexDirection="column"
-          pl={[0, 0, , , "lg", "xl"]}
+          pl={[0, 0, , , 'lg', 'xl']}
         >
           <Showcase />
           <FadeIn delay="1.3s">
@@ -418,7 +439,7 @@ const LandingPage = () => {
               fontSize="md"
               fontWeight="bold"
               mt="md"
-              mb={["lg", "lg", , , 0]}
+              mb={['lg', 'lg', , , 0]}
               onClick={() => howItWorks()}
             >
               LEARN MORE 👇
@@ -428,7 +449,7 @@ const LandingPage = () => {
       </Flex>
       <DetailSection title="POMODORO" art={<PomodoroIntro />}>
         <Text fontSize="md" lineHeight="1.5" variant="p" fontWeight="300">
-          blocs is bringing pomodoros to notion with{" "}
+          blocs is bringing pomodoros to notion with{' '}
           <Text as="b" color="primary.accent-3">
             so much more !
           </Text>
@@ -436,7 +457,7 @@ const LandingPage = () => {
         <Text fontSize="md" lineHeight="1.5" variant="p" fontWeight="300">
           time-box any activity and gain insights about how you’re spending time
         </Text>
-        <Text as="div" textAlign={["center", "center", , , "left"]}>
+        <Text as="div" textAlign={['center', 'center', , , 'left']}>
           <Link
             href="https://www.notion.so/widgets-demo-cdf30a30ba704d5b8a55dc7a196d3e7b"
             underline
@@ -451,9 +472,9 @@ const LandingPage = () => {
           position="absolute"
           bottom="0"
           left="0"
-          css={{ transform: "translate(calc(-200% - 1rem), 150%)" }}
+          css={{ transform: 'translate(calc(-200% - 1rem), 150%)' }}
         >
-          <Icon width={"15px"}>
+          <Icon width={'15px'}>
             <Plant />
           </Icon>
         </Box>
@@ -465,13 +486,13 @@ const LandingPage = () => {
             can !
           </Text>
           <Text fontSize="md" lineHeight="1.5" variant="p" fontWeight="300">
-            track and view your habits right on your{" "}
+            track and view your habits right on your{' '}
             <Text as="b" color="primary.accent-3">
               notion
-            </Text>{" "}
+            </Text>{' '}
             dashboard
           </Text>
-          <Text as="div" textAlign={["center", "center", , , "left"]}>
+          <Text as="div" textAlign={['center', 'center', , , 'left']}>
             <Link
               href="https://www.notion.so/widgets-demo-cdf30a30ba704d5b8a55dc7a196d3e7b"
               rel="noopener"
@@ -487,8 +508,8 @@ const LandingPage = () => {
           position="absolute"
           bottom="0"
           right="0"
-          display={["none", "none", , "block"]}
-          css={{ transform: "translate(calc(100%), 150%)" }}
+          display={['none', 'none', , 'block']}
+          css={{ transform: 'translate(calc(100%), 150%)' }}
         >
           <img src="/bottle@2x.png" alt="" width="50px" height="60px" />
         </Box>
@@ -502,7 +523,7 @@ const LandingPage = () => {
           like with all our products you can track exactly how you’re consuming
           water over time
         </Text>
-        <Text as="div" textAlign={["center", "center", , , "left"]}>
+        <Text as="div" textAlign={['center', 'center', , , 'left']}>
           <Link
             href="https://www.notion.so/widgets-demo-cdf30a30ba704d5b8a55dc7a196d3e7b"
             rel="noopener"
@@ -520,7 +541,7 @@ const LandingPage = () => {
           notion widgets to a whole new level
         </Text>
         <Text fontSize="md" lineHeight="1.5" variant="p" fontWeight="300">
-          take a look at our{" "}
+          take a look at our{' '}
           <Link
             color="secondary"
             fontWeight="400"
@@ -531,7 +552,7 @@ const LandingPage = () => {
             rel="noopener"
           >
             roadmap
-          </Link>{" "}
+          </Link>{' '}
           to see what we’re working on
         </Text>
       </DetailSection>
@@ -545,8 +566,8 @@ const LandingPage = () => {
         width="100%"
       >
         <SlideIn>
-          <Box maxWidth="600px" m={["0 auto", "0 auto", , , "0"]}>
-            <Text as="div" textAlign={["center", "center", , , "left"]}>
+          <Box maxWidth="600px" m={['0 auto', '0 auto', , , '0']}>
+            <Text as="div" textAlign={['center', 'center', , , 'left']}>
               <Text fontWeight="bold" fontSize="lg" color="primary.accent-3">
                 WHY BLOCS ?
               </Text>

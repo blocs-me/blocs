@@ -1,54 +1,51 @@
-import Timer from "../Timer"
-import Button from "@/design-system/Button"
-import Flex from "@/helpers/Flex"
-import Grid from "@/helpers/Grid"
-import Icon from "@/helpers/Icon"
-import Heart from "../../../../icons/heart.svg"
-import { usePomodoroStore, usePomodoroDispatch } from "../usePomodoroStore"
+import Timer from '../Timer'
+import Button from '@/design-system/Button'
+import Flex from '@/helpers/Flex'
+
+import { usePomodoroStore, usePomodoroDispatch } from '../usePomodoroStore'
 import {
   setCurrentPomodoroPreset,
   setDocumentTimelineStart,
   setStartedAt,
-  SET_STARTED_AT,
-} from "../pomodoroActions"
-import useSWR from "swr"
-import { POMODORO_PRESETS_PATH } from "@/utils/endpoints"
-import fetcher from "@/utils/fetcher"
-import useNotifications from "@/design-system/Notifications/useNotifications"
-import fetchWithToken from "src/services/fetchWithToken"
-import Skeleton from "@/helpers/Skeleton"
-import PomodoroActiveSessionMenu from "../PomodoroActiveSessionMenu.js"
-import { useEffect, useState } from "react"
-import { useTheme } from "@emotion/react"
-import useWidgetAuth, { useWidgetAuthStore } from "@/hooks/useWidgetAuth"
-import { useRouter } from "next/router"
-import { $ } from "src/lib/JSelectors"
-import storage from "@/utils/storage"
+  SET_STARTED_AT
+} from '../pomodoroActions'
+import useSWR from 'swr'
+import { POMODORO_PRESETS_PATH } from '@/utils/endpoints'
+import fetcher from '@/utils/fetcher'
+import useNotifications from '@/design-system/Notifications/useNotifications'
+import fetchWithToken from 'src/services/fetchWithToken'
+import Skeleton from '@/helpers/Skeleton'
+import PomodoroActiveSessionMenu from '../PomodoroActiveSessionMenu.js'
+import { useEffect, useState } from 'react'
+import { useTheme } from '@emotion/react'
+import { useWidgetAuthStore } from '@/hooks/useWidgetAuth'
+import { $ } from 'src/lib/JSelectors'
+import storage from '@/utils/storage'
 
 const PomodoroMainPage = () => {
   const {
     isLoggingIn,
     isLoggedIn,
-    token: accessToken,
+    token: accessToken
   } = useWidgetAuthStore() || {}
   const loading = isLoggingIn || !isLoggedIn
 
   const {
     session: { startedAt },
     preferences: { deepFocus },
-    currentPreset,
+    currentPreset
   } = usePomodoroStore()
 
   const pomodoroDispatch = usePomodoroDispatch()
   const notifs = useNotifications()
   const [hovering, setHovering] = useState(false)
-  const widgetLayout = $("#widget-layout")
+  const widgetLayout = $('#widget-layout')
   const cachedStartedAt = Number(storage.getItem(SET_STARTED_AT))
 
-  const credentials = "same-origin"
+  const credentials = 'same-origin'
   const handleGetPresetsError = () =>
     notifs.createError(
-      "Uh oh ! We were not able to fetch your pomodoro presets"
+      'Uh oh ! We were not able to fetch your pomodoro presets'
     )
 
   const { data: presets } = useSWR(
@@ -58,7 +55,7 @@ const PomodoroMainPage = () => {
     fetchWithToken,
     {
       onError: () => handleGetPresetsError,
-      revalidateOnFocus: false,
+      revalidateOnFocus: false
     }
   )
 
@@ -85,7 +82,18 @@ const PomodoroMainPage = () => {
         pomodoroDispatch(setCurrentPomodoroPreset(preset))
       }
     }
-  }, [presets, currentPreset])
+  }, [presets, currentPreset]) // eslint-disable-line
+
+  useEffect(() => {
+    const hideBanner = storage.getItem('blocs-release-banner') === 'true'
+    if (isLoggedIn && !hideBanner) {
+      storage.setItem('blocs-release-banner', 'true')
+      notifs.createInfo(
+        'New version of blocs is releasing 8-10 December 🎉🥳',
+        5000
+      )
+    }
+  }, [isLoggedIn, notifs])
 
   const handleMouseOver = (e) => {
     if (widgetLayout?.contains(e.target)) {
@@ -119,13 +127,13 @@ const PomodoroMainPage = () => {
           height="var(--height, 40px)"
           css={{
             transition:
-              "height 0.5s  ease, opacity 0.2s ease, margin 0.3s ease",
-            opacity: "var(--opacity, 1)",
+              'height 0.5s  ease, opacity 0.2s ease, margin 0.3s ease',
+            opacity: 'var(--opacity, 1)'
           }}
           style={{
-            "--height": deepFocus && startedAt && !hovering ? 0 : "40px",
-            "--opacity": deepFocus && startedAt && !hovering ? 0 : 1,
-            marginTop: deepFocus && startedAt && !hovering ? 0 : theme.space.sm,
+            '--height': deepFocus && startedAt && !hovering ? 0 : '40px',
+            '--opacity': deepFocus && startedAt && !hovering ? 0 : 1,
+            marginTop: deepFocus && startedAt && !hovering ? 0 : theme.space.sm
           }}
           zIndex="10"
         >
@@ -144,7 +152,7 @@ const PomodoroMainPage = () => {
               bg="primary.accent-3"
               zIndex="10"
             >
-              {startedAt ? "stop" : "start"}
+              {startedAt ? 'stop' : 'start'}
             </Button>
           )}
         </Flex>

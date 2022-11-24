@@ -1,9 +1,9 @@
-import makeStore from "src/lib/makeStore"
+import makeStore from 'src/lib/makeStore'
 
-export const ERROR_NOTIF = "ERROR_NOTIF"
-export const SUCCESS_NOTIF = "SUCCESS_NOTIF"
-export const INFO_NOTIF = "INFO_NOTIF"
-export const DELETE_NOTIF = "DELETE_NOTIF"
+export const ERROR_NOTIF = 'ERROR_NOTIF'
+export const SUCCESS_NOTIF = 'SUCCESS_NOTIF'
+export const INFO_NOTIF = 'INFO_NOTIF'
+export const DELETE_NOTIF = 'DELETE_NOTIF'
 
 const initialState = []
 
@@ -12,17 +12,17 @@ const reducer = (state, action) => {
     case ERROR_NOTIF:
       return [
         ...state,
-        { content: action.content, type: ERROR_NOTIF, id: action.id },
+        { content: action.content, type: ERROR_NOTIF, id: action.id }
       ]
     case SUCCESS_NOTIF:
       return [
         ...state,
-        { content: action.content, type: SUCCESS_NOTIF, id: action.id },
+        { content: action.content, type: SUCCESS_NOTIF, id: action.id }
       ]
     case INFO_NOTIF:
       return [
         ...state,
-        { content: action.content, type: INFO_NOTIF, id: action.id },
+        { content: action.content, type: INFO_NOTIF, id: action.id }
       ]
     case DELETE_NOTIF:
       const notifIndex = state.findIndex((notif) => notif.id === action.notifId)
@@ -34,7 +34,7 @@ const reducer = (state, action) => {
 
 const [Provider, useStore, useDispatch] = makeStore({
   initialState,
-  reducer,
+  reducer
 })
 
 const useNotifications = () => {
@@ -46,25 +46,28 @@ const useNotifications = () => {
   const deleteNotifAction = (notifId) =>
     dispatch({
       notifId,
-      type: DELETE_NOTIF,
+      type: DELETE_NOTIF
     })
 
-  const createNotifAction = (content, type) => {
+  const createNotifAction = (content, type, timeout) => {
     const id = Math.random()
     dispatch({
       id,
       content,
-      type,
+      type
     })
 
     setTimeout(() => {
       deleteNotifAction(id)
-    }, DELETE_NOTIF_AFTER)
+    }, timeout || DELETE_NOTIF_AFTER)
   }
 
-  const createError = (content) => createNotifAction(content, ERROR_NOTIF)
-  const createSuccess = (content) => createNotifAction(content, SUCCESS_NOTIF)
-  const createInfo = (content) => createNotifAction(content, INFO_NOTIF)
+  const createError = (content, timeout) =>
+    createNotifAction(content, ERROR_NOTIF, timeout)
+  const createSuccess = (content, timeout) =>
+    createNotifAction(content, SUCCESS_NOTIF, timeout)
+  const createInfo = (content, timeout) =>
+    createNotifAction(content, INFO_NOTIF, timeout)
 
   return {
     NotifProvider: Provider,
@@ -72,7 +75,7 @@ const useNotifications = () => {
     createError,
     createInfo,
     createSuccess,
-    useNotifs: useStore,
+    useNotifs: useStore
   }
 }
 
