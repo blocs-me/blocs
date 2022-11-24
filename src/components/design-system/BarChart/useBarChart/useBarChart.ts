@@ -115,8 +115,6 @@ const useBarChart = ({
   timePeriod
 }: BarChartProps): UseBarChartReturn => {
   const sortedData = formatData(data, timePeriod)
-  // TODO: handle x and y when there is less than 7 days data
-  // TODO: handle when the dates don't begin on monday and ^
 
   const values = sortedData.map(({ value }) => value)
   const max = Math.max(...values)
