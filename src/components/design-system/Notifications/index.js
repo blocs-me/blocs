@@ -1,13 +1,13 @@
-import { useTheme } from "@emotion/react"
-import slideIn from "@/keyframes/slideIn"
-import Flex from "@/helpers/Flex"
-import Text from "@/design-system/Text"
+import { useTheme } from '@emotion/react'
+import slideIn from '@/keyframes/slideIn'
+import Flex from '@/helpers/Flex'
+import Text from '@/design-system/Text'
 
 import useNotifications, {
   ERROR_NOTIF,
   INFO_NOTIF,
-  SUCCESS_NOTIF,
-} from "./useNotifications"
+  SUCCESS_NOTIF
+} from './useNotifications'
 
 const getNotifBgColor = (theme, notifType) => {
   switch (notifType) {
@@ -21,17 +21,17 @@ const getNotifBgColor = (theme, notifType) => {
   }
 }
 
-const NotifItem = ({ type, content = "", isLastItem }) => {
+const NotifItem = ({ type, content = '', isLastItem }) => {
   const theme = useTheme()
   const bgColor = getNotifBgColor(theme, type)
 
   return (
     <div
       css={{
-        position: "absolute",
+        position: 'absolute',
         top: 0,
         animation: `${slideIn} 0.2s ease forwards`,
-        zIndex: theme.zIndices.notification,
+        zIndex: theme.zIndices.notification
       }}
     >
       <Flex
@@ -47,12 +47,12 @@ const NotifItem = ({ type, content = "", isLastItem }) => {
         p="xs"
         color="primary.accent-1"
         style={{
-          transform: !isLastItem ? "scale(0.9) translateY(10px)" : "none",
-          opacity: isLastItem ? 1 : 0.7,
+          transform: !isLastItem ? 'scale(0.9) translateY(10px)' : 'none',
+          opacity: isLastItem ? 1 : 0.7
         }}
         css={{
-          textAlign: "center",
-          transition: "0.2s opacity ease, transform 0.2s ease",
+          textAlign: 'center',
+          transition: '0.2s opacity ease, transform 0.2s ease'
         }}
       >
         <Text
@@ -82,7 +82,7 @@ const NotifContainer = (props) => {
       width="100%"
       justifyContent="center"
       p="sm"
-      css={{ transform: "translate(-50%)" }}
+      css={{ transform: 'translate(-50%)' }}
       {...props}
     >
       <Flex flexDirection="column" position="relative" alignItems="center">
