@@ -1,34 +1,36 @@
-import { useEffect, useState } from "react"
-import Flex from "@/helpers/Flex"
-import MenuHeader from "../Typography/MenuHeader"
-import Clock from "../../../../icons/clock.svg"
-import ScrollProvider from "@/design-system/ScrollProvider"
-import useSWR, { mutate } from "swr"
-import { POMODORO_PRESETS_PATH } from "@/utils/endpoints"
-import Stack from "@/helpers/Stack"
-import Skeleton from "@/helpers/Skeleton"
-import Box from "@/helpers/Box"
-import PresetItem from "./PresetItem"
-import { usePomodoroDispatch, usePomodoroStore } from "../usePomodoroStore"
-import Text from "@/design-system/Text"
-import Icon from "@/helpers/Icon"
-import Plus from "../../../../icons/plus.svg"
-import Button from "@/design-system/Button"
-import PresetForm from "./PresetForm"
-import useNotifications from "@/design-system/Notifications/useNotifications"
-import DeletePresetModal from "./DeletePresetModal"
-import { setCurrentPomodoroPreset } from "../pomodoroActions"
-import { useWidgetAuthStore } from "@/hooks/useWidgetAuth"
-import fetchWithToken from "src/services/fetchWithToken"
+import { useEffect, useState } from 'react'
+import Flex from '@/helpers/Flex'
+import MenuHeader from '../Typography/MenuHeader'
+import Clock from '../../../../icons/clock.svg'
+import ScrollProvider from '@/design-system/ScrollProvider'
+import useSWR, { mutate } from 'swr'
+import { POMODORO_PRESETS_PATH } from '@/utils/endpoints'
+import Stack from '@/helpers/Stack'
+import Skeleton from '@/helpers/Skeleton'
+import Box from '@/helpers/Box'
+import PresetItem from './PresetItem'
+import { usePomodoroDispatch, usePomodoroStore } from '../usePomodoroStore'
+import Text from '@/design-system/Text'
+import Icon from '@/helpers/Icon'
+import Plus from '../../../../icons/plus.svg'
+import Button from '@/design-system/Button'
+import PresetForm from './PresetForm'
+import useNotifications from '@/design-system/Notifications/useNotifications'
+import DeletePresetModal from './DeletePresetModal'
+import { setCurrentPomodoroPreset } from '../pomodoroActions'
+import { useWidgetAuthStore } from '@/hooks/useWidgetAuth'
+import fetchWithToken from 'src/services/fetchWithToken'
 
 const PomodoroPresets = () => {
   const { token } = useWidgetAuthStore() || {}
-  const {
-    data: presets,
-  } = useSWR(token ? [POMODORO_PRESETS_PATH, token] : null, fetchWithToken, {
-    revalidateOnFocus: false,
-    revalidateOnMount: true,
-  })
+  const { data: presets } = useSWR(
+    token ? [POMODORO_PRESETS_PATH, token] : null,
+    fetchWithToken,
+    {
+      revalidateOnFocus: false,
+      revalidateOnMount: true
+    }
+  )
   const { currentPreset } = usePomodoroStore()
   const [showForm, setShowForm] = useState(false)
   const [formAction, setFormAction] = useState(null)
@@ -36,15 +38,16 @@ const PomodoroPresets = () => {
   const deletePossible = presets?.data?.length > 1
   const notifs = useNotifications()
   const [showDeleteModal, setShowDeleteModal] = useState(false)
+  const [presetToDelete, setPresetToDelete] = useState(null)
   const dispatch = usePomodoroDispatch()
 
   const initCreateForm = () => {
     setFormId(formId + 1)
-    setFormAction("CREATE")
+    setFormAction('CREATE')
   }
   const initEditForm = () => {
     setFormId(formId + 1)
-    setFormAction("EDIT")
+    setFormAction('EDIT')
     setShowForm(true)
   }
   const initDeleteForm = () => {
@@ -54,7 +57,8 @@ const PomodoroPresets = () => {
       )
     }
 
-    setFormAction("DELETE")
+    setFormAction('DELETE')
+    setPresetToDelete(currentPreset)
     setShowDeleteModal(true)
   }
 
@@ -73,7 +77,7 @@ const PomodoroPresets = () => {
 
   useEffect(() => {
     const currentPresetExists =
-      currentPreset?.id === "0" ||
+      currentPreset?.id === '0' ||
       presets?.data?.find((preset) => preset?.id === currentPreset?.id)
 
     if (!currentPresetExists && !showDeleteModal) {
@@ -111,7 +115,7 @@ const PomodoroPresets = () => {
           <Box px="sm" height="100%">
             <Stack mt="sm">
               {Array(6)
-                .fill("")
+                .fill('')
                 .map((_, i) => (
                   <Skeleton
                     key={i}
@@ -131,13 +135,13 @@ const PomodoroPresets = () => {
 
   const defaultPresets = [
     {
-      id: "0",
+      id: '0',
       longBreakInterval: 600000,
       shortBreakInterval: 300000,
       pomodoroInterval: 1500000,
-      label: "work",
-      labelColor: "#00d1e0",
-    },
+      label: 'work',
+      labelColor: '#00d1e0'
+    }
   ]
 
   return (
@@ -145,13 +149,13 @@ const PomodoroPresets = () => {
       <DeletePresetModal
         open={showDeleteModal}
         hideModal={hideDeleteModal}
+        currentPreset={presetToDelete}
         presets={presets}
         formAction={formAction}
-        key={`delete-${currentPreset?.id}}`}
       />
 
       <PresetForm
-        key={`preset-${formAction}-${currentPreset?.id || ""}-${formId}`}
+        key={`preset-${formAction}-${currentPreset?.id || ''}-${formId}`}
         open={showForm}
         formAction={formAction}
         hideForm={hideForm}
@@ -176,7 +180,7 @@ const PomodoroPresets = () => {
               bg="primary.accent-1"
               width="calc(100% - 40px)"
               p="xs"
-              css={{ display: "flex", alignItems: "center" }}
+              css={{ display: 'flex', alignItems: 'center' }}
               variant="lightBg"
             >
               <Flex bg="primary.accent-4" borderRadius="sm" p="xxs" mr="xs">

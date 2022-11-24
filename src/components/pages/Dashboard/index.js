@@ -97,6 +97,7 @@ const ClipboardSection = ({ pomodoroToken }) => {
   const [showCopied, setShowCopied] = useState(showCopied)
   const clipboard = useClipboard()
   const theme = useTheme()
+  const url = global.window?.location.origin
 
   return (
     <>
@@ -132,7 +133,7 @@ const ClipboardSection = ({ pomodoroToken }) => {
             setTimeout(() => {
               setShowCopied(false)
             }, 3000)
-            clipboard(`${BASE_URL}/pomodoro?token=${pomodoroToken}`)
+            clipboard(`${url}/pomodoro?token=${pomodoroToken}`)
           }}
           title="copy to clipboard"
         >
@@ -165,8 +166,9 @@ const Dashboard = ({ links }) => {
 
   const handlePomodoroLinkSuccess = (res) => {
     const { token } = res?.data || {}
+    const url = BASE_URL || 'https://blocs.me'
 
-    clipboard(`${BASE_URL}/pomodoro?token=${pomodoroToken}`)
+    clipboard(`${url}/pomodoro?token=${pomodoroToken}`)
     setPomodoroModal(true)
     setPomodoroToken(token)
     // setTimeout(() => {

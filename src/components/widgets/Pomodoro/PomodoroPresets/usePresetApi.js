@@ -1,7 +1,7 @@
-import useFetch from "@/hooks/useFetch"
-import { useWidgetAuthStore } from "@/hooks/useWidgetAuth"
-import { POMODORO_PRESETS_PATH, WIDGET_LOGIN_PATH } from "@/utils/endpoints"
-import { mutate } from "swr"
+import useFetch from '@/hooks/useFetch'
+import { useWidgetAuthStore } from '@/hooks/useWidgetAuth'
+import { POMODORO_PRESETS_PATH } from '@/utils/endpoints'
+import { mutate } from 'swr'
 
 const usePresetApi = (presetData, presets, options = {}) => {
   const { onSuccess, onError } = options
@@ -9,49 +9,49 @@ const usePresetApi = (presetData, presets, options = {}) => {
 
   const headers = {
     Authorization: `Bearer ${token}`,
-    credentials: "same-origin",
+    credentials: 'same-origin'
   }
 
   const {
     fetcher: postPreset,
     loading: postPresetLoading,
     error: postPresetError,
-    data: postPresetData,
+    data: postPresetData
   } = useFetch(POMODORO_PRESETS_PATH, {
     shouldFetch: false,
     body: presetData,
     shouldCache: false,
-    method: "POST",
+    method: 'POST',
     headers,
-    onError,
+    onError
   })
 
   const {
     fetcher: patchPreset,
     loading: patchPresetLoading,
     error: patchPresetError,
-    data: patchPresetData,
+    data: patchPresetData
   } = useFetch(POMODORO_PRESETS_PATH, {
     shouldFetch: false,
     shouldCache: false,
     body: presetData,
-    method: "PATCH",
+    method: 'PATCH',
     onError,
-    headers,
+    headers
   })
 
   const {
     fetcher: deletePreset,
     loading: deletePresetLoading,
     error: deletePresetError,
-    data: deletePresetData,
+    data: deletePresetData
   } = useFetch(POMODORO_PRESETS_PATH, {
     shouldFetch: false,
     body: presetData,
     shouldCache: false,
-    method: "DELETE",
+    method: 'DELETE',
     headers,
-    onError,
+    onError
   })
 
   const loading = postPresetLoading || patchPresetLoading || deletePresetLoading
@@ -81,8 +81,8 @@ const usePresetApi = (presetData, presets, options = {}) => {
             data: [
               ...presets?.data?.slice(0, presetIndex),
               presetData,
-              ...presets?.data?.slice(presetIndex + 1),
-            ],
+              ...presets?.data?.slice(presetIndex + 1)
+            ]
           }
         }
 
@@ -106,12 +106,12 @@ const usePresetApi = (presetData, presets, options = {}) => {
         if (presetIndex > -1) {
           const newPresets = [
             ...presets.data.slice(0, presetIndex),
-            ...presets.data.slice(presetIndex + 1),
+            ...presets.data.slice(presetIndex + 1)
           ]
 
           return {
             ...presets,
-            data: newPresets,
+            data: newPresets
           }
         }
 
@@ -133,7 +133,7 @@ const usePresetApi = (presetData, presets, options = {}) => {
     patchPresetData,
     deletePresetData,
     error,
-    loading,
+    loading
   }
 }
 

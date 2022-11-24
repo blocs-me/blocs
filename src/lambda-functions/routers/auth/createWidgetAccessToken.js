@@ -28,18 +28,6 @@ const createWidgetAccessToken = async (req, res) => {
 
     const blocsUserId = blocsUser?.ref?.id
 
-    const legacyTempTokens = await faunaClient
-      .query(
-        q.Map(
-          q.Paginate(
-            q.Match(q.Index('temp_access_tokens_by_user_id'), [blocsUserId])
-          ),
-          q.Lambda('tokenRef', q.Select(['data'], q.Get(q.Var('tokenRef'))))
-        )
-      )
-      .then((res) => res)
-      .catch(() => null)
-
     const widgetToken = await faunaClient
       .query(
         q.Paginate(
@@ -49,7 +37,7 @@ const createWidgetAccessToken = async (req, res) => {
       .then((res) => res?.data?.find(([type]) => type === widgetType))
       .catch(() => null)
 
-    const shouldCreateToken = !legacyTempTokens.data?.length && !widgetToken
+    const shouldCreateToken = !widgetToken
 
     if (shouldCreateToken) {
       const newWidgetTokenData = await faunaClient.query(
@@ -70,7 +58,7 @@ const createWidgetAccessToken = async (req, res) => {
 
     res.status(200).json({
       data: {
-        token: legacyTempTokens?.data?.[0]?.token || widgetToken[2]
+        token: widgetToken[2]
       }
     })
   } catch (error) {
