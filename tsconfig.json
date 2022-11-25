@@ -33,6 +33,13 @@
   "ts-node": {
     "esm": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "src/lambda-functions/loadDummyData.ts",
+    "src/components/helpers/Box/index.js",
+    "src/components/helpers/Notch/index.tsx"
+  ],
   "exclude": ["node_modules"]
 }

@@ -6,14 +6,20 @@ export type BarChartProps = {
     date: string
     id: string | number
   }[]
-  width?: string
-  height?: string
+  width?: number
+  height?: number
   formatYLabel: (label: string | number) => string
   timePeriod: 'weekly' | 'monthly'
-  renderTooltip: (tooltipData: {
-    value: number
-    date: string
-    id: string
-  }) => ReactNode
+  renderTooltip: <CustomData = {}>(
+    tooltipData: TooltipData & CustomData
+  ) => JSX.Element
   className?: string
+}
+
+export type TooltipData = {
+  height: string
+  date: string
+  id: string | number
+  isDifferentMonth?: boolean
+  value: number
 }

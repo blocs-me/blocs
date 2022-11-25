@@ -16,8 +16,8 @@ const BarChart = (props: BarChartProps) => {
     <div>
       <Box
         className="className"
-        width={props.width}
-        height={props.height}
+        width={`${props.width}px`}
+        height={`${props.height}px`}
         position="relative"
       >
         {Array(chart.ticksY + 1)
@@ -41,8 +41,13 @@ const BarChart = (props: BarChartProps) => {
             </Box>
           ))}
 
-        <Bars data={chart.data} timePeriod={timePeriod} />
         <YAxisLabels {...chart} formatYLabel={props.formatYLabel} />
+        <Bars
+          {...chart}
+          renderTooltip={props.renderTooltip}
+          width={props.width}
+          timePeriod={props.timePeriod}
+        />
       </Box>
       <Box height={timePeriod === 'weekly' ? '50px' : '20px'}>
         {timePeriod === 'weekly' && <XAxisLabels data={chart.data} />}

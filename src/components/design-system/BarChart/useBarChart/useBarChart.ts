@@ -31,6 +31,7 @@ export type UseBarChartReturn<T = {}> = {
     value: number
   }[]
   stepY: (tickIndex: number) => (string | number)[]
+  stepX: (tickIndex: number) => number
 } & T
 
 type BarChartData = BarChartProps['data']
@@ -80,7 +81,7 @@ const formatData = (
     sortedData.map((data) => new Date(data.date).getMonth())
   )
 
-  for (let i = 0; i < 7; i++) {
+  for (let i = 0; i < count; i++) {
     const currentDate = new Date(year, month, day + i)
     const isDifferentMonth = currentDate.getMonth() !== mostCommonMonth
     const data = dataByDateStr[
@@ -112,23 +113,22 @@ const formatData = (
 const useBarChart = ({
   data,
   height,
-  timePeriod
+  timePeriod,
+  width
 }: BarChartProps): UseBarChartReturn => {
   const sortedData = formatData(data, timePeriod)
 
   const values = sortedData.map(({ value }) => value)
   const max = Math.max(...values)
-  const min = Math.min(...values)
-  const range = max - min
   const countY = new Set(values).size
 
   const ticksY = (() => {
-    if (countY > 10) return 10
+    if (countY > 12) return 12
     if (countY <= 5) return 5
     return countY
   })()
 
-  const stepValue = Math.ceil((range / ticksY) * 2)
+  const stepValue = Math.ceil(max / ticksY)
   const maxTick = stepValue * ticksY
 
   const stepY = (tickIndex: number) => {
@@ -136,8 +136,15 @@ const useBarChart = ({
     return [
       currentStep,
       `${(currentStep / maxTick) * 100}%`,
-      `${Number(height.replace('px', '')) * (currentStep / maxTick)}px`
+      `${height * (currentStep / maxTick)}px`
     ]
+  }
+
+  const stepX = (index: number) => {
+    const division = timePeriod === 'weekly' ? 6 : 30
+    const barWidth = timePeriod === 'weekly' ? 5 : 10
+    const step = (width - 35 - barWidth - barWidth / division) / division
+    return Math.floor(step * index)
   }
 
   return {
@@ -147,6 +154,7 @@ const useBarChart = ({
       height: `${(value / maxTick) * 100}%`
     })),
     stepY,
+    stepX,
     ticksY
   }
 }

@@ -11,6 +11,7 @@ const YLabel = ({
 }: Props & { index: number }) => {
   return (
     <Box
+      zIndex={0}
       position="absolute"
       top={0}
       left={0}
@@ -38,7 +39,7 @@ const YLabel = ({
 
 type Props = UseBarChartReturn & Pick<BarChartProps, 'formatYLabel'>
 
-const YAxisLabels = ({ ticksY, height, ...props }: Props) => {
+const YAxisLabels = ({ ticksY, ...props }: Props) => {
   return (
     <>
       {Array(ticksY + 1)
