@@ -25,6 +25,7 @@ const getHorizontalPos = ({ place }: ITriangle) => {
 type ITriangle = {
   place?: 'left' | 'right' | string
   vtlPos?: 'middle' | 'top' | 'bottom'
+  color?: string
 }
 
 const Triangle = styled.div<ITriangle>`
@@ -36,7 +37,7 @@ const Triangle = styled.div<ITriangle>`
   border-left: 8px solid transparent;
   border-right: 8px solid transparent;
   border-top: 8px solid transparent;
-  border-bottom: 10px solid ${themeGet('colors.bg.default')};
+  border-bottom: 10px solid ${({ color }) => themeGet(`colors.${color}`)};
   transform: ${getTransform};
 `
 
@@ -44,11 +45,11 @@ type Props = IBox & { className?: string } & ITriangle
 
 const Notch = forwardRef(
   (
-    { place, className, vtlPos, ...props }: Props,
+    { place, className, vtlPos, color = 'bg.default', ...props }: Props,
     ref: LegacyRef<HTMLDivElement>
   ) => (
     <Box {...props} className={className}>
-      <Triangle ref={ref} place={place} vtlPos={vtlPos} />
+      <Triangle ref={ref} place={place} vtlPos={vtlPos} color={color} />
     </Box>
   )
 )

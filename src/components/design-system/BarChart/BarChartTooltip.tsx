@@ -5,15 +5,13 @@ import { forwardRef } from 'react'
 
 type Props = WithChildren<{ pos: number; total: number }>
 
-const BarChartTooltip = forwardRef(({ children, pos, total }: Props, ref) => {
-  const place = pos > total / 2 ? 'right' : 'left'
-
+const BarChartTooltip = forwardRef(({ children }: Props, ref) => {
   return (
     <Box
       zIndex={10}
       borderRadius="md"
       p="xs"
-      bg="background"
+      bg="primary.accent-1"
       boxShadow="default"
       ref={ref}
       css={{
@@ -29,7 +27,7 @@ const BarChartTooltip = forwardRef(({ children, pos, total }: Props, ref) => {
       >
         {children}
       </Box>
-      <Notch place="left" vtlPos="middle" />
+      <Notch place="left" vtlPos="middle" color="primary.accent-1" />
     </Box>
   )
 })
