@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo } from 'react'
+import { Theme } from 'src/styles/theme'
 import useDarkMode from '../useDarkMode'
 
 const { default: storage } = require('@/utils/storage')
@@ -20,7 +21,13 @@ const DEFAULT_COLOR_MODE = 'light'
 export const SET_COLOR_MODE = 'SET_COLOR_MODE'
 export const SET_BACKGROUND_COLOR_MODE = 'SET_BACKGROUND_COLOR_MODE'
 
-const reducer = (state, action = {}) => {
+type Action = {
+  colorMode: string
+  backgroundColorMode: string
+  type: 'SET_COLOR_MODE' | 'SET_BACKGROUND_COLOR_MODE'
+}
+
+const reducer = (state, action: Action) => {
   const { colorMode, backgroundColorMode } = action
 
   if (action.type === SET_COLOR_MODE) return { ...state, colorMode }
@@ -40,7 +47,7 @@ const [ColorModeProvider, useColorModeStore, useColorModeDispatch] = makeStore({
   reducer
 })
 
-const useColorMode = (customColorModes) => {
+const useColorMode = (customColorModes?: { [index: string]: Theme }) => {
   const { colorMode, backgroundColorMode } = useColorModeStore() || initialState
   const dispatch = useColorModeDispatch()
   const cachedColorMode = storage.getItem('colorMode')
