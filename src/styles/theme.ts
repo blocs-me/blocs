@@ -14,7 +14,10 @@ const colors = {
   background: '#FFFFFF',
   foreground: '#222222',
   secondary: '#e00079',
-  success: '#0070e0',
+  success: {
+    dark: '#224DE5',
+    medium: '#3F64E9'
+  },
   danger: {
     light: '#E07387',
     medium: '#E9173D'
@@ -141,7 +144,10 @@ export const darkModeColors = {
       'accent-4': '#B4b4b4'
     },
     highlight: '#FC7CD5',
-    success: '#eaeaea',
+    success: {
+      dark: '#0038FF',
+      medium: '#3A5DD7'
+    },
     danger: {
       medium: '#DB4862',
       light: '#D76E81'
