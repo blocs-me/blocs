@@ -1,26 +1,36 @@
-import React, { useReducer, useContext, ReactNode, Provider } from 'react'
+import React, { useReducer, useContext, Dispatch, ReactNode } from 'react'
 import { WithChildren } from '@/utils/tsUtils'
+import { ComponentType } from 'react'
 
 export type Action<T = string, PL = any> = {
   type: T
   payload: PL
 }
 
-export default function makeStore({ initialState, reducer }) {
-  const context = React.createContext({})
-  const dispatchContext = React.createContext({})
-  const useDispatch = () => useContext(dispatchContext)
+function makeStore<Store = any, Actions = any>({ initialState, reducer }) {
+  const context = React.createContext<Store>({} as Store)
+  const dispatchContext = React.createContext(null)
+  const useDispatch = (): Dispatch<Actions> => useContext(dispatchContext)
   const useStore = () => useContext(context)
 
-  const Provider = ({ children }: WithChildren<{}>) => {
+  const Provider: (props: { children?: ReactNode }) => JSX.Element = ({
+    children
+  }) => {
     const [state, dispatch] = useReducer(reducer, initialState)
 
     return (
       <dispatchContext.Provider value={dispatch}>
-        <context.Provider value={state}>{children}</context.Provider>
+        <context.Provider value={state as Store}>{children}</context.Provider>
       </dispatchContext.Provider>
     )
   }
 
-  return [Provider, useStore, useDispatch]
+  const result = [Provider, useStore, useDispatch] as [
+    (props: { children?: ReactNode }) => JSX.Element,
+    typeof useStore,
+    typeof useDispatch
+  ]
+  return result
 }
+
+export default makeStore

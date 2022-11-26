@@ -4,8 +4,6 @@ import { BarChartProps } from './types'
 import { UseBarChartReturn } from './useBarChart/useBarChart'
 import Flex from '@/helpers/Flex'
 import TooltipContainer from './TooltipContainer'
-import { useEffect, useState } from 'react'
-import { useDebouncedFn } from 'beautiful-react-hooks'
 
 const Bar = styled.div<any>`
   width: var(--width, 5px);

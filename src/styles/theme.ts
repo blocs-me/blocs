@@ -165,8 +165,9 @@ export const darkModeColors = {
   shadows: {
     ...shadows,
     default: `
-    rgba(0, 0, 0, 0.25) -5px -5px 10px 2px,
-    rgba(200, 200, 200, 0.06) 5px 5px 10px
+    0px 0px 2px #00000040,
+    0px 4px 40px #00000047,
+    0px 4px 4px #00000040
     `,
     widgetLayout: `
       rgba(0, 0, 0, 0.1) 5px 5px 10px,
