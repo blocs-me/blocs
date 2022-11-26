@@ -1,35 +1,42 @@
 import Box from '@/helpers/Box'
 import Notch from '@/helpers/Notch'
 import { WithChildren } from '@/utils/tsUtils'
-import { forwardRef } from 'react'
+import { forwardRef, LegacyRef } from 'react'
 
-type Props = WithChildren<{ pos: number; total: number }>
+type Props = WithChildren<{
+  pos: number
+  total: number
+  notch: 'left' | 'right'
+}>
 
-const BarChartTooltip = forwardRef(({ children }: Props, ref) => {
-  return (
-    <Box
-      zIndex={10}
-      borderRadius="md"
-      p="xs"
-      bg="primary.accent-1"
-      boxShadow="default"
-      ref={ref}
-      css={{
-        pointerEvents: 'none',
-        transform: 'translate(100%, -25%)'
-      }}
-      position="relative"
-    >
-      <Box
-        css={{
-          pointerEvents: 'none'
-        }}
-      >
-        {children}
-      </Box>
-      <Notch place="left" vtlPos="middle" color="primary.accent-1" />
-    </Box>
-  )
-})
+const BarChartTooltip = forwardRef(
+  ({ children, notch }: Props, ref: LegacyRef<HTMLDivElement>) => {
+    return (
+      <div ref={ref}>
+        <Box
+          zIndex={10}
+          borderRadius="md"
+          p="xs"
+          bg="primary.accent-1"
+          boxShadow="default"
+          width="fit-content"
+          css={{
+            pointerEvents: 'none'
+          }}
+          position="relative"
+        >
+          <Box
+            css={{
+              pointerEvents: 'none'
+            }}
+          >
+            {children}
+          </Box>
+          <Notch place={notch} vtlPos="middle" color="primary.accent-1" />
+        </Box>
+      </div>
+    )
+  }
+)
 
 export default BarChartTooltip
