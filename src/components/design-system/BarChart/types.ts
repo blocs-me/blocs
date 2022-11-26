@@ -1,13 +1,13 @@
 import { ReactNode } from 'react'
 
 export type BarChartProps = {
-  data?: {
+  data: {
     value: number
     date: string
     id: string | number
   }[]
-  width?: number
-  height?: number
+  width: number
+  height: number
   formatYLabel: (label: string | number) => string
   timePeriod: 'weekly' | 'monthly'
   renderTooltip: <CustomData = {}>(
