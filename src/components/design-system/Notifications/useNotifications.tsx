@@ -1,13 +1,21 @@
-import makeStore from 'src/lib/makeStore'
+import { ReactNode } from 'react'
+import makeStore, { Action } from 'src/lib/makeStore'
 
 export const ERROR_NOTIF = 'ERROR_NOTIF'
 export const SUCCESS_NOTIF = 'SUCCESS_NOTIF'
 export const INFO_NOTIF = 'INFO_NOTIF'
 export const DELETE_NOTIF = 'DELETE_NOTIF'
 
-const initialState = []
+type NotifAction = {
+  notifId?: string | number
+  type: 'ERROR_NOTIF' | 'SUCCESS_NOTIF' | 'INFO_NOTIF' | 'DELETE_NOTIF'
+  content?: string
+  id?: string | number
+}
 
-const reducer = (state, action) => {
+const initialState: NotifAction[] = []
+
+const reducer = (state: typeof initialState, action: NotifAction) => {
   switch (action.type) {
     case ERROR_NOTIF:
       return [
@@ -32,10 +40,12 @@ const reducer = (state, action) => {
   }
 }
 
-const [Provider, useStore, useDispatch] = makeStore({
-  initialState,
-  reducer
-})
+const [Provider, useStore, useDispatch] = makeStore<NotifAction[], NotifAction>(
+  {
+    initialState,
+    reducer
+  }
+)
 
 const useNotifications = () => {
   const notifs = useStore()
@@ -69,8 +79,14 @@ const useNotifications = () => {
   const createInfo = (content, timeout) =>
     createNotifAction(content, INFO_NOTIF, timeout)
 
+  const NotifProvider = Provider as ({
+    children
+  }: {
+    children?: ReactNode
+  }) => JSX.Element
+
   return {
-    NotifProvider: Provider,
+    NotifProvider,
     notifs,
     createError,
     createInfo,
