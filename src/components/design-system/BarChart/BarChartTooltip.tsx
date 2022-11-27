@@ -18,8 +18,9 @@ const BarChartTooltip = forwardRef(
           borderRadius="md"
           p="xs"
           bg="primary.accent-1"
-          boxShadow="default"
+          boxShadow="lg"
           width="fit-content"
+          transform="translateY(50%)"
           css={{
             pointerEvents: 'none'
           }}
