@@ -1,0 +1,1 @@
+declare "@/design-system/BarChart"

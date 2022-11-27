@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 
-import styled from "@emotion/styled"
+import styled from '@emotion/styled'
 import {
   border,
   borderRadius,
@@ -12,23 +12,24 @@ import {
   shadow,
   space,
   zIndex,
-  system,
-} from "styled-system"
-import shouldForwardProp from "@styled-system/should-forward-prop"
-import { themeGet } from "@styled-system/theme-get"
+  system
+} from 'styled-system'
+import shouldForwardProp from '@styled-system/should-forward-prop'
+import { themeGet } from '@styled-system/theme-get'
+import { IBox } from './Box.types'
 
 const transform = system({
-  transform: true,
+  transform: true
 })
 
 const hoverColor = (props) =>
   props.hoverColor
     ? {
-        "p:hover, span:hover": {
+        'p:hover, span:hover': {
           color: props.hoverColor
             ? themeGet(`colors.${props.hoverColor}`)(props)
-            : "inherit",
-        },
+            : 'inherit'
+        }
       }
     : {}
 
@@ -45,8 +46,8 @@ const boxStylesProps = compose(
   transform
 )
 
-const Box = styled("div", {
-  shouldForwardProp,
+const Box = styled('div', {
+  shouldForwardProp
 })(hoverColor, boxStylesProps)
 
 export default Box

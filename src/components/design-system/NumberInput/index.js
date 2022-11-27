@@ -1,6 +1,6 @@
-const { forwardRef } = require("react")
-import Input from "../Input"
-import InputWrapper from "../Input/InputWrapper"
+const { forwardRef } = require('react')
+import Input from '../Input'
+import InputWrapper from '../Input/InputWrapper'
 
 const NumberInput = forwardRef(
   (
@@ -15,13 +15,13 @@ const NumberInput = forwardRef(
       className,
       min = 0,
       max = 10,
-      error = "",
+      error = ''
     },
     ref
   ) => {
     return (
       <InputWrapper
-        css={{ width: "100%" }}
+        css={{ width: '100%' }}
         htmlFor={htmlFor}
         label={label}
         error={error}
