@@ -26,7 +26,9 @@ const colors = {
   bg: {
     default: '#FFF',
     notion: '#FFF',
-    light: '#FCFCFC'
+    light: '#FCFCFC',
+    dark: '',
+    mute: ''
   }
 }
 
@@ -129,9 +131,7 @@ const theme = {
   zIndices
 }
 
-export type Theme = typeof theme
-
-export const darkModeColors = {
+export const darkModeColors: Theme = {
   ...theme,
   colors: {
     ...colors,
@@ -159,7 +159,8 @@ export const darkModeColors = {
       notion: 'rgb(25,25,25)',
       default: '#1f1f1f',
       dark: '#151515',
-      mute: '#2b2b2b'
+      mute: '#2b2b2b',
+      light: ''
     }
   },
   shadows: {
@@ -197,7 +198,9 @@ export const nightSky = {
       'accent-4': '#FFF'
     },
     bg: {
-      ...darkModeColors.bg,
+      notion: 'rgb(25,25,25)',
+      dark: '#151515',
+      mute: '#2b2b2b',
       default: '#003180',
       light: '#013486'
     }
@@ -211,3 +214,5 @@ export const nightSky = {
 }
 
 export default theme
+
+export type Theme = typeof theme
