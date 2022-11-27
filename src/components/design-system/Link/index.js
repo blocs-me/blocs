@@ -1,32 +1,35 @@
 /** @jsxImportSource @emotion/react */
-import Box from "@/helpers/Box"
-import L from "next/link"
-import Text from "../Text"
+import Box from '@/helpers/Box'
+import L from 'next/link'
+import Text from '../Text'
 
 const Link = ({
   children,
   href,
   passHref = false,
   underline,
-  fontWeight = "400",
+  fontWeight = '400',
   inline = false,
-  color = "secondary",
+  color = 'secondary',
   className,
   target,
+
+  ...rest
 }) => (
   <Box
     className={className}
     borderBottomColor="secondary"
     borderBottomStyle="solid"
-    borderBottomWidth={underline ? "1px" : 0}
+    borderBottomWidth={underline ? '1px' : 0}
     width="fit-content"
     css={{
       lineHeight: 1,
-      cursor: "pointer",
-      "&:hover": { opacity: 0.7, borderBottomWidth: "1px" },
+      cursor: 'pointer',
+      '&:hover': { opacity: 0.7, borderBottomWidth: '1px' }
     }}
-    display={inline ? "inline-block" : "block"}
+    display={inline ? 'inline-block' : 'block'}
     as="span"
+    {...rest}
   >
     <L href={href} passHref={passHref}>
       <Text
