@@ -1,13 +1,13 @@
-import Box from "@/helpers/Box"
-import Flex from "@/helpers/Flex"
-import { keyframes } from "@emotion/react"
-import { domAnimation, LazyMotion, m, useAnimation } from "framer-motion"
-import { memo, useEffect, useMemo } from "react"
-import { createPortal } from "react-dom"
-import { $ } from "src/lib/JSelectors"
-import { usePomodoroStore } from "../usePomodoroStore"
-import useTimer from "./useTimer"
-const { default: TimerDigits } = require("./TimerDigits")
+import Box from '@/helpers/Box'
+import Flex from '@/helpers/Flex'
+import { keyframes } from '@emotion/react'
+import { domAnimation, LazyMotion, m, useAnimation } from 'framer-motion'
+import { memo, useEffect, useMemo } from 'react'
+import { createPortal } from 'react-dom'
+import { $ } from '@/utils/JSelectors'
+import { usePomodoroStore } from '../usePomodoroStore'
+import useTimer from './useTimer'
+const { default: TimerDigits } = require('./TimerDigits')
 
 const twinkle = keyframes`
   0% {
@@ -18,7 +18,7 @@ const twinkle = keyframes`
 `
 
 const generateStars = (NUM_STARS) => {
-  const container = $("#widget-layout")
+  const container = $('#widget-layout')
 
   if (!container) return []
 
@@ -31,17 +31,17 @@ const generateStars = (NUM_STARS) => {
 
     return {
       x,
-      y,
+      y
     }
   }
 
   const getRandomSize = () => Math.round(Math.max(1, Math.random() * 3))
 
   const stars = Array(NUM_STARS)
-    .fill("-")
+    .fill('-')
     .map(() => ({
       coords: getRandomCoords(),
-      size: getRandomSize(),
+      size: getRandomSize()
     }))
 
   return stars
@@ -65,16 +65,16 @@ const Stars = memo(({ stars }) =>
             animation:
               i % 3 === 0
                 ? `${twinkle} 1.2s linear alternate infinite`
-                : "none",
+                : 'none',
             boxShadow:
               i % 7 === 0
-                ? "0 0 2px 4px rgba(100, 84, 33, 0.1)"
-                : "0 0 1px 2px rgba(100, 84, 33, 0.15)",
+                ? '0 0 2px 4px rgba(100, 84, 33, 0.1)'
+                : '0 0 1px 2px rgba(100, 84, 33, 0.15)'
           }}
         />
       ))}
     </>,
-    $("#widget-underlay")
+    $('#widget-underlay')
   )
 )
 
@@ -84,15 +84,15 @@ const shootingStarsAnim = {
     y: 1000,
     opacity: [0, 1],
     transform: {
-      scaleX: [0.5, 1, 0],
+      scaleX: [0.5, 1, 0]
     },
     transition: {
       duration: 2,
       repeat: Infinity,
       delay: Math.max(3, Math.random() * 5 + 5),
-      repeatDelay: Math.random() * 5 + 10,
-    },
-  },
+      repeatDelay: Math.random() * 5 + 10
+    }
+  }
 }
 
 const ShootingStars = memo(({ stars, controls }) =>
@@ -103,7 +103,7 @@ const ShootingStars = memo(({ stars, controls }) =>
           <m.div
             animate={controls}
             variants={shootingStarsAnim}
-            style={{ position: "absolute", top: coords.x, left: coords.y }}
+            style={{ position: 'absolute', top: coords.x, left: coords.y }}
           >
             <Box
               key={i}
@@ -113,14 +113,14 @@ const ShootingStars = memo(({ stars, controls }) =>
               bg="#FFF253"
               borderRadius="50%"
               css={{
-                transform: "rotate(-45deg)",
+                transform: 'rotate(-45deg)'
               }}
             />
           </m.div>
         </LazyMotion>
       ))}
     </>,
-    $("#widget-underlay")
+    $('#widget-underlay')
   )
 )
 
@@ -142,14 +142,14 @@ const NightSkyTimer = () => {
       y: 1000,
       opacity: [0, 1],
       transform: {
-        scaleX: [0.5, 1, 0],
+        scaleX: [0.5, 1, 0]
       },
       transition: {
         duration: 2,
         repeat: Infinity,
         delay: Math.max(3, Math.random() * 5),
-        repeatDelay: Math.random() * 5 + 10,
-      },
+        repeatDelay: Math.random() * 5 + 10
+      }
     }))
   }, [controls])
 
@@ -164,7 +164,7 @@ const NightSkyTimer = () => {
         width="170px"
         height="110px"
         m="auto"
-        css={{ backdropFilter: "blur(3px);" }}
+        css={{ backdropFilter: 'blur(3px);' }}
       />
       <TimerProvider Component={TimerDigits} />
     </>

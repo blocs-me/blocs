@@ -1,5 +1,5 @@
 import { useTheme } from '@emotion/react'
-import slideIn from '@/keyframes/slideIn'
+import slideIn from 'src/styles/keyframes/slideIn'
 import Flex from '@/helpers/Flex'
 import Text from '@/design-system/Text'
 

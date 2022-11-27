@@ -19,7 +19,7 @@ import PomodoroActiveSessionMenu from '../PomodoroActiveSessionMenu.js'
 import { useEffect, useState } from 'react'
 import { useTheme } from '@emotion/react'
 import { useWidgetAuthStore } from '@/hooks/useWidgetAuth'
-import { $ } from 'src/lib/JSelectors'
+import { $ } from '@/utils/JSelectors'
 import storage from '@/utils/storage'
 
 const PomodoroMainPage = () => {

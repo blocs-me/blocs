@@ -3,7 +3,7 @@ import { Theme } from 'src/styles/theme'
 import useDarkMode from '../useDarkMode'
 
 const { default: storage } = require('@/utils/storage')
-const { default: makeStore } = require('src/lib/makeStore')
+const { default: makeStore } = require('@/utils/makeStore')
 const { default: theme, darkModeColors, nightSky } = require('src/styles/theme')
 
 const colorModes = {
