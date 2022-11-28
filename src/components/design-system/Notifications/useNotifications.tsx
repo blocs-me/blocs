@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import makeStore, { Action } from 'src/lib/makeStore'
+import makeStore, { Action } from '@/utils/makeStore'
 
 export const ERROR_NOTIF = 'ERROR_NOTIF'
 export const SUCCESS_NOTIF = 'SUCCESS_NOTIF'
