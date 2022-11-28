@@ -1,16 +1,27 @@
 import Icon from '@/helpers/Icon'
+import CaretBottom from 'src/icons/caret-bottom'
 import CaretLeft from 'src/icons/caret-left'
 import CaretRight from 'src/icons/caret-right'
+import CaretTop from 'src/icons/caret-top'
 import Button, { ButtonProps } from '../Button'
 
 type CaretButtonProps = {
-  orientation?: 'left' | 'right'
+  orientation?: 'left' | 'right' | 'top' | 'bottom'
+}
+
+const buttons = {
+  left: CaretLeft,
+  right: CaretRight,
+  top: CaretTop,
+  bottom: CaretBottom
 }
 
 const CaretButton = ({
   orientation = 'left',
   ...props
 }: ButtonProps & CaretButtonProps) => {
+  const Caret = buttons[orientation]
+
   return (
     <Button
       width="30px"
@@ -34,7 +45,7 @@ const CaretButton = ({
         fill="#fff"
         css={{ verticalAlign: 'middle' }}
       >
-        {orientation === 'left' ? <CaretLeft /> : <CaretRight />}
+        <Caret />
       </Icon>
     </Button>
   )
