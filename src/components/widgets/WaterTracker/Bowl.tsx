@@ -4,6 +4,7 @@ import Box from '@/helpers/Box'
 import { animate } from '@motionone/dom'
 import { interpolate } from 'popmotion'
 import useColorMode from '@/hooks/useColorMode'
+import Flex from '@/helpers/Flex'
 
 const Bubble = ({ index, fill }: { index: number; fill: string }) => {
   const cx = useMemo(() => getRandomNum(50, 350), [])
@@ -125,7 +126,7 @@ const Bowl = ({ progress, goal }: { progress: number; goal: number }) => {
   }, [progress, goal, getWaveYPos])
 
   return (
-    <Box width="100%">
+    <Flex width="100%" alignItems="center" flex="1">
       <svg viewBox="0 0 405 405" fill="none" xmlns="http://www.w3.org/2000/svg">
         <g mask="url(#mask0_753_520)">
           <g className="waveTwo">
@@ -256,7 +257,7 @@ const Bowl = ({ progress, goal }: { progress: number; goal: number }) => {
           </filter>
         </defs>
       </svg>
-    </Box>
+    </Flex>
   )
 }
 

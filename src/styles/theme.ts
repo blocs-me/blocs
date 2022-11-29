@@ -4,11 +4,11 @@ const colors = {
     to: 'rgba(255,255,255,1)'
   },
   primary: {
-    'accent-0.5': '#fcfcfc',
+    'accent-05': '#fcfcfc',
     'accent-1': '#f5f5f5',
     'accent-2': '#F9F9F9',
     'accent-3': '#999999',
-    'accent-3.5': '#8b8b8b',
+    'accent-35': '#8b8b8b',
     'accent-4': '#777777'
   },
   background: '#FFFFFF',
@@ -136,11 +136,11 @@ export const darkModeColors: Theme = {
   colors: {
     ...colors,
     primary: {
-      'accent-0.5': '#eeeeee',
+      'accent-05': '#eeeeee',
       'accent-1': '#151515',
       'accent-2': '#2b2b2b',
       'accent-3': '#464646',
-      'accent-3.5': '#4d4d4d',
+      'accent-35': '#4d4d4d',
       'accent-4': '#B4b4b4'
     },
     highlight: '#FC7CD5',
