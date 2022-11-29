@@ -1,3 +1,4 @@
+import Icon from '@/helpers/Icon'
 import { WithChildren } from '@/utils/tsUtils'
 import styled from '@emotion/styled'
 import shouldForwardProp from '@styled-system/should-forward-prop'
@@ -12,8 +13,20 @@ import {
   variant
 } from 'styled-system'
 import { ButtonProps } from './types'
+import { flexbox } from 'styled-system'
+import { useTheme } from '@emotion/react'
+import { Theme } from 'src/styles/theme'
+import { forwardRef, Ref } from 'react'
 
-const buttonStyles = compose(layout, color, space, padding, typography, border)
+const buttonStyles = compose(
+  layout,
+  color,
+  space,
+  padding,
+  typography,
+  border,
+  flexbox
+)
 
 const variants = variant({
   variants: {
@@ -83,8 +96,31 @@ const Btn = styled('button', {
   variants
 )
 
-const Button = ({ children, ...props }: WithChildren<ButtonProps>) => {
-  return <Btn {...props}>{children}</Btn>
-}
+const Button = forwardRef(
+  (
+    { children, as: btnType, icon, ...props }: WithChildren<ButtonProps>,
+    ref: Ref<HTMLButtonElement>
+  ) => {
+    const theme = useTheme() as Theme
+    return (
+      <Btn as={btnType as any} ref={ref} {...props}>
+        {icon && (
+          <Icon
+            as="span"
+            display="inline-flex"
+            fill={props.color}
+            width="20px"
+            mr="sm"
+            style={{ '--accent-1': theme.colors.primary['accent-35'] }}
+            css={{ verticalAlign: 'middle' }}
+          >
+            {icon}
+          </Icon>
+        )}
+        {children}
+      </Btn>
+    )
+  }
+)
 
 export default Button

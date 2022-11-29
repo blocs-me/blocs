@@ -2,6 +2,7 @@ import fadeIn from 'src/styles/keyframes/fadeIn'
 
 const FadeIn = (props) => (
   <div
+    className={props.className}
     css={{
       animation: `${fadeIn} ${props.duration || '0.5s'} ease-in-out ${
         props.delay || ''

@@ -6,7 +6,7 @@ import Link from 'next/link'
 import Hamburger from 'src/icons/hamburger'
 import { Theme } from 'src/styles/theme'
 
-const WidgetMenuButton = ({ href = '/' }) => {
+const WidgetMenuButton = ({ href = '/', isOpen = false }) => {
   const theme = useTheme() as Theme
   return (
     <Flex
@@ -21,10 +21,18 @@ const WidgetMenuButton = ({ href = '/' }) => {
         ':hover': { boxShadow: theme.shadows.default }
       }}
     >
-      <Link href={href}>
-        <Icon fill="foreground" width="15px" height="15px" display="flex">
-          <Hamburger isOpen={false} />
-        </Icon>
+      <Link href={href} css={{ width: '100%', height: '100%' }} passHref>
+        <Flex as="a" size="100%">
+          <Icon
+            m="auto"
+            fill="foreground"
+            width="15px"
+            height="15px"
+            display="flex"
+          >
+            <Hamburger isOpen={isOpen} />
+          </Icon>
+        </Flex>
       </Link>
     </Flex>
   )

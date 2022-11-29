@@ -15,9 +15,9 @@ const getNotifBgColor = (theme, notifType) => {
       return theme.colors.danger
     case INFO_NOTIF:
     case SUCCESS_NOTIF:
-      return theme.colors.success
+      return theme.colors.success.dark
     default:
-      return theme.colors.success
+      return theme.colors.success.dark
   }
 }
 

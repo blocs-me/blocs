@@ -123,7 +123,11 @@ const useColorMode = (customColorModes?: { [index: string]: Theme }) => {
 
   return {
     theme: currentTheme,
-    colorMode: colorMode || DEFAULT_COLOR_MODE,
+    colorMode: (colorMode || DEFAULT_COLOR_MODE) as
+      | 'light'
+      | 'dark'
+      | 'nightSky'
+      | 'auto',
     backgroundColorMode,
     setTheme,
     ColorModeProvider,

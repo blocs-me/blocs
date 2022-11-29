@@ -45,9 +45,9 @@ const Bubble = ({ index, fill }: { index: number; fill: string }) => {
 
 const darkTheme = {
   bowl: {
-    fill: 'white',
+    fill: '#fff',
     stroke: '#737272',
-    detail: 'white'
+    detail: '#fff'
   },
   waveOne: '#0242E6',
   waveTwo: '#0337BB',
@@ -57,9 +57,9 @@ const darkTheme = {
 
 const lightTheme = {
   bowl: {
-    fill: 'black',
+    fill: '#000',
     stroke: '#CFCECE',
-    detail: 'black'
+    detail: '#000'
   },
   waveOne: '#5E8BFF',
   waveTwo: '#4A78F0',
@@ -72,7 +72,7 @@ const NUM_OF_BUBBLES = 12
 const Bowl = ({ progress, goal }: { progress: number; goal: number }) => {
   const getWaveYPos = interpolate([goal, 0], [-160, 100])
   const { colorMode } = useColorMode()
-  const isDarkMode = colorMode === 'dark'
+  const isDarkMode = colorMode === 'dark' || colorMode === 'auto'
   const theme = isDarkMode ? darkTheme : lightTheme
 
   const waveOne = useRef()
@@ -136,7 +136,6 @@ const Bowl = ({ progress, goal }: { progress: number; goal: number }) => {
               ref={waveTwo}
             />
           </g>
-
           <g mask="url(#wave-2)">
             {Array(NUM_OF_BUBBLES)
               .fill('')
@@ -144,7 +143,6 @@ const Bowl = ({ progress, goal }: { progress: number; goal: number }) => {
                 <Bubble key={i} index={i} fill={theme.bubblesTwo} />
               ))}
           </g>
-
           <g className="waveOne">
             <path
               d="M305.299 258.26C260.326 258.26 204.299 231.623 204.299 231.623C204.299 231.623 148.271 204.987 103.299 204.987C58.3264 204.987 2.29883 231.623 2.29883 231.623V568.573H1618.3V231.623C1618.3 231.623 1562.27 258.26 1517.3 258.26C1472.33 258.26 1416.3 231.623 1416.3 231.623C1416.3 231.623 1360.27 204.987 1315.3 204.987C1270.33 204.987 1214.3 231.623 1214.3 231.623C1214.3 231.623 1158.27 258.26 1113.3 258.26C1068.33 258.26 1012.3 231.623 1012.3 231.623C1012.3 231.623 956.271 204.987 911.299 204.987C866.326 204.987 810.299 231.623 810.299 231.623C810.299 231.623 754.271 258.26 709.299 258.26C664.326 258.26 608.299 231.623 608.299 231.623C608.299 231.623 552.271 204.987 507.299 204.987C462.326 204.987 406.299 231.623 406.299 231.623C406.299 231.623 350.271 258.26 305.299 258.26Z"
