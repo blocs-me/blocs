@@ -1,10 +1,9 @@
-import useDarkMode from '@/hooks/useDarkMode'
 import getRandomNum from '../../../utils/math/getRandomNum'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import Box from '@/helpers/Box'
 import { animate } from '@motionone/dom'
-import useTransform from '@/hooks/useTransform'
 import { interpolate } from 'popmotion'
+import useColorMode from '@/hooks/useColorMode'
 
 const Bubble = ({ index, fill }: { index: number; fill: string }) => {
   const cx = useMemo(() => getRandomNum(50, 350), [])
@@ -28,7 +27,7 @@ const Bubble = ({ index, fill }: { index: number; fill: string }) => {
         translateX(${cx - 5}px) translateY(-205px)
       `,
           `
-      translateX(${cx}px) translateY(-410px)
+      translateX(${cx}px) translateY(-400px)
     `
         ]
       },
@@ -40,42 +39,40 @@ const Bubble = ({ index, fill }: { index: number; fill: string }) => {
     )
   }, [cx, duration, ref.current]) // eslint-disable-line
 
-  return (
-    <circle
-      ref={ref}
-      cx={cx}
-      cy={410}
-      r={radius}
-      // initial={{
-      //   opacity: 1
-      // }}
-      // animate={{
-      //   opacity: 0,
-      //   cy: 0,
-      //   cx: [cx, cx + 10, cx - 10, cx]
-      // }}
-      // transition={{
-      //   duration,
-      //   delay: index / 10,
-      //   repeat: Infinity,
-      //   bounce: 0
-      // }}
-      fill={fill}
-    />
-  )
+  return <circle ref={ref} cx={cx} cy={410} r={radius} fill={fill} />
 }
 
 const darkTheme = {
-  bowlFill: 'rgba(255,255,255,0.05)',
-  bowlStroke: 'rgba(115,114,114,0.25)'
+  bowl: {
+    fill: 'white',
+    stroke: '#737272',
+    detail: 'white'
+  },
+  waveOne: '#0242E6',
+  waveTwo: '#0337BB',
+  bubblesOne: '#1451F2',
+  bubblesTwo: '#002e8a71'
+}
+
+const lightTheme = {
+  bowl: {
+    fill: 'black',
+    stroke: '#CFCECE',
+    detail: 'black'
+  },
+  waveOne: '#5E8BFF',
+  waveTwo: '#4A78F0',
+  bubblesOne: '#6f98ff',
+  bubblesTwo: '#3F6CE2'
 }
 
 const NUM_OF_BUBBLES = 12
 
 const Bowl = ({ progress, goal }: { progress: number; goal: number }) => {
-  const isDarkMode = useDarkMode()
   const getWaveYPos = interpolate([goal, 0], [-160, 100])
-  const theme = isDarkMode ? darkTheme : ({} as typeof darkTheme)
+  const { colorMode } = useColorMode()
+  const isDarkMode = colorMode === 'dark'
+  const theme = isDarkMode ? darkTheme : lightTheme
 
   const waveOne = useRef()
   const waveOneMaskPath = useRef()
@@ -134,7 +131,7 @@ const Bowl = ({ progress, goal }: { progress: number; goal: number }) => {
           <g className="waveTwo">
             <path
               d="M302.299 256.442C257.772 256.442 202.299 230.069 202.299 230.069C202.299 230.069 146.826 203.696 102.299 203.696C57.7717 203.696 2.29883 230.069 2.29883 230.069V563.682H802.299V230.069C802.299 230.069 746.826 256.442 702.299 256.442C657.772 256.442 602.299 230.069 602.299 230.069C602.299 230.069 546.826 203.696 502.299 203.696C457.772 203.696 402.299 230.069 402.299 230.069C402.299 230.069 346.826 256.442 302.299 256.442Z"
-              fill="#0337BB"
+              fill={theme.waveTwo}
               ref={waveTwo}
             />
           </g>
@@ -143,14 +140,14 @@ const Bowl = ({ progress, goal }: { progress: number; goal: number }) => {
             {Array(NUM_OF_BUBBLES)
               .fill('')
               .map((_, i) => (
-                <Bubble key={i} index={i} fill="#002e8a71" />
+                <Bubble key={i} index={i} fill={theme.bubblesTwo} />
               ))}
           </g>
 
           <g className="waveOne">
             <path
               d="M305.299 258.26C260.326 258.26 204.299 231.623 204.299 231.623C204.299 231.623 148.271 204.987 103.299 204.987C58.3264 204.987 2.29883 231.623 2.29883 231.623V568.573H1618.3V231.623C1618.3 231.623 1562.27 258.26 1517.3 258.26C1472.33 258.26 1416.3 231.623 1416.3 231.623C1416.3 231.623 1360.27 204.987 1315.3 204.987C1270.33 204.987 1214.3 231.623 1214.3 231.623C1214.3 231.623 1158.27 258.26 1113.3 258.26C1068.33 258.26 1012.3 231.623 1012.3 231.623C1012.3 231.623 956.271 204.987 911.299 204.987C866.326 204.987 810.299 231.623 810.299 231.623C810.299 231.623 754.271 258.26 709.299 258.26C664.326 258.26 608.299 231.623 608.299 231.623C608.299 231.623 552.271 204.987 507.299 204.987C462.326 204.987 406.299 231.623 406.299 231.623C406.299 231.623 350.271 258.26 305.299 258.26Z"
-              fill="#0242E6"
+              fill={theme.waveOne}
               ref={waveOne}
             />
           </g>
@@ -158,7 +155,7 @@ const Bowl = ({ progress, goal }: { progress: number; goal: number }) => {
             {Array(NUM_OF_BUBBLES)
               .fill('')
               .map((_, i) => (
-                <Bubble key={i} index={i} fill={'#1451F2'} />
+                <Bubble key={i} index={i} fill={theme.bubblesOne} />
               ))}
           </g>
         </g>
@@ -168,7 +165,7 @@ const Bowl = ({ progress, goal }: { progress: number; goal: number }) => {
             cx="202.299"
             cy="202.987"
             r="200"
-            fill="white"
+            fill={theme.bowl.fill}
             fillOpacity="0.05"
             shapeRendering="crispEdges"
           />
@@ -176,14 +173,14 @@ const Bowl = ({ progress, goal }: { progress: number; goal: number }) => {
             cx="202.299"
             cy="202.987"
             r="199"
-            stroke="#737272"
+            stroke={theme.bowl.stroke}
             strokeOpacity="0.25"
             strokeWidth="2"
             shapeRendering="crispEdges"
           />
           <path
             d="M275.729 51.8989C279.721 50.6465 288.21 50.5116 290.221 59.9916"
-            stroke="white"
+            stroke={theme.bowl.detail}
             strokeOpacity="0.03"
             strokeWidth="5"
             strokeLinecap="round"
