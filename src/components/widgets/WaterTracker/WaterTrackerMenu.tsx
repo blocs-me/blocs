@@ -14,6 +14,9 @@ import WidgetModal from '@/widgets/WidgetModal'
 import Link from 'next/link'
 import useNotifications from '@/design-system/Notifications/useNotifications'
 import FadeIn from '@/helpers/FadeIn'
+import useUrlHash from '@/hooks/useUrlHash/useUrlHash'
+import { UrlHash } from './types'
+import useFetchShareableLink from './hooks/useFetchShareableLink'
 
 const colorModeText = {
   dark: 'Dark Mode',
@@ -24,6 +27,8 @@ const colorModeText = {
 const WaterTrackerMenu = () => {
   const { colorMode, setTheme, setBackground } = useColorMode()
   const units = ['liter', 'ounce', 'milliliters']
+  const { role } = useUrlHash<UrlHash>()
+  const { fetcher: fetchShareableLink } = useFetchShareableLink()
 
   const handleThemeChange = () => {
     const modes = ['dark', 'light', 'auto']
@@ -34,12 +39,18 @@ const WaterTrackerMenu = () => {
     setBackground(modes[nextMode])
   }
 
-  const shareableLink = '/test' // TODO: use fetched data
   const notifs = useNotifications()
 
-  const copyShareableLink = () => {
-    window.navigator.clipboard.writeText(shareableLink)
-    notifs.createInfo('The link has been copied')
+  const copyShareableLink = async () => {
+    try {
+      const data = await fetchShareableLink()
+      const shareableLink = `${window.location.origin}/water-tracker#token=${data.shareableToken}&role=friend`
+      window.navigator.clipboard.writeText(shareableLink)
+      notifs.createInfo('The link has been copied')
+    } catch (err) {
+      console.log(err)
+      notifs.createError("Oops ! we couldn't create the link")
+    }
   }
 
   return (

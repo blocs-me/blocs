@@ -82,7 +82,10 @@ const NotifContainer = (props) => {
       width="100%"
       justifyContent="center"
       p="sm"
-      css={{ transform: 'translate(-50%)' }}
+      css={{
+        transform: 'translate(-50%)',
+        display: notifs.length ? 'flex' : 'none'
+      }}
       {...props}
     >
       <Flex flexDirection="column" position="relative" alignItems="center">
