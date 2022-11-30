@@ -1,10 +1,12 @@
 import getRandomNum from '../../../utils/math/getRandomNum'
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState, ComponentType } from 'react'
 import Box from '@/helpers/Box'
 import { animate } from '@motionone/dom'
 import { interpolate } from 'popmotion'
 import useColorMode from '@/hooks/useColorMode'
 import Flex from '@/helpers/Flex'
+import useDarkMode from '@/hooks/useDarkMode'
+import { ThemeProvider } from '@emotion/react'
 
 const Bubble = ({ index, fill }: { index: number; fill: string }) => {
   const cx = useMemo(() => getRandomNum(50, 350), [])
@@ -72,8 +74,12 @@ const NUM_OF_BUBBLES = 12
 const Bowl = ({ progress, goal }: { progress: number; goal: number }) => {
   const getWaveYPos = interpolate([goal, 0], [-160, 100])
   const { colorMode } = useColorMode()
-  const isDarkMode = colorMode === 'dark' || colorMode === 'auto'
-  const theme = isDarkMode ? darkTheme : lightTheme
+  const isSystemDarkMode = useDarkMode()
+  const theme = useMemo(() => {
+    if ((isSystemDarkMode && colorMode === 'auto') || colorMode === 'dark')
+      return darkTheme
+    return lightTheme
+  }, [colorMode, isSystemDarkMode])
 
   const waveOne = useRef()
   const waveOneMaskPath = useRef()
