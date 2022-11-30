@@ -16,6 +16,7 @@ const createWidgetAccessToken = async (req, res) => {
     // req
     const accessToken = req.body.access_token
     const widgetType = req.body.widgetType
+    const shareableRequest = req.body.role === 'friend'
 
     // user data
     const notionUser = await getNotionUser(accessToken)
@@ -34,17 +35,23 @@ const createWidgetAccessToken = async (req, res) => {
           q.Match(q.Index('widget_access_tokens_by_user_id'), blocsUserId)
         )
       )
-      .then((res) => res?.data?.find(([type]) => type === widgetType))
+      .then((res) => {
+        return res?.data?.find(([type]) => type === widgetType)
+      })
       .catch(() => null)
 
     const shouldCreateToken = !widgetToken
 
     if (shouldCreateToken) {
       const newWidgetTokenData = await faunaClient.query(
-        q.Call(q.Function('create_widget_access_token'), [
-          blocsUserId,
-          widgetType
-        ])
+        q.Create(q.Collection('widget_access_tokens'), {
+          data: {
+            userId: blocsUserId,
+            token: crypto.randomUUID(),
+            shareableToken: crypto.randomUUID(),
+            widgetType: widgetType
+          }
+        })
       )
 
       const token = newWidgetTokenData.data.token
