@@ -6,11 +6,14 @@ const getWaterTrackerSettings = async (
   req: NextApiRequest,
   res: NextApiResponse
 ) => {
-  const { widgetToken } = req.query
+  const { widgetToken, role } = req.query
+
+  const widgetIndex =
+    role === 'friend' ? 'widget_by_shareable_token' : 'widget_by_token'
 
   try {
     const widget = await faunaClient
-      .query(q.Get(q.Match(q.Index('widget_by_token'), widgetToken)))
+      .query(q.Get(q.Match(q.Index(widgetIndex), widgetToken)))
       .then((data) => data)
       .catch((err) => {
         console.error(err)
@@ -27,28 +30,30 @@ const getWaterTrackerSettings = async (
 
     const isAdmin = widgetToken === widget?.data?.token
 
-    const userAvatar = await (async () => {
-      if (isAdmin) {
-        const user = (await faunaClient.query(
-          q.Get(q.Ref(q.Collection('users'), widget?.data?.userId))
-        )) as {
-          data: {
-            avatar_url: string
+    const userAvatar =
+      isAdmin &&
+      (await (async () => {
+        if (isAdmin) {
+          const user = (await faunaClient.query(
+            q.Get(q.Ref(q.Collection('users'), widget?.data?.userId))
+          )) as {
+            data: {
+              avatar_url: string
+            }
+          }
+
+          return {
+            avatarUrl: user?.data?.avatar_url
           }
         }
 
-        return {
-          avatarUrl: user?.data?.avatar_url
-        }
-      }
-
-      return {}
-    })()
+        return {}
+      })())
 
     res.status(200).json({
       status: 200,
       data: {
-        ...userAvatar,
+        ...(userAvatar || {}),
         ...(widget?.data.settings || {})
       }
     })
