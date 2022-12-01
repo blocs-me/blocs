@@ -39,7 +39,7 @@ const InputWrapper = ({ htmlFor, label, children, className, error }) => (
     {error && (
       <Text
         fontSize="xxs"
-        color="danger"
+        color="danger.medium"
         fontWeight="300"
         mb={0}
         lineHeight="1.25"
