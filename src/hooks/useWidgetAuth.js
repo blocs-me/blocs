@@ -6,7 +6,7 @@ import useDidMount from './useDidMount'
 import useFetch from './useFetch'
 import useFetchCache from './useFetchCache'
 
-const { default: makeStore } = require('src/lib/makeStore')
+const { default: makeStore } = require('@/utils/makeStore')
 
 const initalState = {
   isLoggedIn: false, // after logging in / validation

@@ -45,7 +45,7 @@ const NotifItem = ({ type, content = '', isLastItem }) => {
         alignItems="center"
         justifyContent="center"
         p="xs"
-        color="primary.accent-1"
+        color="neutral.white"
         style={{
           transform: !isLastItem ? 'scale(0.9) translateY(10px)' : 'none',
           opacity: isLastItem ? 1 : 0.7
