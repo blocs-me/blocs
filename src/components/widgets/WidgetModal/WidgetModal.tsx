@@ -98,8 +98,6 @@ const WidgetModal = ({ children, open, closeModal, appendTo }: Props) => {
   useEffect(() => {
     const divToAppendTo = document?.querySelector(appendTo)
 
-    console.log('div to append', div, 'append to :', divToAppendTo)
-
     divToAppendTo?.appendChild(div as Element)
 
     return () => {
