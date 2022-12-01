@@ -1,20 +1,10 @@
 import Flex from '@/helpers/Flex'
-import { ChangeEventHandler, KeyboardEvent, useEffect, useState } from 'react'
 import useWaterTrackerSettings from './hooks/useWaterTrackerSettings'
 import NumberInput from '@/design-system/NumberInput'
-import Text from '@/design-system/Text'
 import usePatchWaterTrackerSettings from './hooks/usePatchSettings'
 import { useForm } from 'react-hook-form'
 import Button from '@/design-system/Button'
 import WidgetModal from '../WidgetModal/WidgetModal'
-import { literToOunce } from '@/utils/math/literToOunce'
-import { ounceToLiter } from '@/utils/math'
-import Loader from '@/design-system/Loader'
-
-// type Props = {
-//   open: boolean
-//   closeModal: () => void
-// }
 
 const UpdateGoalForm = () => {
   const { data: settings } = useWaterTrackerSettings()
@@ -61,12 +51,8 @@ const UpdateGoalForm = () => {
         })}
         min={min}
         max={max}
+        error={errors.goal ? 'Goal must be between {min} & {max}' : false}
       />
-      {errors.goal && (
-        <Text as="small" mt="xxs" color="danger.medium">
-          Goal must be between {min} & {max}
-        </Text>
-      )}
       <Button
         mt="sm"
         px="sm"
