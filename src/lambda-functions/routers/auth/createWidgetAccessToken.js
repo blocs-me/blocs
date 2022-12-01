@@ -1,6 +1,6 @@
 import faunaClient from '@/lambda/faunaClient'
 import getNotionUser from '@/lambda/helpers/getNotionUser'
-import { validateWidgetTokenReq } from '@/lambda/lib/jsonValidator'
+import { validateWidgetTokenReq } from '@/lambda/lib/restValidator/jsonValidator'
 import { query as q } from 'faunadb'
 
 const createWidgetAccessToken = async (req, res) => {

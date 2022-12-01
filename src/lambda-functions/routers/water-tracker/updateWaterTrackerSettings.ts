@@ -3,7 +3,7 @@ import widgetTypes from '@/constants/widgetTypes'
 import { NextApiRequest, NextApiResponse } from 'next'
 import faunaClient from '@/lambda/faunaClient'
 import { query as q } from 'faunadb'
-import { validateWaterTrackerSettings } from '@/lambda/lib/jsonValidator'
+import { validateWaterTrackerSettings } from '@/lambda/lib/restValidator/jsonValidator'
 import { IWaterTrackerWidget } from '../../../global-types/water-tracker'
 
 const updateWaterTrackerSetting = async (
