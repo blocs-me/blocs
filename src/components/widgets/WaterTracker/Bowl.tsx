@@ -124,7 +124,12 @@ const Bowl = ({ progress, goal }: { progress: number; goal: number }) => {
 
   return (
     <Flex width="100%" alignItems="center" flex="1">
-      <svg viewBox="0 0 405 405" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg
+        viewBox="0 0 405 405"
+        width="100%"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
         <g mask="url(#mask0_753_520)">
           <g className="waveTwo">
             <path
