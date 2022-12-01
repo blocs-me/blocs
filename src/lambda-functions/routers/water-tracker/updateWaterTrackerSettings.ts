@@ -11,7 +11,8 @@ const updateWaterTrackerSetting = async (
   res: NextApiResponse
 ) => {
   const { widgetToken, widgetType } = req.query
-  const { settings } = req.body
+  const body = req.body
+  const settings = body.settings as IWaterTrackerWidget['settings']
 
   const isValid = validateWaterTrackerSettings(settings)
 

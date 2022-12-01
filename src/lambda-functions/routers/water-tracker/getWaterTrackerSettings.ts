@@ -25,9 +25,30 @@ const getWaterTrackerSettings = async (
         }
       })
 
+    const isAdmin = widgetToken === widget?.data?.token
+
+    const userAvatar = await (async () => {
+      if (isAdmin) {
+        const user = (await faunaClient.query(
+          q.Get(q.Ref(q.Collection('users'), widget?.data?.userId))
+        )) as {
+          data: {
+            avatar_url: string
+          }
+        }
+
+        return {
+          avatarUrl: user?.data?.avatar_url
+        }
+      }
+
+      return {}
+    })()
+
     res.status(200).json({
       status: 200,
       data: {
+        ...userAvatar,
         ...(widget?.data.settings || {})
       }
     })

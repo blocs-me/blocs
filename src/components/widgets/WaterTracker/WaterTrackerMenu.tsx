@@ -14,6 +14,8 @@ import useWaterTrackerSettings from './hooks/useWaterTrackerSettings'
 import usePatchWaterTrackerSettings from './hooks/usePatchSettings'
 import UpdateGoalModal from './UpdateGoalModal'
 import { useState } from 'react'
+import useUrlHash from '@/hooks/useUrlHash/useUrlHash'
+import { UrlHash } from './types'
 
 const colorModeText = {
   dark: 'Dark Mode',
@@ -26,6 +28,7 @@ const WaterTrackerMenu = () => {
   const { fetcher: fetchShareableLink } = useFetchShareableLink()
   const { data: settings, mutate: mutateSettings } = useWaterTrackerSettings()
   const { patchUnits, loadingUnits } = usePatchWaterTrackerSettings()
+  const { role } = useUrlHash() as UrlHash
 
   const [openGoalModal, setOpenGoalModal] = useState(false)
 
@@ -72,8 +75,13 @@ const WaterTrackerMenu = () => {
         position="absolute"
         zIndex="10"
       >
-        {/* TODO: add dynamic profile picture */}
-        <Avatar alt="your profile picture" variant="sm" />
+        {role === 'blocs-user' && (
+          <Avatar
+            alt="your profile picture"
+            variant="sm"
+            src={settings?.data?.avatarUrl}
+          />
+        )}
         <WidgetMenuButton href="/water-tracker" isOpen />
       </Flex>
       <FadeIn css={{ display: 'flex', height: '100%' }}>

@@ -5,7 +5,7 @@ import { WATER_TRACKER_SETTINGS_PATH } from '@/utils/endpoints'
 import { IWaterTrackerWidget } from 'src/global-types/water-tracker'
 
 type Response = {
-  data: IWaterTrackerWidget['settings']
+  data: IWaterTrackerWidget['settings'] & { avatarUrl: string }
 }
 
 const useWaterTrackerSettings = () => {
