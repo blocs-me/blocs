@@ -16,7 +16,6 @@ const createWidgetAccessToken = async (req, res) => {
     // req
     const accessToken = req.body.access_token
     const widgetType = req.body.widgetType
-    const shareableRequest = req.body.role === 'friend'
 
     // user data
     const notionUser = await getNotionUser(accessToken)

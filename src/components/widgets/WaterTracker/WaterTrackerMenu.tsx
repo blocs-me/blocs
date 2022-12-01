@@ -1,22 +1,19 @@
-import Box from '@/helpers/Box'
 import Flex from '@/helpers/Flex'
 import WidgetMenuButton from '../../design-system/WidgetMenuButton/WidgetMenuButton'
 import Avatar from '@/design-system/Avatar'
-import Stack from '@/helpers/Stack'
-import Button from '@/design-system/Button'
 import Moon from 'src/icons/moon'
 import ButtonGroup, { ButtonGroupButton } from '@/design-system/ButtonGroup'
 import Drop from 'src/icons/drop-icon'
 import Pencil from 'src/icons/pencil'
 import LinkIcon from 'src/icons/link-icon'
 import useColorMode from '../../../hooks/useColorMode/index'
-import WidgetModal from '@/widgets/WidgetModal'
-import Link from 'next/link'
 import useNotifications from '@/design-system/Notifications/useNotifications'
 import FadeIn from '@/helpers/FadeIn'
-import useUrlHash from '@/hooks/useUrlHash/useUrlHash'
-import { UrlHash } from './types'
 import useFetchShareableLink from './hooks/useFetchShareableLink'
+import useWaterTrackerSettings from './hooks/useWaterTrackerSettings'
+import usePatchWaterTrackerSettings from './hooks/usePatchSettings'
+import UpdateGoalModal from './UpdateGoalModal'
+import { useState } from 'react'
 
 const colorModeText = {
   dark: 'Dark Mode',
@@ -26,9 +23,11 @@ const colorModeText = {
 
 const WaterTrackerMenu = () => {
   const { colorMode, setTheme, setBackground } = useColorMode()
-  const units = ['liter', 'ounce', 'milliliters']
-  const { role } = useUrlHash<UrlHash>()
   const { fetcher: fetchShareableLink } = useFetchShareableLink()
+  const { data: settings, mutate: mutateSettings } = useWaterTrackerSettings()
+  const { patchUnits, loadingUnits } = usePatchWaterTrackerSettings()
+
+  const [openGoalModal, setOpenGoalModal] = useState(false)
 
   const handleThemeChange = () => {
     const modes = ['dark', 'light', 'auto']
@@ -37,6 +36,16 @@ const WaterTrackerMenu = () => {
     const nextMode = pos + 1 >= 3 ? 0 : pos + 1
     setTheme(modes[nextMode])
     setBackground(modes[nextMode])
+  }
+
+  const handleUnitsChange = async () => {
+    const units = ['liter', 'ounce']
+    const pos = units.indexOf(settings?.data?.units)
+    const nextMode = pos === 1 ? 0 : pos + 1
+    const nextUnit = units[nextMode] as 'liter' | 'ounce'
+
+    await patchUnits(nextUnit)
+    mutateSettings()
   }
 
   const notifs = useNotifications()
@@ -60,8 +69,8 @@ const WaterTrackerMenu = () => {
         left={0}
         justifyContent="space-between"
         width="100%"
-        zIndex="20"
         position="absolute"
+        zIndex="10"
       >
         {/* TODO: add dynamic profile picture */}
         <Avatar alt="your profile picture" variant="sm" />
@@ -75,12 +84,25 @@ const WaterTrackerMenu = () => {
           >
             {colorModeText[colorMode]}
           </ButtonGroupButton>
-          <ButtonGroupButton icon={<Drop />}>Liters</ButtonGroupButton>
-          <Link passHref href="https://blocs.me/dashboard/water-tracker">
-            <ButtonGroupButton as="a" icon={<Pencil />}>
-              Update goal
-            </ButtonGroupButton>
-          </Link>
+          <ButtonGroupButton
+            disabled={loadingUnits}
+            loading={loadingUnits}
+            icon={<Drop />}
+            css={{ textTransform: 'capitalize' }}
+            onClick={() => handleUnitsChange()}
+          >
+            {settings?.data?.units}
+          </ButtonGroupButton>
+          <ButtonGroupButton
+            icon={<Pencil />}
+            onClick={(e) => {
+              e.preventDefault()
+              e.stopPropagation()
+              setOpenGoalModal(true)
+            }}
+          >
+            Update goal
+          </ButtonGroupButton>
           <ButtonGroupButton
             icon={<LinkIcon />}
             onClick={() => copyShareableLink()}
@@ -88,6 +110,13 @@ const WaterTrackerMenu = () => {
             Shareable Link
           </ButtonGroupButton>
         </ButtonGroup>
+
+        <UpdateGoalModal
+          open={openGoalModal}
+          closeModal={() => {
+            setOpenGoalModal(false)
+          }}
+        />
       </FadeIn>
     </Flex>
   )

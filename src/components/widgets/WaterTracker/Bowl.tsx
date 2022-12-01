@@ -1,17 +1,18 @@
 import getRandomNum from '../../../utils/math/getRandomNum'
-import { useEffect, useMemo, useRef, useState, ComponentType } from 'react'
-import Box from '@/helpers/Box'
+import { useEffect, useMemo, useRef } from 'react'
 import { animate } from '@motionone/dom'
 import { interpolate } from 'popmotion'
 import useColorMode from '@/hooks/useColorMode'
 import Flex from '@/helpers/Flex'
 import useDarkMode from '@/hooks/useDarkMode'
-import { ThemeProvider } from '@emotion/react'
 
 const Bubble = ({ index, fill }: { index: number; fill: string }) => {
   const cx = useMemo(() => getRandomNum(50, 350), [])
   const duration = useMemo(() => getRandomNum(2, 3), [])
   const radius = useMemo(() => getRandomNum(5, 13), [])
+  const isEven = index % 2 === 0
+  const xRandomizer1 = isEven ? -1 : 1
+  const xRandomizer2 = isEven ? 1 : -1
 
   const ref = useRef<SVGCircleElement>()
 
@@ -19,27 +20,17 @@ const Bubble = ({ index, fill }: { index: number; fill: string }) => {
     animate(
       ref.current,
       {
-        transform: [
-          `
-          translateX(${cx}px) translateY(0px)
-        `,
-          `
-          translateX(${cx + 5}px) translateY(-102.5px)
-        `,
-          `
-        translateX(${cx - 5}px) translateY(-205px)
-      `,
-          `
-      translateX(${cx}px) translateY(-400px)
-    `
-        ]
+        y: [0, -400],
+        x: [0, (radius / 2) * xRandomizer1, (radius / 2) * xRandomizer2, 0]
       },
       {
         duration,
         delay: index * 0.4,
+        // easing: 'ease-in-out',
+        easing: 'linear',
         repeat: Infinity
       }
-    )
+    ).finished.then(() => console.log())
   }, [cx, duration, ref.current]) // eslint-disable-line
 
   return <circle ref={ref} cx={cx} cy={410} r={radius} fill={fill} />

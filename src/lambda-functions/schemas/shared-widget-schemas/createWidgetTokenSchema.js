@@ -11,12 +11,6 @@ const createWidgetTokenSchema = {
       type: 'string'
     }
   },
-  additionalProperties: {
-    role: {
-      type: 'string',
-      enum: ['friend', 'blocs-user']
-    }
-  },
   required: ['widgetType', 'access_token']
 }
 

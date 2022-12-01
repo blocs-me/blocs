@@ -1,13 +1,13 @@
-import styled from "@emotion/styled"
-import { themeGet } from "@styled-system/theme-get"
+import styled from '@emotion/styled'
+import { themeGet } from '@styled-system/theme-get'
 
 const Input = styled.input`
-  border-radius: ${themeGet("radii.md")};
-  border: solid 1px ${themeGet("colors.primary.accent-4")};
-  padding: ${themeGet("space.sm")};
-  font-size: ${themeGet("fontSizes.sm")};
+  border-radius: ${themeGet('radii.md')};
+  border: solid 1px ${themeGet('colors.primary.accent-4')};
+  padding: ${themeGet('space.sm')};
+  font-size: ${themeGet('fontSizes.sm')};
   font-weight: 400;
-  color: ${themeGet("colors.primary.accent-4")};
+  color: ${themeGet('colors.primary.accent-4')};
   height: 45px;
   width: 100%;
   outline: none;
@@ -16,14 +16,14 @@ const Input = styled.input`
   &:focus,
   &:active {
     outline: none;
-    border-color: ${themeGet("colors.highlight")};
+    border-color: ${themeGet('colors.success.medium')};
     & ~ div > span {
-      color: ${themeGet("colors.highlight")};
+      color: ${themeGet('colors.success.medium')};
     }
   }
 
   &::placeholder {
-    color: ${themeGet("colors.primary.accent-2")};
+    color: ${themeGet('colors.primary.accent-2')};
     font-weight: 300;
   }
 `

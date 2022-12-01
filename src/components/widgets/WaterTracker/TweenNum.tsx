@@ -9,9 +9,11 @@ type Props = {
   speed: number
 } & IBox
 
-const TweenNum = ({ num, speed = 0.03, ...rest }: Props) => {
+const TweenNum = ({ num, ...rest }: Props) => {
   const ref = useRef<HTMLElement>()
   const prev = usePreviousValue(num)
+
+  const speed = Math.abs(num - prev) / 45
 
   useEffect(() => {
     ref.current.textContent = num.toString()

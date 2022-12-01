@@ -3,6 +3,9 @@ const colors = {
     from: 'rgba(255,255,255,0)',
     to: 'rgba(255,255,255,1)'
   },
+  neutral: {
+    white: '#ffff'
+  },
   primary: {
     'accent-05': '#fcfcfc',
     'accent-1': '#f5f5f5',
@@ -13,7 +16,10 @@ const colors = {
   },
   background: '#FFFFFF',
   foreground: '#222222',
-  secondary: '#e00079',
+  secondary: {
+    dark: '#682CE7',
+    light: '#8660D9'
+  },
   success: {
     dark: '#224DE5',
     medium: '#3F64E9'
@@ -152,7 +158,10 @@ export const darkModeColors: Theme = {
       medium: '#DB4862',
       light: '#D76E81'
     },
-    secondary: '#eaeaea',
+    secondary: {
+      dark: '#550CEF',
+      light: '#8A53FF'
+    },
     foreground: '#f5f5f5',
     background: '#222222',
     bg: {
@@ -187,7 +196,10 @@ export const nightSky = {
   ...theme,
   colors: {
     ...darkModeColors.colors,
-    secondary: '#eaeaea',
+    secondary: {
+      dark: '',
+      light: ''
+    },
     danger: '#FA7A7A',
     success: '#FFF',
     primary: {

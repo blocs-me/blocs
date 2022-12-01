@@ -5,15 +5,17 @@ import Box from '@/helpers/Box'
 import Flex from '@/helpers/Flex'
 import Stack from '@/helpers/Stack'
 import Bowl from './Bowl'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import TweenNum from './TweenNum'
 import { css } from '@emotion/react'
 import FadeIn from '@/helpers/FadeIn'
 import { useWaterTrackerStore } from './hooks/useWaterTracker/useWaterTracker'
 import useUrlHash from '@/hooks/useUrlHash/useUrlHash'
 import { UrlHash } from './types'
-
-const GOAL = 3 // TODO: replace with fetched values
+import useWaterTrackerSettings from './hooks/useWaterTrackerSettings'
+import useNotifications from '@/design-system/Notifications/useNotifications'
+import { literToOunce } from '@/utils/math/literToOunce'
+import { ounceToLiter } from '@/utils/math'
 
 const hideOnHoverEls = css`
   opacity: var(--opacity);
@@ -22,15 +24,37 @@ const hideOnHoverEls = css`
 
 const WaterTrackerMainPage = () => {
   const [progress, setProgress] = useState(0)
-  const handleIncrease = () => progress !== GOAL && setProgress(progress + 1)
-  const handleDecrease = () => progress && setProgress(progress - 1)
   const { role } = useUrlHash<UrlHash>()
   const isBlocsUser = role === 'blocs-user'
+  const { data: settings, error: settingsError } = useWaterTrackerSettings()
+  const units = settings?.data?.units || 'liter'
+  const GOAL =
+    units === 'ounce'
+      ? ounceToLiter(settings?.data?.goal, false)
+      : settings?.data?.goal || 4
+  const notif = useNotifications()
+
+  const progressStep = units === 'liter' ? 1 : GOAL / Math.floor(GOAL)
+
+  const handleIncrease = () =>
+    progress.toFixed(4) < GOAL.toFixed(4) &&
+    setProgress(progress + progressStep)
+  const handleDecrease = () =>
+    progress - progressStep >= 0 && setProgress(progress - progressStep)
 
   const [isHovering, setIsHovering] = useState(false)
   const handleMouseOver = () => {
     if (isBlocsUser) setIsHovering(true)
   }
+
+  useEffect(() => {
+    if (settingsError) {
+      notif.createError(
+        "Uh oh! ☹️ we couldn't load your settings! Let us know if this continues",
+        5000
+      )
+    }
+  }, [!!settingsError]) // eslint-disable-line
 
   return (
     <FadeIn>
@@ -70,10 +94,13 @@ const WaterTrackerMainPage = () => {
               fontSize="sm"
               m={0}
               lineHeight="1"
-              css={{ 'user-select': 'none' }}
+              css={{ 'user-select': 'none', textTransform: 'capitalize' }}
             >
-              <TweenNum speed={0.02} num={progress} />{' '}
-              {progress === 1 ? 'Liter' : 'Liters'}
+              <TweenNum
+                speed={0.02}
+                num={units === 'ounce' ? literToOunce(progress) : progress}
+              />{' '}
+              {progress === 1 ? `${units}` : `${units}s`}
             </Text>
             <Text
               color="primary.accent-4"
@@ -82,7 +109,7 @@ const WaterTrackerMainPage = () => {
               m={0}
               css={{ 'user-select': 'none' }}
             >
-              {Math.ceil((progress / GOAL) * 100)}% of your goal
+              {Math.round((progress / GOAL) * 100)}% of your goal
             </Text>
           </Box>
 

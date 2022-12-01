@@ -6,6 +6,7 @@ export type ButtonProps = IBox &
     variant?: 'default' | 'outlined' | 'lightBg' | 'primary' | 'round'
     icon?: JSX.Element
     as?: string
+    loading?: boolean
   } & JSX.IntrinsicElements['button'] &
   FlexboxProps &
   LayoutProps

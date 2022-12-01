@@ -14,4 +14,6 @@ export const WIDGET_LOGIN_PATH = getPath('/auth/widget')
 export const WIDGET_LOGIN_VALIDATION_PATH = getPath('/auth/widget/validate')
 export const NOTION_OAUTH_URL_REDIRECT_URL = `https://api.notion.com/v1/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URL}&response_type=code&owner=user`
 export const SHAREABLE_TOKEN_PATH = getPath('/widget/shareable-token')
-export const WATER_TRACKER_PATH = getPath('/widget/water-tracker/settings')
+export const WATER_TRACKER_SETTINGS_PATH = getPath(
+  '/widget/water-tracker/settings'
+)

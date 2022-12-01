@@ -39,7 +39,8 @@
     "**/*.tsx",
     "src/lambda-functions/loadDummyData.ts",
     "src/components/helpers/Box/index.js",
-    "src/components/helpers/Notch/index.tsx"
+    "src/components/helpers/Notch/index.tsx",
+    "src/components/widgets/WaterTracker/UpdateGoalModal.jsx"
   ],
   "exclude": ["node_modules"]
 }

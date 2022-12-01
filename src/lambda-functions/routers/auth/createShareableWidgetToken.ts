@@ -19,15 +19,13 @@ const createShareableWidgetToken = async (
       return null
     })
 
-  console.log('widget', widget)
-
   const shouldCreateToken =
     !widget?.data?.shareableToken && widget?.data?.type === widgetType
 
-  console.log('shouldcreate', shouldCreateToken)
-
   if (!shouldCreateToken) {
-    return res.status(200).json({ shareableToken: widget.data.shareableToken })
+    return res
+      .status(200)
+      .json({ status: 200, shareableToken: widget.data.shareableToken })
   }
 
   try {

@@ -1,16 +1,12 @@
-import ClientSideOnly from '@/helpers/ClientSideOnly'
-import useColorMode, { ColorModeProvider } from '@/hooks/useColorMode'
+import { ColorModeProvider } from '@/hooks/useColorMode'
 import WidgetPage from '@/widgets/WidgetPage'
 import MainPage from './WaterTrackerMainPage'
-import { ThemeProvider } from '@emotion/react'
 import { useRouter } from 'next/router'
-import Flex from '@/helpers/Flex'
 import Box from '@/helpers/Box'
 import WaterTrackerMenu from './WaterTrackerMenu'
 import useNotifications from '@/design-system/Notifications/useNotifications'
 import Notifications from '@/design-system/Notifications'
 import { WaterTrackerProvider } from './hooks/useWaterTracker/useWaterTracker'
-import getLocationHash from '../../../hooks/useUrlHash/getUrlHash'
 import { useInitUrlHash } from '../../../hooks/useUrlHash/useUrlHash'
 
 const WaterTracker = () => {
@@ -40,9 +36,10 @@ const WaterTracker = () => {
                 p="sm"
                 position="relative"
               >
-                <Notifications>
+                <Notifications zIndex="2000">
                   {isMain && <MainPage />}
                   {isMenu && <WaterTrackerMenu />}
+                  <Box id="wt-widget-wrapper" />
                 </Notifications>
               </Box>
             </WidgetPage>

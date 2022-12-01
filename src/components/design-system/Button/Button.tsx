@@ -17,6 +17,8 @@ import { flexbox } from 'styled-system'
 import { useTheme } from '@emotion/react'
 import { Theme } from 'src/styles/theme'
 import { forwardRef, Ref } from 'react'
+import Skeleton from '@/helpers/Skeleton'
+import Box from '@/helpers/Box'
 
 const buttonStyles = compose(
   layout,
@@ -84,12 +86,14 @@ const Btn = styled('button', {
   shouldForwardProp
 })<ButtonProps>(
   {
-    transition: 'transform 0.5s ease, color 0.2s ease,  background 0.2s ease',
+    position: 'relative',
+    transition:
+      'transform 0.5s ease, color 0.2s ease,  background 0.2s ease, opacity 0.2s ease',
     '&:active': {
       transform: 'scale(0.96)'
     },
     '&:disabled': {
-      opacity: 0.8
+      opacity: 0.6
     }
   },
   buttonStyles,
@@ -98,12 +102,23 @@ const Btn = styled('button', {
 
 const Button = forwardRef(
   (
-    { children, as: btnType, icon, ...props }: WithChildren<ButtonProps>,
+    {
+      children,
+      as: btnType,
+      icon,
+      loading = false,
+      ...props
+    }: WithChildren<ButtonProps>,
     ref: Ref<HTMLButtonElement>
   ) => {
     const theme = useTheme() as Theme
     return (
-      <Btn as={btnType as any} ref={ref} {...props}>
+      <Btn
+        as={btnType as any}
+        ref={ref}
+        {...props}
+        style={{ '--opacity': loading ? 0 : 1 } as any}
+      >
         {icon && (
           <Icon
             as="span"
@@ -112,12 +127,25 @@ const Button = forwardRef(
             width="20px"
             mr="sm"
             style={{ '--accent-1': theme.colors.primary['accent-35'] }}
-            css={{ verticalAlign: 'middle' }}
+            css={{ verticalAlign: 'middle', opacity: 'var(--opacity)' }}
           >
             {icon}
           </Icon>
         )}
-        {children}
+        <Box as="span" css={{ opacity: 'var(--opacity)' }}>
+          {children}
+        </Box>
+        {loading && (
+          <Skeleton
+            borderRadius="lg"
+            position="absolute"
+            width="100%"
+            height="100%"
+            top={0}
+            left={0}
+            bg="primary.accent-1"
+          />
+        )}
       </Btn>
     )
   }
