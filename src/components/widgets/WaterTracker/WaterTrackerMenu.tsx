@@ -16,6 +16,8 @@ import UpdateGoalModal from './UpdateGoalModal'
 import { useState } from 'react'
 import useUrlHash from '@/hooks/useUrlHash/useUrlHash'
 import { UrlHash } from './types'
+import useDarkMode from '@/hooks/useDarkMode'
+import Sun from '../../../icons/sun'
 
 const colorModeText = {
   dark: 'Dark Mode',
@@ -24,7 +26,10 @@ const colorModeText = {
 }
 
 const WaterTrackerMenu = () => {
+  const prefersDark = useDarkMode()
   const { colorMode, setTheme, setBackground } = useColorMode()
+  const isDarkMode = (() =>
+    colorMode === 'dark' || (prefersDark && colorMode === 'auto'))()
   const { fetcher: fetchShareableLink } = useFetchShareableLink()
   const { data: settings, mutate: mutateSettings } = useWaterTrackerSettings()
   const { patchUnits, loadingUnits } = usePatchWaterTrackerSettings()
@@ -87,7 +92,7 @@ const WaterTrackerMenu = () => {
       <FadeIn css={{ display: 'flex', height: '100%' }}>
         <ButtonGroup gap={['0', , 'xs']}>
           <ButtonGroupButton
-            icon={<Moon />}
+            icon={isDarkMode ? <Sun /> : <Moon />}
             onClick={() => handleThemeChange()}
           >
             {colorModeText[colorMode]}

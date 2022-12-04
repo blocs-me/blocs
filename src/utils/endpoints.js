@@ -17,3 +17,6 @@ export const SHAREABLE_TOKEN_PATH = getPath('/widget/shareable-token')
 export const WATER_TRACKER_SETTINGS_PATH = getPath(
   '/widget/water-tracker/settings'
 )
+export const WATER_TRACKER_ANALYTICS_PATH = getPath(
+  '/widget/water-tracker/analytics'
+)

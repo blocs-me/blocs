@@ -125,7 +125,7 @@ const Button = forwardRef(
             display="inline-flex"
             fill={props.color}
             width="20px"
-            mr="sm"
+            mr={children ? 'sm' : '0'}
             style={{ '--accent-1': theme.colors.primary['accent-35'] }}
             css={{ verticalAlign: 'middle', opacity: 'var(--opacity)' }}
           >

@@ -7,10 +7,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const rest = new Rest(req, res)
 
   await rest.get(getWaterTrackerSettings as any)
-
-  if (req.method === 'PATCH') {
-    await updateWaterTrackerSetting(req, res)
-  }
+  await rest.patch(updateWaterTrackerSetting as any)
 }
 
 export default handler
