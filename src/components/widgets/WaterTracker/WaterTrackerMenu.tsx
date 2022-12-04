@@ -97,7 +97,7 @@ const WaterTrackerMenu = () => {
           >
             {colorModeText[colorMode]}
           </ButtonGroupButton>
-          <ButtonGroupButton
+          {/* <ButtonGroupButton
             disabled={loadingUnits}
             loading={loadingUnits}
             icon={<Drop />}
@@ -105,7 +105,7 @@ const WaterTrackerMenu = () => {
             onClick={() => handleUnitsChange()}
           >
             {settings?.data?.units}
-          </ButtonGroupButton>
+          </ButtonGroupButton> */}
           <ButtonGroupButton
             icon={<Pencil />}
             onClick={(e) => {
