@@ -10,12 +10,7 @@ const waterTrackerAnalyticsSchema = {
     waterConsumed: {
       type: 'number',
       minimum: 0,
-      maximum: 11,
-      anyOf: [
-        {
-          type: 'integer'
-        }
-      ]
+      maximum: 11
     }
   },
   required: ['date', 'isoDateString', 'waterConsumed'],
