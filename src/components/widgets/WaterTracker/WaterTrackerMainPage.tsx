@@ -1,3 +1,5 @@
+import { useEffect, useLayoutEffect, useState } from 'react'
+import { css, useTheme } from '@emotion/react'
 import CaretButton from '@/design-system/CaretButton'
 import Text from '@/design-system/Text'
 import WidgetMenuButton from '@/design-system/WidgetMenuButton'
@@ -5,9 +7,7 @@ import Box from '@/helpers/Box'
 import Flex from '@/helpers/Flex'
 import Stack from '@/helpers/Stack'
 import Bowl from './Bowl'
-import { useEffect, useLayoutEffect, useState } from 'react'
 import TweenNum from './TweenNum'
-import { css, useTheme } from '@emotion/react'
 import FadeIn from '@/helpers/FadeIn'
 import useUrlHash from '@/hooks/useUrlHash/useUrlHash'
 import { UrlHash } from './types'
@@ -45,8 +45,7 @@ const WaterTrackerMainPage = () => {
       ? ounceToLiter(settings?.data?.goal, false)
       : settings?.data?.goal || 4
   const notif = useNotifications()
-  const progressStep =
-    units === 'liter' ? 1 : Number(GOAL.toFixed(2)) / Math.floor(GOAL)
+  const progressStep = units === 'liter' ? 1 : Number(GOAL) / Math.floor(GOAL)
   const saveAnalytics = useSaveAnalytics()
   const { data: latestAnalytics } = useWaterLatestTrackerAnalytics()
 
@@ -60,8 +59,7 @@ const WaterTrackerMainPage = () => {
   }
 
   const handleIncrease = () => {
-    const curProg =
-      progress.toFixed(4) < GOAL.toFixed(4) && progress + progressStep
+    const curProg = progress < GOAL && progress + progressStep
 
     if (curProg !== 0 && !curProg) {
       return null
@@ -74,7 +72,7 @@ const WaterTrackerMainPage = () => {
   const handleDecrease = () => {
     const curProg = progress - progressStep >= 0 && progress - progressStep
 
-    if (curProg !== 0 && !curProg) {
+    if (typeof curProg === 'boolean') {
       return null
     }
 

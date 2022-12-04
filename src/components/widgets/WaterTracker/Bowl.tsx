@@ -1,12 +1,21 @@
 import getRandomNum from '../../../utils/math/getRandomNum'
 import { useEffect, useMemo, useRef } from 'react'
-import { animate } from '@motionone/dom'
+import { animate } from 'motion'
 import { interpolate } from 'popmotion'
 import useColorMode from '@/hooks/useColorMode'
 import Flex from '@/helpers/Flex'
 import useDarkMode from '@/hooks/useDarkMode'
+import { useMediaQuery } from 'beautiful-react-hooks'
 
-const Bubble = ({ index, fill }: { index: number; fill: string }) => {
+const Bubble = ({
+  index,
+  fill,
+  reduceMotion
+}: {
+  index: number
+  fill: string
+  reduceMotion: boolean
+}) => {
   const cx = useMemo(() => getRandomNum(50, 350), [])
   const duration = useMemo(() => getRandomNum(2, 3), [])
   const radius = useMemo(() => getRandomNum(5, 13), [])
@@ -17,7 +26,7 @@ const Bubble = ({ index, fill }: { index: number; fill: string }) => {
   const ref = useRef<SVGCircleElement>()
 
   useEffect(() => {
-    animate(
+    let anim = animate(
       ref.current,
       {
         y: [0, -400],
@@ -26,11 +35,14 @@ const Bubble = ({ index, fill }: { index: number; fill: string }) => {
       {
         duration,
         delay: index * 0.4,
-        // easing: 'ease-in-out',
         easing: 'linear',
         repeat: Infinity
       }
-    ).finished.then(() => console.log())
+    )
+
+    if (reduceMotion) {
+      anim.stop()
+    }
   }, [cx, duration, ref.current]) // eslint-disable-line
 
   return <circle ref={ref} cx={cx} cy={410} r={radius} fill={fill} />
@@ -63,6 +75,7 @@ const lightTheme = {
 const NUM_OF_BUBBLES = 12
 
 const Bowl = ({ progress, goal }: { progress: number; goal: number }) => {
+  const reducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)')
   const getWaveYPos = interpolate([goal, 0], [-160, 100])
   const { colorMode } = useColorMode()
   const isSystemDarkMode = useDarkMode()
@@ -81,7 +94,7 @@ const Bowl = ({ progress, goal }: { progress: number; goal: number }) => {
   const waveTwoMask = useRef()
 
   useEffect(() => {
-    animate(
+    let waveOneAnim = animate(
       '.waveOne',
       {
         x: [-200, -600]
@@ -93,7 +106,7 @@ const Bowl = ({ progress, goal }: { progress: number; goal: number }) => {
       }
     )
 
-    animate(
+    let waveTwoAnim = animate(
       '.waveTwo',
       { x: -400 },
       {
@@ -102,7 +115,12 @@ const Bowl = ({ progress, goal }: { progress: number; goal: number }) => {
         easing: 'linear'
       }
     )
-  }, [])
+
+    if (reducedMotion) {
+      waveOneAnim?.stop()
+      waveTwoAnim?.stop()
+    }
+  }, [reducedMotion])
 
   useEffect(() => {
     animate(
@@ -120,7 +138,7 @@ const Bowl = ({ progress, goal }: { progress: number; goal: number }) => {
         duration: 1
       }
     )
-  }, [progress, goal, getWaveYPos])
+  }, [progress, goal, getWaveYPos, reducedMotion])
 
   return (
     <Flex width="100%" alignItems="center" flex="1">
@@ -142,7 +160,12 @@ const Bowl = ({ progress, goal }: { progress: number; goal: number }) => {
             {Array(NUM_OF_BUBBLES)
               .fill('')
               .map((_, i) => (
-                <Bubble key={i} index={i} fill={theme.bubblesTwo} />
+                <Bubble
+                  key={i}
+                  index={i}
+                  fill={theme.bubblesTwo}
+                  reduceMotion={reducedMotion}
+                />
               ))}
           </g>
           <g className="waveOne">
@@ -156,7 +179,12 @@ const Bowl = ({ progress, goal }: { progress: number; goal: number }) => {
             {Array(NUM_OF_BUBBLES)
               .fill('')
               .map((_, i) => (
-                <Bubble key={i} index={i} fill={theme.bubblesOne} />
+                <Bubble
+                  key={i}
+                  index={i}
+                  fill={theme.bubblesOne}
+                  reduceMotion={reducedMotion}
+                />
               ))}
           </g>
         </g>

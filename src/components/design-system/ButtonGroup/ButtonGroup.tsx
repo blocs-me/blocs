@@ -4,7 +4,11 @@ import { MouseEvent, useEffect, useRef } from 'react'
 import ButtonHighlighter from './ButtonHightlighter'
 import { animate } from 'motion'
 import Flex from '@/helpers/Flex'
-import { useDebouncedFn, useWindowResize } from 'beautiful-react-hooks'
+import {
+  useDebouncedFn,
+  useMediaQuery,
+  useWindowResize
+} from 'beautiful-react-hooks'
 
 type Props = {
   gap?: string | string[]
@@ -19,6 +23,7 @@ const ButtonGroup = ({ gap = 'sm', children }: WithChildren<Props>) => {
   const btnHighligher = useRef<HTMLDivElement>()
   const container = useRef<HTMLDivElement>()
   const cachedContainerSizes = useRef<Dims>({} as Dims)
+  const reduceMotion = useMediaQuery('(prefers-reduced-motion: reduce)')
 
   const cacheContaineDims = useDebouncedFn(() => {
     const { top, left } = container.current.getBoundingClientRect()
@@ -81,8 +86,12 @@ const ButtonGroup = ({ gap = 'sm', children }: WithChildren<Props>) => {
           position: 'relative'
         }}
         mb={gap}
-        onMouseOver={(e: MouseEvent<HTMLDivElement>) => handleMouseOver(e)}
-        onMouseLeave={(e: MouseEvent<HTMLDivElement>) => handleMouseLeave()}
+        onMouseOver={(e: MouseEvent<HTMLDivElement>) =>
+          !reduceMotion && handleMouseOver(e)
+        }
+        onMouseLeave={(e: MouseEvent<HTMLDivElement>) =>
+          !reduceMotion && handleMouseLeave()
+        }
       >
         <ButtonHighlighter ref={btnHighligher} />
         {children}

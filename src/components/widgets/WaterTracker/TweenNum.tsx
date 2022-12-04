@@ -1,6 +1,5 @@
-import { usePreviousValue } from 'beautiful-react-hooks'
-import { useRef, useEffect, useCallback } from 'react'
-import { animate } from 'motion'
+import { usePreviousValue, useMediaQuery } from 'beautiful-react-hooks'
+import { useRef, useEffect } from 'react'
 import Box from '@/helpers/Box'
 import { IBox } from '@/helpers/Box/Box.types'
 
@@ -12,11 +11,12 @@ type Props = {
 const TweenNum = ({ num, ...rest }: Props) => {
   const ref = useRef<HTMLElement>()
   const prev = usePreviousValue(num)
+  const reducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)')
 
   const speed = Math.abs(num - prev) / 45
 
   useEffect(() => {
-    if (ref.current) {
+    if (ref.current && !reducedMotion) {
       ref.current.textContent = num.toString()
       let count = prev
 
@@ -46,7 +46,11 @@ const TweenNum = ({ num, ...rest }: Props) => {
 
       if (prev !== undefined && prev !== num) countUp()
     }
-  }, [num, prev, speed])
+
+    if (reducedMotion && ref.current) {
+      ref.current.textContent = `${num}`
+    }
+  }, [num, prev, speed, reducedMotion])
 
   return <Box as="span" {...rest} ref={ref} />
 }
