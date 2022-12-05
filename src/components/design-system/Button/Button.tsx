@@ -109,7 +109,7 @@ const Button = forwardRef(
       loading = false,
       ...props
     }: WithChildren<ButtonProps>,
-    ref: Ref<HTMLButtonElement>
+    ref?: Ref<HTMLButtonElement>
   ) => {
     const theme = useTheme() as Theme
     return (
