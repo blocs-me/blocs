@@ -7,11 +7,10 @@ import useNotifications from '@/design-system/Notifications/useNotifications'
 import useWaterTrackerSettings from './useWaterTrackerSettings'
 import { ounceToLiter } from '@/utils/math'
 import { literToOunce } from '../../../../utils/math/literToOunce'
-import { useRouter } from 'next/router'
 
 const usePatchWaterTrackerSettings = () => {
-  const hash = useRouter().query
-  const path = `${WATER_TRACKER_SETTINGS_PATH}?widgetType=WATER_TRACKER&widgetToken=${hash['token']}`
+  const hash = useUrlHash()
+  const path = `${WATER_TRACKER_SETTINGS_PATH}?widgetType=WATER_TRACKER&widgetToken=${hash['#token']}`
   const [body, setBody] = useState({})
   const [loadingUnits, setLoadingUnits] = useState(false)
   const [loadingGoal, setLoadingGoal] = useState(false)

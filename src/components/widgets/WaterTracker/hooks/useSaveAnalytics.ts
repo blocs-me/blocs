@@ -4,11 +4,10 @@ import { WATER_TRACKER_ANALYTICS_PATH } from '@/utils/endpoints'
 import { useCallback } from 'react'
 import { UrlHash } from '../types'
 import useWaterTrackerSettings from './useWaterTrackerSettings'
-import { useRouter } from 'next/router'
 
 const useSaveAnalytics = () => {
-  const hash = useRouter().query as UrlHash
-  const path = `${WATER_TRACKER_ANALYTICS_PATH}?widgetToken=${hash['token']}`
+  const hash = useUrlHash() as UrlHash
+  const path = `${WATER_TRACKER_ANALYTICS_PATH}?widgetToken=${hash['#token']}`
   const notifs = useNotifications()
 
   const postAnalytics = async (waterConsumed: number) => {

@@ -10,7 +10,7 @@ const useFetchShareableLink = () => {
   const hash = useUrlHash<UrlHash>()
 
   const { data, fetcher, loading, error } = useFetch(
-    getEndpoint('WATER_TRACKER', hash['token']),
+    getEndpoint('WATER_TRACKER', hash['#token']),
     {
       method: 'POST',
       shouldFetch: false
