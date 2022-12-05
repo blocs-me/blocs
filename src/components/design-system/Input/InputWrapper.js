@@ -1,6 +1,6 @@
-import Box from "@/helpers/Box"
-import Text from "@/design-system/Text"
-import { css } from "@emotion/react"
+import Box from '@/helpers/Box'
+import Text from '@/design-system/Text'
+import { css } from '@emotion/react'
 
 const InputWrapper = ({ htmlFor, label, children, className, error }) => (
   <>
@@ -19,7 +19,7 @@ const InputWrapper = ({ htmlFor, label, children, className, error }) => (
         top="0"
         left="xs"
         px="xs"
-        bg="bg.default"
+        bg="background"
         overflow="visible"
         css={css`
           transform: translateY(-60%);
@@ -39,7 +39,7 @@ const InputWrapper = ({ htmlFor, label, children, className, error }) => (
     {error && (
       <Text
         fontSize="xxs"
-        color="danger"
+        color="danger.medium"
         fontWeight="300"
         mb={0}
         lineHeight="1.25"

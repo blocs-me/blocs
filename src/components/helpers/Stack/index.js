@@ -1,6 +1,6 @@
-import styled from "@emotion/styled"
-import shouldForwardProp from "@styled-system/should-forward-prop"
-import { display, flexbox, space } from "styled-system"
+import styled from '@emotion/styled'
+import shouldForwardProp from '@styled-system/should-forward-prop'
+import { display, flexbox, layout, space } from 'styled-system'
 
 const StackStyle = styled.div`
   & > * + * {
@@ -9,7 +9,7 @@ const StackStyle = styled.div`
 `
 
 const Stack = styled(StackStyle, {
-  shouldForwardProp,
-})(display, flexbox)
+  shouldForwardProp
+})(display, flexbox, layout)
 
 export default Stack

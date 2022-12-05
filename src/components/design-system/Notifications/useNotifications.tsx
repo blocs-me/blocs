@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import makeStore, { Action } from 'src/lib/makeStore'
+import makeStore, { Action } from '@/utils/makeStore'
 
 export const ERROR_NOTIF = 'ERROR_NOTIF'
 export const SUCCESS_NOTIF = 'SUCCESS_NOTIF'
@@ -59,7 +59,7 @@ const useNotifications = () => {
       type: DELETE_NOTIF
     })
 
-  const createNotifAction = (content, type, timeout) => {
+  const createNotifAction = (content, type, timeout = DELETE_NOTIF_AFTER) => {
     const id = Math.random()
     dispatch({
       id,
@@ -69,14 +69,14 @@ const useNotifications = () => {
 
     setTimeout(() => {
       deleteNotifAction(id)
-    }, timeout || DELETE_NOTIF_AFTER)
+    }, timeout)
   }
 
-  const createError = (content, timeout) =>
+  const createError = (content, timeout = DELETE_NOTIF_AFTER) =>
     createNotifAction(content, ERROR_NOTIF, timeout)
-  const createSuccess = (content, timeout) =>
+  const createSuccess = (content, timeout = DELETE_NOTIF_AFTER) =>
     createNotifAction(content, SUCCESS_NOTIF, timeout)
-  const createInfo = (content, timeout) =>
+  const createInfo = (content, timeout = DELETE_NOTIF_AFTER) =>
     createNotifAction(content, INFO_NOTIF, timeout)
 
   const NotifProvider = Provider as ({

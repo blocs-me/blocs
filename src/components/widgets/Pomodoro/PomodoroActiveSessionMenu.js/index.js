@@ -1,9 +1,9 @@
-import Button from "@/design-system/Button"
-import Text from "@/design-system/Text"
-import Flex from "@/helpers/Flex"
-import Icon from "@/helpers/Icon"
-import msToMins from "@/utils/msToMins"
-import WidgetModal from "@/widgets/WidgetModal/index.js"
+import Button from '@/design-system/Button'
+import Text from '@/design-system/Text'
+import Flex from '@/helpers/Flex'
+import Icon from '@/helpers/Icon'
+import msToMins from '@/utils/msToMins'
+import WidgetModal from '@/widgets/LegacyWidgetModal'
 import {
   resetPomodoroSession,
   setDocumentTimelineStart,
@@ -11,22 +11,22 @@ import {
   setStartedAt,
   SET_DOCUMENT_TIMELINE_START,
   SET_STARTED_AT,
-  showPomodoroActiveSessionMenu,
-} from "../pomodoroActions"
-import { usePomodoroDispatch, usePomodoroStore } from "../usePomodoroStore"
-import RepeatIcon from "../../../../icons/repeat.svg"
-import CupIcon from "../../../../icons/cup.svg"
-import Trash from "../../../../icons/trash-can.svg"
-import ScrollProvider from "@/design-system/ScrollProvider"
-import Stack from "@/helpers/Stack"
+  showPomodoroActiveSessionMenu
+} from '../pomodoroActions'
+import { usePomodoroDispatch, usePomodoroStore } from '../usePomodoroStore'
+import RepeatIcon from '../../../../icons/repeat.svg'
+import CupIcon from '../../../../icons/cup.svg'
+import Trash from '../../../../icons/trash-can.svg'
+import ScrollProvider from '@/design-system/ScrollProvider'
+import Stack from '@/helpers/Stack'
 import {
   POMODORO_INTERVAL_MODE,
   POMODORO_LONG_BREAK_MODE,
-  POMODORO_SHORT_BREAK_MODE,
-} from "../pomodoroPresetModes"
-import { useCallback } from "react"
-import Box from "@/helpers/Box"
-import storage from "@/utils/storage"
+  POMODORO_SHORT_BREAK_MODE
+} from '../pomodoroPresetModes'
+import { useCallback } from 'react'
+import Box from '@/helpers/Box'
+import storage from '@/utils/storage'
 
 const IconButton = ({
   bg,
@@ -35,7 +35,7 @@ const IconButton = ({
   interval,
   children,
   iconLeft,
-  iconWidth,
+  iconWidth
 }) => {
   return (
     <Button
@@ -44,7 +44,7 @@ const IconButton = ({
       onClick={(e) => onClick(e)}
       borderRadius="lg"
       color="primary.accent-1"
-      css={{ display: "flex", alignItems: "center", cursor: "pointer" }}
+      css={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}
       pl="sm"
       py="xs"
       pr="sm"
@@ -85,9 +85,9 @@ const PomodoroActiveSessionMenu = () => {
       longBreakInterval,
       shortBreakInterval,
       pomodoroInterval,
-      label,
+      label
     },
-    presetMode,
+    presetMode
   } = usePomodoroStore()
   const showSessionCount =
     longBreakInterval && startLongBreakAfter > 0 && autoStartBreak
@@ -150,7 +150,7 @@ const PomodoroActiveSessionMenu = () => {
       <ScrollProvider height="100%" pt="sm" pb="md" px="sm">
         {showSessionCount && !startedAt && (
           <Text color="primary.accent-4" fontSize="sm" fontWeight="500" mb="sm">
-            {(sessionCount || 0) + 1} / {startLongBreakAfter}{" "}
+            {(sessionCount || 0) + 1} / {startLongBreakAfter}{' '}
             <Box as="span" ml="xs" /> pomodoros
           </Text>
         )}
@@ -180,7 +180,7 @@ const PomodoroActiveSessionMenu = () => {
             <IconButton
               iconLeft={<RepeatIcon />}
               bg="primary.accent-4"
-              iconWidth={"16px"}
+              iconWidth={'16px'}
               onClick={() => startPomodoroInterval()}
             >
               <Box ml="4px" />
@@ -193,7 +193,7 @@ const PomodoroActiveSessionMenu = () => {
               onClick={(e) => startLongBreak(e)}
             >
               <PresetButtonContent
-                label={"long break"}
+                label={'long break'}
                 interval={longBreakInterval}
               />
             </IconButton>
@@ -204,7 +204,7 @@ const PomodoroActiveSessionMenu = () => {
               iconWidth="20px"
             >
               <PresetButtonContent
-                label={"short break"}
+                label={'short break'}
                 interval={shortBreakInterval}
               />
             </IconButton>
@@ -216,7 +216,7 @@ const PomodoroActiveSessionMenu = () => {
                 hideInterval
                 onClick={() => resetSessions()}
               >
-                <PresetButtonContent label={"reset pomodoros"} hideInterval />
+                <PresetButtonContent label={'reset pomodoros'} hideInterval />
               </IconButton>
             )}
           </Stack>

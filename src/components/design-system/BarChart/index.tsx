@@ -7,6 +7,8 @@ import XAxisLabels from './XAxisLabels'
 import Bars from './Bars'
 
 // TODO: Re-calculate bars / axes positions on window width change
+// TODO: Responsive design
+
 
 const BarChart = (props: BarChartProps) => {
   const chart = useBarChart(props)

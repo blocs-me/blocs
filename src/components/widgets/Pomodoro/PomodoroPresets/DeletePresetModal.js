@@ -6,7 +6,7 @@ import { useEffect } from 'react'
 
 const { default: Button } = require('@/design-system/Button')
 const { default: Text } = require('@/design-system/Text')
-const { default: WidgetModal } = require('@/widgets/WidgetModal/index.js')
+const { default: WidgetModal } = require('@/widgets/LegacyWidgetModal')
 const { usePomodoroStore, usePomodoroDispatch } = require('../usePomodoroStore')
 const { default: usePresetApi } = require('./usePresetApi')
 import Check from '../../../../icons/check-circle.svg'

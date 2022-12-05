@@ -1,38 +1,37 @@
-import { useEffect, useMemo } from "react"
-import { useForm } from "react-hook-form"
-import TextInput from "@/design-system/TextInput"
-import Box from "@/helpers/Box"
-import Stack from "@/helpers/Stack"
-import ScrollProvider from "@/design-system/ScrollProvider"
-import ColorInput from "@/design-system/ColorInput"
-import Button from "@/design-system/Button"
-import NumberInput from "@/design-system/NumberInput"
-import Loader from "@/design-system/Loader"
-import usePresetApi from "./usePresetApi"
-import { usePomodoroStore } from "../usePomodoroStore"
-import minsAsms from "@/utils/minsAsms"
-import msToMins from "@/utils/msToMins"
-import WidgetModal from "@/widgets/WidgetModal/index.js"
-import PresetFormLoadingState from "./PresetFormLoadingState"
-import PresetFormSuccessState from "./PresetFormSuccessState"
-import { usersList } from "@notionhq/client/build/src/api-endpoints"
-import useNotifications from "@/design-system/Notifications/useNotifications"
+import { useEffect, useMemo } from 'react'
+import { useForm } from 'react-hook-form'
+import TextInput from '@/design-system/TextInput'
+import Box from '@/helpers/Box'
+import Stack from '@/helpers/Stack'
+import ScrollProvider from '@/design-system/ScrollProvider'
+import ColorInput from '@/design-system/ColorInput'
+import Button from '@/design-system/Button'
+import NumberInput from '@/design-system/NumberInput'
+import Loader from '@/design-system/Loader'
+import usePresetApi from './usePresetApi'
+import { usePomodoroStore } from '../usePomodoroStore'
+import minsAsms from '@/utils/minsAsms'
+import msToMins from '@/utils/msToMins'
+import WidgetModal from '@/widgets/LegacyWidgetModal'
+import PresetFormLoadingState from './PresetFormLoadingState'
+import PresetFormSuccessState from './PresetFormSuccessState'
+import useNotifications from '@/design-system/Notifications/useNotifications'
 
 const PresetForm = ({ hideForm = () => {}, formAction, presets, open }) => {
   const { currentPreset = {} } = usePomodoroStore()
 
   const defaultValues = useMemo(() => {
-    if (formAction === "EDIT") {
+    if (formAction === 'EDIT') {
       return {
         ...currentPreset,
         pomodoroInterval: msToMins(currentPreset?.pomodoroInterval) || null,
         shortBreakInterval: msToMins(currentPreset?.shortBreakInterval) || null,
-        longBreakInterval: msToMins(currentPreset?.longBreakInterval) || null,
+        longBreakInterval: msToMins(currentPreset?.longBreakInterval) || null
       }
     }
 
     return {
-      labelColor: "#e00079",
+      labelColor: '#e00079'
     }
   }, [formAction, currentPreset])
 
@@ -41,27 +40,27 @@ const PresetForm = ({ hideForm = () => {}, formAction, presets, open }) => {
     formState: { errors },
     handleSubmit,
     watch,
-    reset,
+    reset
   } = useForm({
-    defaultValues,
+    defaultValues
   })
 
   const formData = watch()
 
-  const createForm = formAction !== "CREATE"
+  const createForm = formAction !== 'CREATE'
 
   const requestBody = {
     ...formData,
     id: createForm ? currentPreset?.id : null,
     pomodoroInterval: minsAsms(formData?.pomodoroInterval),
     shortBreakInterval: minsAsms(formData?.shortBreakInterval),
-    longBreakInterval: minsAsms(formData?.longBreakInterval),
+    longBreakInterval: minsAsms(formData?.longBreakInterval)
   }
 
   const notifs = useNotifications()
 
   const handleError = (res) => {
-    const message = "Uh oh ! something went wrong"
+    const message = 'Uh oh ! something went wrong'
     notifs.createError(message)
   }
 
@@ -70,15 +69,15 @@ const PresetForm = ({ hideForm = () => {}, formAction, presets, open }) => {
     error,
     postPreset,
     patchPreset,
-    data: apiResponse,
+    data: apiResponse
   } = usePresetApi(requestBody, presets, {
     onSuccess: reset,
-    onError: handleError,
+    onError: handleError
   })
 
   const handleApiReq = (data) => {
-    if (formAction === "CREATE") postPreset(data)
-    if (formAction === "EDIT") patchPreset(data)
+    if (formAction === 'CREATE') postPreset(data)
+    if (formAction === 'EDIT') patchPreset(data)
   }
 
   const handleClick = (e) => {
@@ -115,8 +114,8 @@ const PresetForm = ({ hideForm = () => {}, formAction, presets, open }) => {
                     placeholder="e.g : 'chores'"
                     label="label"
                     ariaLabel="label name for pomodoro session"
-                    {...register("label", {
-                      required: true,
+                    {...register('label', {
+                      required: true
                     })}
                   />
 
@@ -125,8 +124,8 @@ const PresetForm = ({ hideForm = () => {}, formAction, presets, open }) => {
                     label="color"
                     htmlFor="labelColor"
                     ariaLabel="set color to be associated with pomodoro label"
-                    {...register("labelColor", {
-                      required: true,
+                    {...register('labelColor', {
+                      required: true
                     })}
                   />
                   <NumberInput
@@ -135,15 +134,15 @@ const PresetForm = ({ hideForm = () => {}, formAction, presets, open }) => {
                     max={120}
                     error={
                       errors.pomodoroInterval
-                        ? "pomodoro must be >= 5 minutes and <= 120"
-                        : ""
+                        ? 'pomodoro must be >= 5 minutes and <= 120'
+                        : ''
                     }
-                    {...register("pomodoroInterval", {
+                    {...register('pomodoroInterval', {
                       required: true,
                       valueAsNumber: true,
                       min: 5,
                       max: 120,
-                      setValueAs: (v) => minsAsms(v),
+                      setValueAs: (v) => minsAsms(v)
                     })}
                     placeholder="e.g : 25 mins"
                   />
@@ -155,14 +154,14 @@ const PresetForm = ({ hideForm = () => {}, formAction, presets, open }) => {
                     error={
                       errors.longBreakInterval
                         ? "long break must be greater than short break or be '0'"
-                        : ""
+                        : ''
                     }
-                    {...register("longBreakInterval", {
+                    {...register('longBreakInterval', {
                       required: true,
                       valueAsNumber: true,
                       setValueAs: (v) => minsAsms(v),
                       validate: (value) =>
-                        value > formData?.shortBreakInterval || value === 0,
+                        value > formData?.shortBreakInterval || value === 0
                     })}
                     placeholder="e.g : 15 mins"
                   />
@@ -172,10 +171,10 @@ const PresetForm = ({ hideForm = () => {}, formAction, presets, open }) => {
                     min={0}
                     max={120}
                     placeholder="e.g : 5 mins "
-                    {...register("shortBreakInterval", {
+                    {...register('shortBreakInterval', {
                       valueAsNumber: true,
                       required: true,
-                      setValueAs: (v) => minsAsms(v),
+                      setValueAs: (v) => minsAsms(v)
                     })}
                   />
                 </>
@@ -193,8 +192,8 @@ const PresetForm = ({ hideForm = () => {}, formAction, presets, open }) => {
                   fontWeight="300"
                   letterSpacing="sm"
                 >
-                  {formAction === "CREATE" && "create"}
-                  {formAction === "EDIT" && "edit"}
+                  {formAction === 'CREATE' && 'create'}
+                  {formAction === 'EDIT' && 'edit'}
                 </Button>
               )}
               {loading && <Loader width="30px" height="30px" />}

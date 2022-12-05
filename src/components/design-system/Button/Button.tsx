@@ -1,3 +1,4 @@
+import Icon from '@/helpers/Icon'
 import { WithChildren } from '@/utils/tsUtils'
 import styled from '@emotion/styled'
 import shouldForwardProp from '@styled-system/should-forward-prop'
@@ -12,8 +13,22 @@ import {
   variant
 } from 'styled-system'
 import { ButtonProps } from './types'
+import { flexbox } from 'styled-system'
+import { useTheme } from '@emotion/react'
+import { Theme } from 'src/styles/theme'
+import { forwardRef, Ref } from 'react'
+import Skeleton from '@/helpers/Skeleton'
+import Box from '@/helpers/Box'
 
-const buttonStyles = compose(layout, color, space, padding, typography, border)
+const buttonStyles = compose(
+  layout,
+  color,
+  space,
+  padding,
+  typography,
+  border,
+  flexbox
+)
 
 const variants = variant({
   variants: {
@@ -71,20 +86,69 @@ const Btn = styled('button', {
   shouldForwardProp
 })<ButtonProps>(
   {
-    transition: 'transform 0.5s ease, color 0.2s ease,  background 0.2s ease',
+    position: 'relative',
+    transition:
+      'transform 0.5s ease, color 0.2s ease,  background 0.2s ease, opacity 0.2s ease',
     '&:active': {
       transform: 'scale(0.96)'
     },
     '&:disabled': {
-      opacity: 0.8
+      opacity: 0.6
     }
   },
   buttonStyles,
   variants
 )
 
-const Button = ({ children, ...props }: WithChildren<ButtonProps>) => {
-  return <Btn {...props}>{children}</Btn>
-}
+const Button = forwardRef(
+  (
+    {
+      children,
+      as: btnType,
+      icon,
+      loading = false,
+      ...props
+    }: WithChildren<ButtonProps>,
+    ref?: Ref<HTMLButtonElement>
+  ) => {
+    const theme = useTheme() as Theme
+    return (
+      <Btn
+        as={btnType as any}
+        ref={ref}
+        {...props}
+        style={{ '--opacity': loading ? 0 : 1 } as any}
+      >
+        {icon && (
+          <Icon
+            as="span"
+            display="inline-flex"
+            fill={props.color}
+            width="20px"
+            mr={children ? 'sm' : '0'}
+            style={{ '--accent-1': theme.colors.primary['accent-35'] }}
+            css={{ verticalAlign: 'middle', opacity: 'var(--opacity)' }}
+          >
+            {icon}
+          </Icon>
+        )}
+        <Box as="span" css={{ opacity: 'var(--opacity)' }}>
+          {children}
+        </Box>
+        {loading && (
+          <Skeleton
+            borderRadius="lg"
+            position="absolute"
+            width="100%"
+            height="100%"
+            top={0}
+            left={0}
+            bg="primary.accent-1"
+          />
+        )}
+      </Btn>
+    )
+  }
+)
 
 export default Button

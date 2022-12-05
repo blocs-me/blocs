@@ -15,8 +15,8 @@ import Cloud from '../../../../icons/cloud.svg'
 import Clock from '../../../../icons/clock.svg'
 import { useClickOutside } from '@/hooks/useClickOutside'
 import Notch from '@/helpers/Notch'
-import slideIn from '@/keyframes/slideIn'
-import slideOut from '@/keyframes/slideOut'
+import slideIn from 'src/styles/keyframes/slideIn'
+import slideOut from 'src/styles/keyframes/slideOut'
 
 const links = [
   {

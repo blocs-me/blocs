@@ -1,6 +1,6 @@
-import faunaClient from "@/lambda/faunaClient"
-import { validatePomodoroPreset } from "@/lambda/lib/jsonValidator"
-import { query as q } from "faunadb"
+import faunaClient from '@/lambda/faunaClient'
+import { validatePomodoroPreset } from '@/lambda/lib/restValidator/jsonValidator'
+import { query as q } from 'faunadb'
 
 const deletePomodoroPreset = async (req, res, rest) => {
   const { user, body: preset } = req
@@ -11,7 +11,7 @@ const deletePomodoroPreset = async (req, res, rest) => {
     console.error(validatePomodoroPreset.errors)
     return res.status(400).json({
       error:
-        "Request has incorrect format. Contact moniet@blocs.me if this error persists.",
+        'Request has incorrect format. Contact moniet@blocs.me if this error persists.'
     })
   }
 
@@ -19,21 +19,21 @@ const deletePomodoroPreset = async (req, res, rest) => {
 
   try {
     const userPresets = await faunaClient.query(
-      q.Call(q.Function("get_pomodoro_presets_by_user_ref"), userRef)
+      q.Call(q.Function('get_pomodoro_presets_by_user_ref'), userRef)
     )
 
     const canDelete = userPresets?.data?.length > 1
 
     if (!canDelete) {
       const error = new Error(
-        "Cannot delete,you  need at least than one pomodoro preset"
+        'Cannot delete,you  need at least than one pomodoro preset'
       )
 
       throw error
     }
 
     const deletedPreset = await faunaClient.query(
-      q.Call(q.Function("delete_pomodoro_preset"), [preset?.id, userRef])
+      q.Call(q.Function('delete_pomodoro_preset'), [preset?.id, userRef])
     )
 
     if (deletedPreset?.error) {
@@ -47,7 +47,7 @@ const deletePomodoroPreset = async (req, res, rest) => {
     res.status(500).json({
       message:
         error?.message ||
-        "Uh oh ! We were not able to delete your pomodoro preset.",
+        'Uh oh ! We were not able to delete your pomodoro preset.'
     })
   }
 }

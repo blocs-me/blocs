@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
-import { css, keyframes, useTheme } from "@emotion/react"
-import styled from "@emotion/styled"
-import Box from "../Box"
+import { css, keyframes, useTheme } from '@emotion/react'
+import styled from '@emotion/styled'
+import Box from '../Box'
 
 const animation = (theme) => keyframes`
   0% {
@@ -16,11 +16,11 @@ const Skeleton = (props) => {
 
   return (
     <Box
-      {...props}
       bg="primary.accent-1"
       css={css`
         animation: ${animation(theme)} 1s ease-in-out alternate infinite;
       `}
+      {...props}
     />
   )
 }

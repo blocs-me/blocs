@@ -14,7 +14,7 @@ import { AnalyticsBarChartProvider } from '@/widgets/AnalyticsBarChart/useAnalyt
 const timePeriod = 'monthly'
 
 const Tooltip = ({ value }: TooltipData) => {
-  return <div>{value} hrs</div>
+  return <Box color="foreground">{value} hrs</Box>
 }
 
 const renderTooltip = (props: TooltipData) => <Tooltip {...props} />

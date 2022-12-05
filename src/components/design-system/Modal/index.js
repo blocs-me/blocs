@@ -1,24 +1,24 @@
 /** @jsxImportSource @emotion/react */
-import { useRouter } from "next/router"
-import { useEffect, useRef } from "react" 
-import { createPortal } from "react-dom"
-import BackArrow from "../../../icons/back-arrow-dark.svg"
-import fadeIn from "@/keyframes/fadeIn"
-import Icon from "@/helpers/Icon"
-import { PageGutters } from "@/helpers/PageLayout"
-import Flex from "@/helpers/Flex"
-import Box from "@/helpers/Box"
-import { useClickOutside } from "@/hooks/useClickOutside"
+import { useRouter } from 'next/router'
+import { useEffect, useRef } from 'react'
+import { createPortal } from 'react-dom'
+import BackArrow from '../../../icons/back-arrow-dark.svg'
+import fadeIn from 'src/styles/keyframes/fadeIn'
+import Icon from '@/helpers/Icon'
+import { PageGutters } from '@/helpers/PageLayout'
+import Flex from '@/helpers/Flex'
+import Box from '@/helpers/Box'
+import { useClickOutside } from '@/hooks/useClickOutside'
 
 const Modal = ({
   children,
   visible = false,
   hideModal = () => {},
   backButton = false,
-  redirectTo = "/",
+  redirectTo = '/'
 }) => {
   const ref = useRef(null)
-  const container = global.window ? document.createElement("div") : false
+  const container = global.window ? document.createElement('div') : false
   const router = useRouter()
 
   const handleExit = () => {
@@ -28,11 +28,11 @@ const Modal = ({
 
   useClickOutside({
     element: ref,
-    onClickOutside: hideModal,
+    onClickOutside: hideModal
   })
 
   useEffect(() => {
-    const root = global.window ? document.querySelector("body") : null
+    const root = global.window ? document.querySelector('body') : null
     root.appendChild(container)
 
     return () => {
@@ -53,18 +53,18 @@ const Modal = ({
       zIndex="modal"
       bg="rgba(0,0,0,0.2)"
       css={{
-        backdropFilter: "blur(5px) saturate(50%)",
-        animation: `${fadeIn} 1.5s ease forwards`,
+        backdropFilter: 'blur(5px) saturate(50%)',
+        animation: `${fadeIn} 1.5s ease forwards`
       }}
     >
       <PageGutters width="100%" height="100%">
         <Flex width="100%" height="100%">
-          <div ref={ref} css={{ margin: "auto" }}>
+          <div ref={ref} css={{ margin: 'auto' }}>
             <Box
               borderRadius="lg"
               boxShadow="lg"
               p="md"
-              minWidth={["100%", "100%", "300px", "400px"]}
+              minWidth={['100%', '100%', '300px', '400px']}
               bg="background"
               position="relative"
             >

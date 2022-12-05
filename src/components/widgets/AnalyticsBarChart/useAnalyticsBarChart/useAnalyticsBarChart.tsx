@@ -1,4 +1,4 @@
-import makeStore from 'src/lib/makeStore'
+import makeStore from '@/utils/makeStore'
 import { BarChartProps } from '../../../design-system/BarChart/types'
 import { AnalyticsActions } from './types'
 import { Dispatch } from 'react'

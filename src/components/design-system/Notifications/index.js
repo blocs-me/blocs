@@ -1,5 +1,5 @@
 import { useTheme } from '@emotion/react'
-import slideIn from '@/keyframes/slideIn'
+import slideIn from 'src/styles/keyframes/slideIn'
 import Flex from '@/helpers/Flex'
 import Text from '@/design-system/Text'
 
@@ -15,9 +15,9 @@ const getNotifBgColor = (theme, notifType) => {
       return theme.colors.danger
     case INFO_NOTIF:
     case SUCCESS_NOTIF:
-      return theme.colors.success
+      return theme.colors.success.dark
     default:
-      return theme.colors.success
+      return theme.colors.success.dark
   }
 }
 
@@ -45,7 +45,7 @@ const NotifItem = ({ type, content = '', isLastItem }) => {
         alignItems="center"
         justifyContent="center"
         p="xs"
-        color="primary.accent-1"
+        color="neutral.white"
         style={{
           transform: !isLastItem ? 'scale(0.9) translateY(10px)' : 'none',
           opacity: isLastItem ? 1 : 0.7
@@ -82,7 +82,10 @@ const NotifContainer = (props) => {
       width="100%"
       justifyContent="center"
       p="sm"
-      css={{ transform: 'translate(-50%)' }}
+      css={{
+        transform: 'translate(-50%)',
+        display: notifs.length ? 'flex' : 'none'
+      }}
       {...props}
     >
       <Flex flexDirection="column" position="relative" alignItems="center">
