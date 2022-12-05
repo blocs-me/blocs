@@ -1,5 +1,4 @@
 import makeStore from '@/utils/makeStore'
-import getLocationHash from '../../../../../hooks/useUrlHash/getUrlHash'
 
 const initialState = {
   role: '',

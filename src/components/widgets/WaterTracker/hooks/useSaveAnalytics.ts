@@ -7,7 +7,7 @@ import useWaterTrackerSettings from './useWaterTrackerSettings'
 
 const useSaveAnalytics = () => {
   const hash = useUrlHash() as UrlHash
-  const path = `${WATER_TRACKER_ANALYTICS_PATH}?widgetToken=${hash['#token']}`
+  const path = `${WATER_TRACKER_ANALYTICS_PATH}?widgetToken=${hash['token']}`
   const notifs = useNotifications()
 
   const postAnalytics = async (waterConsumed: number) => {

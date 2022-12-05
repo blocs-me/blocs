@@ -18,11 +18,11 @@ const useWaterLatestTrackerAnalytics = () => {
   const isoDateString = today.toISOString().split('T')[0]
   const epochTime = today.getTime()
   const hash = useUrlHash() as UrlHash
-  const token = hash['#token']
+  const token = hash['token']
   const path = useMemo(
     () =>
       `${WATER_TRACKER_ANALYTICS_PATH}?widgetToken=${token}&role=${hash.role}&isoDateString=${isoDateString}&date=${epochTime}`,
-    [isoDateString]
+    [isoDateString, hash]
   )
 
   const swrResponse = useSWR<Response>(path, fetcher)

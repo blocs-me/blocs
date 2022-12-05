@@ -10,7 +10,7 @@ import { literToOunce } from '../../../../utils/math/literToOunce'
 
 const usePatchWaterTrackerSettings = () => {
   const hash = useUrlHash()
-  const path = `${WATER_TRACKER_SETTINGS_PATH}?widgetType=WATER_TRACKER&widgetToken=${hash['#token']}`
+  const path = `${WATER_TRACKER_SETTINGS_PATH}?widgetType=WATER_TRACKER&widgetToken=${hash['token']}`
   const [body, setBody] = useState({})
   const [loadingUnits, setLoadingUnits] = useState(false)
   const [loadingGoal, setLoadingGoal] = useState(false)

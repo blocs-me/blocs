@@ -16,7 +16,7 @@ const WaterTracker = () => {
   const { NotifProvider } = useNotifications()
   const { hash, URLHashProvider } = useInitUrlHash<{
     role: string
-    '#token': string
+    token: string
   }>()
 
   return (

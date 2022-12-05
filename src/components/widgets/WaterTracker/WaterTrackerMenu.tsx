@@ -61,7 +61,7 @@ const WaterTrackerMenu = () => {
   const copyShareableLink = async () => {
     try {
       const data = await fetchShareableLink()
-      const shareableLink = `${window.location.origin}/water-tracker#token=${data.shareableToken}&role=friend`
+      const shareableLink = `${window.location.origin}/water-tracker?token=${data.shareableToken}&role=friend`
       window.navigator.clipboard.writeText(shareableLink)
       notifs.createInfo('The link has been copied')
     } catch (err) {
