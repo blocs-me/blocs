@@ -23,12 +23,12 @@ import useDarkMode from '@/hooks/useDarkMode'
 import useColorMode from '../../../hooks/useColorMode/index'
 import Sun from 'src/icons/sun'
 import { Theme } from '../../../styles/theme'
+import { useRouter } from 'next/router'
 
 const hideOnHoverEls = css`
   opacity: var(--opacity);
   transition: opacity 0.3s ease;
 `
-// TODO: fetch + restore saved data
 const WaterTrackerMainPage = () => {
   const [progress, setProgress] = useState(0)
   const theme = useTheme() as Theme
@@ -36,7 +36,7 @@ const WaterTrackerMainPage = () => {
   const { colorMode, setTheme, setBackground } = useColorMode()
   const isDarkMode = (() =>
     colorMode === 'dark' || (prefersDark && colorMode === 'auto'))()
-  const { role } = useUrlHash<UrlHash>()
+  const { role } = useRouter().query as UrlHash
   const isBlocsUser = role === 'blocs-user'
   const { data: settings, error: settingsError } = useWaterTrackerSettings()
   const units = settings?.data?.units || 'liter'
