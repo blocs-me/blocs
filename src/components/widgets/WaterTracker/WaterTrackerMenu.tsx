@@ -18,6 +18,7 @@ import useUrlHash from '@/hooks/useUrlHash/useUrlHash'
 import { UrlHash } from './types'
 import useDarkMode from '@/hooks/useDarkMode'
 import Sun from '../../../icons/sun'
+import { useRouter } from 'next/router'
 
 const colorModeText = {
   dark: 'Dark Mode',
@@ -33,7 +34,7 @@ const WaterTrackerMenu = () => {
   const { fetcher: fetchShareableLink } = useFetchShareableLink()
   const { data: settings, mutate: mutateSettings } = useWaterTrackerSettings()
   const { patchUnits, loadingUnits } = usePatchWaterTrackerSettings()
-  const { role } = useUrlHash() as UrlHash
+  const { role } = useRouter().query as UrlHash
 
   const [openGoalModal, setOpenGoalModal] = useState(false)
 

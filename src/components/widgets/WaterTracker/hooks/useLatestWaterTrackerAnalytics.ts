@@ -4,6 +4,7 @@ import { WATER_TRACKER_ANALYTICS_PATH } from '@/utils/endpoints'
 import fetcher from '@/utils/fetcher'
 import useSWR from 'swr'
 import { UrlHash } from '../types'
+import { useRouter } from 'next/router'
 
 type Response = {
   data: {
@@ -17,12 +18,12 @@ const useWaterLatestTrackerAnalytics = () => {
   const today = new Date()
   const isoDateString = today.toISOString().split('T')[0]
   const epochTime = today.getTime()
-  const hash = useUrlHash() as UrlHash
-  const token = hash['#token']
+  const hash = useRouter().query as UrlHash
+  const token = hash['token']
   const path = useMemo(
     () =>
       `${WATER_TRACKER_ANALYTICS_PATH}?widgetToken=${token}&role=${hash.role}&isoDateString=${isoDateString}&date=${epochTime}`,
-    [isoDateString]
+    [isoDateString, hash]
   )
 
   const swrResponse = useSWR<Response>(path, fetcher)
