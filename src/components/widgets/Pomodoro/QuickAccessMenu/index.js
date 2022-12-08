@@ -45,7 +45,7 @@ const links = [
   }
 ]
 
-// TODO: revisit <Notch /> component
+// =: revisit <Notch /> component
 const TinyMenu = forwardRef((props, ref) => {
   const { iconRef, menuDimensions } = props
   const container = global.window ? document.createElement('div') : null

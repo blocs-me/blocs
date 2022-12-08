@@ -28,7 +28,6 @@ const hideOnHoverEls = css`
   opacity: var(--opacity);
   transition: opacity 0.3s ease;
 `
-// TODO: fetch + restore saved data
 const WaterTrackerMainPage = () => {
   const [progress, setProgress] = useState(0)
   const theme = useTheme() as Theme
