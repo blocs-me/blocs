@@ -163,7 +163,7 @@ const HabitTrackerMainPage = ({ isAnalyticsHidden = false }) => {
               <BorderedBox p="xs" css={{ flex: 1 }}>
                 <DonutChart
                   background="primary.accent-2"
-                  foreground={isDarkMode ? 'url(#dm-gradient)' : '#3956ED'}
+                  foreground={isDarkMode ? 'url(#dm-gradient)' : '#3957edc6'}
                   textColor="foreground"
                   strokeWidthInner={3}
                   strokeWidthOuter={10}
