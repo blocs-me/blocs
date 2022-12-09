@@ -9,7 +9,7 @@ import themeGet from '@styled-system/theme-get'
 type Props = {
   isChecked: boolean
   text: string
-  value: string
+  id: string
   onChange: (val: string) => void
 }
 
@@ -35,11 +35,11 @@ const StrikeThrough = styled.div`
   }
 `
 
-const CheckboxWithText = ({ isChecked, value, onChange, text }: Props) => {
+const CheckboxWithText = ({ isChecked, onChange, id, text }: Props) => {
   const handleClick = (e: MouseEvent<HTMLDivElement>) => {
     e.preventDefault()
     e.stopPropagation()
-    onChange(value)
+    onChange(id)
   }
 
   return (

@@ -6,31 +6,14 @@ import ScrollProvider from '@/design-system/ScrollProvider'
 import Stack from '@/helpers/Stack'
 import Box from '@/helpers/Box'
 import FadeProvider from '@/design-system/FadeProvider'
-import {
-  MouseEvent,
-  ReactNode,
-  UIEvent,
-  useEffect,
-  useRef,
-  useState
-} from 'react'
+import { ReactNode, UIEvent, useState } from 'react'
 import { IBox } from '@/helpers/Box/Box.types'
-import { Theme } from 'src/styles/theme'
 
 import useColorMode from '@/hooks/useColorMode'
 import useDarkMode from '@/hooks/useDarkMode'
 import useMediaQuery from '@/hooks/useMediaQuery'
 import FadeIn from '@/helpers/FadeIn'
 import { useDebouncedFn } from 'beautiful-react-hooks'
-
-const donutDarkTheme = (theme: Theme) => ({
-  ...theme,
-  colors: {
-    ...theme.colors,
-    donutFill:
-      'conic-gradient(from 238.8deg at 50.07% 50.07%, #28D9E4 0deg, #00F0FF 120deg, #1E78CC 241.88deg, #28D9E4 360deg)'
-  }
-})
 
 const BorderedBox = ({
   children,
@@ -60,7 +43,18 @@ const formatDate = new Intl.DateTimeFormat('en', {
   year: 'numeric'
 }).format
 
-const data = Array(10).fill('')
+const data = [
+  {
+    isDone: true,
+    title: 'Learn german 2 hrs',
+    id: '12314'
+  },
+  {
+    isDone: false,
+    title: 'Study Docker 1 hr',
+    id: '123214'
+  }
+]
 
 const HabitTrackerMainPage = ({ isAnalyticsHidden = false }) => {
   const today = formatDate(new Date())
@@ -70,6 +64,26 @@ const HabitTrackerMainPage = ({ isAnalyticsHidden = false }) => {
   const isDarkMode =
     (colorMode === 'auto' && isSystemDM) || colorMode === 'dark'
   const isSmallScreen = useMediaQuery('(max-width: 600px)')
+  const [checkedValues, setCheckedValues] = useState<string[]>([])
+
+  const handleOnChange = (habitId: string) => {
+    if (checkedValues.includes(habitId)) {
+      const index = checkedValues.indexOf(habitId)
+
+      setCheckedValues([
+        // TODO: optimisitc update instead
+        ...checkedValues.slice(0, index),
+        ...checkedValues.slice(index + 1)
+      ])
+
+      // persist data
+
+      return null
+    }
+    setCheckedValues([...checkedValues, habitId]) // TODO: optimisitc update instead
+
+    // persist data
+  }
 
   const [hideTopFade, setHideTopFade] = useState(true)
   const handleScroll = useDebouncedFn((e: UIEvent<HTMLDivElement>, hide) => {
@@ -125,12 +139,12 @@ const HabitTrackerMainPage = ({ isAnalyticsHidden = false }) => {
               pr="md"
             >
               <Stack mt="sm" width="100%">
-                {data.map((_, i) => (
+                {data.map((d, i) => (
                   <CheckboxWithText
-                    isChecked={i % 4 === 0}
+                    isChecked={checkedValues.includes(d.id)}
                     text="Study German 2 hrs"
-                    value=""
-                    onChange={() => {}}
+                    id={d.id}
+                    onChange={(id) => handleOnChange(id)}
                     key={i}
                   />
                 ))}
@@ -198,5 +212,3 @@ const HabitTrackerMainPage = ({ isAnalyticsHidden = false }) => {
 }
 
 export default HabitTrackerMainPage
-
-export {}
