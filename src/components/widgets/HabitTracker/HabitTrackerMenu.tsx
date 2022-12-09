@@ -11,6 +11,8 @@ import Sun from 'src/icons/sun'
 import useColorMode from '../../../hooks/useColorMode/index'
 import EyeOpened from '../../../icons/eye-opened'
 import storage from '@/utils/storage'
+import useFetchShareableLink from '@/hooks/useFetchShareableLink'
+import useNotifications from '../../design-system/Notifications/useNotifications'
 
 const colorModeText = {
   dark: 'Dark Mode',
@@ -32,8 +34,21 @@ const HabitTrackerMenu = ({
     storage.setItem('isAnalyticsHidden', JSON.stringify(!isAnalyticsHidden))
     hideAnalytics(!isAnalyticsHidden)
   }
+  const notifs = useNotifications()
 
-  const copyShareableLink = () => {}
+  const { fetcher: fetchShareableLink, loading: isShareLinkLoading } =
+    useFetchShareableLink('HABIT_TRACKER')
+  const copyShareableLink = async () => {
+    try {
+      const data = await fetchShareableLink()
+      const shareableLink = `${window.location.origin}/habit-tracker?token=${data.shareableToken}&role=friend`
+      window.navigator.clipboard.writeText(shareableLink)
+      notifs.createInfo('The link has been copied')
+    } catch (err) {
+      console.log(err)
+      notifs.createError("Oops ! we couldn't create the link")
+    }
+  }
 
   const handleThemeChange = () => {
     const modes = ['dark', 'light', 'auto']
@@ -71,6 +86,7 @@ const HabitTrackerMenu = ({
           </ButtonGroupButton>
 
           <ButtonGroupButton
+            disabled={isShareLinkLoading}
             icon={<LinkIcon />}
             onClick={() => copyShareableLink()}
           >

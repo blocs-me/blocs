@@ -98,13 +98,13 @@ const HabitTrackerMainPage = ({ isAnalyticsHidden = false }) => {
   }, 10)
 
   return (
-    <FadeIn css={{ width: '100%' }}>
+    <FadeIn css={{ width: '100%', height: '100%' }}>
       <Flex
         justifyContent="center"
         width="100%"
         height="100%"
         overflow="hidden"
-        alignItems={isSmallScreen ? 'center' : 'start'}
+        alignItems={isSmallScreen ? 'start' : 'stretch'}
       >
         <Flex flexDirection="column" minWidth="250px" justfyContent="center">
           <Flex flexDirection="column">
@@ -157,24 +157,19 @@ const HabitTrackerMainPage = ({ isAnalyticsHidden = false }) => {
         </Flex>
 
         {!isSmallScreen && !isAnalyticsHidden && (
-          <Flex
-            flexDirection="column"
-            justifyContent="space-between"
-            ml="md"
-            css={{ gap: '0.5rem' }}
-          >
-            <BorderedBox p="sm" css={{ flex: 1 }}>
-              <Text color="foreground" fontSize="xs" fontWeight={200} m={0}>
+          <Flex flexDirection="column" justifyContent="space-between" ml="md">
+            <BorderedBox p="sm">
+              <Text color="foreground" fontSize={'xs'} fontWeight={200} m={0}>
                 {today}
               </Text>
             </BorderedBox>
-            <BorderedBox p="sm" css={{ flex: 1 }}>
+            <BorderedBox p="sm">
               <Text color="foreground" fontSize="xs" fontWeight={200} m={0}>
                 Your best streak was 98 day
               </Text>
             </BorderedBox>
             <Box position="relative">
-              <BorderedBox p="xs" css={{ flex: 1 }}>
+              <BorderedBox p="xs">
                 <DonutChart
                   background="primary.accent-2"
                   foreground={isDarkMode ? 'url(#dm-gradient)' : '#3957edc6'}

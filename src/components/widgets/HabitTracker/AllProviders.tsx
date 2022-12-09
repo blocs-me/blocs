@@ -1,11 +1,10 @@
 import { ColorModeProvider } from '@/hooks/useColorMode'
-import { URLHashProvider } from '@/hooks/useUrlHash/useUrlHash'
 import { ReactNode } from 'react'
 import WidgetPage from '../WidgetPage'
 import { useInitUrlHash } from '../../../hooks/useUrlHash/useUrlHash'
 
 const AllProviders = ({ children }: { children: ReactNode }) => {
-  const hash = useInitUrlHash()
+  const { hash, URLHashProvider } = useInitUrlHash()
 
   return (
     <URLHashProvider hash={hash}>

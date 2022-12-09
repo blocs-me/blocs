@@ -9,7 +9,7 @@ import LinkIcon from 'src/icons/link-icon'
 import useColorMode from '../../../hooks/useColorMode/index'
 import useNotifications from '@/design-system/Notifications/useNotifications'
 import FadeIn from '@/helpers/FadeIn'
-import useFetchShareableLink from './hooks/useFetchShareableLink'
+import useFetchShareableLink from '../../../hooks/useFetchShareableLink'
 import useWaterTrackerSettings from './hooks/useWaterTrackerSettings'
 import usePatchWaterTrackerSettings from './hooks/usePatchSettings'
 import UpdateGoalModal from './UpdateGoalModal'
@@ -30,7 +30,7 @@ const WaterTrackerMenu = () => {
   const { colorMode, setTheme, setBackground } = useColorMode()
   const isDarkMode = (() =>
     colorMode === 'dark' || (prefersDark && colorMode === 'auto'))()
-  const { fetcher: fetchShareableLink } = useFetchShareableLink()
+  const { fetcher: fetchShareableLink } = useFetchShareableLink('WATER_TRACKER')
   const { data: settings, mutate: mutateSettings } = useWaterTrackerSettings()
   const { patchUnits, loadingUnits } = usePatchWaterTrackerSettings()
   const { role } = useUrlHash() as UrlHash

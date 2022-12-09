@@ -19,6 +19,15 @@ const createShareableWidgetToken = async (
       return null
     })
 
+  if (!widget) {
+    res.status(404).json({
+      error: {
+        message: 'Widget was not found'
+      }
+    })
+    return null
+  }
+
   const shouldCreateToken =
     !widget?.data?.shareableToken && widget?.data?.type === widgetType
 
