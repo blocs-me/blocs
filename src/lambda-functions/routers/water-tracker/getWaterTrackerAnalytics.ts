@@ -66,6 +66,7 @@ const getWaterTrackerAnalytics = async (
               waterConsumed: 0,
               isoDateString: isoDateString,
               lastUpdatedAt: Number(date),
+              createdAt: q.Date(isoDateString),
               widgetRef: widget.ref
             }
           })

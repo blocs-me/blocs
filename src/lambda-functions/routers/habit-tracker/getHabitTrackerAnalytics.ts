@@ -1,18 +1,23 @@
 import faunaClient from '@/lambda/faunaClient'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { query as q } from 'faunadb'
+import { calculateAndUpdateStreak } from './calculateAndUpdateStreak'
 
 const getHabitTrackerAnalytics = async (
   req: NextApiRequest,
   res: NextApiResponse
 ) => {
-  const { widgetToken, role, isoDateString } = req.query
+  const { widgetToken, role, isoDateString } = req.query as {
+    widgetToken: string
+    role: 'friend' | 'blocs-user'
+    isoDateString: string
+  }
 
   const widgetIndexKey =
-    role === 'friend' ? 'widget_by_shareable_token' : 'widget_by_token'
+    role === 'blocs-user' ? 'widget_by_token' : 'widget_by_shareable_token'
 
   const widget = await faunaClient
-    .query(q.Get(q.Match(q.Index(widgetIndexKey, widgetToken))))
+    .query(q.Get(q.Match(q.Index(widgetIndexKey), widgetToken)))
     .then((data) => data)
     .catch((error) => {
       console.error(error)
@@ -48,7 +53,9 @@ const getHabitTrackerAnalytics = async (
     res.status(200).json({
       data: {
         percentDone: existingAnalyticsDoc?.data?.percentDone,
-        habitsDone: existingAnalyticsDoc?.data?.habitsDone
+        habitsDone: existingAnalyticsDoc?.data?.habitsDone,
+        bestStreak: widget?.data?.bestStreak,
+        currentStreak: widget?.data?.currentStreak
       }
     })
 
@@ -63,7 +70,8 @@ const getHabitTrackerAnalytics = async (
             habitsDone: [],
             percentDone: 0,
             isoDateString,
-            widgetRef: widget.ref
+            widgetRef: widget.ref,
+            createdAt: q.Date(isoDateString)
           }
         })
       )
@@ -78,14 +86,27 @@ const getHabitTrackerAnalytics = async (
       throw error
     }
 
+    const streaks = await calculateAndUpdateStreak(0, widget, isoDateString)
+
     res.status(200).json({
       status: 200,
       data: {
         percentDone: newData?.data?.percentDone,
-        habitsDone: newData?.data?.habitsDone
+        habitsDone: newData?.data?.habitsDone,
+        bestStreak: streaks?.data?.bestStreak,
+        currentStreak: streaks?.data?.currentStreak
       }
     })
-  } catch (error) {}
+  } catch (error) {
+    console.error(error)
+
+    res.status(500).json({
+      status: 500,
+      error: {
+        message: 'This is on us ! Something went wrong on our servers'
+      }
+    })
+  }
 }
 
 export default getHabitTrackerAnalytics

@@ -1,9 +1,8 @@
 import useNotifications from '@/design-system/Notifications/useNotifications'
 import useUrlHash from '@/hooks/useUrlHash/useUrlHash'
 import { WATER_TRACKER_ANALYTICS_PATH } from '@/utils/endpoints'
-import { useCallback } from 'react'
 import { UrlHash } from '../types'
-import useWaterTrackerSettings from './useWaterTrackerSettings'
+import { getCurrentISOString } from '../../../../utils/dateUtils/getCurrentISOString'
 
 const useSaveAnalytics = () => {
   const hash = useUrlHash() as UrlHash
@@ -13,7 +12,7 @@ const useSaveAnalytics = () => {
   const postAnalytics = async (waterConsumed: number) => {
     const now = new Date()
     const date = now.getTime()
-    const isoDateString = now.toISOString().split('T')[0]
+    const isoDateString = getCurrentISOString()
 
     try {
       await fetch(path, {

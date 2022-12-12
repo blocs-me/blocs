@@ -20,3 +20,5 @@ export const WATER_TRACKER_SETTINGS_PATH = getPath(
 export const WATER_TRACKER_ANALYTICS_PATH = getPath(
   '/widget/water-tracker/analytics'
 )
+export const HABITS_PATH = getPath('/widget/habit-tracker/habits')
+export const HABITS_ANALYTICS_PATH = getPath('/widget/habit-tracker/analytics')

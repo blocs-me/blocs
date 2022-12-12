@@ -1,10 +1,10 @@
 export const getPercent = (
   denomination: number,
   total: number,
-  format?: 'round' | 'toFixedTwo'
+  format?: 'round' | 'toFixedTwo' | 'floor'
 ) => {
   const formatter = (() => {
-    if (format === 'round') return Math.round
+    if (['round', 'floor', 'ceil'].includes(format)) return Math[format]
     if (format === 'toFixedTwo') return (num: number) => num.toFixed(2)
     return (num: number) => num
   })()

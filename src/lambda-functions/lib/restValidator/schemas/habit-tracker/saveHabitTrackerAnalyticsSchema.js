@@ -9,7 +9,8 @@ const saveHabitTrackerAnalyticsSchema = {
       items: { type: 'string' }
     }
   },
-  required: ['habit']
+  required: ['habitIds', 'isoDateString'],
+  additionalProperties: false
 }
 
 export default saveHabitTrackerAnalyticsSchema

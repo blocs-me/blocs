@@ -5,12 +5,12 @@ const habitTrackerQueryParams = {
       type: 'string'
     },
     role: {
-      type: 'string',
       enum: ['friend', 'blocs-user']
     },
     isoDateString: {
       type: 'string'
     }
   },
-  required: ['widgetToken']
+  required: ['widgetToken', 'role'],
+  additionalProperties: false
 }

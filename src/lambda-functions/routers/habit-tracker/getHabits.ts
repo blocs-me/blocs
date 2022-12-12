@@ -5,7 +5,7 @@ const getHabits = async (req, res) => {
   const { widgetToken, role } = req.query
 
   const widgetIndexKey =
-    role === 'friend' ? 'widget_by_shareable_token' : 'widget_by_token'
+    role === 'blocs-user' ? 'widget_by_token' : 'widget_by_shareable_token'
 
   const widget = await faunaClient
     .query(q.Get(q.Match(q.Index(widgetIndexKey), widgetToken)))
@@ -26,9 +26,7 @@ const getHabits = async (req, res) => {
 
   res.status(200).json({
     status: 200,
-    data: {
-      habits: widget.data.habits
-    }
+    data: widget.data.habits
   })
 }
 

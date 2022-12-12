@@ -6,7 +6,7 @@ import ScrollProvider from '@/design-system/ScrollProvider'
 import Stack from '@/helpers/Stack'
 import Box from '@/helpers/Box'
 import FadeProvider from '@/design-system/FadeProvider'
-import { ReactNode, UIEvent, useState } from 'react'
+import { ReactNode, UIEvent, useEffect, useState } from 'react'
 import { IBox } from '@/helpers/Box/Box.types'
 
 import useColorMode from '@/hooks/useColorMode'
@@ -14,6 +14,10 @@ import useDarkMode from '@/hooks/useDarkMode'
 import useMediaQuery from '@/hooks/useMediaQuery'
 import FadeIn from '@/helpers/FadeIn'
 import { useDebouncedFn } from 'beautiful-react-hooks'
+import { useFetchHabits } from './hooks/useFetchHabits'
+import useFetchHabitsAnalytics from './hooks/useFetchHabitsAnalytics'
+import useSaveHabitsAnalytics from './hooks/useSaveHabitsAnalytics'
+import { getCurrentISOString } from '../../../utils/dateUtils/getCurrentISOString'
 
 const BorderedBox = ({
   children,
@@ -43,46 +47,20 @@ const formatDate = new Intl.DateTimeFormat('en', {
   year: 'numeric'
 }).format
 
-const data = [
-  {
-    isDone: true,
-    title: 'Learn german 2 hrs',
-    id: '12314'
-  },
-  {
-    isDone: false,
-    title: 'Study Docker 1 hr',
-    id: '123214'
-  }
-]
-
 const HabitTrackerMainPage = ({ isAnalyticsHidden = false }) => {
   const today = formatDate(new Date())
-  const todayISO = new Date().toISOString()
+  const todayISO = getCurrentISOString()
   const { colorMode } = useColorMode()
   const isSystemDM = useDarkMode()
   const isDarkMode =
     (colorMode === 'auto' && isSystemDM) || colorMode === 'dark'
   const isSmallScreen = useMediaQuery('(max-width: 600px)')
-  const [checkedValues, setCheckedValues] = useState<string[]>([])
+  const { data: habits, error: habitsError } = useFetchHabits()
+  const { data: analyticsData } = useFetchHabitsAnalytics()
+  const saveHabits = useSaveHabitsAnalytics()
 
   const handleOnChange = (habitId: string) => {
-    if (checkedValues.includes(habitId)) {
-      const index = checkedValues.indexOf(habitId)
-
-      setCheckedValues([
-        // TODO: optimisitc update instead
-        ...checkedValues.slice(0, index),
-        ...checkedValues.slice(index + 1)
-      ])
-
-      // persist data
-
-      return null
-    }
-    setCheckedValues([...checkedValues, habitId]) // TODO: optimisitc update instead
-
-    // persist data
+    saveHabits(habitId)
   }
 
   const [hideTopFade, setHideTopFade] = useState(true)
@@ -139,13 +117,13 @@ const HabitTrackerMainPage = ({ isAnalyticsHidden = false }) => {
               pr="md"
             >
               <Stack mt="sm" width="100%">
-                {data.map((d, i) => (
+                {habits?.data?.map((d) => (
                   <CheckboxWithText
-                    isChecked={checkedValues.includes(d.id)}
-                    text="Study German 2 hrs"
+                    isChecked={analyticsData?.data?.habitsDone?.includes(d.id)}
+                    text={d.title}
                     id={d.id}
                     onChange={(id) => handleOnChange(id)}
-                    key={i}
+                    key={d.id}
                   />
                 ))}
                 <Box />

@@ -1,11 +1,12 @@
 import faunaClient from '@/lambda/faunaClient'
 import { validateHabitTrackerAnalytics } from '@/lambda/lib/restValidator/jsonValidator'
-import { query as q } from 'faunadb'
-import { HabitItem } from 'src/global-types/habit-tracker'
+import { query as q, query } from 'faunadb'
 import { getPercent } from '../../../utils/math/getPercent'
+import { calculateAndUpdateStreak } from './calculateAndUpdateStreak'
 
 const saveHabitTrackerAnalytics = async (req, res) => {
   const isValid = validateHabitTrackerAnalytics(req.body)
+  const { role } = req.query
 
   if (!isValid) {
     res.status(400).json({
@@ -23,7 +24,7 @@ const saveHabitTrackerAnalytics = async (req, res) => {
   const { widgetToken } = req.query
   const { habitIds, isoDateString } = req.body
 
-  const widgetIndexKey = 'widget_by_token'
+  const widgetIndexKey = role === 'blocs-user' ? 'widget_by_token' : null
 
   const widget = await faunaClient
     .query(q.Get(q.Match(q.Index(widgetIndexKey), widgetToken)))
@@ -59,8 +60,8 @@ const saveHabitTrackerAnalytics = async (req, res) => {
     })
 
   const allHabits = widget.data.habits
-  const habitsBelongsToUser = allHabits.every((habit) =>
-    habitIds.includes(habit.id)
+  const habitsBelongsToUser = habitIds.every((habitId) =>
+    allHabits.find((realHabit) => realHabit.id === habitId)
   )
 
   if (!habitsBelongsToUser) {
@@ -73,23 +74,28 @@ const saveHabitTrackerAnalytics = async (req, res) => {
   }
 
   if (existingAnalyticsDoc) {
-    const prevDoneHabits = existingAnalyticsDoc.data.completedHabits.filter(
-      (id: string) => !!allHabits.find((habit: HabitItem) => habit.id === id)
-    )
+    const percentDone = getPercent(habitIds.length, allHabits.length, 'floor')
 
-    const percentDone = getPercent(
-      prevDoneHabits.length + 1,
-      allHabits.length,
-      'toFixedTwo'
-    )
+    const habitsDone = habitIds
 
-    const habitsDone = [...prevDoneHabits, ...habitIds]
+    const streaks = await calculateAndUpdateStreak(
+      percentDone,
+      widget,
+      isoDateString
+    )
+      .then((data) => data)
+      .catch((error) => {
+        console.error(error)
+        return widget
+      })
 
     const updatedData = await faunaClient
       .query(
         q.Update(existingAnalyticsDoc.ref, {
-          habitsDone,
-          percentDone
+          data: {
+            habitsDone,
+            percentDone
+          }
         })
       )
       .then((data) => data as { data: any })
@@ -98,60 +104,19 @@ const saveHabitTrackerAnalytics = async (req, res) => {
         return null
       })
 
-    const yesterdayISOStr = (() => {
-      const date = new Date(isoDateString)
-      date.setDate(date.getDate() - 1)
-      return date.toISOString().split('T')[0]
-    })()
-
-    if (
-      percentDone === 100 &&
-      widget.data.streakLastUpdated === yesterdayISOStr
-    ) {
-      const currentStreak = widget.data.currentStreak + 1
-
-      await faunaClient.query(
-        q.Update(widget.ref, {
-          data: {
-            streakLastUpdated: isoDateString,
-            currentStreak,
-            bestStreak:
-              currentStreak > widget.data.bestStreak
-                ? currentStreak
-                : widget.data.bestStreak
-          }
-        })
-      )
-    }
-
-    if (percentDone < 100 && widget.data.streakLastUpdated === isoDateString) {
-      const currentStreak = widget.data.currentStreak - 1
-
-      await faunaClient.query(
-        q.Update(widget.ref, {
-          data: {
-            streakLastUpdated: isoDateString, 
-            currentStreak,
-            bestStreak:
-              currentStreak < widget.data.bestStreak
-                ? currentStreak
-                : widget.data.bestStreak - 1
-          }
-        })
-      )
-    }
-
-    res.status(200).json({
+    return res.status(200).json({
       status: 200,
       data: {
         percentDone: updatedData?.data?.percentDone,
-        habitsDone: updatedData?.data?.habitsDone
+        habitsDone: updatedData?.data?.habitsDone,
+        bestStreak: streaks.data.bestStreak,
+        currentStreak: streaks.data.currentStreak
       }
     })
   }
 
   try {
-    const percentDone = getPercent(1, allHabits.length, 'round')
+    const percentDone = getPercent(1, allHabits.length, 'floor')
     const habitsDone = habitIds
 
     const newAnalyticsData = await faunaClient
@@ -161,7 +126,8 @@ const saveHabitTrackerAnalytics = async (req, res) => {
             habitsDone,
             percentDone,
             isoDateString,
-            widgetRef: widget.ref
+            widgetRef: widget.ref,
+            createdAt: q.Date(isoDateString)
           }
         })
       )
