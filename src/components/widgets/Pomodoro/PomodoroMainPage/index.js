@@ -89,7 +89,7 @@ const PomodoroMainPage = () => {
     if (isLoggedIn && !hideBanner) {
       storage.setItem('blocs-release-banner', 'true')
       notifs.createInfo(
-        'New version of blocs is releasing 8-10 December 🎉🥳',
+        'New version of blocs is releasing 16th December 🎉🥳',
         5000
       )
     }
