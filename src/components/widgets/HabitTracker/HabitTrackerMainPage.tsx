@@ -79,10 +79,6 @@ const HabitTrackerMainPage = ({ isAnalyticsHidden = false }) => {
     if (target.scrollTop === 0) {
       setHideTopFade(true)
     }
-
-    if (hideBottomFade) {
-      setHideBottomFade(false)
-    }
   }, 10)
 
 
