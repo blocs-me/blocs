@@ -57,7 +57,7 @@ const HabitTrackerMainPage = ({ isAnalyticsHidden = false }) => {
   const isDarkMode =
     (colorMode === 'auto' && isSystemDM) || colorMode === 'dark'
   const isSmallScreen = useMediaQuery('(max-width: 600px)')
-  const { data: habits, error: habitsError } = useFetchHabits()
+  const { data: habits } = useFetchHabits()
   const { data: analyticsData } = useFetchHabitsAnalytics()
   const saveHabits = useSaveHabitsAnalytics()
   const donutProgress = useHabitStreakProgress()
@@ -83,15 +83,17 @@ const HabitTrackerMainPage = ({ isAnalyticsHidden = false }) => {
 
 
   useEffect(() => {
-    const scrollHeight = scrollContainer.current.getBoundingClientRect().height
-    const containerHeight = columnOne.current?.getBoundingClientRect().height
+    const scrollHeight = scrollContainer.current.scrollHeight
+    const clientHeight = scrollContainer.current.clientHeight
 
-    if (scrollHeight - containerHeight > 30) {
+    console.log(scrollHeight, clientHeight)
+
+    if (scrollHeight - clientHeight > 30)  {
       setHideBottomFade(false)
     } else {
       setHideBottomFade(true)
     }
-  }, [!habits])
+  }, [habits])
 
 
   return (
@@ -138,7 +140,7 @@ const HabitTrackerMainPage = ({ isAnalyticsHidden = false }) => {
             >
               <Stack mt="sm" width="100%">
                 {<CheckoboxesSkeleton isLoading={!habits} />}
-                {habits?.data?.map((d) => (
+                {habits?.data?.map((d) => ( 
                   <CheckboxWithText
                     isChecked={analyticsData?.data?.habitsDone?.includes(d.id)}
                     text={d.title}
