@@ -6,7 +6,7 @@ import ScrollProvider from '@/design-system/ScrollProvider'
 import Stack from '@/helpers/Stack'
 import Box from '@/helpers/Box'
 import FadeProvider from '@/design-system/FadeProvider'
-import { ReactNode, UIEvent, useEffect, useState } from 'react'
+import { ReactNode, UIEvent, useEffect, useRef, useState } from 'react'
 import { IBox } from '@/helpers/Box/Box.types'
 
 import useColorMode from '@/hooks/useColorMode'
@@ -19,6 +19,7 @@ import useFetchHabitsAnalytics from './hooks/useFetchHabitsAnalytics'
 import useSaveHabitsAnalytics from './hooks/useSaveHabitsAnalytics'
 import { getCurrentISOString } from '../../../utils/dateUtils/getCurrentISOString'
 import useHabitStreakProgress from './hooks/useHabitStreakProgress'
+import CheckoboxesSkeleton from './CheckboxesSkeleton'
 
 const BorderedBox = ({
   children,
@@ -60,12 +61,15 @@ const HabitTrackerMainPage = ({ isAnalyticsHidden = false }) => {
   const { data: analyticsData } = useFetchHabitsAnalytics()
   const saveHabits = useSaveHabitsAnalytics()
   const donutProgress = useHabitStreakProgress()
+  const scrollContainer = useRef<HTMLDivElement>(null)
+  const columnOne = useRef<HTMLDivElement>(null)
 
   const handleOnChange = (habitId: string) => {
     saveHabits(habitId)
   }
 
   const [hideTopFade, setHideTopFade] = useState(true)
+  const [hideBottomFade, setHideBottomFade] = useState(false)
   const handleScroll = useDebouncedFn((e: UIEvent<HTMLDivElement>, hide) => {
     const target = e.target as HTMLDivElement
     if (target.scrollTop > 0 && hide) {
@@ -75,7 +79,24 @@ const HabitTrackerMainPage = ({ isAnalyticsHidden = false }) => {
     if (target.scrollTop === 0) {
       setHideTopFade(true)
     }
+
+    if (hideBottomFade) {
+      setHideBottomFade(false)
+    }
   }, 10)
+
+
+  useEffect(() => {
+    const scrollHeight = scrollContainer.current.getBoundingClientRect().height
+    const containerHeight = columnOne.current?.getBoundingClientRect().height
+
+    if (scrollHeight - containerHeight > 30) {
+      setHideBottomFade(false)
+    } else {
+      setHideBottomFade(true)
+    }
+  }, [!habits])
+
 
   return (
     <FadeIn css={{ width: '100%', height: '100%' }}>
@@ -86,7 +107,7 @@ const HabitTrackerMainPage = ({ isAnalyticsHidden = false }) => {
         overflow="hidden"
         alignItems={isSmallScreen ? 'start' : 'stretch'}
       >
-        <Flex flexDirection="column" minWidth="250px" justfyContent="center">
+        <Flex flexDirection="column" minWidth="250px" justfyContent="center" ref={columnOne}>
           <Flex flexDirection="column">
             <Text
               as="h1"
@@ -113,12 +134,14 @@ const HabitTrackerMainPage = ({ isAnalyticsHidden = false }) => {
 
           <Box position="relative">
             <ScrollProvider
+              ref={scrollContainer}
               onScroll={(e) => handleScroll(e, hideTopFade)}
               maxHeight={isSmallScreen ? '300px' : '325px'}
               mt={isSmallScreen ? 'md' : 'sm'}
               pr="md"
             >
               <Stack mt="sm" width="100%">
+                {<CheckoboxesSkeleton isLoading={!habits} />}
                 {habits?.data?.map((d) => (
                   <CheckboxWithText
                     isChecked={analyticsData?.data?.habitsDone?.includes(d.id)}
@@ -132,7 +155,7 @@ const HabitTrackerMainPage = ({ isAnalyticsHidden = false }) => {
               </Stack>
             </ScrollProvider>
             {!hideTopFade && <FadeProvider position="top" />}
-            <FadeProvider position="bottom" />
+            {!hideBottomFade && <FadeProvider position="bottom" />}
           </Box>
         </Flex>
 
