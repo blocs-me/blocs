@@ -1,9 +1,7 @@
-import useUrlHash from '@/hooks/useUrlHash/useUrlHash'
+import useUrlHash from '@/hooks/useUrlHash'
 import { HABITS_ANALYTICS_PATH } from '@/utils/endpoints'
 import useSWR from 'swr'
 import fetcher from '@/utils/fetcher'
-import getYearMonthDate from '../../../../utils/dateUtils/getYearMonthDate'
-import prefixZero from '@/utils/dateUtils/prefixZero'
 import { getCurrentISOString } from '../../../../utils/dateUtils/getCurrentISOString'
 
 const useFetchHabitsAnalytics = () => {

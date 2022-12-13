@@ -18,6 +18,7 @@ import { useFetchHabits } from './hooks/useFetchHabits'
 import useFetchHabitsAnalytics from './hooks/useFetchHabitsAnalytics'
 import useSaveHabitsAnalytics from './hooks/useSaveHabitsAnalytics'
 import { getCurrentISOString } from '../../../utils/dateUtils/getCurrentISOString'
+import useHabitStreakProgress from './hooks/useHabitStreakProgress'
 
 const BorderedBox = ({
   children,
@@ -58,6 +59,7 @@ const HabitTrackerMainPage = ({ isAnalyticsHidden = false }) => {
   const { data: habits, error: habitsError } = useFetchHabits()
   const { data: analyticsData } = useFetchHabitsAnalytics()
   const saveHabits = useSaveHabitsAnalytics()
+  const donutProgress = useHabitStreakProgress()
 
   const handleOnChange = (habitId: string) => {
     saveHabits(habitId)
@@ -143,7 +145,13 @@ const HabitTrackerMainPage = ({ isAnalyticsHidden = false }) => {
             </BorderedBox>
             <BorderedBox p="sm">
               <Text color="foreground" fontSize="xs" fontWeight={200} m={0}>
-                Your best streak was 98 day
+                Your best streak{' '}
+                {analyticsData?.data?.bestStreak ===
+                analyticsData?.data?.currentStreak
+                  ? 'is'
+                  : 'was'}{' '}
+                {analyticsData?.data?.bestStreak}{' '}
+                {analyticsData?.data?.bestStreak === 1 ? 'day' : 'days'}
               </Text>
             </BorderedBox>
             <Box position="relative">
@@ -154,7 +162,7 @@ const HabitTrackerMainPage = ({ isAnalyticsHidden = false }) => {
                   textColor="foreground"
                   strokeWidthInner={3}
                   strokeWidthOuter={10}
-                  progress={50}
+                  progress={donutProgress || 0}
                   size="100%"
                 />
               </BorderedBox>
@@ -173,7 +181,9 @@ const HabitTrackerMainPage = ({ isAnalyticsHidden = false }) => {
                   m={0}
                   textAlign="center"
                 >
-                  60 days streak
+                  {analyticsData?.data?.currentStreak}{' '}
+                  {analyticsData?.data?.currentStreak === 1 ? 'day' : 'days'}{' '}
+                  streak
                 </Text>
               </Box>
             </Box>
