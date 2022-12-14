@@ -2,7 +2,26 @@ import Box from '@/helpers/Box'
 import Text from '@/design-system/Text'
 import { css } from '@emotion/react'
 
-const InputWrapper = ({ htmlFor, label, children, className, error }) => (
+type Props = {
+  onChange?: (...args: any) => void
+  onBlur?: (...args: any) => void
+  ariaLabel: string
+  name?: string
+  placeholder?: string
+  htmlFor: string
+  type?: string
+  className?: string
+  error?: string
+  label?: string
+} & JSX.IntrinsicElements['input']
+
+const InputWrapper = ({
+  htmlFor,
+  label,
+  children,
+  className,
+  error
+}: Props) => (
   <>
     <Box
       position="relative"

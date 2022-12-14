@@ -7,7 +7,8 @@ const habitSchema = {
     id: {
       type: 'string'
     }
-  }
+  },
+  additionalProperties: false
 }
 
 export default habitSchema

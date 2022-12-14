@@ -17,7 +17,7 @@ const updateWaterTrackerSetting = async (
   const isValid = validateWaterTrackerSettings(settings)
 
   if (!isValid) {
-    console.log('not valid')
+    console.error('Water tracker request body not valid')
     res.status(400).json({
       status: 400,
       error: {

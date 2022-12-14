@@ -16,7 +16,7 @@ export const calculateAndUpdateStreak = async (
     return widget
 
   const yesterdayISOStr = (() => {
-    const yesterday = new Date()
+    const yesterday = new Date(isoDateString)
     yesterday.setDate(yesterday.getDate() - 1)
     return getCurrentISOString(yesterday)
   })()
@@ -76,7 +76,7 @@ export const calculateAndUpdateStreak = async (
     })
   }
 
-  if (percentDone === 100) {
+  if (percentDone === 100 && isoDateString !== currentStreakUpdatedAt) {
     return await handleUpdate({
       currentStreak: currentStreak + 1,
       currentStreakUpdatedAt: isoDateString

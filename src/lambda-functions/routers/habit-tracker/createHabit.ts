@@ -2,6 +2,7 @@ import { validateHabitSchema } from '@/lambda/lib/restValidator/jsonValidator'
 import { NextApiRequest, NextApiResponse } from 'next'
 import faunaClient from '@/lambda/faunaClient'
 import { query as q } from 'faunadb'
+import { getCurrentISOString } from '@/utils/dateUtils/getCurrentISOString'
 
 const createHabit = async (req: NextApiRequest, res: NextApiResponse) => {
   const isValid = validateHabitSchema(req.body)
@@ -15,7 +16,7 @@ const createHabit = async (req: NextApiRequest, res: NextApiResponse) => {
     })
   }
   const habit = req.body
-  const { widgetToken } = req.query
+  const { widgetToken, isoDateString } = req.query
 
   const widgetIndexKey = 'widget_by_token'
 
@@ -36,12 +37,30 @@ const createHabit = async (req: NextApiRequest, res: NextApiResponse) => {
     return null
   }
 
+  const yesterdayISOStr = (() => {
+    const yesterday = new Date(isoDateString as any)
+    yesterday.setDate(yesterday.getDate() - 1)
+    return getCurrentISOString(yesterday)
+  })()
+
+  // reset streak + date so it can be updated again
+  const currentStreak =
+    isoDateString === widget.data.currentStreakUpdatedAt
+      ? widget.data.currentStreak - 1
+      : widget.data.currentStreak
+  const currentStreakUpdatedAt =
+    isoDateString === widget.data.currentStreakUpdatedAt
+      ? yesterdayISOStr
+      : widget.data.currentStreak
+
   const prevHabits = widget.data.habits
 
   try {
     await faunaClient.query(
       q.Update(widget.ref, {
         data: {
+          currentStreak,
+          currentStreakUpdatedAt,
           habits: [
             ...prevHabits,
             {

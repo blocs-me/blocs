@@ -25,4 +25,5 @@ const makeFetch = (method) => (url, opts) =>
 
 export const postReq = makeFetch('POST')
 export const putReq = makeFetch('PUT')
+export const patchReq = makeFetch('PATCH')
 export const deleteReq = makeFetch('DELETE')

@@ -1,6 +1,6 @@
 export const getPercent = (
-  denomination: number,
-  total: number,
+  numerator: number,
+  denominator: number,
   format?: 'round' | 'toFixedTwo' | 'floor'
 ) => {
   const formatter = (() => {
@@ -9,5 +9,5 @@ export const getPercent = (
     return (num: number) => num
   })()
 
-  return formatter((denomination / total) * 100)
+  return formatter((numerator / denominator) * 100)
 }

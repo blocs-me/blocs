@@ -4,7 +4,7 @@ import HabitTrackerPages from './HabitTrackerPages'
 const HabitTracker = () => {
   return (
     <AllProviders>
-      <HabitTrackerPages />
+    <HabitTrackerPages />
     </AllProviders>
   )
 }

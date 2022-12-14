@@ -1,8 +1,8 @@
+import { useState } from 'react'
 import Avatar from '@/design-system/Avatar'
 import ButtonGroup, { ButtonGroupButton } from '@/design-system/ButtonGroup'
 import Box from '@/helpers/Box'
 import FadeIn from '@/helpers/FadeIn'
-import Flex from '@/helpers/Flex'
 import useIsTrueDarkMode from '@/hooks/useIsTrueDarkMode'
 import EyeClosed from 'src/icons/eye-closed'
 import LinkIcon from 'src/icons/link-icon'
@@ -13,6 +13,8 @@ import EyeOpened from '../../../icons/eye-opened'
 import storage from '@/utils/storage'
 import useFetchShareableLink from '@/hooks/useFetchShareableLink'
 import useNotifications from '../../design-system/Notifications/useNotifications'
+import Pencil from '../../../icons/pencil'
+import HabitManagerModal from './HabitManagerModal'
 
 const colorModeText = {
   dark: 'Dark Mode',
@@ -29,7 +31,7 @@ const HabitTrackerMenu = ({
 }) => {
   const { colorMode, setTheme, setBackground } = useColorMode()
   const isDarkMode = useIsTrueDarkMode()
-
+  const [showHabitsManager, setShowHabitsManger] = useState(false)
   const toggleAnalytics = () => {
     storage.setItem('isAnalyticsHidden', JSON.stringify(!isAnalyticsHidden))
     hideAnalytics(!isAnalyticsHidden)
@@ -45,7 +47,7 @@ const HabitTrackerMenu = ({
       window.navigator.clipboard.writeText(shareableLink)
       notifs.createInfo('The link has been copied')
     } catch (err) {
-      console.log(err)
+      console.error(err)
       notifs.createError("Oops ! we couldn't create the link")
     }
   }
@@ -59,6 +61,7 @@ const HabitTrackerMenu = ({
     setBackground(modes[nextMode])
   }
 
+  const handleManageHabits = () => setShowHabitsManger(!showHabitsManager)
   return (
     <>
       <FadeIn
@@ -92,6 +95,12 @@ const HabitTrackerMenu = ({
           >
             Shareable Link
           </ButtonGroupButton>
+          <ButtonGroupButton
+            icon={<Pencil />}
+            onClick={() => handleManageHabits()}
+          >
+            Manage Habits
+          </ButtonGroupButton>
         </ButtonGroup>
       </FadeIn>
       <FadeIn>
@@ -99,6 +108,10 @@ const HabitTrackerMenu = ({
           <Avatar variant="sm" src={'/'} alt="Profile Picture" />
         </Box>
       </FadeIn>
+      <HabitManagerModal
+        isOpen={showHabitsManager}
+        handleClose={() => handleManageHabits()}
+      />
     </>
   )
 }

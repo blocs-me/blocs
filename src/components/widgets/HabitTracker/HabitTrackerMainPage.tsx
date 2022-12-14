@@ -81,20 +81,16 @@ const HabitTrackerMainPage = ({ isAnalyticsHidden = false }) => {
     }
   }, 10)
 
-
   useEffect(() => {
     const scrollHeight = scrollContainer.current.scrollHeight
     const clientHeight = scrollContainer.current.clientHeight
 
-    console.log(scrollHeight, clientHeight)
-
-    if (scrollHeight - clientHeight > 30)  {
+    if (scrollHeight - clientHeight > 30) {
       setHideBottomFade(false)
     } else {
       setHideBottomFade(true)
     }
   }, [habits])
-
 
   return (
     <FadeIn css={{ width: '100%', height: '100%' }}>
@@ -105,7 +101,12 @@ const HabitTrackerMainPage = ({ isAnalyticsHidden = false }) => {
         overflow="hidden"
         alignItems={isSmallScreen ? 'start' : 'stretch'}
       >
-        <Flex flexDirection="column" minWidth="250px" justfyContent="center" ref={columnOne}>
+        <Flex
+          flexDirection="column"
+          minWidth="250px"
+          justfyContent="center"
+          ref={columnOne}
+        >
           <Flex flexDirection="column">
             <Text
               as="h1"
@@ -140,7 +141,7 @@ const HabitTrackerMainPage = ({ isAnalyticsHidden = false }) => {
             >
               <Stack mt="sm" width="100%">
                 {<CheckoboxesSkeleton isLoading={!habits} />}
-                {habits?.data?.map((d) => ( 
+                {habits?.data?.map((d) => (
                   <CheckboxWithText
                     isChecked={analyticsData?.data?.habitsDone?.includes(d.id)}
                     text={d.title}
@@ -151,6 +152,7 @@ const HabitTrackerMainPage = ({ isAnalyticsHidden = false }) => {
                 ))}
                 <Box />
               </Stack>
+              <Box height="40px" />
             </ScrollProvider>
             {!hideTopFade && <FadeProvider position="top" />}
             {!hideBottomFade && <FadeProvider position="bottom" />}
@@ -166,12 +168,7 @@ const HabitTrackerMainPage = ({ isAnalyticsHidden = false }) => {
             </BorderedBox>
             <BorderedBox p="sm">
               <Text color="foreground" fontSize="xs" fontWeight={200} m={0}>
-                Your best streak{' '}
-                {analyticsData?.data?.bestStreak ===
-                analyticsData?.data?.currentStreak
-                  ? 'is'
-                  : 'was'}{' '}
-                {analyticsData?.data?.bestStreak}{' '}
+                Your best streak is {analyticsData?.data?.bestStreak}{' '}
                 {analyticsData?.data?.bestStreak === 1 ? 'day' : 'days'}
               </Text>
             </BorderedBox>

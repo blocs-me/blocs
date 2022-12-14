@@ -3,6 +3,7 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import faunaClient from '@/lambda/faunaClient'
 import { query as q } from 'faunadb'
 import { HabitItem } from '../../../global-types/habit-tracker'
+import { getPercent } from '../../../utils/math/getPercent'
 
 const deleteHabit = async (req: NextApiRequest, res: NextApiResponse) => {
   const isValid = validateHabitSchema(req.body)
@@ -17,7 +18,7 @@ const deleteHabit = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   const habit = req.body
-  const { widgetToken } = req.query
+  const { widgetToken, isoDateString } = req.query
 
   const widgetIndexKey = 'widget_by_token'
 
@@ -38,7 +39,7 @@ const deleteHabit = async (req: NextApiRequest, res: NextApiResponse) => {
     return null
   }
 
-  const prevHabits = widget.data.habits
+  const prevHabits = JSON.parse(JSON.stringify(widget.data.habits))
   const shouldDelete = widget.data.habits.find(
     (curHabit: HabitItem) => curHabit.id === habit.id
   )
@@ -56,11 +57,67 @@ const deleteHabit = async (req: NextApiRequest, res: NextApiResponse) => {
     (curHabit: HabitItem) => curHabit.id !== habit.id
   )
 
+  const todayAnalytics = await faunaClient
+    .query(
+      q.Get(
+        q.Match(
+          q.Index('habit_trackers_analytics_by_iso_date_str'),
+          isoDateString,
+          widget.ref
+        )
+      )
+    )
+    .then((data) => data)
+    .catch((error) => {
+      console.error(error)
+      return null
+    })
+
+  let newPercentDone = 0
+
+  if (todayAnalytics) {
+    const prevHabitsDone = todayAnalytics.data.habitsDone
+    const newHabitsDone = prevHabitsDone.filter(
+      (habitId) => habitId !== habit.id
+    )
+    newPercentDone = getPercent(newHabitsDone.length, newHabits.length, 'floor')
+
+    await faunaClient
+      .query(
+        q.Update(todayAnalytics.ref, {
+          data: {
+            habitsDone: newHabitsDone,
+            percentDone: newPercentDone
+          }
+        })
+      )
+      .catch((err) => {
+        console.error(err)
+        res.status(500).json({
+          status: 500,
+          error: { message: 'Something went wrong on the server' }
+        })
+      })
+  }
+
+  const currentStreak =
+    newPercentDone === 100 &&
+    isoDateString !== widget.data.currentStreakUpdatedAt
+      ? widget.data.currentStreak + 1
+      : widget.data.currentStreak
+  const currentStreakUpdatedAt =
+    newPercentDone === 100 &&
+    isoDateString !== widget.data.currentStreakUpdatedAt
+      ? isoDateString
+      : widget.data.currentStreakUpdatedAt
+
   try {
     await faunaClient.query(
       q.Update(widget.ref, {
         data: {
-          habits: newHabits
+          habits: newHabits,
+          currentStreak,
+          currentStreakUpdatedAt
         }
       })
     )

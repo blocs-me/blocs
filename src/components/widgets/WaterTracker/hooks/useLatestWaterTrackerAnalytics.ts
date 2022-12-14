@@ -23,7 +23,7 @@ const useWaterLatestTrackerAnalytics = () => {
   const path = useMemo(
     () =>
       `${WATER_TRACKER_ANALYTICS_PATH}?widgetToken=${token}&role=${hash.role}&isoDateString=${isoDateString}&date=${epochTime}`,
-    [isoDateString, hash]
+    [isoDateString, hash] // eslint-disable-line
   )
 
   const swrResponse = useSWR<Response>(path, fetcher)

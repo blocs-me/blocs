@@ -37,7 +37,7 @@ const HabitTrackerLayout = () => {
         aspectRatio: isSmallScreen || isAnalyticsHidden ? '0.72' : '1.25'
       }}
     >
-      <Notifications>
+      <Notifications zIndex="2000">
         {!isMenu && (
           <HabitTrackerMainPage isAnalyticsHidden={isAnalyticsHidden} />
         )}

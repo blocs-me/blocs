@@ -54,18 +54,19 @@ const editHabit = async (req: NextApiRequest, res: NextApiResponse) => {
 
   const editedHabit = {
     id: habit.id,
-    title: habit.ti
+    title: habit.title
   }
 
-  const newHabits = prevHabits.filter(
-    (curHabit: HabitItem) => curHabit.id !== habit.id
-  )
+  const newHabits = [
+    ...prevHabits.filter((curHabit: HabitItem) => curHabit.id !== habit.id),
+    editedHabit
+  ]
 
   try {
     await faunaClient.query(
       q.Update(widget.ref, {
         data: {
-          habits: [...newHabits, editedHabit]
+          habits: newHabits
         }
       })
     )

@@ -65,7 +65,7 @@ const WaterTrackerMenu = () => {
       window.navigator.clipboard.writeText(shareableLink)
       notifs.createInfo('The link has been copied')
     } catch (err) {
-      console.log(err)
+      console.error(err)
       notifs.createError("Oops ! we couldn't create the link")
     }
   }

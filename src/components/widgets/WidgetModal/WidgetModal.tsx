@@ -107,8 +107,6 @@ const WidgetModal = ({ children, open, closeModal, appendTo }: Props) => {
 
   if (!open || !div) return null
 
-  console.log('render modal outside')
-
   return createPortal(
     <ModalBody closeModal={closeModal}>{children}</ModalBody>,
     div

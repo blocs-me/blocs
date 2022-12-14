@@ -10,7 +10,6 @@ const useFetchShareableLink = (
   widgetType: 'WATER_TRACKER' | 'HABIT_TRACKER' | 'POMODORO'
 ) => {
   const hash = useUrlHash<UrlHash>()
-  console.log('hash', hash)
   const path = getEndpoint(widgetType, hash['token'])
 
   const { data, fetcher, loading, error } = useFetch(path, {
