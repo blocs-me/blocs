@@ -18,6 +18,12 @@ import useUrlHash from '@/hooks/useUrlHash/useUrlHash'
 import { UrlHash } from './types'
 import useDarkMode from '@/hooks/useDarkMode'
 import Sun from '../../../icons/sun'
+import { CopyIcon } from 'src/icons/copy'
+import Box from '@/helpers/Box'
+import TextInput from '@/design-system/TextInput'
+import Text from '@/design-system/Text'
+import WidgetModal from '../WidgetModal/WidgetModal'
+import Icon from '@/helpers/Icon'
 
 const colorModeText = {
   dark: 'Dark Mode',
@@ -34,6 +40,7 @@ const WaterTrackerMenu = () => {
   const { data: settings, mutate: mutateSettings } = useWaterTrackerSettings()
   const { patchUnits, loadingUnits } = usePatchWaterTrackerSettings()
   const { role } = useUrlHash() as UrlHash
+  const [shareableLink, setShareableLink] = useState('')
 
   const [openGoalModal, setOpenGoalModal] = useState(false)
 
@@ -62,7 +69,13 @@ const WaterTrackerMenu = () => {
     try {
       const data = await fetchShareableLink()
       const shareableLink = `${window.location.origin}/water-tracker?token=${data.shareableToken}&role=friend`
-      window.navigator.clipboard.writeText(shareableLink)
+      setShareableLink(shareableLink)
+      try {
+        window.navigator.clipboard.writeText(shareableLink)
+      } catch (err) {
+        console.error('Could not copy shareable link to clipboard')
+      }
+
       notifs.createInfo('The link has been copied')
     } catch (err) {
       console.error(err)
@@ -131,6 +144,78 @@ const WaterTrackerMenu = () => {
           }}
         />
       </FadeIn>
+
+      <WidgetModal
+        open={!!shareableLink}
+        closeModal={() => setShareableLink('')}
+        appendTo="#wt-widget-wrapper"
+      >
+        <Flex p="md" flexDirection="column">
+          <Text
+            fontSize="sm"
+            letterSpacing="sm"
+            color="foreground"
+            textAlign="center"
+          >
+            You can copy the link here. <br />
+            <Box
+              width="100%"
+              as="small"
+              p="xxs"
+              borderRadius="5px"
+              bg="primary.accent-2"
+            >
+              Sometimes copying doesn&apos;t work in the app, so you need to
+              copy it manually
+            </Box>
+          </Text>
+          <Box position="relative">
+            <TextInput
+              htmlFor="Shareable Link"
+              ariaLabel="Shareable Link"
+              name="Shareable Link"
+              value={shareableLink}
+              type="text"
+              readOnly
+            />
+
+            <Box
+              css={{
+                transition: 'transform ease 0.1s',
+                '&:active': {
+                  transform: 'scale(0.9)'
+                }
+              }}
+              bg="success.medium"
+              as="button"
+              boxShadow="default"
+              display="flex"
+              p="xxs"
+              borderRadius="sm"
+              width="32px"
+              height="32px"
+              position="absolute"
+              top="6px"
+              right="0.5rem"
+              onClick={(e) => {
+                e.preventDefault()
+                e.stopPropagation()
+                window?.navigator?.clipboard.writeText(shareableLink)
+              }}
+            >
+              <Icon
+                as="span"
+                width="20px"
+                stroke="foreground"
+                display="flex"
+                m="auto"
+              >
+                <CopyIcon />
+              </Icon>
+            </Box>
+          </Box>
+        </Flex>
+      </WidgetModal>
     </Flex>
   )
 }
