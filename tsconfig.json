@@ -41,6 +41,6 @@
     "src/components/helpers/Box/index.js",
     "src/components/helpers/Notch/index.tsx",
     "src/components/widgets/WaterTracker/UpdateGoalModal.jsx"
-  ],
+, "src/lambda-functions/lib/restValidator/schemas/habit-tracker/saveHabitTrackerAnalyticsSchema.js", "jest.config.js", "jest.setup.js"  ],
   "exclude": ["node_modules"]
 }

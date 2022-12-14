@@ -3,7 +3,7 @@ import { forwardRef, Ref } from 'react'
 
 const ButtonHighlighter = forwardRef((_, ref: Ref<HTMLDivElement>) => {
   return (
-    <Box position="absolute" top="0" left="0">
+    <Box position="absolute" top="0" left="0" m="0 !important">
       <Box
         bg="primary.accent-2"
         borderRadius="lg"

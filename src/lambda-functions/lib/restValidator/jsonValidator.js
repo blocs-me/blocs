@@ -5,6 +5,9 @@ import waterTrackerSettingsSchema from './schemas/water-tracker/waterTrackerSett
 import createWidgetTokenSchema from './schemas/shared-widget-schemas/createWidgetTokenSchema'
 import waterTrackerAnalyticsSchema from './schemas/water-tracker/waterTrackerAnalyticsSchema'
 import waterTrackerQueryParamsSchema from './schemas/water-tracker/waterTrackerQueryParamsSchema'
+import saveHabitTrackerAnalyticsSchema from './schemas/habit-tracker/saveHabitTrackerAnalyticsSchema'
+import habitTrackerQueryParams from './schemas/habit-tracker/habitTrackerQueryParams'
+import habitSchema from './schemas/habit-tracker/habitSchema'
 
 const ajv = new Ajv()
 
@@ -19,3 +22,10 @@ export const validateWaterTrackerAnalytics = ajv.compile(
 export const validateWaterTrackerQueryParams = ajv.compile(
   waterTrackerQueryParamsSchema
 )
+export const validateHabitTrackerQueryParams = ajv.compile(
+  habitTrackerQueryParams
+)
+export const validateHabitTrackerAnalytics = ajv.compile(
+  saveHabitTrackerAnalyticsSchema
+)
+export const validateHabitSchema = ajv.compile(habitSchema)

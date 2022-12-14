@@ -141,6 +141,10 @@ export const darkModeColors: Theme = {
   ...theme,
   colors: {
     ...colors,
+    fade: {
+      from: 'rgba(34,34,34,0)',
+      to: 'rgba(34,34,34,1)'
+    },
     primary: {
       'accent-05': '#eeeeee',
       'accent-1': '#151515',

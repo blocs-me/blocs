@@ -1,7 +1,1 @@
-declare namespace JSX {
-  interface IntrinsicAttributes {
-    css?: any
-    htmlFor?: string
-    type?: string
-  }
-}
+/// <reference types="@emotion/react/types/css-prop" />

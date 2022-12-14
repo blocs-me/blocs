@@ -78,6 +78,24 @@ const variants = variant({
         bg: 'primary.accent-4',
         color: 'primary.accent-1'
       }
+    },
+    success: {
+      fontSize: 'sm',
+      borderRadius: 'md',
+      color: 'neutral.white',
+      bg: 'success.medium',
+      fontWeight: 200,
+      px: 'sm',
+      py: 'xs'
+    },
+    danger: {
+      fontSize: 'sm',
+      borderRadius: 'md',
+      color: 'neutral.white',
+      bg: 'danger.medium',
+      fontWeight: 200,
+      px: 'sm',
+      py: 'xs'
     }
   }
 })
@@ -87,6 +105,7 @@ const Btn = styled('button', {
 })<ButtonProps>(
   {
     position: 'relative',
+    overflow: 'hidden',
     transition:
       'transform 0.5s ease, color 0.2s ease,  background 0.2s ease, opacity 0.2s ease',
     '&:active': {
@@ -107,6 +126,8 @@ const Button = forwardRef(
       as: btnType,
       icon,
       loading = false,
+      gap,
+      className,
       ...props
     }: WithChildren<ButtonProps>,
     ref?: Ref<HTMLButtonElement>
@@ -118,6 +139,7 @@ const Button = forwardRef(
         ref={ref}
         {...props}
         style={{ '--opacity': loading ? 0 : 1 } as any}
+        className={className}
       >
         {icon && (
           <Icon
@@ -125,8 +147,8 @@ const Button = forwardRef(
             display="inline-flex"
             fill={props.color}
             width="20px"
-            mr={children ? 'sm' : '0'}
-            style={{ '--accent-1': theme.colors.primary['accent-35'] }}
+            mr={children && (gap ?? 'sm')}
+            // style={{ '--accent-1': theme.colors.primary['accent-35'] }}
             css={{ verticalAlign: 'middle', opacity: 'var(--opacity)' }}
           >
             {icon}
@@ -137,7 +159,6 @@ const Button = forwardRef(
         </Box>
         {loading && (
           <Skeleton
-            borderRadius="lg"
             position="absolute"
             width="100%"
             height="100%"

@@ -33,6 +33,17 @@ const hoverColor = (props) =>
       }
     : {}
 
+const hoverBg = (props) =>
+  props.hoverBg
+    ? {
+        '&:hover': {
+          background: props.hoverBg
+            ? themeGet(`colors.${props.hoverBg}`)(props)
+            : 'inherit'
+        }
+      }
+    : {}
+
 const boxStylesProps = compose(
   space,
   layout,
@@ -48,6 +59,6 @@ const boxStylesProps = compose(
 
 const Box = styled('div', {
   shouldForwardProp
-})(hoverColor, boxStylesProps)
+})(hoverColor, hoverBg, boxStylesProps)
 
 export default Box

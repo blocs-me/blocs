@@ -101,11 +101,18 @@ const saveWaterTrackerAnalytics = async (
         data: {
           waterConsumed: data.waterConsumed,
           lastUpdatedAt: data.date,
+          createdAt: q.Date(data.isoDateString),
           isoDateString: data.isoDateString,
           widgetRef: widget.ref
         }
       })
     )
+
+    res.status(200).json({
+      status: 200,
+      waterConsumed: data.waterConsumed,
+      lastUpdatedAt: data.date
+    })
   } catch (err) {
     console.error(err)
 
