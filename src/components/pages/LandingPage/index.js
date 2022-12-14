@@ -235,8 +235,8 @@ const LandingPage = () => {
             href="https://www.notion.so/81a847e283ca4d3583651d7d0d55f692?v=eb4ecf38b53949a6b531e387e90df22a"
             rel="noopener"
           >
-            Save the date 🙌 The new blocs widgets will be releasing between 8 &
-            10 December 🎉 🥳
+            Save the date 🙌 The new blocs widgets will release on 16th December
+            🎉 🥳
           </Link>
         </SmallBanner>
       </Box>
