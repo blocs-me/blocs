@@ -15,6 +15,13 @@ import useFetchShareableLink from '@/hooks/useFetchShareableLink'
 import useNotifications from '../../design-system/Notifications/useNotifications'
 import Pencil from '../../../icons/pencil'
 import HabitManagerModal from './HabitManagerModal'
+import WidgetModal from '../WidgetModal/WidgetModal'
+import Flex from '@/helpers/Flex'
+import TextInput from '@/design-system/TextInput'
+import Text from '@/design-system/Text'
+import Button from '@/design-system/Button'
+import { CopyIcon } from 'src/icons/copy'
+import Icon from '@/helpers/Icon'
 
 const colorModeText = {
   dark: 'Dark Mode',
@@ -37,6 +44,7 @@ const HabitTrackerMenu = ({
     hideAnalytics(!isAnalyticsHidden)
   }
   const notifs = useNotifications()
+  const [shareableLink, setShareableLink] = useState('')
 
   const { fetcher: fetchShareableLink, loading: isShareLinkLoading } =
     useFetchShareableLink('HABIT_TRACKER')
@@ -44,7 +52,14 @@ const HabitTrackerMenu = ({
     try {
       const data = await fetchShareableLink()
       const shareableLink = `${window.location.origin}/habit-tracker?token=${data.shareableToken}&role=friend`
-      window.navigator.clipboard.writeText(shareableLink)
+
+      try {
+        window.navigator?.clipboard?.writeText(shareableLink)
+      } catch (err) {
+        console.error('could not copy yo clipboard')
+      }
+
+      setShareableLink(shareableLink)
       notifs.createInfo('The link has been copied')
     } catch (err) {
       console.error(err)
@@ -62,6 +77,7 @@ const HabitTrackerMenu = ({
   }
 
   const handleManageHabits = () => setShowHabitsManger(!showHabitsManager)
+  console.log(shareableLink)
   return (
     <>
       <FadeIn
@@ -112,6 +128,78 @@ const HabitTrackerMenu = ({
         isOpen={showHabitsManager}
         handleClose={() => handleManageHabits()}
       />
+
+      <WidgetModal
+        open={!!shareableLink}
+        closeModal={() => setShareableLink('')}
+        appendTo="#ht-modal-wrapper"
+      >
+        <Flex p="md" flexDirection="column">
+          <Text
+            fontSize="sm"
+            letterSpacing="sm"
+            color="foreground"
+            textAlign="center"
+          >
+            You can copy the link here. <br />
+            <Box
+              width="100%"
+              as="small"
+              p="xxs"
+              borderRadius="5px"
+              bg="primary.accent-2"
+            >
+              Sometimes copying doesn&quot;t work in the app, so you need to
+              copy it manually
+            </Box>
+          </Text>
+          <Box position="relative">
+            <TextInput
+              htmlFor="Shareable Link"
+              ariaLabel="Shareable Link"
+              name="Shareable Link"
+              value={shareableLink}
+              type="text"
+              readOnly
+            />
+
+            <Box
+              css={{
+                transition: 'transform ease 0.1s',
+                '&:active': {
+                  transform: 'scale(0.9)'
+                }
+              }}
+              bg="success.medium"
+              as="button"
+              boxShadow="default"
+              display="flex"
+              p="xxs"
+              borderRadius="sm"
+              width="32px"
+              height="32px"
+              position="absolute"
+              top="6px"
+              right="0.5rem"
+              onClick={(e) => {
+                e.preventDefault()
+                e.stopPropagation()
+                window?.navigator?.clipboard.writeText(shareableLink)
+              }}
+            >
+              <Icon
+                as="span"
+                width="20px"
+                stroke="foreground"
+                display="flex"
+                m="auto"
+              >
+                <CopyIcon />
+              </Icon>
+            </Box>
+          </Box>
+        </Flex>
+      </WidgetModal>
     </>
   )
 }

@@ -5,7 +5,6 @@ import { css } from '@emotion/react'
 type Props = {
   onChange?: (...args: any) => void
   onBlur?: (...args: any) => void
-  ariaLabel: string
   name?: string
   placeholder?: string
   htmlFor: string

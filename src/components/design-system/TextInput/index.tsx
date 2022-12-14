@@ -2,7 +2,7 @@ import Box from '@/helpers/Box'
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 import { themeGet } from '@styled-system/theme-get'
-import { forwardRef } from 'react'
+import { forwardRef, Ref } from 'react'
 import Text from '@/design-system/Text'
 import InputWrapper from '../Input/InputWrapper'
 import Input from '../Input'
@@ -10,8 +10,8 @@ import Input from '../Input'
 /* eslint-disable react/display-name */
 
 type Props = {
-  onChange: (...args: any) => void
-  onBlur: (...args: any) => void
+  onChange?: (...args: any) => void
+  onBlur?: (...args: any) => void
   ariaLabel: string
   name?: string
   placeholder?: string
@@ -34,9 +34,11 @@ const TextInput = forwardRef(
       label,
       type = 'text',
       className,
-      error = ''
+      error = '',
+      readOnly,
+      value
     }: Props,
-    ref
+    ref: Ref<HTMLInputElement>
   ) => {
     return (
       <InputWrapper htmlFor={htmlFor} label={label} error={error}>
@@ -48,8 +50,10 @@ const TextInput = forwardRef(
           onChange={(v) => onChange?.(v)}
           onBlur={(v) => onBlur?.(v)}
           ref={ref}
+          value={value}
           placeholder={placeholder}
           type={type}
+          readOnly={readOnly}
         />
       </InputWrapper>
     )
