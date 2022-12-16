@@ -225,7 +225,7 @@ const LandingPage = () => {
         />
       </Head>
       <Box mt={['md', 'lg', , ,]} pt="sm">
-        <SmallBanner cacheKey="blocs-1st-release" hasConfetti>
+        {/* <SmallBanner cacheKey="blocs-1st-release" hasConfetti>
           <Link
             color="background"
             fontWeight="400"
@@ -238,7 +238,7 @@ const LandingPage = () => {
             Save the date 🙌 The new blocs widgets will release on 16th December
             🎉 🥳
           </Link>
-        </SmallBanner>
+        </SmallBanner> */}
       </Box>
       <Flex
         width="100%"
