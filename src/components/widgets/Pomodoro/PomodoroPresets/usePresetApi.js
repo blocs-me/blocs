@@ -64,8 +64,10 @@ const usePresetApi = (presetData, presets, options = {}) => {
       (data) => ({ ...data, data: [...data?.data, presetData] }),
       false
     )
-    await postPreset()
-    await mutate([POMODORO_PRESETS_PATH, token])
+    const data = await postPreset()
+    mutate([POMODORO_PRESETS_PATH, token])
+
+    return data
   }
 
   const updatePreset = async () => {
@@ -91,8 +93,10 @@ const usePresetApi = (presetData, presets, options = {}) => {
       false
     )
 
-    await patchPreset()
-    await mutate([POMODORO_PRESETS_PATH, token])
+    const data = await patchPreset()
+    mutate([POMODORO_PRESETS_PATH, token])
+
+    return data
   }
 
   const deleteAPreset = async () => {
@@ -120,8 +124,10 @@ const usePresetApi = (presetData, presets, options = {}) => {
       false
     )
 
-    await deletePreset()
-    await mutate(POMODORO_PRESETS_PATH)
+    const data = await deletePreset()
+    mutate(POMODORO_PRESETS_PATH)
+
+    return data
   }
 
   return {

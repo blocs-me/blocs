@@ -1,5 +1,5 @@
-import styled from "@emotion/styled"
-import themeGet from "@styled-system/theme-get"
+import styled from '@emotion/styled'
+import themeGet from '@styled-system/theme-get'
 
 const Container = styled.div`
   width: 36px;
@@ -13,7 +13,7 @@ const Circle = styled.div`
   width: 14px;
   height: 14px;
   border-radius: 999px;
-  background: ${themeGet("colors.bg.default")};
+  background: ${themeGet('colors.background')};
   position: absolute;
   left: 4px;
   top: 3px;
@@ -40,7 +40,7 @@ const Input = styled.input`
   cursor: pointer;
 
   & ~ ${Bg} {
-    background: ${themeGet("colors.primary.accent-1")};
+    background: ${themeGet('colors.primary.accent-3')};
   }
 
   &:checked ~ ${Circle} {
@@ -48,7 +48,7 @@ const Input = styled.input`
   }
 
   &:checked ~ ${Bg} {
-    background: ${themeGet("colors.secondary")} !important;
+    background: ${themeGet('colors.foreground')} !important;
   }
 `
 

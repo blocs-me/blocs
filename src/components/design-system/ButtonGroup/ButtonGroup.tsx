@@ -12,6 +12,7 @@ import {
 
 type Props = {
   gap?: string | string[]
+  className?: string
 }
 
 type Dims = {
@@ -19,7 +20,11 @@ type Dims = {
   left: number
 }
 
-const ButtonGroup = ({ gap = 'sm', children }: WithChildren<Props>) => {
+const ButtonGroup = ({
+  gap = 'sm',
+  children,
+  className
+}: WithChildren<Props>) => {
   const btnHighligher = useRef<HTMLDivElement>()
   const container = useRef<HTMLDivElement>()
   const cachedContainerSizes = useRef<Dims>({} as Dims)
@@ -76,6 +81,7 @@ const ButtonGroup = ({ gap = 'sm', children }: WithChildren<Props>) => {
       justifyContent="center"
       alignItems="center"
       flex="1"
+      className={className}
     >
       <Stack
         ref={container}

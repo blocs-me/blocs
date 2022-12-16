@@ -1,16 +1,16 @@
 /** @jsxImportSource @emotion/react */
-import { useRef, useState, useEffect, forwardRef } from "react"
-import themeGet from "@styled-system/theme-get"
-import styled from "@emotion/styled"
-import Box from "@/helpers/Box"
-import Flex from "@/helpers/Flex"
-import { useDebouncedFn } from "beautiful-react-hooks"
+import { useRef, useState, useEffect, forwardRef } from 'react'
+import themeGet from '@styled-system/theme-get'
+import styled from '@emotion/styled'
+import Box from '@/helpers/Box'
+import Flex from '@/helpers/Flex'
+import { useDebouncedFn } from 'beautiful-react-hooks'
 
 const Track = styled.div`
   --translateX: -100%;
   width: 100%;
   height: 5px;
-  background: ${themeGet("colors.primary.accent-4")};
+  background: ${themeGet('colors.foreground')};
   transform: translateX(var(--translateX));
   transition: transform 0.1s ease;
   position: absolute;
@@ -23,7 +23,7 @@ const Thumb = styled.div`
   width: 20px;
   height: 20px;
   border-radius: 999px;
-  background: ${themeGet("colors.primary.accent-4")};
+  background: ${themeGet('colors.foreground')};
   position: absolute;
   left: 0;
   pointer-events: none;
@@ -48,7 +48,7 @@ const Slider = forwardRef(
       minValue = 0,
       maxValue = 100,
       setValue,
-      defaultValue,
+      defaultValue
     },
     ref
   ) => {
@@ -79,10 +79,10 @@ const Slider = forwardRef(
     const setTrackTranslateX = (translateX) => {
       if (translateX >= 0 && translateX <= 100) {
         thumbRef.current.style.setProperty(
-          "--translateX",
+          '--translateX',
           `${width * ((width - 10 - translateX) / 100)}px`
         )
-        trackRef.current.style.setProperty("--translateX", `-${translateX}%`)
+        trackRef.current.style.setProperty('--translateX', `-${translateX}%`)
       }
     }
 
@@ -132,7 +132,7 @@ const Slider = forwardRef(
         aria-label={ariaLabel}
         position="relative"
         alignItems="center"
-        css={{ cursor: "pointer" }}
+        css={{ cursor: 'pointer' }}
         onPointerUp={(e) => handlePointerUp(e)}
         onPointerMove={(e) => handlePointerMove(e)}
         onPointerDown={(e) => handlePointerDown(e)}
@@ -144,7 +144,7 @@ const Slider = forwardRef(
           width="100%"
           borderRadius="999px"
           position="relative"
-          bg="primary.accent-1"
+          bg="primary.accent-3"
           overflow="hidden"
         >
           <Track ref={trackRef} />
@@ -154,11 +154,11 @@ const Slider = forwardRef(
           value={inputValue}
           type="hidden"
           css={{
-            width: "100%",
-            position: "absolute",
+            width: '100%',
+            position: 'absolute',
             height: 0,
             left: -10,
-            bottom: 0,
+            bottom: 0
           }}
         />
       </Flex>

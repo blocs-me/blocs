@@ -128,6 +128,7 @@ const Button = forwardRef(
       loading = false,
       gap,
       className,
+      iconProps,
       ...props
     }: WithChildren<ButtonProps>,
     ref?: Ref<HTMLButtonElement>
@@ -149,6 +150,7 @@ const Button = forwardRef(
             width="20px"
             mr={children && (gap ?? 'sm')}
             // style={{ '--accent-1': theme.colors.primary['accent-35'] }}
+            {...iconProps}
             css={{ verticalAlign: 'middle', opacity: 'var(--opacity)' }}
           >
             {icon}

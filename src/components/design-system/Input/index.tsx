@@ -23,7 +23,7 @@ const Input = styled.input`
   }
 
   &::placeholder {
-    color: ${themeGet('colors.primary.accent-2')};
+    color: ${themeGet('colors.primary.accent-3')};
     font-weight: 300;
   }
 `

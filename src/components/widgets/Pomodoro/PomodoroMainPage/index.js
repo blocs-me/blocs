@@ -7,6 +7,7 @@ import {
   setCurrentPomodoroPreset,
   setDocumentTimelineStart,
   setStartedAt,
+  setPausedAt,
   SET_STARTED_AT
 } from '../pomodoroActions'
 import useSWR from 'swr'
@@ -21,8 +22,13 @@ import { useTheme } from '@emotion/react'
 import { useWidgetAuthStore } from '@/hooks/useWidgetAuth'
 import { $ } from '@/utils/JSelectors'
 import storage from '@/utils/storage'
+import Box from '@/helpers/Box'
+import { Play } from 'src/icons/play'
+import { Pause } from 'src/icons/pause'
+import Icon from '@/helpers/Icon'
+import { Refresh } from 'src/icons/refresh'
 
-const PomodoroMainPage = () => {
+const PomodoroMainPage = ({ isHovering }) => {
   const {
     isLoggingIn,
     isLoggedIn,
@@ -31,8 +37,9 @@ const PomodoroMainPage = () => {
   const loading = isLoggingIn || !isLoggedIn
 
   const {
-    session: { startedAt },
+    session: { startedAt, pausedAt },
     preferences: { deepFocus },
+    documentTimelineStart,
     currentPreset
   } = usePomodoroStore()
 
@@ -40,7 +47,6 @@ const PomodoroMainPage = () => {
   const notifs = useNotifications()
   const [hovering, setHovering] = useState(false)
   const widgetLayout = $('#widget-layout')
-  const cachedStartedAt = Number(storage.getItem(SET_STARTED_AT))
 
   const credentials = 'same-origin'
   const handleGetPresetsError = () =>
@@ -61,20 +67,35 @@ const PomodoroMainPage = () => {
 
   const theme = useTheme()
 
-  const handleClick = () => {
-    if (loading) return null
-    if (startedAt) {
+  const handleStop = () => {
+    if (startedAt || pausedAt) {
       // stopping the session
+      pomodoroDispatch(setPausedAt(''))
       pomodoroDispatch(setStartedAt(null))
       // TO DO: handle database update
       return null
     }
+  }
+
+  const handleClick = (e) => {
+    e.stopPropagation()
+    e.preventDefault()
+
+    if (loading) return null
+
+    if (startedAt) {
+      // pause the session
+      pomodoroDispatch(setPausedAt(Date.now() - startedAt))
+      pomodoroDispatch(setStartedAt(null))
+      return null
+    }
+
     // start the session
     pomodoroDispatch(setDocumentTimelineStart(document.timeline.currentTime))
     pomodoroDispatch(setStartedAt(Date.now()))
   }
 
-  useEffect(() => {
+  useEffect(() => { 
     if (presets?.data?.length === 1) {
       const preset = presets.data[0]
 
@@ -122,39 +143,66 @@ const PomodoroMainPage = () => {
         <Timer loading={!presets || loading} />
         <Flex
           justifyContent="center"
-          overflow="hidden"
+          // overflow="hidden"
           mt="sm"
-          height="var(--height, 40px)"
+          height="var(--height, 80px)"
           css={{
             transition:
               'height 0.5s  ease, opacity 0.2s ease, margin 0.3s ease',
             opacity: 'var(--opacity, 1)'
           }}
           style={{
-            '--height': deepFocus && startedAt && !hovering ? 0 : '40px',
-            '--opacity': deepFocus && startedAt && !hovering ? 0 : 1,
-            marginTop: deepFocus && startedAt && !hovering ? 0 : theme.space.sm
+            '--height': deepFocus && startedAt && !isHovering ? 0 : '40px',
+            '--opacity': deepFocus && startedAt && !isHovering ? 0 : 1,
+            marginTop:
+              deepFocus && startedAt && !isHovering ? 0 : theme.space.sm
           }}
           zIndex="10"
         >
-          {(!presets || loading) && (
-            <Skeleton width="100px" height="40px" borderRadius="lg" />
-          )}
-          {presets && !loading && (
-            <Button
-              onClick={(ev) => handleClick(ev)}
-              width="100px"
-              variant="round"
-              height="40px"
-              fontSize="xs"
-              letterSpacing="sm"
-              aria-label="Start or stop timer"
-              bg="primary.accent-3"
-              zIndex="10"
-            >
-              {startedAt ? 'stop' : 'start'}
-            </Button>
-          )}
+          <Flex
+            as="button"
+            borderRadius="50%"
+            bg="background"
+            boxShadow="neumorphicDefault"
+            color="foreground"
+            p={0}
+            width="50px"
+            height="50px"
+            overflow="hidden"
+            onClick={(e) => handleClick(e)}
+            alignItems="center"
+            justifyContent="center"
+          >
+            {startedAt && (
+              <Icon stroke="foreground" width="15px" m="auto" display="flex">
+                <Pause />
+              </Icon>
+            )}
+            {!startedAt && (
+              <Icon fill="foreground" size="20px" m="auto" display="flex">
+                <Play />
+              </Icon>
+            )}
+          </Flex>
+          <Flex
+            ml="sm"
+            as="button"
+            borderRadius="50%"
+            bg="background"
+            boxShadow="neumorphicDefault"
+            color="foreground"
+            p={0}
+            width="50px"
+            height="50px"
+            overflow="hidden"
+            onClick={(e) => handleStop(e)}
+            alignItems="center"
+            justifyContent="center"
+          >
+            <Icon stroke="foreground" size="20px" m="auto" display="flex">
+              <Refresh />
+            </Icon>
+          </Flex>
         </Flex>
       </Flex>
     </>
