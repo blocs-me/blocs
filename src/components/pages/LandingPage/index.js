@@ -224,7 +224,7 @@ const LandingPage = () => {
           content="https://www.blocs.me/blocs-social-banner.png"
         />
       </Head>
-      {/* { <Box mt={['md', 'lg', , ,]} pt="sm">
+      <Box mt={['md', 'lg', , ,]} pt="sm">
         <SmallBanner cacheKey="blocs-1st-release" hasConfetti>
           <Link
             color="background"
@@ -239,7 +239,7 @@ const LandingPage = () => {
             🎉 🥳
           </Link>
         </SmallBanner>
-      </Box>} */}
+      </Box>
       <Flex
         width="100%"
         minHeight="calc(100vh - 150px)"
