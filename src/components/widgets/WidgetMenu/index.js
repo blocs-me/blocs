@@ -1,18 +1,19 @@
 /** @jsxImportSource @emotion/react */
-import Link from "next/link"
-import Icon from "@/helpers/Icon"
-import Stack from "@/helpers/Stack"
-import Box from "@/helpers/Box"
-import Text from "@/design-system/Text"
+import Link from 'next/link'
+import Icon from '@/helpers/Icon'
+import Stack from '@/helpers/Stack'
+import Box from '@/helpers/Box'
+import Text from '@/design-system/Text'
+import ButtonGroup, { ButtonGroupButton } from '@/design-system/ButtonGroup'
 
 const WidgetMenuItem = ({ href, itemIcon, title, iconProps = {} }) => {
   return (
-    <Box as="li" hoverColor="primary.accent-2" css={{ cursor: " pointer" }}>
+    <ButtonGroupButton as="li" css={{ cursor: ' pointer' }}>
       <Link href={href}>
-        <a css={{ display: "flex", alignItems: "center" }}>
+        <a css={{ display: 'flex', alignItems: 'center' }}>
           <Icon
             size="20px"
-            stroke="primary.accent-3"
+            stroke="foreground"
             mr="sm"
             display="flex"
             {...iconProps}
@@ -22,7 +23,7 @@ const WidgetMenuItem = ({ href, itemIcon, title, iconProps = {} }) => {
           <Text
             fontSize="md"
             fontWeight="400"
-            color="primary.accent-3"
+            color="foreground"
             lineHeight={1.5}
             mb={0}
           >
@@ -30,17 +31,17 @@ const WidgetMenuItem = ({ href, itemIcon, title, iconProps = {} }) => {
           </Text>
         </a>
       </Link>
-    </Box>
+    </ButtonGroupButton>
   )
 }
 
-const WidgetMenu = ({ menuItems = [], gap = "sm" }) => {
+const WidgetMenu = ({ menuItems = [], gap = 'sm' }) => {
   return (
-    <Stack mt={gap} as="ul">
+    <ButtonGroup gap={gap}>
       {menuItems.map((item, id) => (
         <WidgetMenuItem key={id} {...item} />
       ))}
-    </Stack>
+    </ButtonGroup>
   )
 }
 

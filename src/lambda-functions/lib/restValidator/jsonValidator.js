@@ -8,10 +8,12 @@ import waterTrackerQueryParamsSchema from './schemas/water-tracker/waterTrackerQ
 import saveHabitTrackerAnalyticsSchema from './schemas/habit-tracker/saveHabitTrackerAnalyticsSchema'
 import habitTrackerQueryParams from './schemas/habit-tracker/habitTrackerQueryParams'
 import habitSchema from './schemas/habit-tracker/habitSchema'
+import pomodoroAnalyticsSchema from './schemas/pomdoro/pomodoroAnalyticsSchema'
 
 const ajv = new Ajv()
 
 export const validatePomodoroPreset = ajv.compile(pomodoroPresetSchema)
+export const validatePomodoroAnalytics = ajv.compile(pomodoroAnalyticsSchema)
 export const validateWidgetTokenReq = ajv.compile(createWidgetTokenSchema)
 export const validateWaterTrackerSettings = ajv.compile(
   waterTrackerSettingsSchema

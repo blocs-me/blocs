@@ -1,9 +1,9 @@
-import useNotifications from "@/design-system/Notifications/useNotifications"
-import { ColorModeProvider } from "@/hooks/useColorMode"
-import { WidgetAuthProvider } from "@/hooks/useWidgetAuth"
-import Pomodoro from "@/widgets/Pomodoro"
-import { PomodoroProvider } from "@/widgets/Pomodoro/usePomodoroStore"
-import WidgetPage from "@/widgets/WidgetPage"
+import useNotifications from '@/design-system/Notifications/useNotifications'
+import { ColorModeProvider } from '@/hooks/useColorMode'
+import { WidgetAuthProvider } from '@/hooks/useWidgetAuth'
+import Pomodoro from '@/widgets/Pomodoro'
+import { PomodoroProvider } from '@/widgets/Pomodoro/usePomodoroStore'
+import WidgetPage from '@/widgets/WidgetPage'
 
 export default function MainPomodoro() {
   const { NotifProvider } = useNotifications()
@@ -13,7 +13,7 @@ export default function MainPomodoro() {
       <WidgetAuthProvider>
         <NotifProvider>
           <PomodoroProvider>
-            <WidgetPage>
+            <WidgetPage p="sm">
               <Pomodoro />
             </WidgetPage>
           </PomodoroProvider>

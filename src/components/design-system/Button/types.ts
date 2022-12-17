@@ -16,6 +16,7 @@ export type ButtonProps = IBox &
     as?: string
     loading?: boolean
     gap?: string
+    iconProps?: any
   } & JSX.IntrinsicElements['button'] &
   FlexboxProps &
   LayoutProps

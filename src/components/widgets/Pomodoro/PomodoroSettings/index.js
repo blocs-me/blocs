@@ -1,25 +1,25 @@
 /** @jsxImportSource @emotion/react */
-import { useRef, useEffect, useMemo } from "react"
-import { useTheme } from "@emotion/react"
-import { interpolate } from "popmotion"
-import { useForm } from "react-hook-form"
-import Flex from "@/helpers/Flex"
-import Box from "@/helpers/Box"
-import MenuHeader from "../Typography/MenuHeader"
-import Gear from "../../../../icons/gear.svg"
-import Text from "@/design-system/Text"
-import TinyInput from "@/design-system/TinyInput"
-import { usePomodoroDispatch, usePomodoroStore } from "../usePomodoroStore"
-import ScrollProvider from "@/design-system/ScrollProvider"
-import FadeProvider from "@/design-system/FadeProvider"
-import Switch from "@/design-system/Switch"
-import Slider from "@/design-system/Slider"
+import { useRef, useEffect, useMemo } from 'react'
+import { useTheme } from '@emotion/react'
+import { interpolate } from 'popmotion'
+import { useForm } from 'react-hook-form'
+import Flex from '@/helpers/Flex'
+import Box from '@/helpers/Box'
+import MenuHeader from '../Typography/MenuHeader'
+import Gear from '../../../../icons/gear.svg'
+import Text from '@/design-system/Text'
+import TinyInput from '@/design-system/TinyInput'
+import { usePomodoroDispatch, usePomodoroStore } from '../usePomodoroStore'
+import ScrollProvider from '@/design-system/ScrollProvider'
+import FadeProvider from '@/design-system/FadeProvider'
+import Switch from '@/design-system/Switch'
+import Slider from '@/design-system/Slider'
 import {
   setPomodoroSessionSettings,
-  setPomodoroPreferences,
-} from "../pomodoroActions"
-import useNotifications from "@/design-system/Notifications/useNotifications"
-import usePreviousValue from "@/hooks/usePreviousValue"
+  setPomodoroPreferences
+} from '../pomodoroActions'
+import useNotifications from '@/design-system/Notifications/useNotifications'
+import usePreviousValue from '@/hooks/usePreviousValue'
 
 const Header = ({ children }) => (
   <Box
@@ -42,7 +42,7 @@ const Header = ({ children }) => (
 
 const MenuItem = ({ children, lastItem }) => (
   <Flex
-    borderBottom={lastItem ? "none" : "solid 1px"}
+    borderBottom={lastItem ? 'none' : 'solid 1px'}
     borderBottomColor="primary.accent-1"
     py="xs"
     px="sm"
@@ -55,7 +55,7 @@ const MenuItem = ({ children, lastItem }) => (
 )
 
 const Para = ({ children }) => (
-  <Text m={0} fontWeight={300} fontSize="xs">
+  <Text m={0} fontWeight={300} fontSize="xs" color="foreground">
     {children}
   </Text>
 )
@@ -64,21 +64,21 @@ const PomodoroSettings = () => {
   const { sessionSettings, preferences } = usePomodoroStore()
   const notifs = useNotifications()
   const dispatch = usePomodoroDispatch()
-  const alarmAudio = useMemo(() => new Audio("/sound-effects/chime.mp3"), [])
+  const alarmAudio = useMemo(() => new Audio('/sound-effects/chime.mp3'), [])
   const numCheckRegex = /\d./
   const preferencesDefault = useMemo(() => {
     return preferences
   }, [])
   const { register, handleSubmit, setValue, watch, getValues } = useForm({
-    mode: "onChange",
+    mode: 'onChange',
     defaultValues: {
-      preferences: preferencesDefault,
-    },
+      preferences: preferencesDefault
+    }
   })
 
   const handleLongBreakInput = (value) => {
     if (numCheckRegex.test(value)) {
-      setValue("preferences", value)
+      setValue('preferences', value)
     }
   }
 
@@ -121,7 +121,7 @@ const PomodoroSettings = () => {
     return () => {
       handleSubmit(() => {
         localStorage.setItem(
-          "pomodoroPreferences",
+          'pomodoroPreferences',
           JSON.stringify(getValues().preferences)
         )
         dispatch(setPomodoroPreferences(getValues().preferences))
@@ -132,13 +132,13 @@ const PomodoroSettings = () => {
     dispatch,
     getValues,
     handleSubmit,
-    preferencesDefault.alarmVolume,
+    preferencesDefault.alarmVolume
   ])
 
-  const deepFocus = watch("preferences.deepFocus")
-  const autoSetTheme = watch("preferences.autoSetTheme")
-  const autoStartPomodoro = watch("preferences.autoStartPomodoro")
-  const autoStartBreak = watch("preferences.autoStartBreak")
+  const deepFocus = watch('preferences.deepFocus')
+  const autoSetTheme = watch('preferences.autoSetTheme')
+  const autoStartPomodoro = watch('preferences.autoStartPomodoro')
+  const autoStartBreak = watch('preferences.autoStartBreak')
   const deepFocusPrev = usePreviousValue(deepFocus)
   const autoSetThemePrev = usePreviousValue(autoSetTheme)
   const autoStartPomodoroPrev = usePreviousValue(autoStartPomodoro)
@@ -146,22 +146,22 @@ const PomodoroSettings = () => {
 
   useEffect(() => {
     if (deepFocus && !deepFocusPrev)
-      notifs.createInfo("deep focus mode hides all UI except for the clock")
+      notifs.createInfo('deep focus mode hides all UI except for the clock')
   }, [deepFocus, deepFocusPrev, notifs])
 
   useEffect(() => {
     if (autoSetTheme && !autoSetThemePrev)
-      notifs.createInfo("sets theme based on your device")
+      notifs.createInfo('sets theme based on your device')
   }, [autoSetTheme, autoSetThemePrev, notifs])
 
   useEffect(() => {
     if (autoStartPomodoro && !autoStartPomodoroPrev)
-      notifs.createInfo("auto starts pomodoro after a break ends")
+      notifs.createInfo('auto starts pomodoro after a break ends')
   }, [autoStartPomodoro, autoStartPomodoroPrev, notifs])
 
   useEffect(() => {
     if (autoStartBreak && !autoStartBreakPrev)
-      notifs.createInfo("auto starts break after a pomodoro session ends")
+      notifs.createInfo('auto starts break after a pomodoro session ends')
   }, [autoStartBreak, autoStartBreakPrev, notifs])
 
   return (
@@ -172,14 +172,14 @@ const PomodoroSettings = () => {
       position="relative"
       as="form"
     >
-      <MenuHeader icon={<Gear />} title="settings" />
+      <MenuHeader icon={<Gear />} title="Settings" />
       <ScrollProvider>
         <section aria-label="Set Pomodoro Time">
           <Header>pomodoro</Header>
           <MenuItem>
             <Flex alignItems="center">
               <Box mr="xs">
-                <Para css={{ display: "inline-block" }}>long break after</Para>
+                <Para css={{ display: 'inline-block' }}>long break after</Para>
               </Box>
               <Flex>
                 <TinyInput
@@ -189,8 +189,8 @@ const PomodoroSettings = () => {
                   max="20"
                   id="interval"
                   label="pomodoros"
-                  {...register("preferences.startLongBreakAfter", {
-                    pattern: numCheckRegex,
+                  {...register('preferences.startLongBreakAfter', {
+                    pattern: numCheckRegex
                   })}
                   onChange={handleLongBreakInput}
                 />
@@ -198,17 +198,17 @@ const PomodoroSettings = () => {
             </Flex>
           </MenuItem>
           <MenuItem>
-            <Para css={{ display: "inline-block" }}>auto start pomodoro</Para>
+            <Para css={{ display: 'inline-block' }}>auto start pomodoro</Para>
             <Switch
-              register={register("preferences.autoStartPomodoro")}
-              ariaLabel={"auto start pomodoro"}
+              register={register('preferences.autoStartPomodoro')}
+              ariaLabel={'auto start pomodoro'}
             />
           </MenuItem>
           <MenuItem>
             <Para>auto start break</Para>
             <Switch
-              register={register("preferences.autoStartBreak")}
-              ariaLabel={"auto start break"}
+              register={register('preferences.autoStartBreak')}
+              ariaLabel={'auto start break'}
             />
           </MenuItem>
         </section>
@@ -218,7 +218,7 @@ const PomodoroSettings = () => {
           <MenuItem>
             <Para>deep focus mode</Para>
             <Switch
-              register={register("preferences.deepFocus")}
+              register={register('preferences.deepFocus')}
               ariaLabel="deep focus"
             />
           </MenuItem>

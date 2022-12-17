@@ -11,9 +11,13 @@ import Plant from '../../../../icons/plant.svg'
 import Card from '@/design-system/Card'
 import Stack from '@/helpers/Stack'
 import Text from '@/design-system/Text'
-import Link from '@/design-system/Link'
 import { useColorModeStore } from '@/hooks/useColorMode'
 import { useWidgetAuthStore } from '@/hooks/useWidgetAuth'
+import Stopwatch from 'src/icons/stopwatch'
+import ButtonGroup, { ButtonGroupButton } from '@/design-system/ButtonGroup'
+import Link from 'next/link'
+import Drop from 'src/icons/drop-icon'
+import { CircleHalf } from 'src/icons/circle-half'
 
 const menuItems = [
   {
@@ -24,7 +28,7 @@ const menuItems = [
   {
     href: '/pomodoro/labels',
     title: 'pomodoro',
-    itemIcon: <Clock />
+    itemIcon: <Stopwatch />
   },
   {
     href: '/pomodoro/theme',
@@ -44,8 +48,15 @@ const PomodoroMainMenu = () => {
   const { user } = useWidgetAuthStore() || {}
 
   return (
-    <Flex width="100%" height="100%" position="relative" p="md" center>
-      <Box position="absolute" top="sm" left="sm">
+    <Flex
+      width="100%"
+      height="100%"
+      position="relative"
+      p="md"
+      alignItems="center"
+      justifyContent="center"
+    >
+      <Box position="absolute" top="0" left="0">
         <Box
           position="relative"
           onMouseOver={() => setAvatarMenu(true)}
@@ -55,7 +66,7 @@ const PomodoroMainMenu = () => {
           <div css={{ cursor: 'pointer' }}>
             <Avatar alt="profile picture" variant="sm" src={user?.avatar_url} />
           </div>
-          <AnimatePresence>
+          {/* <AnimatePresence>
             {avatarMenu && (
               <LazyMotion features={domAnimation}>
                 <m.div
@@ -120,12 +131,26 @@ const PomodoroMainMenu = () => {
                 </m.div>
               </LazyMotion>
             )}
-          </AnimatePresence>
+          </AnimatePresence> */}
         </Box>
       </Box>
-      <Box m="auto">
-        <WidgetMenu menuItems={menuItems} />
-      </Box>
+      <ButtonGroup css={{ '& a': { cursor: 'pointer' } }}>
+        <Link href={menuItems[0].href}>
+          <ButtonGroupButton p="sm" icon={<Gear />} as="a">
+            Settings
+          </ButtonGroupButton>
+        </Link>
+        <Link href={menuItems[1].href}>
+          <ButtonGroupButton as="a" p="sm" icon={<Stopwatch />}>
+            Pomodoro
+          </ButtonGroupButton>
+        </Link>
+        <Link href={menuItems[2].href}>
+          <ButtonGroupButton as="a" p="sm" icon={<CircleHalf />}>
+            Theme
+          </ButtonGroupButton>
+        </Link>
+      </ButtonGroup>
       {/* <Flex
         borderRadius="999px"
         size="35px"

@@ -1,21 +1,25 @@
-import { useState, useRef, useEffect, useCallback, useMemo } from "react"
-import { usePomodoroStore, usePomodoroDispatch } from "../usePomodoroStore"
+import { useState, useRef, useEffect, useCallback, useMemo } from 'react'
+import { usePomodoroStore, usePomodoroDispatch } from '../usePomodoroStore'
 import {
   resetPomodoroSession,
   setDocumentTimelineStart,
+  setPausedAt,
   setPomodoroPresetMode,
   setPomodoroSessionCount,
   setStartedAt,
+  SET_PAUSED_AT,
   SET_STARTED_AT,
-  showPomodoroActiveSessionMenu,
-} from "../pomodoroActions"
+  showPomodoroActiveSessionMenu
+} from '../pomodoroActions'
 import {
   POMODORO_INTERVAL_MODE,
   POMODORO_LONG_BREAK_MODE,
-  POMODORO_SHORT_BREAK_MODE,
-} from "../pomodoroPresetModes"
-import storage from "@/utils/storage"
-import useNotifications from "@/design-system/Notifications/useNotifications"
+  POMODORO_SHORT_BREAK_MODE
+} from '../pomodoroPresetModes'
+import storage from '@/utils/storage'
+import useNotifications from '@/design-system/Notifications/useNotifications'
+import { useSavePomodoroAnalytics } from '../hooks/useSavePomodoroAnalytics'
+import { getCurrentISOString } from '@/utils/dateUtils/getCurrentISOString'
 
 const msToSeconds = (ms) => {
   const minutes = Math.floor(ms / (1000 * 60))
@@ -31,16 +35,21 @@ const msToMinutes = (ms) => {
 const useTimer = () => {
   const {
     documentTimelineStart,
-    session: { startedAt },
+    session: { startedAt, pausedAt },
     sessionCount = 0,
-    currentPreset: { pomodoroInterval, longBreakInterval, shortBreakInterval },
+    currentPreset: {
+      id: presetId,
+      pomodoroInterval,
+      longBreakInterval,
+      shortBreakInterval
+    },
     preferences: {
       alarmVolume,
       autoStartBreak,
       startLongBreakAfter,
-      autoStartPomodoro,
+      autoStartPomodoro
     },
-    presetMode,
+    presetMode
   } = usePomodoroStore()
   const interval = useMemo(() => {
     if (presetMode === POMODORO_INTERVAL_MODE) return pomodoroInterval
@@ -52,8 +61,10 @@ const useTimer = () => {
   const [percentProgressed, setPercentProgressed] = useState(0)
   const controller = useRef(null)
   const timerTimeout = useRef(null)
-  const cachedStartedAt = Number(storage.getItem(SET_STARTED_AT))
+  const cachedStartedAt = storage.parseJSON(storage.getItem(SET_STARTED_AT))
+  const cachedPausedAt = storage.parseJSON(storage.getItem(SET_PAUSED_AT))
   const notifs = useNotifications()
+  const saveAnalytics = useSavePomodoroAnalytics()
 
   const startTimer = useCallback(() => {
     const startedAt = Date.now()
@@ -125,26 +136,59 @@ const useTimer = () => {
     startLongBreak,
     startLongBreakAfter,
     startPomodoroInterval,
-    startShortBreak,
+    startShortBreak
   ])
 
   const playChime = () => {
-    const chime = new Audio("/sound-effects/chime.mp3")
+    const chime = new Audio('/sound-effects/chime.mp3')
     chime.volume = alarmVolume / 100
     chime.play()
   }
 
+  const handleDataPersistence = () => {
+    if (presetMode === POMODORO_INTERVAL_MODE) {
+      saveAnalytics({
+        presetId,
+        startedAt,
+        endedAt: Date.now(),
+        timeSpent: Date.now() - startedAt,
+        isoDateString: getCurrentISOString()
+      })
+    }
+  }
+
   const handleTimerComplete = () => {
+    handleDataPersistence()
     playChime()
     handleAutoPlay()
+  }
+
+  const handlePauseResume = () => {
+    const pausedTime = cachedPausedAt || pausedAt
+    const percentElapsed = (pausedTime / interval) * 100
+
+    if (percentElapsed >= 100) {
+      pomodoroDispatch(setStartedAt(null))
+      pomodoroDispatch(resetPomodoroSession())
+      return null
+    }
+
+    setPercentProgressed(percentElapsed)
+    pomodoroDispatch(
+      setDocumentTimelineStart(document.timeline.currentTime - pausedTime)
+    )
+    pomodoroDispatch(setStartedAt(Date.now() - pausedTime))
+    pomodoroDispatch(setPausedAt(null))
   }
 
   const handleTimeout = (elapsed) => {
     const elapsedTimePercent = (elapsed * 100) / interval
 
     if (elapsedTimePercent >= 100) {
+      controller.current?.abort()
       setProgressInMilliseconds(interval)
       pomodoroDispatch(setStartedAt(null))
+      pomodoroDispatch(setPausedAt(null))
       setTimeout(() => handleTimerComplete(), 0)
       return null
     }
@@ -183,7 +227,7 @@ const useTimer = () => {
       if (prevPercentProgress >= 100) {
         pomodoroDispatch(setStartedAt(null))
         pomodoroDispatch(resetPomodoroSession())
-        notifs.createInfo("Previous session was completed ✅")
+        notifs.createInfo('Previous session was completed ✅')
         handleAutoPlay()
         return null
       }
@@ -199,28 +243,45 @@ const useTimer = () => {
   }, [cachedStartedAt, interval]) // eslint-disable-line
 
   useEffect(() => {
+    if (cachedPausedAt) {
+      const prevElapsedTime = cachedPausedAt
+      setPercentProgressed((prevElapsedTime / interval) * 100)
+      setProgressInMilliseconds(interval - prevElapsedTime)
+      pomodoroDispatch(setPausedAt(cachedPausedAt))
+
+      return null
+    }
+  }, [cachedPausedAt, interval])
+
+  useEffect(() => {
     if (startedAt) {
-      initTimer()
+      if (pausedAt || cachedPausedAt) {
+        handlePauseResume()
+      } else {
+        initTimer()
+      }
     }
 
     if (!startedAt) {
       controller.current?.abort()
       clearTimeout(timerTimeout.current)
-      setProgressInMilliseconds(interval)
-      setPercentProgressed(0)
+      if (!pausedAt) {
+        setProgressInMilliseconds(interval)
+        setPercentProgressed(0)
+      }
     }
 
     return () => {
       controller.current?.abort()
     }
-  }, [startedAt]) // eslint-disable-line
+  }, [startedAt, pausedAt]) // eslint-disable-line
 
   const minutes = msToMinutes(progressInMilliseconds)
   const seconds = msToSeconds(progressInMilliseconds)
 
   return {
     clock: { minutes, seconds },
-    percentProgressed,
+    percentProgressed
   }
 }
 

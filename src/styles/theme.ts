@@ -91,7 +91,10 @@ const shadows = {
     rgba(50, 50, 50, 0.1) 0px 5px 12px,
     rgba(50, 50, 50, 0.07) 0px 7px 25px,
     rgba(0, 0, 0, 0.05) 0px 12px 35px
-  `
+  `,
+  neumorphicDefault: `0 0 0 1px rgb(0,0,0),   rgba(50, 50, 50, 0.08) 0px 2px 10px,
+  rgba(50, 50, 50, 0.05) 0px 5px 20px,
+  rgba(0, 0, 0, 0.03) 0px 10px 30px`
 }
 
 const letterSpacings = {
@@ -192,7 +195,8 @@ export const darkModeColors: Theme = {
     lg: `
     rgba(10, 10, 10, 0.5) -2px -2px 5px,
     rgba(255, 255, 255, 0.04) 2px 2px 5px
-    `
+    `,
+    neumorphicDefault: `-8px -8px 20px rgba(146, 146, 146, 0.02), -2px -2px 4px rgba(78, 77, 77, 0.25), 8px 8px 16px rgba(0, 0, 0, 0.13), -4px -4px 8px rgba(66, 66, 66, 0.32), 2px 2px 4px rgba(0, 0, 0, 0.35);`
   }
 }
 

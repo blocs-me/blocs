@@ -35,7 +35,7 @@ const ModalBody = ({ closeModal, children }: Omit<Props, 'appendTo'>) => {
       {
         duration: 1
       }
-    ).finished.then(() => closeModal())
+    ).finished.then(() => closeModal?.())
   }
 
   useClickOutside({
@@ -82,6 +82,7 @@ const ModalBody = ({ closeModal, children }: Omit<Props, 'appendTo'>) => {
         borderRadius="lg"
         bg="background"
         boxShadow="default"
+        overflow="hidden"
         ref={childrenWrapper}
       >
         {children}

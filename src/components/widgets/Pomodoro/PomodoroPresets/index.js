@@ -20,6 +20,8 @@ import DeletePresetModal from './DeletePresetModal'
 import { setCurrentPomodoroPreset } from '../pomodoroActions'
 import { useWidgetAuthStore } from '@/hooks/useWidgetAuth'
 import fetchWithToken from 'src/services/fetchWithToken'
+import Stopwatch from 'src/icons/stopwatch'
+import Grid from '@/helpers/Grid'
 
 const PomodoroPresets = () => {
   const { token } = useWidgetAuthStore() || {}
@@ -109,7 +111,7 @@ const PomodoroPresets = () => {
         height="100%"
         position="relative"
       >
-        <MenuHeader icon={<Clock />} title="pomodoro" />
+        <MenuHeader icon={<Stopwatch />} title="Pomodoro" />
 
         <ScrollProvider height="100%">
           <Box px="sm" height="100%">
@@ -168,31 +170,23 @@ const PomodoroPresets = () => {
         height="100%"
         position="relative"
       >
-        <MenuHeader icon={<Clock />} title="pomodoro" />
+        <MenuHeader icon={<Stopwatch />} title="Pomodoro" />
         <ScrollProvider px="sm" height="100%">
-          <Stack mt="sm" flex="1">
-            <Button
-              onClick={(e) => handleCreateNewSession(e)}
-              as="button"
-              alignItems="center"
-              borderRadius="md"
-              height="62px"
-              bg="primary.accent-1"
-              width="calc(100% - 40px)"
-              p="xs"
-              css={{ display: 'flex', alignItems: 'center' }}
-              variant="lightBg"
-            >
-              <Flex bg="primary.accent-4" borderRadius="sm" p="xxs" mr="xs">
-                <Icon stroke="bg.default" width="20px" m="auto" display="flex">
-                  <Plus />
-                </Icon>
-              </Flex>
-              <Text fontSize="xs" fontWeight="400" m={0}>
-                new session
-              </Text>
-            </Button>
+          <Button
+            onClick={(e) => handleCreateNewSession(e)}
+            variant="success"
+            width="100%"
+            height="50px"
+            color="foreground"
+            mb="sm"
+          >
+            Create Pomodoro Preset
+          </Button>
 
+          <Grid
+            gridTemplateColumns="repeat(2, 1fr)"
+            css={{ gridGap: '0.5rem' }}
+          >
             {(presets?.data?.length === 0
               ? defaultPresets
               : presets?.data
@@ -206,8 +200,7 @@ const PomodoroPresets = () => {
                 selected={currentPreset?.id === preset?.id}
               />
             ))}
-          </Stack>
-          <Box height="50px" />
+          </Grid>
         </ScrollProvider>
       </Flex>
     </>

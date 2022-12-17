@@ -4,6 +4,7 @@ import {
   SET_CURRENT_POMODORO_PRESET,
   SET_DOCUMENT_TIMELINE_OFFSET,
   SET_DOCUMENT_TIMELINE_START,
+  SET_PAUSED_AT,
   SET_POMODORO_PRESET_MODE,
   SET_POMODORO_SESSION_COUNT,
   SET_STARTED_AT
@@ -23,12 +24,14 @@ const initialState = {
   favorites: [],
   activeSessionMenu: false,
   sessionCount: Number(storage.getItem(SET_POMODORO_SESSION_COUNT)) || 0,
+
   presetMode:
     storage.getItem(SET_POMODORO_PRESET_MODE) || POMODORO_INTERVAL_MODE,
   documentTimelineStart: 0,
   session: {
     startedAt: null,
-    endedAt: null
+    endedAt: null,
+    pausedAt: Number(storage.getItem(SET_PAUSED_AT))
   },
   preferences: {
     autoSetTheme: true,
