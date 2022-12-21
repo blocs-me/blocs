@@ -1,7 +1,7 @@
 import Box from '@/helpers/Box'
 import { MouseEvent, ReactNode, useMemo, useRef, useState } from 'react'
 import { BarChartProps } from './types'
-import { useDebouncedFn } from 'beautiful-react-hooks'
+import { useDebouncedCallback } from 'beautiful-react-hooks'
 import { UseBarChartReturn } from './useBarChart/useBarChart'
 import BarChartTooltip from './BarChartTooltip'
 
@@ -25,13 +25,19 @@ const TooltipContainer = ({
   const tooltip = useRef<HTMLDivElement>(null)
 
   const posData = data[pos]
-  const handleMouseMove = useDebouncedFn((e: MouseEvent) => {
-    const el = e.target as HTMLDivElement
-    const { left, width: w } = el.getBoundingClientRect()
+  const handleMouseMove = useDebouncedCallback(
+    (e: MouseEvent) => {
+      const el = e.target as HTMLDivElement
+      const { left, width: w } = el.getBoundingClientRect()
 
-    const relativePos = Math.round((data.length - 1) * ((e.clientX - left) / w))
-    setPos(relativePos)
-  }, 5)
+      const relativePos = Math.round(
+        (data.length - 1) * ((e.clientX - left) / w)
+      )
+      setPos(relativePos)
+    },
+    [],
+    10
+  )
 
   const [xPos, orientation] = useMemo((): [number, Orientation] => {
     const containerWidth = container.current?.getBoundingClientRect().width

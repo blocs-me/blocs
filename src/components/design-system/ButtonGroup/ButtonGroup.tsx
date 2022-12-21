@@ -5,7 +5,7 @@ import ButtonHighlighter from './ButtonHightlighter'
 import { animate } from 'motion'
 import Flex from '@/helpers/Flex'
 import {
-  useDebouncedFn,
+  useDebouncedCallback,
   useMediaQuery,
   useWindowResize
 } from 'beautiful-react-hooks'
@@ -30,7 +30,7 @@ const ButtonGroup = ({
   const cachedContainerSizes = useRef<Dims>({} as Dims)
   const reduceMotion = useMediaQuery('(prefers-reduced-motion: reduce)')
 
-  const cacheContaineDims = useDebouncedFn(() => {
+  const cacheContaineDims = useDebouncedCallback(() => {
     const { top, left } = container.current.getBoundingClientRect()
     cachedContainerSizes.current = {
       top,
