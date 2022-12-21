@@ -95,7 +95,7 @@ const PomodoroMainPage = ({ isHovering }) => {
     pomodoroDispatch(setStartedAt(Date.now()))
   }
 
-  useEffect(() => { 
+  useEffect(() => {
     if (presets?.data?.length === 1) {
       const preset = presets.data[0]
 
@@ -105,16 +105,16 @@ const PomodoroMainPage = ({ isHovering }) => {
     }
   }, [presets, currentPreset]) // eslint-disable-line
 
-  useEffect(() => {
-    const hideBanner = storage.getItem('blocs-release-banner') === 'true'
-    if (isLoggedIn && !hideBanner) {
-      storage.setItem('blocs-release-banner', 'true')
-      notifs.createInfo(
-        'New version of blocs is releasing 16th December 🎉🥳',
-        5000
-      )
-    }
-  }, [isLoggedIn, notifs])
+  // useEffect(() => {
+  //   const hideBanner = storage.getItem('blocs-release-banner') === 'true'
+  //   if (isLoggedIn && !hideBanner) {
+  //     storage.setItem('blocs-release-banner', 'true')
+  //     notifs.createInfo(
+  //       'New version of blocs is releasing 16th December 🎉🥳',
+  //       5000
+  //     )
+  //   }
+  // }, [isLoggedIn, notifs])
 
   const handleMouseOver = (e) => {
     if (widgetLayout?.contains(e.target)) {
