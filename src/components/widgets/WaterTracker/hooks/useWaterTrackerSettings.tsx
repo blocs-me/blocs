@@ -14,7 +14,7 @@ const useWaterTrackerSettings = () => {
   const token = hash?.['token']
   const path = `${WATER_TRACKER_SETTINGS_PATH}?widgetType=WATER_TRACKER&widgetToken=${token}&role=${hash.role}`
 
-  const swr = useSWR<Response>(path, fetcher)
+  const swr = useSWR<Response>(token ? path : null, fetcher)
   return swr
 }
 

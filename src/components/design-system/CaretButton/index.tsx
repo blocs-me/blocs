@@ -26,13 +26,6 @@ const CaretButton = forwardRef(
 
     return (
       <Button
-        {...props}
-        ref={ref}
-        width="30px"
-        bg="success.dark"
-        borderRadius="md"
-        p={0}
-        display="flex"
         css={{
           alignItems: 'center',
           justifyContent: 'center',
@@ -41,6 +34,13 @@ const CaretButton = forwardRef(
             opacity: 0.9
           }
         }}
+        width="30px"
+        bg="success.dark"
+        borderRadius="md"
+        p={0}
+        display="flex"
+        {...props}
+        ref={ref}
       >
         <Icon
           width="20px"

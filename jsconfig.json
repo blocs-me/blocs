@@ -10,7 +10,7 @@
       "@/keyframes/*": ["src/styles/keyframes/*"],
       "@/utils/*": ["./src/utils/*"],
       "@/hooks/*": ["./src/hooks/*"],
-      "@/constants/*": ["./src/constants/*"],
+      "@/constants/*": ["src/constants/*"],
       "@/contexts/*": ["./src/contexts/*"],
       "@/icons/*": ["./src/icons/*.svg"],
       "@/schemas/*": ["src/lambdas/schemas/*"]

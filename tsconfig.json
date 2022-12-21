@@ -24,7 +24,7 @@
       "@/keyframes/*": ["src/styles/keyframes/*"],
       "@/utils/*": ["./src/utils/*"],
       "@/hooks/*": ["./src/hooks/*"],
-      "@/constants/*": ["./src/constants/*"],
+      "@/constants/*": ["src/constants/*"],
       "@/contexts/*": ["./src/contexts/*"],
       "@/icons/*": ["./src/icons/*.svg"],
       "@/schemas/*": ["src/lambdas/schemas/*"]
@@ -40,7 +40,10 @@
     "src/lambda-functions/loadDummyData.ts",
     "src/components/helpers/Box/index.js",
     "src/components/helpers/Notch/index.tsx",
-    "src/components/widgets/WaterTracker/UpdateGoalModal.jsx"
-, "src/lambda-functions/lib/restValidator/schemas/habit-tracker/saveHabitTrackerAnalyticsSchema.js", "jest.config.js", "jest.setup.js"  ],
+    "src/components/widgets/WaterTracker/UpdateGoalModal.jsx",
+    "src/lambda-functions/lib/restValidator/schemas/habit-tracker/saveHabitTrackerAnalyticsSchema.js",
+    "jest.config.js",
+    "jest.setup.js"
+  ],
   "exclude": ["node_modules"]
 }

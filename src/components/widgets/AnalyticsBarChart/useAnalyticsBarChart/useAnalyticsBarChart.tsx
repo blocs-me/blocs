@@ -44,7 +44,11 @@ const [
   AnalyticsBarChartProvider,
   useAnalyticsBarChartStore,
   useAnalyticsBarChartDispatch
-] = makeStore<State, AnalyticsActions>({ initialState, reducer })
+] = makeStore<State, AnalyticsActions>({
+  initialState,
+  reducer,
+  displayName: 'AnalyticsBarChartProvider'
+})
 
 const useAnalyticsBarChart = () => {
   const store = useAnalyticsBarChartStore()
