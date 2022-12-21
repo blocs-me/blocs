@@ -1,4 +1,5 @@
-import { BarChartProps } from '../types'
+import { BarChartProps, TooltipData } from '../types'
+import getYearMonthDate from '@/utils/dateUtils/getYearMonthDate'
 
 const sortData = (data: BarChartProps['data']) =>
   data?.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
@@ -29,21 +30,14 @@ export type UseBarChartReturn<T = {}> = {
     id: string | number
     isDifferentMonth?: boolean
     value: number
+    timePeriod: BarChartProps['timePeriod']
   }[]
   stepY: (tickIndex: number) => (string | number)[]
   stepX: (tickIndex: number) => number
 } & T
 
 type BarChartData = BarChartProps['data']
-type ICompose = (fns: (arg?: BarChartData) => BarChartData) => BarChartData
 
-const compose: ICompose = (...fns) => {
-  let result = null as BarChartData
-  for (let i = 0; i < fns.length; i++) {
-    result = fns[i](result)
-  }
-  return result
-}
 const formatData = (
   data: BarChartData,
   timePeriod: BarChartProps['timePeriod']
@@ -65,9 +59,8 @@ const formatData = (
   const firstDate = new Date(sortedData[0].date)
 
   const numberOfDaysInMonth = (() => {
-    const date = new Date(firstDate)
-    date.setDate(-1)
-    return date.getDate()
+    const [year, month] = getYearMonthDate(firstDate)
+    return new Date(year, month + 1, 0).getDate()
   })()
 
   const count = timePeriod === 'weekly' ? 7 : numberOfDaysInMonth
@@ -91,7 +84,7 @@ const formatData = (
     if (!data) {
       result.push({
         isDifferentMonth,
-        id: currentDate.getTime(),
+        id: Math.random().toString(),
         value: 0,
         date: currentDate.toISOString()
       })
@@ -114,12 +107,13 @@ const useBarChart = ({
   data,
   height,
   timePeriod,
-  width
+  width,
+  minY
 }: BarChartProps): UseBarChartReturn => {
   const sortedData = formatData(data, timePeriod)
 
   const values = sortedData.map(({ value }) => value)
-  const max = Math.max(...values)
+  const max = Math.max(...values) || minY
   const countY = new Set(values).size
 
   const ticksY = (() => {
@@ -136,7 +130,9 @@ const useBarChart = ({
     return [
       currentStep,
       `${(currentStep / maxTick) * 100}%`,
-      `${height * (currentStep / maxTick)}px`
+      `${
+        (height - (timePeriod === 'weekly' ? 50 : 20)) * (currentStep / maxTick)
+      }px`
     ]
   }
 
@@ -147,12 +143,15 @@ const useBarChart = ({
     return Math.floor(step * index)
   }
 
+  const newData = sortedData.map(({ value = 0, ...barData }) => ({
+    ...barData,
+    timePeriod,
+    value,
+    height: `${(value / maxTick) * 100}%`
+  }))
+
   return {
-    data: sortedData.map(({ value = 0, ...barData }) => ({
-      ...barData,
-      value,
-      height: `${(value / maxTick) * 100}%`
-    })),
+    data: newData,
     stepY,
     stepX,
     ticksY

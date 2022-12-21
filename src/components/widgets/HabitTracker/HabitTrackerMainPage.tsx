@@ -13,7 +13,7 @@ import useColorMode from '@/hooks/useColorMode'
 import useDarkMode from '@/hooks/useDarkMode'
 import useMediaQuery from '@/hooks/useMediaQuery'
 import FadeIn from '@/helpers/FadeIn'
-import { useDebouncedFn } from 'beautiful-react-hooks'
+import { useDebouncedCallback } from 'beautiful-react-hooks'
 import { useFetchHabits } from './hooks/useFetchHabits'
 import useFetchHabitsAnalytics from './hooks/useFetchHabitsAnalytics'
 import useSaveHabitsAnalytics from './hooks/useSaveHabitsAnalytics'
@@ -70,16 +70,20 @@ const HabitTrackerMainPage = ({ isAnalyticsHidden = false }) => {
 
   const [hideTopFade, setHideTopFade] = useState(true)
   const [hideBottomFade, setHideBottomFade] = useState(false)
-  const handleScroll = useDebouncedFn((e: UIEvent<HTMLDivElement>, hide) => {
-    const target = e.target as HTMLDivElement
-    if (target.scrollTop > 0 && hide) {
-      setHideTopFade(false)
-    }
+  const handleScroll = useDebouncedCallback(
+    (e: UIEvent<HTMLDivElement>, hide) => {
+      const target = e.target as HTMLDivElement
+      if (target.scrollTop > 0 && hide) {
+        setHideTopFade(false)
+      }
 
-    if (target.scrollTop === 0) {
-      setHideTopFade(true)
-    }
-  }, 10)
+      if (target.scrollTop === 0) {
+        setHideTopFade(true)
+      }
+    },
+    [],
+    10
+  )
 
   useEffect(() => {
     const scrollHeight = scrollContainer.current.scrollHeight

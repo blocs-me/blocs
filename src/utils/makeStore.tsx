@@ -7,7 +7,11 @@ export type Action<T = string, PL = any> = {
   payload: PL
 }
 
-function makeStore<Store = any, Actions = any>({ initialState, reducer }) {
+function makeStore<Store = any, Actions = any>({
+  initialState,
+  reducer,
+  displayName = 'MakeStoreProvider'
+}) {
   const context = React.createContext<Store>({} as Store)
   const dispatchContext = React.createContext(null)
   const useDispatch = (): Dispatch<Actions> => useContext(dispatchContext)
@@ -24,6 +28,8 @@ function makeStore<Store = any, Actions = any>({ initialState, reducer }) {
       </dispatchContext.Provider>
     )
   }
+
+  dispatchContext.displayName = displayName
 
   const result = [Provider, useStore, useDispatch] as [
     (props: { children?: ReactNode }) => JSX.Element,

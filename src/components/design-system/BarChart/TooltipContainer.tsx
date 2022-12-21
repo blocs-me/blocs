@@ -1,15 +1,7 @@
 import Box from '@/helpers/Box'
-import {
-  MouseEvent,
-  ReactNode,
-  useMemo,
-  useRef,
-  useState,
-  useCallback
-} from 'react'
-import { WithChildren } from '@/utils/tsUtils'
+import { MouseEvent, ReactNode, useMemo, useRef, useState } from 'react'
 import { BarChartProps } from './types'
-import { useDebouncedFn } from 'beautiful-react-hooks'
+import { useDebouncedCallback } from 'beautiful-react-hooks'
 import { UseBarChartReturn } from './useBarChart/useBarChart'
 import BarChartTooltip from './BarChartTooltip'
 
@@ -18,48 +10,56 @@ type Props = Pick<BarChartProps, 'width' | 'renderTooltip' | 'timePeriod'> &
     children?: ReactNode
   }
 
-const TooltipContainer = ({ children, data, stepX, renderTooltip }: Props) => {
+type Orientation = 'left' | 'right'
+
+const TooltipContainer = ({
+  children,
+  data,
+  stepX,
+  renderTooltip,
+  timePeriod
+}: Props) => {
   const [pos, setPos] = useState(0)
   const [isHovering, setIsHovering] = useState(false)
   const container = useRef<HTMLDivElement>()
   const tooltip = useRef<HTMLDivElement>(null)
-  const tooltipWidth = useMemo(
-    () => tooltip.current?.getBoundingClientRect().width || 0,
-    [tooltip.current] // eslint-disable-line
-  )
 
   const posData = data[pos]
-  const [orientation, setOrientation] = useState<'left' | 'right'>('left')
+  const handleMouseMove = useDebouncedCallback(
+    (e: MouseEvent) => {
+      const el = e.target as HTMLDivElement
+      const { left, width: w } = el.getBoundingClientRect()
 
-  const handleMouseMove = useDebouncedFn((e: MouseEvent) => {
-    const el = e.target as HTMLDivElement
-    const { left, width: w } = el.getBoundingClientRect()
+      const relativePos = Math.round(
+        (data.length - 1) * ((e.clientX - left) / w)
+      )
+      setPos(relativePos)
+    },
+    [],
+    10
+  )
 
-    const relativePos = Math.round((data.length - 1) * ((e.clientX - left) / w))
-    setPos(relativePos)
-  }, 5)
-
-  const xPos = useMemo(() => {
-    const xPos = stepX(pos) + tooltipWidth
-
+  const [xPos, orientation] = useMemo((): [number, Orientation] => {
     const containerWidth = container.current?.getBoundingClientRect().width
+    const tooltipWidth = Math.max(
+      tooltip.current?.getBoundingClientRect().width,
+      100
+    )
+    const xPos = stepX(pos)
 
-    if (xPos > containerWidth) {
-      setOrientation('right')
-      return stepX(pos) - tooltipWidth
+    if (xPos + tooltipWidth > containerWidth) {
+      return [xPos - (tooltipWidth + 35) / 2, 'right']
     }
 
-    if (orientation !== 'left') setOrientation('left')
-
-    return xPos
+    return [xPos + (tooltipWidth + 35) / 2, 'left']
   }, [pos]) // eslint-disable-line
 
   return (
     <Box
       ref={container}
+      zIndex={10}
       width="100%"
       height="100%"
-      zIndex={10}
       onMouseOver={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
       onMouseMoveCapture={(e: MouseEvent) => handleMouseMove(e)}
@@ -75,7 +75,10 @@ const TooltipContainer = ({ children, data, stepX, renderTooltip }: Props) => {
           `}
           style={{
             '--x': `${xPos}px`,
-            '--y': posData?.height,
+            '--y':
+              timePeriod === 'weekly'
+                ? `calc(${posData?.height} + 50px)`
+                : `calc(${posData?.height} + 30px)`,
             transition: 'bottom ease 0.3s, transform ease 0.3s'
           }}
           css={{ pointerEvents: 'none' }}

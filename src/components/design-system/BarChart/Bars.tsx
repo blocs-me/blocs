@@ -29,12 +29,14 @@ const Bars = ({ data, timePeriod, width, stepX, renderTooltip }: Props) => {
       <Flex
         position="relative"
         width="calc(100% - 35px)"
-        height="100%"
+        height={
+          timePeriod === 'weekly' ? 'calc(100% - 50px)' : 'calc(100% - 20px)'
+        }
         ml="35px"
         justifyContent="space-between"
         alignItems="end"
       >
-        {data.map(({ height, id }) => (
+        {data.map(({ height }, id) => (
           <Bar
             key={id}
             style={{ '--width': timePeriod === 'weekly' ? '10px' : '5px' }}

@@ -4,7 +4,7 @@ import themeGet from '@styled-system/theme-get'
 import styled from '@emotion/styled'
 import Box from '@/helpers/Box'
 import Flex from '@/helpers/Flex'
-import { useDebouncedFn } from 'beautiful-react-hooks'
+import { useDebouncedCallback } from 'beautiful-react-hooks'
 
 const Track = styled.div`
   --translateX: -100%;
@@ -58,7 +58,7 @@ const Slider = forwardRef(
     const pointerDown = useRef(false)
     const [inputValue, setInputValue] = useState(defaultValue)
 
-    const handleChange = useDebouncedFn((translatePercent) => {
+    const handleChange = useDebouncedCallback((translatePercent) => {
       const inputEl = document.querySelector(`${Thumb} + input`)
       const val = maxValue - Math.round(maxValue * (translatePercent / 100))
 

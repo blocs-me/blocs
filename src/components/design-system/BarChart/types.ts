@@ -14,9 +14,11 @@ export type BarChartProps = {
     tooltipData: TooltipData & CustomData
   ) => JSX.Element
   className?: string
+  minY: number
 }
 
 export type TooltipData = {
+  timePeriod: BarChartProps['timePeriod']
   height: string
   date: string
   id: string | number
