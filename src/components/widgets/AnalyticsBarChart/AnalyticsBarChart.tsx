@@ -61,7 +61,7 @@ const AnalyticsBarChart = ({
 
   return (
     <Flex
-      p="md"
+      p="sm"
       borderRadius="lg"
       bg="background"
       flexDirection="column"
@@ -69,7 +69,8 @@ const AnalyticsBarChart = ({
       width="100%"
       height="100%"
       maxHeight="500px"
-      minWidth="510px"
+      minHeight="300px"
+      minWidth="300px"
       maxWidth="700px"
       position="relative"
     >

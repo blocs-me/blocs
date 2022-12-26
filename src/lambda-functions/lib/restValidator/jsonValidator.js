@@ -9,6 +9,7 @@ import saveHabitTrackerAnalyticsSchema from './schemas/habit-tracker/saveHabitTr
 import habitTrackerQueryParams from './schemas/habit-tracker/habitTrackerQueryParams'
 import habitSchema from './schemas/habit-tracker/habitSchema'
 import pomodoroAnalyticsSchema from './schemas/pomdoro/pomodoroAnalyticsSchema'
+import pomodoroAnalyticsByRangeSchema from './schemas/pomdoro/pomodoroAnalyticsByRangeSchema'
 import waterTrackerAnalyticsByRangeSchema from './schemas/water-tracker/waterTrackerAnalyticsByRangeSchema'
 
 const ajv = new Ajv()
@@ -34,4 +35,7 @@ export const validateHabitTrackerAnalytics = ajv.compile(
 export const validateHabitSchema = ajv.compile(habitSchema)
 export const validateWaterAnalyticsByRange = ajv.compile(
   waterTrackerAnalyticsByRangeSchema
+)
+export const validatePomodoroAnalyticsByRange = ajv.compile(
+  pomodoroAnalyticsByRangeSchema
 )

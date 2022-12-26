@@ -3,14 +3,18 @@ import faunaClient from '../faunaClient'
 
 const getWidgetUser = async (req, res, rest) => {
   const token = rest.bearerToken
+  const { role } = req.query
 
   try {
     if (!token) {
       return res.status(401).json({ error: 'Unauthorized acccess' })
     }
 
+    const index =
+      role === 'friend' ? 'widget_by_shareable_token' : 'widget_by_token'
+
     const widget = await faunaClient
-      .query(q.Get(q.Match(q.Index('widget_access_tokens_by_token'), token)))
+      .query(q.Get(q.Match(q.Index(index), token)))
       .then((data) => data)
       .catch((err) => null)
 

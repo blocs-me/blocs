@@ -13,7 +13,7 @@ const useAnalyticsBarChartDateRange = () => {
       from.setDate(from.getDate() - from.getDay() + 1)
       from.setDate(from.getDate() + page * 7)
 
-      to.setDate(to.getDate() - (to.getDay() + 1))
+      to.setDate(to.getDate() - to.getDay())
       to.setDate(to.getDate() + (page + 1) * 7)
     }
 
