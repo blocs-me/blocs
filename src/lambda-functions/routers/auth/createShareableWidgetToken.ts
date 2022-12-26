@@ -3,6 +3,7 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import { query as q } from 'faunadb'
 import Rest from '@/lambda/lib/rest'
 import crypto from 'crypto'
+import { queryGuard } from '@/lambda/helpers/faunadb/queryGuard'
 
 const createShareableWidgetToken = async (
   req: NextApiRequest,
@@ -29,7 +30,9 @@ const createShareableWidgetToken = async (
   }
 
   const shouldCreateToken =
-    !widget?.data?.shareableToken && widget?.data?.type === widgetType
+    !widget?.data?.shareableToken &&
+    (widget?.data?.type === widgetType ||
+      widget?.data?.widgetType === widgetType)
 
   if (!shouldCreateToken) {
     return res
@@ -40,12 +43,14 @@ const createShareableWidgetToken = async (
   try {
     const token = crypto.randomUUID()
 
-    await faunaClient.query(
-      q.Update(widget.ref, {
-        data: {
-          shareableToken: token
-        }
-      })
+    await queryGuard(() =>
+      faunaClient.query(
+        q.Update(widget.ref, {
+          data: {
+            shareableToken: token
+          }
+        })
+      )
     )
 
     res.status(200).json({

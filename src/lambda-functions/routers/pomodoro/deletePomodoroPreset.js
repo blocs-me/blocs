@@ -1,6 +1,7 @@
 import faunaClient from '@/lambda/faunaClient'
 import { validatePomodoroPreset } from '@/lambda/lib/restValidator/jsonValidator'
 import { query as q } from 'faunadb'
+import { queryGuard } from '@/lambda/helpers/faunadb/queryGuard'
 
 const deletePomodoroPreset = async (req, res, rest) => {
   const { user, body: preset } = req
@@ -32,8 +33,25 @@ const deletePomodoroPreset = async (req, res, rest) => {
       throw error
     }
 
+    const curPreset = await queryGuard(() =>
+      faunaClient.query(
+        q.Get(q.Match(q.Index('pomodoro_preset_by_id'), preset?.id))
+      )
+    )
+
+    if (!curPreset) {
+      const err = new Error('Preset not found')
+      console.error(err)
+
+      throw err
+    }
+
     const deletedPreset = await faunaClient.query(
-      q.Call(q.Function('delete_pomodoro_preset'), [preset?.id, userRef])
+      q.Update(curPreset.ref, {
+        data: {
+          isDeleted: true
+        }
+      })
     )
 
     if (deletedPreset?.error) {

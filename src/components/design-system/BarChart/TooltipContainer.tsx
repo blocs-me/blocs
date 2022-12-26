@@ -35,7 +35,7 @@ const TooltipContainer = ({
       )
       setPos(relativePos)
     },
-    [],
+    [timePeriod, data],
     10
   )
 
@@ -47,11 +47,11 @@ const TooltipContainer = ({
     )
     const xPos = stepX(pos)
 
-    if (xPos + tooltipWidth > containerWidth) {
-      return [xPos - (tooltipWidth + 35) / 2, 'right']
+    if (xPos + tooltipWidth + 25 > containerWidth) {
+      return [xPos - tooltipWidth + 25, 'right']
     }
 
-    return [xPos + (tooltipWidth + 35) / 2, 'left']
+    return [xPos + 50, 'left']
   }, [pos]) // eslint-disable-line
 
   return (

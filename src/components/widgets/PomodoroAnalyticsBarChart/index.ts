@@ -1,0 +1,2 @@
+import PomodoroAnalyticsBarChart from './PomodoroAnalyticsBarChart'
+export default PomodoroAnalyticsBarChart
