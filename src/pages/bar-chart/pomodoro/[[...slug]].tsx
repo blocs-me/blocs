@@ -11,7 +11,7 @@ const Page = () => {
   return (
     <ColorModeProvider>
       <URLHashProvider hash={hash}>
-        <WidgetPage>
+        <WidgetPage p="md">
           <AnalyticsBarChartProvider>
             <PomodoroAnalyticsBarChart />
           </AnalyticsBarChartProvider>
