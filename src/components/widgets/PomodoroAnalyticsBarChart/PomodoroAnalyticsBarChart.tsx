@@ -53,8 +53,6 @@ const PomodoroAnalyticsBarChart = () => {
     return result
   }
 
-  // console.log('data', analytics)
-
   return (
     <AnalyticsBarChart
       data={analytics?.length > 1 ? analytics : getFallback()}

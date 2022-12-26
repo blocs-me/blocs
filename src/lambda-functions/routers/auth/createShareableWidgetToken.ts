@@ -43,7 +43,7 @@ const createShareableWidgetToken = async (
   try {
     const token = crypto.randomUUID()
 
-    const data = queryGuard(() =>
+    await queryGuard(() =>
       faunaClient.query(
         q.Update(widget.ref, {
           data: {
@@ -52,10 +52,6 @@ const createShareableWidgetToken = async (
         })
       )
     )
-
-    if (!data) {
-      throw 'err'
-    }
 
     res.status(200).json({
       shareableToken: token
