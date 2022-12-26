@@ -3,6 +3,13 @@ import usePomodoroPresets from './usePomodoroPresets'
 import Text from '@/design-system/Text'
 import { useMemo } from 'react'
 import { msToHours } from '@/utils/math'
+import { useAnalyticsBarChartStore } from '../AnalyticsBarChart/useAnalyticsBarChart'
+
+const formatTooltipDate = new Intl.DateTimeFormat('en-GB', {
+  day: '2-digit',
+  month: 'short',
+  year: 'numeric'
+}).format
 
 const Item = ({ labelColor, timeSpent, title }) => (
   <Flex justifyContent="space-between" alignItems="center" width="100%">
@@ -25,6 +32,7 @@ const Item = ({ labelColor, timeSpent, title }) => (
 
 const Tooltip = (props) => {
   const { data: presets } = usePomodoroPresets()
+  const { timePeriod } = useAnalyticsBarChartStore()
 
   const presetColors = useMemo(
     () =>
@@ -49,6 +57,11 @@ const Tooltip = (props) => {
 
   return (
     <Flex flexDirection="column" justifyContent="start">
+      {timePeriod === 'monthly' && (
+        <Text color="foreground" fontSize="xs" fontWeight={400} mb={0}>
+          {formatTooltipDate(new Date(props.date))}
+        </Text>
+      )}
       {props.data?.map(([presetId, timeSpent]) => (
         <Item
           key={presetId}
