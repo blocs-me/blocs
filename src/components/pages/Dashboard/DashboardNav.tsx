@@ -24,9 +24,19 @@ const LinkText = forwardRef(({ children }: { children: ReactNode }, ref) => (
 ))
 
 const DashboardNav = () => {
-  const { setTheme, colorMode } = useColorMode()
+  const { setTheme, setBackground } = useColorMode()
   const isDarkMode = useIsTrueDarkMode()
   const { user } = useUser()
+
+  const handleThemeChange = () => {
+    if (isDarkMode) {
+      setBackground('light')
+      setTheme('light')
+    } else {
+      setBackground('dark')
+      setTheme('dark')
+    }
+  }
 
   return (
     <Flex
@@ -48,7 +58,7 @@ const DashboardNav = () => {
         <Button
           p="0"
           mb="-2px"
-          onClick={() => (isDarkMode ? setTheme('light') : setTheme('dark'))}
+          onClick={() => handleThemeChange()}
           color="foreground"
           icon={isDarkMode ? <Sun /> : <Moon />}
         />

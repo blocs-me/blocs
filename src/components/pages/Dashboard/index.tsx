@@ -9,6 +9,7 @@ import { PomodoroProvider } from '../../widgets/Pomodoro/usePomodoroStore'
 import Footer from '@/design-system/Footer'
 import { WidgetAuthProvider } from '@/hooks/useWidgetAuth'
 import DashboardNav from './DashboardNav'
+import HabitTrackerDashboard from './HabitTrackerDashboard'
 
 const Dashboard = () => {
   const { user } = useUser()
@@ -21,13 +22,15 @@ const Dashboard = () => {
       <Flex width="100vw" minHeight="100vh" height="100%">
         <Sidebar avatarUrl={avatar_url} />
 
-        <Box width="100%" bg="background">
+        <Box width="100%" bg="background" position="relative">
           <Notifications mt="80px">
             <WidgetAuthProvider>
               <PomodoroProvider>
                 {path === 'pomodoro' && <PomodoroDashboard />}
               </PomodoroProvider>
             </WidgetAuthProvider>
+
+            {path === 'habit-tracker' && <HabitTrackerDashboard />}
           </Notifications>
         </Box>
       </Flex>

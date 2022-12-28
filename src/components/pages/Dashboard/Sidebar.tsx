@@ -18,7 +18,7 @@ const NavButton = ({ to, isActive, text, icon }) => {
       <Button
         width="250px"
         as="a"
-        py="sm"
+        py="xs"
         px="md"
         borderRadius="sm"
         icon={icon}
@@ -35,11 +35,11 @@ const NavButton = ({ to, isActive, text, icon }) => {
 }
 
 const Sidebar = ({ avatarUrl }) => {
-  const theme = useTheme()
   const { path } = useRouter().query
+  const { logout } = useUser()
 
   const handleUpgrade = () => {}
-  const handleSignOut = () => {}
+  const handleSignOut = () => logout()
 
   return (
     <Flex
@@ -52,7 +52,7 @@ const Sidebar = ({ avatarUrl }) => {
       borderColor="primary.accent-1"
       px="md"
       py="md"
-      height="calc(100vh - 80px)"
+      height="calc(100vh - 70px)"
       position="sticky"
       top="0"
       left="0"
@@ -113,6 +113,7 @@ const Sidebar = ({ avatarUrl }) => {
         </Flex>
       </Flex>
       <Button
+        mt="sm"
         p="xs"
         width="200px"
         borderRadius="sm"
@@ -120,6 +121,7 @@ const Sidebar = ({ avatarUrl }) => {
         borderColor="brand.accent-1"
         border="solid 1px"
         fontWeight={200}
+        fontSize="sm"
         onClick={() => handleSignOut()}
         icon={<SignOutIcon />}
       >

@@ -10,7 +10,7 @@ export const BlocsLogo = () => {
           strokeLinecap="round"
           strokeLinejoin="round"
           strokeWidth="3.584"
-          fill-rule="evenodd"
+          fillRule="evenodd"
         />
         <path
           d="M56.514-117.189l-23.491,6.294L39.318-87.4,62.809-93.7Z"
@@ -20,7 +20,7 @@ export const BlocsLogo = () => {
           strokeLinecap="round"
           strokeLinejoin="round"
           strokeWidth="3.584"
-          fill-rule="evenodd"
+          fillRule="evenodd"
         />
         <path
           d="M39.115-63.154H14.8l0,24.321H39.113Z"
@@ -30,7 +30,7 @@ export const BlocsLogo = () => {
           strokeLinecap="round"
           strokeLinejoin="round"
           strokeWidth="3.584"
-          fill-rule="evenodd"
+          fillRule="evenodd"
         />
         <path
           d="M39.455-21.8,62.947-15.5l6.295-23.492L45.75-45.287Z"
@@ -40,7 +40,7 @@ export const BlocsLogo = () => {
           strokeLinecap="round"
           strokeLinejoin="round"
           strokeWidth="3.584"
-          fill-rule="evenodd"
+          fillRule="evenodd"
         />
         <path
           d="M62.477-55.3H86.8V-79.625H62.477Z"
@@ -50,7 +50,7 @@ export const BlocsLogo = () => {
           strokeLinecap="round"
           strokeLinejoin="round"
           strokeWidth="3.584"
-          fill-rule="evenodd"
+          fillRule="evenodd"
         />
         <text
           transform="translate(7.956 -88.116)"

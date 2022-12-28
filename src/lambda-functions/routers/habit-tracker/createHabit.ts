@@ -53,7 +53,7 @@ const createHabit = async (req: NextApiRequest, res: NextApiResponse) => {
       ? yesterdayISOStr
       : widget.data.currentStreak
 
-  const prevHabits = widget.data.habits
+  const prevHabits = widget?.data?.habits || []
 
   try {
     await faunaClient.query(
@@ -74,6 +74,7 @@ const createHabit = async (req: NextApiRequest, res: NextApiResponse) => {
 
     res.status(200).json({})
   } catch (err) {
+    console.error(err)
     res.status(200).json({
       status: 500,
       error: {

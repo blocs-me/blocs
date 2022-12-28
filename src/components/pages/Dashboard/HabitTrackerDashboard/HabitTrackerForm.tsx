@@ -3,15 +3,16 @@ import Box from '@/helpers/Box'
 import Flex from '@/helpers/Flex'
 import WidgetModal from '@/widgets/WidgetModal/WidgetModal'
 import TextInput from '@/design-system/TextInput'
-import { useForm, useFormState } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import useNotifications from '../../../design-system/Notifications/useNotifications'
 import { postReq, patchReq, deleteReq } from '../../../../utils/fetchingUtils'
 import { HABITS_PATH } from '@/utils/endpoints'
 import useUrlHash from '@/hooks/useUrlHash'
 import Text from '@/design-system/Text'
 import { useState } from 'react'
-import { useFetchHabits } from '../hooks/useFetchHabits'
 import { getCurrentISOString } from '@/utils/dateUtils/getCurrentISOString'
+import { useFetchHabits } from '../../../widgets/HabitTracker/hooks/useFetchHabits'
+import Modal from '@/design-system/Modal'
 
 type Props = {
   isOpen: boolean
@@ -44,7 +45,7 @@ const Form = ({
 
   const notifs = useNotifications()
   const [disableBtn, setDisableBtn] = useState(false)
-  const { mutate, data: habits } = useFetchHabits()
+  const { mutate } = useFetchHabits()
 
   const { token } = useUrlHash<{ token: string }>()
   const onSubmit = handleSubmit((formData) => {
@@ -64,16 +65,9 @@ const Form = ({
           revalidate: true
         }
       )
-        .then((res) => {
-          if (res?.status >= 400) {
-            notifs.createError(
-              "Uh oh ! we weren't able to create your new habit "
-            )
-            setDisableBtn(false)
-            return null
-          }
-
+        .then(() => {
           notifs.createSuccess('Successfully created a new habit!')
+          closeModal()
           reset()
           setDisableBtn(false)
         })
@@ -113,6 +107,7 @@ const Form = ({
         .then(() => {
           notifs.createSuccess('Successfully edited your habit!')
           setDisableBtn(false)
+          closeModal()
         })
         .catch((err) => {
           setDisableBtn(false)
@@ -200,14 +195,12 @@ const Form = ({
   )
 }
 
-export const HabitFormModal = ({ isOpen, closeModal, habit, mode }: Props) => {
+const HabitFormModal = ({ isOpen, closeModal, habit, mode }: Props) => {
   return (
-    <WidgetModal
-      closeModal={closeModal}
-      appendTo="#habit-manager-modal"
-      open={isOpen}
-    >
+    <Modal hideModal={closeModal} visible={isOpen}>
       <Form habit={habit} mode={mode} closeModal={closeModal} />
-    </WidgetModal>
+    </Modal>
   )
 }
+
+export default HabitFormModal
