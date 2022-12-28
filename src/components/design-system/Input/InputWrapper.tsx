@@ -23,11 +23,13 @@ const InputWrapper = ({
 }: Props) => (
   <>
     <Box
+      width="100%"
       position="relative"
       as="label"
       overflow="visible"
       htmlFor={htmlFor}
       className={className}
+      bg="background"
     >
       {children}
 

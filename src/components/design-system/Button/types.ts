@@ -11,7 +11,8 @@ export type ButtonProps = IBox &
       | 'round'
       | 'success'
       | 'danger'
-
+    hoverColor?: string
+    hoverBg?: string
     icon?: JSX.Element
     as?: string
     loading?: boolean

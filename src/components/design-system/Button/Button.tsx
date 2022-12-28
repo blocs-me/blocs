@@ -16,9 +16,37 @@ import { ButtonProps } from './types'
 import { flexbox } from 'styled-system'
 import { useTheme } from '@emotion/react'
 import { Theme } from 'src/styles/theme'
-import { forwardRef, Ref } from 'react'
+import { forwardRef, Ref, useState } from 'react'
 import Skeleton from '@/helpers/Skeleton'
 import Box from '@/helpers/Box'
+import themeGet from '@styled-system/theme-get'
+
+const hoverColor = (props) =>
+  props.hoverColor
+    ? {
+        '&:hover': {
+          'svg *': {
+            fill: props.hoverColor
+              ? themeGet(`colors.${props.hoverColor}`)(props)
+              : 'inherit'
+          },
+          color: props.hoverColor
+            ? themeGet(`colors.${props.hoverColor}`)(props)
+            : 'inherit'
+        }
+      }
+    : {}
+
+const hoverBg = (props) =>
+  props.hoverBg
+    ? {
+        '&:hover': {
+          background: props.hoverBg
+            ? themeGet(`colors.${props.hoverBg}`)(props)
+            : 'inherit'
+        }
+      }
+    : {}
 
 const buttonStyles = compose(
   layout,
@@ -35,7 +63,7 @@ const variants = variant({
     default: {
       border: 'none',
       outline: 'none',
-      color: 'primary.accent-1',
+      color: 'background',
       fontWeight: '300',
       fontSize: 'sm',
       cursor: 'pointer',
@@ -106,8 +134,12 @@ const Btn = styled('button', {
   {
     position: 'relative',
     overflow: 'hidden',
-    transition:
-      'transform 0.5s ease, color 0.2s ease,  background 0.2s ease, opacity 0.2s ease',
+
+    '& *': {
+      transition:
+        'transform 0.5s ease, color 0.2s ease,  background 0.2s ease, opacity 0.2s ease'
+    },
+
     '&:active': {
       transform: 'scale(0.96)'
     },
@@ -115,6 +147,8 @@ const Btn = styled('button', {
       opacity: 0.6
     }
   },
+  hoverColor,
+  hoverBg,
   buttonStyles,
   variants
 )
@@ -133,7 +167,6 @@ const Button = forwardRef(
     }: WithChildren<ButtonProps>,
     ref?: Ref<HTMLButtonElement>
   ) => {
-    const theme = useTheme() as Theme
     return (
       <Btn
         as={btnType as any}
@@ -156,7 +189,12 @@ const Button = forwardRef(
             {icon}
           </Icon>
         )}
-        <Box as="span" css={{ opacity: 'var(--opacity)' }}>
+        <Box
+          as="span"
+          css={{
+            opacity: 'var(--opacity)'
+          }}
+        >
           {children}
         </Box>
         {loading && (

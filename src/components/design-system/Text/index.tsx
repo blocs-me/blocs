@@ -4,7 +4,7 @@ import { color, space, system, typography, variant } from 'styled-system'
 
 const p = {
   fontSize: ['sm', 'sm', , 'md'],
-  color: 'primary.accent-2',
+  color: 'foreground',
   fontWeight: '300'
 }
 
@@ -12,7 +12,7 @@ const pSmall = {
   fontSize: 'xs',
   mb: 0,
   lineHeight: 1.25,
-  color: 'primary.accent-2'
+  color: 'foreground'
 }
 
 const li = {

@@ -10,7 +10,7 @@ export type BarChartProps = {
   height: number
   formatYLabel: (label: string | number) => string
   timePeriod: 'weekly' | 'monthly'
-  renderTooltip: <CustomData = {}>(
+  renderTooltip?: <CustomData = {}>(
     tooltipData: TooltipData & CustomData
   ) => JSX.Element
   className?: string

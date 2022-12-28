@@ -65,7 +65,7 @@ const TooltipContainer = ({
       onMouseMoveCapture={(e: MouseEvent) => handleMouseMove(e)}
     >
       {children}
-      {isHovering && (
+      {isHovering && renderTooltip && (
         <Box
           boxShadow="sm"
           position="absolute"

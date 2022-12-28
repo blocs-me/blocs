@@ -1,9 +1,9 @@
-import Box from "@/helpers/Box"
-import Skeleton from "@/helpers/Skeleton"
-import { keyframes } from "@emotion/react"
-import styled from "@emotion/styled"
-import { themeGet } from "@styled-system/theme-get"
-import { variant } from "styled-system"
+import Box from '@/helpers/Box'
+import Skeleton from '@/helpers/Skeleton'
+import { keyframes } from '@emotion/react'
+import styled from '@emotion/styled'
+import { themeGet } from '@styled-system/theme-get'
+import { variant } from 'styled-system'
 
 const fadeIn = keyframes`
   100% {
@@ -16,7 +16,7 @@ const Image = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
-  background-color: ${themeGet("bg.notion")};
+  background-color: ${themeGet('bg.notion')};
   opacity: 0;
   animation: ${fadeIn} 1s ease 0.1s forwards;
 `
@@ -24,23 +24,23 @@ const Image = styled.img`
 const variants = variant({
   variants: {
     md: {
-      size: "75px",
-      p: "0.4rem",
+      size: '75px',
+      p: '4px'
     },
     sm: {
-      size: "40px",
-      p: "0.21rem",
-    },
-  },
+      size: '40px',
+      p: '0.21rem'
+    }
+  }
 })
 
 const Container = styled(Box)(variants)
 
 const Avatar = ({
-  src = "/profile.svg",
-  variant = "md",
+  src = '/profile.svg',
+  variant = 'md',
   loading = false,
-  alt,
+  alt
 }) => (
   <Container
     variant={variant}

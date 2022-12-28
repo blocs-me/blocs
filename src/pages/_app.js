@@ -37,7 +37,6 @@ function MyApp({ Component, pageProps }) {
       <GlobalProvider>
         <Reset />
         <GlobalStyle />
-        {showNav && <Nav title={getNavTitle()} />}
         <Component {...pageProps} />
       </GlobalProvider>
     </ThemeProvider>

@@ -119,6 +119,10 @@ const GlobalStyle = () => {
           transition: color ease 0.3s, background ease 0.3s;
         }
 
+        button {
+          transition: transform ease 0.2s;
+        }
+
         @media (prefers-color-scheme: dark) {
           [data-theme='notion-bg'] {
             background: rgb(25, 25, 25);

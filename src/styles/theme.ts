@@ -6,6 +6,13 @@ const colors = {
   neutral: {
     white: '#ffff'
   },
+  brand: {
+    'accent-1': '#E00079',
+    'accent-2': '#E85DA8',
+    'accent-3': '#FF80C4',
+    'accent-4': '#FFB3DC',
+    'accent-5': '#FCE8F3'
+  },
   primary: {
     'accent-05': '#fcfcfc',
     'accent-1': '#f5f5f5',
@@ -177,6 +184,13 @@ export const darkModeColors: Theme = {
       dark: '#151515',
       mute: '#2b2b2b',
       light: ''
+    },
+    brand: {
+      'accent-1': '#eee',
+      'accent-5': '#2b2b2b',
+      'accent-2': '#2b2b2b',
+      'accent-3': '#464646',
+      'accent-4': '#2b2b2b'
     }
   },
   shadows: {
