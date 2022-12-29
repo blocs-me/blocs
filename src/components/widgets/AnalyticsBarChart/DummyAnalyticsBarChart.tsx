@@ -16,18 +16,19 @@ const data = Array(7)
     date: new Date(2023, 1, 1 + id).toISOString()
   }))
 
-const DummyAnalyticsBarChart = ({ units }) => {
+const DummyAnalyticsBarChart = ({ units, ...rest }) => {
   const container = useRef()
   const { width, height } = useResizeObserver(container) || {}
 
   return (
     <Flex
-      width="450px"
-      height="350px"
+      height="400px"
       borderRadius="md"
       boxShadow="default"
       flexDirection="column"
       p="sm"
+      {...rest}
+      css={{ aspectRatio: '1.25' }}
     >
       <Flex
         justifyContent="space-between"

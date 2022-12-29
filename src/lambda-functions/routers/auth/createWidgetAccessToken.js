@@ -67,6 +67,13 @@ const createWidgetAccessToken = async (req, res) => {
             userId: blocsUserId,
             token: crypto.randomUUID(),
             shareableToken: crypto.randomUUID(),
+            ...(widgetType === 'WATER_TRACKER'
+              ? {
+                  settings: {
+                    goal: 2
+                  }
+                }
+              : {}),
             widgetType: widgetType
           }
         })

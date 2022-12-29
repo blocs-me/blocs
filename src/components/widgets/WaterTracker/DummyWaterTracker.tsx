@@ -1,0 +1,66 @@
+import Flex from '@/helpers/Flex'
+import Bowl from './Bowl'
+import CaretButton from '@/design-system/CaretButton'
+import TweenNum from './TweenNum'
+import Text from '@/design-system/Text'
+import Box from '@/helpers/Box'
+
+type Props = {
+  goal?: number
+  progress?: number
+}
+
+const DummyWaterTracker = ({ goal, progress = 0 }) => {
+  return (
+    <Flex
+      width="100%"
+      minWidth="300px"
+      bg="background"
+      boxShadow="default"
+      css={{ aspectRatio: '0.85' }}
+      borderRadius="lg"
+      p="sm"
+      position="relative"
+      flexDirection="column"
+    >
+      <Flex mb="sm" width="100%" alignItems="center">
+        <Flex>
+          <CaretButton orientation="bottom" />
+          <Flex pl="xs" />
+          <CaretButton orientation="top" />
+        </Flex>
+
+        <Box
+          position="absolute"
+          left="50%"
+          css={{ transform: 'translateX(-50%)' }}
+        >
+          <Text
+            as="h1"
+            textAlign="center"
+            color="foreground"
+            fontSize="sm"
+            m={0}
+            lineHeight="1"
+            css={{ 'user-select': 'none', textTransform: 'capitalize' }}
+          >
+            <TweenNum speed={0.02} num={progress} />{' '}
+            {progress === 1 ? `liter` : `liters`}
+          </Text>
+          <Text
+            color="primary.accent-4"
+            fontWeight="200"
+            fontSize="xs"
+            m={0}
+            css={{ 'user-select': 'none' }}
+          >
+            {Math.min(100, Math.round((progress / goal) * 100))}% of your goal
+          </Text>
+        </Box>
+      </Flex>
+      <Bowl progress={0} goal={goal || 3} />
+    </Flex>
+  )
+}
+
+export default DummyWaterTracker

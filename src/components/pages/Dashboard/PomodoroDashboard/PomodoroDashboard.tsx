@@ -75,7 +75,7 @@ const PomodoroDashboard = () => {
           </WidgetLinkWrapper>
           <Box pl="lg" />
           <WidgetLinkWrapper isLoading={isLoading} onClick={() => copyChart()}>
-            <AnalyticsBarChart units="hr" />
+            <AnalyticsBarChart units="hr" height="350px" />
           </WidgetLinkWrapper>
         </Flex>
         <Flex width="100%">

@@ -10,6 +10,8 @@ import Footer from '@/design-system/Footer'
 import { WidgetAuthProvider } from '@/hooks/useWidgetAuth'
 import DashboardNav from './DashboardNav'
 import HabitTrackerDashboard from './HabitTrackerDashboard'
+import PremiumOverlay from './PremiumOverlay'
+import WaterTrackerDashboard from './WaterTrackerDashboard/index'
 
 const Dashboard = () => {
   const { user } = useUser()
@@ -31,7 +33,12 @@ const Dashboard = () => {
             </WidgetAuthProvider>
 
             {path === 'habit-tracker' && <HabitTrackerDashboard />}
+            {path === 'water-tracker' && <WaterTrackerDashboard />}
           </Notifications>
+
+          {/* {!user?.isPremiumUser && <PremiumOverlay />}
+            TODO: uncomment + add stripe integration
+          */}
         </Box>
       </Flex>
       <Box width="100%">

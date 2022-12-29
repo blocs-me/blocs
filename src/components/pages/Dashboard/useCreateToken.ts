@@ -19,7 +19,11 @@ export const useCreateToken = (widgetType, shouldFetch = false) => {
   const onError = () =>
     notifs.createError('Uh oh ! We were not able to create your widget link')
 
-  const { loading, fetcher: fetchToken } = useFetch(TEMP_ACCESS_TOKEN_PATH, {
+  const {
+    loading,
+    fetcher: fetchToken,
+    data
+  } = useFetch(TEMP_ACCESS_TOKEN_PATH, {
     shouldCache: false,
     shouldFetch,
     method: 'POST',
@@ -35,6 +39,7 @@ export const useCreateToken = (widgetType, shouldFetch = false) => {
     isLoading: loading,
     publicToken,
     token,
-    fetchToken
+    fetchToken,
+    data
   }
 }
