@@ -214,8 +214,8 @@ const PresetForm = ({ hideForm = () => {}, formAction, presets, open }) => {
                   fontWeight="300"
                   letterSpacing="sm"
                 >
-                  {formAction === 'CREATE' && 'create'}
-                  {formAction === 'EDIT' && 'edit'}
+                  {formAction === 'CREATE' && 'Create'}
+                  {formAction === 'EDIT' && 'Edit'}
                 </Button>
               )}
               {loading && <Loader width="30px" height="30px" />}

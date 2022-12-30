@@ -42,13 +42,13 @@ const dummyHabits = {
 
 const HabitTrackerWidget = () => {
   const { data: habits } = useFetchHabits()
-  const { data: analytics } = useFetchHabitsAnalytics()
+  const { data: analytics = dummyAnalyticsData } = useFetchHabitsAnalytics()
 
   return <DummyHabitTracker habits={habits} analyticsData={analytics} />
 }
 
 const Habits = ({ setFormAction, setShowForm }) => {
-  const { data: habits } = useFetchHabits()
+  const { data: habits = dummyHabits } = useFetchHabits()
 
   return (
     <>
@@ -64,13 +64,7 @@ const Habits = ({ setFormAction, setShowForm }) => {
       ))}
 
       {!habits?.data?.length && (
-        <Flex
-          borderRadius="md"
-          bg="primary.accent-1"
-          width="fit-content"
-          py="md"
-          mt="sm"
-        >
+        <Flex width="100%" py="md" mt="sm">
           <Text
             variant="pSmall"
             p={0}
@@ -122,7 +116,18 @@ const HabitTrackerDashboard = () => {
           </WidgetLinkWrapper>
         </Box>
         <Box pr="sm" />
-        <Flex m="md" flexDirection="column" width="300px">
+        <Flex
+          p="md"
+          flexDirection="column"
+          width="300px"
+          height="fit-content"
+          bg="background"
+          border="solid 1px"
+          borderColor="primary.accent-1"
+          m="md"
+          borderRadius="md"
+          boxShadow="sm"
+        >
           <Button
             variant="success"
             maxHeight="45px"
@@ -142,7 +147,7 @@ const HabitTrackerDashboard = () => {
             flexDirection="column"
             gridTemplateColumns={'repeat(auto-fit, 200px)'}
             gridGap="sm"
-            minWidth="300px"
+            minWidth="200px"
           >
             <Habits setFormAction={setFormAction} setShowForm={setShowForm} />
           </Flex>
@@ -160,7 +165,6 @@ const HabitTrackerDashboard = () => {
           isOpen={showForm}
           {...formAction}
         />
-   
       </Flex>
     </URLHashProvider>
   )

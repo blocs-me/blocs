@@ -4,7 +4,8 @@ const colors = {
     to: 'rgba(255,255,255,1)'
   },
   neutral: {
-    white: '#ffff'
+    white: '#ffff',
+    black: '#111'
   },
   brand: {
     'accent-1': '#E00079',

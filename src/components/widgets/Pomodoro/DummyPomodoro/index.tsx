@@ -10,7 +10,7 @@ const DummyPomodoro = () => {
   return (
     <PomodoroProvider>
       <Box
-        height="350px"
+        height="400px"
         bg="background"
         boxShadow="default"
         css={{ aspectRatio: '0.85' }}
