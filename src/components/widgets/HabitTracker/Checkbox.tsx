@@ -13,9 +13,10 @@ const Checkbox = ({ isChecked, size }: Props) => {
 
   return (
     <Flex
-      style={{
+      css={{
         '--bg': isChecked ? theme.colors.success.dark : 'transparent',
-        '--border-width': isChecked ? '0px' : '2px'
+        '--border-width': isChecked ? '0px' : '2px',
+        cursor: 'pointer'
       }}
       size={size}
       minWidth={size}
