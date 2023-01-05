@@ -49,7 +49,7 @@ const Sidebar = ({ avatarUrl }) => {
       bg="background"
       width="350px"
       borderRight="solid 1px"
-      borderColor="primary.accent-1"
+      borderColor="primary.accent-2"
       px="md"
       py="md"
       height="calc(100vh - 70px)"
@@ -99,10 +99,10 @@ const Sidebar = ({ avatarUrl }) => {
             text="Water Tracker"
           />
           <NavButton
-            to="/dashboard/guides"
+            to="/dashboard/guide"
             icon={<Document />}
-            isActive={path === 'guides'}
-            text="Guides"
+            isActive={path === 'guide'}
+            text="Guide"
           />
           <NavButton
             to="/dashboard/settings"

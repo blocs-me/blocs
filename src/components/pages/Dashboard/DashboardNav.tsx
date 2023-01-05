@@ -48,7 +48,7 @@ const DashboardNav = () => {
       pl="150px"
       pr="md"
       borderBottom="solid 1px"
-      borderColor="primary.accent-1"
+      borderColor="primary.accent-2"
     >
       <Flex size="50px">
         <BlocsLogo />

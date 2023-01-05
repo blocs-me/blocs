@@ -10,8 +10,9 @@ import Footer from '@/design-system/Footer'
 import { WidgetAuthProvider } from '@/hooks/useWidgetAuth'
 import DashboardNav from './DashboardNav'
 import HabitTrackerDashboard from './HabitTrackerDashboard'
-import PremiumOverlay from './PremiumOverlay'
 import WaterTrackerDashboard from './WaterTrackerDashboard/index'
+import Guide from './Guide'
+import UserSettings from './UserSettings/index'
 
 const Dashboard = () => {
   const { user } = useUser()
@@ -21,7 +22,8 @@ const Dashboard = () => {
   return (
     <>
       <DashboardNav />
-      <Flex width="100vw" minHeight="100vh" height="100%">
+
+      <Flex width="100%" minHeight="100vh" height="100%" bg="background">
         <Sidebar avatarUrl={avatar_url} />
 
         <Box width="100%" bg="background" position="relative">
@@ -34,6 +36,8 @@ const Dashboard = () => {
 
             {path === 'habit-tracker' && <HabitTrackerDashboard />}
             {path === 'water-tracker' && <WaterTrackerDashboard />}
+            {path === 'settings' && <UserSettings />}
+            {path === 'guide' && <Guide />}
           </Notifications>
 
           {/* {!user?.isPremiumUser && <PremiumOverlay />}
