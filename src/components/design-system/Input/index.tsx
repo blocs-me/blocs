@@ -12,13 +12,15 @@ const Input = styled.input`
   width: 100%;
   outline: none;
   background: transparent;
+  transition: box-shadow 0.2s ease;
 
   &:focus,
   &:active {
     outline: none;
-    border-color: ${themeGet('colors.success.medium')};
+    box-shadow: 0 0 0 3px ${themeGet('colors.brand.accent-5')};
+    border-color: ${themeGet('colors.brand.accent-1')};
     & ~ div > span {
-      color: ${themeGet('colors.success.medium')};
+      color: ${themeGet('colors.brand.accent-1')};
     }
   }
 
