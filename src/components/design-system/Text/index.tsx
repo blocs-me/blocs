@@ -1,6 +1,19 @@
 import styled from '@emotion/styled'
 import shouldForwardProp from '@styled-system/should-forward-prop'
-import { color, space, system, typography, variant } from 'styled-system'
+import { LayoutProps } from 'styled-system'
+import {
+  ColorProps,
+  FontSizeProps,
+  FontWeightProps,
+  SpaceProps,
+  TypographyProps,
+  color,
+  layout,
+  space,
+  system,
+  typography,
+  variant
+} from 'styled-system'
 
 const p = {
   fontSize: ['sm', 'sm', , 'md'],
@@ -13,6 +26,20 @@ const pSmall = {
   mb: 0,
   lineHeight: 1.25,
   color: 'foreground'
+}
+
+const mediumBold = {
+  fontSize: 'md',
+  fontWeight: '600',
+  mb: 0,
+  color: 'foreground'
+}
+
+const smallLight = {
+  fontSize: 'sm',
+  fontWeight: 200,
+  mb: 0,
+  color: 'primary.accent-4'
 }
 
 const li = {
@@ -37,17 +64,29 @@ const variants = variant({
     pSmall,
     p,
     h4,
-    li
+    li,
+    mediumBold,
+    smallLight
   }
 })
 
-const Text = styled('p', { shouldForwardProp })<any>(
-  space,
-  typography,
-  textTransform,
-  whiteSpace,
-  color,
-  variants
-)
+type Variants = 'pSmall' | 'p' | 'h4' | 'li' | 'mediumBold' | 'smallLight'
+type TextProps = TypographyProps &
+  ColorProps &
+  SpaceProps &
+  LayoutProps & {
+    datetime?: string
+    textTransform?: string
+    css?: any
+    whiteSpace?: string
+    as?: string
+  }
+
+const Text = styled('p', { shouldForwardProp })<
+  {
+    variant?: Variants
+    css?: any
+  } & TextProps
+>(space, typography, textTransform, whiteSpace, color, variants, layout)
 
 export default Text
