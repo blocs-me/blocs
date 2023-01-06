@@ -1,9 +1,9 @@
 /** @jsxImportSource @emotion/react */
-import Box from "@/helpers/Box"
-import Grid from "@/helpers/Grid"
-import { PageGutters } from "@/helpers/PageLayout"
-import Link from "../Link"
-import Text from "../Text"
+import Box from '@/helpers/Box'
+import Grid from '@/helpers/Grid'
+import { PageGutters } from '@/helpers/PageLayout'
+import Link from '../Link'
+import Text from '../Text'
 
 const Footer = () => (
   <Box as="footer" bg="#FCFCFC">
@@ -11,8 +11,8 @@ const Footer = () => (
       <Grid
         width="100%"
         mx="auto"
-        gridTemplateColumns={["1fr", "1fr", "1fr", "repeat(2, 1fr)"]}
-        gridGap={["sm", "sm", "lg", "auto"]}
+        gridTemplateColumns={['1fr', '1fr', '1fr', 'repeat(2, 1fr)']}
+        gridGap={['sm', 'sm', 'lg', 'auto']}
       >
         <Box width="min(100%, 350px)">
           <Text
@@ -29,10 +29,10 @@ const Footer = () => (
             found a bug, have a feature request or simply want to get in touch ?
           </Text>
           <Text fontSize="sm" fontWeight="400" color="primary.accent-2">
-            reach out to me at{" "}
+            reach out to me at{' '}
             <Link href="mailto:moniet@blocs.me" inline underline passHref>
-              {" "}
-              moniet@blocs.me 🖖{" "}
+              {' '}
+              moniet@blocs.me 🖖{' '}
             </Link>
           </Text>
         </Box>
@@ -52,7 +52,7 @@ const Footer = () => (
             workout trackers
           </Text>
           <Text fontSize="sm" fontWeight="400" color="primary.accent-2">
-            take a little looksy 👀 at our{" "}
+            take a little looksy 👀 at our{' '}
             <Link
               href="https://www.notion.so/81a847e283ca4d3583651d7d0d55f692?v=eb4ecf38b53949a6b531e387e90df22a"
               passHref
@@ -61,7 +61,7 @@ const Footer = () => (
               rel="noopener"
             >
               roadmap
-            </Link>{" "}
+            </Link>{' '}
             to see how we&#39;re progressing
           </Text>
         </Box>
@@ -78,7 +78,7 @@ const Footer = () => (
           </Text>
           <Text fontSize="sm" fontWeight="400" color="primary.accent-2">
             if you like to have a chat about all things productivity you can
-            join our{" "}
+            join our{' '}
             <Link
               href="https://discord.gg/CwxXza8xwz"
               rel="noopener"
@@ -98,17 +98,17 @@ const Footer = () => (
           color="primary.accent-1"
           mb={0}
           fontWeight="400"
-          fontSize={[, "xxs", "xs"]}
+          fontSize={[, 'xxs', 'xs']}
           letterSpacing="sm"
           textAlign="center"
         >
-          © 2021 blocs.me{" "}
+          © {new Date().getFullYear()} blocs.me{' '}
           <Text
             as="span"
             color="primary.accent-1"
             mb={0}
             fontWeight="300"
-            fontSize={[, "xxs", "xs"]}
+            fontSize={[, 'xxs', 'xs']}
             letterSpacing="sm"
             textAlign="center"
           >
