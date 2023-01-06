@@ -15,46 +15,6 @@ import { ThemeProvider, useTheme } from '@emotion/react'
 import BlocsThemeProvider from '@/helpers/BlocsThemeProvider'
 
 const MainDashboard = () => {
-  const [{ authState, authValid, loggingOut }] = useContext(globalContext)
-  const [promptUserSignIn, setPromptUserSignIn] = useState(false)
-  const [preregisterThankYou, setPreregisterThankYou] = useState(false)
-  const [showThankYou, setShowThankYou] = useState(false)
-
-  // useAuth() // auth checker
-
-  // useEffect(() => {
-  //   if (authState === ERROR) {
-  //     !promptUserSignIn && !loggingOut && setPromptUserSignIn(true)
-  //   } else {
-  //     promptUserSignIn && setPromptUserSignIn(false)
-  //   }
-  // }, [authState, promptUserSignIn, loggingOut])
-
-  // useState(() => {
-  //   if (authValid) {
-  //     const user = getAccessToken() || {}
-  //     const { firstTimeSignIn, preregisteredForPremium } = user.data || {}
-  //     preregisteredForPremium && setPreregisterThankYou(true)
-
-  //     if ((firstTimeSignIn && preregisteredForPremium) || firstTimeSignIn) {
-  //       setShowThankYou(true)
-  //     }
-
-  //     localStorage.setItem(
-  //       USER_PATH,
-  //       JSON.stringify({
-  //         ...user,
-  //         data: {
-  //           ...user.data,
-  //           firstTimeSignIn: false,
-  //         },
-  //       })
-  //     )
-  //   } else {
-  //     setShowThankYou(false)
-  //   }
-  // }, [authValid])
-
   return (
     <>
       <Head>

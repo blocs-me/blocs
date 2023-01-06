@@ -1,11 +1,11 @@
-import { useRouter } from "next/router"
-import { useEffect } from "react"
-import { ERROR } from "@/constants/fetchStates"
-import Dashboard from "@/pages/Dashboard"
+import { useRouter } from 'next/router'
+import { useEffect } from 'react'
+import { ERROR } from '@/constants/fetchStates'
+import Dashboard from '@/pages/Dashboard'
 import {
   setAuthState,
-  setAuthValid,
-} from "@/contexts/GlobalContextProvider/globalActions"
+  setAuthValid
+} from '@/contexts/GlobalContextProvider/globalActions'
 
 const DashboardSignIn = ({ code }) => {
   const router = useRouter()
@@ -13,7 +13,7 @@ const DashboardSignIn = ({ code }) => {
 
   useEffect(() => {
     if (error || !code) {
-      router.push("/dashboard")
+      router.push('/dashboard/pomodoro')
       setAuthState(ERROR)
       setAuthValid(false)
     }
@@ -23,12 +23,12 @@ const DashboardSignIn = ({ code }) => {
 }
 
 export const getServerSideProps = (ctx) => {
-  const { code = "" } = ctx.query
+  const { code = '' } = ctx.query
 
   return {
     props: {
-      code,
-    },
+      code
+    }
   }
 }
 
