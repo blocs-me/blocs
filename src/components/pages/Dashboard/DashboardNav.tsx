@@ -45,7 +45,7 @@ const DashboardNav = () => {
       width="100%"
       height="80px"
       bg="background"
-      pl="150px"
+      pl="md"
       pr="md"
       borderBottom="solid 1px"
       borderColor="primary.accent-2"

@@ -11,6 +11,7 @@ import LinkIcon from 'src/icons/link-icon'
 import Checkbox from '@/widgets/HabitTracker/Checkbox'
 import { Camera } from 'src/icons/camera'
 import { isEmail } from 'validator'
+import { useEffect, useState } from 'react'
 
 const Label = ({ children }) => {
   return (
@@ -153,14 +154,27 @@ const CheckboxItem = ({
 }
 
 const UserSettings = () => {
+  const { user } = useUser()
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors }
   } = useForm({
     reValidateMode: 'onChange'
   })
-  const { user } = useUser()
+
+  useEffect(() => {
+    if (user) {
+      reset({
+        email: user?.email,
+        fullName: user?.name,
+        profilePicture: user?.avatar_url
+      })
+    }
+  }, [user, reset])
+
+  const [isSubscribed, setIsSubscribed] = useState(true)
 
   const onSubmit = ({ email, fullName }) => {}
 
@@ -283,8 +297,10 @@ const UserSettings = () => {
           />
 
           <Icon
-            width="20px"
+            width="30px"
             display="flex"
+            p="5px"
+            bg="background"
             css={{
               position: 'absolute',
               transform: 'translateY(-50%)',
@@ -304,7 +320,7 @@ const UserSettings = () => {
             text="Product updates"
             desc="Updates about new features and widgets"
             onClick={() => {}}
-            isChecked
+            isChecked={isSubscribed}
           />
           <Box mt="sm" />
         </Flex>

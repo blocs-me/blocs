@@ -17,6 +17,7 @@ import { getCurrentISOString } from '../../../utils/dateUtils/getCurrentISOStrin
 import CheckoboxesSkeleton from './CheckboxesSkeleton'
 import BorderedBox from './BorderedBox'
 import { getPercent } from '@/utils/math'
+import styled from '@emotion/styled'
 
 const useHabitStreakProgress = (analytics) => {
   const bestStreak = analytics?.data?.bestStreak

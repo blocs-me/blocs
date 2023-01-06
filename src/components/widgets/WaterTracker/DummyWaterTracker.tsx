@@ -42,7 +42,8 @@ const DummyWaterTracker = ({ goal, progress = 0 }) => {
             fontSize="sm"
             m={0}
             lineHeight="1"
-            css={{ 'user-select': 'none', textTransform: 'capitalize' }}
+            textTransform="capitalize"
+            css={{ 'user-select': 'none' }}
           >
             <TweenNum speed={0.02} num={progress} />{' '}
             {progress === 1 ? `liter` : `liters`}

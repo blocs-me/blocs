@@ -88,10 +88,10 @@ const PresetsSection = ({ token }) => {
         <Text variant="pSmall" width="100%">
           Create Pomodoro presets to track how you spend time on different
           tasks.
-          <br />
+          <br /> 
           <br />
           Once created, you can select them inside the pomodoro widget and we’ll
-          log how much time is spend on each preset.
+          log how much time is spent on each preset.
           <br />
           <br />
           The analytics widget will show real time updates on your daily
