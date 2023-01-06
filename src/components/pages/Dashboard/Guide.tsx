@@ -73,7 +73,8 @@ const Guide = () => {
         <Header>Step 1 : Copy The Link</Header>
 
         <Flex flexWrap="wrap" p="sm" borderRadius="sm" css={{ gap: '1rem' }}>
-          <iframe
+          <Box
+            as="iframe"
             width="560"
             height="315"
             src="https://www.youtube.com/embed/V_5VuSs-4VQ"
@@ -82,7 +83,7 @@ const Guide = () => {
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
             css={{ borderRadius: '0.5rem' }}
-          ></iframe>
+          ></Box>
         </Flex>
         <Para>
           Once you sign up, you will automatically be redirected to the
@@ -104,7 +105,8 @@ const Guide = () => {
         <Header>Step 2 : Embed The Copied Link In Notion</Header>
         <Para>Here&#39;s how :</Para>
         <Flex p="sm" borderRadius="md" overflow="hidden">
-          <iframe
+          <Box
+            as="iframe"
             width="560"
             height="315"
             src="https://www.youtube-nocookie.com/embed/RZbU2rPZXGw"
@@ -113,7 +115,7 @@ const Guide = () => {
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
             css={{ borderRadius: '0.5rem' }}
-          ></iframe>
+          />
         </Flex>
       </Details>
 

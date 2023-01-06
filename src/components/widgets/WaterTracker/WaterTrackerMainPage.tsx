@@ -142,7 +142,7 @@ const WaterTrackerMainPage = () => {
               fontSize="sm"
               m={0}
               lineHeight="1"
-              css={{ 'user-select': 'none', textTransform: 'capitalize' }}
+              css={{ userSelect: 'none', textTransform: 'capitalize' }}
             >
               <TweenNum
                 speed={0.02}
