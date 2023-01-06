@@ -77,16 +77,19 @@ type TextProps = TypographyProps &
   LayoutProps & {
     datetime?: string
     textTransform?: string
-    css?: any
     whiteSpace?: string
     as?: string
+    variant?: Variants
   }
 
-const Text = styled('p', { shouldForwardProp })<
-  {
-    variant?: Variants
-    css?: any
-  } & TextProps
->(space, typography, textTransform, whiteSpace, color, variants, layout)
+const Text = styled('p', { shouldForwardProp })<TextProps>(
+  space,
+  typography,
+  textTransform,
+  whiteSpace,
+  color,
+  variants,
+  layout
+)
 
 export default Text
