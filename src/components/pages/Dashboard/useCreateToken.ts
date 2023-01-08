@@ -30,7 +30,6 @@ export const useCreateToken = (widgetType, shouldFetch = false) => {
     onSuccess,
     onError,
     body: {
-      access_token,
       widgetType
     }
   })
