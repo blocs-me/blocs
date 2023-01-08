@@ -9,6 +9,7 @@ type BlocsUser = {
     email: string
     name?: string
     ownsPremium: boolean
+    isSubscribed: boolean
   }
 }
 

@@ -177,12 +177,38 @@ const UserSettings = () => {
         fullName: blocsUser?.user?.data?.name
       })
     }
-  }, [user, reset])
+  }, [user, reset]) // eslint-disable-line
 
-  const [isSubscribed, setIsSubscribed] = useState(true)
+  const [isSubscribed, setIsSubscribed] = useState(
+    blocsUser?.user?.data?.isSubscribed
+  )
+  useEffect(
+    () => setIsSubscribed(blocsUser?.user?.data?.isSubscribed),
+    [!!blocsUser.user] // eslint-disable-line
+  )
   const notif = useNotifications()
 
   const onSubmit = ({ email, fullName }) => {}
+
+  const handleSubscribe = () => {
+    setIsSubscribed(!isSubscribed)
+
+    putReq('/api/users/newsletter', {
+      body: {
+        subscriptionType: 'blocs_updates',
+        status: !isSubscribed ? 'subscribe' : 'unsubscribe'
+      }
+    })
+      .then((res) => {
+        notif.createSuccess('Successfully saved your newsletter settings')
+      })
+      .catch(() => {
+        setIsSubscribed(!isSubscribed)
+        notif.createError(
+          'Something went wrong when trying to update your newsletter settings'
+        )
+      })
+  }
 
   const saveAvatarUrl = (newUrl: string) => {
     if (!newUrl) return null
@@ -353,7 +379,7 @@ const UserSettings = () => {
           <CheckboxItem
             text="Product updates"
             desc="Updates about new features and widgets"
-            onClick={() => {}}
+            onClick={() => handleSubscribe()}
             isChecked={isSubscribed}
           />
           <Box mt="sm" />

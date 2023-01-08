@@ -5,6 +5,7 @@ import { queryGuard } from '../helpers/faunadb/queryGuard'
 import { query as q } from 'faunadb'
 
 type BlocsUser = {
+  ref: any
   data: {
     name: string
     email: string
