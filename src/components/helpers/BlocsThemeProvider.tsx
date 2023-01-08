@@ -1,11 +1,11 @@
 import { ColorModeProvider } from '@/hooks/useColorMode'
 import { ThemeProvider as TP, ThemeProvider } from '@emotion/react'
-import { ComponentType } from 'react'
+import { ComponentType, ReactNode } from 'react'
 import useColorMode from '../../hooks/useColorMode/index'
 import ClientSideOnly from '@/helpers/ClientSideOnly'
 
-const withColorMode = (Component: ComponentType) => {
-  return (props = {}) => {
+const withColorMode = (Component: ComponentType<{ children?: ReactNode }>) => {
+  return (props) => {
     return (
       <ColorModeProvider>
         <Component {...props} />
@@ -14,7 +14,7 @@ const withColorMode = (Component: ComponentType) => {
   }
 }
 
-const BlocsThemeProvider = ({ children }) => {
+const BlocsThemeProvider = ({ children }: { children?: ReactNode }) => {
   const { theme } = useColorMode()
 
   return (

@@ -1,0 +1,95 @@
+import { NextApiResponse, NextApiRequest } from 'next'
+
+class Rest<T = any> {
+  middlewares: Record<string, any[]>
+  terminated: boolean
+
+  constructor(readonly req: NextApiRequest, readonly res: NextApiResponse) {
+    this.res = res
+    this.req = req
+    this.middlewares = {
+      post: [],
+      patch: [],
+      put: [],
+      delete: [],
+      get: [],
+      '*': []
+    }
+    this.terminated = false
+  }
+
+  async use(method, middleware) {
+    if (!method)
+      throw new Error('rest() : method must be defined for middlewares')
+    if (!middleware) throw new Error('rest() : middleware is not defined')
+
+    this.middlewares[method?.toLowerCase()]?.push(middleware)
+
+    return this
+  }
+
+  async applyMiddlewares(method) {
+    const middlewaresOfMethod = this.middlewares[method?.toLowerCase()]
+
+    if (middlewaresOfMethod?.length === 0) return null
+    if (!middlewaresOfMethod)
+      throw new Error('incorrect method provided, method : ' + method)
+
+    for (let mw of middlewaresOfMethod) {
+      try {
+        await mw(this.req, this.res)
+      } catch (error) {
+        console.error('middlware failed')
+        throw error
+      }
+    }
+  }
+
+  async get(router = () => {}) {
+    return await this.handleRouter(router, 'get')
+  }
+
+  async post(router = () => {}) {
+    return await this.handleRouter(router, 'post')
+  }
+
+  async patch(router = () => {}) {
+    return await this.handleRouter(router, 'patch')
+  }
+
+  async delete(router = () => {}) {
+    return await this.handleRouter(router, 'delete')
+  }
+
+  async put(router = () => {}) {
+    return await this.handleRouter(router, 'put')
+  }
+
+  async handleRouter(router, method) {
+    if (this.terminated) return null
+
+    if (this.req.method?.toLowerCase() === method) {
+      await this.applyMiddlewares('*')
+      await this.applyMiddlewares(this.req.method)
+
+      try {
+        await router(this.req, this.res, this)
+      } catch {
+        this.terminate()
+      }
+
+      this.terminate()
+    }
+
+    return null
+  }
+
+  terminate() {
+    this.terminated = true
+  }
+}
+
+export default Rest
+
+// const rest = Rest(req, res)
+// rest.post(router)

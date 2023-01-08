@@ -1,5 +1,5 @@
 import Flex from '@/helpers/Flex'
-import Icon from '@/helpers/Icon'
+
 import useColorMode from '@/hooks/useColorMode'
 import { BlocsLogo } from 'src/icons/blocs-logo'
 import Moon from 'src/icons/moon'
@@ -8,10 +8,10 @@ import useIsTrueDarkMode from '@/hooks/useIsTrueDarkMode'
 import Button from '@/design-system/Button'
 import Link from 'next/link'
 import Avatar from '@/design-system/Avatar'
-import useUser from '@/hooks/useUser'
 import Text from '@/design-system/Text'
-import Box from '@/helpers/Box'
 import { ReactNode, forwardRef } from 'react'
+import { useRouter } from 'next/router'
+import useBlocsUser from '@/hooks/useBlocsUser'
 
 const LinkText = forwardRef(({ children }: { children: ReactNode }, ref) => (
   <Text
@@ -26,7 +26,8 @@ const LinkText = forwardRef(({ children }: { children: ReactNode }, ref) => (
 const DashboardNav = () => {
   const { setTheme, setBackground } = useColorMode()
   const isDarkMode = useIsTrueDarkMode()
-  const { user } = useUser()
+  const blocsUser = useBlocsUser()
+  const router = useRouter()
 
   const handleThemeChange = () => {
     if (isDarkMode) {
@@ -50,7 +51,11 @@ const DashboardNav = () => {
       borderBottom="solid 1px"
       borderColor="primary.accent-2"
     >
-      <Flex size="50px">
+      <Flex
+        size="50px"
+        onClick={() => router.push('/')}
+        css={{ cursor: 'pointer' }}
+      >
         <BlocsLogo />
       </Flex>
 
@@ -76,7 +81,12 @@ const DashboardNav = () => {
             <LinkText>FAQs</LinkText>
           </a>
         </Link>
-        <Avatar variant="sm" alt="profile picture" src={user?.avatar_url} />
+        <Avatar
+          variant="sm"
+          alt="profile picture"
+          loading={!blocsUser.user}
+          src={blocsUser.user?.data?.avatar_url}
+        />
       </Flex>
     </Flex>
   )

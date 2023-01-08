@@ -11,6 +11,9 @@ import { Writing } from 'src/icons/writing'
 import Gear from '../../../icons/gear.svg'
 import { SignOutIcon } from '../../../icons/signout-icon'
 import { useRouter } from 'next/router'
+import useNotifications from '../../design-system/Notifications/useNotifications'
+import { useSupabaseClient } from '@supabase/auth-helpers-react'
+import useBlocsUser from '@/hooks/useBlocsUser'
 
 const NavButton = ({ to, isActive, text, icon }) => {
   return (
@@ -34,12 +37,21 @@ const NavButton = ({ to, isActive, text, icon }) => {
   )
 }
 
-const Sidebar = ({ avatarUrl }) => {
+const Sidebar = () => {
   const { path } = useRouter().query
-  const { logout } = useUser()
+  const router = useRouter()
+  const notif = useNotifications()
+  const supabase = useSupabaseClient()
+  const { user } = useBlocsUser()
 
   const handleUpgrade = () => {}
-  const handleSignOut = () => logout()
+  const handleSignOut = async () => {
+    const { error } = await supabase.auth.signOut()
+
+    if (error) {
+      notif.createError('Something went wrong when trying to sign out')
+    }
+  }
 
   return (
     <Flex
@@ -58,7 +70,9 @@ const Sidebar = ({ avatarUrl }) => {
       left="0"
     >
       <Flex flexDirection="column" alignItems="center">
-        <Avatar src={avatarUrl} alt="profile picture" />
+        {user?.data?.avatar_url && (
+          <Avatar src={user?.data?.avatar_url} alt="profile picture" />
+        )}
         <Button
           mt="md"
           fontWeight={200}

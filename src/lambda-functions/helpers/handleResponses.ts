@@ -10,7 +10,16 @@ const getErrorJSON = (status, message) => ({
 export const handle404Response = (res: NextApiResponse, msg?: string) =>
   res
     .status(404)
-    .json(getErrorJSON(404, "We weren't able to find the data requested"))
+    .json(
+      getErrorJSON(404, msg || "We weren't able to find the data requested")
+    )
+
+export const handle401Response = (res: NextApiResponse, msg?: string) =>
+  res.status(401).json({
+    error: {
+      message: msg || 'You are unauthorized to make this request'
+    }
+  })
 
 export const handle500Response = (res: NextApiResponse, msg?: string) =>
   res

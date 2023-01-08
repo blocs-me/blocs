@@ -6,12 +6,16 @@ import Flex from '@/helpers/Flex'
 import Icon from '@/helpers/Icon'
 import { useForm } from 'react-hook-form'
 import { Past } from '../../../../icons/Past'
-import useUser from '@/hooks/useUser'
 import LinkIcon from 'src/icons/link-icon'
 import Checkbox from '@/widgets/HabitTracker/Checkbox'
 import { Camera } from 'src/icons/camera'
 import { isEmail } from 'validator'
 import { useEffect, useState } from 'react'
+import { useUser } from '@supabase/auth-helpers-react'
+import useBlocsUser from '@/hooks/useBlocsUser'
+import fetchWithToken from 'src/services/fetchWithToken'
+import useNotifications from '@/design-system/Notifications/useNotifications'
+import { postReq, putReq } from '../../../../utils/fetchingUtils'
 
 const Label = ({ children }) => {
   return (
@@ -154,7 +158,9 @@ const CheckboxItem = ({
 }
 
 const UserSettings = () => {
-  const { user } = useUser()
+  const user = useUser()
+  const blocsUser = useBlocsUser()
+  const [avatarUrl, setAvatarUrl] = useState(blocsUser?.user?.data?.avatar_url)
   const {
     register,
     handleSubmit,
@@ -168,15 +174,34 @@ const UserSettings = () => {
     if (user) {
       reset({
         email: user?.email,
-        fullName: user?.name,
-        profilePicture: user?.avatar_url
+        fullName: blocsUser?.user?.data?.name
       })
     }
   }, [user, reset])
 
   const [isSubscribed, setIsSubscribed] = useState(true)
+  const notif = useNotifications()
 
   const onSubmit = ({ email, fullName }) => {}
+
+  const saveAvatarUrl = (newUrl: string) => {
+    if (!newUrl) return null
+
+    putReq('/api/users/avatar', {
+      body: {
+        avatar_url: newUrl
+      }
+    })
+      .then(() => {
+        notif.createInfo('Successfully updated the profile picture')
+        blocsUser.mutate()
+      })
+      .catch((err) => {
+        notif.createError(
+          'Uh oh! Something went wrong while trying to save the profile picture'
+        )
+      })
+  }
 
   return (
     <Flex size="100%" p="md" css={{ gap: '8rem' }}>
@@ -211,10 +236,8 @@ const UserSettings = () => {
           <Box mt="xs" />
           <TextInput
             ariaLabel="Full Name Input"
-            {...register('fullName', {
-              required: 'true'
-            })}
-            error={errors?.fullName ? 'This field cannot be empty' : ''}
+            {...register('fullName', { maxLength: 200 })}
+            error={errors?.fullName ? 'Max 100 characters allowed' : ''}
           />
           <Box mt="md" />
           <Button variant="success" width="100%">
@@ -232,7 +255,11 @@ const UserSettings = () => {
         >
           Manage your account
         </Text>
-        {user.isPremium ? <PremiumStatus /> : <FreeTrailStatus />}
+        {blocsUser?.user?.data?.ownsPremium ? (
+          <PremiumStatus />
+        ) : (
+          <FreeTrailStatus />
+        )}
         <Button
           px="sm"
           py="xs"
@@ -268,10 +295,13 @@ const UserSettings = () => {
         >
           <Box
             as="img"
-            src={user?.avatar_url || '/profile.svg'}
+            src={blocsUser.user?.data?.avatar_url || '/profile.svg'}
             alt="Change profile photo"
             borderRadius="50%"
             size="100px"
+            border="solid 1px"
+            borderColor="primary.accent-1"
+            p="xs"
           />
 
           <Flex
@@ -290,8 +320,12 @@ const UserSettings = () => {
         </Box>
         <Box position="relative" width="100%">
           <TextInput
+            onChange={(v) => {
+              setAvatarUrl(v.target.value)
+              saveAvatarUrl(v.target.value)
+            }}
+            value={avatarUrl}
             ariaLabel="Profile Picture URL"
-            {...register('profilePicture')}
             placeholder="User profile link"
             css={{ width: '100%' }}
           />

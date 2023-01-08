@@ -8,6 +8,7 @@ type Options = {
 
 const defaultOpts: Options = {
   headers: {
+    credentials: 'same-origin',
     'Content-Type': 'application/json'
   },
   body: {}

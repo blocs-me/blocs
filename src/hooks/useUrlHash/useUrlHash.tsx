@@ -1,4 +1,10 @@
-import { createContext, useEffect, useLayoutEffect, useState } from 'react'
+import {
+  createContext,
+  useEffect,
+  useLayoutEffect,
+  useState,
+  ComponentType
+} from 'react'
 import { useContext } from 'react'
 import { useRouter } from 'next/router'
 import { UrlHash } from '@/widgets/WaterTracker/types'
@@ -8,6 +14,18 @@ const context = createContext({})
 
 export const URLHashProvider = ({ children, hash }) => {
   return <context.Provider value={hash}>{children}</context.Provider>
+}
+
+export const withUrlHashProvider = (Component: ComponentType) => {
+  return (props: any) => {
+    const hash = useInitUrlHash()
+
+    return (
+      <URLHashProvider hash={hash}>
+        <Component {...props} />
+      </URLHashProvider>
+    )
+  }
 }
 
 export function useInitUrlHash<T = any>() {
