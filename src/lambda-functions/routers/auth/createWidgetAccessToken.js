@@ -1,8 +1,8 @@
 import faunaClient from '@/lambda/faunaClient'
-import getNotionUser from '@/lambda/helpers/getNotionUser'
 import { validateWidgetTokenReq } from '@/lambda/lib/restValidator/jsonValidator'
 import { query as q } from 'faunadb'
 import crypto from 'crypto'
+import getOrCreateBlocsUser from '@/lambda/middlewares/getOrCreateBlocsUser'
 
 const createWidgetAccessToken = async (req, res) => {
   try {
@@ -15,15 +15,13 @@ const createWidgetAccessToken = async (req, res) => {
     }
 
     // req
-    const accessToken = req.body.access_token
     const widgetType = req.body.widgetType
 
-    // user data
-    const notionUser = await getNotionUser(accessToken)
-    const userEmail = notionUser?.person?.email
-    const blocsUser = await faunaClient.query(
-      q.Get(q.Match(q.Index('all_users_by_email'), userEmail))
-    )
+    const blocsUser = await getOrCreateBlocsUser(req, res)
+
+
+    // if (['WATER_TRACKER', 'HABIT_TRACKER'].includes(widgetType)) // TODO: premium ownership validation 
+
 
     if (!blocsUser?.ref) throw new Error('blocs user not defined')
 
