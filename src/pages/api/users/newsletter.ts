@@ -50,7 +50,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     if (status === 'unsubscribe') {
       try {
-        const response = await mailchimp.lists.setListMember(
+        await mailchimp.lists.setListMember(
           process.env.MAILCHIMP_LIST_ID,
           md5(user?.data?.email),
           {

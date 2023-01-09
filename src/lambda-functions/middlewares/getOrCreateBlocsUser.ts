@@ -3,15 +3,7 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import faunaClient from '../faunaClient'
 import { queryGuard } from '../helpers/faunadb/queryGuard'
 import { query as q } from 'faunadb'
-
-type BlocsUser = {
-  ref: any
-  data: {
-    name: string
-    email: string
-    avatar_url?: string
-  }
-}
+import { BlocsUserServer as BlocsUser } from '../../global-types/blocs-user'
 
 const getOrCreateBlocsUser = async (
   req: NextApiRequest,
