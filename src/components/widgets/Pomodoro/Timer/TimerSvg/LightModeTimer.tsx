@@ -1,3 +1,4 @@
+import Box from '@/helpers/Box'
 import { useSvgTimer } from './useSvgTimer'
 
 const LightModeTimer = ({ progress }: { progress: number }) => {
@@ -15,7 +16,8 @@ const LightModeTimer = ({ progress }: { progress: number }) => {
           strokeWidth="30"
         />
       </g>
-      <circle
+      <Box
+        as="circle"
         cx="179.176"
         cy="178.794"
         r="163.53"
