@@ -15,11 +15,12 @@ import { URLHashProvider } from '@/hooks/useUrlHash/useUrlHash'
 import HabitTrackerForm from './HabitTrackerForm'
 import { useFetchHabits } from '../../../widgets/HabitTracker/hooks/useFetchHabits'
 import useFetchHabitsAnalytics from '../../../widgets/HabitTracker/hooks/useFetchHabitsAnalytics'
+import Skeleton from '@/helpers/Skeleton'
 
 const dummyAnalyticsData = {
   data: {
     bestStreak: "'x' days",
-    currentStreak: '5'
+    currentStreak: '0'
   }
 }
 
@@ -48,7 +49,7 @@ const HabitTrackerWidget = () => {
 }
 
 const Habits = ({ setFormAction, setShowForm }) => {
-  const { data: habits = dummyHabits } = useFetchHabits()
+  const { data: habits } = useFetchHabits()
 
   return (
     <>
@@ -62,9 +63,15 @@ const Habits = ({ setFormAction, setShowForm }) => {
           }}
         />
       ))}
-
-      {!habits?.data?.length && (
-        <Flex width="100%" py="md" mt="sm">
+      {!habits && <Skeleton borderRadius="sm" width="100%" height="100px" />}
+      {habits && !habits?.data?.length && (
+        <Flex
+          width="100%"
+          py="md"
+          mt="sm"
+          bg="primary.accent-1"
+          borderRadius="sm"
+        >
           <Text
             variant="pSmall"
             p={0}
@@ -72,7 +79,7 @@ const Habits = ({ setFormAction, setShowForm }) => {
             textAlign="center"
             css={{ width: '70%' }}
           >
-            When you create a habit it&#39;ll show up here
+            When you create a habit it will show up here
           </Text>
         </Flex>
       )}
@@ -85,7 +92,7 @@ const HabitTrackerDashboard = () => {
   const [shareableUrl, setShareableUrl] = useState('')
   const [formAction, setFormAction] = useState({})
   const [showForm, setShowForm] = useState(false)
-  const { isPremiumUser = true } = useUser() // TODO: change based on Stripe integratoin
+  const { isPremiumUser = true } = useUser() // TODO: change based on Stripe integration
 
   const { token, publicToken, isLoading } = useCreateToken(
     'HABIT_TRACKER',
