@@ -8,6 +8,7 @@ const getErrorJSON = (status, message) => ({
 })
 
 export const handle404Response = (res: NextApiResponse, msg?: string) =>
+  !res.headersSent &&
   res
     .status(404)
     .json(
@@ -15,6 +16,7 @@ export const handle404Response = (res: NextApiResponse, msg?: string) =>
     )
 
 export const handle401Response = (res: NextApiResponse, msg?: string) =>
+  !res.headersSent &&
   res.status(401).json({
     error: {
       message: msg || 'You are unauthorized to make this request'
@@ -22,6 +24,7 @@ export const handle401Response = (res: NextApiResponse, msg?: string) =>
   })
 
 export const handle500Response = (res: NextApiResponse, msg?: string) =>
+  !res.headersSent &&
   res
     .status(500)
     .json(
@@ -29,6 +32,7 @@ export const handle500Response = (res: NextApiResponse, msg?: string) =>
     )
 
 export const handle400Response = (res: NextApiResponse, msg?: string) =>
+  !res.headersSent &&
   res
     .status(400)
     .json(
@@ -40,6 +44,7 @@ export const handle400Response = (res: NextApiResponse, msg?: string) =>
     )
 
 export const handle200Response = (res: NextApiResponse, data = {}) =>
+  !res.headersSent &&
   res.status(200).json({
     status: 200,
     ...data

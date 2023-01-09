@@ -1,10 +1,11 @@
 import md5 from 'md5'
 import mailchimp from '../mailchimpMarketingClient'
 import mailchimpSubscriptionStates from '@/constants/mailchimpSubscriptionStates'
+import { BlocsUserServer } from 'src/global-types/blocs-user'
 
 const listId = process.env.MAILCHIMP_LIST_ID
 
-const checkIfUserIsSubscribed = async (user) => {
+const checkIfUserIsSubscribed = async (user: BlocsUserServer['data']) => {
   if (!user)
     throw new Error(
       'Mailchimp Error : could not retrieve user status; user not defined'

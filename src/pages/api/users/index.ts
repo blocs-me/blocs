@@ -10,6 +10,7 @@ import faunaClient from '@/lambda/faunaClient'
 import { query as q } from 'faunadb'
 import { queryGuard } from '../../../lambda-functions/helpers/faunadb/queryGuard'
 import jwt from 'jsonwebtoken'
+import addUserToMailingList from '@/lambda/helpers/addUserToMailingList'
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'GET') {
@@ -79,6 +80,19 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
         if (!blocsUser) {
           return handle500Response(res, 'Could not save blocs user data')
+        }
+
+        try {
+          await addUserToMailingList({
+            email: body.record.email,
+            name: body.record?.full_name || ''
+          })
+        } catch (err) {
+          console.error(err)
+          handle500Response(
+            res,
+            'Something went wrong when subscribing the user'
+          )
         }
       }
 
