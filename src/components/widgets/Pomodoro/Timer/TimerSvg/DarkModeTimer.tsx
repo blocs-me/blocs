@@ -1,3 +1,4 @@
+import Box from '@/helpers/Box'
 import { useSvgTimer } from './useSvgTimer'
 const DarkModeTimer = ({ progress }: { progress: number }) => {
   const radius = 163.53
@@ -15,7 +16,8 @@ const DarkModeTimer = ({ progress }: { progress: number }) => {
           strokeWidth="30"
         />
       </g>
-      <circle
+      <Box
+        as="circle"
         cx="179.176"
         cy="179.294"
         r="163.53"
