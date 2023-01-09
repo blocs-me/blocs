@@ -16,8 +16,7 @@ const LightModeTimer = ({ progress }: { progress: number }) => {
           strokeWidth="30"
         />
       </g>
-      <Box
-        as="circle"
+      <circle
         cx="179.176"
         cy="178.794"
         r="163.53"
