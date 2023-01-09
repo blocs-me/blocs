@@ -5,11 +5,11 @@ import { createPortal } from 'react-dom'
 import BackArrow from '../../../icons/back-arrow-dark.svg'
 import fadeIn from 'src/styles/keyframes/fadeIn'
 import Icon from '@/helpers/Icon'
-import { PageGutters } from '@/helpers/PageLayout'
 import Flex from '@/helpers/Flex'
 import Box from '@/helpers/Box'
 import { useClickOutside } from '@/hooks/useClickOutside'
 import { useMemo } from 'react'
+import PageGutters from '@/helpers/PageGutters'
 
 const Modal = ({
   children,

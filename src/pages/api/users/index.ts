@@ -66,18 +66,20 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     }
 
     if (action === 'create') {
-      const blocsUser = await queryGuard(() =>
-        faunaClient.query(
-          q.Create(q.Collection('users'), {
-            data: {
-              email: body.record.email
-            }
-          })
+      if (body.record?.email) {
+        const blocsUser = await queryGuard(() =>
+          faunaClient.query(
+            q.Create(q.Collection('users'), {
+              data: {
+                email: body.record.email
+              }
+            })
+          )
         )
-      )
 
-      if (!blocsUser) {
-        return handle500Response(res, 'Could not save blocs user data')
+        if (!blocsUser) {
+          return handle500Response(res, 'Could not save blocs user data')
+        }
       }
 
       handle200Response(res)

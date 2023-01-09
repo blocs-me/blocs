@@ -1,10 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import Box from '@/helpers/Box'
 import Grid from '@/helpers/Grid'
-import { PageGutters } from '@/helpers/PageLayout'
 import Link from '../Link'
 import Text from '../Text'
 import ClientSideOnly from '@/helpers/ClientSideOnly'
+import PageGutters from '@/helpers/PageGutters'
 
 const Footer = () => (
   <ClientSideOnly>

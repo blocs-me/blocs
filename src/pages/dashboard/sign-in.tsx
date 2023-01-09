@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react'
 import getUrlHash from '@/hooks/useUrlHash/getUrlHash'
 import DashboardSkeleton from '@/pages/Dashboard/DashboardSkeleton'
 import { useSupabaseClient } from '@supabase/auth-helpers-react'
+import useBlocsUser from '@/hooks/useBlocsUser'
+import { mutate } from 'swr'
 
 type UrlHashReturn = {
   access_token: string
@@ -26,6 +28,7 @@ const DashboardSignIn = () => {
   const { error_code } = useUrlHash()
   const router = useRouter()
   const supabase = useSupabaseClient()
+  const { mutate: refetchUser } = useBlocsUser()
 
   useEffect(() => {
     if (error_code === '401') {
@@ -36,6 +39,7 @@ const DashboardSignIn = () => {
   useEffect(() => {
     const { data } = supabase.auth.onAuthStateChange((event) => {
       if (event === 'SIGNED_IN') {
+        refetchUser()
         router.push('/dashboard/pomodoro')
       }
     })
@@ -43,7 +47,7 @@ const DashboardSignIn = () => {
     return () => {
       data.subscription.unsubscribe()
     }
-  }, [router, supabase])
+  }, [router, supabase, refetchUser])
 
   return <DashboardSkeleton />
 }

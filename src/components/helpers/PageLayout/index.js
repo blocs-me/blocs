@@ -1,20 +1,9 @@
-import Head from "next/head"
-import Footer from "@/design-system/Footer"
-import Box from "../Box"
+import Head from 'next/head'
+import Footer from '@/design-system/Footer'
+import Box from '../Box'
+import PageGutters from '../PageGutters'
 
-export const PageGutters = (props) => (
-  <Box
-    {...props}
-    width="min(100%, 1600px)"
-    mx="auto"
-    px={["sm", "sm", "5%", "8%", "10%"]}
-    overflowX="hidden"
-  >
-    {props.children}
-  </Box>
-)
-
-const PageLayout = ({ children, navTitle, links }) => (
+const PageLayout = ({ children }) => (
   <>
     <Head>
       <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
