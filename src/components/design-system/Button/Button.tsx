@@ -73,7 +73,7 @@ const variants = variant({
     outlined: {
       border: 'solid 1px',
       outline: 'none',
-      color: 'primary.accent-4',
+      color: 'foreground',
       fontWeight: '300',
       fontSize: 'sm',
       cursor: 'pointer',
@@ -88,8 +88,10 @@ const variants = variant({
     primary: {
       border: 'none',
       outline: 'none',
-      background: 'primary.accent-4',
-      color: 'primary.accent-1',
+      bg: 'foreground',
+      py: 'xs',
+      px: 'sm',
+      color: 'background',
       fontWeight: '300',
       fontSize: 'sm',
       cursor: 'pointer'
