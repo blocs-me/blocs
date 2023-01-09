@@ -64,7 +64,7 @@ const Sidebar = () => {
       borderColor="primary.accent-2"
       px="md"
       py="md"
-      height="calc(100vh - 70px)"
+      height="calc(100vh - 80px)"
       position="sticky"
       top="0"
       left="0"
