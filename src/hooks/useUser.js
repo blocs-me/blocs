@@ -1,22 +1,22 @@
-import { useRouter } from "next/router"
-import { useContext, useEffect, useMemo, useState } from "react"
-import globalContext from "@/contexts/GlobalContextProvider/globalContext"
-import { USER_PATH } from "@/utils/endpoints"
-import { ERROR, LOADING, SUCCESS } from "@/constants/fetchStates"
+import { useRouter } from 'next/router'
+import { useContext, useEffect, useMemo, useState } from 'react'
+import globalContext from '@/contexts/GlobalContextProvider/globalContext'
+import { USER_PATH } from '@/utils/endpoints'
+import { ERROR, LOADING, SUCCESS } from '@/constants/fetchStates'
 import {
   setAccessToken,
   setAuthState,
   setAuthValid,
-  setAvatarLink,
-} from "../contexts/GlobalContextProvider/globalActions"
-import useFetch from "./useFetch"
-import useLogout from "./useLogout"
+  setAvatarLink
+} from '../contexts/GlobalContextProvider/globalActions'
+import useFetch from './useFetch'
+import useLogout from './useLogout'
 
 const useUser = (options = {}) => {
   const router = useRouter()
   const { shouldFetch = true } = options
   const { code, error: notionError, state } = router.query
-  const preregisteredForPremium = state === "pre-register-for-premium"
+  const preregisteredForPremium = state === 'pre-register-for-premium'
   const body = useMemo(
     () => ({ code, preregisteredForPremium }),
     [code, preregisteredForPremium]
@@ -31,7 +31,7 @@ const useUser = (options = {}) => {
   }
 
   const { data, loading, error } = useFetch(USER_PATH, {
-    method: "POST",
+    method: 'POST',
     body,
     shouldFetch: !!code && !notionError && shouldFetch,
     onSuccess: (res = {}) => {
@@ -39,12 +39,12 @@ const useUser = (options = {}) => {
       dispatch(setAuthState(SUCCESS))
       dispatch(setAccessToken(res.access_token))
       dispatch(setAvatarLink(res.data?.avatar_url))
-      router.push("/dashboard")
+      router.push('/dashboard')
     },
     onError: () => {
       dispatch(setAuthState(ERROR))
-      router.push("/dashboard")
-    },
+      router.push('/dashboard')
+    }
   })
 
   useEffect(() => {
@@ -58,7 +58,7 @@ const useUser = (options = {}) => {
   useEffect(() => {
     if (notionError && authState !== ERROR) {
       dispatch(setAuthState(ERROR))
-      router.push("/dashboard")
+      router.push('/dashboard')
     }
   }, [notionError, authState, router])
 
@@ -66,7 +66,7 @@ const useUser = (options = {}) => {
     user: data || {},
     loading,
     error,
-    logout: handleLogout,
+    logout: handleLogout
   }
 }
 

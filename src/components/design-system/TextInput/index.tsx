@@ -15,7 +15,7 @@ type Props = {
   ariaLabel: string
   name?: string
   placeholder?: string
-  htmlFor: string
+  htmlFor?: string
   type?: string
   className?: string
   error?: string

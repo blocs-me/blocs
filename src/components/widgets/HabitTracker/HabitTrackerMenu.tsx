@@ -77,7 +77,6 @@ const HabitTrackerMenu = ({
   }
 
   const handleManageHabits = () => setShowHabitsManger(!showHabitsManager)
-  console.log(shareableLink)
   return (
     <>
       <FadeIn

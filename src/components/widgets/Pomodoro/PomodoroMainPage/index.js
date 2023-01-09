@@ -1,7 +1,8 @@
 import Timer from '../Timer'
 import Button from '@/design-system/Button'
 import Flex from '@/helpers/Flex'
-
+import CircleButtonGroup from './CircleButtonGroup'
+import CircleButton from './CircleButton'
 import { usePomodoroStore, usePomodoroDispatch } from '../usePomodoroStore'
 import {
   setCurrentPomodoroPreset,
@@ -159,50 +160,12 @@ const PomodoroMainPage = ({ isHovering }) => {
           }}
           zIndex="10"
         >
-          <Flex
-            as="button"
-            borderRadius="50%"
-            bg="background"
-            boxShadow="neumorphicDefault"
-            color="foreground"
-            p={0}
-            width="50px"
-            height="50px"
-            overflow="hidden"
+          <CircleButton
+            icon={startedAt ? <Pause /> : <Play />}
             onClick={(e) => handleClick(e)}
-            alignItems="center"
-            justifyContent="center"
-          >
-            {startedAt && (
-              <Icon stroke="foreground" width="15px" m="auto" display="flex">
-                <Pause />
-              </Icon>
-            )}
-            {!startedAt && (
-              <Icon fill="foreground" size="20px" m="auto" display="flex">
-                <Play />
-              </Icon>
-            )}
-          </Flex>
-          <Flex
-            ml="sm"
-            as="button"
-            borderRadius="50%"
-            bg="background"
-            boxShadow="neumorphicDefault"
-            color="foreground"
-            p={0}
-            width="50px"
-            height="50px"
-            overflow="hidden"
-            onClick={(e) => handleStop(e)}
-            alignItems="center"
-            justifyContent="center"
-          >
-            <Icon stroke="foreground" size="20px" m="auto" display="flex">
-              <Refresh />
-            </Icon>
-          </Flex>
+          />
+          <Box ml="sm" />
+          <CircleButton icon={<Refresh />} onClick={(e) => handleStop(e)} />
         </Flex>
       </Flex>
     </>

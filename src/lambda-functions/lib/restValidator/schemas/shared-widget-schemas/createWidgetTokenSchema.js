@@ -6,12 +6,10 @@ const createWidgetTokenSchema = {
     widgetType: {
       type: 'string',
       enum: Object.values(widgetTypes)
-    },
-    access_token: {
-      type: 'string'
     }
   },
-  required: ['widgetType', 'access_token']
+  required: ['widgetType'],
+  additionalProperties: false
 }
 
 export default createWidgetTokenSchema

@@ -1,18 +1,18 @@
-import mailchimp from "../mailchimpMarketingClient"
-import checkIfUserIsSubscribed from "./checkIfUserIsSubscribed"
-import mailchimpSubscriptionStates from "@/constants/mailchimpSubscriptionStates"
+import mailchimp from '../mailchimpMarketingClient'
+import checkIfUserIsSubscribed from './checkIfUserIsSubscribed'
+import mailchimpSubscriptionStates from '@/constants/mailchimpSubscriptionStates'
 
 const addUserToMailingList = async (user = {}) => {
-  const { email, name } = user
-  if (!email || !name)
-    throw new Error("Mailchimp Error : could not add user; user not defined")
+  const { email } = user
+  if (!email)
+    throw new Error('Mailchimp Error : could not add user; user not defined')
 
   try {
     const isUserSubscribed = await checkIfUserIsSubscribed(user)
     if (isUserSubscribed) {
       return null
     }
-    const nameArr = name.split(" ")
+    const nameArr = name.split(' ')
     const [FNAME, LNAME] = [nameArr[0], nameArr.slice(-1)[0]]
     const listId = process.env.MAILCHIMP_LIST_ID
 
@@ -21,9 +21,9 @@ const addUserToMailingList = async (user = {}) => {
       email_address: email,
       merge_fields: {
         FNAME,
-        LNAME,
+        LNAME
       },
-      tags: ["blocs_updates"],
+      tags: ['blocs_updates']
     })
 
     return res

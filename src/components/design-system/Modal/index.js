@@ -9,6 +9,7 @@ import { PageGutters } from '@/helpers/PageLayout'
 import Flex from '@/helpers/Flex'
 import Box from '@/helpers/Box'
 import { useClickOutside } from '@/hooks/useClickOutside'
+import { useMemo } from 'react'
 
 const Modal = ({
   children,
@@ -18,7 +19,10 @@ const Modal = ({
   redirectTo = '/'
 }) => {
   const ref = useRef(null)
-  const container = global.window ? document.createElement('div') : false
+  const container = useMemo(
+    () => (global.window ? document.createElement('div') : false),
+    []
+  )
   const router = useRouter()
 
   const handleExit = () => {

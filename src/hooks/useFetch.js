@@ -8,6 +8,7 @@ import {
 
 const reqOptions = (data, options) => ({
   method: options.method ?? 'GET',
+  credentials: 'same-origin',
   headers: {
     'Content-Type': 'application/json',
     ...(options.headers || {})
@@ -80,7 +81,7 @@ const useFetch = (url, options = {}) => {
     return () => {
       mounted.value = false
     }
-  }, [shouldFetch, url, mounted, shouldCache])
+  }, [shouldFetch])
 
   return {
     fetcher: () => handleReq(mounted),

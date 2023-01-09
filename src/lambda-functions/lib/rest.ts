@@ -1,5 +1,10 @@
-class Rest {
-  constructor(req, res) {
+import { NextApiResponse, NextApiRequest } from 'next'
+
+class Rest<T = any> {
+  middlewares: Record<string, any[]>
+  terminated: boolean
+
+  constructor(readonly req: NextApiRequest, readonly res: NextApiResponse) {
     this.res = res
     this.req = req
     this.middlewares = {

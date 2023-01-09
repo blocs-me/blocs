@@ -128,7 +128,7 @@ const Pomodoro = () => {
               bg="primary.accent-4"
               borderRadius="md"
               as="a"
-              href="https://blocs.me/dashboard"
+              href="https://blocs.me/dashboard/pomodoro"
               target="_blank"
             >
               To the dashboard 🚀

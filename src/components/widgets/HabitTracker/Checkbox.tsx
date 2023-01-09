@@ -2,20 +2,26 @@ import Box from '@/helpers/Box'
 import Flex from '@/helpers/Flex'
 import { useTheme } from '@emotion/react'
 import { Theme } from 'src/styles/theme'
+import { IBox } from '@/helpers/Box/Box.types'
+import themeGet from '@styled-system/theme-get'
 
 type Props = {
   isChecked: boolean
   size: string | string[]
 }
 
-const Checkbox = ({ isChecked, size }: Props) => {
+const Checkbox = ({ isChecked, size, bg, ...rest }: Props & IBox) => {
   const theme = useTheme() as Theme
 
   return (
     <Flex
-      style={{
-        '--bg': isChecked ? theme.colors.success.dark : 'transparent',
-        '--border-width': isChecked ? '0px' : '2px'
+      css={{
+        '--bg': isChecked
+          ? themeGet(`colors.${(bg || '').toString()}`)({ theme }) ||
+            theme.colors.success.dark
+          : 'transparent',
+        '--border-width': isChecked ? '0px' : '2px',
+        cursor: 'pointer'
       }}
       size={size}
       minWidth={size}
@@ -26,6 +32,7 @@ const Checkbox = ({ isChecked, size }: Props) => {
       borderColor="foreground"
       bg="var(--bg)"
       borderWidth="var(--border-width)"
+      {...rest}
     >
       <svg
         viewBox="0 0 20 14"

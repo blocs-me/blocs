@@ -6,8 +6,7 @@ import ScrollProvider from '@/design-system/ScrollProvider'
 import Stack from '@/helpers/Stack'
 import Box from '@/helpers/Box'
 import FadeProvider from '@/design-system/FadeProvider'
-import { ReactNode, UIEvent, useEffect, useRef, useState } from 'react'
-import { IBox } from '@/helpers/Box/Box.types'
+import { UIEvent, useEffect, useRef, useState } from 'react'
 
 import useColorMode from '@/hooks/useColorMode'
 import useDarkMode from '@/hooks/useDarkMode'
@@ -20,28 +19,7 @@ import useSaveHabitsAnalytics from './hooks/useSaveHabitsAnalytics'
 import { getCurrentISOString } from '../../../utils/dateUtils/getCurrentISOString'
 import useHabitStreakProgress from './hooks/useHabitStreakProgress'
 import CheckoboxesSkeleton from './CheckboxesSkeleton'
-
-const BorderedBox = ({
-  children,
-  ...rest
-}: { children?: ReactNode } & IBox) => {
-  return (
-    <Flex
-      width="100%"
-      maxWidth="200px"
-      minWidth="150px"
-      borderRadius="5px"
-      border="solid 1px"
-      borderColor="primary.accent-3"
-      css={{ textAlign: 'center' }}
-      alignItems="center"
-      justifyContent="center"
-      {...rest}
-    >
-      {children}
-    </Flex>
-  )
-}
+import BorderedBox from './BorderedBox'
 
 const formatDate = new Intl.DateTimeFormat('en', {
   day: 'numeric',

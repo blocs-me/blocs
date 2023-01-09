@@ -64,7 +64,15 @@ const Form = ({
           revalidate: true
         }
       )
-        .then(() => {
+        .then((res) => {
+          if (res?.status >= 400) {
+            notifs.createError(
+              "Uh oh ! we weren't able to create your new habit "
+            )
+            setDisableBtn(false)
+            return null
+          }
+
           notifs.createSuccess('Successfully created a new habit!')
           reset()
           setDisableBtn(false)

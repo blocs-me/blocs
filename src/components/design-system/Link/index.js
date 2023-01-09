@@ -10,7 +10,7 @@ const Link = ({
   underline,
   fontWeight = '400',
   inline = false,
-  color = 'secondary',
+  color = 'brand.accent-1',
   className,
   target,
 
@@ -18,7 +18,7 @@ const Link = ({
 }) => (
   <Box
     className={className}
-    borderBottomColor="secondary"
+    borderBottomColor="brand.accent-1"
     borderBottomStyle="solid"
     borderBottomWidth={underline ? '1px' : 0}
     width="fit-content"

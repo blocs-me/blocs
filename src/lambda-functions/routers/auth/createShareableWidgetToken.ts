@@ -7,8 +7,7 @@ import { queryGuard } from '@/lambda/helpers/faunadb/queryGuard'
 
 const createShareableWidgetToken = async (
   req: NextApiRequest,
-  res: NextApiResponse,
-  rest: Rest
+  res: NextApiResponse
 ) => {
   const { widgetToken, widgetType } = req.query
 

@@ -1,13 +1,13 @@
-import md5 from "md5"
-import mailchimp from "../mailchimpMarketingClient"
-import mailchimpSubscriptionStates from "@/constants/mailchimpSubscriptionStates"
+import md5 from 'md5'
+import mailchimp from '../mailchimpMarketingClient'
+import mailchimpSubscriptionStates from '@/constants/mailchimpSubscriptionStates'
 
 const listId = process.env.MAILCHIMP_LIST_ID
 
 const checkIfUserIsSubscribed = async (user) => {
   if (!user)
     throw new Error(
-      "Mailchimp Error : could not retrieve user status; user not defined"
+      'Mailchimp Error : could not retrieve user status; user not defined'
     )
 
   const { email } = user
@@ -15,7 +15,7 @@ const checkIfUserIsSubscribed = async (user) => {
 
   try {
     const response = await mailchimp.lists.getListMember(listId, subscriberHash)
-    return Object.values(mailchimpSubscriptionStates).includes(response.status)
+    return response.status === 'subscribed'
   } catch (error) {
     if (error.status === 404) {
       return false
