@@ -9,6 +9,7 @@ import removeUserFromMailingList from '../../../lambda-functions/helpers/removeU
 import faunaClient from '@/lambda/faunaClient'
 import { query as q } from 'faunadb'
 import { queryGuard } from '../../../lambda-functions/helpers/faunadb/queryGuard'
+import jwt from 'jsonwebtoken'
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'GET') {
@@ -41,31 +42,46 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       handle200Response(res, {
         message: 'Sad to see you go! Your account has been deleted'
       })
-    } catch (err) {
-
-      
-    }
+    } catch (err) {}
   }
 
   if (req.method === 'POST') {
     // created by supabase hook
+    // TODO: create production webhooks
+    const { action } = req.query
+    const bearer = req.headers.authorization?.split(' ')?.[1]
     const body = req.body
+    const validToken = bearer?.split('.').length === 3
 
-    const blocsUser = await queryGuard(() =>
-      faunaClient.query(
-        q.Create(q.Collection('users'), {
-          data: {
-            email: body.record.email
-          }
-        })
-      )
-    )
-
-    if (!blocsUser) {
-      return handle500Response(res, 'Coulld not save blocs user data')
+    if (!validToken) {
+      return handle500Response(res)
     }
 
-    handle200Response(res)
+    try {
+      jwt.verify(bearer, process.env.JWT_SALT)
+    } catch (err) {
+      console.error('JWT not verified')
+      console.error(err)
+      return handle500Response(res)
+    }
+
+    if (action === 'create') {
+      const blocsUser = await queryGuard(() =>
+        faunaClient.query(
+          q.Create(q.Collection('users'), {
+            data: {
+              email: body.record.email
+            }
+          })
+        )
+      )
+
+      if (!blocsUser) {
+        return handle500Response(res, 'Could not save blocs user data')
+      }
+
+      handle200Response(res)
+    }
   }
 }
 
