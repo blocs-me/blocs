@@ -87,7 +87,7 @@ const LandingPage = () => {
             name="description"
             content="Blocs notion widgets help you build habits with amazing insights to understand yourself better. Track all your habits in one place !"
           />
-          <link name="canonical" href="https://blocs.me" />
+          <link rel="canonical" href="https://blocs.me" />
 
           <title>blocs | notion widgets for habit building</title>
           <meta
@@ -199,7 +199,7 @@ const LandingPage = () => {
                   borderColor="primary.accent-3"
                 >
                   <Text fontSize="sm" fontWeight="bold" color="foreground">
-                    Hooray! We&#39;ve sent and invite to your email
+                    Hooray! 🥳 We&#39;ve sent and invite to your email
                   </Text>
                   <Text
                     fontSize="md"
