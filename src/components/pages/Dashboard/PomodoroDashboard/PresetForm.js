@@ -19,7 +19,6 @@ import PresetFormSuccessState from '@/widgets/Pomodoro/PomodoroPresets/PresetFor
 import PresetFormLoadingState from '@/widgets/Pomodoro/PomodoroPresets/PresetFormLoadingState'
 
 const PresetForm = ({ hideForm = () => {}, formAction, presets, open }) => {
-  console.log('open', open)
   const { currentPreset = {} } = usePomodoroStore()
 
   const defaultValues = useMemo(() => {
