@@ -8,6 +8,7 @@ import {
 
 const reqOptions = (data, options) => ({
   method: options.method ?? 'GET',
+  credentials: 'same-origin',
   headers: {
     'Content-Type': 'application/json',
     ...(options.headers || {})
