@@ -28,15 +28,15 @@ const getOrCreateBlocsUser = async (
     )
   )
 
-  if (!blocsUser) {
-    await faunaClient.query(
-      q.Create(q.Collection('users'), {
-        data: {
-          email: data?.user?.email
-        }
-      })
-    )
-  }
+  // if (!blocsUser) {
+  //   await faunaClient.query(
+  //     q.Create(q.Collection('users'), {
+  //       data: {
+  //         email: data?.user?.email
+  //       }
+  //     })
+  //   )
+  // }
 
   return blocsUser as BlocsUser
 }
