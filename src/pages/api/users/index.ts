@@ -11,6 +11,8 @@ import { query as q } from 'faunadb'
 import { queryGuard } from '../../../lambda-functions/helpers/faunadb/queryGuard'
 import jwt from 'jsonwebtoken'
 import addUserToMailingList from '@/lambda/helpers/addUserToMailingList'
+import { BlocsUserServer } from '../../../global-types/blocs-user'
+import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs'
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'GET') {
@@ -97,6 +99,31 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       }
 
       handle200Response(res)
+    }
+
+    if (action === 'update') {
+      try {
+        const supabase = createServerSupabaseClient({ req, res })
+
+        const { data, error } = await supabase.auth.getUser()
+
+        if (error) throw error
+
+        const blocsUser = (await faunaClient.query(
+          q.Get(q.Match(q.Index('all_users_by_email'), data?.user?.email))
+        )) as BlocsUserServer
+
+        await faunaClient.query(
+          q.Update(blocsUser.ref, {
+            data: {
+              email: req.body.record?.email
+            }
+          })
+        )
+      } catch (err) {
+        console.log(err)
+        handle500Response(res)
+      }
     }
   }
 }
