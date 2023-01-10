@@ -167,6 +167,8 @@ const UserSettings = () => {
   const [avatarUrl, setAvatarUrl] = useState(blocsUser?.user?.data?.avatar_url)
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
+  const [confirmEmail, setConfirmEmail] = useState(false)
+  const [savingEmail, setSavingEmail] = useState(false)
 
   useEffect(() => {
     if (blocsUser?.user) {
@@ -193,6 +195,7 @@ const UserSettings = () => {
       }
     })
       .then((res) => {
+        setConfirmEmail(false)
         notif.createSuccess('Successfully saved your newsletter settings')
       })
       .catch(() => {
@@ -244,14 +247,26 @@ const UserSettings = () => {
     25
   )
 
-  const saveEmail = useDebouncedCallback(
-    (email: string) => {
-      if (isEmail(email)) {
-      }
-    },
-    [],
-    200
-  )
+  const saveNewEmail = () => {
+    if (isEmail(email)) {
+      setSavingEmail(true)
+      postReq('/api/users/email-change', {
+        body: {
+          email: email + '12'
+        }
+      })
+        .then(() => {
+          notif.createInfo(
+            "We've sent an email to both the new and old email ids. Please open them to confirm the email change.",
+            10000
+          )
+        })
+        .catch(() => {
+          notif.createError("We weren't able to change your email address")
+        })
+        .finally(() => setSavingEmail(false))
+    }
+  }
 
   return (
     <Flex size="100%" p="md" css={{ gap: '8rem' }}>
@@ -272,13 +287,20 @@ const UserSettings = () => {
         </Text>
         <Label>Email</Label>
         <Box mt="xs" />
+
         <TextInput
           ariaLabel="Email Input"
           type="email"
           value={email}
           onChange={(e) => {
             setEmail(e.target.value)
-            // saveEmail(e.target.value)
+            console.log(e.target.value)
+            if (isEmail(e.target.value)) {
+              setConfirmEmail(true)
+              console.log('confirm')
+            } else {
+              setConfirmEmail(false)
+            }
           }}
           error={
             !isEmail(email || '') && !isLoading
@@ -286,6 +308,16 @@ const UserSettings = () => {
               : ''
           }
         />
+        {confirmEmail && (
+          <Button
+            variant="success"
+            mt="sm"
+            onClick={saveNewEmail}
+            disabled={savingEmail}
+          >
+            Confirm Email Change
+          </Button>
+        )}
         <Box mt="sm" />
         <Label>Full Name</Label>
         <Box mt="xs" />
@@ -323,11 +355,11 @@ const UserSettings = () => {
           py="xs"
           width="100%"
           borderRadius="md"
-          color="danger.light"
+          color="danger.medium"
           border="solid 1px"
-          borderColor="danger.light"
+          borderColor="danger.dark"
           hoverColor="neutral.white"
-          hoverBg="danger.light"
+          hoverBg="danger.medium"
         >
           Delete Account
         </Button>
@@ -380,7 +412,7 @@ const UserSettings = () => {
           <TextInput
             onChange={(v) => {
               setAvatarUrl(v.target.value)
-              saveAvatarUrl(v.target.value)
+              saveAvatarUrl(v.target.value.trim())
             }}
             value={avatarUrl}
             ariaLabel="Profile Picture URL"
