@@ -7,28 +7,14 @@ import {
   handle200Response
 } from '../../../lambda-functions/helpers/handleResponses'
 import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs'
+import { isEmail } from 'validator'
 
 const ajv = new Ajv()
 addFormats(ajv, ['email'])
 
-const validate = (body) =>
-  ajv.validate(
-    {
-      type: 'object',
-      properties: {
-        email: {
-          type: 'string',
-          format: 'email'
-        }
-      }
-    },
-    body
-  )
-
 const emailChange = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'POST') {
-    const isValid = validate(req.body)
-    if (!isValid) return handle400Response(res)
+    if (!isEmail(req.body.email)) return handle400Response(res)
 
     const { email } = req.body
 
