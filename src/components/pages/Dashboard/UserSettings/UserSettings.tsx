@@ -252,7 +252,7 @@ const UserSettings = () => {
       setSavingEmail(true)
       postReq('/api/users/email-change', {
         body: {
-          email: email + '12'
+          email: email
         }
       })
         .then(() => {
