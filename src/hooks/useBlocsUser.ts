@@ -7,7 +7,7 @@ import { BlocsUserClient } from '../global-types/blocs-user'
 const useBlocsUser = () => {
   const supabaseUser = useUser()
   const { data: user, ...rest } = useSWR<BlocsUserClient>(
-    supabaseUser ? [USER_PATH] : null,
+    supabaseUser?.aud === 'authenticated' ? [USER_PATH] : null,
     fetchWithToken
   )
 
