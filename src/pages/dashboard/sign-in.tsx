@@ -3,9 +3,11 @@ import { useEffect, useState } from 'react'
 
 import getUrlHash from '@/hooks/useUrlHash/getUrlHash'
 import DashboardSkeleton from '@/pages/Dashboard/DashboardSkeleton'
-import { useSupabaseClient } from '@supabase/auth-helpers-react'
+import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react'
 import useBlocsUser from '@/hooks/useBlocsUser'
 import { mutate } from 'swr'
+import { postReq } from '@/utils/fetchingUtils'
+import useNotifications from '@/design-system/Notifications/useNotifications'
 
 type UrlHashReturn = {
   access_token: string
@@ -27,8 +29,8 @@ const useUrlHash = () => {
 const DashboardSignIn = () => {
   const { error_code } = useUrlHash()
   const router = useRouter()
-  const supabase = useSupabaseClient()
-  const { mutate: refetchUser } = useBlocsUser()
+  const user = useUser()
+  const notif = useNotifications()
 
   useEffect(() => {
     if (error_code === '401') {
@@ -37,17 +39,17 @@ const DashboardSignIn = () => {
   }, [router, error_code]) // eslint-disable-line
 
   useEffect(() => {
-    const { data } = supabase.auth.onAuthStateChange((event) => {
-      if (event === 'SIGNED_IN') {
-        refetchUser()
-        router.push('/dashboard/pomodoro')
-      }
-    })
-
-    return () => {
-      data.subscription.unsubscribe()
+    if (user) {
+      postReq('/api/auth/sign-in', { email: user?.email })
+        .then(() => {
+          router.push('/dashboard/pomodoro')
+        })
+        .catch((error) => {
+          console.error(error)
+          notif.createError('Uh oh! Something went wrong when signing in')
+        })
     }
-  }, [router, supabase, refetchUser])
+  }, [user, router])
 
   return <DashboardSkeleton />
 }
