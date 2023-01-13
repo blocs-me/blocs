@@ -1,6 +1,7 @@
 import mailchimpSubscriptionStates from '@/constants/mailchimpSubscriptionStates'
 import md5 from 'md5'
 import { BlocsUserServer } from '../../global-types/blocs-user'
+import mailchimp from '../mailchimpMarketingClient'
 
 const removeUserFromMailingList = async (user: BlocsUserServer) => {
   const nameArr = user?.data?.name?.split(' ')
@@ -8,12 +9,12 @@ const removeUserFromMailingList = async (user: BlocsUserServer) => {
   const email_address = user?.data?.email
 
   try {
-    return await mailchimpSubscriptionStates.lists.setListMember(
+    return await mailchimp.lists.setListMember(
       process.env.MAILCHIMP_LIST_ID,
       md5(user?.data?.email),
       {
         email_address,
-        status: 'unsubscribed',
+        status: mailchimpSubscriptionStates.UNSUBSCRIBED,
         merge_fields: {
           FNAME,
           LNAME
