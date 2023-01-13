@@ -41,6 +41,12 @@ const Dashboard = () => {
   const router = useRouter()
   const { path } = router.query
 
+  useEffect(() => {
+    if (user && user?.aud !== 'authenticated') {
+      router.push('/sign-in')
+    }
+  }, [router, user])
+
   if (!user) {
     return <DashboardSkeleton />
   }
