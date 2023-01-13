@@ -1,4 +1,3 @@
-import { borderStyle } from 'styled-system'
 import fetcher from './fetcher'
 
 type Options = {
@@ -14,15 +13,17 @@ const defaultOpts: Options = {
   body: {}
 }
 
-const makeFetch = (method) => (url, opts) =>
-  fetcher(url, {
-    method,
-    headers: {
-      ...defaultOpts.headers,
-      ...opts.headers
-    },
-    body: JSON.stringify(opts.body)
-  })
+const makeFetch =
+  (method: string) =>
+  (url: string, opts: Record<string, any> = defaultOpts) =>
+    fetcher(url, {
+      method,
+      headers: {
+        ...defaultOpts.headers,
+        ...opts?.headers
+      },
+      body: JSON.stringify(opts.body)
+    })
 
 export const postReq = makeFetch('POST')
 export const putReq = makeFetch('PUT')
