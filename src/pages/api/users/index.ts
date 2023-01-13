@@ -53,6 +53,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     // created by supabase hook
     // TODO: create production webhooks
     const { action } = req.query
+
+    console.log({ body: req.body, query: req.query })
     const bearer = req.headers.authorization?.split(' ')?.[1]
     const body = req.body
     const validToken = bearer?.split('.').length === 3
@@ -83,6 +85,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         )
 
         if (!blocsUser) {
+          console.error('Could not save blocs user')
           return handle500Response(res, 'Could not save blocs user data')
         }
 
@@ -93,7 +96,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           })
         } catch (err) {
           console.error(err)
-          handle500Response(
+          return handle500Response(
             res,
             'Something went wrong when subscribing the user'
           )
