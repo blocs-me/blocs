@@ -13,6 +13,7 @@ type UrlHashReturn = {
   access_token: string
   refresh_token: string
   error_code?: string
+  message?: string
 }
 
 const useUrlHash = () => {
@@ -27,7 +28,7 @@ const useUrlHash = () => {
 }
 
 const DashboardSignIn = () => {
-  const { error_code } = useUrlHash()
+  const { error_code, message } = useUrlHash()
   const router = useRouter()
   const user = useUser()
   const notif = useNotifications()
@@ -51,7 +52,7 @@ const DashboardSignIn = () => {
     }
   }, [user, router])
 
-  return <DashboardSkeleton />
+  return <DashboardSkeleton message={message} />
 }
 
 export default DashboardSignIn

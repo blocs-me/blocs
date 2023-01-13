@@ -5,7 +5,9 @@ const getLocationHash = <T = any>() => {
 
   const entries = (() => {
     if (!hash) return {}
-    const hashEntries = hash.split('&').map((keyVal) => keyVal?.split('='))
+    const hashEntries = hash
+      .split('&')
+      .map((keyVal) => keyVal?.split('=').map((v) => v.replace('#', '')))
     return Object.fromEntries(hashEntries)
   })()
 
