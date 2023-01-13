@@ -70,9 +70,11 @@ const Sidebar = () => {
       left="0"
     >
       <Flex flexDirection="column" alignItems="center">
-        {user?.data?.avatar_url && (
-          <Avatar src={user?.data?.avatar_url} alt="profile picture" />
-        )}
+        <Avatar
+          src={user?.data?.avatar_url}
+          loading={!user}
+          alt="profile picture"
+        />
         <Button
           mt="md"
           fontWeight={200}
@@ -87,7 +89,6 @@ const Sidebar = () => {
         >
           Upgrade
         </Button>
-
         <Flex
           mt="md"
           flexDirection="column"
@@ -131,9 +132,8 @@ const Sidebar = () => {
         p="xs"
         width="200px"
         borderRadius="sm"
-        color="brand.accent-1"
-        borderColor="brand.accent-1"
         border="solid 1px"
+        color="brand.accent-1"
         fontWeight={200}
         fontSize="sm"
         onClick={() => handleSignOut()}
