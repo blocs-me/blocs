@@ -206,24 +206,32 @@ const UserSettings = () => {
       })
   }
 
-  const saveAvatarUrl = (newUrl: string) => {
-    if (!newUrl) return null
+  const saveAvatarUrl = useDebouncedCallback(
+    useThrottledCallback(
+      (newUrl: string) => {
+        if (!newUrl) return null
 
-    putReq('/api/users/avatar', {
-      body: {
-        avatar_url: newUrl
-      }
-    })
-      .then(() => {
-        notif.createInfo('Successfully updated the profile picture')
-        blocsUser.mutate()
-      })
-      .catch(() => {
-        notif.createError(
-          'Uh oh! Something went wrong while trying to save the profile picture'
-        )
-      })
-  }
+        putReq('/api/users/avatar', {
+          body: {
+            avatar_url: newUrl
+          }
+        })
+          .then(() => {
+            notif.createInfo('Successfully updated the profile picture')
+            blocsUser.mutate()
+          })
+          .catch(() => {
+            notif.createError(
+              'Uh oh! Something went wrong while trying to save the profile picture'
+            )
+          })
+      },
+      [],
+      100
+    ),
+    [],
+    500
+  )
 
   const saveName = useDebouncedCallback(
     useThrottledCallback(
