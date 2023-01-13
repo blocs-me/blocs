@@ -6,7 +6,7 @@ import {
   handle500Response
 } from '../../../lambda-functions/helpers/handleResponses'
 import md5 from 'md5'
-import getOrCreateBlocsUser from '@/lambda/middlewares/getOrCreateBlocsUser'
+import getBlocsUser from '@/lambda/middlewares/getBlocsUser'
 
 const ajv = new Ajv()
 
@@ -41,7 +41,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   if (req.method === 'PUT') {
-    const user = await getOrCreateBlocsUser(req, res)
+    const user = await getBlocsUser(req, res)
     const { status } = req.body as Body
 
     const nameArr = user?.data?.name?.split(' ')

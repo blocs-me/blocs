@@ -2,7 +2,7 @@ import faunaClient from '@/lambda/faunaClient'
 import { validateWidgetTokenReq } from '@/lambda/lib/restValidator/jsonValidator'
 import { query as q } from 'faunadb'
 import crypto from 'crypto'
-import getOrCreateBlocsUser from '@/lambda/middlewares/getOrCreateBlocsUser'
+import getBlocsUser from '@/lambda/middlewares/getBlocsUser'
 
 const createWidgetAccessToken = async (req, res) => {
   try {
@@ -17,11 +17,9 @@ const createWidgetAccessToken = async (req, res) => {
     // req
     const widgetType = req.body.widgetType
 
-    const blocsUser = await getOrCreateBlocsUser(req, res)
+    const blocsUser = await getBlocsUser(req, res)
 
-
-    // if (['WATER_TRACKER', 'HABIT_TRACKER'].includes(widgetType)) // TODO: premium ownership validation 
-
+    // if (['WATER_TRACKER', 'HABIT_TRACKER'].includes(widgetType)) // TODO: premium ownership validation
 
     if (!blocsUser?.ref) throw new Error('blocs user not defined')
 

@@ -49,7 +49,7 @@ const DashboardSignIn = () => {
   }, [router, error_code]) // eslint-disable-line
 
   useEffect(() => {
-    if (user) {
+    if (user && !message) {
       postReq('/api/auth/sign-in', { email: user?.email })
         .then(() => {
           router.push('/dashboard/pomodoro')

@@ -5,10 +5,7 @@ import { queryGuard } from '../helpers/faunadb/queryGuard'
 import { query as q } from 'faunadb'
 import { BlocsUserServer as BlocsUser } from '../../global-types/blocs-user'
 
-const getOrCreateBlocsUser = async (
-  req: NextApiRequest,
-  res: NextApiResponse
-) => {
+const getBlocsUser = async (req: NextApiRequest, res: NextApiResponse) => {
   const supabase = createServerSupabaseClient({ req, res })
 
   const { data, error } = await supabase.auth.getUser()
@@ -28,17 +25,7 @@ const getOrCreateBlocsUser = async (
     )
   )
 
-  // if (!blocsUser) {
-  //   await faunaClient.query(
-  //     q.Create(q.Collection('users'), {
-  //       data: {
-  //         email: data?.user?.email
-  //       }
-  //     })
-  //   )
-  // }
-
   return blocsUser as BlocsUser
 }
 
-export default getOrCreateBlocsUser
+export default getBlocsUser

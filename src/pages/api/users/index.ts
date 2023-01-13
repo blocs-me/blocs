@@ -3,7 +3,7 @@ import {
   handle200Response,
   handle500Response
 } from '../../../lambda-functions/helpers/handleResponses'
-import getOrCreateBlocsUser from '@/lambda/middlewares/getOrCreateBlocsUser'
+import getBlocsUser from '@/lambda/middlewares/getBlocsUser'
 import checkIfUserIsSubscribed from '@/lambda/helpers/checkIfUserIsSubscribed'
 import removeUserFromMailingList from '../../../lambda-functions/helpers/removeUserFromMailingList'
 import faunaClient from '@/lambda/faunaClient'
@@ -16,21 +16,30 @@ import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs'
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'GET') {
-    const blocsUser = await getOrCreateBlocsUser(req, res)
-    const isSubscribed = await checkIfUserIsSubscribed(blocsUser?.data)
+    try {
+      const blocsUser = await getBlocsUser(req, res)
+      const isSubscribed = await (blocsUser
+        ? checkIfUserIsSubscribed(blocsUser?.data)
+        : false)
 
-    if (blocsUser) {
-      handle200Response(res, {
-        data: {
-          ...(blocsUser?.data || {}),
-          isSubscribed
-        }
-      })
+      if (blocsUser) {
+        handle200Response(res, {
+          data: {
+            ...(blocsUser?.data || {}),
+            isSubscribed
+          }
+        })
+      } else {
+        handle500Response(res)
+      }
+    } catch (err) {
+      console.error(err)
+      handle500Response(res)
     }
   }
 
   if (req.method === 'DELETE') {
-    const blocsUser = await getOrCreateBlocsUser(req, res)
+    const blocsUser = await getBlocsUser(req, res)
 
     try {
       await removeUserFromMailingList(blocsUser)

@@ -5,7 +5,7 @@ import {
   handle500Response
 } from '../../../lambda-functions/helpers/handleResponses'
 import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs'
-import getOrCreateBlocsUser from '@/lambda/middlewares/getOrCreateBlocsUser'
+import getBlocsUser from '@/lambda/middlewares/getBlocsUser'
 import faunaClient from '@/lambda/faunaClient'
 import { query as q } from 'faunadb'
 const ajv = new Ajv()
@@ -31,7 +31,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const { name } = req.body
 
-    const blocsUser = await getOrCreateBlocsUser(req, res)
+    const blocsUser = await getBlocsUser(req, res)
 
     if (blocsUser) {
       try {
