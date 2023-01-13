@@ -72,40 +72,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       return handle500Response(res)
     }
 
-    if (action === 'create') {
-      if (body.record?.email) {
-        const blocsUser = await queryGuard(() =>
-          faunaClient.query(
-            q.Create(q.Collection('users'), {
-              data: {
-                email: body.record.email
-              }
-            })
-          )
-        )
-
-        if (!blocsUser) {
-          console.error('Could not save blocs user')
-          return handle500Response(res, 'Could not save blocs user data')
-        }
-
-        try {
-          await addUserToMailingList({
-            email: body.record.email,
-            name: body.record?.full_name || ''
-          })
-        } catch (err) {
-          console.error(err)
-          return handle500Response(
-            res,
-            'Something went wrong when subscribing the user'
-          )
-        }
-      }
-
-      handle200Response(res)
-    }
-
     if (action === 'update') {
       try {
         const supabase = createServerSupabaseClient({ req, res })
