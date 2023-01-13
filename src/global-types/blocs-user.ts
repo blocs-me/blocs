@@ -14,5 +14,6 @@ export type BlocsUserServer = {
     name: string
     email: string
     avatar_url?: string
+    supabaseUserId?: string
   }
 }
