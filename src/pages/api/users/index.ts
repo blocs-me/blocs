@@ -73,6 +73,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     }
 
     if (action === 'update') {
+      console.log({ body: req.body, query: req.query })
+
       try {
         const supabase = createServerSupabaseClient({ req, res })
 
