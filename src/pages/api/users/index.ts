@@ -49,6 +49,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   if (req.method === 'POST') {
+    console.log('POST REQ : CREATE USER')
     // created by supabase hook
     // TODO: create production webhooks
     const { action } = req.query
@@ -57,13 +58,14 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     const validToken = bearer?.split('.').length === 3
 
     if (!validToken) {
+      console.error('Could not create user, invalid jwt')
       return handle500Response(res)
     }
 
     try {
       jwt.verify(bearer, process.env.JWT_SALT)
     } catch (err) {
-      console.error('JWT not verified')
+      console.error('Could not verify JWT')
       console.error(err)
       return handle500Response(res)
     }
