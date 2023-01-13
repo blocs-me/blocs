@@ -1,13 +1,12 @@
 import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
-
+import { useEffect, useState, ComponentType } from 'react'
 import getUrlHash from '@/hooks/useUrlHash/getUrlHash'
 import DashboardSkeleton from '@/pages/Dashboard/DashboardSkeleton'
-import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react'
-import useBlocsUser from '@/hooks/useBlocsUser'
-import { mutate } from 'swr'
+import { useUser } from '@supabase/auth-helpers-react'
 import { postReq } from '@/utils/fetchingUtils'
 import useNotifications from '@/design-system/Notifications/useNotifications'
+import Notifications from '@/design-system/Notifications'
+import BlocsThemeProvider from '@/helpers/BlocsThemeProvider'
 
 type UrlHashReturn = {
   access_token: string
@@ -25,6 +24,16 @@ const useUrlHash = () => {
   }, [])
 
   return hash as UrlHashReturn
+}
+
+const withProviders = (Component: ComponentType) => {
+  return () => (
+    <Notifications zIndex="2000">
+      <BlocsThemeProvider>
+        <Component />
+      </BlocsThemeProvider>
+    </Notifications>
+  )
 }
 
 const DashboardSignIn = () => {
@@ -50,9 +59,9 @@ const DashboardSignIn = () => {
           notif.createError('Uh oh! Something went wrong when signing in')
         })
     }
-  }, [user, router])
+  }, [user, router]) // eslint-disable-line
 
   return <DashboardSkeleton message={message} />
 }
 
-export default DashboardSignIn
+export default withProviders(DashboardSignIn)
