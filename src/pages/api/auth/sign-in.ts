@@ -43,7 +43,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       if (blocsUserById && !blocsUserByEmail) {
         // implies email has changed
         let blocsUser: BlocsUserServer = await faunaClient.query(
-          q.Update(blocsUserByEmail.ref, {
+          q.Update(blocsUserById.ref, {
             data: {
               email: data?.user?.email
             }
