@@ -41,7 +41,6 @@ const LoadingScreen = () => {
 const Dashboard = () => {
   const router = useRouter()
   const { path } = router.query
-  useSignOutRedirect()
   const user = useUser()
   const session = useSessionContext()
 
