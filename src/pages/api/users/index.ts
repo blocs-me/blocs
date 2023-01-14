@@ -49,7 +49,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           data: {
             avatar_url: '',
             name: '',
-            isDeleted: true
+            supabaseUserId: '',
+            email: '',
+            scheduledForDeletion: true
           }
         })
       )

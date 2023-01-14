@@ -18,7 +18,8 @@ const removeUserFromMailingList = async (user: BlocsUserServer) => {
         merge_fields: {
           FNAME,
           LNAME
-        }
+        },
+        tags: ['deleted_user']
       }
     )
   } catch (err) {

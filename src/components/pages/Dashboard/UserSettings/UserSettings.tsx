@@ -4,7 +4,6 @@ import TextInput from '@/design-system/TextInput'
 import Box from '@/helpers/Box'
 import Flex from '@/helpers/Flex'
 import Icon from '@/helpers/Icon'
-import { useForm } from 'react-hook-form'
 import { Past } from '../../../../icons/Past'
 import LinkIcon from 'src/icons/link-icon'
 import Checkbox from '@/widgets/HabitTracker/Checkbox'
@@ -13,7 +12,6 @@ import { isEmail } from 'validator'
 import { useEffect, useState } from 'react'
 import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react'
 import useBlocsUser from '@/hooks/useBlocsUser'
-import fetchWithToken from 'src/services/fetchWithToken'
 import useNotifications from '@/design-system/Notifications/useNotifications'
 import { postReq, putReq, deleteReq } from '../../../../utils/fetchingUtils'
 import {
@@ -224,7 +222,6 @@ const UserSettings = () => {
           }
         })
           .then(() => {
-            notif.createInfo('Successfully updated the profile picture')
             blocsUser.mutate()
           })
           .catch(() => {
@@ -234,10 +231,10 @@ const UserSettings = () => {
           })
       },
       [],
-      100
+      800
     ),
     [],
-    500
+    25
   )
 
   const saveName = useDebouncedCallback(
@@ -247,16 +244,12 @@ const UserSettings = () => {
           body: {
             name: newName?.trim()
           }
-        })
-          .then(() => notif.createSuccess('Sucessfully saved your name'))
-          .catch(() =>
-            notif.createInfo(
-              'Uh oh! something went wrong when saving your name'
-            )
-          )
+        }).catch(() =>
+          notif.createInfo('Uh oh! something went wrong when saving your name')
+        )
       },
       [],
-      500
+      800
     ),
     [],
     25
@@ -287,21 +280,8 @@ const UserSettings = () => {
     setIsDeletingUser(true)
 
     deleteReq('/api/users')
-      .then(() => {
-        
-
-        supabase.auth.signOut()
-        .then(() => {
-          router.push('/account-deletion') 
-        })
-        .catch(() => {
-          
-        })
-
-      
-      })
+      .then(() => router.push('/account-deletion'))
       .catch((err) => err?.error && notif.createError(err?.error?.message))
-      .finally(() => setIsDeletingUser(false))
   }
 
   return (
@@ -495,8 +475,17 @@ const UserSettings = () => {
 
       <Modal hideModal={() => setDeleteModal(false)} visible={deleteModal}>
         <Box p="sm">
-          <Text variant="mediumBold">
+          <Text variant="mediumBold" textAlign={'center'}>
             Are you sure you want to delete your account ?
+          </Text>
+          <Text
+            fontSize={'sm'}
+            fontWeight={200}
+            textAlign="center"
+            letterSpacing={'sm'}
+            color="danger.medium"
+          >
+            Warning : All purchase history and associated data will be lost
           </Text>
           <Box pt="md" />
           <Flex>
@@ -519,7 +508,7 @@ const UserSettings = () => {
               hoverBg="primary.accent-2"
               onClick={() => setDeleteModal(false)}
             >
-              Go back
+              Cancel
             </Button>
           </Flex>
         </Box>
