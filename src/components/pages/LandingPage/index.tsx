@@ -20,6 +20,7 @@ import Quote from '../../../icons/quote.svg'
 import storage from '@/utils/storage'
 import { useRouter } from 'next/router'
 import BlocsThemeProvider from '@/helpers/BlocsThemeProvider'
+import DashboardNav from '../Dashboard/DashboardNav'
 
 const SocialIcons = ({
   href,
@@ -69,7 +70,7 @@ const LandingPage = () => {
     const { data, error } = await supabase.auth.signInWithOtp({
       email: formState.email,
       options: {
-        emailRedirectTo: 'https://blocs-dev.vercel.app/dashboard/sign-in'
+        emailRedirectTo: 'http://localhost:3000/dashboard/sign-in' //TODO: change this
       }
     })
 
@@ -136,8 +137,10 @@ const LandingPage = () => {
             />
           </Head>
 
-          <Box minHeight="100vh" height="100%" width="100%" pt="80px">
-            <Nav />
+          <Box position="absolute" left="0" top="0" width="100vw">
+            <DashboardNav />
+          </Box>
+          <Box minHeight="100vh" height="100%" width="100%">
             <Flex height="calc(100vh - 80px)">
               <Flex flex={1} flexDirection="column" justifyContent="center">
                 <Box position="relative">
@@ -147,7 +150,6 @@ const LandingPage = () => {
                     fontWeight="bold"
                     color="foreground"
                     css={{ zIndex: 1, position: 'relative' }}
-                    // maxWidth="500px"
                   >
                     Build better habits
                     <wbr /> on Notion with our <wbr />

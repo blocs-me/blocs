@@ -5,6 +5,7 @@ export type BlocsUserClient = {
     name?: string
     ownsPremium: boolean
     isSubscribed: boolean
+    isDeleted?: boolean
   }
 }
 

@@ -7,6 +7,7 @@ import { postReq } from '@/utils/fetchingUtils'
 import useNotifications from '@/design-system/Notifications/useNotifications'
 import Notifications from '@/design-system/Notifications'
 import BlocsThemeProvider from '@/helpers/BlocsThemeProvider'
+import SupabaseAuthProvider from '@/helpers/SupabaseAuthProvider'
 
 type UrlHashReturn = {
   access_token: string
@@ -28,11 +29,13 @@ const useUrlHash = () => {
 
 const withProviders = (Component: ComponentType) => {
   return () => (
-    <Notifications zIndex="2000">
-      <BlocsThemeProvider>
-        <Component />
-      </BlocsThemeProvider>
-    </Notifications>
+    <SupabaseAuthProvider>
+      <Notifications zIndex="2000">
+        <BlocsThemeProvider>
+          <Component />
+        </BlocsThemeProvider>
+      </Notifications>
+    </SupabaseAuthProvider>
   )
 }
 

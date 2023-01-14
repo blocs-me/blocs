@@ -1,7 +1,12 @@
-import LandingPage from "@/pages/LandingPage"
+import LandingPage from '@/pages/LandingPage'
+import SupabaseAuthProvider from '@/helpers/SupabaseAuthProvider'
 
 function Landing() {
-  return <LandingPage />
+  return (
+    <SupabaseAuthProvider>
+      <LandingPage />
+    </SupabaseAuthProvider>
+  )
 }
 
 export default Landing

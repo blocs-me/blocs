@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import Dashboard from '@/pages/Dashboard'
 import BlocsThemeProvider from '@/helpers/BlocsThemeProvider'
+import SupabaseAuthProvider from '@/helpers/SupabaseAuthProvider'
 
 const MainDashboard = () => {
   return (
@@ -8,9 +9,11 @@ const MainDashboard = () => {
       <Head>
         <title>Dashboard | Manage blocs notion widgets</title>
       </Head>
-      <BlocsThemeProvider>
-        <Dashboard />
-      </BlocsThemeProvider>
+      <SupabaseAuthProvider>
+        <BlocsThemeProvider>
+          <Dashboard />
+        </BlocsThemeProvider>
+      </SupabaseAuthProvider>
     </>
   )
 }
