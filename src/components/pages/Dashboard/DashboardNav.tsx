@@ -60,14 +60,6 @@ const DashboardNav = () => {
       </Flex>
 
       <Flex css={{ gap: '2rem' }} alignItems="center">
-        <Button
-          p="0"
-          mb="-2px"
-          onClick={() => handleThemeChange()}
-          color="foreground"
-          icon={isDarkMode ? <Sun /> : <Moon />}
-        />
-
         <Link href="/">
           <a>
             <LinkText>Home</LinkText>
@@ -81,6 +73,14 @@ const DashboardNav = () => {
             <LinkText>FAQs</LinkText>
           </a>
         </Link>
+        <Button
+          p="0"
+          mb="-2px"
+          onClick={() => handleThemeChange()}
+          color="foreground"
+          icon={isDarkMode ? <Sun /> : <Moon />}
+        />
+
         <Avatar
           variant="sm"
           alt="profile picture"
