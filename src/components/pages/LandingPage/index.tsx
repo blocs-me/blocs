@@ -21,6 +21,7 @@ import storage from '@/utils/storage'
 import { useRouter } from 'next/router'
 import BlocsThemeProvider from '@/helpers/BlocsThemeProvider'
 import DashboardNav from '../Dashboard/DashboardNav'
+import useSignInRedirectLink from '../../widgets/HabitTracker/hooks/useSignInRedirectLink'
 
 const SocialIcons = ({
   href,
@@ -39,6 +40,7 @@ const SocialIcons = ({
 }
 
 const LandingPage = () => {
+  const emailRedirectLink = useSignInRedirectLink()
   const isLandscape = useMediaQuery('(orientation: landscape)')
   const {
     handleSubmit,
@@ -70,7 +72,7 @@ const LandingPage = () => {
     const { data, error } = await supabase.auth.signInWithOtp({
       email: formState.email,
       options: {
-        emailRedirectTo: 'http://localhost:3000/dashboard/sign-in' //TODO: change this
+        emailRedirectTo: emailRedirectLink
       }
     })
 
@@ -85,182 +87,172 @@ const LandingPage = () => {
   })
 
   return (
-    <BlocsThemeProvider>
-      <Box bg="background">
-        <PageLayout>
-          <Head>
-            <title>blocs | notion widgets for habit building</title>
-            <meta
-              name="description"
-              content="Blocs notion widgets help you build habits with amazing insights to understand yourself better. Track all your habits in one place !"
-            />
-            <link rel="canonical" href="https://blocs.me" />
+    <Box bg="background">
+      <PageLayout>
+        <Head>
+          <title>blocs | notion widgets for habit building</title>
+          <meta
+            name="description"
+            content="Blocs notion widgets help you build habits with amazing insights to understand yourself better. Track all your habits in one place !"
+          />
+          <link rel="canonical" href="https://blocs.me" />
 
-            <title>blocs | notion widgets for habit building</title>
-            <meta
-              name="title"
-              content="blocs | notion widgets for habit building"
-            />
+          <title>blocs | notion widgets for habit building</title>
+          <meta
+            name="title"
+            content="blocs | notion widgets for habit building"
+          />
 
-            <meta property="og:type" content="website" />
-            <meta property="og:url" content="https://www.blocs.me/" />
-            <meta
-              property="og:title"
-              content="blocs | notion widgets for habit building"
-            />
-            <meta
-              property="og:description"
-              content="Blocs notion widgets help you build habits with amazing insights to understand yourself better. Track all your habits in one place !"
-            />
-            <meta
-              property="og:image"
-              content="https://www.blocs.me/blocs-social-banner.png"
-            />
-            <meta property="og:site_name" content="blocs" />
+          <meta property="og:type" content="website" />
+          <meta property="og:url" content="https://www.blocs.me/" />
+          <meta
+            property="og:title"
+            content="blocs | notion widgets for habit building"
+          />
+          <meta
+            property="og:description"
+            content="Blocs notion widgets help you build habits with amazing insights to understand yourself better. Track all your habits in one place !"
+          />
+          <meta
+            property="og:image"
+            content="https://www.blocs.me/blocs-social-banner.png"
+          />
+          <meta property="og:site_name" content="blocs" />
 
-            {/* twitter */}
-            <meta property="twitter:card" content="summary_large_image" />
-            <meta name="twitter:site" content="@_moniet" />
-            <meta name="twitter:creator" content="@_moniet" />
-            <meta property="twitter:url" content="https://www.blocs.me/" />
-            <meta
-              property="twitter:title"
-              content="blocs | notion widgets for habit building"
-            />
-            <meta
-              property="twitter:description"
-              content="Blocs notion widgets help you build habits with amazing insights to understand yourself better. Track all your habits in one place !"
-            />
-            <meta
-              property="twitter:image"
-              content="https://www.blocs.me/blocs-social-banner.png"
-            />
-          </Head>
+          {/* twitter */}
+          <meta property="twitter:card" content="summary_large_image" />
+          <meta name="twitter:site" content="@_moniet" />
+          <meta name="twitter:creator" content="@_moniet" />
+          <meta property="twitter:url" content="https://www.blocs.me/" />
+          <meta
+            property="twitter:title"
+            content="blocs | notion widgets for habit building"
+          />
+          <meta
+            property="twitter:description"
+            content="Blocs notion widgets help you build habits with amazing insights to understand yourself better. Track all your habits in one place !"
+          />
+          <meta
+            property="twitter:image"
+            content="https://www.blocs.me/blocs-social-banner.png"
+          />
+        </Head>
 
-          <Box position="absolute" left="0" top="0" width="100vw">
-            <DashboardNav />
-          </Box>
-          <Box minHeight="100vh" height="100%" width="100%">
-            <Flex height="calc(100vh - 80px)">
-              <Flex flex={1} flexDirection="column" justifyContent="center">
-                <Box position="relative">
+        <Box position="absolute" left="0" top="0" width="100vw">
+          <Nav />
+        </Box>
+        <Box minHeight="100vh" height="100%" width="100%">
+          <Flex height="calc(100vh - 80px)">
+            <Flex flex={1} flexDirection="column" justifyContent="center">
+              <Box position="relative">
+                <Text
+                  as="h1"
+                  fontSize={['lg', , , 'xl']}
+                  fontWeight="bold"
+                  color="foreground"
+                  css={{ zIndex: 1, position: 'relative' }}
+                >
+                  Build better habits
+                  <wbr /> on Notion with our <wbr />
+                  beautiful{' '}
+                  <Box as="span" color="brand.accent-1" display="inline-block">
+                    Widgets
+                  </Box>
+                </Text>
+              </Box>
+              {!user && !invitedAt && (
+                <Flex maxWidth="400px" mt="sm" as="form" onSubmit={onSubmit}>
+                  <TextInput
+                    ariaLabel="Email input for signing up"
+                    placeholder="Enter Your Email"
+                    {...register('email', {
+                      required: true,
+                      validate: (v: string) => isEmail(v)
+                    })}
+                    error={errors?.email ? 'Please provide a valid email' : ''}
+                    css={{ borderRadius: '10px 0 0 10px', height: '60px' }}
+                  />
+                  <Button
+                    bg="foreground"
+                    color="background"
+                    borderRadius="0 10px 10px 0"
+                    fontSize="sm"
+                    fontWeight={200}
+                    width={['fit-content', '150px', , '200px']}
+                    px="sm"
+                    disabled={disableSignUp}
+                  >
+                    Get Started
+                  </Button>
+                </Flex>
+              )}
+              {user?.aud === 'authenticated' && (
+                <Button
+                  variant="outlined"
+                  maxWidth="300px"
+                  height={'50px'}
+                  borderRadius="sm"
+                  hoverBg="foreground"
+                  hoverColor="background"
+                  onClick={() => goToDashboard()}
+                >
+                  To the dashboard
+                </Button>
+              )}
+              {!!invitedAt && !user && (
+                <Box
+                  p="md"
+                  bg="background"
+                  borderRadius="md"
+                  css={{ textAlign: 'center' }}
+                  border="solid 2px"
+                  borderColor="primary.accent-1"
+                  boxShadow="sm"
+                >
                   <Text
-                    as="h1"
-                    fontSize={['lg', , , 'xl']}
+                    fontSize="sm"
                     fontWeight="bold"
                     color="foreground"
-                    css={{ zIndex: 1, position: 'relative' }}
+                    mb={'xs'}
                   >
-                    Build better habits
-                    <wbr /> on Notion with our <wbr />
-                    beautiful{' '}
-                    <Box
-                      as="span"
-                      color="brand.accent-1"
-                      display="inline-block"
-                    >
-                      Widgets
-                    </Box>
+                    Hooray! 🥳 We&#39;ve sent an invite to your email
+                  </Text>
+                  <Text
+                    fontSize="sm"
+                    fontWeight="200"
+                    color="primary.accent-4"
+                    mb={0}
+                  >
+                    Click on the invite to sign in to blocs
                   </Text>
                 </Box>
-                {!user && !invitedAt && (
-                  <Flex maxWidth="400px" mt="sm" as="form" onSubmit={onSubmit}>
-                    <TextInput
-                      ariaLabel="Email input for signing up"
-                      placeholder="Enter Your Email"
-                      {...register('email', {
-                        required: true,
-                        validate: (v: string) => isEmail(v)
-                      })}
-                      error={
-                        errors?.email ? 'Please provide a valid email' : ''
-                      }
-                      css={{ borderRadius: '10px 0 0 10px', height: '60px' }}
-                    />
-                    <Button
-                      bg="foreground"
-                      color="background"
-                      borderRadius="0 10px 10px 0"
-                      fontSize="sm"
-                      fontWeight={200}
-                      width={['fit-content', '150px', , '200px']}
-                      px="sm"
-                      disabled={disableSignUp}
-                    >
-                      Get Started
-                    </Button>
-                  </Flex>
-                )}
-                {user?.aud === 'authenticated' && (
-                  <Button
-                    variant="outlined"
-                    maxWidth="300px"
-                    borderRadius="sm"
-                    hoverBg="foreground"
-                    hoverColor="background"
-                    onClick={() => goToDashboard()}
-                  >
-                    Go to dashboard
-                  </Button>
-                )}
-                {!!invitedAt && !user && (
-                  <Box
-                    p="md"
-                    bg="background"
-                    borderRadius="md"
-                    css={{ textAlign: 'center' }}
-                    border="solid 2px"
-                    borderColor="primary.accent-1"
-                    boxShadow="sm"
-                  >
-                    <Text
-                      fontSize="sm"
-                      fontWeight="bold"
-                      color="foreground"
-                      mb={'xs'}
-                    >
-                      Hooray! 🥳 We&#39;ve sent an invite to your email
-                    </Text>
-                    <Text
-                      fontSize="sm"
-                      fontWeight="200"
-                      color="primary.accent-4"
-                      mb={0}
-                    >
-                      Click on the invite to sign in to blocs
-                    </Text>
-                  </Box>
-                )}
+              )}
 
-                <Flex mt="lg" css={{ gap: '1rem' }}>
-                  <Avatar
-                    src="/moniet.png"
-                    alt="Blocs Founder Profile Picture"
-                  />
-                  <Flex flexDirection="column">
-                    <Text
-                      fontSize="sm"
-                      color="foreground"
-                      letterSpacing="sm"
-                      lineHeight={1}
-                    >
-                      Moniet Sawhney
-                      <br />
-                      <Box as="small" color="primary.accent-4">
-                        Founder
-                      </Box>
-                    </Text>
-                    <Flex></Flex>
-                  </Flex>
+              <Flex mt="lg" css={{ gap: '1rem' }}>
+                <Avatar src="/moniet.png" alt="Blocs Founder Profile Picture" />
+                <Flex flexDirection="column">
+                  <Text
+                    fontSize="sm"
+                    color="foreground"
+                    letterSpacing="sm"
+                    lineHeight={1}
+                  >
+                    Moniet Sawhney
+                    <br />
+                    <Box as="small" color="primary.accent-4">
+                      Founder
+                    </Box>
+                  </Text>
+                  <Flex></Flex>
                 </Flex>
               </Flex>
-
-              <Flex flex={1}></Flex>
             </Flex>
-          </Box>
-        </PageLayout>
-      </Box>
-    </BlocsThemeProvider>
+
+            <Flex flex={1}></Flex>
+          </Flex>
+        </Box>
+      </PageLayout>
+    </Box>
   )
 }
 
