@@ -39,7 +39,6 @@ const NavButton = ({ to, isActive, text, icon }) => {
 
 const Sidebar = () => {
   const { path } = useRouter().query
-  const router = useRouter()
   const notif = useNotifications()
   const supabase = useSupabaseClient()
   const { user } = useBlocsUser()
