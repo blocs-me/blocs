@@ -8,6 +8,7 @@ import { queryGuard } from '@/lambda/helpers/faunadb/queryGuard'
 import faunaClient from '@/lambda/faunaClient'
 import { query as q } from 'faunadb'
 import { BlocsUserServer } from '../../../global-types/blocs-user'
+import addUserToMailingList from '@/lambda/helpers/addUserToMailingList'
 
 const getClientUserData = (blocsUser: BlocsUserServer) => ({
   email: blocsUser?.data?.email,
@@ -87,6 +88,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             }
           })
         )) as BlocsUserServer
+
+        await addUserToMailingList(blocsUser?.data)
       }
 
       if (blocsUserByEmail || blocsUserById) {
