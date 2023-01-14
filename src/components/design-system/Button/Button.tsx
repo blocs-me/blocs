@@ -137,6 +137,8 @@ const Btn = styled('button', {
     position: 'relative',
     overflow: 'hidden',
 
+    transition:
+      'transform 0.5s ease, color 0.2s ease,  background 0.2s ease, opacity 0.2s ease',
     '& *': {
       transition:
         'transform 0.5s ease, color 0.2s ease,  background 0.2s ease, opacity 0.2s ease'
