@@ -58,10 +58,13 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       }
 
       if (!blocsUserById && blocsUserByEmail) {
+        // already authenticated user signs in with supabase
         let blocsUser: BlocsUserServer = await faunaClient.query(
           q.Update(blocsUserByEmail.ref, {
             data: {
-              supabaseUserId: data?.user?.id
+              // TODO: check if user has purchased any widgets beforehand
+              supabaseUserId: data?.user?.id,
+              freeTrialStartDate: new Date().toISOString()
             }
           })
         )
