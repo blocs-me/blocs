@@ -15,6 +15,7 @@ const Guide = lazy(() => import('./Guide'))
 const UserSettings = lazy(() => import('./UserSettings'))
 import {
   useSession,
+  useSessionContext,
   useSupabaseClient,
   useUser
 } from '@supabase/auth-helpers-react'
@@ -22,6 +23,7 @@ import Loader from '@/design-system/Loader'
 import Text from '@/design-system/Text'
 import DashboardSkeleton from './DashboardSkeleton'
 import useBlocsUser from '@/hooks/useBlocsUser'
+import useSignOutRedirect from '@/widgets/HabitTracker/hooks/useSignOutRedirect'
 
 const LoadingScreen = () => {
   return (
@@ -37,15 +39,17 @@ const LoadingScreen = () => {
 }
 
 const Dashboard = () => {
-  const user = useUser()
   const router = useRouter()
   const { path } = router.query
+  useSignOutRedirect()
+  const user = useUser()
+  const session = useSessionContext()
 
   useEffect(() => {
-    if (user && user?.aud !== 'authenticated') {
+    if (user?.aud !== 'authenticated' && !session.isLoading) {
       router.push('/sign-in')
     }
-  }, [router, user])
+  }, [router, user, session])
 
   if (!user) {
     return <DashboardSkeleton />
