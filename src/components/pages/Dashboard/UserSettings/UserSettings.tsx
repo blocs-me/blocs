@@ -311,10 +311,8 @@ const UserSettings = () => {
             value={email}
             onChange={(e) => {
               setEmail(e.target.value)
-              console.log(e.target.value)
               if (isEmail(e.target.value)) {
                 setConfirmEmail(true)
-                console.log('confirm')
               } else {
                 setConfirmEmail(false)
               }

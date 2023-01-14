@@ -25,7 +25,7 @@ const emailChange = async (req: NextApiRequest, res: NextApiResponse) => {
     })
 
     if (error) {
-      console.log(error)
+      console.error(error)
       return handle500Response(res)
     }
 
