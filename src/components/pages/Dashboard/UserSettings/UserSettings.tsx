@@ -188,7 +188,7 @@ const UserSettings = () => {
   const [isSubscribed, setIsSubscribed] = useState(
     blocsUser?.user?.data?.isSubscribed
   )
-  const isLoading = !user || !blocsUser?.user
+  const isLoading = !user || !blocsUser?.user || !blocsUser?.isValidating
 
   const handleSubscribe = () => {
     setIsSubscribed(!isSubscribed)
