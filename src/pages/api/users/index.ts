@@ -8,11 +8,7 @@ import checkIfUserIsSubscribed from '@/lambda/helpers/checkIfUserIsSubscribed'
 import removeUserFromMailingList from '../../../lambda-functions/helpers/removeUserFromMailingList'
 import faunaClient from '@/lambda/faunaClient'
 import { query as q } from 'faunadb'
-import { queryGuard } from '../../../lambda-functions/helpers/faunadb/queryGuard'
-import jwt from 'jsonwebtoken'
-import { BlocsUserServer } from '../../../global-types/blocs-user'
 import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs'
-import { useSupabaseClient } from '@supabase/auth-helpers-react'
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'GET') {
@@ -69,58 +65,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         res,
         'Something went wrong when requesting your data for deletion, please try again'
       )
-    }
-  }
-
-  if (req.method === 'POST') {
-    console.log('POST REQ : CREATE USER')
-    // created by supabase hook
-    // TODO: create production webhooks
-    const { action } = req.query
-
-    console.log({ body: req.body, query: req.query })
-    const bearer = req.headers.authorization?.split(' ')?.[1]
-    const body = req.body
-    const validToken = bearer?.split('.').length === 3
-
-    if (!validToken) {
-      console.error('Could not create user, invalid jwt')
-      return handle500Response(res)
-    }
-
-    try {
-      jwt.verify(bearer, process.env.JWT_SALT)
-    } catch (err) {
-      console.error('Could not verify JWT')
-      console.error(err)
-      return handle500Response(res)
-    }
-
-    if (action === 'update') {
-      console.log({ body: req.body, query: req.query })
-
-      try {
-        const supabase = createServerSupabaseClient({ req, res })
-
-        const { data, error } = await supabase.auth.getUser()
-
-        if (error) throw error
-
-        const blocsUser = (await faunaClient.query(
-          q.Get(q.Match(q.Index('all_users_by_email'), data?.user?.email))
-        )) as BlocsUserServer
-
-        await faunaClient.query(
-          q.Update(blocsUser.ref, {
-            data: {
-              email: req.body.record?.email
-            }
-          })
-        )
-      } catch (err) {
-        console.log(err)
-        handle500Response(res)
-      }
     }
   }
 }
