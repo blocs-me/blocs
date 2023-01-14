@@ -191,7 +191,7 @@ const LandingPage = () => {
                     </Button>
                   </Flex>
                 )}
-                {user && (
+                {user?.aud === 'authenticated' && (
                   <Button
                     variant="outlined"
                     maxWidth="300px"
