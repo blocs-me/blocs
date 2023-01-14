@@ -11,15 +11,17 @@ import Checkbox from '@/widgets/HabitTracker/Checkbox'
 import { Camera } from 'src/icons/camera'
 import { isEmail } from 'validator'
 import { useEffect, useState } from 'react'
-import { useUser } from '@supabase/auth-helpers-react'
+import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react'
 import useBlocsUser from '@/hooks/useBlocsUser'
 import fetchWithToken from 'src/services/fetchWithToken'
 import useNotifications from '@/design-system/Notifications/useNotifications'
-import { postReq, putReq } from '../../../../utils/fetchingUtils'
+import { postReq, putReq, deleteReq } from '../../../../utils/fetchingUtils'
 import {
   useDebouncedCallback,
   useThrottledCallback
 } from 'beautiful-react-hooks'
+import { useRouter } from 'next/router'
+import Modal from '@/design-system/Modal'
 
 const Label = ({ children }) => {
   return (
@@ -164,11 +166,17 @@ const CheckboxItem = ({
 const UserSettings = () => {
   const user = useUser()
   const blocsUser = useBlocsUser()
+  const notif = useNotifications()
+  const router = useRouter()
+  const supabase = useSupabaseClient()
+
   const [avatarUrl, setAvatarUrl] = useState(blocsUser?.user?.data?.avatar_url)
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [confirmEmail, setConfirmEmail] = useState(false)
   const [savingEmail, setSavingEmail] = useState(false)
+  const [deleteModal, setDeleteModal] = useState(false)
+  const [isDeletingUser, setIsDeletingUser] = useState(false)
 
   useEffect(() => {
     if (blocsUser?.user) {
@@ -182,7 +190,6 @@ const UserSettings = () => {
   const [isSubscribed, setIsSubscribed] = useState(
     blocsUser?.user?.data?.isSubscribed
   )
-  const notif = useNotifications()
   const isLoading = !user || !blocsUser?.user
 
   const handleSubscribe = () => {
@@ -276,188 +283,248 @@ const UserSettings = () => {
     }
   }
 
-  return (
-    <Flex size="100%" p="md" css={{ gap: '8rem' }}>
-      <Flex flex="1" flexDirection="column">
-        {/* <form> */}
-        <Text
-          as="h2"
-          fontSize="md"
-          fontWeight={600}
-          color="foreground"
-          m={0}
-          mb="xs"
-        >
-          User Information
-        </Text>
-        <Text as="p" color="primary.accent-4" fontWeight={200} fontSize="sm">
-          You can edit your information here
-        </Text>
-        <Label>Email</Label>
-        <Box mt="xs" />
+  const deleteUser = () => {
+    setIsDeletingUser(true)
 
-        <TextInput
-          ariaLabel="Email Input"
-          type="email"
-          value={email}
-          onChange={(e) => {
-            setEmail(e.target.value)
-            console.log(e.target.value)
-            if (isEmail(e.target.value)) {
-              setConfirmEmail(true)
-              console.log('confirm')
-            } else {
-              setConfirmEmail(false)
-            }
-          }}
-          error={
-            !isEmail(email || '') && !isLoading
-              ? 'Please enter a valid email'
-              : ''
-          }
-        />
-        {confirmEmail && (
-          <Button
-            variant="success"
-            mt="sm"
-            onClick={saveNewEmail}
-            disabled={savingEmail}
+    deleteReq('/api/users')
+      .then(() => {
+        
+
+        supabase.auth.signOut()
+        .then(() => {
+          router.push('/account-deletion') 
+        })
+        .catch(() => {
+          
+        })
+
+      
+      })
+      .catch((err) => err?.error && notif.createError(err?.error?.message))
+      .finally(() => setIsDeletingUser(false))
+  }
+
+  return (
+    <>
+      <Flex size="100%" p="md" css={{ gap: '8rem' }}>
+        <Flex flex="1" flexDirection="column">
+          {/* <form> */}
+          <Text
+            as="h2"
+            fontSize="md"
+            fontWeight={600}
+            color="foreground"
+            m={0}
+            mb="xs"
           >
-            Confirm Email Change
-          </Button>
-        )}
-        <Box mt="sm" />
-        <Label>Full Name</Label>
-        <Box mt="xs" />
-        <TextInput
-          ariaLabel="Full Name Input"
-          value={name}
-          onChange={(e) => {
-            setName(e.target.value)
-            saveName(e.target.value)
-          }}
-        />
-        {/* <Box mt="md" /> */}
-        {/* <Button variant="success" width="100%">
+            User Information
+          </Text>
+          <Text as="p" color="primary.accent-4" fontWeight={200} fontSize="sm">
+            You can edit your information here
+          </Text>
+          <Label>Email</Label>
+          <Box mt="xs" />
+
+          <TextInput
+            ariaLabel="Email Input"
+            type="email"
+            value={email}
+            onChange={(e) => {
+              setEmail(e.target.value)
+              console.log(e.target.value)
+              if (isEmail(e.target.value)) {
+                setConfirmEmail(true)
+                console.log('confirm')
+              } else {
+                setConfirmEmail(false)
+              }
+            }}
+            error={
+              !isEmail(email || '') && !isLoading
+                ? 'Please enter a valid email'
+                : ''
+            }
+          />
+          {confirmEmail && (
+            <Button
+              variant="success"
+              mt="sm"
+              onClick={saveNewEmail}
+              disabled={savingEmail}
+            >
+              Confirm Email Change
+            </Button>
+          )}
+          <Box mt="sm" />
+          <Label>Full Name</Label>
+          <Box mt="xs" />
+          <TextInput
+            ariaLabel="Full Name Input"
+            value={name}
+            onChange={(e) => {
+              setName(e.target.value)
+              saveName(e.target.value)
+            }}
+          />
+          {/* <Box mt="md" /> */}
+          {/* <Button variant="success" width="100%">
             Save Personal Information
           </Button> */}
-        {/* </form> */}
-        <Text
-          as="h3"
-          fontSize="sm"
-          fontWeight={600}
-          color="foreground"
-          m={0}
-          mb="sm"
-          mt="lg"
-        >
-          Manage your account
-        </Text>
-        {blocsUser?.user?.data?.ownsPremium ? (
-          <PremiumStatus />
-        ) : (
-          <FreeTrailStatus />
-        )}
-        <Button
-          px="sm"
-          py="xs"
-          width="100%"
-          borderRadius="md"
-          color="danger.medium"
-          border="solid 1px"
-          borderColor="danger.dark"
-          hoverColor="neutral.white"
-          hoverBg="danger.medium"
-        >
-          Delete Account
-        </Button>
-      </Flex>
-      <Flex flex={1} flexDirection="column">
-        <Text
-          as="h3"
-          fontSize="sm"
-          fontWeight={600}
-          color="foreground"
-          m={0}
-          mb="md"
-          mt="0"
-        >
-          Profile Photo
-        </Text>
-
-        <Box
-          position="relative"
-          css={{ alignSelf: 'center' }}
-          height="fit-content"
-          mb="md"
-        >
-          <Box
-            as="img"
-            src={blocsUser.user?.data?.avatar_url || '/profile.svg'}
-            alt="Change profile photo"
-            borderRadius="50%"
-            size="100px"
+          {/* </form> */}
+          <Text
+            as="h3"
+            fontSize="sm"
+            fontWeight={600}
+            color="foreground"
+            m={0}
+            mb="sm"
+            mt="lg"
+          >
+            Manage your account
+          </Text>
+          {blocsUser?.user?.data?.ownsPremium ? (
+            <PremiumStatus />
+          ) : (
+            <FreeTrailStatus />
+          )}
+          <Button
+            px="sm"
+            py="xs"
+            width="100%"
+            borderRadius="md"
+            color="danger.medium"
             border="solid 1px"
-            borderColor="primary.accent-1"
-            p="xs"
-          />
-
-          <Flex
-            size="30px"
-            bg="brand.accent-1"
-            borderRadius="50%"
-            position="absolute"
-            bottom="0"
-            right="0"
-            boxShadow="default"
+            borderColor="danger.dark"
+            hoverColor="neutral.white"
+            hoverBg="danger.medium"
+            onClick={(e) => {
+              e?.stopPropagation()
+              e?.preventDefault()
+              setDeleteModal(true)
+            }}
           >
-            <Icon fill="background" width="15px" m="auto" display="flex">
-              <Camera />
+            Delete Account
+          </Button>
+        </Flex>
+        <Flex flex={1} flexDirection="column">
+          <Text
+            as="h3"
+            fontSize="sm"
+            fontWeight={600}
+            color="foreground"
+            m={0}
+            mb="md"
+            mt="0"
+          >
+            Profile Photo
+          </Text>
+
+          <Box
+            position="relative"
+            css={{ alignSelf: 'center' }}
+            height="fit-content"
+            mb="md"
+          >
+            <Box
+              as="img"
+              src={blocsUser.user?.data?.avatar_url || '/profile.svg'}
+              alt="Change profile photo"
+              borderRadius="50%"
+              size="100px"
+              border="solid 1px"
+              borderColor="primary.accent-1"
+              p="xs"
+            />
+
+            <Flex
+              size="30px"
+              bg="brand.accent-1"
+              borderRadius="50%"
+              position="absolute"
+              bottom="0"
+              right="0"
+              boxShadow="default"
+            >
+              <Icon fill="background" width="15px" m="auto" display="flex">
+                <Camera />
+              </Icon>
+            </Flex>
+          </Box>
+          <Box position="relative" width="100%">
+            <TextInput
+              onChange={(v) => {
+                setAvatarUrl(v.target.value)
+                saveAvatarUrl(v.target.value.trim())
+              }}
+              value={avatarUrl}
+              ariaLabel="Profile Picture URL"
+              placeholder="User profile link"
+              css={{ width: '100%' }}
+            />
+
+            <Icon
+              width="30px"
+              display="flex"
+              p="5px"
+              bg="background"
+              css={{
+                position: 'absolute',
+                transform: 'translateY(-50%)',
+                top: '50%',
+                right: '0.5rem'
+              }}
+              fill="foreground"
+            >
+              <LinkIcon />
             </Icon>
+          </Box>
+          <Text fontSize="sm" fontWeight="bold" mt="lg" color="foreground">
+            Newsletter
+          </Text>
+          <Flex flexDirection="column">
+            <CheckboxItem
+              text="Product updates"
+              desc="Updates about new features and widgets"
+              onClick={() => handleSubscribe()}
+              isChecked={isSubscribed}
+            />
+            <Box mt="sm" />
           </Flex>
-        </Box>
-        <Box position="relative" width="100%">
-          <TextInput
-            onChange={(v) => {
-              setAvatarUrl(v.target.value)
-              saveAvatarUrl(v.target.value.trim())
-            }}
-            value={avatarUrl}
-            ariaLabel="Profile Picture URL"
-            placeholder="User profile link"
-            css={{ width: '100%' }}
-          />
-
-          <Icon
-            width="30px"
-            display="flex"
-            p="5px"
-            bg="background"
-            css={{
-              position: 'absolute',
-              transform: 'translateY(-50%)',
-              top: '50%',
-              right: '0.5rem'
-            }}
-            fill="foreground"
-          >
-            <LinkIcon />
-          </Icon>
-        </Box>
-        <Text fontSize="sm" fontWeight="bold" mt="lg" color="foreground">
-          Newsletter
-        </Text>
-        <Flex flexDirection="column">
-          <CheckboxItem
-            text="Product updates"
-            desc="Updates about new features and widgets"
-            onClick={() => handleSubscribe()}
-            isChecked={isSubscribed}
-          />
-          <Box mt="sm" />
         </Flex>
       </Flex>
-    </Flex>
+
+      <Modal hideModal={() => setDeleteModal(false)} visible={deleteModal}>
+        <Box p="sm">
+          <Text variant="mediumBold">
+            Are you sure you want to delete your account ?
+          </Text>
+          <Box pt="md" />
+          <Flex>
+            <Button
+              mr="md"
+              variant="danger"
+              onClick={() => deleteUser()}
+              css={{ flex: 1 }}
+              hoverBg="danger.light"
+              disabled={isDeletingUser}
+              loading={isDeletingUser}
+            >
+              Yes, delete my account
+            </Button>
+            <Button
+              disabled={isDeletingUser}
+              variant="outlined"
+              borderRadius="md"
+              css={{ flex: 1 }}
+              hoverBg="primary.accent-2"
+              onClick={() => setDeleteModal(false)}
+            >
+              Go back
+            </Button>
+          </Flex>
+        </Box>
+      </Modal>
+    </>
   )
 }
 

@@ -10,9 +10,9 @@ import faunaClient from '@/lambda/faunaClient'
 import { query as q } from 'faunadb'
 import { queryGuard } from '../../../lambda-functions/helpers/faunadb/queryGuard'
 import jwt from 'jsonwebtoken'
-import addUserToMailingList from '@/lambda/helpers/addUserToMailingList'
 import { BlocsUserServer } from '../../../global-types/blocs-user'
 import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs'
+import { useSupabaseClient } from '@supabase/auth-helpers-react'
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'GET') {
@@ -40,21 +40,34 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
   if (req.method === 'DELETE') {
     const blocsUser = await getBlocsUser(req, res)
+    const supabase = createServerSupabaseClient({ req, res })
 
     try {
       await removeUserFromMailingList(blocsUser)
       await faunaClient.query(
         q.Update(blocsUser.ref, {
           data: {
+            avatar_url: '',
+            name: '',
             isDeleted: true
           }
         })
       )
+      const { data, error } = await supabase.auth.getUser()
+      await supabase.from('profiles').delete().eq('id', data.user.id)
+
+      if (error) throw error
 
       handle200Response(res, {
         message: 'Sad to see you go! Your account has been deleted'
       })
-    } catch (err) {}
+    } catch (err) {
+      console.error(err)
+      handle500Response(
+        res,
+        'Something went wrong when requesting your data for deletion, please try again'
+      )
+    }
   }
 
   if (req.method === 'POST') {
