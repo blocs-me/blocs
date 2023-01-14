@@ -12,18 +12,10 @@ import { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { BlocsLogo } from 'src/icons/blocs-logo'
 import { isEmail } from 'validator'
-
-const redirectLinks = {
-  local: 'http://localhost:3000/dashboard/sign-in',
-  production: 'https://blocs.me/dashboard/sign-in',
-  preview: 'https://blocs-dev.vercel.app/dashboard/sign-in',
-  development: 'https://blocs-dev.vercel.app/dashboard/sign-in'
-}
-
-const vercel_env = process.env.NEXT_PUBLIC_VERCEL_ENV
+import useSignInRedirectLink from '../../widgets/HabitTracker/hooks/useSignInRedirectLink'
 
 const SignInPage = () => {
-  const emailRedirectLink = redirectLinks[vercel_env]
+  const emailRedirectLink = useSignInRedirectLink()
 
   const {
     register,
@@ -72,6 +64,7 @@ const SignInPage = () => {
       maxWidth="100vw"
       minHeight="100vh"
       height="100%"
+      bg="background"
     >
       <Flex width="100%" height="100vh" py="xl" px="md" justifyContent="center">
         <Flex flexDirection="column" width="400px" alignItems="center">
@@ -91,7 +84,7 @@ const SignInPage = () => {
           >
             Sign In
           </Text>
-          <Text fontSize="md" color="primary.accent-3" textAlign="center">
+          <Text fontSize="md" color="primary.accent-4" textAlign="center">
             No password is required to sign in !
           </Text>
           <Box mt="sm" />
@@ -116,6 +109,7 @@ const SignInPage = () => {
               disabled={linkSent}
               loading={isLoading}
               hoverBg="brand.accent-2"
+              hoverColor="foreground"
             >
               Continue
             </Button>
