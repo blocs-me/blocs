@@ -196,7 +196,7 @@ const LandingPage = () => {
                   hoverColor="background"
                   onClick={() => goToDashboard()}
                 >
-                  To the dashboard
+                  Go to dashboard
                 </Button>
               )}
               {!!invitedAt && !user && (
