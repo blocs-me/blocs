@@ -16,7 +16,8 @@ import useBlocsUser from '@/hooks/useBlocsUser'
 const LinkText = forwardRef(({ children }: { children: ReactNode }, ref) => (
   <Text
     as="div"
-    variant="pSmall"
+    color="foreground"
+    fontSize="sm"
     css={{ cursor: 'pointer', '&:hover': { opacity: 0.8 } }}
   >
     {children}
