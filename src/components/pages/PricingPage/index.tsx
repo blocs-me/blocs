@@ -3,9 +3,13 @@ import Nav from '@/design-system/Nav'
 import Text from '@/design-system/Text'
 import Box from '@/helpers/Box'
 import Flex from '@/helpers/Flex'
+import { postReq } from '@/utils/fetchingUtils'
 import { keyframes } from '@emotion/react'
+import { loadStripe } from '@stripe/stripe-js'
 import PricingCard from './PricingCard'
 import PricingCardCheckbox from './PricingCardCheckbox'
+import stripePriceIds from '../../../constants/stripePriceIds'
+import { useRouter } from 'next/router'
 
 const float = keyframes`
     from {
@@ -15,7 +19,23 @@ const float = keyframes`
     }
 `
 
+const stripe = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY)
+
 const PricingPage = () => {
+  const router = useRouter()
+  const handleLifetime = () => {
+    // postReq('/api/payments/checkout', {
+    //   body: {
+    //     products: [
+    //       {
+    //         price: stripePriceIds.lifetime,
+    //         quantity: 1
+    //       }
+    //     ]
+    //   }
+    // }).catch(console.error)
+  }
+
   return (
     <>
       <Flex pt="80px" flexDirection="column" bg="background" maxWidth="100vw">
@@ -67,7 +87,7 @@ const PricingPage = () => {
               priceDescLarge="Basic features will always be free!"
               cta="Try for free"
               isPremium={false}
-              onClick={(e) => {}}
+              onClick={(e) => router.push('/sign-in')}
             >
               <PricingCardCheckbox text="Pomodoro" />
               <PricingCardCheckbox text="Habit Tracker" isChecked={false} />
@@ -92,7 +112,7 @@ const PricingPage = () => {
               cta="Buy now"
               ctaColor="brand.accent-1"
               isPremium
-              onClick={(e) => {}}
+              onClick={(e) => handleLifetime(e)}
               css={{ transform: 'scale(1.05)' }}
               boxShadow="lg"
             >
@@ -129,7 +149,6 @@ const PricingPage = () => {
                   <span>Limited</span>
                   <br />
                   {/* TODO: Show realtime data for countdown 👇 */}
-                  {/* <small>1000 left</small> */}
                 </Text>
               </Box>
             </PricingCard>

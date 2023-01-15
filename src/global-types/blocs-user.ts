@@ -1,3 +1,4 @@
+// Client user type is different so we acn
 export type BlocsUserClient = {
   data: {
     avatar_url: string

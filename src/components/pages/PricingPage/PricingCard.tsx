@@ -78,17 +78,19 @@ const PricingCard = ({
         </Text>
       </Flex>
       <Text variant="pSmall">{priceDescLarge}</Text>
-      <Button
-        width="100%"
-        py="sm"
-        bg={ctaColor}
-        color="background"
-        onClick={onClick}
-        fontSize="sm"
-        borderRadius="sm"
-      >
-        {cta}
-      </Button>
+      <form action="/api/payments/checkout" method="post">
+        <Button
+          width="100%"
+          py="sm"
+          bg={ctaColor}
+          color="background"
+          // onClick={onClick}
+          fontSize="sm"
+          borderRadius="sm"
+        >
+          {cta}
+        </Button>
+      </form>
       <Box width="100%" height="1px" bg="primary.accent-1" />
       <div>
         <Text color="foreground" fontSize="sm" fontWeight="bold" mb={0}>
