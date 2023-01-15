@@ -177,7 +177,7 @@ const Nav = ({ title = '', links = [] }) => {
       }}
       style={{ '--translateY': hideNav ? '-100%' : '0' }}
       borderBottom="solid 1px"
-      borderBottomColor="primary.accent-1"
+      borderBottomColor="primary.accent-2"
     >
       <PageGutters height="80px">
         <Flex
