@@ -112,7 +112,7 @@ const PricingPage = () => {
               cta="Buy now"
               ctaColor="brand.accent-1"
               isPremium
-              onClick={(e) => handleLifetime(e)}
+              onClick={() => {}}
               css={{ transform: 'scale(1.05)' }}
               boxShadow="lg"
             >
