@@ -6,10 +6,8 @@ import Box from '@/helpers/Box'
 import Flex from '@/helpers/Flex'
 import { MouseEvent, useState } from 'react'
 import CheckIcon from './PricingCardCheckbox/CheckedIcon'
-import Crossed from './PricingCardCheckbox/CrossedIcon'
 import Plus from '../../../icons/plus.svg'
 import Icon from '@/helpers/Icon'
-import TweenNum from '@/helpers/TweenNum'
 
 type Props = {
   isOpen: boolean
