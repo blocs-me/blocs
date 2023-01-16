@@ -28,6 +28,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     event = stripe.webhooks.constructEvent(reqBuffer, sig, endpointSecret)
   } catch (err) {
+    console.error(err)
     res.status(400).send(`Webhook Error: ${err.message}`)
     return null
   }
@@ -48,6 +49,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         await upsertBlocsUser(customerEmail, {
           email: customerEmail,
           purchaseHistory: [paymentIntent]
+        })
+        handle200Response(res, {
+          received: true
         })
       } catch (err) {
         console.error(err)

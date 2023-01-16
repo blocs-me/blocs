@@ -11,7 +11,7 @@ const localOrigin = [
 ]
 
 const cors = Cors({
-  methods: ['POST', 'HEAD'],
+  allowedMethods: ['POST', 'HEAD'],
   origin: process.env.VERCEL_ENV === 'production' ? prodOrigin : localOrigin
 })
 
