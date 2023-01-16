@@ -6,6 +6,13 @@ import {
 } from '../../../lambda-functions/helpers/handleResponses'
 import { queryGuard } from '../../../lambda-functions/helpers/faunadb/queryGuard'
 import upsertBlocsUser from '@/lambda/middlewares/upsertBlocsUser'
+import { buffer } from 'micro'
+
+import Cors from 'micro-cors'
+
+const cors = Cors({
+  allowMethods: ['POST', 'HEAD']
+})
 
 const stripe = new Stripe(process.env.STRIPE_SECRET, {
   apiVersion: '2022-11-15'
@@ -15,12 +22,14 @@ const endpointSecret = process.env.STRIPE_WEBHOOK_SIGNING_SECRET
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const sig = req.headers['stripe-signature']
+  const reqBuffer = await buffer(req)
   let event
 
   try {
-    event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret)
+    event = stripe.webhooks.constructEvent(reqBuffer, sig, endpointSecret)
   } catch (err) {
     res.status(400).send(`Webhook Error: ${err.message}`)
+    return null
   }
 
   if (req.method === 'POST') {
@@ -29,7 +38,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     console.log({ body })
 
     if (
-      event.type === 'checkout.session.completed' &&
+      event?.type === 'checkout.session.completed' &&
       paymentInfo?.payment_status === 'paid'
     ) {
       const customerEmail = paymentInfo.customer_email
@@ -52,4 +61,4 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   })
 }
 
-export default handler
+export default cors(handler)
