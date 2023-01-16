@@ -5,11 +5,14 @@ import Box from '@/helpers/Box'
 import Flex from '@/helpers/Flex'
 import { postReq } from '@/utils/fetchingUtils'
 import { keyframes } from '@emotion/react'
-import { loadStripe } from '@stripe/stripe-js'
 import PricingCard from './PricingCard'
-import PricingCardCheckbox from './PricingCardCheckbox'
+import PricingCardCheckbox from './PricingCardCheckbox/PricingCardCheckbox'
 import stripePriceIds from '../../../constants/stripePriceIds'
 import { useRouter } from 'next/router'
+import getStripe from '@/hooks/getStripe'
+import Stripe from 'stripe'
+import { MouseEvent, useState } from 'react'
+import BuyMultipleWidgetsModals from './BuyMultipleWidgetsModal'
 
 const float = keyframes`
     from {
@@ -19,22 +22,51 @@ const float = keyframes`
     }
 `
 
-const stripe = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY)
+const handleEv = (e: MouseEvent) => {
+  e.preventDefault()
+  e.stopPropagation()
+}
+
+const handleStripeCheckout = async (
+  products: {
+    price: string
+    quantity: 1
+  }[]
+) => {
+  try {
+    const checkoutSession: Stripe.Checkout.Session = await postReq(
+      '/api/payments/checkout',
+      {
+        body: {
+          products
+        }
+      }
+    )
+    const stripe = await getStripe()
+
+    const { error } = await stripe!.redirectToCheckout({
+      sessionId: checkoutSession.id
+    })
+
+    throw error
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+const buyLifetimeAccess = (e: MouseEvent) => {
+  handleEv(e)
+  handleStripeCheckout([
+    {
+      price: stripePriceIds.lifetime,
+      quantity: 1
+    }
+  ])
+}
 
 const PricingPage = () => {
   const router = useRouter()
-  const handleLifetime = () => {
-    // postReq('/api/payments/checkout', {
-    //   body: {
-    //     products: [
-    //       {
-    //         price: stripePriceIds.lifetime,
-    //         quantity: 1
-    //       }
-    //     ]
-    //   }
-    // }).catch(console.error)
-  }
+  const [showMultiWidgetModal, setShowMultiWidgetModal] = useState(false)
 
   return (
     <>
@@ -87,7 +119,7 @@ const PricingPage = () => {
               priceDescLarge="Basic features will always be free!"
               cta="Try for free"
               isPremium={false}
-              onClick={(e) => router.push('/sign-in')}
+              onClick={(e) => router.push('/sign-in?start-free-trial=true')}
             >
               <PricingCardCheckbox text="Pomodoro" />
               <PricingCardCheckbox text="Habit Tracker" isChecked={false} />
@@ -112,7 +144,7 @@ const PricingPage = () => {
               cta="Buy now"
               ctaColor="brand.accent-1"
               isPremium
-              onClick={() => {}}
+              onClick={(e) => buyLifetimeAccess(e)}
               css={{ transform: 'scale(1.05)' }}
               boxShadow="lg"
             >
@@ -159,7 +191,11 @@ const PricingPage = () => {
               priceDescLarge="Own your widget forever!"
               cta="Buy a widget"
               isPremium
-              onClick={(e) => {}}
+              onClick={(e) => {
+                e.preventDefault()
+                e.stopPropagation()
+                setShowMultiWidgetModal(true)
+              }}
             >
               <PricingCardCheckbox text="Pomodoro" />
               <PricingCardCheckbox text="or Water Analytics" />
@@ -177,6 +213,14 @@ const PricingPage = () => {
         </Flex>
         <Footer />
       </Flex>
+      <BuyMultipleWidgetsModals
+        isOpen={showMultiWidgetModal}
+        onClose={(e) => {
+          e.stopPropagation()
+          setShowMultiWidgetModal(false)
+        }}
+        handleStripeCheckout={handleStripeCheckout}
+      />
     </>
   )
 }
