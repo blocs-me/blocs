@@ -18,7 +18,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET, {
   apiVersion: '2022-11-15'
 })
 
-const endpointSecret = process.env.STRIPE_WEBHOOK_SIGNING_SECRET
+const webhookSecret = process.env.STRIPE_WEBHOOK_SIGNING_SECRET
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const sig = req.headers['stripe-signature']
@@ -26,7 +26,11 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   let event
 
   try {
-    event = stripe.webhooks.constructEvent(reqBuffer, sig, endpointSecret)
+    event = stripe.webhooks.constructEvent(
+      reqBuffer.toString(),
+      sig,
+      webhookSecret
+    )
   } catch (err) {
     console.error(err)
     res.status(400).send(`Webhook Error: ${err.message}`)
@@ -42,7 +46,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       event?.type === 'checkout.session.completed' &&
       paymentInfo?.payment_status === 'paid'
     ) {
-      const customerEmail = paymentInfo.customer_email
+      const customerEmail = paymentInfo.customer_details?.email
       const paymentIntent = paymentInfo.payment_intent
 
       try {
