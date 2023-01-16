@@ -21,21 +21,21 @@ const stripe = new Stripe(process.env.STRIPE_SECRET, {
 const webhookSecret = process.env.STRIPE_WEBHOOK_SIGNING_SECRET
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-  const sig = req.headers['stripe-signature']
-  const reqBuffer = await buffer(req)
-  let event
+  // const sig = req.headers['stripe-signature']
+  // const reqBuffer = await buffer(req)
+  // let event
 
-  try {
-    event = stripe.webhooks.constructEvent(
-      reqBuffer.toString(),
-      sig,
-      webhookSecret
-    )
-  } catch (err) {
-    console.error(err)
-    res.status(400).send(`Webhook Error: ${err.message}`)
-    return null
-  }
+  // try {
+  //   event = stripe.webhooks.constructEvent(
+  //     reqBuffer.toString(),
+  //     sig,
+  //     webhookSecret
+  //   )
+  // } catch (err) {
+  //   console.error(err)
+  //   res.status(400).send(`Webhook Error: ${err.message}`)
+  //   return null
+  // }
 
   if (req.method === 'POST') {
     const body = req.body
@@ -43,7 +43,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     console.log({ body })
 
     if (
-      event?.type === 'checkout.session.completed' &&
+      paymentInfo?.type === 'checkout.session.completed' &&
       paymentInfo?.payment_status === 'paid'
     ) {
       const customerEmail = paymentInfo.customer_details?.email
