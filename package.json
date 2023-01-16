@@ -36,6 +36,8 @@
     "isomorphic-fetch": "^3.0.0",
     "jsonwebtoken": "^9.0.0",
     "md5": "^2.3.0",
+    "micro": "^10.0.1",
+    "micro-cors": "^0.1.1",
     "motion": "^10.14.3",
     "next": "^12.3.2",
     "next-sitemap": "^2.5.21",
