@@ -14,27 +14,31 @@ const cors = Cors({
   allowMethods: ['POST', 'HEAD']
 })
 
-const stripe = new Stripe(process.env.STRIPE_SECRET, {
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
   apiVersion: '2022-11-15'
 })
 
 const webhookSecret = process.env.STRIPE_WEBHOOK_SIGNING_SECRET
 
+export const config = {
+  api: {
+    bodyParser: false
+  }
+}
+
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const sig = req.headers['stripe-signature']
+
   const buf = await buffer(req)
 
   let event
 
   try {
-    event = stripe.webhooks.constructEvent(buf, sig, webhookSecret)
+    event = stripe.webhooks.constructEvent(buf.toString(), sig, webhookSecret)
   } catch (err) {
     console.error(err)
     res.status(400).send(`Webhook Error: ${err.message}`)
-    return null
   }
-
-  console.log({ event })
 
   if (req.method === 'POST') {
     const body = req.body
@@ -60,6 +64,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         return handle500Response(res)
       }
     }
+
+    handle200Response(res, {
+      received: true
+    })
   }
 
   handle200Response(res, {
