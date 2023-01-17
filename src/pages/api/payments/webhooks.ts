@@ -22,11 +22,12 @@ const webhookSecret = process.env.STRIPE_WEBHOOK_SIGNING_SECRET
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const sig = req.headers['stripe-signature']
+  const buf = await buffer(req)
 
   let event
 
   try {
-    event = stripe.webhooks.constructEvent(req.body, sig, webhookSecret)
+    event = stripe.webhooks.constructEvent(buf, sig, webhookSecret)
   } catch (err) {
     console.error(err)
     res.status(400).send(`Webhook Error: ${err.message}`)
