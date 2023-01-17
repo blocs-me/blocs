@@ -41,8 +41,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   if (req.method === 'POST') {
-    const body = req.body
-    const paymentInfo = body?.data?.object
+    const paymentInfo = event.data.object
 
     if (
       event?.type === 'checkout.session.completed' &&
