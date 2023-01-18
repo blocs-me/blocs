@@ -44,6 +44,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     const user = await getBlocsUser(req, res)
     const { status } = req.body as Body
 
+    console.log({ user })
+
     const nameArr = user?.data?.name?.split(' ')
     const [FNAME = '', LNAME = ''] = [nameArr?.[0], nameArr?.slice(-1)?.[0]]
     const email_address = user?.data?.email
@@ -80,6 +82,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           process.env.MAILCHIMP_LIST_ID,
           md5(user?.data?.email),
           {
+            email_address,
             status: 'subscribed'
           }
         )
