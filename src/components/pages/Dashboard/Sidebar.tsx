@@ -14,6 +14,8 @@ import { useRouter } from 'next/router'
 import useNotifications from '../../design-system/Notifications/useNotifications'
 import { useSupabaseClient } from '@supabase/auth-helpers-react'
 import useBlocsUser from '@/hooks/useBlocsUser'
+import Sparkles from '@/design-system/Sparkles'
+import Box from '@/helpers/Box'
 
 const NavButton = ({ to, isActive, text, icon }) => {
   return (
@@ -75,20 +77,23 @@ const Sidebar = () => {
           loading={!user}
           alt="profile picture"
         />
-        <Button
-          mt="md"
-          fontWeight={200}
-          fontSize="sm"
-          py="sm"
-          px="sm"
-          width="250px"
-          bg="foreground"
-          color="background"
-          borderRadius="sm"
-          onClick={() => handleUpgrade()}
-        >
-          Upgrade
-        </Button>
+        <Box mt="md">
+          <Sparkles>
+            <Button
+              fontWeight={200}
+              fontSize="sm"
+              py="sm"
+              px="sm"
+              width="250px"
+              bg="foreground"
+              color="background"
+              borderRadius="sm"
+              onClick={() => handleUpgrade()}
+            >
+              Get Blocs Premium
+            </Button>
+          </Sparkles>
+        </Box>
         <Flex
           mt="md"
           flexDirection="column"
