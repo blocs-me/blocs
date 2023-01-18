@@ -28,6 +28,7 @@ const SignInPage = () => {
   const notif = useNotifications()
   const user = useUser()
   const router = useRouter()
+  const { payment_success } = router.query
 
   const handleSignIn = handleSubmit(async ({ email }) => {
     setIsLoading(true)
@@ -131,6 +132,26 @@ const SignInPage = () => {
               >
                 We&#39;ve emailed you a magic link for a password free sign in.
                 ✨
+              </Text>
+            </Flex>
+          )}
+          {payment_success === 'true' && !linkSent && (
+            <Flex
+              width="100%"
+              p="sm"
+              borderRadius="md"
+              bg="primary.accent-2"
+              mt="md"
+            >
+              <Text
+                fontSize="sm"
+                color="primary.accent-4"
+                textAlign={'center'}
+                mb={0}
+              >
+                Your payment was successful ! 🥳🙌 <br />
+                Sign in with the same email you used when paying to access the
+                premium features
               </Text>
             </Flex>
           )}
