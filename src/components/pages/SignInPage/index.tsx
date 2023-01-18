@@ -109,8 +109,6 @@ const SignInPage = () => {
               mt="sm"
               disabled={linkSent}
               loading={isLoading}
-              hoverBg="brand.accent-2"
-              hoverColor="foreground"
             >
               Continue
             </Button>
@@ -132,26 +130,6 @@ const SignInPage = () => {
               >
                 We&#39;ve emailed you a magic link for a password free sign in.
                 ✨
-              </Text>
-            </Flex>
-          )}
-          {payment_success === 'true' && !linkSent && (
-            <Flex
-              width="100%"
-              p="sm"
-              borderRadius="md"
-              bg="primary.accent-2"
-              mt="md"
-            >
-              <Text
-                fontSize="sm"
-                color="primary.accent-4"
-                textAlign={'center'}
-                mb={0}
-              >
-                Your payment was successful ! 🥳🙌 <br />
-                Sign in with the same email you used when paying to access the
-                premium features
               </Text>
             </Flex>
           )}

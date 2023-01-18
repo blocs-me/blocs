@@ -15,6 +15,9 @@ import { MouseEvent, useState } from 'react'
 import BuyMultipleWidgetsModals from './BuyMultipleWidgetsModal'
 import useBlocsUser from '@/hooks/useBlocsUser'
 import { BlocsUserClient } from '../../../global-types/blocs-user'
+import Modal from '@/design-system/Modal'
+import Button from '@/design-system/Button'
+import Sparkles from '@/design-system/Sparkles'
 
 const float = keyframes`
     from {
@@ -34,18 +37,13 @@ type Products = {
   quantity: 1
 }[]
 
-const handleStripeCheckout = async (
-  products: Products,
-  blocsUser: BlocsUserClient
-) => {
+const handleStripeCheckout = async (products: Products) => {
   try {
     const checkoutSession: Stripe.Checkout.Session = await postReq(
       '/api/payments/checkout',
       {
         body: {
-          products,
-          customer_email: blocsUser?.data?.email,
-          stripeCustomerId: blocsUser?.data?.stripeCustomerId
+          products
         }
       }
     )
@@ -61,23 +59,34 @@ const handleStripeCheckout = async (
   }
 }
 
-const buyLifetimeAccess = (e: MouseEvent, blocsUser: BlocsUserClient) => {
-  handleEv(e)
-  handleStripeCheckout(
-    [
-      {
-        price: stripePriceIds.lifetime,
-        quantity: 1
-      }
-    ],
-    blocsUser
-  )
+const buyLifetimeAccess = (blocsUser: BlocsUserClient) => {
+  handleStripeCheckout([
+    {
+      price: stripePriceIds.lifetime,
+      quantity: 1
+    }
+  ])
 }
 
 const PricingPage = () => {
   const router = useRouter()
   const { user } = useBlocsUser()
+  const [showSignInMessage, setShowSignInMessage] = useState(false)
   const [showMultiWidgetModal, setShowMultiWidgetModal] = useState(false)
+
+  const handleBuyMultiWidgets = (e: MouseEvent) => {
+    handleEv(e)
+    if (!user) return setShowSignInMessage(true)
+    setShowMultiWidgetModal(true)
+  }
+
+  const handleBuyLifetimeAccess = (e: MouseEvent) => {
+    handleEv(e)
+    if (!user) return setShowSignInMessage(true)
+    buyLifetimeAccess(user)
+  }
+
+  const handleRedirect = () => router.push('/sign-in')
 
   return (
     <>
@@ -155,7 +164,7 @@ const PricingPage = () => {
               cta="Buy now"
               ctaColor="brand.accent-1"
               isPremium
-              onClick={(e) => buyLifetimeAccess(e, user)}
+              onClick={handleBuyLifetimeAccess}
               css={{ transform: 'scale(1.05)' }}
               boxShadow="lg"
             >
@@ -179,22 +188,30 @@ const PricingPage = () => {
                 right="sm"
                 border="solid 2px"
                 borderColor="brand.accent-4"
+                py="3px"
+                px="xs"
                 css={{
                   animation: `${float} 1s ease-in-out infinite alternate`
                 }}
               >
-                <Text
-                  fontSize="xxs"
-                  m={0}
-                  py="3px"
-                  px="xs"
-                  lineHeight={1.75}
-                  textAlign="center"
+                <Sparkles
+                  minSize={8}
+                  maxSize={15}
+                  duration={800}
+                  numOfStars={3}
+                  // css={{ marginTop: '-10px' }}
                 >
-                  <span>Limited</span>
-                  <br />
-                  {/* TODO: Show realtime data for countdown 👇 */}
-                </Text>
+                  <Text
+                    fontSize="xxs"
+                    m={0}
+                    lineHeight={1.75}
+                    textAlign="center"
+                  >
+                    <span>Limited</span>
+                    <br />
+                    {/* TODO: Show realtime data for countdown 👇 */}
+                  </Text>
+                </Sparkles>
               </Box>
             </PricingCard>
             <PricingCard
@@ -204,11 +221,7 @@ const PricingPage = () => {
               priceDescLarge="Own your widget forever!"
               cta="Buy a widget"
               isPremium
-              onClick={(e) => {
-                e.preventDefault()
-                e.stopPropagation()
-                setShowMultiWidgetModal(true)
-              }}
+              onClick={handleBuyMultiWidgets}
             >
               <PricingCardCheckbox text="Pomodoro" />
               <PricingCardCheckbox text="or Water Analytics" />
@@ -234,6 +247,29 @@ const PricingPage = () => {
         }}
         handleStripeCheckout={handleStripeCheckout}
       />
+
+      <Modal
+        visible={showSignInMessage}
+        hideModal={() => setShowSignInMessage(false)}
+      >
+        <Text variant="mediumBold" textAlign="center">
+          Thanks for your interest in the premium widgets!
+        </Text>
+        <Text fontSize="md" textAlign="center" color="primary.accent-4">
+          You need to sign in to make the purchase
+        </Text>
+        <Button
+          bg="brand.accent-1"
+          color="background"
+          borderRadius="sm"
+          mt="sm"
+          width="100%"
+          height="50px"
+          onClick={() => handleRedirect()}
+        >
+          Sign In
+        </Button>
+      </Modal>
     </>
   )
 }

@@ -9,6 +9,8 @@ import upsertBlocsUser from '@/lambda/middlewares/upsertBlocsUser'
 import { buffer } from 'micro'
 
 import Cors from 'micro-cors'
+import getBlocsUser from '@/lambda/middlewares/getBlocsUser'
+import getBlocsUserByEmail from '@/lambda/middlewares/getBlocsUserByEmail'
 
 const cors = Cors({
   allowMethods: ['POST', 'HEAD']
@@ -49,12 +51,16 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     ) {
       const customerEmail = paymentInfo.customer_details?.email
       const stripeCustomerId = paymentInfo?.customer
-      const paymentIntent = paymentInfo.payment_intent
+      const checkoutSessionId = paymentInfo?.id
+      const blocsUser = await getBlocsUserByEmail(customerEmail)
 
       try {
         await upsertBlocsUser(customerEmail, {
           email: customerEmail,
-          purchaseHistory: [paymentIntent],
+          purchaseHistory: [
+            ...(blocsUser?.data?.purchaseHistory || []),
+            checkoutSessionId
+          ],
           stripeCustomerId
         })
         handle200Response(res, {

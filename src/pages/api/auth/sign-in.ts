@@ -9,11 +9,17 @@ import faunaClient from '@/lambda/faunaClient'
 import { query as q } from 'faunadb'
 import { BlocsUserServer } from '../../../global-types/blocs-user'
 import addUserToMailingList from '@/lambda/helpers/addUserToMailingList'
+import Stripe from 'stripe'
+
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
+  apiVersion: '2022-11-15'
+})
 
 const getClientUserData = (blocsUser: BlocsUserServer) => ({
   email: blocsUser?.data?.email,
   avatar_url: blocsUser?.data?.avatar_url,
-  name: blocsUser?.data?.name
+  name: blocsUser?.data?.name,
+  stripeCustomerId: blocsUser?.data?.stripeCustomerId || null
 })
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -51,6 +57,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           })
         )
 
+        await stripe.customers.update(blocsUser.data.stripeCustomerId, {
+          email: data?.user?.email
+        })
+
         return handle200Response(res, {
           data: {
             user: getClientUserData(blocsUser)
@@ -59,11 +69,12 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       }
 
       if (!blocsUserById && blocsUserByEmail) {
-        // already authenticated user signs in with supabase
+        // already existing user signs in with supabase for the first time
+
         let blocsUser: BlocsUserServer = await faunaClient.query(
           q.Update(blocsUserByEmail.ref, {
             data: {
-              // TODO: check if user has purchased any widgets beforehand
+              // TODO: check if user has purchased any widgets before setting freeTrial
               supabaseUserId: data?.user?.id,
               freeTrialStartDate: new Date().toISOString()
             }
@@ -80,6 +91,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       let blocsUser: BlocsUserServer
 
       if (!blocsUserByEmail && !blocsUserById) {
+        // first time sign in
+
         blocsUser = (await faunaClient.query(
           q.Create(q.Collection('users'), {
             data: {

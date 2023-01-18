@@ -2,6 +2,10 @@ import stripePriceIds from '@/constants/stripePriceIds'
 import { NextApiRequest, NextApiResponse } from 'next'
 import Stripe from 'stripe'
 import Cors from 'micro-cors'
+import { isEmail } from 'validator'
+import { handle400Response } from '../../../lambda-functions/helpers/handleResponses'
+import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs'
+import getBlocsUser from '@/lambda/middlewares/getBlocsUser'
 
 // user is logged in
 // checkout session starts + email / cust_id is passed
@@ -32,27 +36,27 @@ const validateProducts = (products: Products) => {
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'POST') {
-    const { stripeCustomerId, products, customer_email } = req.body as {
+    const { products } = req.body as {
       products: Products
       customer_email?: string
       stripeCustomerId?: string
     }
 
-    const areProductsValid = validateProducts(products)
+    const blocsUser = await getBlocsUser(req, res)
+    if (!blocsUser) return null
 
+    const areProductsValid = validateProducts(products)
     if (!areProductsValid) {
-      throw new Error('Product line items are not valid')
+      return handle400Response(res)
     }
+
+    const { email: customer_email, stripeCustomerId } = blocsUser?.data
 
     const paymentOptions: Partial<Stripe.Checkout.SessionCreateParams> =
       (() => {
         if (stripeCustomerId) return { customer: stripeCustomerId } // would happen on second purchase for signed in user
         if (customer_email)
           return { customer_email, customer_creation: 'always' } // for signed in user
-        // for signed out user
-        return {
-          customer_creation: 'always'
-        }
       })()
 
     try {
@@ -60,7 +64,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         ...paymentOptions,
         line_items: products,
         mode: 'payment',
-        success_url: `${req.headers.origin}/sign-in?payment_success=true`,
+        success_url: `${req.headers.origin}/dashboard/pomodoro?payment_success=true`,
         cancel_url: `${req.headers.origin}/pricing?canceled=true`,
         automatic_tax: { enabled: true }
       })
