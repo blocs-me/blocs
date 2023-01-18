@@ -105,10 +105,19 @@ const BuyMultipleWidgetsModals = ({
     return productIndex > -1
   }
 
+  //TODO: if user bought one widget then disable that selection again
+
   return (
     <Modal visible={isOpen} hideModal={onClose}>
       <Flex flexDirection="column">
-        <Text as="h2" fontSize="lg" fontWeight="bold" mt={0} mb={'md'}>
+        <Text
+          as="h2"
+          color="foreground"
+          fontSize="lg"
+          fontWeight="bold"
+          mt={0}
+          mb={'md'}
+        >
           Select a widget
         </Text>
         <ProductItem
