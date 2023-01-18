@@ -53,14 +53,17 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       const stripeCustomerId = paymentInfo?.customer
       const checkoutSessionId = paymentInfo?.id
       const blocsUser = await getBlocsUserByEmail(customerEmail)
+      const updatedPurchaseHistory = Array.from(
+        new Set([
+          ...(blocsUser?.data?.purchaseHistory || []),
+          checkoutSessionId
+        ])
+      )
 
       try {
         await upsertBlocsUser(customerEmail, {
           email: customerEmail,
-          purchaseHistory: [
-            ...(blocsUser?.data?.purchaseHistory || []),
-            checkoutSessionId
-          ],
+          purchaseHistory: updatedPurchaseHistory,
           stripeCustomerId
         })
         handle200Response(res, {
