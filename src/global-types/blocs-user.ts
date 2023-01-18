@@ -8,6 +8,7 @@ export type BlocsUserClient = {
     isSubscribed: boolean
     isDeleted?: boolean
     scheduledForDeletion: boolean
+    stripeCustomerId: string
   }
 }
 
@@ -20,5 +21,7 @@ export type BlocsUserServer = {
     supabaseUserId?: string
     scheduledForDeletion: boolean
     isDeleted?: boolean
+    purchaseHistory: string[]
+    stripeCustomerId?: string
   }
 }
