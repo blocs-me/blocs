@@ -28,6 +28,13 @@ const pSmall = {
   color: 'foreground'
 }
 
+const medium = {
+  fontSize: 'md',
+  color: 'foreground',
+  mb: 0,
+  lineHeight: 1.25
+}
+
 const mediumBold = {
   fontSize: 'md',
   fontWeight: '600',
@@ -66,11 +73,19 @@ const variants = variant({
     h4,
     li,
     mediumBold,
-    smallLight
+    smallLight,
+    medium
   }
 })
 
-type Variants = 'pSmall' | 'p' | 'h4' | 'li' | 'mediumBold' | 'smallLight'
+type Variants =
+  | 'pSmall'
+  | 'p'
+  | 'h4'
+  | 'li'
+  | 'mediumBold'
+  | 'smallLight'
+  | 'medium'
 type TextProps = TypographyProps &
   ColorProps &
   SpaceProps &
