@@ -48,12 +48,14 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       paymentInfo?.payment_status === 'paid'
     ) {
       const customerEmail = paymentInfo.customer_details?.email
+      const stripeCustomerId = paymentInfo?.customer
       const paymentIntent = paymentInfo.payment_intent
 
       try {
         await upsertBlocsUser(customerEmail, {
           email: customerEmail,
-          purchaseHistory: [paymentIntent]
+          purchaseHistory: [paymentIntent],
+          stripeCustomerId
         })
         handle200Response(res, {
           received: true

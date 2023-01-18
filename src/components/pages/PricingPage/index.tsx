@@ -13,6 +13,8 @@ import getStripe from '@/hooks/getStripe'
 import Stripe from 'stripe'
 import { MouseEvent, useState } from 'react'
 import BuyMultipleWidgetsModals from './BuyMultipleWidgetsModal'
+import useBlocsUser from '@/hooks/useBlocsUser'
+import { BlocsUserClient } from '../../../global-types/blocs-user'
 
 const float = keyframes`
     from {
@@ -27,18 +29,23 @@ const handleEv = (e: MouseEvent) => {
   e.stopPropagation()
 }
 
+type Products = {
+  price: string
+  quantity: 1
+}[]
+
 const handleStripeCheckout = async (
-  products: {
-    price: string
-    quantity: 1
-  }[]
+  products: Products,
+  blocsUser: BlocsUserClient
 ) => {
   try {
     const checkoutSession: Stripe.Checkout.Session = await postReq(
       '/api/payments/checkout',
       {
         body: {
-          products
+          products,
+          customer_email: blocsUser?.data?.email,
+          stripeCustomerId: blocsUser?.data?.stripeCustomerId
         }
       }
     )
@@ -54,18 +61,22 @@ const handleStripeCheckout = async (
   }
 }
 
-const buyLifetimeAccess = (e: MouseEvent) => {
+const buyLifetimeAccess = (e: MouseEvent, blocsUser: BlocsUserClient) => {
   handleEv(e)
-  handleStripeCheckout([
-    {
-      price: stripePriceIds.lifetime,
-      quantity: 1
-    }
-  ])
+  handleStripeCheckout(
+    [
+      {
+        price: stripePriceIds.lifetime,
+        quantity: 1
+      }
+    ],
+    blocsUser
+  )
 }
 
 const PricingPage = () => {
   const router = useRouter()
+  const { user } = useBlocsUser()
   const [showMultiWidgetModal, setShowMultiWidgetModal] = useState(false)
 
   return (
@@ -144,7 +155,7 @@ const PricingPage = () => {
               cta="Buy now"
               ctaColor="brand.accent-1"
               isPremium
-              onClick={(e) => buyLifetimeAccess(e)}
+              onClick={(e) => buyLifetimeAccess(e, user)}
               css={{ transform: 'scale(1.05)' }}
               boxShadow="lg"
             >
@@ -166,6 +177,8 @@ const PricingPage = () => {
                 borderRadius="10px"
                 top="sm"
                 right="sm"
+                border="solid 2px"
+                borderColor="brand.accent-4"
                 css={{
                   animation: `${float} 1s ease-in-out infinite alternate`
                 }}

@@ -3,6 +3,9 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import Stripe from 'stripe'
 import Cors from 'micro-cors'
 
+// user is logged in
+// checkout session starts + email / cust_id is passed
+
 const prodOrigin = ['https://blocs.me', 'https://checkout.stripe.com']
 const localOrigin = [
   'localhost:3000',
@@ -19,7 +22,9 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
   apiVersion: '2022-11-15'
 })
 
-const validateProducts = (products: { amount: string; quantity: number }[]) => {
+type Products = { amount: string; quantity: number }[]
+
+const validateProducts = (products: Products) => {
   const isQuantityValid = products.every((prod) => prod.quantity === 1)
 
   return [isQuantityValid].every(Boolean)
@@ -27,7 +32,11 @@ const validateProducts = (products: { amount: string; quantity: number }[]) => {
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'POST') {
-    const { products } = req.body
+    const { stripeCustomerId, products, customer_email } = req.body as {
+      products: Products
+      customer_email?: string
+      stripeCustomerId?: string
+    }
 
     const areProductsValid = validateProducts(products)
 
@@ -35,8 +44,20 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       throw new Error('Product line items are not valid')
     }
 
+    const paymentOptions: Partial<Stripe.Checkout.SessionCreateParams> =
+      (() => {
+        if (stripeCustomerId) return { customer: stripeCustomerId } // would happen on second purchase for signed in user
+        if (customer_email)
+          return { customer_email, customer_creation: 'always' } // for signed in user
+        // for signed out user
+        return {
+          customer_creation: 'always'
+        }
+      })()
+
     try {
       const session = await stripe.checkout.sessions.create({
+        ...paymentOptions,
         line_items: products,
         mode: 'payment',
         success_url: `${req.headers.origin}/sign-in?payment_success=true`,
