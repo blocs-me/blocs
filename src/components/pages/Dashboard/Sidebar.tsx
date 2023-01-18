@@ -38,12 +38,13 @@ const NavButton = ({ to, isActive, text, icon }) => {
 }
 
 const Sidebar = () => {
-  const { path } = useRouter().query
+  const router = useRouter()
+  const { path } = router.query
   const notif = useNotifications()
   const supabase = useSupabaseClient()
   const { user } = useBlocsUser()
 
-  const handleUpgrade = () => {}
+  const handleUpgrade = () => router.push('/pricing')
   const handleSignOut = async () => {
     const { error } = await supabase.auth.signOut()
 
