@@ -18,14 +18,7 @@ import { BlocsUserClient } from '../../../global-types/blocs-user'
 import Modal from '@/design-system/Modal'
 import Button from '@/design-system/Button'
 import Sparkles from '@/design-system/Sparkles'
-
-const float = keyframes`
-    from {
-      transform: translateY(-2px);
-    } to {
-      transform: translateY(1px);
-    }
-`
+import float from '@/keyframes/float'
 
 const handleEv = (e: MouseEvent) => {
   e.preventDefault()

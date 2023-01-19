@@ -4,7 +4,6 @@ import TextInput from '@/design-system/TextInput'
 import Box from '@/helpers/Box'
 import Flex from '@/helpers/Flex'
 import Icon from '@/helpers/Icon'
-import { Past } from '../../../../icons/Past'
 import LinkIcon from 'src/icons/link-icon'
 import Checkbox from '@/widgets/HabitTracker/Checkbox'
 import { Camera } from 'src/icons/camera'
@@ -20,6 +19,7 @@ import {
 } from 'beautiful-react-hooks'
 import { useRouter } from 'next/router'
 import Modal from '@/design-system/Modal'
+import UserSettingsPaymentSection from './UserSettingsPaymentSection'
 
 const Label = ({ children }) => {
   return (
@@ -29,103 +29,6 @@ const Label = ({ children }) => {
   )
 }
 
-const FreeTrailStatus = () => {
-  return (
-    <Box
-      borderRadius="md"
-      bg="brand.accent-5"
-      p="sm"
-      mb="sm"
-      position="relative"
-    >
-      <Text
-        color="foreground"
-        fontSize="sm"
-        fontWeight={'bold'}
-        lineHeight={1}
-        mb={0}
-      >
-        Free
-      </Text>
-      <Text color="primary.accent-4" fontSize="xs" mb={0}>
-        Includes access to basic features
-      </Text>
-
-      <Box position="absolute" top="0" right="0" p="sm">
-        <Box
-          fontSize="xs"
-          as="div"
-          fontWeight={'bold'}
-          color="primary.accent-4"
-          display="flex"
-          css={{ alignItems: 'center' }}
-        >
-          <Icon
-            as="span"
-            fill="primary.accent-4"
-            width="15px"
-            mr="xs"
-            display="flex"
-          >
-            <Past />
-          </Icon>
-          <Text fontSize="xs" as="span">
-            7 days
-          </Text>
-        </Box>
-      </Box>
-    </Box>
-  )
-}
-
-const PremiumStatus = () => {
-  return (
-    <Box
-      borderRadius="md"
-      bg="brand.accent-5"
-      p="sm"
-      mb="sm"
-      position="relative"
-    >
-      <Text
-        color="foreground"
-        fontSize="sm"
-        fontWeight={'bold'}
-        lineHeight={1}
-        mb={0}
-      >
-        Premium User
-      </Text>
-      <Text color="primary.accent-4" fontSize="xs" mb={0}>
-        Includes access to widget(s), analytics and extras
-      </Text>
-
-      <Box position="absolute" top="0" right="0" p="sm">
-        <Box
-          fontSize="xs"
-          as="div"
-          fontWeight={'bold'}
-          color="primary.accent-4"
-          display="flex"
-          css={{ alignItems: 'center' }}
-        >
-          <Icon
-            as="span"
-            fill="primary.accent-4"
-            width="15px"
-            mr="xs"
-            display="flex"
-          >
-            <Past />
-          </Icon>
-          <Text fontSize="xs" as="span">
-            7 days
-          </Text>
-        </Box>
-      </Box>
-    </Box>
-  )
-}
 interface CheckboxItemProps {
   onClick: (val: string) => void
   isChecked: boolean
@@ -360,11 +263,7 @@ const UserSettings = () => {
           >
             Manage your account
           </Text>
-          {blocsUser?.user?.data?.ownsPremium ? (
-            <PremiumStatus />
-          ) : (
-            <FreeTrailStatus />
-          )}
+          <UserSettingsPaymentSection />
           <Button
             px="sm"
             py="xs"
@@ -480,7 +379,6 @@ const UserSettings = () => {
             fontSize={'sm'}
             fontWeight={200}
             textAlign="center"
-            letterSpacing={'sm'}
             color="danger.medium"
           >
             Warning : All purchase history and associated data will be lost

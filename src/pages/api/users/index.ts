@@ -9,6 +9,11 @@ import removeUserFromMailingList from '../../../lambda-functions/helpers/removeU
 import faunaClient from '@/lambda/faunaClient'
 import { query as q } from 'faunadb'
 import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs'
+import Stripe from 'stripe'
+
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
+  apiVersion: '2022-11-15'
+})
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'GET') {
@@ -18,10 +23,21 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         ? checkIfUserIsSubscribed(blocsUser?.data)
         : false)
 
+      const purchaseHistory = blocsUser?.data?.purchaseHistory
+
+      let purchasedProducts = !purchaseHistory?.length
+        ? []
+        : await Promise.all(
+            purchaseHistory.map((cs) =>
+              stripe.checkout.sessions.listLineItems(cs).then((v) => v.data)
+            )
+          ).then((res) => res.flat().map((d) => d.price.product))
+
       if (blocsUser) {
         handle200Response(res, {
           data: {
             ...(blocsUser?.data || {}),
+            purchasedProducts,
             isSubscribed
           }
         })

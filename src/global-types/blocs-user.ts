@@ -4,11 +4,12 @@ export type BlocsUserClient = {
     avatar_url: string
     email: string
     name?: string
-    ownsPremium: boolean
     isSubscribed: boolean
     isDeleted?: boolean
     scheduledForDeletion: boolean
     stripeCustomerId: string
+    purchasedProducts: string[]
+    freeTrialStartedAt?: string
   }
 }
 
@@ -23,5 +24,6 @@ export type BlocsUserServer = {
     isDeleted?: boolean
     purchaseHistory: string[]
     stripeCustomerId?: string
+    freeTrialStartedAt?: string
   }
 }

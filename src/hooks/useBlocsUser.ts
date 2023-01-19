@@ -3,6 +3,12 @@ import { useUser } from '@supabase/auth-helpers-react'
 import fetchWithToken from 'src/services/fetchWithToken'
 import useSWR from 'swr'
 import { BlocsUserClient } from '../global-types/blocs-user'
+import stripeProductIds, { ProductIds } from '@/constants/stripeProductIds'
+import { useMemo } from 'react'
+
+type Purchases<T = ProductIds> = {
+  [key in keyof T]?: boolean
+}
 
 const useBlocsUser = () => {
   const supabaseUser = useUser()
@@ -11,8 +17,24 @@ const useBlocsUser = () => {
     fetchWithToken
   )
 
+  const purchases: Purchases = useMemo(() => {
+    const result = {}
+    const allProductIds = Object.entries(stripeProductIds)
+
+    user?.data?.purchasedProducts.forEach((productId) => {
+      const index = allProductIds.findIndex(([key, val]) => val === productId)
+      if (index > -1) {
+        const key = allProductIds[index][0]
+        result[key] = true
+      }
+    })
+
+    return result
+  }, [user?.data?.purchasedProducts])
+
   return {
     user,
+    purchases,
     ...rest
   }
 }

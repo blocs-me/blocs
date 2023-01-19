@@ -1,8 +1,6 @@
 import Avatar from '@/design-system/Avatar'
 import Button from '@/design-system/Button'
 import Flex from '@/helpers/Flex'
-import useUser from '@/hooks/useUser'
-import { useTheme } from '@emotion/react'
 import Link from 'next/link'
 import { Document } from 'src/icons/document'
 import Drop from 'src/icons/drop-icon'
@@ -16,6 +14,7 @@ import { useSupabaseClient } from '@supabase/auth-helpers-react'
 import useBlocsUser from '@/hooks/useBlocsUser'
 import Sparkles from '@/design-system/Sparkles'
 import Box from '@/helpers/Box'
+import float from '@/keyframes/float'
 
 const NavButton = ({ to, isActive, text, icon }) => {
   return (
@@ -44,7 +43,8 @@ const Sidebar = () => {
   const { path } = router.query
   const notif = useNotifications()
   const supabase = useSupabaseClient()
-  const { user } = useBlocsUser()
+  const { user, purchases } = useBlocsUser()
+  const isPremium = !!user?.data?.purchasedProducts?.length
 
   const handleUpgrade = () => router.push('/pricing')
   const handleSignOut = async () => {
@@ -77,9 +77,11 @@ const Sidebar = () => {
           loading={!user}
           alt="profile picture"
         />
-        <Box mt="md">
-          <Sparkles>
+        {!purchases.lifetimeAccess && (
+          <Box mt="md">
             <Button
+              css={{ animation: `${float} 1s` }}
+              loading={!user}
               fontWeight={200}
               fontSize="sm"
               py="sm"
@@ -90,10 +92,33 @@ const Sidebar = () => {
               borderRadius="sm"
               onClick={() => handleUpgrade()}
             >
-              Get Blocs Premium
+              See Pricing Plans
             </Button>
-          </Sparkles>
-        </Box>
+          </Box>
+        )}
+        {purchases.lifetimeAccess && (
+          <Box mt="md" boxShadow="default" borderRadius="md" bg="background">
+            <Sparkles>
+              <Button
+                bg="brand.accent-1"
+                loading={!user}
+                fontWeight={200}
+                fontSize="sm"
+                py="sm"
+                px="sm"
+                width="250px"
+                border="solid 1px"
+                color="background"
+                borderRadius="sm"
+                as="div"
+                textAlign={'center'}
+                css={{ userSelect: 'none' }}
+              >
+                Lifetime Access
+              </Button>
+            </Sparkles>
+          </Box>
+        )}
         <Flex
           mt="md"
           flexDirection="column"
