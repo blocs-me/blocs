@@ -58,7 +58,7 @@ const Modal = ({
       bg="rgba(0,0,0,0.2)"
       css={{
         backdropFilter: 'blur(5px) saturate(50%)',
-        animation: `${fadeIn} 1.5s ease forwards`
+        animation: `${fadeIn} 0.6s ease forwards`
       }}
     >
       <PageGutters width="100%" height="100%">
