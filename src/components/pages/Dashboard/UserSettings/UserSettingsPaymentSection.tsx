@@ -8,6 +8,8 @@ import { useTheme } from '@emotion/react'
 import { Theme } from 'src/styles/theme'
 import { Past } from '../../../../icons/Past'
 import daysBetween from '@/utils/dateUtils/daysBetween'
+import { MouseEvent } from 'react'
+import { postReq } from '@/utils/fetchingUtils'
 
 const FreeTrailStatus = () => {
   const { user } = useBlocsUser()
@@ -75,12 +77,23 @@ const FreeTrailStatus = () => {
 
 const PremiumStatus = () => {
   const theme = useTheme() as Theme
+  const handleClick = (e: MouseEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+
+    postReq('/api/payments/customer-portal-session').then((res) => {
+      const url = res.url
+
+      const anchor = document.createElement('a')
+      anchor.href = url
+      document.body.appendChild(anchor)
+      anchor.click()
+    })
+  }
 
   return (
     <Box
-      method="POST"
-      action="/api/payments/customer-portal-session"
-      as="form"
+      onClick={handleClick}
       borderRadius="md"
       bg="brand.accent-5"
       p="sm"
