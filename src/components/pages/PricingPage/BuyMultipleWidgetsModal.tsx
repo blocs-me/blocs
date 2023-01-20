@@ -112,12 +112,13 @@ const BuyMultipleWidgetsModals = ({
     return productIndex > -1
   }
 
-  const handleSubmit = (e: MouseEvent) => {
+  const handleSubmit = async (e: MouseEvent) => {
     e?.preventDefault()
     e?.stopPropagation()
 
     setIsLoading(true)
     handleStripeCheckout(products)
+    setIsLoading(false)
   }
 
   if (purchases.lifetimeAccess) return null
