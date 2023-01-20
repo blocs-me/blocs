@@ -13,9 +13,16 @@ import { postReq } from '@/utils/fetchingUtils'
 
 const FreeTrailStatus = () => {
   const { user } = useBlocsUser()
+  const fourteenDays = 1000 * 60 * 60 * 24 * 14
   const daysLeft = Math.max(
     0,
-    14 - daysBetween(new Date(), new Date(user?.data?.freeTrialStartedAt))
+    14 -
+      daysBetween(
+        new Date(),
+        new Date(
+          user?.data?.freeTrialStartedAt || new Date().getTime() - fourteenDays
+        )
+      )
   )
 
   return (
