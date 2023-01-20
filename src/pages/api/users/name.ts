@@ -19,7 +19,8 @@ const validate = (data) =>
           type: 'string'
         }
       },
-      required: ['name']
+      required: ['name'],
+      additionalProperties: false
     },
     data
   )
