@@ -203,7 +203,7 @@ const UserSettings = () => {
             User Information
           </Text>
           <Text as="p" color="primary.accent-4" fontWeight={200} fontSize="sm">
-            You can edit your information here
+            Once place for payment, personal info. & settings
           </Text>
           <Label>Email</Label>
           <Box mt="xs" />

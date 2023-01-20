@@ -1,10 +1,7 @@
 import styled from '@emotion/styled'
 import { useMediaQuery } from 'beautiful-react-hooks'
 import { ReactNode, useEffect, useRef } from 'react'
-import themeGet from '@styled-system/theme-get'
 import useIsTrueDarkMode from '@/hooks/useIsTrueDarkMode'
-import { useTheme } from '@emotion/react'
-import { Theme } from 'src/styles/theme'
 
 const Wrapper = styled.div`
   position: relative;
@@ -72,7 +69,7 @@ const generateSparkles = (
   const intervals = []
 
   for (let i = 0; i < numOfStars; i++) {
-    const interval = Math.max(MIN_INTERVAL, Math.random() * MAX_INTERVAL)
+    const interval = i * (duration + i * 10)
     const [star, wrapper] = createStar(i)
 
     div.appendChild(star)
@@ -108,7 +105,6 @@ const Sparkles = ({
 }) => {
   const container = useRef()
   const reducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)')
-  const theme = useTheme() as Theme
   const isDarkMode = useIsTrueDarkMode()
 
   useEffect(() => {
