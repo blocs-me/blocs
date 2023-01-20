@@ -23,6 +23,7 @@ export type BlocsUserServer = {
     scheduledForDeletion: boolean
     isDeleted?: boolean
     purchaseHistory: string[]
+    purchasedProducts?: string[]
     stripeCustomerId?: string
     freeTrialStartedAt?: string
   }

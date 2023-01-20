@@ -11,6 +11,7 @@ import { buffer } from 'micro'
 import Cors from 'micro-cors'
 import getBlocsUser from '@/lambda/middlewares/getBlocsUser'
 import getBlocsUserByEmail from '@/lambda/middlewares/getBlocsUserByEmail'
+import stripeProductIds from '@/constants/stripeProductIds'
 
 const cors = Cors({
   allowMethods: ['POST', 'HEAD']
@@ -46,7 +47,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     const paymentInfo = event.data.object
 
     if (
-      event?.type === 'checkout.session.completed' &&
+      (event?.type === 'checkout.session.completed' ||
+        event?.type === 'checkout.session.async_payment_succeeded') &&
       paymentInfo?.payment_status === 'paid'
     ) {
       const customerEmail = paymentInfo.customer_details?.email
@@ -60,10 +62,19 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         ])
       )
 
+      const products = Object.entries(paymentInfo.metadata)
+        .filter(([__, val]) => val === 'true')
+        .map(([key]) => stripeProductIds[key])
+
+      const purchasedProducts = Array.from(
+        new Set([...(blocsUser?.data?.purchasedProducts || []), ...products])
+      )
+
       try {
         await upsertBlocsUser(customerEmail, {
           email: customerEmail,
           purchaseHistory: updatedPurchaseHistory,
+          purchasedProducts,
           stripeCustomerId
         })
         handle200Response(res, {

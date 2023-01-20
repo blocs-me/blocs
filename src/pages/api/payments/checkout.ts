@@ -1,17 +1,15 @@
-import stripePriceIds from '@/constants/stripePriceIds'
 import { NextApiRequest, NextApiResponse } from 'next'
 import Stripe from 'stripe'
-import Cors from 'micro-cors'
-import { isEmail } from 'validator'
 import { handle400Response } from '../../../lambda-functions/helpers/handleResponses'
-import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs'
 import getBlocsUser from '@/lambda/middlewares/getBlocsUser'
+import stripeProductIds from '@/constants/stripeProductIds'
+import stripePriceIds from '@/constants/stripePriceIds'
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
   apiVersion: '2022-11-15'
 })
 
-type Products = { amount: string; quantity: number }[]
+type Products = { price: string; quantity: number }[]
 
 const validateProducts = (products: Products) => {
   const isQuantityValid = products.every((prod) => prod.quantity === 1)
@@ -35,7 +33,25 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       return handle400Response(res)
     }
 
-    const { email: customer_email, stripeCustomerId } = blocsUser?.data
+    const {
+      email: customer_email,
+      stripeCustomerId,
+      purchaseHistory
+    } = blocsUser?.data
+
+    if (purchaseHistory?.length) {
+      let purchasedPriceIds = !purchaseHistory?.length
+        ? []
+        : await Promise.all(
+            purchaseHistory.map((cs) =>
+              stripe.checkout.sessions.listLineItems(cs).then((v) => v.data)
+            )
+          ).then((res) => res.flat().map((d) => d.price.id))
+
+      if (products.some((prod) => purchasedPriceIds.includes(prod.price))) {
+        return handle400Response(res)
+      }
+    }
 
     const paymentOptions: Partial<Stripe.Checkout.SessionCreateParams> =
       (() => {
@@ -44,6 +60,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           return { customer_email, customer_creation: 'always' } // for signed in user
       })()
 
+    const boughtProduct = (key) =>
+      products.find((p) => p.price === stripePriceIds[key]) ? 'true' : 'false'
+
     try {
       const session = await stripe.checkout.sessions.create({
         ...paymentOptions,
@@ -51,7 +70,13 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         mode: 'payment',
         success_url: `${req.headers.origin}/dashboard/pomodoro?payment_success=true`,
         cancel_url: `${req.headers.origin}/pricing?canceled=true`,
-        automatic_tax: { enabled: true }
+        automatic_tax: { enabled: true },
+        metadata: {
+          habitTracker: boughtProduct('habitTracker'),
+          waterTracker: boughtProduct('waterTracker'),
+          pomodoro: boughtProduct('pomodoro'),
+          lifetimeAccess: boughtProduct('lifetimeAccess')
+        }
       })
 
       res.status(200).json(session)

@@ -10,34 +10,35 @@ import faunaClient from '@/lambda/faunaClient'
 import { query as q } from 'faunadb'
 import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs'
 import Stripe from 'stripe'
+import {
+  BlocsUserServer,
+  BlocsUserClient
+} from '../../../global-types/blocs-user'
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-  apiVersion: '2022-11-15'
+const pickBlocsUserData = (
+  blocsUser: BlocsUserServer['data']
+): Partial<BlocsUserClient['data']> => ({
+  name: blocsUser?.name,
+  email: blocsUser?.email,
+  purchasedProducts: blocsUser?.purchasedProducts,
+  isDeleted: blocsUser?.isDeleted,
+  scheduledForDeletion: blocsUser?.scheduledForDeletion,
+  avatar_url: blocsUser?.avatar_url,
+  freeTrialStartedAt: blocsUser?.freeTrialStartedAt
 })
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'GET') {
     try {
-      const blocsUser = await getBlocsUser(req, res)
+      let blocsUser = await getBlocsUser(req, res)
       const isSubscribed = await (blocsUser
         ? checkIfUserIsSubscribed(blocsUser?.data)
         : false)
 
-      const purchaseHistory = blocsUser?.data?.purchaseHistory
-
-      let purchasedProducts = !purchaseHistory?.length
-        ? []
-        : await Promise.all(
-            purchaseHistory.map((cs) =>
-              stripe.checkout.sessions.listLineItems(cs).then((v) => v.data)
-            )
-          ).then((res) => res.flat().map((d) => d.price.product))
-
       if (blocsUser) {
         handle200Response(res, {
           data: {
-            ...(blocsUser?.data || {}),
-            purchasedProducts,
+            ...pickBlocsUserData(blocsUser?.data),
             isSubscribed
           }
         })
