@@ -75,48 +75,60 @@ const FreeTrailStatus = () => {
 
 const PremiumStatus = () => {
   const theme = useTheme() as Theme
+
   return (
-    <form>
-      <Box
-        borderRadius="md"
-        bg="brand.accent-5"
-        p="sm"
-        mb="sm"
-        position="relative"
-        as="a"
-        border="solid 1px transparent"
-        css={{
-          transition: 'border-color ease 0.2s',
-          cursor: 'pointer',
-          '&:hover': {
-            border: `solid 1px ${theme.colors.brand['accent-1']}`
-          }
-        }}
+    <Box
+      method="POST"
+      action="/api/payments/customer-portal-session"
+      as="form"
+      borderRadius="md"
+      bg="brand.accent-5"
+      p="sm"
+      mb="sm"
+      position="relative"
+      border="solid 1px transparent"
+      css={{
+        transition: 'border-color ease 0.2s',
+        cursor: 'pointer',
+        '&:hover': {
+          border: `solid 1px ${theme.colors.brand['accent-1']}`
+        }
+      }}
+    >
+      <Text
+        color="foreground"
+        fontSize="sm"
+        fontWeight={'bold'}
+        lineHeight={1}
+        mb={0}
       >
-        <Text
-          color="foreground"
-          fontSize="sm"
-          fontWeight={'bold'}
-          lineHeight={1}
-          mb={0}
-        >
-          Premium User
-        </Text>
-        <Text color="primary.accent-4" fontSize="xs" mb={0}>
-          Includes access to widget(s), analytics and extras
-        </Text>
-        <Text
-          fontWeight="light"
-          color="success.medium"
-          fontSize="xxs"
-          mb={0}
-          mt="sm"
-          fontStyle="italic"
-        >
-          *Manage your payment details
-        </Text>
-      </Box>
-    </form>
+        Premium User
+      </Text>
+      <Text color="primary.accent-4" fontSize="xs" mb={0}>
+        Includes access to widget(s), analytics and extras
+      </Text>
+      <Text
+        fontWeight="light"
+        color="success.medium"
+        fontSize="xxs"
+        mb={0}
+        mt="sm"
+        fontStyle="italic"
+      >
+        *Manage your payment details
+      </Text>
+
+      <button
+        type="submit"
+        css={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          height: '100%',
+          width: '100%'
+        }}
+      />
+    </Box>
   )
 }
 
