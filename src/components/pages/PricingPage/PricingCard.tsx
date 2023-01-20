@@ -2,11 +2,9 @@ import Button from '@/design-system/Button'
 import Text from '@/design-system/Text'
 import Box from '@/helpers/Box'
 import Flex from '@/helpers/Flex'
-import Stack from '@/helpers/Stack'
 import styled from '@emotion/styled'
 import { MouseEvent, ReactNode } from 'react'
 import { IBox } from '../../helpers/Box/Box.types'
-import themeGet from '@styled-system/theme-get'
 
 type Props = {
   header: string

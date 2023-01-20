@@ -41,7 +41,7 @@ export function useInitUrlHash<T = any>() {
         setShouldReset(false)
       }
     }
-  }, [query])
+  }, [query]) // eslint-disable-line
 
   return { hash, URLHashProvider }
 }

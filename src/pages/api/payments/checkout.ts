@@ -7,21 +7,6 @@ import { handle400Response } from '../../../lambda-functions/helpers/handleRespo
 import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs'
 import getBlocsUser from '@/lambda/middlewares/getBlocsUser'
 
-// user is logged in
-// checkout session starts + email / cust_id is passed
-
-const prodOrigin = ['https://blocs.me', 'https://checkout.stripe.com']
-const localOrigin = [
-  'localhost:3000',
-  'https://checkout.stripe.com',
-  'https://blocs-dev.vercel.app'
-]
-
-const cors = Cors({
-  allowedMethods: ['POST', 'HEAD'],
-  origin: process.env.VERCEL_ENV === 'production' ? prodOrigin : localOrigin
-})
-
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
   apiVersion: '2022-11-15'
 })
@@ -79,4 +64,4 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 }
 
-export default cors(handler)
+export default handler

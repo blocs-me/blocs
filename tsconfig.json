@@ -44,7 +44,8 @@
     "src/lambda-functions/lib/restValidator/schemas/habit-tracker/saveHabitTrackerAnalyticsSchema.js",
     "jest.config.js",
     "jest.setup.js",
-    "src/components/pages/Dashboard/PomodoroDashboard/PresetForm.js"
-, "src/components/helpers/BlocsThemeProvider.tsx"  ],
+    "src/components/pages/Dashboard/PomodoroDashboard/PresetForm.js",
+    "src/components/helpers/BlocsThemeProvider.tsx"
+  ],
   "exclude": ["node_modules"]
 }
