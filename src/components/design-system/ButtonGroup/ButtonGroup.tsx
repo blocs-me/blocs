@@ -31,7 +31,7 @@ const ButtonGroup = ({
   const reduceMotion = useMediaQuery('(prefers-reduced-motion: reduce)')
 
   const cacheContaineDims = useDebouncedCallback(() => {
-    const { top, left } = container.current.getBoundingClientRect()
+    const { top, left } = container.current?.getBoundingClientRect() || {}
     cachedContainerSizes.current = {
       top,
       left
@@ -41,7 +41,7 @@ const ButtonGroup = ({
   useWindowResize(() => cacheContaineDims())
 
   useEffect(() => {
-    cacheContaineDims()
+    cacheContaineDims?.()
   }, [])
 
   const handleMouseOver = (e: MouseEvent<HTMLDivElement>) => {

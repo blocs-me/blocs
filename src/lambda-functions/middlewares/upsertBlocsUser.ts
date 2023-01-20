@@ -1,4 +1,3 @@
-import getBlocsUser from './getBlocsUser'
 import { queryGuard } from '../helpers/faunadb/queryGuard'
 import faunaClient from '../faunaClient'
 import { query as q } from 'faunadb'
@@ -15,9 +14,7 @@ const upsertBlocsUser = async (email: string, data: any) => {
         data
       })
     )
-  }
-
-  if (!blocsUser) {
+  } else {
     blocsUser = await faunaClient.query(
       q.Create(q.Collection('users'), {
         data

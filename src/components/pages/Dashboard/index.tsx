@@ -13,17 +13,10 @@ const HabitTrackerDashboard = lazy(() => import('./HabitTrackerDashboard'))
 const WaterTrackerDashboard = lazy(() => import('./WaterTrackerDashboard'))
 const Guide = lazy(() => import('./Guide'))
 const UserSettings = lazy(() => import('./UserSettings'))
-import {
-  useSession,
-  useSessionContext,
-  useSupabaseClient,
-  useUser
-} from '@supabase/auth-helpers-react'
+import { useSessionContext, useUser } from '@supabase/auth-helpers-react'
 import Loader from '@/design-system/Loader'
 import Text from '@/design-system/Text'
 import DashboardSkeleton from './DashboardSkeleton'
-import useBlocsUser from '@/hooks/useBlocsUser'
-import useSignOutRedirect from '@/widgets/HabitTracker/hooks/useSignOutRedirect'
 
 const LoadingScreen = () => {
   return (

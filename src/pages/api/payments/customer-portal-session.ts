@@ -1,4 +1,3 @@
-import { NextRequest } from 'next/server'
 import { NextApiResponse, NextApiRequest } from 'next'
 import getBlocsUser from '@/lambda/middlewares/getBlocsUser'
 import Stripe from 'stripe'
@@ -11,8 +10,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'POST') {
     const blocsUser = await getBlocsUser(req, res)
     const customerId = blocsUser.data.stripeCustomerId
-
-    console.log({ customerId })
 
     const session = await stripe.billingPortal.sessions.create({
       customer: customerId,
