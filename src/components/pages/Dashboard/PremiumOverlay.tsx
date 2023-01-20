@@ -4,6 +4,8 @@ import fadeIn from '@/keyframes/fadeIn'
 import Box from '@/helpers/Box'
 import Button from '@/design-system/Button'
 import Link from 'next/link'
+import float from '@/keyframes/float'
+import Sparkles from '@/design-system/Sparkles'
 
 const PremiumOverlay = () => {
   return (
@@ -28,15 +30,27 @@ const PremiumOverlay = () => {
         maxWidth="450px"
         css={{ textAlign: 'center' }}
       >
-        <Text variant="p" m="auto">
+        <Text fontSize="sm" m="auto" color="brand.accent-1">
           You can get access to this widget with the Premium version of blocs ✨
         </Text>
         <Box mt="md" />
-        <Link href="/pricing">
-          <Button variant="primary" borderRadius={'sm'} as="a">
-            See Pricing Plans
-          </Button>
-        </Link>
+        <Box
+          width="fit-content"
+          height="fit-content"
+          bg="background"
+          borderRadius="sm"
+          m="0 auto"
+          css={{ animation: `${float} 1s ease-in-out alternate infinite` }}
+          boxShadow="default"
+        >
+          <Sparkles duration={600}>
+            <Link href="/pricing">
+              <Button variant="primary" borderRadius={'sm'} as="a">
+                See Pricing Plans
+              </Button>
+            </Link>
+          </Sparkles>
+        </Box>
       </Box>
     </Flex>
   )
