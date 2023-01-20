@@ -42,7 +42,7 @@ const GlobalStyle = () => {
         }
 
         body {
-          font-family: 'Karla', sans-serif;
+          font-family: 'Karla', 'Helvetica Neue', Helvetica, sans-serif;
           font-weight: 400;
           font-kerning: normal;
           /* font-feature-settings: 'kern', 'liga', 'clig', 'calt'; */
@@ -116,7 +116,7 @@ const GlobalStyle = () => {
         }
 
         * {
-          transition: color ease 0.3s, background ease 0.3s;
+          transition: color ease 0.2s, background ease 0.2s;
         }
 
         button {
