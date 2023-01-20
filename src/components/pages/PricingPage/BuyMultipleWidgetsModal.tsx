@@ -8,6 +8,7 @@ import { MouseEvent, useState } from 'react'
 import CheckIcon from './PricingCardCheckbox/CheckedIcon'
 import Plus from '../../../icons/plus.svg'
 import Icon from '@/helpers/Icon'
+import useBlocsUser from '@/hooks/useBlocsUser'
 
 type Props = {
   isOpen: boolean
@@ -80,6 +81,7 @@ const BuyMultipleWidgetsModals = ({
   handleStripeCheckout
 }) => {
   const [products, setProducts] = useState<LineItem[]>([])
+  const { purchases } = useBlocsUser()
 
   const totalPrice = products.length * 4
 
@@ -107,6 +109,8 @@ const BuyMultipleWidgetsModals = ({
 
   //TODO: if user bought one widget then disable that selection again
 
+  if (purchases.lifetimeAccess) return null
+
   return (
     <Modal visible={isOpen} hideModal={onClose}>
       <Flex flexDirection="column">
@@ -120,23 +124,33 @@ const BuyMultipleWidgetsModals = ({
         >
           Select a widget
         </Text>
-        <ProductItem
-          text="Water Tracker Widget"
-          isSelected={getIsProductSelected('waterTracker')}
-          onClick={(e) => pickProduct(e, 'waterTracker')}
-        />
-        <Box mt="sm" />
-        <ProductItem
-          text="Pomodoro Widget"
-          isSelected={getIsProductSelected('pomodoro')}
-          onClick={(e) => pickProduct(e, 'pomodoro')}
-        />
-        <Box mt="sm" />
-        <ProductItem
-          text="Habit Tracker Tracker"
-          isSelected={getIsProductSelected('habitTracker')}
-          onClick={(e) => pickProduct(e, 'habitTracker')}
-        />
+        {!purchases?.waterTracker && (
+          <ProductItem
+            text="Water Tracker Widget"
+            isSelected={getIsProductSelected('waterTracker')}
+            onClick={(e) => pickProduct(e, 'waterTracker')}
+          />
+        )}
+        {!purchases.pomodoro && (
+          <>
+            <Box mt="sm" />
+            <ProductItem
+              text="Pomodoro Widget"
+              isSelected={getIsProductSelected('pomodoro')}
+              onClick={(e) => pickProduct(e, 'pomodoro')}
+            />
+          </>
+        )}
+        {!purchases.habitTracker && (
+          <>
+            <Box mt="sm" />
+            <ProductItem
+              text="Habit Tracker Tracker"
+              isSelected={getIsProductSelected('habitTracker')}
+              onClick={(e) => pickProduct(e, 'habitTracker')}
+            />
+          </>
+        )}
         <Box mt="md" />
         <Text as="div" css={{ alignSelf: 'end' }} color="primary.accent-3">
           Total Price :

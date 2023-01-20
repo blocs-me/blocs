@@ -63,20 +63,23 @@ const buyLifetimeAccess = (blocsUser: BlocsUserClient) => {
 
 const PricingPage = () => {
   const router = useRouter()
-  const { user } = useBlocsUser()
+  const { user, purchases } = useBlocsUser()
   const [showSignInMessage, setShowSignInMessage] = useState(false)
   const [showMultiWidgetModal, setShowMultiWidgetModal] = useState(false)
 
   const handleBuyMultiWidgets = (e: MouseEvent) => {
     handleEv(e)
+
     if (!user) return setShowSignInMessage(true)
+    if (purchases?.lifetimeAccess) return null
+
     setShowMultiWidgetModal(true)
   }
 
   const handleBuyLifetimeAccess = (e: MouseEvent) => {
     handleEv(e)
     if (!user) return setShowSignInMessage(true)
-    buyLifetimeAccess(user)
+    if (!purchases?.lifetimeAccess) buyLifetimeAccess(user)
   }
 
   const handleRedirect = () => router.push('/sign-in')
