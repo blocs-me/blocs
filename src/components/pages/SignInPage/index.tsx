@@ -1,10 +1,12 @@
 import Button from '@/design-system/Button'
 import Footer from '@/design-system/Footer'
+import Nav from '@/design-system/Nav'
 import useNotifications from '@/design-system/Notifications/useNotifications'
 import Text from '@/design-system/Text'
 import TextInput from '@/design-system/TextInput'
 import Box from '@/helpers/Box'
 import Flex from '@/helpers/Flex'
+import storage from '@/utils/storage'
 import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -28,10 +30,18 @@ const SignInPage = () => {
   const notif = useNotifications()
   const user = useUser()
   const router = useRouter()
-  const { payment_success } = router.query
+  const [lastSignedInAt, setLastSignedInAt] = useState(
+    storage.getItem('lastSignedInAt') || new Date()
+  )
+
+  const shouldPreventSignIn =
+    (new Date().getTime() - new Date(lastSignedInAt).getTime()) / (1000 * 60) <
+    1
 
   const handleSignIn = handleSubmit(async ({ email }) => {
     setIsLoading(true)
+    storage.setItem('lastSignedInAt', new Date().toISOString())
+    setLastSignedInAt(new Date().toISOString())
 
     const { error } = await supabase.auth.signInWithOtp({
       email,
@@ -43,7 +53,7 @@ const SignInPage = () => {
     if (error) {
       console.error(error)
       notif.createError(
-        'Uh oh! we were not able to create your sign in link. Please try again.',
+        'Uh oh! we were not able to create your sign in link.',
         8000
       )
     } else {
@@ -67,6 +77,7 @@ const SignInPage = () => {
       height="100%"
       bg="background"
     >
+      <Nav />
       <Flex width="100%" height="100vh" py="xl" px="md" justifyContent="center">
         <Flex flexDirection="column" width="400px" alignItems="center">
           <Link href="/" passHref>
@@ -86,7 +97,9 @@ const SignInPage = () => {
             Sign In
           </Text>
           <Text fontSize="md" color="primary.accent-4" textAlign="center">
-            No password is required to sign in !
+            {storage.getItem('prevLoggedIn') === 'yes'
+              ? 'Welcome Back!'
+              : 'No password is required to sign in !'}
           </Text>
           <Box mt="sm" />
           <form onSubmit={handleSignIn} css={{ width: '100%' }}>
@@ -107,14 +120,14 @@ const SignInPage = () => {
               bg="brand.accent-1"
               type="submit"
               mt="sm"
-              disabled={linkSent}
+              disabled={linkSent || shouldPreventSignIn}
               loading={isLoading}
             >
               Continue
             </Button>
           </form>
 
-          {linkSent && (
+          {(linkSent || shouldPreventSignIn) && (
             <Flex
               width="100%"
               p="sm"
