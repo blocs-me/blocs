@@ -1,6 +1,9 @@
 import Text from '@/design-system/Text'
 import Flex from '@/helpers/Flex'
 import fadeIn from '@/keyframes/fadeIn'
+import Box from '@/helpers/Box'
+import Button from '@/design-system/Button'
+import Link from 'next/link'
 
 const PremiumOverlay = () => {
   return (
@@ -16,9 +19,25 @@ const PremiumOverlay = () => {
         animation: `${fadeIn} 1.5s ease forwards`
       }}
     >
-      <Text variant="p" m="auto">
-        You can get access to this widget with the Premium version of blocs ✨
-      </Text>
+      <Box
+        m="auto"
+        p="md"
+        borderRadius="md"
+        bg="background"
+        boxShadow="default"
+        maxWidth="450px"
+        css={{ textAlign: 'center' }}
+      >
+        <Text variant="p" m="auto">
+          You can get access to this widget with the Premium version of blocs ✨
+        </Text>
+        <Box mt="md" />
+        <Link href="/pricing">
+          <Button variant="primary" borderRadius={'sm'} as="a">
+            See Pricing Plans
+          </Button>
+        </Link>
+      </Box>
     </Flex>
   )
 }

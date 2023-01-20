@@ -17,23 +17,32 @@ import useUrlHash from '@/hooks/useUrlHash'
 import useWaterTrackerSettings from '../../../widgets/WaterTracker/hooks/useWaterTrackerSettings'
 import usePatchWaterTrackerSettings from '@/widgets/WaterTracker/hooks/usePatchSettings'
 import Box from '@/helpers/Box'
+import useBlocsUser from '@/hooks/useBlocsUser'
+import PremiumOverlay from '../PremiumOverlay'
 
 const withProviders = (Component: ComponentType) => {
   return () => {
-    const { token, publicToken, data } = useCreateToken('WATER_TRACKER', true) // TODO: add optional fetch param based on premium status
+    const { purchases } = useBlocsUser()
+    const ownsWaterTracker =
+      purchases?.waterTracker || purchases?.lifetimeAccess
+
+    const { token, publicToken } = useCreateToken(
+      'WATER_TRACKER',
+      ownsWaterTracker
+    )
 
     return (
       <URLHashProvider
         hash={{ token, shareableToken: publicToken, role: 'blocs-user' }}
       >
         <Component />
+        {!ownsWaterTracker && <PremiumOverlay />}
       </URLHashProvider>
     )
   }
 }
 
 const WaterTrackerDashboard = () => {
-  const { user } = useUser()
   const { token, shareableToken: publicToken } = useUrlHash() as {
     token?: string
     shareableToken: string

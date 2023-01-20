@@ -10,12 +10,12 @@ import PremiumOverlay from '../PremiumOverlay'
 import ClipboardModal from '../ClipboardModal'
 import { useState } from 'react'
 import { useCreateToken } from '../useCreateToken'
-import useUser from '@/hooks/useUser'
 import { URLHashProvider } from '@/hooks/useUrlHash/useUrlHash'
 import HabitTrackerForm from './HabitTrackerForm'
 import { useFetchHabits } from '../../../widgets/HabitTracker/hooks/useFetchHabits'
 import useFetchHabitsAnalytics from '../../../widgets/HabitTracker/hooks/useFetchHabitsAnalytics'
 import Skeleton from '@/helpers/Skeleton'
+import useBlocsUser from '@/hooks/useBlocsUser'
 
 const dummyAnalyticsData = {
   data: {
@@ -92,11 +92,12 @@ const HabitTrackerDashboard = () => {
   const [shareableUrl, setShareableUrl] = useState('')
   const [formAction, setFormAction] = useState({})
   const [showForm, setShowForm] = useState(false)
-  const { isPremiumUser = true } = useUser() // TODO: change based on Stripe integration
+  const { purchases } = useBlocsUser() // TODO: change based on Stripe integration
+  const ownsHabitTracker = purchases.lifetimeAccess || purchases.habitTracker
 
   const { token, publicToken, isLoading } = useCreateToken(
     'HABIT_TRACKER',
-    isPremiumUser
+    ownsHabitTracker
   )
 
   const handleCopy = () => {
@@ -173,6 +174,8 @@ const HabitTrackerDashboard = () => {
           {...formAction}
         />
       </Flex>
+
+      {!ownsHabitTracker && <PremiumOverlay />}
     </URLHashProvider>
   )
 }
