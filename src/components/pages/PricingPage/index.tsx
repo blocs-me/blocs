@@ -66,6 +66,7 @@ const PricingPage = () => {
   const { user, purchases } = useBlocsUser()
   const [showSignInMessage, setShowSignInMessage] = useState(false)
   const [showMultiWidgetModal, setShowMultiWidgetModal] = useState(false)
+  const [isLifetimeAccessLoading, setIsLifeTimeAccessLoading] = useState(false)
 
   const handleBuyMultiWidgets = (e: MouseEvent) => {
     handleEv(e)
@@ -79,7 +80,10 @@ const PricingPage = () => {
   const handleBuyLifetimeAccess = (e: MouseEvent) => {
     handleEv(e)
     if (!user) return setShowSignInMessage(true)
-    if (!purchases?.lifetimeAccess) buyLifetimeAccess(user)
+    if (!purchases?.lifetimeAccess) {
+      setIsLifeTimeAccessLoading(true)
+      buyLifetimeAccess(user)
+    }
   }
 
   const handleRedirect = () => router.push('/sign-in')
@@ -163,6 +167,7 @@ const PricingPage = () => {
               onClick={handleBuyLifetimeAccess}
               css={{ transform: 'scale(1.05)' }}
               boxShadow="lg"
+              isLoading={isLifetimeAccessLoading}
             >
               <PricingCardCheckbox text="Pomodoro" />
               <PricingCardCheckbox text="Water Analytics" />
