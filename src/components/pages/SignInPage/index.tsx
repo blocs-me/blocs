@@ -31,12 +31,14 @@ const SignInPage = () => {
   const user = useUser()
   const router = useRouter()
   const [lastSignedInAt, setLastSignedInAt] = useState(
-    storage.getItem('lastSignedInAt') || new Date()
+    storage.getItem('lastSignedInAt')
   )
 
-  const shouldPreventSignIn =
-    (new Date().getTime() - new Date(lastSignedInAt).getTime()) / (1000 * 60) <
-    1
+  const shouldPreventSignIn = lastSignedInAt
+    ? (new Date().getTime() - new Date(lastSignedInAt).getTime()) /
+        (1000 * 60) <
+      1 
+    : false
 
   const handleSignIn = handleSubmit(async ({ email }) => {
     setIsLoading(true)
