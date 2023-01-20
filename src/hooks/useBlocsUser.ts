@@ -5,6 +5,7 @@ import useSWR from 'swr'
 import { BlocsUserClient } from '../global-types/blocs-user'
 import stripeProductIds, { ProductIds } from '@/constants/stripeProductIds'
 import { useMemo } from 'react'
+import daysBetween from '../utils/dateUtils/daysBetween'
 
 type Purchases<T = ProductIds> = {
   [key in keyof T]?: boolean
@@ -32,9 +33,25 @@ const useBlocsUser = () => {
     return result
   }, [user?.data?.purchasedProducts])
 
+  const isUserOnFreeTrial = useMemo(() => {
+    if (user?.data?.purchasedProducts.length) return false
+
+    const freeTrialStartedAt = user?.data?.freeTrialStartedAt
+    const freeTrialDaysLeft = freeTrialStartedAt
+      ? daysBetween(new Date(), new Date(freeTrialStartedAt))
+      : 0
+
+    if (freeTrialDaysLeft <= 14) {
+      return true
+    }
+
+    return false
+  }, [user?.data?.freeTrialStartedAt, user?.data?.purchasedProducts.length])
+
   return {
     user,
     purchases,
+    isUserOnFreeTrial,
     ...rest
   }
 }

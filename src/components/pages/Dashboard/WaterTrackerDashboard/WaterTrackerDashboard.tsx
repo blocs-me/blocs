@@ -2,12 +2,10 @@ import Flex from '@/helpers/Flex'
 import DummyWaterTracker from '@/widgets/WaterTracker/DummyWaterTracker'
 import WidgetLinkWrapper from '../WidgetLinkWrapper'
 import { useCreateToken } from '../useCreateToken'
-import useUser from '@/hooks/useUser'
 import { useState, ComponentType, useEffect } from 'react'
 import ClipboardModal from '../ClipboardModal'
 import DummyAnalyticsBarChart from '@/widgets/AnalyticsBarChart/DummyAnalyticsBarChart'
 import useClipboard from '@/hooks/useClipboard'
-import TextInput from '@/design-system/TextInput'
 import { URLHashProvider } from '@/hooks/useUrlHash/useUrlHash'
 import NumberInput from '@/design-system/NumberInput'
 import Button from '@/design-system/Button'
@@ -22,9 +20,9 @@ import PremiumOverlay from '../PremiumOverlay'
 
 const withProviders = (Component: ComponentType) => {
   return () => {
-    const { purchases } = useBlocsUser()
+    const { purchases, isUserOnFreeTrial } = useBlocsUser()
     const ownsWaterTracker =
-      purchases?.waterTracker || purchases?.lifetimeAccess
+      purchases?.waterTracker || purchases?.lifetimeAccess || isUserOnFreeTrial
 
     const { token, publicToken } = useCreateToken(
       'WATER_TRACKER',
