@@ -4,7 +4,7 @@ import Modal from '@/design-system/Modal'
 import Text from '@/design-system/Text'
 import Box from '@/helpers/Box'
 import Flex from '@/helpers/Flex'
-import { MouseEvent, useState } from 'react'
+import { MouseEvent, useEffect, useState } from 'react'
 import CheckIcon from './PricingCardCheckbox/CheckedIcon'
 import Plus from '../../../icons/plus.svg'
 import Icon from '@/helpers/Icon'
@@ -82,6 +82,11 @@ const BuyMultipleWidgetsModals = ({
 }) => {
   const [products, setProducts] = useState<LineItem[]>([])
   const { purchases } = useBlocsUser()
+  const [isLoading, setIsLoading] = useState(false)
+
+  useEffect(() => {
+    setIsLoading(false)
+  }, [])
 
   const totalPrice = products.length * 4
 
@@ -107,7 +112,13 @@ const BuyMultipleWidgetsModals = ({
     return productIndex > -1
   }
 
-  //TODO: if user bought one widget then disable that selection again
+  const handleSubmit = (e: MouseEvent) => {
+    e?.preventDefault()
+    e?.stopPropagation()
+
+    setIsLoading(true)
+    handleStripeCheckout(products)
+  }
 
   if (purchases.lifetimeAccess) return null
 
@@ -165,8 +176,9 @@ const BuyMultipleWidgetsModals = ({
           bg="brand.accent-1"
           borderRadius="sm"
           mt="md"
-          onClick={(e) => handleStripeCheckout(products)}
-          disabled={!totalPrice}
+          onClick={(e) => handleSubmit(e)}
+          disabled={!totalPrice || isLoading}
+          loading={isLoading}
         >
           Continue
         </Button>

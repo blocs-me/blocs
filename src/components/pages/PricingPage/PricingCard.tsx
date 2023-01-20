@@ -16,6 +16,7 @@ type Props = {
   cta: string
   isPremium: boolean
   children?: ReactNode
+  isLoading?: boolean
 }
 
 const ChildrenContainer = styled.div`
@@ -42,6 +43,7 @@ const PricingCard = ({
   ctaColor = 'foreground',
   children,
   isPremium,
+  isLoading,
   ...rest
 }: Props & IBox) => {
   return (
@@ -85,6 +87,8 @@ const PricingCard = ({
         onClick={onClick}
         fontSize="sm"
         borderRadius="sm"
+        loading={isLoading}
+        disabled={isLoading}
       >
         {cta}
       </Button>
