@@ -30,6 +30,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const areProductsValid = validateProducts(products)
     if (!areProductsValid) {
+      console.error(
+        new Error('[Bad Request] stripe line_item data provided is invalid')
+      )
       return handle400Response(res)
     }
 
@@ -49,6 +52,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           ).then((res) => res.flat().map((d) => d.price.id))
 
       if (products.some((prod) => purchasedPriceIds.includes(prod.price))) {
+        console.error(new Error('Cannot buy a widget more than once'))
         return handle400Response(res)
       }
     }
