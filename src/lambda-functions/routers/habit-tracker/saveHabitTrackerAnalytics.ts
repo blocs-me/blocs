@@ -3,6 +3,7 @@ import { validateHabitTrackerAnalytics } from '@/lambda/lib/restValidator/jsonVa
 import { query as q, query } from 'faunadb'
 import { getPercent } from '../../../utils/math/getPercent'
 import { calculateAndUpdateStreak } from './calculateAndUpdateStreak'
+import canPerformAction from '../../helpers/faunadb/canPerformAction'
 
 const saveHabitTrackerAnalytics = async (req, res) => {
   const isValid = validateHabitTrackerAnalytics(req.body)
@@ -42,6 +43,13 @@ const saveHabitTrackerAnalytics = async (req, res) => {
     })
     return null
   }
+
+  const hasPermission = await canPerformAction(
+    widget.data.userId,
+    'habitTracker',
+    res
+  )
+  if (!hasPermission) return null
 
   const existingAnalyticsDoc = await faunaClient
     .query(

@@ -1,6 +1,7 @@
 import faunaClient from '@/lambda/faunaClient'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { query as q } from 'faunadb'
+import canPerformAction from '@/lambda/helpers/faunadb/canPerformAction'
 
 const getWaterTrackerSettings = async (
   req: NextApiRequest,
@@ -27,6 +28,13 @@ const getWaterTrackerSettings = async (
           message: 'Widget not found'
         }
       })
+
+    const hasPermission = await canPerformAction(
+      widget.data.userId,
+      'waterTracker',
+      res
+    )
+    if (!hasPermission) return null
 
     const isAdmin = widgetToken === widget?.data?.token
 

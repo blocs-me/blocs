@@ -24,6 +24,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     return null
   }
 
+  // await rest.post()
+
   await rest.post(createHabit as any)
   await rest.delete(deleteHabit as any)
   await rest.get(getHabits as any)

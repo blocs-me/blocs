@@ -2,6 +2,7 @@ import { query as q } from 'faunadb'
 import { NextApiRequest, NextApiResponse } from 'next'
 import faunaClient from '@/lambda/faunaClient'
 import { validateWaterTrackerQueryParams } from '@/lambda/lib/restValidator/jsonValidator'
+import canPerformAction from '@/lambda/helpers/faunadb/canPerformAction'
 
 type AnalyticsData = {
   data: {
@@ -43,6 +44,13 @@ const getWaterTrackerAnalytics = async (
       }
     })
   }
+
+  const hasPermission = await canPerformAction(
+    widget.data.userId,
+    'waterTracker',
+    res
+  )
+  if (!hasPermission) return null
 
   const currentAnalyticsData = await faunaClient
     .query(

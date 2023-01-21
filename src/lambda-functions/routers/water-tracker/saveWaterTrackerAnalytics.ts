@@ -3,6 +3,7 @@ import { validateWaterTrackerAnalytics } from '@/lambda/lib/restValidator/jsonVa
 import { ounceToLiter } from '@/utils/math'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { query as q } from 'faunadb'
+import canPerformAction from '@/lambda/helpers/faunadb/canPerformAction'
 
 type Request = {
   date: number
@@ -50,6 +51,13 @@ const saveWaterTrackerAnalytics = async (
     })
     return null
   }
+
+  const hasPermission = await canPerformAction(
+    widget.data.userId,
+    'waterTracker',
+    res
+  )
+  if (!hasPermission) return null
 
   const existingData = await faunaClient
     .query(

@@ -3,6 +3,9 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import faunaClient from '@/lambda/faunaClient'
 import { query as q } from 'faunadb'
 import { getCurrentISOString } from '@/utils/dateUtils/getCurrentISOString'
+import { IHabitTrackerWidget } from '../../../global-types/habit-tracker'
+import { handle200Response } from '../../helpers/handleResponses'
+import canPerformAction from '../../helpers/faunadb/canPerformAction'
 
 const createHabit = async (req: NextApiRequest, res: NextApiResponse) => {
   const isValid = validateHabitSchema(req.body)
@@ -20,7 +23,7 @@ const createHabit = async (req: NextApiRequest, res: NextApiResponse) => {
 
   const widgetIndexKey = 'widget_by_token'
 
-  const widget = await faunaClient
+  const widget: IHabitTrackerWidget = await faunaClient
     .query(q.Get(q.Match(q.Index(widgetIndexKey), widgetToken)))
     .then((data) => data)
     .catch((error) => {
@@ -36,6 +39,9 @@ const createHabit = async (req: NextApiRequest, res: NextApiResponse) => {
     })
     return null
   }
+
+  const hasPermission = await canPerformAction(widget.data.userId, 'habitTracker', res)
+  if (!hasPermission) return null
 
   const yesterdayISOStr = (() => {
     const yesterday = new Date(isoDateString as any)
@@ -72,7 +78,7 @@ const createHabit = async (req: NextApiRequest, res: NextApiResponse) => {
       })
     )
 
-    res.status(200).json({})
+    handle200Response(res)
   } catch (err) {
     console.error(err)
     res.status(200).json({

@@ -4,6 +4,7 @@ import faunaClient from '@/lambda/faunaClient'
 import { query as q } from 'faunadb'
 import { HabitItem } from '../../../global-types/habit-tracker'
 import { getPercent } from '../../../utils/math/getPercent'
+import canPerformAction from '../../helpers/faunadb/canPerformAction'
 
 const deleteHabit = async (req: NextApiRequest, res: NextApiResponse) => {
   const isValid = validateHabitSchema(req.body)
@@ -38,6 +39,13 @@ const deleteHabit = async (req: NextApiRequest, res: NextApiResponse) => {
     })
     return null
   }
+
+  const hasPermission = await canPerformAction(
+    widget.data.userId,
+    'habitTracker',
+    res
+  )
+  if (!hasPermission) return null
 
   const prevHabits = JSON.parse(JSON.stringify(widget.data.habits))
   const shouldDelete = widget.data.habits.find(

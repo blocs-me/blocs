@@ -3,6 +3,7 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import faunaClient from '@/lambda/faunaClient'
 import { query as q } from 'faunadb'
 import { HabitItem } from '../../../global-types/habit-tracker'
+import canPerformAction from '../../helpers/faunadb/canPerformAction'
 
 const editHabit = async (req: NextApiRequest, res: NextApiResponse) => {
   const isValid = validateHabitSchema(req.body)
@@ -37,6 +38,13 @@ const editHabit = async (req: NextApiRequest, res: NextApiResponse) => {
     })
     return null
   }
+
+  const hasPermission = await canPerformAction(
+    widget.data.userId,
+    'habitTracker',
+    res
+  )
+  if (!hasPermission) return null
 
   const prevHabits = widget.data.habits
   const shouldUpdate = widget.data.habits.find(
