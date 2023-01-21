@@ -49,12 +49,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
   const hasPermission = await userOwnsWidget(widget.data.userId, 'pomodoro')
 
-  // TODO: if user doesnt own widget and is 'friend' -> on front end when !isPremium then the overlay is shown
-  // TODO: if user doesnt own widget and is 'admin'  -> on front end when !isPremium then the caret buttons are disabled and on click they show the overlay / show a notif
-
   handle200Response(res, {
     data: {
-      isPremium: false
+      isPremium: hasPermission
     }
   })
 }
