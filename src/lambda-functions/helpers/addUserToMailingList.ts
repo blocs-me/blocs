@@ -15,7 +15,7 @@ const addUserToMailingList = async (user: BlocsUserServer['data']) => {
       return null
     }
     const nameArr = name?.split(' ')
-    const [FNAME, LNAME] = [nameArr[0], nameArr.slice(-1)[0]]
+    const [FNAME, LNAME] = [nameArr?.[0], nameArr?.slice(-1)?.[0]]
     const listId = process.env.MAILCHIMP_LIST_ID
 
     const res = await mailchimp.lists.addListMember(listId, {
