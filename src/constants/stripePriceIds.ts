@@ -1,19 +1,17 @@
-type PriceIds = {
-  lifetime: string
-  waterTracker: string
-  habitTracker: string
-  pomodoro: string
-}
+import type { ProductTitles } from '@/gtypes/stripe'
 
+type PriceIds = {
+  [P in ProductTitles]?: string
+}
 const local: PriceIds = {
-  lifetime: 'price_1MQZs3HyXnRceQpOUY4FjNnR',
+  lifetimeAccess: 'price_1MQZs3HyXnRceQpOUY4FjNnR',
   waterTracker: 'price_1MQbKkHyXnRceQpOX9mZZL7N',
   habitTracker: 'price_1MQaw6HyXnRceQpOYLPoWdAS',
   pomodoro: 'price_1MQawTHyXnRceQpOILT0ITBq'
 }
 
 const prod: PriceIds = {
-  lifetime: '',
+  lifetimeAccess: '',
   waterTracker: '',
   habitTracker: '',
   pomodoro: ''

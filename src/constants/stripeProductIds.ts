@@ -1,8 +1,6 @@
+import { ProductTitles } from '../global-types/stripe'
 export type ProductIds = {
-  lifetimeAccess: string
-  waterTracker: string
-  habitTracker: string
-  pomodoro: string
+  [P in ProductTitles]?: string
 }
 
 const production = {} as ProductIds //TODO: update product ids

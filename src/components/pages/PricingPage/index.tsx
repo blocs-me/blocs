@@ -55,7 +55,7 @@ const handleStripeCheckout = async (products: Products) => {
 const buyLifetimeAccess = (blocsUser: BlocsUserClient) => {
   handleStripeCheckout([
     {
-      price: stripePriceIds.lifetime,
+      price: stripePriceIds.lifetimeAccess,
       quantity: 1
     }
   ])
