@@ -158,7 +158,7 @@ const LoadingState = () => {
 
 const UserSettingsPaymentSection = () => {
   const { user } = useBlocsUser()
-  const isPremium = !!user?.data?.purchasedProducts.length
+  const isPremium = !!user?.data?.purchasedProducts?.length
 
   if (!user) return <LoadingState />
 
