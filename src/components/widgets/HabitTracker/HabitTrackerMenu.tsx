@@ -22,6 +22,8 @@ import Text from '@/design-system/Text'
 import Button from '@/design-system/Button'
 import { CopyIcon } from 'src/icons/copy'
 import Icon from '@/helpers/Icon'
+import useUrlHash from '@/hooks/useUrlHash'
+import { UrlHash } from '../WaterTracker/types'
 
 const colorModeText = {
   dark: 'Dark Mode',
@@ -45,6 +47,7 @@ const HabitTrackerMenu = ({
   }
   const notifs = useNotifications()
   const [shareableLink, setShareableLink] = useState('')
+  const { role } = useUrlHash<UrlHash>()
 
   const { fetcher: fetchShareableLink, loading: isShareLinkLoading } =
     useFetchShareableLink('HABIT_TRACKER')
@@ -103,19 +106,23 @@ const HabitTrackerMenu = ({
             {isAnalyticsHidden ? 'Show Analytics' : 'Hide Analytics'}
           </ButtonGroupButton>
 
-          <ButtonGroupButton
-            disabled={isShareLinkLoading}
-            icon={<LinkIcon />}
-            onClick={() => copyShareableLink()}
-          >
-            Shareable Link
-          </ButtonGroupButton>
-          <ButtonGroupButton
-            icon={<Pencil />}
-            onClick={() => handleManageHabits()}
-          >
-            Manage Habits
-          </ButtonGroupButton>
+          {role === 'blocs-user' && (
+            <ButtonGroupButton
+              disabled={isShareLinkLoading}
+              icon={<LinkIcon />}
+              onClick={() => copyShareableLink()}
+            >
+              Shareable Link
+            </ButtonGroupButton>
+          )}
+          {role === 'blocs-user' && (
+            <ButtonGroupButton
+              icon={<Pencil />}
+              onClick={() => handleManageHabits()}
+            >
+              Manage Habits
+            </ButtonGroupButton>
+          )}
         </ButtonGroup>
       </FadeIn>
       <FadeIn>

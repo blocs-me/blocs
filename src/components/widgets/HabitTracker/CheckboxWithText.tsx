@@ -5,6 +5,8 @@ import styled from '@emotion/styled'
 import { MouseEvent } from 'react'
 import Checkbox from './Checkbox'
 import themeGet from '@styled-system/theme-get'
+import useUrlHash from '@/hooks/useUrlHash'
+import { UrlHash } from '../WaterTracker/types'
 
 type Props = {
   isChecked: boolean
@@ -36,10 +38,11 @@ const StrikeThrough = styled.div`
 `
 
 const CheckboxWithText = ({ isChecked, onChange, id, text }: Props) => {
+  const { role } = useUrlHash<UrlHash>()
   const handleClick = (e: MouseEvent<HTMLDivElement>) => {
     e.preventDefault()
     e.stopPropagation()
-    onChange(id)
+    role === 'blocs-user' && onChange(id)
   }
 
   return (

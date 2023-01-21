@@ -2,11 +2,15 @@ import Box from '@/helpers/Box'
 import Notifications from '@/design-system/Notifications'
 import HabitTrackerMainPage from './HabitTrackerMainPage'
 import WidgetMenuButton from '@/design-system/WidgetMenuButton'
-import { useState } from 'react'
+import { Suspense, useState } from 'react'
 import { useRouter } from 'next/router'
 import HabitTrackerMenu from './HabitTrackerMenu'
 import useMediaQuery from '@/hooks/useMediaQuery'
 import storage from '@/utils/storage'
+import useHabitTrackerAuth from './hooks/useHabitTrackerAuth'
+import Flex from '@/helpers/Flex'
+import Loader from '@/design-system/Loader'
+import PremiumOverlay from '@/pages/Dashboard/PremiumOverlay'
 
 const HabitTrackerLayout = () => {
   const [isHovering, setIsHovering] = useState(false)
@@ -17,6 +21,7 @@ const HabitTrackerLayout = () => {
 
   const isMenu = path?.[0] === 'menu'
   const isSmallScreen = useMediaQuery('(max-width: 600px)')
+  const { auth } = useHabitTrackerAuth()
 
   return (
     <Box
@@ -64,6 +69,28 @@ const HabitTrackerLayout = () => {
         </Box>
         <div id="ht-modal-wrapper"></div>
       </Notifications>
+
+      {auth && !auth?.isPremium && (
+        <Box zIndex="100000" size="100%" position="absolute" top={0} left={0}>
+          <Suspense
+            fallback={
+              <Flex
+                size="100%"
+                alignItems="center"
+                justifyContent="center"
+                bg="rgba(0,0,0,0.2)"
+                css={{
+                  backdropFilter: 'blur(5px) saturate(50%)'
+                }}
+              >
+                <Loader width="40px" height="40px" />
+              </Flex>
+            }
+          >
+            <PremiumOverlay />
+          </Suspense>
+        </Box>
+      )}
     </Box>
   )
 }
