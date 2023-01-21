@@ -27,7 +27,8 @@
       "@/constants/*": ["src/constants/*"],
       "@/contexts/*": ["./src/contexts/*"],
       "@/icons/*": ["./src/icons/*.svg"],
-      "@/schemas/*": ["src/lambdas/schemas/*"]
+      "@/schemas/*": ["src/lambdas/schemas/*"],
+      "@/gtypes/*": ["src/global-types/*"]
     }
   },
   "ts-node": {
@@ -45,7 +46,8 @@
     "jest.config.js",
     "jest.setup.js",
     "src/components/pages/Dashboard/PomodoroDashboard/PresetForm.js",
-    "src/components/helpers/BlocsThemeProvider.tsx"
+    "src/components/helpers/BlocsThemeProvider.tsx",
+    "src/lambda-functions/helpers/faunadb/getBlocsUserById.ts"
   ],
   "exclude": ["node_modules"]
 }
