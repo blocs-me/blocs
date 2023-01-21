@@ -31,7 +31,8 @@ const PremiumOverlay = () => {
         css={{ textAlign: 'center' }}
       >
         <Text fontSize="sm" m="auto" color="brand.accent-1">
-          You can get access to this widget with the Premium version of blocs ✨
+          You can get access to this widget and all features with the Premium
+          version of blocs ✨
         </Text>
         <Box mt="md" />
         <Box

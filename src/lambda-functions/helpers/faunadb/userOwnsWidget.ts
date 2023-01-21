@@ -8,11 +8,11 @@ const userOwnsWidget = async (userId: string, widgetKey: ProductTitles) => {
 
   if (!blocsUser) return false
 
-  const userOwnsWidget = blocsUser?.data?.purchasedProducts?.includes(
+  const ownsWidget = blocsUser?.data?.purchasedProducts?.includes(
     stripeProductIds[widgetKey]
   )
 
-  return userOwnsWidget || isTrialValid(blocsUser)
+  return ownsWidget || isTrialValid(blocsUser)
 }
 
 export default userOwnsWidget

@@ -8,18 +8,21 @@ import largestFreq from '@/utils/math/largestFreq'
 import Text from '@/design-system/Text'
 import getMonthStr from '../../../utils/dateUtils/getMonthStr'
 import WidgetMenuButton from '@/design-system/WidgetMenuButton'
-import { useMediaQuery, useResizeObserver } from 'beautiful-react-hooks'
-import { useState, useEffect, useRef } from 'react'
+import { useResizeObserver } from 'beautiful-react-hooks'
+import { useRef, lazy, Suspense, useState } from 'react'
 import { useRouter } from 'next/router'
 import AnalyticsBarChartMenu from './AnalyticsBarChartMenu'
-import Avatar from '@/design-system/Avatar'
 import FadeIn from '@/helpers/FadeIn'
 import Notifications from '@/design-system/Notifications'
+import Loader from '@/design-system/Loader'
+const PremiumOverlay = lazy(() => import('@/pages/Dashboard/PremiumOverlay'))
 
 type Props = {
   units: string
   menuPage: string
   mainPage: string
+  showPremiumOverlay?: boolean
+  disableControls?: boolean
 } & Required<Pick<BarChartProps, 'data' | 'renderTooltip' | 'minY'>>
 
 const AnalyticsBarChart = ({
@@ -28,11 +31,14 @@ const AnalyticsBarChart = ({
   renderTooltip,
   minY,
   mainPage,
-  menuPage
+  menuPage,
+  showPremiumOverlay,
+  disableControls
 }: Props) => {
   const [{ timePeriod, page }, dispatch] = useAnalyticsBarChart()
   const container = useRef()
   const { slug } = useRouter().query
+  const [premiumOverlay, setPremiumOverlay] = useState(false)
 
   const isMainPage = !slug
   const isMenuPage = slug?.[0] === 'menu'
@@ -50,14 +56,19 @@ const AnalyticsBarChart = ({
     return new Date(mostCommonYear, mostCommonMonth, 1)
   })()
 
-  const setNextDateRange = () =>
-    dispatch({
-      type: 'SET_PAGE',
-      payload: page + 1
-    })
+  const setNextDateRange = () => {
+    if (disableControls) return setPremiumOverlay(true)
+    !disableControls &&
+      dispatch({
+        type: 'SET_PAGE',
+        payload: page + 1
+      })
+  }
 
-  const setPrevDateRange = () =>
-    dispatch({ type: 'SET_PAGE', payload: page - 1 })
+  const setPrevDateRange = () => {
+    if (disableControls) return setPremiumOverlay(true)
+    !disableControls && dispatch({ type: 'SET_PAGE', payload: page - 1 })
+  }
 
   return (
     <Flex
@@ -140,6 +151,27 @@ const AnalyticsBarChart = ({
 
         <div id="bar-chart-modal-wrapper" />
       </Notifications>
+      {(showPremiumOverlay || premiumOverlay) && (
+        <Box zIndex="100000" size="100%" position="absolute" top={0} left={0}>
+          <Suspense
+            fallback={
+              <Flex
+                size="100%"
+                alignItems="center"
+                justifyContent="center"
+                bg="rgba(0,0,0,0.2)"
+                css={{
+                  backdropFilter: 'blur(5px) saturate(50%)'
+                }}
+              >
+                <Loader width="40px" height="40px" />
+              </Flex>
+            }
+          >
+            <PremiumOverlay />
+          </Suspense>
+        </Box>
+      )}
     </Flex>
   )
 }

@@ -4,17 +4,24 @@ import { useAnalyticsBarChartStore } from '../AnalyticsBarChart/useAnalyticsBarC
 import usePomodoroAnalytics from './usePomodoroAnalytics'
 import usePomodoroPresets from './usePomodoroPresets'
 import Tooltip from './Tooltip'
+import Box from '@/helpers/Box'
+import Loader from '@/design-system/Loader'
+import { lazy, Suspense, useState } from 'react'
+import usePomodoroAuth from './usePomodoroAuth'
+import useUrlHash from '@/hooks/useUrlHash'
+import { UrlHash } from '../WaterTracker/types'
+import Flex from '@/helpers/Flex'
 
-type TooltipData = {
-  data: any[]
-}
-
+const PremiumOverlay = lazy(() => import('@/pages/Dashboard/PremiumOverlay'))
 const renderTooltip = (d) => <Tooltip {...d} />
 
 const PomodoroAnalyticsBarChart = () => {
   const { data: analytics } = usePomodoroAnalytics()
   const { page } = useAnalyticsBarChartStore()
   usePomodoroPresets()
+  const { auth } = usePomodoroAuth()
+  const { role } = useUrlHash<UrlHash>()
+  const showPremiumOverlay = auth && !auth?.isPremium && role === 'friend'
 
   const getFallback = () => {
     const from = new Date()
@@ -61,6 +68,8 @@ const PomodoroAnalyticsBarChart = () => {
       units="hr"
       minY={5}
       renderTooltip={renderTooltip}
+      showPremiumOverlay={showPremiumOverlay}
+      disableControls={!auth?.isPremium}
     />
   )
 }
