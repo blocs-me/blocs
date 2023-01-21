@@ -18,7 +18,7 @@ const postPomodoroPreset = async (req, res, rest) => {
   }
 
   try {
-    const faundaRes = await faunaClient.query(
+    const faunaRes = await faunaClient.query(
       q.Create(q.Collection('pomodoro_presets'), {
         data: {
           ...preset,
@@ -27,7 +27,7 @@ const postPomodoroPreset = async (req, res, rest) => {
         }
       })
     )
-    res.status(200).json({ data: faundaRes?.data })
+    res.status(200).json({ data: faunaRes?.data })
   } catch (err) {
     console.error(err)
     res.status(500).json({
