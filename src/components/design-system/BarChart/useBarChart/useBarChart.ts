@@ -65,7 +65,9 @@ const formatData = (
 
   const count = timePeriod === 'weekly' ? 7 : numberOfDaysInMonth
   const startDate = new Date(firstDate)
-  startDate.setDate(startDate.getDate() - (startDate.getDay() - 1))
+  startDate.setDate(
+    startDate.getDate() - (startDate.getDay() ? startDate.getDay() - 1 : 6)
+  )
 
   const month = startDate.getMonth()
   const year = startDate.getFullYear()

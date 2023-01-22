@@ -10,11 +10,11 @@ const useAnalyticsBarChartDateRange = () => {
     let to = new Date()
 
     if (timePeriod === 'weekly') {
-      from.setDate(from.getDate() - from.getDay() + 1)
+      from.setDate(from.getDate() - (from.getDay() ? from.getDay() + 1 : 6))
       from.setDate(from.getDate() + page * 7)
 
-      to.setDate(to.getDate() - to.getDay())
-      to.setDate(to.getDate() + (page + 1) * 7)
+      to.setDate(from.getDate())
+      to.setDate(to.getDate() + (page + 1) * 7 - 2)
     }
 
     if (timePeriod === 'monthly') {
