@@ -7,11 +7,14 @@ import Link from 'next/link'
 import float from '@/keyframes/float'
 import Sparkles from '@/design-system/Sparkles'
 import { IBox } from '@/helpers/Box/Box.types'
+import useUrlHash from '@/hooks/useUrlHash'
 
 const PremiumOverlay = ({
   className,
   ...rest
 }: IBox & { className?: string }) => {
+  const { role } = useUrlHash<{ role: string }>()
+
   return (
     <Flex
       position="absolute"
@@ -37,8 +40,17 @@ const PremiumOverlay = ({
         css={{ textAlign: 'center' }}
       >
         <Text fontSize="sm" m="auto" color="brand.accent-1">
-          You can get access to this widget and all its features with the{' '}
-          <b>Premium</b> version of blocs ✨
+          {role === 'friend' ? (
+            <span>
+              Your friend must be a <b>premium</b> user to enable this sharing
+              feature ✨
+            </span>
+          ) : (
+            <span>
+              You can get access to this widget and all its features with the
+              <b>Premium</b> version of blocs ✨
+            </span>
+          )}
         </Text>
         <Box mt="md" />
         <Box
