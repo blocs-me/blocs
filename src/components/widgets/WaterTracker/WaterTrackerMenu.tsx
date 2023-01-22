@@ -206,7 +206,7 @@ const WaterTrackerMenu = () => {
               <Icon
                 as="span"
                 width="20px"
-                stroke="foreground"
+                stroke="neutral.white"
                 display="flex"
                 m="auto"
               >
