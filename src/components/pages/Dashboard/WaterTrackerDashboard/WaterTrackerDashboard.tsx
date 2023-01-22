@@ -20,7 +20,7 @@ import PremiumOverlay from '../PremiumOverlay'
 
 const withProviders = (Component: ComponentType) => {
   return () => {
-    const { purchases, isUserOnFreeTrial } = useBlocsUser()
+    const { purchases, isUserOnFreeTrial, user } = useBlocsUser()
     const ownsWaterTracker =
       purchases?.waterTracker || purchases?.lifetimeAccess || isUserOnFreeTrial
 
@@ -34,7 +34,7 @@ const withProviders = (Component: ComponentType) => {
         hash={{ token, shareableToken: publicToken, role: 'blocs-user' }}
       >
         <Component />
-        {!ownsWaterTracker && <PremiumOverlay />}
+        {user && !ownsWaterTracker && <PremiumOverlay />}
       </URLHashProvider>
     )
   }
