@@ -23,6 +23,7 @@ type Props = {
   mainPage: string
   showPremiumOverlay?: boolean
   disableControls?: boolean
+  isOverlayEscapable?: boolean
 } & Required<Pick<BarChartProps, 'data' | 'renderTooltip' | 'minY'>>
 
 const AnalyticsBarChart = ({
@@ -33,7 +34,8 @@ const AnalyticsBarChart = ({
   mainPage,
   menuPage,
   showPremiumOverlay,
-  disableControls
+  disableControls,
+  isOverlayEscapable
 }: Props) => {
   const [{ timePeriod, page }, dispatch] = useAnalyticsBarChart()
   const container = useRef()
@@ -152,7 +154,18 @@ const AnalyticsBarChart = ({
         <div id="bar-chart-modal-wrapper" />
       </Notifications>
       {(showPremiumOverlay || premiumOverlay) && (
-        <Box zIndex="100000" size="100%" position="absolute" top={0} left={0}>
+        <Box
+          zIndex="100000"
+          size="100%"
+          position="absolute"
+          top={0}
+          left={0}
+          onClick={() => {
+            if (isOverlayEscapable) {
+              setPremiumOverlay(false)
+            }
+          }}
+        >
           <Suspense
             fallback={
               <Flex
