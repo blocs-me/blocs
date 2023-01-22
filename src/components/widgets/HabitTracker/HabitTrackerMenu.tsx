@@ -155,7 +155,7 @@ const HabitTrackerMenu = ({
               borderRadius="5px"
               bg="primary.accent-2"
             >
-              Sometimes copying doesn&quot;t work in the app, so you need to
+              Sometimes copying doesn&apos;t work in the notion app, but you can
               copy it manually
             </Box>
           </Text>

@@ -87,7 +87,7 @@ const HabitTrackerLayout = () => {
               </Flex>
             }
           >
-            <PremiumOverlay />
+            <PremiumOverlay p="sm" />
           </Suspense>
         </Box>
       )}

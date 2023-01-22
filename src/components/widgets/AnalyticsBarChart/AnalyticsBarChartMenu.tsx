@@ -136,8 +136,8 @@ const AnalyticsBarChartMenu = () => {
               borderRadius="5px"
               bg="primary.accent-2"
             >
-              Sometimes copying doesn&apos;t work in the app, so you need to
-              copy it manually
+              Sometimes copying doesn&apos;t work in the notion app, but you can
+              copy it manually 
             </Box>
           </Text>
           <Box position="relative">
