@@ -14,7 +14,7 @@ const useAnalyticsBarChartDateRange = () => {
       from.setDate(from.getDate() + page * 7)
 
       to.setDate(from.getDate())
-      to.setDate(to.getDate() + (page + 1) * 7 - 2)
+      to.setDate(to.getDate() + (page + 1) * 7 - 1)
     }
 
     if (timePeriod === 'monthly') {
