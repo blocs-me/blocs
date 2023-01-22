@@ -4,13 +4,10 @@ import { useAnalyticsBarChartStore } from '../AnalyticsBarChart/useAnalyticsBarC
 import usePomodoroAnalytics from './usePomodoroAnalytics'
 import usePomodoroPresets from './usePomodoroPresets'
 import Tooltip from './Tooltip'
-import Box from '@/helpers/Box'
-import Loader from '@/design-system/Loader'
-import { lazy, Suspense, useState } from 'react'
+import { lazy } from 'react'
 import usePomodoroAuth from './usePomodoroAuth'
 import useUrlHash from '@/hooks/useUrlHash'
 import { UrlHash } from '../WaterTracker/types'
-import Flex from '@/helpers/Flex'
 
 const PremiumOverlay = lazy(() => import('@/pages/Dashboard/PremiumOverlay'))
 const renderTooltip = (d) => <Tooltip {...d} />
@@ -62,6 +59,7 @@ const PomodoroAnalyticsBarChart = () => {
 
   return (
     <AnalyticsBarChart
+      isOverlayEscapable
       data={analytics?.length > 1 ? analytics : getFallback()}
       mainPage="/bar-chart/pomodoro"
       menuPage="/bar-chart/pomodoro/menu"
