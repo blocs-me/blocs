@@ -33,7 +33,7 @@ const renderTooltip = (props: TooltipData) => <Tooltip {...props} />
 
 const WaterTrackerBarChart = () => {
   const { data: analytics } = useWaterTrackerAnalyticsRange()
-  // const { auth } = useWaterTrackerAuth()
+  const { auth } = useWaterTrackerAuth()
 
   const { page } = useAnalyticsBarChartStore()
 
@@ -45,7 +45,7 @@ const WaterTrackerBarChart = () => {
     from.setDate(from.getDate() + page * 7)
 
     to.setDate(from.getDate())
-    to.setDate(to.getDate() + (page + 1) * 7 - 2)
+    to.setDate(to.getDate() + (page + 1) * 7 - 1)
 
     return [
       {
@@ -77,8 +77,8 @@ const WaterTrackerBarChart = () => {
         data={analytics?.data?.length ? analytics.data : getFallback()}
         units="L"
         renderTooltip={renderTooltip}
-        // disableControls={!auth?.isPremium}
-        // showPremiumOverlay={auth && !auth?.isPremium}
+        disableControls={!auth?.isPremium}
+        showPremiumOverlay={auth && !auth?.isPremium}
       />
     </Flex>
   )
