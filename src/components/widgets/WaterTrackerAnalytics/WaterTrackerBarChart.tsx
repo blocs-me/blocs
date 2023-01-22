@@ -6,8 +6,7 @@ import { getCurrentISOString } from '../../../utils/dateUtils/getCurrentISOStrin
 import Box from '@/helpers/Box'
 import { TooltipData } from '../../design-system/BarChart/types'
 import Text from '@/design-system/Text'
-import FadeIn from '@/helpers/FadeIn'
-import Notifications from '@/design-system/Notifications'
+import useWaterTrackerAuth from './useWaterTrackerAuth'
 
 const formatTooltipDate = new Intl.DateTimeFormat('en-GB', {
   day: '2-digit',
@@ -34,6 +33,7 @@ const renderTooltip = (props: TooltipData) => <Tooltip {...props} />
 
 const WaterTrackerBarChart = () => {
   const { data: analytics } = useWaterTrackerAnalyticsRange()
+  // const { auth } = useWaterTrackerAuth()
 
   const { page } = useAnalyticsBarChartStore()
 
@@ -41,10 +41,10 @@ const WaterTrackerBarChart = () => {
     const from = new Date()
     const to = new Date()
 
-    from.setDate(from.getDate() - from.getDay() + 1)
+    from.setDate(from.getDate() - (from.getDay() ? from.getDay() + 1 : 6))
     from.setDate(from.getDate() + page * 7)
 
-    from.setDate(from.getDate() - from.getDay() + 1)
+    to.setDate(from.getDate())
     to.setDate(to.getDate() + (page + 1) * 7 - 2)
 
     return [
@@ -74,9 +74,11 @@ const WaterTrackerBarChart = () => {
         menuPage="/bar-chart/water-tracker/menu"
         mainPage="/bar-chart/water-tracker"
         minY={5}
-        data={analytics?.data?.length ? analytics?.data : getFallback()}
+        data={analytics?.data?.length ? analytics.data : getFallback()}
         units="L"
         renderTooltip={renderTooltip}
+        // disableControls={!auth?.isPremium}
+        // showPremiumOverlay={auth && !auth?.isPremium}
       />
     </Flex>
   )

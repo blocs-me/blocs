@@ -7,7 +7,7 @@ import Link from 'next/link'
 import float from '@/keyframes/float'
 import Sparkles from '@/design-system/Sparkles'
 
-const PremiumOverlay = () => {
+const PremiumOverlay = ({ className = undefined }) => {
   return (
     <Flex
       position="absolute"
@@ -16,6 +16,7 @@ const PremiumOverlay = () => {
       width="100%"
       height="100%"
       bg="rgba(0,0,0,0.2)"
+      className={className}
       css={{
         backdropFilter: 'blur(5px) saturate(50%)',
         animation: `${fadeIn} 1.5s ease forwards`

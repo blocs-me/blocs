@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useState } from 'react'
+import { Suspense, useEffect, useLayoutEffect, useState } from 'react'
 import { css, useTheme } from '@emotion/react'
 import CaretButton from '@/design-system/CaretButton'
 import Text from '@/design-system/Text'
@@ -23,6 +23,9 @@ import useDarkMode from '@/hooks/useDarkMode'
 import useColorMode from '../../../hooks/useColorMode/index'
 import Sun from 'src/icons/sun'
 import { Theme } from '../../../styles/theme'
+import Loader from '@/design-system/Loader'
+import PremiumOverlay from '@/pages/Dashboard/PremiumOverlay'
+import useWaterTrackerAuth from '../WaterTrackerAnalytics/useWaterTrackerAuth'
 
 const hideOnHoverEls = css`
   opacity: var(--opacity);
@@ -36,6 +39,7 @@ const WaterTrackerMainPage = () => {
   const isDarkMode = (() =>
     colorMode === 'dark' || (prefersDark && colorMode === 'auto'))()
   const { role } = useUrlHash<UrlHash>()
+  const { auth } = useWaterTrackerAuth()
   const isBlocsUser = role === 'blocs-user'
   const { data: settings, error: settingsError } = useWaterTrackerSettings()
   const units = settings?.data?.units || 'liter'
@@ -183,6 +187,28 @@ const WaterTrackerMainPage = () => {
         </Flex>
 
         <Bowl goal={GOAL} progress={progress} />
+
+        {auth && !auth?.isPremium && (
+          <Box zIndex="100000" size="100%" position="absolute" top={0} left={0}>
+            <Suspense
+              fallback={
+                <Flex
+                  size="100%"
+                  alignItems="center"
+                  justifyContent="center"
+                  bg="rgba(0,0,0,0.5)"
+                  css={{
+                    backdropFilter: 'blur(10px) saturate(50%)'
+                  }}
+                >
+                  <Loader width="40px" height="40px" />
+                </Flex>
+              }
+            >
+              <PremiumOverlay css={{ padding: '1rem' }} />
+            </Suspense>
+          </Box>
+        )}
       </Flex>
     </FadeIn>
   )
