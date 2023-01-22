@@ -187,28 +187,6 @@ const WaterTrackerMainPage = () => {
         </Flex>
 
         <Bowl goal={GOAL} progress={progress} />
-
-        {auth && !auth?.isPremium && (
-          <Box zIndex="100000" size="100%" position="absolute" top={0} left={0}>
-            <Suspense
-              fallback={
-                <Flex
-                  size="100%"
-                  alignItems="center"
-                  justifyContent="center"
-                  bg="rgba(0,0,0,0.5)"
-                  css={{
-                    backdropFilter: 'blur(10px) saturate(50%)'
-                  }}
-                >
-                  <Loader width="40px" height="40px" />
-                </Flex>
-              }
-            >
-              <PremiumOverlay css={{ padding: '1rem' }} />
-            </Suspense>
-          </Box>
-        )}
       </Flex>
     </FadeIn>
   )

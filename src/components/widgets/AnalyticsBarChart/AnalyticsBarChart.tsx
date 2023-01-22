@@ -168,7 +168,7 @@ const AnalyticsBarChart = ({
               </Flex>
             }
           >
-            <PremiumOverlay />
+            <PremiumOverlay borderRadius="md" />
           </Suspense>
         </Box>
       )}

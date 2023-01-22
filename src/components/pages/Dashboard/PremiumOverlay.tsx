@@ -6,8 +6,12 @@ import Button from '@/design-system/Button'
 import Link from 'next/link'
 import float from '@/keyframes/float'
 import Sparkles from '@/design-system/Sparkles'
+import { IBox } from '@/helpers/Box/Box.types'
 
-const PremiumOverlay = ({ className = undefined }) => {
+const PremiumOverlay = ({
+  className,
+  ...rest
+}: IBox & { className?: string }) => {
   return (
     <Flex
       position="absolute"
@@ -21,6 +25,7 @@ const PremiumOverlay = ({ className = undefined }) => {
         backdropFilter: 'blur(5px) saturate(50%)',
         animation: `${fadeIn} 1.5s ease forwards`
       }}
+      {...rest}
     >
       <Box
         m="auto"
