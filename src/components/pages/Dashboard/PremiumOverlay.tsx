@@ -47,7 +47,7 @@ const PremiumOverlay = ({
             </span>
           ) : (
             <span>
-              You can get access to this widget and all its features with the
+              You can get access to this widget and all its features with the{' '}
               <b>Premium</b> version of blocs ✨
             </span>
           )}
