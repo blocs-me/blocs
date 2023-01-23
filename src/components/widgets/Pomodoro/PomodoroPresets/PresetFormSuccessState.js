@@ -32,7 +32,8 @@ const PresetFormSuccessState = ({ formAction, preset, hideForm }) => {
         fontWeight="200"
         color="foreground"
       >
-        {create && `Awesome, ${preset?.label} was successfully created 🥳`}
+        {create &&
+          `Awesome, "${preset?.data?.label}" was successfully created 🥳`}
         {edit && `Awesome, the edit was successful! `}
       </Text>
       <Button
