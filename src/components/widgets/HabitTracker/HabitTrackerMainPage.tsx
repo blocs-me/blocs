@@ -20,6 +20,7 @@ import { getCurrentISOString } from '../../../utils/dateUtils/getCurrentISOStrin
 import useHabitStreakProgress from './hooks/useHabitStreakProgress'
 import CheckoboxesSkeleton from './CheckboxesSkeleton'
 import BorderedBox from './BorderedBox'
+import float from '@/keyframes/float'
 
 const formatDate = new Intl.DateTimeFormat('en', {
   day: 'numeric',
@@ -132,6 +133,34 @@ const HabitTrackerMainPage = ({ isAnalyticsHidden = false }) => {
                     key={d.id}
                   />
                 ))}
+                {!habits?.data?.length && (
+                  <>
+                    <Flex
+                      borderRadius="md"
+                      p="sm"
+                      bg="primary.accent-2"
+                      overflow="hidden"
+                      position="relative"
+                      boxShadow="default"
+                      css={{
+                        animation: `${float} 1s ease-in-out alternate infinite`
+                      }}
+                    >
+                      <Text variant="pSmall">
+                        When you add new habits, they will show up here
+                      </Text>
+                      <Box
+                        width="5px"
+                        height="100%"
+                        position="absolute"
+                        bg="success.dark"
+                        left="0"
+                        top="0"
+                      />
+                    </Flex>
+                    <CheckoboxesSkeleton isLoading />
+                  </>
+                )}
                 <Box />
               </Stack>
               <Box height="40px" />
@@ -150,8 +179,15 @@ const HabitTrackerMainPage = ({ isAnalyticsHidden = false }) => {
             </BorderedBox>
             <BorderedBox p="sm">
               <Text color="foreground" fontSize="xs" fontWeight={200} m={0}>
-                Your best streak is {analyticsData?.data?.bestStreak}{' '}
-                {analyticsData?.data?.bestStreak === 1 ? 'day' : 'days'}
+                Your best streak is{' '}
+                {analyticsData?.data?.bestStreak ||
+                  analyticsData?.data?.currentStreak ||
+                  0}{' '}
+                {(analyticsData?.data?.bestStreak ||
+                  analyticsData?.data?.currentStreak ||
+                  0) === 1
+                  ? 'day'
+                  : 'days'}
               </Text>
             </BorderedBox>
             <Box position="relative">
