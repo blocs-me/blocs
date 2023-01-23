@@ -3,7 +3,10 @@ import checkIfUserIsSubscribed from './checkIfUserIsSubscribed'
 import mailchimpSubscriptionStates from '@/constants/mailchimpSubscriptionStates'
 import { BlocsUserServer } from '../../global-types/blocs-user'
 
-const addUserToMailingList = async (user: BlocsUserServer['data']) => {
+const addUserToMailingList = async (
+  user: BlocsUserServer['data'],
+  isNew: boolean = false
+) => {
   const { email, name } = user || {}
 
   if (!email)
@@ -18,9 +21,10 @@ const addUserToMailingList = async (user: BlocsUserServer['data']) => {
     const [FNAME, LNAME] = [nameArr?.[0], nameArr?.slice(-1)?.[0]]
     const listId = process.env.MAILCHIMP_LIST_ID
 
-    const res = await mailchimp.lists.setListMember(listId, {
-      status: mailchimpSubscriptionStates.SUBSCRIBED,
-      status_if_new: mailchimpSubscriptionStates.SUBSCRIBED,
+    const res = await mailchimp.lists.addListMember(listId, {
+      ...(isNew
+        ? { status_if_new: mailchimpSubscriptionStates.SUBSCRIBED }
+        : { status: mailchimpSubscriptionStates.SUBSCRIBED }),
       email_address: email,
       merge_fields: {
         FNAME,
