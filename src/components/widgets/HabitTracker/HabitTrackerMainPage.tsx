@@ -21,6 +21,7 @@ import useHabitStreakProgress from './hooks/useHabitStreakProgress'
 import CheckoboxesSkeleton from './CheckboxesSkeleton'
 import BorderedBox from './BorderedBox'
 import float from '@/keyframes/float'
+import Link from 'next/link'
 
 const formatDate = new Intl.DateTimeFormat('en', {
   day: 'numeric',
@@ -87,6 +88,7 @@ const HabitTrackerMainPage = ({ isAnalyticsHidden = false }) => {
         <Flex
           flexDirection="column"
           minWidth="250px"
+          maxWidth="600px"
           justfyContent="center"
           ref={columnOne}
         >
@@ -135,29 +137,33 @@ const HabitTrackerMainPage = ({ isAnalyticsHidden = false }) => {
                 ))}
                 {!habits?.data?.length && (
                   <>
-                    <Flex
-                      borderRadius="md"
-                      p="sm"
-                      bg="primary.accent-2"
-                      overflow="hidden"
-                      position="relative"
-                      boxShadow="default"
-                      css={{
-                        animation: `${float} 1s ease-in-out alternate infinite`
-                      }}
-                    >
-                      <Text variant="pSmall">
-                        When you add new habits, they will show up here
-                      </Text>
-                      <Box
-                        width="5px"
-                        height="100%"
-                        position="absolute"
-                        bg="success.dark"
-                        left="0"
-                        top="0"
-                      />
-                    </Flex>
+                    <Link href="/habit-tracker/menu" passHref>
+                      <Flex
+                        as="a"
+                        borderRadius="md"
+                        p="sm"
+                        bg="primary.accent-2"
+                        overflow="hidden"
+                        position="relative"
+                        boxShadow="default"
+                        width="200px"
+                        css={{
+                          animation: `${float} 1s ease-in-out alternate infinite`
+                        }}
+                      >
+                        <Text variant="pSmall">
+                          When you add new habits, they will show up here
+                        </Text>
+                        <Box
+                          width="5px"
+                          height="100%"
+                          position="absolute"
+                          bg="success.dark"
+                          left="0"
+                          top="0"
+                        />
+                      </Flex>
+                    </Link>
                     <CheckoboxesSkeleton isLoading />
                   </>
                 )}
