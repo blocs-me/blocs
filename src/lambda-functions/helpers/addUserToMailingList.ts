@@ -20,6 +20,7 @@ const addUserToMailingList = async (user: BlocsUserServer['data']) => {
 
     const res = await mailchimp.lists.setListMember(listId, {
       status: mailchimpSubscriptionStates.SUBSCRIBED,
+      status_if_new: mailchimpSubscriptionStates.SUBSCRIBED,
       email_address: email,
       merge_fields: {
         FNAME,
