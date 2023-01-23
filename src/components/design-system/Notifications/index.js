@@ -2,12 +2,14 @@ import { useTheme } from '@emotion/react'
 import slideIn from 'src/styles/keyframes/slideIn'
 import Flex from '@/helpers/Flex'
 import Text from '@/design-system/Text'
+import themeGet from '@styled-system/theme-get'
 
 import useNotifications, {
   ERROR_NOTIF,
   INFO_NOTIF,
   SUCCESS_NOTIF
 } from './useNotifications'
+import styled from '@emotion/styled'
 
 const getNotifBgColor = (theme, notifType) => {
   switch (notifType) {
@@ -21,19 +23,27 @@ const getNotifBgColor = (theme, notifType) => {
   }
 }
 
+const NotifItemContainer = styled.div`
+  position: absolute;
+  animation: ${slideIn} 0.2s ease forwards;
+  z-index: ${themeGet('zIndices.notification')};
+
+  @media (min-width: 320px) {
+    top: 0;
+  }
+
+  @media (min-width: 768px) {
+    top: 0;
+    right: 0;
+  }
+`
+
 const NotifItem = ({ type, content = '', isLastItem }) => {
   const theme = useTheme()
   const bgColor = getNotifBgColor(theme, type)
 
   return (
-    <div
-      css={{
-        position: 'absolute',
-        top: 0,
-        animation: `${slideIn} 0.2s ease forwards`,
-        zIndex: theme.zIndices.notification
-      }}
-    >
+    <NotifItemContainer>
       <Flex
         borderRadius="lg"
         boxShadow="lg"
@@ -65,7 +75,7 @@ const NotifItem = ({ type, content = '', isLastItem }) => {
           {content}
         </Text>
       </Flex>
-    </div>
+    </NotifItemContainer>
   )
 }
 
@@ -76,12 +86,12 @@ const NotifContainer = (props) => {
   return (
     <Flex
       position="absolute"
-      pd="md"
-      top="0"
+      top={0}
       left="50%"
       width="100%"
-      justifyContent="center"
+      justifyContent={['center', 'center', , 'end']}
       p="sm"
+      pt={['sm', 'sm', , 0]}
       css={{
         transform: 'translate(-50%)',
         display: notifs.length ? 'flex' : 'none'
