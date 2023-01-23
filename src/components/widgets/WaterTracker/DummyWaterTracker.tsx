@@ -4,17 +4,17 @@ import CaretButton from '@/design-system/CaretButton'
 import TweenNum from './TweenNum'
 import Text from '@/design-system/Text'
 import Box from '@/helpers/Box'
+import { IBox } from '@/helpers/Box/Box.types'
 
 type Props = {
   goal?: number
   progress?: number
 }
 
-const DummyWaterTracker = ({ goal, progress = 0 }) => {
+const DummyWaterTracker = ({ goal, progress = 0, ...rest }: Props & IBox) => {
   return (
     <Flex
-      width="100%"
-      minWidth="300px"
+      width="400px"
       bg="background"
       boxShadow="default"
       css={{ aspectRatio: '0.85' }}
@@ -22,6 +22,7 @@ const DummyWaterTracker = ({ goal, progress = 0 }) => {
       p="sm"
       position="relative"
       flexDirection="column"
+      {...rest}
     >
       <Flex mb="sm" width="100%" alignItems="center">
         <Flex>
