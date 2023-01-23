@@ -1,7 +1,7 @@
 import faunaClient from '@/lambda/faunaClient'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { query as q } from 'faunadb'
-import { calculateAndUpdateStreak } from './calculateAndUpdateStreak'
+import { calculateStreak, handleUpdate } from './calculateAndUpdateStreak'
 
 const getHabitTrackerAnalytics = async (
   req: NextApiRequest,
@@ -86,7 +86,8 @@ const getHabitTrackerAnalytics = async (
       throw error
     }
 
-    const streaks = await calculateAndUpdateStreak(0, widget, isoDateString)
+    const newStreaks = await calculateStreak(0, widget, isoDateString)
+    const streaks = await handleUpdate(newStreaks, widget)
 
     res.status(200).json({
       status: 200,

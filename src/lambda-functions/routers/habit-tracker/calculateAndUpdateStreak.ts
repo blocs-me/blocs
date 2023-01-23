@@ -3,17 +3,45 @@ import { query as q } from 'faunadb'
 import { IHabitTrackerWidget } from '../../../global-types/habit-tracker'
 import { getCurrentISOString } from '../../../utils/dateUtils/getCurrentISOString'
 
-export const calculateAndUpdateStreak = async (
+export const handleUpdate = async (
+  newData: Partial<IHabitTrackerWidget['data']>,
+  widget: IHabitTrackerWidget
+) => {
+  if (!widget && newData) {
+    return {
+      data: {
+        bestStreak: widget.data.bestStreak,
+        currentStreak: widget.data.currentStreak,
+        currentStreakUpdatedAt: widget.data.currentStreakUpdatedAt
+      }
+    }
+  }
+
+  try {
+    const updated = await faunaClient.query(
+      q.Update(widget.ref, {
+        data: { ...newData } // ⚠️ need to destructure otherwise data will not save
+      })
+    )
+
+    return updated as IHabitTrackerWidget
+  } catch (error) {
+    console.error(error)
+    return null
+  }
+}
+
+export const calculateStreak = async (
   percentDone: number,
   widget: IHabitTrackerWidget,
   isoDateString: string
-) => {
+): Promise<Partial<IHabitTrackerWidget['data']> | null> => {
   const bestStreak = widget.data.bestStreak
   const currentStreak = widget.data.currentStreak
   const currentStreakUpdatedAt = widget.data.currentStreakUpdatedAt
 
   if (currentStreak === 0 && bestStreak === 0 && percentDone !== 100)
-    return widget
+    return widget?.data
 
   const yesterdayISOStr = (() => {
     const yesterday = new Date(isoDateString)
@@ -21,33 +49,11 @@ export const calculateAndUpdateStreak = async (
     return getCurrentISOString(yesterday)
   })()
 
-  const handleUpdate = async (newData: {
-    currentStreak: number
-    bestStreak?: number
-    currentStreakUpdatedAt?: string
-    bestStreakUpdatedAt?: string
-  }) => {
-    try {
-      const updated = await faunaClient.query(
-        q.Update(widget.ref, {
-          data: {
-            ...newData
-          }
-        })
-      )
-
-      return updated as IHabitTrackerWidget
-    } catch (error) {
-      console.error(error)
-      return null
-    }
-  }
-
   if (percentDone < 100 && currentStreakUpdatedAt === isoDateString) {
-    return await handleUpdate({
-      currentStreak: currentStreak > 0 ? currentStreak - 1 : 0,
+    return {
+      currentStreak: Math.max(0, currentStreak > 0 ? currentStreak - 1 : 0),
       currentStreakUpdatedAt: yesterdayISOStr // prevents subtraction more than one time
-    })
+    }
   }
 
   if (
@@ -60,28 +66,28 @@ export const calculateAndUpdateStreak = async (
     const newBestStreak =
       currentStreak > bestStreak ? currentStreak : bestStreak
 
-    return await handleUpdate({
+    return {
       currentStreak: 0,
       bestStreak: newBestStreak,
       bestStreakUpdatedAt: isoDateString,
       currentStreakUpdatedAt: isoDateString
-    })
+    }
   }
 
   if (percentDone === 0 && currentStreakUpdatedAt !== yesterdayISOStr) {
     // when user breaks current streak <- happens on get request
-    return await handleUpdate({
+    return {
       currentStreak: 0,
       currentStreakUpdatedAt: isoDateString
-    })
+    }
   }
 
   if (percentDone === 100 && isoDateString !== currentStreakUpdatedAt) {
-    return await handleUpdate({
+    return {
       currentStreak: currentStreak + 1,
       currentStreakUpdatedAt: isoDateString
-    })
+    }
   }
 
-  return widget
+  return null
 }

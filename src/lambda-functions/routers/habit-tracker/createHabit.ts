@@ -40,7 +40,11 @@ const createHabit = async (req: NextApiRequest, res: NextApiResponse) => {
     return null
   }
 
-  const hasPermission = await canPerformAction(widget.data.userId, 'habitTracker', res)
+  const hasPermission = await canPerformAction(
+    widget.data.userId,
+    'habitTracker',
+    res
+  )
   if (!hasPermission) return null
 
   const yesterdayISOStr = (() => {
@@ -52,12 +56,12 @@ const createHabit = async (req: NextApiRequest, res: NextApiResponse) => {
   // reset streak + date so it can be updated again
   const currentStreak =
     isoDateString === widget.data.currentStreakUpdatedAt
-      ? widget.data.currentStreak - 1
+      ? Math.max(0, widget.data.currentStreak - 1)
       : widget.data.currentStreak
   const currentStreakUpdatedAt =
     isoDateString === widget.data.currentStreakUpdatedAt
       ? yesterdayISOStr
-      : widget.data.currentStreak
+      : widget.data.currentStreakUpdatedAt
 
   const prevHabits = widget?.data?.habits || []
 

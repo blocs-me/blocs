@@ -2,7 +2,7 @@ import faunaClient from '@/lambda/faunaClient'
 import { validateHabitTrackerAnalytics } from '@/lambda/lib/restValidator/jsonValidator'
 import { query as q, query } from 'faunadb'
 import { getPercent } from '../../../utils/math/getPercent'
-import { calculateAndUpdateStreak } from './calculateAndUpdateStreak'
+import { calculateStreak, handleUpdate } from './calculateAndUpdateStreak'
 import canPerformAction from '../../helpers/faunadb/canPerformAction'
 
 const saveHabitTrackerAnalytics = async (req, res) => {
@@ -86,7 +86,7 @@ const saveHabitTrackerAnalytics = async (req, res) => {
 
     const habitsDone = habitIds
 
-    const streaks = await calculateAndUpdateStreak(
+    const updatedStreaks = await calculateStreak(
       percentDone,
       widget,
       isoDateString
@@ -96,6 +96,8 @@ const saveHabitTrackerAnalytics = async (req, res) => {
         console.error(error)
         return widget
       })
+
+    const streaks = await handleUpdate(updatedStreaks, widget)
 
     const updatedData = await faunaClient
       .query(
