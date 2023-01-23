@@ -99,12 +99,13 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             data: {
               email: data?.user?.email,
               supabaseUserId: data?.user?.id,
-              freeTrialStartedAt: new Date().toISOString()
+              freeTrialStartedAt: new Date().toISOString(),
+              isSubsribed: true
             }
           })
         )) as BlocsUserServer
 
-        await addUserToMailingList(blocsUser?.data)
+        await addUserToMailingList(blocsUser?.data, true)
       }
 
       if (blocsUserByEmail || blocsUserById) {
