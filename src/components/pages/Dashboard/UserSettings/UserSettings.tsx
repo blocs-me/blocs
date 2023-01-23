@@ -69,7 +69,6 @@ const UserSettings = () => {
   const blocsUser = useBlocsUser()
   const notif = useNotifications()
   const router = useRouter()
-  const supabase = useSupabaseClient()
 
   const [avatarUrl, setAvatarUrl] = useState(blocsUser?.user?.data?.avatar_url)
   const [name, setName] = useState('')
@@ -189,9 +188,13 @@ const UserSettings = () => {
 
   return (
     <>
-      <Flex size="100%" p="md" css={{ gap: '8rem' }}>
-        <Flex flex="1" flexDirection="column">
-          {/* <form> */}
+      <Flex
+        size="100%"
+        p="md"
+        gap={['lg', , , , , , '8rem']}
+        flexDirection={['column-reverse', , , , 'row']}
+      >
+        <Flex flex={['auto', , , , '1']} flexDirection="column">
           <Text
             as="h2"
             fontSize="md"
@@ -247,11 +250,6 @@ const UserSettings = () => {
               saveName(e.target.value)
             }}
           />
-          {/* <Box mt="md" /> */}
-          {/* <Button variant="success" width="100%">
-            Save Personal Information
-          </Button> */}
-          {/* </form> */}
           <Text
             as="h3"
             fontSize="sm"

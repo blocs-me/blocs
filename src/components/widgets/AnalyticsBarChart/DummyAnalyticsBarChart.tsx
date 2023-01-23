@@ -26,9 +26,8 @@ const DummyAnalyticsBarChart = ({ units, ...rest }) => {
       borderRadius="md"
       boxShadow="default"
       flexDirection="column"
-      p="sm"
+      p={'sm'}
       {...rest}
-      css={{ aspectRatio: '1.25' }}
     >
       <Flex
         justifyContent="space-between"

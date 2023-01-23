@@ -62,7 +62,7 @@ const DummyHabitTracker = ({
   const isSystemDM = useDarkMode()
   const isDarkMode =
     (colorMode === 'auto' && isSystemDM) || colorMode === 'dark'
-  const isSmallScreen = useMediaQuery('(max-width: 600px)')
+  const isSmallScreen = useMediaQuery('(max-width: 1000px)')
   const donutProgress = useHabitStreakProgress(analyticsData)
   const scrollContainer = useRef<HTMLDivElement>(null)
   const columnOne = useRef<HTMLDivElement>(null)
@@ -97,7 +97,7 @@ const DummyHabitTracker = ({
 
   return (
     <Flex
-      width={'550px'}
+      width={isSmallScreen ? 'auto' : '550px'}
       height={'470px'}
       bg="background"
       boxShadow="default"

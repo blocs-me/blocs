@@ -66,6 +66,8 @@ const PomodoroDashboard = () => {
           alignItems="start"
           justifyContent="start"
           p="md"
+          gap={['lg', 'lg', , , , , 'md']}
+          flexWrap="wrap"
         >
           <WidgetLinkWrapper
             isLoading={isLoading}
@@ -73,9 +75,12 @@ const PomodoroDashboard = () => {
           >
             <DummyPomodoro />
           </WidgetLinkWrapper>
-          <Box pl="lg" />
           <WidgetLinkWrapper isLoading={isLoading} onClick={() => copyChart()}>
-            <AnalyticsBarChart units="hr" height="400px" />
+            <AnalyticsBarChart
+              units="hr"
+              height={['350px', '350px', , '350px', , '400px']}
+              width={['300px', '350px', , '350px', , '500px']}
+            />
           </WidgetLinkWrapper>
         </Flex>
         <Flex width="100%">

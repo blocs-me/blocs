@@ -16,6 +16,7 @@ import { useFetchHabits } from '../../../widgets/HabitTracker/hooks/useFetchHabi
 import useFetchHabitsAnalytics from '../../../widgets/HabitTracker/hooks/useFetchHabitsAnalytics'
 import Skeleton from '@/helpers/Skeleton'
 import useBlocsUser from '@/hooks/useBlocsUser'
+import { useMediaQuery } from 'beautiful-react-hooks'
 
 const dummyAnalyticsData = {
   data: {
@@ -100,6 +101,7 @@ const HabitTrackerDashboard = () => {
     'HABIT_TRACKER',
     ownsHabitTracker
   )
+  const isSmallScreen = useMediaQuery('(max-width: 1000px')
 
   const handleCopy = () => {
     if (token) {
@@ -118,22 +120,29 @@ const HabitTrackerDashboard = () => {
         role: 'blocs-user'
       }}
     >
-      <Flex width="100%" height="100%" flexWrap="wrap">
-        <Box p="md">
+      <Flex
+        width="100%"
+        flexWrap="wrap"
+        flexDirection={['column-reverse', , , , , 'row']}
+        alignItems={'start'}
+        pb="md"
+      >
+        <Box pl="md" pt="md">
           <WidgetLinkWrapper onClick={handleCopy} isLoading={isLoading}>
             <HabitTrackerWidget />
           </WidgetLinkWrapper>
         </Box>
-        <Box pr="sm" />
         <Flex
           p="md"
-          flexDirection="column"
-          width="300px"
+          flexDirection={'column'}
+          width={['100%', , , '330px', '550px', '300px']}
           height="fit-content"
           bg="background"
           border="solid 1px"
           borderColor="primary.accent-1"
-          m="md"
+          ml="md"
+          mt="md"
+          mr="md"
           borderRadius="md"
           boxShadow="sm"
         >

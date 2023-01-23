@@ -1,4 +1,5 @@
 import Box from '@/helpers/Box'
+import { IBox } from '@/helpers/Box/Box.types'
 import Flex from '@/helpers/Flex'
 import { Play } from 'src/icons/play'
 import { Refresh } from 'src/icons/refresh'
@@ -6,7 +7,7 @@ import CircleButton from '../PomodoroMainPage/CircleButton'
 import Timer from '../Timer'
 import { PomodoroProvider } from '../usePomodoroStore'
 
-const DummyPomodoro = () => {
+const DummyPomodoro = (props: IBox) => {
   return (
     <PomodoroProvider>
       <Box
@@ -17,6 +18,7 @@ const DummyPomodoro = () => {
         borderRadius="lg"
         p="sm"
         position="relative"
+        {...props}
       >
         <Flex
           width="100%"

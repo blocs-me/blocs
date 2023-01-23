@@ -17,6 +17,12 @@ import { useSessionContext, useUser } from '@supabase/auth-helpers-react'
 import Loader from '@/design-system/Loader'
 import Text from '@/design-system/Text'
 import DashboardSkeleton from './DashboardSkeleton'
+import useMediaQuery from '@/hooks/useMediaQuery'
+import float from '@/keyframes/float'
+import Nav from '@/design-system/Nav'
+import Button from '@/design-system/Button'
+import Home from 'src/icons/home'
+import Link from 'next/link'
 
 const LoadingScreen = () => {
   return (
@@ -36,6 +42,7 @@ const Dashboard = () => {
   const { path } = router.query
   const user = useUser()
   const session = useSessionContext()
+  const isSmallScreen = useMediaQuery('(min-width: 768px)')
 
   useEffect(() => {
     if (user?.aud !== 'authenticated' && !session.isLoading) {
@@ -47,6 +54,62 @@ const Dashboard = () => {
     return <DashboardSkeleton />
   }
 
+  if (!isSmallScreen) {
+    return (
+      <>
+        <Flex
+          display={'block'}
+          bg="background"
+          width="100vw"
+          height="100%"
+          flexDirection={'column'}
+        >
+          <Flex height="100vh" pt="80px" flexDirection={'column'} px="md">
+            <Nav />
+
+            <Box
+              width="min(100%, 600px)"
+              height="fit-content"
+              boxShadow="lg"
+              p="md"
+              m="auto"
+              borderRadius="lg"
+              css={{
+                animation: `${float} 1s ease-in-out alternate infinite`,
+                textAlign: 'center'
+              }}
+              borderLeft="solid 10px"
+              borderColor="danger.medium"
+            >
+              <Text
+                as="h1"
+                fontWeight={400}
+                color="foreground"
+                textAlign={'center'}
+                fontSize={['md', , 'lg', 'xl']}
+                mb={0}
+              >
+                This Dashboard is only available on desktop and tablet.
+              </Text>
+              <Box mt="md" />
+              <Link href="/" passHref>
+                <Button
+                  as="a"
+                  variant="success"
+                  color="neutral.white"
+                  icon={<Home />}
+                >
+                  Back Home
+                </Button>
+              </Link>
+            </Box>
+          </Flex>
+          <Footer />
+        </Flex>
+      </>
+    )
+  }
+
   return (
     <>
       <DashboardNav />
@@ -55,7 +118,7 @@ const Dashboard = () => {
         <Sidebar />
 
         <Box width="100%" bg="background" position="relative">
-          <Notifications mt="80px">
+          <Notifications mt="md">
             <WidgetAuthProvider>
               <PomodoroProvider>
                 {path === 'pomodoro' && <PomodoroDashboard />}
@@ -69,10 +132,6 @@ const Dashboard = () => {
               {path === 'guide' && <Guide />}
             </Suspense>
           </Notifications>
-
-          {/* {!user?.isPremiumUser && <PremiumOverlay />}
-            TODO: uncomment + add stripe integration
-          */}
         </Box>
       </Flex>
       <Box width="100%">

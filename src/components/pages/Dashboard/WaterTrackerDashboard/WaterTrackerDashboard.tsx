@@ -88,8 +88,17 @@ const WaterTrackerDashboard = () => {
 
   return (
     <>
-      <Flex width="100%" height="100%" flexDirection="column">
-        <Flex p="md">
+      <Flex
+        width="100%"
+        height="100%"
+        flexDirection={['column-reverse', , , , , 'column']}
+      >
+        <Flex
+          p="md"
+          gap="md"
+          // flexDirection={['column', , , , 'row']}
+          flexWrap="wrap"
+        >
           <WidgetLinkWrapper
             isLoading={!token}
             onClick={() => {
@@ -100,10 +109,12 @@ const WaterTrackerDashboard = () => {
             }}
           >
             <Flex>
-              <DummyWaterTracker goal={settings?.data?.goal || 2} />
+              <DummyWaterTracker
+                goal={settings?.data?.goal || 2}
+                width={['300px', , , '350px', '400px']}
+              />
             </Flex>
           </WidgetLinkWrapper>
-          <Flex mr="md" />
           <WidgetLinkWrapper
             isLoading={!token}
             onClick={() => {
@@ -113,14 +124,19 @@ const WaterTrackerDashboard = () => {
               setOpenClipboardModal(true)
             }}
           >
-            <DummyAnalyticsBarChart units="L" />
+            <DummyAnalyticsBarChart
+              width={['350px', , , , '400px', '450px']}
+              height={['370px', , , , '400px', '470px']}
+              units="L"
+            />
           </WidgetLinkWrapper>
         </Flex>
 
         <Box
           width="100%"
           p="md"
-          borderTop="solid 1px"
+          borderTop={'solid 1px'}
+          // borderBottom={['solid 1px', 'solid 1px', , , , 'none']}
           borderColor="primary.accent-2"
         >
           <Flex

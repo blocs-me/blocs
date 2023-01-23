@@ -62,9 +62,15 @@ const PresetsSection = ({ token }) => {
       p="md"
       width="100%"
       borderTop="solid 1px"
-      borderColor="primary.accent-1"
+      borderColor="primary.accent-2"
+      gap="md"
+      flexDirection={['column', , , , , 'row']}
     >
-      <Flex flexDirection="column" alignItems="start" width="400px" mr="md">
+      <Flex
+        flexDirection="column"
+        alignItems="start"
+        width={['100%', , , , , '400px']}
+      >
         <Button
           px="sm"
           py="xs"
@@ -88,7 +94,7 @@ const PresetsSection = ({ token }) => {
         <Text variant="pSmall" width="100%">
           Create Pomodoro presets to track how you spend time on different
           tasks.
-          <br /> 
+          <br />
           <br />
           Once created, you can select them inside the pomodoro widget and we’ll
           log how much time is spent on each preset.

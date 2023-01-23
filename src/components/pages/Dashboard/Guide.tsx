@@ -54,7 +54,7 @@ const Details = ({ children }) => {
 
 const Guide = () => {
   return (
-    <Flex flexDirection="column" p="md" width="70%">
+    <Flex flexDirection="column" p="md" width={['100%', , , , , '70%']}>
       <div>
         <Text
           as="h2"
