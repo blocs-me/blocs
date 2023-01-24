@@ -24,7 +24,9 @@ const Tooltip = ({ value, timePeriod, date }: TooltipData) => {
             {formatTooltipDate(new Date(date))}
           </Text>
         )}
-        <div>{value} Liters</div>
+        <div>
+          {value} {value === 1 ? 'Liter' : 'Liters'}
+        </div>
       </Flex>
     </Box>
   )
