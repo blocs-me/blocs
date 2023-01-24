@@ -8,59 +8,23 @@ import { lazy } from 'react'
 import usePomodoroAuth from './usePomodoroAuth'
 import useUrlHash from '@/hooks/useUrlHash'
 import { UrlHash } from '../WaterTracker/types'
+import getAnalyticsBarChartDefaultValue from '../AnalyticsBarChart/useAnalyticsBarChartDefaultValue'
+import useAnalyticsBarChartDefaultValue from '../AnalyticsBarChart/useAnalyticsBarChartDefaultValue'
 
-const PremiumOverlay = lazy(() => import('@/pages/Dashboard/PremiumOverlay'))
 const renderTooltip = (d) => <Tooltip {...d} />
 
 const PomodoroAnalyticsBarChart = () => {
+  usePomodoroPresets() // fetches presets to display on the tooltip
   const { data: analytics } = usePomodoroAnalytics()
-  const { page } = useAnalyticsBarChartStore()
-  usePomodoroPresets()
   const { auth } = usePomodoroAuth()
   const { role } = useUrlHash<UrlHash>()
   const showPremiumOverlay = auth && !auth?.isPremium && role === 'friend'
-
-  const getFallback = () => {
-    const from = new Date()
-    const to = new Date()
-
-    from.setDate(from.getDate() - from.getDay() + 1)
-    from.setDate(from.getDate() + page * 7)
-
-    from.setDate(from.getDate() - from.getDay() + 1)
-    to.setDate(to.getDate() + (page + 1) * 7 - 2)
-
-    const result = [
-      {
-        id: 1,
-        date: getCurrentISOString(from),
-        value: 0
-      },
-      {
-        id: 2,
-        date: getCurrentISOString(to),
-        value: 0
-      }
-    ]
-
-    if (analytics?.length === 1) {
-      const date = analytics[0].date
-      const index = result.findIndex((d) => d.date === date)
-
-      if (index > -1) {
-        result.splice(index, 1, analytics[0])
-      } else {
-        result.splice(1, 0, analytics[0])
-      }
-    }
-
-    return result
-  }
+  const fallback = useAnalyticsBarChartDefaultValue()
 
   return (
     <AnalyticsBarChart
       isOverlayEscapable
-      data={analytics?.length > 1 ? analytics : getFallback()}
+      data={analytics?.length > 1 ? analytics : fallback}
       mainPage="/bar-chart/pomodoro"
       menuPage="/bar-chart/pomodoro/menu"
       units="hr"

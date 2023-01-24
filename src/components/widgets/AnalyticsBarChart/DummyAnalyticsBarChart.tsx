@@ -5,20 +5,41 @@ import getMonthStr from '@/utils/dateUtils/getMonthStr'
 import WidgetMenuButton from '@/design-system/WidgetMenuButton'
 import Box from '@/helpers/Box'
 import BarChart from '@/design-system/BarChart'
-import { useRef } from 'react'
+import { useMemo, useRef, ComponentType } from 'react'
 import { useResizeObserver } from 'beautiful-react-hooks'
+import useAnalyticsBarChartDefaultValue from './useAnalyticsBarChartDefaultValue'
+import useDidMount from '@/hooks/useDidMount'
+import { AnalyticsBarChartProvider } from './useAnalyticsBarChart'
+import { IBox } from '@/helpers/Box/Box.types'
 
-const data = Array(7)
-  .fill('-')
-  .map((_, id) => ({
-    id,
-    value: Math.max(1, Math.floor(Math.random() * 10)),
-    date: new Date(2023, 1, 1 + id).toISOString()
-  }))
+type Props = {
+  units: string
+} & IBox
 
-const DummyAnalyticsBarChart = ({ units, ...rest }) => {
+const DummyAnalyticsBarChart = ({ units, ...rest }: Props) => {
+  const fallback = useAnalyticsBarChartDefaultValue()
   const container = useRef()
   const { width, height } = useResizeObserver(container) || {}
+  const mounted = useDidMount()
+
+  const defaultData = useMemo(() => {
+    let result = []
+    let date = new Date(fallback[0].date)
+
+    for (let i = 0; i < 7; i++) {
+      result.push({
+        id: i,
+        date: date,
+        value: Math.round(Math.random() * 4 + 1)
+      })
+
+      date = new Date(date.getTime() + 1000 * 60 * 60 * 24)
+    }
+
+    return result
+  }, [mounted])
+
+  console.log('fb', fallback)
 
   return (
     <Flex
@@ -54,7 +75,7 @@ const DummyAnalyticsBarChart = ({ units, ...rest }) => {
         ref={container}
       >
         <BarChart
-          data={data}
+          data={defaultData}
           width={width}
           height={height}
           minY={5}
@@ -66,4 +87,14 @@ const DummyAnalyticsBarChart = ({ units, ...rest }) => {
   )
 }
 
-export default DummyAnalyticsBarChart
+const withProvider = (Component: ComponentType<Props>) => {
+  return (props: Props) => {
+    return (
+      <AnalyticsBarChartProvider>
+        <Component {...props} />
+      </AnalyticsBarChartProvider>
+    )
+  }
+}
+
+export default withProvider(DummyAnalyticsBarChart)

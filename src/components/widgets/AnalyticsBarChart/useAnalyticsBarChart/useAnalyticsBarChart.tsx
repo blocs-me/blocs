@@ -2,9 +2,10 @@ import makeStore from '@/utils/makeStore'
 import { BarChartProps } from '../../../design-system/BarChart/types'
 import { AnalyticsActions } from './types'
 import { Dispatch } from 'react'
+import storage from '@/utils/storage'
 
 const initialState = {
-  timePeriod: 'weekly',
+  timePeriod: storage.getItem('SET_TIME_FORMAT') || 'weekly',
   page: 0,
   dateRange: null
 } as State
@@ -21,6 +22,7 @@ type State = {
 const reducer = (state: State, action: AnalyticsActions) => {
   switch (action.type) {
     case 'SET_TIME_FORMAT':
+      storage.setItem('SET_TIME_FORMAT', action.payload)
       return {
         ...state,
         timePeriod: action.payload
