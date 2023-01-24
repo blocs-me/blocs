@@ -21,7 +21,7 @@ const addUserToMailingList = async (
     const [FNAME, LNAME] = [nameArr?.[0], nameArr?.slice(-1)?.[0]]
     const listId = process.env.MAILCHIMP_LIST_ID
 
-    const res = await mailchimp.lists.addListMember(listId, {
+    const res = await mailchimp.lists.setListMember(listId, {
       ...(isNew
         ? { status_if_new: mailchimpSubscriptionStates.SUBSCRIBED }
         : { status: mailchimpSubscriptionStates.SUBSCRIBED }),
