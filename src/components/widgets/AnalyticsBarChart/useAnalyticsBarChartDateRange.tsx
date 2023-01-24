@@ -44,12 +44,13 @@ const useAnalyticsBarChartDateRange = () => {
     if (timePeriod === 'monthly') {
       const [year, month] = getYearMonthDate(from)
 
-      from = new Date(year, month, 1)
-      to = new Date(year, month + 1, 0)
+      from = new Date(year, month + page, 1)
+      to = new Date(year, month + page + 1, 0)
     }
 
     return [getCurrentISOString(from), getCurrentISOString(to)]
   })()
+  console.log({ range })
 
   return range
 }

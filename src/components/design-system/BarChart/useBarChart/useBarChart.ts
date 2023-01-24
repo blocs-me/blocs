@@ -67,7 +67,11 @@ const formatData = (
   const count = timePeriod === 'weekly' ? 7 : numberOfDaysInMonth
   const startDate = new Date(firstDate)
 
-  startDate.setDate(getMonday(startDate))
+  if (timePeriod === 'weekly') {
+    startDate.setDate(getMonday(startDate))
+  } else {
+    startDate.setDate(1)
+  }
 
   const month = startDate.getMonth()
   const year = startDate.getFullYear()
@@ -99,6 +103,7 @@ const formatData = (
     result = sortedData
   }
 
+  console.log('result', result)
   return result
 }
 
