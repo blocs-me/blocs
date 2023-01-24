@@ -56,7 +56,8 @@ const initialState = {
 
 const [PomodoroProvider, usePomodoroStore, usePomodoroDispatch] = makeStore({
   initialState,
-  reducer: pomodoroReducer
+  reducer: pomodoroReducer,
+  displayName: 'PomodoroProvider'
 })
 
 export { PomodoroProvider, usePomodoroStore, usePomodoroDispatch, initialState }

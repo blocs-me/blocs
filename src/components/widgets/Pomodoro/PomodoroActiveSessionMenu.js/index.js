@@ -119,7 +119,8 @@ const PresetButtonContent = ({ label, interval, iconWidth, hideInterval }) => (
 const PomodoroActiveSessionMenu = () => {
   const {
     activeSessionMenu,
-    preferences: { startLongBreakAfter, sessionCount, autoStartBreak },
+    sessionCount,
+    preferences: { startLongBreakAfter, autoStartBreak },
     session: { startedAt },
     currentPreset: {
       longBreakInterval,
@@ -155,26 +156,22 @@ const PomodoroActiveSessionMenu = () => {
   const startLongBreak = (e) => {
     e?.stopPropagation()
     e?.preventDefault()
-    resetSessions()
     dispatch(setPomodoroPresetMode(POMODORO_LONG_BREAK_MODE))
     startSession()
   }
 
   const startShortBreak = (e) => {
-    resetSessions()
     dispatch(setPomodoroPresetMode(POMODORO_SHORT_BREAK_MODE))
     startSession()
   }
 
   const startPomodoroInterval = () => {
-    resetSessions()
     dispatch(setPomodoroPresetMode(POMODORO_INTERVAL_MODE))
     startSession()
   }
 
   const stopSession = (e) => {
     e?.stopPropagation()
-    resetSessions()
     dispatch(setStartedAt(null))
   }
 
@@ -201,7 +198,7 @@ const PomodoroActiveSessionMenu = () => {
                 textAlign="center"
                 m="auto"
               >
-                {(sessionCount || 0) + 1} / {startLongBreakAfter}{' '}
+                {sessionCount || 0} / {startLongBreakAfter}{' '}
                 <Box as="span" ml="xs" />
                 Pomodoros
               </Text>

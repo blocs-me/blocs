@@ -67,11 +67,10 @@ const useTimer = () => {
   const saveAnalytics = useSavePomodoroAnalytics()
 
   const startTimer = useCallback(() => {
-    const startedAt = Date.now()
+    const newStartedAt = Date.now()
     const documentTimelineStart = document.timeline.currentTime
-
     pomodoroDispatch(setDocumentTimelineStart(documentTimelineStart))
-    pomodoroDispatch(setStartedAt(startedAt))
+    pomodoroDispatch(setStartedAt(newStartedAt))
   }, [pomodoroDispatch])
 
   const startLongBreak = useCallback(() => {
@@ -91,38 +90,43 @@ const useTimer = () => {
 
   const handleAutoPlay = useCallback(() => {
     const isInterval = presetMode === POMODORO_INTERVAL_MODE
-
-    const shouldAutoPlayBreak = autoStartBreak && isInterval
-
-    const shouldAutoPlayShortBreak =
-      shouldAutoPlayBreak &&
-      sessionCount < startLongBreakAfter - 1 &&
-      !!shortBreakInterval
-
-    const shouldAutoPlayLongBreak =
-      shouldAutoPlayBreak &&
-      sessionCount === startLongBreakAfter - 1 &&
-      !!longBreakInterval
-
     const isShortBreak = POMODORO_SHORT_BREAK_MODE === presetMode
     const isLongBreak = POMODORO_LONG_BREAK_MODE === presetMode
 
-    if (shouldAutoPlayShortBreak) startShortBreak()
-    if (shouldAutoPlayLongBreak) startLongBreak()
-    if (sessionCount < startLongBreakAfter - 1)
-      pomodoroDispatch(setPomodoroSessionCount(sessionCount + 1))
-    if (
-      isShortBreak &&
-      autoStartPomodoro &&
-      sessionCount < startLongBreakAfter - 1
-    )
+    const shouldAutoPlayBreak = autoStartBreak && isInterval
+    const longBreakAfter = Number(startLongBreakAfter) || 0
+    const nextCount = sessionCount + 1
+
+    const shouldAutoPlayShortBreak =
+      shouldAutoPlayBreak &&
+      nextCount < longBreakAfter &&
+      !!shortBreakInterval &&
+      !isShortBreak
+
+    const shouldAutoPlayLongBreak =
+      shouldAutoPlayBreak &&
+      nextCount === longBreakAfter &&
+      !!longBreakInterval &&
+      !isLongBreak
+
+    if (shouldAutoPlayShortBreak) {
+      startShortBreak()
+    }
+    if (shouldAutoPlayLongBreak) {
+      console.log('start long break')
+      startLongBreak()
+    }
+
+    if (shouldAutoPlayBreak && longBreakInterval) {
+      pomodoroDispatch(setPomodoroSessionCount(nextCount))
+    }
+
+    if (isShortBreak && autoStartPomodoro && sessionCount <= longBreakAfter) {
       startPomodoroInterval()
-    if (
-      isLongBreak &&
-      sessionCount === startLongBreakAfter - 1 &&
-      autoStartPomodoro
-    ) {
-      pomodoroDispatch(resetPomodoroSession())
+    }
+
+    if (isLongBreak && nextCount >= longBreakAfter && autoStartPomodoro) {
+      // pomodoroDispatch(resetPomodoroSession())
       pomodoroDispatch(showPomodoroActiveSessionMenu(true))
     }
   }, [
@@ -145,21 +149,26 @@ const useTimer = () => {
     chime.play()
   }
 
-  const handleDataPersistence = () => {
+  const handleDataPersistence = async () => {
     if (presetMode === POMODORO_INTERVAL_MODE) {
-      saveAnalytics({
+      await saveAnalytics({
         presetId,
         startedAt,
         endedAt: Date.now(),
-        timeSpent: Date.now() - startedAt,
+        timeSpent: Math.min(Date.now() - startedAt, pomodoroInterval),
         isoDateString: getCurrentISOString()
       })
     }
   }
 
-  const handleTimerComplete = () => {
-    handleDataPersistence()
+  const handleTimerComplete = async () => {
+    setProgressInMilliseconds(interval)
+    pomodoroDispatch(setStartedAt(null))
+    pomodoroDispatch(setPausedAt(null))
+    storage.setItem(SET_PAUSED_AT, '')
+    await handleDataPersistence()
     playChime()
+    clearTimeout(timerTimeout.current)
     handleAutoPlay()
   }
 
@@ -169,7 +178,6 @@ const useTimer = () => {
 
     if (percentElapsed >= 100) {
       pomodoroDispatch(setStartedAt(null))
-      pomodoroDispatch(resetPomodoroSession())
       return null
     }
 
@@ -186,10 +194,7 @@ const useTimer = () => {
 
     if (elapsedTimePercent >= 100) {
       controller.current?.abort()
-      setProgressInMilliseconds(interval)
-      pomodoroDispatch(setStartedAt(null))
-      pomodoroDispatch(setPausedAt(null))
-      setTimeout(() => handleTimerComplete(), 0)
+      handleTimerComplete()
       return null
     }
 
@@ -214,6 +219,10 @@ const useTimer = () => {
   }
 
   const initTimer = () => {
+    if (sessionCount === Number(startLongBreakAfter)) {
+      pomodoroDispatch(setPomodoroSessionCount(0))
+    }
+
     controller.current = new AbortController()
     scheduleFrame(documentTimelineStart)
   }
@@ -226,9 +235,8 @@ const useTimer = () => {
 
       if (prevPercentProgress >= 100) {
         pomodoroDispatch(setStartedAt(null))
-        pomodoroDispatch(resetPomodoroSession())
         notifs.createInfo('Previous session was completed ✅')
-        handleAutoPlay()
+        handleTimerComplete()
         return null
       }
 
@@ -260,9 +268,7 @@ const useTimer = () => {
       } else {
         initTimer()
       }
-    }
-
-    if (!startedAt) {
+    } else {
       controller.current?.abort()
       clearTimeout(timerTimeout.current)
       if (!pausedAt) {
