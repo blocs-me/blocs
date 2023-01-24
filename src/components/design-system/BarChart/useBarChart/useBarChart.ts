@@ -1,5 +1,6 @@
 import { BarChartProps, TooltipData } from '../types'
 import getYearMonthDate from '@/utils/dateUtils/getYearMonthDate'
+import { getMonday } from '../../../widgets/AnalyticsBarChart/useAnalyticsBarChartDateRange'
 
 const sortData = (data: BarChartProps['data']) =>
   data?.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
@@ -65,20 +66,16 @@ const formatData = (
 
   const count = timePeriod === 'weekly' ? 7 : numberOfDaysInMonth
   const startDate = new Date(firstDate)
-  startDate.setDate(
-    startDate.getDate() - (startDate.getDay() ? startDate.getDay() - 1 : 6)
-  )
+
+  startDate.setDate(getMonday(startDate))
 
   const month = startDate.getMonth()
   const year = startDate.getFullYear()
   const day = startDate.getDate()
-  const mostCommonMonth = largestFreq(
-    sortedData.map((data) => new Date(data.date).getMonth())
-  )
 
   for (let i = 0; i < count; i++) {
     const currentDate = new Date(year, month, day + i)
-    const isDifferentMonth = currentDate.getMonth() !== mostCommonMonth
+    const isDifferentMonth = currentDate.getMonth() !== month
     const data = dataByDateStr[
       currentDate.toDateString()
     ] as UseBarChartReturn['data']
