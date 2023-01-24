@@ -47,10 +47,6 @@ const useAnalyticsBarChartDateRange = () => {
       from = new Date(year, month, 1)
       to = new Date(year, month + 1, 0)
     }
-    console.log('range', {
-      from: from.toDateString(),
-      to: to.toDateString()
-    })
 
     return [getCurrentISOString(from), getCurrentISOString(to)]
   })()
