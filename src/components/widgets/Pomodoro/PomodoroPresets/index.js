@@ -184,7 +184,7 @@ const PomodoroPresets = () => {
           </Button>
 
           <Grid
-            gridTemplateColumns="repeat(2, 1fr)"
+            gridTemplateColumns={['1fr', 'repeat(2, 1fr)']}
             css={{ gridGap: '0.5rem' }}
           >
             {(presets?.data?.length === 0
