@@ -1,13 +1,14 @@
 import Box from '@/helpers/Box'
 import Notch from '@/helpers/Notch'
 import { WithChildren } from '@/utils/tsUtils'
-import { forwardRef, LegacyRef } from 'react'
+import { forwardRef, LegacyRef, ReactNode } from 'react'
 
-type Props = WithChildren<{
-  pos: number
-  total: number
+type Props = {
+  pos?: number
+  total?: number
   notch: 'left' | 'right'
-}>
+  children?: ReactNode
+}
 
 const BarChartTooltip = forwardRef(
   ({ children, notch }: Props, ref: LegacyRef<HTMLDivElement>) => {
