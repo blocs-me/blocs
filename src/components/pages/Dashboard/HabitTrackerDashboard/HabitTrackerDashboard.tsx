@@ -144,7 +144,7 @@ const HabitTrackerDashboard = () => {
           mt="md"
           mr="md"
           borderRadius="md"
-          boxShadow="sm"
+          boxShadow="md"
         >
           <Button
             variant="success"
