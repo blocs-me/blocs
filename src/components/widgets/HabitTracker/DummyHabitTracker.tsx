@@ -18,6 +18,7 @@ import CheckoboxesSkeleton from './CheckboxesSkeleton'
 import BorderedBox from './BorderedBox'
 import { getPercent } from '@/utils/math'
 import styled from '@emotion/styled'
+import EmptyHabitsScreen from './EmptyHabitsScreen'
 
 const useHabitStreakProgress = (analytics) => {
   const bestStreak = analytics?.data?.bestStreak
@@ -165,6 +166,7 @@ const DummyHabitTracker = ({
                       key={d.id}
                     />
                   ))}
+                  {habits && !habits?.data?.length && <EmptyHabitsScreen />}
                   <Box />
                 </Stack>
                 <Box height="40px" />
