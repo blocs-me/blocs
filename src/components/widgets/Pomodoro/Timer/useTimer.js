@@ -113,7 +113,6 @@ const useTimer = () => {
       startShortBreak()
     }
     if (shouldAutoPlayLongBreak) {
-      console.log('start long break')
       startLongBreak()
     }
 

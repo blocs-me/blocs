@@ -39,8 +39,6 @@ const DummyAnalyticsBarChart = ({ units, ...rest }: Props) => {
     return result
   }, [mounted])
 
-  console.log('fb', fallback)
-
   return (
     <Flex
       height="400px"

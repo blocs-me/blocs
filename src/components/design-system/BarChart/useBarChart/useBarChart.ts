@@ -5,24 +5,6 @@ import { getMonday } from '../../../widgets/AnalyticsBarChart/useAnalyticsBarCha
 const sortData = (data: BarChartProps['data']) =>
   data?.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
 
-const largestFreq = (nums: number[]) => {
-  const counter = {}
-
-  for (let num of nums) {
-    counter[num] ? counter[num]++ : (counter[num] = 1)
-  }
-
-  let largest = 0
-
-  nums.forEach((num) => {
-    if (counter[num] > largest) {
-      largest = num
-    }
-  })
-
-  return largest
-}
-
 export type UseBarChartReturn<T = {}> = {
   ticksY: number
   data: {
