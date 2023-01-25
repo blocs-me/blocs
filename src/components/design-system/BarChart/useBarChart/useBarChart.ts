@@ -103,7 +103,6 @@ const formatData = (
     result = sortedData
   }
 
-  console.log('result', result)
   return result
 }
 

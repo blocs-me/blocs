@@ -50,7 +50,6 @@ const useAnalyticsBarChartDateRange = () => {
 
     return [getCurrentISOString(from), getCurrentISOString(to)]
   })()
-  console.log({ range })
 
   return range
 }
