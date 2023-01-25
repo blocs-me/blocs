@@ -87,101 +87,100 @@ const WaterTrackerDashboard = () => {
   })()
 
   return (
-    <>
+    <Flex
+      width="100%"
+      height="100%"
+      flexDirection={['column-reverse', , , , , 'column']}
+      alignItems="center"
+    >
       <Flex
+        p="md"
+        gap={['lg', , , , 'md']}
+        flexWrap="wrap"
+        justifyContent="center"
+      >
+        <WidgetLinkWrapper
+          isLoading={!token}
+          onClick={() => {
+            setUrl(links.waterTrackerUrl)
+            setPublicUrl(links.waterTrackerPublicUrl)
+            clipboard(links.waterTrackerUrl)
+            setOpenClipboardModal(true)
+          }}
+        >
+          <Flex>
+            <DummyWaterTracker
+              goal={settings?.data?.goal || 2}
+              width={'350px'}
+            />
+          </Flex>
+        </WidgetLinkWrapper>
+        <WidgetLinkWrapper
+          isLoading={!token}
+          onClick={() => {
+            setUrl(links.barChartUrl)
+            setPublicUrl(links.barChartUrl)
+            clipboard(links.barChartUrl)
+            setOpenClipboardModal(true)
+          }}
+        >
+          <DummyAnalyticsBarChart
+            width={['350px', , , , '350px', '500px']}
+            height={['350px', , , , '410px', '410px']}
+            units="L"
+          />
+        </WidgetLinkWrapper>
+      </Flex>
+
+      <Flex
+        p="md"
+        borderTop="solid 1px"
+        borderColor="primary.accent-2"
         width="100%"
-        height="100%"
-        flexDirection={['column-reverse', , , , , 'column']}
+        justifyContent={['center', , , , , 'start']}
       >
         <Flex
+          as="form"
+          flexDirection="column"
+          onSubmit={onSubmit}
+          boxShadow="md"
           p="md"
-          gap="md"
-          // flexDirection={['column', , , , 'row']}
-          flexWrap="wrap"
-        >
-          <WidgetLinkWrapper
-            isLoading={!token}
-            onClick={() => {
-              setUrl(links.waterTrackerUrl)
-              setPublicUrl(links.waterTrackerPublicUrl)
-              clipboard(links.waterTrackerUrl)
-              setOpenClipboardModal(true)
-            }}
-          >
-            <Flex>
-              <DummyWaterTracker
-                goal={settings?.data?.goal || 2}
-                width={['300px', , , '350px', '400px']}
-              />
-            </Flex>
-          </WidgetLinkWrapper>
-          <WidgetLinkWrapper
-            isLoading={!token}
-            onClick={() => {
-              setUrl(links.barChartUrl)
-              setPublicUrl(links.barChartUrl)
-              clipboard(links.barChartUrl)
-              setOpenClipboardModal(true)
-            }}
-          >
-            <DummyAnalyticsBarChart
-              width={['350px', , , , '400px', '450px']}
-              height={['370px', , , , '400px', '470px']}
-              units="L"
-            />
-          </WidgetLinkWrapper>
-        </Flex>
-
-        <Box
-          width="100%"
-          p="md"
-          borderTop={'solid 1px'}
-          // borderBottom={['solid 1px', 'solid 1px', , , , 'none']}
+          borderRadius="md"
+          border="solid 2px"
           borderColor="primary.accent-2"
+          width={['100%', , '400px', , '100%', '400px']}
         >
-          <Flex
-            maxWidth="400px"
-            as="form"
-            flexDirection="column"
-            onSubmit={onSubmit}
-            boxShadow="md"
-            p="sm"
-            borderRadius="md"
-            border="solid 2px"
-            borderColor="primary.accent-2"
+          <Text variant="h4" color="foreground">
+            Set Your Daily Goal Here
+          </Text>
+          <NumberInput
+            label="Goal (in Liters)"
+            ariaLabel="Set Daily Goal"
+            {...register('goal', {
+              required: true,
+              valueAsNumber: true
+            })}
+            min={1}
+            max={10}
+            error={errors.goal ? 'Goal must be between {min} & {max}' : false}
+          />
+          <Button
+            variant="success"
+            mt="sm"
+            loading={loadingGoal}
+            disabled={loadingGoal}
           >
-            <Text variant="h4" color="foreground">
-              Set Your Daily Goal Here
-            </Text>
-            <NumberInput
-              label="Goal (in Liters)"
-              ariaLabel="Set Daily Goal"
-              {...register('goal', {
-                required: true,
-                valueAsNumber: true
-              })}
-              min={1}
-              max={10}
-              error={errors.goal ? 'Goal must be between {min} & {max}' : false}
-            />
-            <Button
-              variant="success"
-              mt="sm"
-              loading={loadingGoal}
-              disabled={loadingGoal}
-            >
-              Save Habit
-            </Button>
-          </Flex>
-        </Box>
-        <ClipboardModal
-          isOpen={openClipboardModal}
-          url={url}
-          shareableUrl={publicUrl}
-          hideModal={() => setOpenClipboardModal(false)}
-        />
+            Save Habit
+          </Button>
+        </Flex>
       </Flex>
-    </>
+      <ClipboardModal
+        isOpen={openClipboardModal}
+        url={url}
+        shareableUrl={publicUrl}
+        hideModal={() => setOpenClipboardModal(false)}
+      />
+    </Flex>
   )
 }
 
