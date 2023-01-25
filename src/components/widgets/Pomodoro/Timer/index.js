@@ -50,9 +50,10 @@ const Timer = ({ loading }) => {
 
   return (
     <Flex
-      width="80%"
+      width="85%"
+      minWidth="250px"
       height="auto"
-      minHeight="200px"
+      // justifyContent={'center'}
       css={{ position: 'relative', cursor: 'pointer', 'user-select': 'none' }}
       onClick={(e) => handleClick(e)}
     >
