@@ -2,6 +2,7 @@ import mailchimp from '../mailchimpMarketingClient'
 import checkIfUserIsSubscribed from './checkIfUserIsSubscribed'
 import mailchimpSubscriptionStates from '@/constants/mailchimpSubscriptionStates'
 import { BlocsUserServer } from '../../global-types/blocs-user'
+import md5 from 'md5'
 
 const addUserToMailingList = async (
   user: BlocsUserServer['data'],
@@ -21,7 +22,7 @@ const addUserToMailingList = async (
     const [FNAME, LNAME] = [nameArr?.[0], nameArr?.slice(-1)?.[0]]
     const listId = process.env.MAILCHIMP_LIST_ID
 
-    const res = await mailchimp.lists.setListMember(listId, {
+    const res = await mailchimp.lists.setListMember(listId, md5(email), {
       ...(isNew
         ? { status_if_new: mailchimpSubscriptionStates.SUBSCRIBED }
         : { status: mailchimpSubscriptionStates.SUBSCRIBED }),
