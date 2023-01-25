@@ -46,7 +46,7 @@ const WaterTrackerBarChart = () => {
       bg="bg.notion"
       alignItems="center"
       justifyContent="center"
-      p="md"
+      p="sm"
     >
       <AnalyticsBarChart
         menuPage="/bar-chart/water-tracker/menu"
