@@ -19,8 +19,6 @@ const createWidgetAccessToken = async (req, res) => {
 
     const blocsUser = await getBlocsUser(req, res)
 
-    // if (['WATER_TRACKER', 'HABIT_TRACKER'].includes(widgetType)) // TODO: premium ownership validation
-
     if (!blocsUser?.ref) throw new Error('blocs user not defined')
 
     const blocsUserId = blocsUser?.ref?.id

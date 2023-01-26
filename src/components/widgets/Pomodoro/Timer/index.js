@@ -53,7 +53,6 @@ const Timer = ({ loading }) => {
       width="85%"
       minWidth="250px"
       height="auto"
-      // justifyContent={'center'}
       css={{ position: 'relative', cursor: 'pointer', 'user-select': 'none' }}
       onClick={(e) => handleClick(e)}
     >
