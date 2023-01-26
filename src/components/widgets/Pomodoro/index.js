@@ -19,6 +19,7 @@ import BackArrow from 'src/icons/back-arrow'
 import Icon from '@/helpers/Icon/index'
 import Hamburger from 'src/icons/hamburger'
 import { useTheme } from '@emotion/react'
+import { withUrlHashProvider } from '@/hooks/useUrlHash'
 
 const FadeIn = ({ id, children }) => (
   <LazyMotion features={domAnimation}>
@@ -200,4 +201,4 @@ const Pomodoro = () => {
   )
 }
 
-export default Pomodoro
+export default withUrlHashProvider(Pomodoro)
