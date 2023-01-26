@@ -11,7 +11,11 @@ type Props = {
   progress?: number
 }
 
-const DummyWaterTracker = ({ goal, progress = 0, ...rest }: Props & IBox) => {
+const DummyWaterTracker = ({
+  goal = 3,
+  progress = 0,
+  ...rest
+}: Props & IBox) => {
   return (
     <Flex
       width="400px"
@@ -56,11 +60,12 @@ const DummyWaterTracker = ({ goal, progress = 0, ...rest }: Props & IBox) => {
             m={0}
             css={{ 'user-select': 'none' }}
           >
-            {Math.min(100, Math.round((progress / goal) * 100))}% of your goal
+            {Math.min(100, Math.round((progress / goal) * 100)) || 0}% of your
+            goal
           </Text>
         </Box>
       </Flex>
-      <Bowl progress={0} goal={goal || 3} />
+      <Bowl progress={progress} goal={goal} />
     </Flex>
   )
 }
