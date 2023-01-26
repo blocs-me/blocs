@@ -152,7 +152,7 @@ const PricingPage = () => {
                 isChecked={false}
               />
               <PricingCardCheckbox
-                text="Weekly / monthly progress views"
+                text="Weekly / monthly analytics"
                 isChecked={false}
               />
             </PricingCard>
@@ -175,7 +175,7 @@ const PricingPage = () => {
               <PricingCardCheckbox text="All future widgets..." />
               <Text variant="pSmall">Analytics:</Text>
               <PricingCardCheckbox text="Unlimited analytics data retention" />
-              <PricingCardCheckbox text="Weekly / monthly progress views" />
+              <PricingCardCheckbox text="Weekly / monthly analytics" />
 
               <Text variant="pSmall">Extras:</Text>
               <PricingCardCheckbox text="Share your progress with friends" />
@@ -230,7 +230,7 @@ const PricingPage = () => {
               <Box height="20px" />
               <Text variant="pSmall">Analytics:</Text>
               <PricingCardCheckbox text="Unlimited analytics data retention" />
-              <PricingCardCheckbox text="Weekly / monthly progress views" />
+              <PricingCardCheckbox text="Weekly / monthly analytics" />
 
               <Text variant="pSmall">Extras:</Text>
               <PricingCardCheckbox text="Share your progress with friends" />
