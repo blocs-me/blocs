@@ -22,8 +22,8 @@ const HabitTrackerAnim = ({ setNext, pause }) => {
         <SlideIn delay={0.3}>
           <Box width={['280px', , '320px']} css={{ margin: '0 auto' }}>
             <DemoText>
-              ✅ Check off your daily habits <br />
-              Stay motivated by maintaining your 🔥 streak
+              ✅ Tick off your daily habits <br />
+              and stay motivated by maintaining your streaks 🔥
             </DemoText>
           </Box>
         </SlideIn>

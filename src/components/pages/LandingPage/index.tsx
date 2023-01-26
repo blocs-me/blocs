@@ -9,8 +9,7 @@ import Text from '@/design-system/Text'
 import TextInput from '@/design-system/TextInput'
 import Button from '@/design-system/Button'
 import Avatar from '@/design-system/Avatar'
-import Linkedin from 'src/icons/linkedin.svg'
-import Quote from '../../../icons/quote.svg'
+import Linkedin from '../../../icons/linkedin.svg'
 import Link from 'next/link'
 import Icon from '@/helpers/Icon'
 import { useForm } from 'react-hook-form'
@@ -20,6 +19,8 @@ import storage from '@/utils/storage'
 import { useRouter } from 'next/router'
 import useSignInRedirectLink from '../../widgets/HabitTracker/hooks/useSignInRedirectLink'
 import LandingDemo from './LandingDemo'
+import Email from '../../../icons/email.svg'
+import Twitter from '../../../icons/twitter.svg'
 
 const SocialIcons = ({
   href,
@@ -30,9 +31,20 @@ const SocialIcons = ({
 }) => {
   return (
     <Link href={href} passHref>
-      <Icon as="a" stroke="primary.accent-4">
-        {children}
-      </Icon>
+      <a rel="noreferrer">
+        <Flex
+          bg="background"
+          boxShadow="default"
+          borderRadius="sm"
+          p="5px"
+          size="25px"
+          center
+        >
+          <Icon fill="foreground" size="12px" display="flex">
+            {children}
+          </Icon>
+        </Flex>
+      </a>
     </Link>
   )
 }
@@ -258,6 +270,7 @@ const LandingPage = () => {
                     color="foreground"
                     letterSpacing="sm"
                     lineHeight={1}
+                    mb="xs"
                   >
                     Moniet Sawhney
                     <br />
@@ -265,7 +278,17 @@ const LandingPage = () => {
                       Founder
                     </Box>
                   </Text>
-                  <Flex></Flex>
+                  <Flex gap="sm">
+                    <SocialIcons href="https://linkedin.com/in/Moniet">
+                      <Linkedin />
+                    </SocialIcons>
+                    <SocialIcons href="https://twitter.com/__moniet">
+                      <Twitter />
+                    </SocialIcons>
+                    <SocialIcons href="mailto:moniet@blocs.me">
+                      <Email />
+                    </SocialIcons>
+                  </Flex>
                 </Flex>
               </Flex>
             </Flex>

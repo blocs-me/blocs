@@ -1,17 +1,2 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 62 62">
-  <defs>
-    <filter id="Rectangle_55" x="0" y="0" width="62" height="62" filterUnits="userSpaceOnUse">
-      <feOffset dy="3" input="SourceAlpha" />
-      <feGaussianBlur stdDeviation="5" result="blur" />
-      <feFlood flood-color="#272727" flood-opacity="0.173" />
-      <feComposite operator="in" in2="blur" />
-      <feComposite in="SourceGraphic" />
-    </filter>
-  </defs>
-  <g transform="translate(-265.5 -597.434)">
-    <g transform="matrix(1, 0, 0, 1, 265.5, 597.43)" filter="url(#Rectangle_55)">
-      <rect width="32" height="32" rx="10" transform="translate(15 12)" fill="#fafbff" />
-    </g>
-    <path id="Icon_awesome-linkedin-in" d="M2.556,11.419H.189V3.8H2.556ZM1.371,2.756A1.378,1.378,0,1,1,2.742,1.372,1.383,1.383,0,0,1,1.371,2.756Zm10.045,8.663H9.054V7.708c0-.884-.018-2.019-1.231-2.019C6.592,5.689,6.4,6.65,6.4,7.644v3.775H4.039V3.8h2.27v1.04h.033A2.488,2.488,0,0,1,8.582,3.6c2.4,0,2.836,1.578,2.836,3.627v4.188Z" transform="translate(291.556 619.434)" fill="#1f1f1f" />
-  </g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+  xml:space="preserve"><path d="M23.002 21.584h.227l-.435-.658c.266 0 .407-.169.409-.376l-.001-.025c0-.282-.17-.417-.519-.417h-.564v1.476h.212v-.643h.261l.41.643zm-.425-.81h-.246v-.499h.312c.161 0 .345.026.345.237 0 .242-.186.262-.412.262M17.291 19.073h-3.007v-4.709c0-1.123-.02-2.568-1.564-2.568-1.566 0-1.806 1.223-1.806 2.487v4.79H7.908V9.389h2.887v1.323h.04a3.165 3.165 0 0 1 2.848-1.564c3.048 0 3.609 2.005 3.609 4.612l-.001 5.313zM4.515 8.065a1.745 1.745 0 1 1 0-3.49 1.745 1.745 0 0 1 0 3.49m1.503 11.008h-3.01V9.389h3.01v9.684zM18.79 1.783H1.497A1.481 1.481 0 0 0 0 3.246V20.61c.01.818.68 1.473 1.497 1.464H18.79a1.485 1.485 0 0 0 1.503-1.464V3.245a1.484 1.484 0 0 0-1.503-1.463"/><path d="M22.603 19.451a1.383 1.383 0 1 0 .027 0h-.027m.032 2.608c-.67.011-1.254-.522-1.265-1.192a1.213 1.213 0 1 1 2.426-.04v.02a1.187 1.187 0 0 1-1.161 1.212h-.031"/></svg>

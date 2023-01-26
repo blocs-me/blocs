@@ -47,14 +47,14 @@ const IconWrapper = ({ children, onClick }) => (
       onClick(e)
     }}
     borderRadius="md"
-    bg="brand.accent-2"
+    bg="brand.accent-1"
     p="8px"
-    hoverBg="brand.accent-1"
+    hoverBg="brand.accent-2"
   >
     <Icon
       size="15px"
-      fill="primary.accent-1"
-      stroke="primary.accent-1"
+      fill="neutral.white"
+      stroke="neutral.white"
       display="flex"
     >
       {children}

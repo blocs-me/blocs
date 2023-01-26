@@ -73,7 +73,7 @@ const SwipeAnim = ({
     return () => {
       clearTimeout(time)
     }
-  }, [pauseAtEnd])
+  }, [pauseAtEnd]) // eslint-disable-line
 
   return (
     <Box overflow="hidden" position="relative">

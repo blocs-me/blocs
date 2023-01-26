@@ -15,7 +15,7 @@ const ScaleIn = ({ children, delay = 0 }) => {
         delay
       }
     )
-  }, [])
+  }, []) // eslint-disable-line
 
   return (
     <div ref={ref} css={{ transform: 'scale(0.9)' }}>

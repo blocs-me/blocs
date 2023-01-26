@@ -5,7 +5,6 @@ import { useRouter } from 'next/router'
 import { color } from 'styled-system'
 import styled from '@emotion/styled'
 import Link from 'next/link'
-import Logo from '../../../icons/blocs-logo.svg'
 import Flex from '@/helpers/Flex'
 import Icon from '@/helpers/Icon'
 import Box from '@/helpers/Box'
@@ -27,6 +26,7 @@ import Moon from 'src/icons/moon'
 import useColorMode from '@/hooks/useColorMode'
 import { useUser } from '@supabase/auth-helpers-react'
 import useBlocsUser from '@/hooks/useBlocsUser'
+import { BlocsLogo as Logo } from 'src/icons/blocs-logo'
 
 export const A = styled(Text)`
   text-decoration: none;
