@@ -176,7 +176,7 @@ const Guide = () => {
 
         <Header>Sharing With Friends / Accountability Partner</Header>
         <Para>
-          Each blocs widget (with acception of the Pomodoro) can be shared with
+          Each blocs widget (with exception of the Pomodoro) can be shared with
           friends.
         </Para>
         <Para>

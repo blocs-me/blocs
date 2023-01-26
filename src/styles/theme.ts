@@ -188,10 +188,10 @@ export const darkModeColors: Theme = {
     },
     brand: {
       'accent-1': '#eee',
-      'accent-5': '#2b2b2b',
-      'accent-2': '#2b2b2b',
+      'accent-2': '#c9c9c9',
       'accent-3': '#464646',
-      'accent-4': '#2b2b2b'
+      'accent-4': '#2b2b2b',
+      'accent-5': '#2b2b2b',
     }
   },
   shadows: {

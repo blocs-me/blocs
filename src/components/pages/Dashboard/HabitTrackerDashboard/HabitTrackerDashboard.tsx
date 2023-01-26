@@ -93,7 +93,7 @@ const HabitTrackerDashboard = () => {
   const [shareableUrl, setShareableUrl] = useState('')
   const [formAction, setFormAction] = useState({})
   const [showForm, setShowForm] = useState(false)
-  const { purchases, isUserOnFreeTrial, user } = useBlocsUser() // TODO: change based on Stripe integration
+  const { purchases, isUserOnFreeTrial, user } = useBlocsUser()
   const ownsHabitTracker =
     purchases.lifetimeAccess || purchases.habitTracker || isUserOnFreeTrial
 

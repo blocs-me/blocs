@@ -7,7 +7,7 @@ const PageGutters = (props: WithChildren<IBox>) => (
     {...props}
     width="min(100%, 1600px)"
     mx="auto"
-    px={['sm', 'sm', '5%', '8%', '10%']}
+    px={['sm', 'sm', '5%']}
     overflowX="hidden"
   >
     {props.children}

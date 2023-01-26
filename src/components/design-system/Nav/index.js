@@ -1,7 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import themeGet from '@styled-system/theme-get'
-import { useContext, useEffect, useRef, useState } from 'react'
-import { animate } from 'popmotion'
+import { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/router'
 import { color } from 'styled-system'
 import styled from '@emotion/styled'
@@ -226,7 +225,14 @@ const Nav = ({ title = '', links = [] }) => {
             aria-label="Open / Close Main Navigation"
             aria-pressed={showMobileNav}
           >
-            <Icon size="20px" css={{ lineHeight: 0, height: 'fit-content' }}>
+            <Icon
+              size="20px"
+              css={{
+                lineHeight: 0,
+                height: 'fit-content',
+                pointerEvent: 'none'
+              }}
+            >
               <Hamburger open={showMobileNav} />
             </Icon>
           </Flex>

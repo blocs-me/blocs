@@ -1,8 +1,7 @@
-import { ReactNode, useContext, useEffect, useRef, useState } from 'react'
+import { ReactNode, useEffect, useRef, useState } from 'react'
 import Head from 'next/head'
 import PageLayout from '@/helpers/PageLayout'
 import useMediaQuery from '@/hooks/useMediaQuery'
-import globalContext from '@/contexts/GlobalContextProvider/globalContext'
 import Box from '@/helpers/Box'
 import Nav from '@/design-system/Nav'
 import Flex from '@/helpers/Flex'
@@ -11,17 +10,16 @@ import TextInput from '@/design-system/TextInput'
 import Button from '@/design-system/Button'
 import Avatar from '@/design-system/Avatar'
 import Linkedin from 'src/icons/linkedin.svg'
+import Quote from '../../../icons/quote.svg'
 import Link from 'next/link'
 import Icon from '@/helpers/Icon'
 import { useForm } from 'react-hook-form'
 import { isEmail } from 'validator'
 import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react'
-import Quote from '../../../icons/quote.svg'
 import storage from '@/utils/storage'
 import { useRouter } from 'next/router'
-import BlocsThemeProvider from '@/helpers/BlocsThemeProvider'
-import DashboardNav from '../Dashboard/DashboardNav'
 import useSignInRedirectLink from '../../widgets/HabitTracker/hooks/useSignInRedirectLink'
+import LandingDemo from './LandingDemo'
 
 const SocialIcons = ({
   href,
@@ -87,7 +85,7 @@ const LandingPage = () => {
   })
 
   return (
-    <Box bg="background">
+    <Box bg="background" height="fit-content">
       <PageLayout>
         <Head>
           <title>blocs | notion widgets for habit building</title>
@@ -141,15 +139,28 @@ const LandingPage = () => {
         <Box position="absolute" left="0" top="0" width="100vw">
           <Nav />
         </Box>
-        <Box minHeight="100vh" height="100%" width="100%">
-          <Flex height="calc(100vh - 80px)">
-            <Flex flex={1} flexDirection="column" justifyContent="center">
-              <Box position="relative">
+        <Box minHeight="100vh" height="100%" width="100%" mt="80px">
+          <Flex
+            minHeight="calc(100vh - 80px)"
+            height="100%"
+            flexDirection={['column', , , , , 'row']}
+            gap="md"
+            pb="lg"
+          >
+            <Flex
+              flex={1}
+              flexDirection="column"
+              justifyContent="start"
+              alignItems={['center', , , , , 'start']}
+              pt="lg"
+            >
+              <Box position="relative" maxWidth="500px">
                 <Text
                   as="h1"
                   fontSize={['lg', , , 'xl']}
                   fontWeight="bold"
                   color="foreground"
+                  textAlign={['center', , , , , 'left']}
                   css={{ zIndex: 1, position: 'relative' }}
                 >
                   Build better habits
@@ -161,26 +172,37 @@ const LandingPage = () => {
                 </Text>
               </Box>
               {!user && !invitedAt && (
-                <Flex maxWidth="400px" mt="sm" as="form" onSubmit={onSubmit}>
-                  <TextInput
-                    ariaLabel="Email input for signing up"
-                    placeholder="Enter Your Email"
-                    {...register('email', {
-                      required: true,
-                      validate: (v: string) => isEmail(v)
-                    })}
-                    error={errors?.email ? 'Please provide a valid email' : ''}
-                    css={{ borderRadius: '10px 0 0 10px', height: '60px' }}
-                  />
+                <Flex
+                  maxWidth="400px"
+                  mt="sm"
+                  as="form"
+                  onSubmit={onSubmit}
+                  // height="fit-content"
+                >
+                  <div>
+                    <TextInput
+                      ariaLabel="Email input for signing up"
+                      placeholder="Enter Your Email"
+                      {...register('email', {
+                        required: true,
+                        validate: (v: string) => isEmail(v)
+                      })}
+                      error={
+                        errors?.email ? 'Please provide a valid email' : ''
+                      }
+                      css={{ borderRadius: '10px 0 0 10px', height: '60px' }}
+                    />
+                  </div>
                   <Button
                     bg="foreground"
                     color="background"
                     borderRadius="0 10px 10px 0"
                     fontSize="sm"
                     fontWeight={200}
-                    width={['fit-content', '150px', , '200px']}
+                    width={['fit-content', , , '150px']}
                     px="sm"
                     disabled={disableSignUp}
+                    height={'60px'}
                   >
                     Get Started
                   </Button>
@@ -248,7 +270,9 @@ const LandingPage = () => {
               </Flex>
             </Flex>
 
-            <Flex flex={1}></Flex>
+            <Flex flex={1} justifyContent={['center']}>
+              <LandingDemo />
+            </Flex>
           </Flex>
         </Box>
       </PageLayout>
