@@ -24,6 +24,7 @@ const HabitTrackerDummyPage = () => {
       <WidgetPage p="sm" bg="bg.notion">
         <URLHashProvider hash={{ role: 'blocs-user' }}>
           <DummyHabitTracker
+            smallScreenAt="600px"
             isEditable
             habits={habits}
             checkedValues={[1, 2]}

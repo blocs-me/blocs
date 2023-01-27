@@ -51,6 +51,7 @@ const HabitTrackerSection = () => {
             <Box>
               <URLHashProvider hash={{ role: 'blocs-user' }}>
                 <DummyHabitTracker
+                  smallScreenAt="600px"
                   isEditable
                   habits={{ data: habits }}
                   checkedValues={['1', '2']}
