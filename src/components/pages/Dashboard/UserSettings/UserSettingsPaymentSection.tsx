@@ -34,7 +34,7 @@ const FreeTrailStatus = () => {
       position="relative"
     >
       <Text
-        color="brand.accent-1"
+        color="foreground"
         fontSize="sm"
         fontWeight={'bold'}
         lineHeight={1}

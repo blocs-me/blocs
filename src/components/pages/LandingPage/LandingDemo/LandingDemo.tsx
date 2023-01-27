@@ -1,4 +1,3 @@
-import Box from '@/helpers/Box'
 import Flex from '@/helpers/Flex'
 import Sequence from './Sequence'
 

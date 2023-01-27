@@ -26,8 +26,6 @@ const Controller = styled.div`
   flex-direction: column;
   gap: ${themeGet('space.xs')};
   border-radius: 20px;
-  /* background: ${themeGet('colors.success.medium')}; */
-  /* box-shadow: ${themeGet('shadows.md')}; */
 
   @media (max-width: 992px) {
     padding: 5px;
@@ -47,14 +45,14 @@ const IconWrapper = ({ children, onClick }) => (
       onClick(e)
     }}
     borderRadius="md"
-    bg="brand.accent-1"
+    border="solid 1px"
+    borderColor="brand.accent-1"
     p="8px"
-    hoverBg="brand.accent-2"
   >
     <Icon
-      size="15px"
-      fill="neutral.white"
-      stroke="neutral.white"
+      size="20px"
+      fill="brand.accent-1"
+      stroke="brand.accent-1"
       display="flex"
     >
       {children}

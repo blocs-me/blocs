@@ -244,7 +244,8 @@ const LandingPage = () => {
                 {user?.aud === 'authenticated' && (
                   <Button
                     variant="outlined"
-                    maxWidth="300px"
+                    maxWidth={["300px"]}
+                    width="100%"
                     height={'50px'}
                     borderRadius="sm"
                     hoverBg="foreground"
