@@ -21,7 +21,7 @@ const habits = {
 const HabitTrackerDummyPage = () => {
   return (
     <BlocsThemeProvider>
-      <WidgetPage p="sm">
+      <WidgetPage p="sm" bg="background">
         <URLHashProvider hash={{ role: 'blocs-user' }}>
           <DummyHabitTracker
             isEditable

@@ -9,11 +9,15 @@ import { IBox } from '@/helpers/Box/Box.types'
 type Props = {
   goal?: number
   progress?: number
+  onClickUp?: () => void
+  onClickDown?: () => void
 }
 
 const DummyWaterTracker = ({
   goal = 3,
   progress = 0,
+  onClickUp = () => {},
+  onClickDown = () => {},
   ...rest
 }: Props & IBox) => {
   return (
@@ -30,9 +34,9 @@ const DummyWaterTracker = ({
     >
       <Flex mb="sm" width="100%" alignItems="center">
         <Flex>
-          <CaretButton orientation="bottom" />
+          <CaretButton orientation="bottom" onClick={onClickDown} />
           <Flex pl="xs" />
-          <CaretButton orientation="top" />
+          <CaretButton orientation="top" onClick={onClickUp} />
         </Flex>
 
         <Box
