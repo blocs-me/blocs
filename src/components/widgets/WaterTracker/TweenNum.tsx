@@ -23,23 +23,25 @@ const TweenNum = ({ num, ...rest }: Props) => {
       const countUp = () => {
         let isIncreased = num > prev
 
-        if (isIncreased) {
-          count = count + speed
+        if (ref.current) {
+          if (isIncreased) {
+            count = count + speed
 
-          if (count >= num) {
-            ref.current.textContent = num.toString()
-            return null
-          }
-        } else {
-          count = count - speed
+            if (count >= num) {
+              ref.current.textContent = num.toString()
+              return null
+            }
+          } else {
+            count = count - speed
 
-          if (count <= num) {
-            ref.current.textContent = num.toString()
-            return null
+            if (count <= num) {
+              ref.current.textContent = num.toString()
+              return null
+            }
           }
+
+          ref.current.textContent = count.toFixed(1)
         }
-
-        ref.current.textContent = count.toFixed(1)
 
         requestAnimationFrame(countUp)
       }
