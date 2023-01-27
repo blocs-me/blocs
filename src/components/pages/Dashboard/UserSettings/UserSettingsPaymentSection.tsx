@@ -34,7 +34,7 @@ const FreeTrailStatus = () => {
       position="relative"
     >
       <Text
-        color="foreground"
+        color="brand.accent-1"
         fontSize="sm"
         fontWeight={'bold'}
         lineHeight={1}
@@ -42,14 +42,14 @@ const FreeTrailStatus = () => {
       >
         {daysLeft ? 'Free 14 day trial' : 'Free'}
       </Text>
-      <Text color="primary.accent-4" fontSize="xs" mb={0}>
+      <Text color="brand.accent-2" fontSize="xs" mb={0}>
         Includes access to{' '}
         <Link
           href="/pricing"
           underline
           css={{ display: 'inline-block' }}
-          color="foreground"
-          borderColor="foreground"
+          color="brand.accent-2"
+          borderColor="brand.accent-2"
         >
           basic features
         </Link>
