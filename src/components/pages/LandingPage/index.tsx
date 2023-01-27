@@ -396,8 +396,8 @@ const LandingPage = () => {
                 m="0 auto"
                 textAlign="center"
               >
-                From sleep trackers to goal setters, we have a bunch ideas to
-                take notion widgets to a whole new level!
+                From special calendars to goal setters, we have a bunch ideas to
+                take notion widgets and your habits to a whole new level!
               </Text>
               <Box mt="sm" />
               <Text

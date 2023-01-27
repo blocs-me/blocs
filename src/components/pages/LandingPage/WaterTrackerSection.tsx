@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react'
 const paraOne =
   'Never forget to hydrate with our water tracker widget which you can embed right next to your to do list inside Notion!'
 const paraTwo =
-  'And the big advantage with the analytics widget is that you can be inspired by watching yourself improve over time'
+  'The big advantage with the analytics widget is that you can be inspired by watching yourself improve over time.'
 
 const WaterTrackerSection = () => {
   const [progress, setProgress] = useState(0)

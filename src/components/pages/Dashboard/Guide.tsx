@@ -87,19 +87,20 @@ const Guide = () => {
         </Flex>
         <Para>
           Once you sign up, you will automatically be redirected to the
-          dashboard where you will see a list of widget&#39;s in the Sidebar
+          dashboard where you will see a list of widgets in the Sidebar
           underneath your profile picture.
         </Para>
         <Para>
-          Simple click on <b>&#39;copy link&#39;</b>, we copy the link
-          automatically, but in some cases we have two links. A <b>public</b>{' '}
+          Simple click on <b>&#39;copy link&#39;</b>, and we&#39;ll auto copy the link
+          . In some cases we have two links. A <b>public</b>{' '}
           link and a <b>private</b> link.
         </Para>
         <Para>
-          If you want to share your analytics or your widget&#39;s with friends,
+          Why two links ? <br/>
+          Glad you asked 😬. If you want to share your analytics or your widgets with friends,
           we will provide public link which you can share with them. They
           won&#39;t be able to make any changes when this link is given to them
-          so you&#39;re data will be safe.
+          so your data will be safe.
         </Para>
 
         <Header>Step 2 : Embed The Copied Link In Notion</Header>
@@ -144,7 +145,7 @@ const Guide = () => {
         </Flex>
         <Para>
           Every widget with exception of the pomodoro can be shared with
-          friends. Inside the settings and on the blocs dashboard you&#39; find
+          friends. Inside the settings and on the blocs dashboard you&#39;ll find
           the option to copy a <b>public</b> link which you can share with a
           buddy.
         </Para>
