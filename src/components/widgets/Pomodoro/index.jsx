@@ -201,4 +201,4 @@ const Pomodoro = () => {
   )
 }
 
-export default withUrlHashProvider(Pomodoro)
+export default Pomodoro
