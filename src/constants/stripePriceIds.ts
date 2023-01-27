@@ -11,10 +11,10 @@ const local: PriceIds = {
 }
 
 const prod: PriceIds = {
-  lifetimeAccess: '',
-  waterTracker: '',
-  habitTracker: '',
-  pomodoro: ''
+  lifetimeAccess: 'price_1MQWR6HyXnRceQpOpEBmf9Te',
+  waterTracker: 'price_1MQWXtHyXnRceQpOyPLvj3gW',
+  habitTracker: 'price_1MQWVtHyXnRceQpOcvXB73Mv',
+  pomodoro: 'price_1MQWTjHyXnRceQpOMxQBvlW3'
 }
 
 const stripePriceIds = process.env.VERCEL_ENV === 'production' ? prod : local
