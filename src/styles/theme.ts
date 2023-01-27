@@ -102,7 +102,8 @@ const shadows = {
   `,
   neumorphicDefault: `0 0 0 1px rgb(0,0,0),   rgba(50, 50, 50, 0.08) 0px 2px 10px,
   rgba(50, 50, 50, 0.05) 0px 5px 20px,
-  rgba(0, 0, 0, 0.03) 0px 10px 30px`
+  rgba(0, 0, 0, 0.03) 0px 10px 30px`,
+  insetDefault: `inset 0 0 10px rgba(30, 30, 30, 0.05)`
 }
 
 const letterSpacings = {
@@ -187,15 +188,18 @@ export const darkModeColors: Theme = {
       light: ''
     },
     brand: {
-      'accent-1': '#0AC3E7',
+      'accent-1': '#08AACA',
       'accent-2': '#38DAFA',
       'accent-3': '#83E8FC',
       'accent-4': '#B5F1FD',
-      'accent-5': '#D7F8FE'
+      'accent-5': '#E6FAFE'
     }
   },
   shadows: {
     ...shadows,
+    insetDefault: `
+    inset 0 0 10px rgba(78, 77, 77, 0.25)
+    `,
     default: `
     0px 0px 2px #00000040,
     0px 4px 40px #00000047,

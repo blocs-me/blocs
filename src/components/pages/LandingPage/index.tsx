@@ -21,6 +21,8 @@ import useSignInRedirectLink from '../../widgets/HabitTracker/hooks/useSignInRed
 import LandingDemo from './LandingDemo'
 import Email from '../../../icons/email.svg'
 import Twitter from '../../../icons/twitter.svg'
+import WidgetExplainerSection from './WidgetExplainerSection'
+import PomodoroSection from './PomodoroSection'
 
 const SocialIcons = ({
   href,
@@ -297,6 +299,37 @@ const LandingPage = () => {
               <LandingDemo />
             </Flex>
           </Flex>
+          <Box as="hr" border="solid 1px" borderColor="primary.accent-1" />
+          <Flex justifyContent={'center'}>
+            <Flex
+              flexDirection="column"
+              alignItems={'center'}
+              width="min(100%, 500px)"
+            >
+              <Text
+                as="h2"
+                color="foreground"
+                fontSize="lg"
+                mb={'xs'}
+                textAlign="center"
+              >
+                All your productivity tools in one place
+              </Text>
+              <Text
+                color="primary.accent-4"
+                fontSize="sm"
+                textAlign={'center'}
+                fontWeight={200}
+                letterSpacing="sm"
+                px="md"
+              >
+                Habit tracker, pomodoros, water tracker apps and so much to
+                come, all inside <b>Notion!</b>
+              </Text>
+            </Flex>
+          </Flex>
+
+          <PomodoroSection />
         </Box>
       </PageLayout>
     </Box>
