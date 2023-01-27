@@ -33,12 +33,13 @@ const Text = styled.span`
 
 const BetaWrapper = ({ children, color = 'neural.white', text = 'alpha' }) => {
   return (
-    <Box position="relative" color={color} width="fit-content" as="span">
+    <Box position="relative" color={color} width="fit-content">
       {children}
       <Box
         position="absolute"
         top="0"
         right="0"
+        as="span"
         css={{ transform: 'translateX(100%)' }}
       >
         <Text>{text}</Text>
