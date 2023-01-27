@@ -10,7 +10,13 @@ const sitemap = {
     '/water-tracker',
     '/bar-chart',
     '/pomodoro',
-    '/habit-tracker'
+    '/habit-tracker',
+    '/dummy-water-tracker',
+    '/dummy-water-analytics',
+    '/dummy-pomodoro',
+    '/dummy-pomodoro-analytics',
+    '/account-deletion',
+    '/dummy-habit-tracker'
   ]
 }
 

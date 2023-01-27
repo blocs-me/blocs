@@ -33,7 +33,7 @@ const Link = ({
 }: Props) => (
   <Box
     className={className}
-    borderBottomColor="brand.accent-1"
+    borderBottomColor={color || 'brand.accent-1'}
     borderBottomStyle="solid"
     borderBottomWidth={underline ? '1px' : 0}
     width="fit-content"

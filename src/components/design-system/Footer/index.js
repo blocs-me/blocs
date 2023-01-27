@@ -5,6 +5,17 @@ import Link from '../Link'
 import Text from '../Text'
 import ClientSideOnly from '@/helpers/ClientSideOnly'
 import PageGutters from '@/helpers/PageGutters'
+import DSLink from 'next/link'
+
+const RegoLink = ({ children, ...rest }) => (
+  <Box mb="xs">
+    <Link {...rest} color="primary.accent-4">
+      <Text css={{ cursor: 'pointer' }} fontSize="sm" as="a">
+        {children}
+      </Text>
+    </Link>
+  </Box>
+)
 
 const Footer = () => (
   <ClientSideOnly>
@@ -77,21 +88,12 @@ const Footer = () => (
               mb="sm"
               mt={0}
             >
-              COMMUNITY
+              LINKS
             </Text>
-            <Text fontSize="sm" fontWeight="400" color="primary.accent-4">
-              if you like to have a chat about all things productivity you can
-              join our{' '}
-              <Link
-                href="https://discord.gg/CwxXza8xwz"
-                rel="noopener"
-                passHref
-                inline
-                underline
-              >
-                discord server
-              </Link>
-            </Text>
+            <RegoLink href="/">Home</RegoLink>
+            <RegoLink href="/pricing">Pricing</RegoLink>
+            <RegoLink href="/pricing">Sign In</RegoLink>
+            <RegoLink href="/sitemap.xml">Sitemap</RegoLink>
           </Box>
         </Grid>
       </PageGutters>
@@ -105,7 +107,7 @@ const Footer = () => (
             letterSpacing="sm"
             textAlign="center"
           >
-            © 2021 blocs.me{' '}
+            ©{new Date().getFullYear()}blocs.me{' '}
             <Text
               as="span"
               color="neutral.white"
