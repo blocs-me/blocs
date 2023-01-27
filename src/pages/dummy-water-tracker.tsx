@@ -16,6 +16,8 @@ const DummyWaterTrackerPage = () => {
     <WidgetPage bg="bg.notion" p="sm">
       <BlocsThemeProvider>
         <DummyWaterTracker
+          width="min(100%, 400px)"
+          minWidth="300px"
           progress={progress}
           onClickUp={() => setProgress(Math.min(3, progress + 1))}
           onClickDown={() => setProgress(Math.max(0, progress - 1))}
