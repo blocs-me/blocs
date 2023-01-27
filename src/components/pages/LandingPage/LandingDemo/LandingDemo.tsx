@@ -4,7 +4,7 @@ import Sequence from './Sequence'
 
 const LandingDemo = () => {
   return (
-    <Flex mt="md" pt="md" pl="g">
+    <Flex mt="lg" pl="g">
       <Sequence />
     </Flex>
   )
