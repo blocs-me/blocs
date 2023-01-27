@@ -1,47 +1,36 @@
-import { default as Flex } from "@/helpers/Flex"
-import Grid from "@/helpers/Grid"
-import Icon from "@/helpers/Icon"
-import useColorMode, { useColorModeStore } from "@/hooks/useColorMode"
-import ThemeIcon from "../../../../icons/invert-color.svg"
-import MenuHeader from "../Typography/MenuHeader"
-import Moon from "../../../../icons/moon.svg"
-import Sun from "../../../../icons/sun.svg"
-import Star from "../../../../icons/star.svg"
-import AutoThemeIcon from "../../../../icons/auto-theme.svg"
-import Text from "@/design-system/Text"
-import ScrollProvider from "@/design-system/ScrollProvider"
-import { useCallback } from "react"
+import { default as Flex } from '@/helpers/Flex'
+import Grid from '@/helpers/Grid'
+import Icon from '@/helpers/Icon'
+import useColorMode, { useColorModeStore } from '@/hooks/useColorMode'
+import MenuHeader from '../Typography/MenuHeader'
+import AutoThemeIcon from '../../../../icons/auto-theme.svg'
+import Text from '@/design-system/Text'
+import ScrollProvider from '@/design-system/ScrollProvider'
+import { useCallback } from 'react'
+import { CircleHalf } from 'src/icons/circle-half'
+import Sun from 'src/icons/sun'
+import Moon from 'src/icons/moon'
 
 const modes = [
   {
-    title: "light",
+    title: 'light',
     themeIcon: <Sun />,
-    colorModeKey: "light",
-    size: "18px",
+    colorModeKey: 'light',
+    size: '18px'
   },
   {
-    title: "dark",
+    title: 'dark',
     themeIcon: <Moon />,
-    colorModeKey: "dark",
-    size: "22px",
+    colorModeKey: 'dark',
+    size: '22px'
   },
+
   {
-    title: "night",
-    themeIcon: <Star />,
-    colorModeKey: "nightSky",
-    size: "22px",
-  },
-  {
-    title: "auto",
+    title: 'auto',
     themeIcon: <AutoThemeIcon />,
-    colorModeKey: "auto",
-    size: "18px",
-  },
-  // {
-  //   title: "night sky",
-  //   themeIcon: <Moon />,
-  //   colorModeKey: "nightSky",
-  // },
+    colorModeKey: 'auto',
+    size: '18px'
+  }
 ]
 
 const backgroundModes = [...modes.slice(0, 2), ...modes.slice(3)]
@@ -49,9 +38,9 @@ const backgroundModes = [...modes.slice(0, 2), ...modes.slice(3)]
 const ThemeItem = ({
   title,
   themeIcon,
-  size = "20px",
+  size = '20px',
   handleClick,
-  selected,
+  selected
 }) => {
   return (
     <Flex
@@ -61,17 +50,27 @@ const ThemeItem = ({
       alignItems="center"
       justifyContent="center"
       border="solid 1px"
-      borderColor={selected ? "primary.accent-4" : "primary.accent-1"}
+      borderColor={selected ? 'foreground' : 'primary.accent-3'}
       bg="primary.accent-0.5"
       p="sm"
       borderRadius="lg"
       onClick={(e) => handleClick?.(e)}
-      css={{ transition: "border 0.2s ease" }}
+      css={{ transition: 'border 0.2s ease' }}
     >
-      <Icon size={size} mr="xs" fill="primary.accent-4" display="flex">
+      <Icon
+        size={size}
+        mr="xs"
+        fill={selected ? 'foreground' : 'primary.accent-3'}
+        display="flex"
+      >
         {themeIcon}
       </Icon>
-      <Text color="primary.accent-4" fontWeight="300" fontSize="sm" mb={0}>
+      <Text
+        color={selected ? 'foreground' : 'primary.accent-3'}
+        fontWeight="300"
+        fontSize="sm"
+        mb={0}
+      >
         {title}
       </Text>
     </Flex>
@@ -98,28 +97,23 @@ const PomodoroThemeMenu = () => {
   const handleColorModeChange = useCallback(
     (colorModeKey) => {
       setTheme(colorModeKey)
+      setBackground(colorModeKey)
     },
-    [setTheme]
-  )
-
-  const handleBackgroundChange = useCallback(
-    (colorModeKey) => setBackground(colorModeKey),
-    [setBackground]
+    [setTheme, setBackground]
   )
 
   return (
     <Flex flexDirection="column" size="100%">
       <MenuHeader
         icon={
-          <Icon fill="primary.accent-4" as="span">
-            <ThemeIcon />
+          <Icon fill="foreground" as="span">
+            <CircleHalf />
           </Icon>
         }
-        title="theme"
+        title="Theme"
       />
 
       <ScrollProvider pt="sm">
-        <Header>Widget</Header>
         <Grid gridTemplateColumns="repeat(2, 1fr)" p="sm" gridGap="sm" mb="sm">
           {modes.map((mode) => (
             <ThemeItem
@@ -128,19 +122,6 @@ const PomodoroThemeMenu = () => {
               colorMode={colorMode}
               handleClick={() => handleColorModeChange(mode.colorModeKey)}
               selected={colorMode === mode.colorModeKey}
-            />
-          ))}
-        </Grid>
-
-        <Header>Background</Header>
-        <Grid gridTemplateColumns="repeat(2, 1fr)" p="sm" gridGap="sm">
-          {backgroundModes.map((mode) => (
-            <ThemeItem
-              key={mode.colorModeKey}
-              {...mode}
-              text={colorMode}
-              handleClick={() => handleBackgroundChange(mode.colorModeKey)}
-              selected={mode.colorModeKey === backgroundColorMode}
             />
           ))}
         </Grid>

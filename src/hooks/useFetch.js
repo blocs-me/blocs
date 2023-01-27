@@ -3,16 +3,17 @@ import {
   useEffect,
   useLayoutEffect,
   useRef,
-  useState,
-} from "react"
+  useState
+} from 'react'
 
 const reqOptions = (data, options) => ({
-  method: options.method ?? "GET",
+  method: options.method ?? 'GET',
+  credentials: 'same-origin',
   headers: {
-    "Content-Type": "application/json",
-    ...(options.headers || {}),
+    'Content-Type': 'application/json',
+    ...(options.headers || {})
   },
-  body: JSON.stringify(data),
+  body: JSON.stringify(data)
 })
 
 const defaultFetcher = (path, body, options = {}) =>
@@ -25,7 +26,7 @@ const useFetch = (url, options = {}) => {
     shouldCache = true,
     onSuccess = () => {},
     onError = () => {},
-    fetcher = defaultFetcher,
+    fetcher = defaultFetcher
   } = options
 
   const [data, setData] = useState(null)
@@ -56,7 +57,7 @@ const useFetch = (url, options = {}) => {
 
         cacheData(resData)
         onSuccess(resData)
-        return res
+        return resData
       }
     }
   }
@@ -65,7 +66,7 @@ const useFetch = (url, options = {}) => {
 
   useEffect(() => {
     const cachedData = shouldCache
-      ? JSON.parse(localStorage.getItem(url) || JSON.stringify(""))
+      ? JSON.parse(localStorage.getItem(url) || JSON.stringify(''))
       : {}
 
     !shouldFetch && loading && setLoading(false)
@@ -86,7 +87,7 @@ const useFetch = (url, options = {}) => {
     fetcher: () => handleReq(mounted),
     loading,
     error,
-    data,
+    data
   }
 }
 

@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { css, Global, useTheme } from "@emotion/react"
+import { css, Global, useTheme } from '@emotion/react'
 
 const GlobalStyle = () => {
   const theme = useTheme()
@@ -8,29 +8,29 @@ const GlobalStyle = () => {
     <Global
       styles={css`
         @font-face {
-          src: url("/fonts/Karla-Regular.ttf") format(truetype);
-          font-family: "Karla";
+          src: url('/fonts/Karla-Regular.ttf') format(truetype);
+          font-family: 'Karla';
           font-style: normal;
           font-weight: 400;
           font-display: swap;
         }
         @font-face {
-          src: url("/fonts/Karla-Italic.ttf") format(truetype);
-          font-family: "Karla";
+          src: url('/fonts/Karla-Italic.ttf') format(truetype);
+          font-family: 'Karla';
           font-style: italic;
           font-weight: 400;
           font-display: swap;
         }
         @font-face {
-          src: url("/fonts/Karla-Light.ttf") format(truetype);
-          font-family: "Karla";
+          src: url('/fonts/Karla-Light.ttf') format(truetype);
+          font-family: 'Karla';
           font-style: normal;
           font-weight: 200;
           font-display: swap;
         }
         @font-face {
-          src: url("/fonts/Karla-Bold.ttf") format(truetype);
-          font-family: "Karla";
+          src: url('/fonts/Karla-Bold.ttf') format(truetype);
+          font-family: 'Karla';
           font-style: normal;
           font-weight: 700;
           font-display: swap;
@@ -42,7 +42,7 @@ const GlobalStyle = () => {
         }
 
         body {
-          font-family: "Karla", sans-serif;
+          font-family: 'Karla', 'Helvetica Neue', Helvetica, sans-serif;
           font-weight: 400;
           font-kerning: normal;
           /* font-feature-settings: 'kern', 'liga', 'clig', 'calt'; */
@@ -60,7 +60,7 @@ const GlobalStyle = () => {
         h4,
         h5 {
           margin: 3rem 0 1.38rem;
-          font-family: "Karla", sans-serif;
+          font-family: 'Karla', sans-serif;
           font-weight: 400;
           line-height: 1.3;
         }
@@ -115,13 +115,21 @@ const GlobalStyle = () => {
           }
         }
 
+        * {
+          transition: color ease 0.2s, background ease 0.2s;
+        }
+
+        button {
+          transition: transform ease 0.2s;
+        }
+
         @media (prefers-color-scheme: dark) {
-          [data-theme="notion-bg"] {
+          [data-theme='notion-bg'] {
             background: rgb(25, 25, 25);
           }
         }
         @media (prefers-color-scheme: light) {
-          [data-theme="notion-bg"] {
+          [data-theme='notion-bg'] {
             background: #ffffff;
           }
         }

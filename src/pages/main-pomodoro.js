@@ -1,6 +1,6 @@
-import Flex from "@/helpers/Flex"
-import Pomodoro from "@/widgets/Pomodoro"
-import { PomodoroProvider } from "@/widgets/Pomodoro/usePomodoroStore"
+import Flex from '@/helpers/Flex'
+import Pomodoro from '@/widgets/Pomodoro'
+import { PomodoroProvider } from '@/widgets/Pomodoro/usePomodoroStore'
 
 export default function Home() {
   return (

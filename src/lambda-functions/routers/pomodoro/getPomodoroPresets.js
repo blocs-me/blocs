@@ -1,36 +1,37 @@
-import faunaClient from "@/lambda/faunaClient"
-import { Call, query as q, Select } from "faunadb"
+import faunaClient from '@/lambda/faunaClient'
+import { Call, query as q, Select } from 'faunadb'
 
 const defaultPresetData = {
   longBreakInterval: 600000,
   shortBreakInterval: 300000,
   pomodoroInterval: 1500000,
-  label: "work",
-  labelColor: "#00d1e0",
-  defaultPreset: true,
+  label: 'work',
+  labelColor: '#00d1e0',
+  defaultPreset: true
 }
 
 const getPomodoroPresets = async (req, res, rest) => {
   const { userRef, userId } = rest
+  const { filter } = req.query
 
   try {
     const userPresets = await faunaClient.query(
-      q.Call(q.Function("get_pomodoro_presets_by_user_ref"), userRef)
+      q.Call(q.Function('get_pomodoro_presets_by_user_ref'), userRef)
     )
 
     if (userPresets?.data?.length === 0) {
       const preset = await faunaClient.query(
-        q.Create(q.Collection("pomodoro_presets"), {
+        q.Create(q.Collection('pomodoro_presets'), {
           data: {
             ...defaultPresetData,
             id: q.NewId(),
-            userId,
-          },
+            userId
+          }
         })
       )
       userPresets?.data?.push({
         ...(preset?.data || {}),
-        userId: null,
+        userId: null
       })
     }
 
@@ -39,11 +40,16 @@ const getPomodoroPresets = async (req, res, rest) => {
       return preset
     })
 
+    const data =
+      filter === 'none'
+        ? remappedPresets
+        : remappedPresets.filter((preset) => !preset?.isDeleted)
+
     res.status(200).json({
-      data: remappedPresets || [],
+      data: data || []
     })
   } catch (err) {
-    res.status(502).json({ error: "something went wrong" })
+    res.status(502).json({ error: 'something went wrong' })
     throw err
   }
 }

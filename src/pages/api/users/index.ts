@@ -1,0 +1,89 @@
+import { NextApiRequest, NextApiResponse } from 'next'
+import {
+  handle200Response,
+  handle500Response
+} from '../../../lambda-functions/helpers/handleResponses'
+import getBlocsUser from '@/lambda/middlewares/getBlocsUser'
+import checkIfUserIsSubscribed from '@/lambda/helpers/checkIfUserIsSubscribed'
+import removeUserFromMailingList from '../../../lambda-functions/helpers/removeUserFromMailingList'
+import faunaClient from '@/lambda/faunaClient'
+import { query as q } from 'faunadb'
+import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs'
+import Stripe from 'stripe'
+import {
+  BlocsUserServer,
+  BlocsUserClient
+} from '../../../global-types/blocs-user'
+
+const pickBlocsUserData = (
+  blocsUser: BlocsUserServer['data']
+): Partial<BlocsUserClient['data']> => ({
+  name: blocsUser?.name,
+  email: blocsUser?.email,
+  purchasedProducts: blocsUser?.purchasedProducts,
+  isDeleted: blocsUser?.isDeleted,
+  scheduledForDeletion: blocsUser?.scheduledForDeletion,
+  avatar_url: blocsUser?.avatar_url,
+  freeTrialStartedAt: blocsUser?.freeTrialStartedAt
+})
+
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+  if (req.method === 'GET') {
+    try {
+      let blocsUser = await getBlocsUser(req, res)
+      const isSubscribed = await (blocsUser
+        ? checkIfUserIsSubscribed(blocsUser?.data)
+        : false)
+
+      if (blocsUser) {
+        handle200Response(res, {
+          data: {
+            ...pickBlocsUserData(blocsUser?.data),
+            isSubscribed
+          }
+        })
+      } else {
+        handle500Response(res)
+      }
+    } catch (err) {
+      console.error(err)
+      handle500Response(res)
+    }
+  }
+
+  if (req.method === 'DELETE') {
+    const blocsUser = await getBlocsUser(req, res)
+    const supabase = createServerSupabaseClient({ req, res })
+
+    try {
+      await removeUserFromMailingList(blocsUser)
+      await faunaClient.query(
+        q.Update(blocsUser.ref, {
+          data: {
+            avatar_url: '',
+            name: '',
+            supabaseUserId: '',
+            email: '',
+            scheduledForDeletion: true
+          }
+        })
+      )
+      const { data, error } = await supabase.auth.getUser()
+      await supabase.from('profiles').delete().eq('id', data.user.id)
+
+      if (error) throw error
+
+      handle200Response(res, {
+        message: 'Sad to see you go! Your account has been deleted'
+      })
+    } catch (err) {
+      console.error(err)
+      handle500Response(
+        res,
+        'Something went wrong when requesting your data for deletion, please try again'
+      )
+    }
+  }
+}
+
+export default handler

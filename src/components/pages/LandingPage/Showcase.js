@@ -1,24 +1,24 @@
 /** @jsxImportSource @emotion/react */
-import { useEffect, useState } from "react"
-import { AnimatePresence, m, domAnimation, LazyMotion } from "framer-motion"
-import Play from "../../../icons/play.svg"
-import Pause from "../../../icons/pause.svg"
-import fadeIn from "../../../keyframes/fadeIn"
-import HabitTracker from "@/widgets/HabitTracker"
-import Streaks from "@/widgets/Streaks"
-import WaterTracker from "@/widgets/WaterTracker"
-import Icon from "@/helpers/Icon"
-import Flex from "@/helpers/Flex"
-import Text from "@/design-system/Text"
-import Stack from "@/helpers/Stack"
-import Box from "@/helpers/Box"
-import Analytics from "@/widgets/Analytics"
-import Pomodoro from "@/widgets/Pomodoro/DummyPomodoro"
+import { useEffect, useState } from 'react'
+import { AnimatePresence, m, domAnimation, LazyMotion } from 'framer-motion'
+import Play from '../../../icons/play.svg'
+import Pause from '../../../icons/pause.svg'
+import fadeIn from '../../../styles/keyframes/fadeIn'
+import HabitTracker from '@/widgets/HabitTracker'
+import Streaks from '@/widgets/Streaks'
+import WaterTracker from '@/widgets/WaterTracker'
+import Icon from '@/helpers/Icon'
+import Flex from '@/helpers/Flex'
+import Text from '@/design-system/Text'
+import Stack from '@/helpers/Stack'
+import Box from '@/helpers/Box'
+import Analytics from '@/widgets/Analytics'
+import Pomodoro from '@/widgets/Pomodoro/DummyPomodoro'
 
 const SlideIndicator = ({ currentIndex, numberOfItems = 3, setIndex }) => (
   <Stack display="flex" ml="xs">
     {Array(numberOfItems)
-      .fill("")
+      .fill('')
       .map((_, i) => (
         <Box
           as="button"
@@ -27,22 +27,22 @@ const SlideIndicator = ({ currentIndex, numberOfItems = 3, setIndex }) => (
           p={0}
           css={{
             transform: `scale(${currentIndex === i ? 1 : 0.85})`,
-            transition: "transform 0.2s ease, color 0.2s ease",
+            transition: 'transform 0.2s ease, color 0.2s ease'
           }}
           size="8px"
           borderRadius="50%"
-          bg={currentIndex === i ? "secondary" : "primary.accent-1"}
+          bg={currentIndex === i ? 'secondary' : 'primary.accent-1'}
         />
       ))}
   </Stack>
 )
 
 const showcaseItems = [
-  { id: 0, Component: Pomodoro, title: "POMODORO" },
-  { id: 1, Component: Analytics, title: "ANALYTICS" },
-  { id: 2, Component: HabitTracker, title: "HABIT TRACKER" },
-  { id: 3, Component: Streaks, title: "STREAKS" },
-  { id: 4, Component: WaterTracker, title: "WATER TRACKER" },
+  { id: 0, Component: Pomodoro, title: 'POMODORO' },
+  { id: 1, Component: Analytics, title: 'ANALYTICS' },
+  { id: 2, Component: HabitTracker, title: 'HABIT TRACKER' },
+  { id: 3, Component: Streaks, title: 'STREAKS' },
+  { id: 4, Component: WaterTracker, title: 'WATER TRACKER' }
 ]
 
 const mappedItems = (index) =>
@@ -51,7 +51,7 @@ const mappedItems = (index) =>
       position="absolute"
       top="50%"
       left="50%"
-      css={{ transform: "translate(-50%, -50%)" }}
+      css={{ transform: 'translate(-50%, -50%)' }}
       height="100%"
       key={id}
     >
@@ -60,7 +60,7 @@ const mappedItems = (index) =>
           <LazyMotion features={domAnimation}>
             <m.div
               initial={{ opacity: 0, rotate: 0, x: 800, scale: 0.8 }}
-              animate={{ opacity: 1, x: 0, type: "spring" }}
+              animate={{ opacity: 1, x: 0, type: 'spring' }}
               exit={{ x: -800 }}
               transition={{ duration: 1 }}
             >
@@ -111,7 +111,7 @@ const Showcase = () => {
       overflow="hidden"
       css={{
         animation: `${fadeIn} 0.5s ease 1.3s forwards`,
-        opacity: 0,
+        opacity: 0
       }}
     >
       <Box
@@ -140,7 +140,7 @@ const Showcase = () => {
           position="absolute"
           top="50%"
           left="50%"
-          css={{ transform: "translate(-50%, -50%)" }}
+          css={{ transform: 'translate(-50%, -50%)' }}
         >
           <SlideIndicator
             numberOfItems={showcaseItems.length}

@@ -1,121 +1,126 @@
 /** @jsxImportSource @emotion/react */
 import Box from '@/helpers/Box'
 import Grid from '@/helpers/Grid'
-import { PageGutters } from '@/helpers/PageLayout'
 import Link from '../Link'
 import Text from '../Text'
+import ClientSideOnly from '@/helpers/ClientSideOnly'
+import PageGutters from '@/helpers/PageGutters'
+import DSLink from 'next/link'
+
+const RegoLink = ({ children, ...rest }) => (
+  <Box mb="xs">
+    <Link {...rest} color="primary.accent-4">
+      <Text css={{ cursor: 'pointer' }} fontSize="sm" as="span">
+        {children}
+      </Text>
+    </Link>
+  </Box>
+)
 
 const Footer = () => (
-  <Box as="footer" bg="#FCFCFC">
-    <PageGutters py="lg">
-      <Grid
-        width="100%"
-        mx="auto"
-        gridTemplateColumns={['1fr', '1fr', '1fr', 'repeat(2, 1fr)']}
-        gridGap={['sm', 'sm', 'lg', 'auto']}
-      >
-        <Box width="min(100%, 350px)">
-          <Text
-            as="h3"
-            fontSize="md"
-            color="primary.accent-3"
-            fontWeight="bold"
-            mb="sm"
-            mt={0}
-          >
-            CONTACT
-          </Text>
-          <Text fontSize="sm" fontWeight="400" color="primary.accent-2">
-            found a bug, have a feature request or simply want to get in touch ?
-          </Text>
-          <Text fontSize="sm" fontWeight="400" color="primary.accent-2">
-            reach out to me at{' '}
-            <Link href="mailto:moniet@blocs.me" inline underline passHref>
-              {' '}
-              moniet@blocs.me 🖖{' '}
-            </Link>
-          </Text>
-        </Box>
-        <Box width="min(100%, 350px)">
-          <Text
-            as="h3"
-            fontSize="md"
-            color="primary.accent-3"
-            fontWeight="bold"
-            mb="sm"
-            mt={0}
-          >
-            WHAT IS BLOCS DOING NEXT ?
-          </Text>
-          <Text fontSize="sm" fontWeight="400" color="primary.accent-2">
-            we have tons of new widgets lined up, from goal setters to sleep and
-            workout trackers
-          </Text>
-          <Text fontSize="sm" fontWeight="400" color="primary.accent-2">
-            take a little looksy 👀 at our{' '}
-            <Link
-              href="https://www.notion.so/81a847e283ca4d3583651d7d0d55f692?v=eb4ecf38b53949a6b531e387e90df22a"
-              passHref
-              inline
-              underline
-              rel="noopener"
-            >
-              roadmap
-            </Link>{' '}
-            to see how we&#39;re progressing
-          </Text>
-        </Box>
-        <Box width="min(100%, 350px)">
-          <Text
-            as="h3"
-            fontSize="md"
-            color="primary.accent-3"
-            fontWeight="bold"
-            mb="sm"
-            mt={0}
-          >
-            COMMUNITY
-          </Text>
-          <Text fontSize="sm" fontWeight="400" color="primary.accent-2">
-            if you like to have a chat about all things productivity you can
-            join our{' '}
-            <Link
-              href="https://discord.gg/CwxXza8xwz"
-              rel="noopener"
-              passHref
-              inline
-              underline
-            >
-              discord server
-            </Link>
-          </Text>
-        </Box>
-      </Grid>
-    </PageGutters>
-    <Box bg="primary.accent-4" py="xs">
-      <PageGutters>
-        <Text
-          color="primary.accent-1"
-          mb={0}
-          fontWeight="400"
-          fontSize={[, 'xxs', 'xs']}
-          letterSpacing="sm"
-          textAlign="center"
+  <ClientSideOnly>
+    <Box as="footer" bg="primary.accent-1">
+      <PageGutters py="lg">
+        <Grid
+          width="100%"
+          mx="auto"
+          gridTemplateColumns={['1fr', '1fr', '1fr', 'repeat(2, 1fr)']}
+          gridGap={['sm', 'sm', 'lg', 'auto']}
         >
-          © {new Date().getFullYear()} blocs.me{' '}
+          <Box width="min(100%, 350px)">
+            <Text
+              as="h3"
+              fontSize="md"
+              color="foreground"
+              fontWeight="bold"
+              mb="sm"
+              mt={0}
+            >
+              CONTACT
+            </Text>
+            <Text fontSize="sm" fontWeight="400" color="primary.accent-4">
+              found a bug, have a feature request or simply want to get in touch
+              ?
+            </Text>
+            <Text fontSize="sm" fontWeight="400" color="primary.accent-4">
+              reach out to me at{' '}
+              <Link href="mailto:moniet@blocs.me" inline underline passHref>
+                {' '}
+                moniet@blocs.me 🖖{' '}
+              </Link>
+            </Text>
+          </Box>
+          <Box width="min(100%, 350px)">
+            <Text
+              as="h3"
+              fontSize="md"
+              color="foreground"
+              fontWeight="bold"
+              mb="sm"
+              mt={0}
+            >
+              WHAT IS BLOCS DOING NEXT ?
+            </Text>
+            <Text fontSize="sm" fontWeight="400" color="primary.accent-4">
+              we have tons of new widgets lined up, from goal setters to sleep
+              and workout trackers
+            </Text>
+            <Text fontSize="sm" fontWeight="400" color="primary.accent-4">
+              take a little looksy 👀 at our{' '}
+              <Link
+                href="https://www.notion.so/81a847e283ca4d3583651d7d0d55f692?v=eb4ecf38b53949a6b531e387e90df22a"
+                passHref
+                inline
+                underline
+                rel="noopener"
+              >
+                roadmap
+              </Link>{' '}
+              to see how we&#39;re progressing
+            </Text>
+          </Box>
+          <Box width="min(100%, 350px)">
+            <Text
+              as="h3"
+              fontSize="md"
+              color="foreground"
+              fontWeight="bold"
+              mb="sm"
+              mt={0}
+            >
+              LINKS
+            </Text>
+            <RegoLink href="/">Home</RegoLink>
+            <RegoLink href="/pricing">Pricing</RegoLink>
+            <RegoLink href="/sign-in">Sign In</RegoLink>
+            <RegoLink href="/sitemap.xml">Sitemap</RegoLink>
+          </Box>
+        </Grid>
+      </PageGutters>
+      <Box bg="neutral.black" py="xs">
+        <PageGutters>
           <Text
-            as="span"
-            color="primary.accent-1"
+            color="neutral.white"
             mb={0}
-            fontWeight="300"
+            fontWeight="400"
             fontSize={[, 'xxs', 'xs']}
             letterSpacing="sm"
             textAlign="center"
           >
-            | made with ❤️ and 🍺
+            ©{new Date().getFullYear()} blocs.me{' '}
+            <Text
+              as="span"
+              color="neutral.white"
+              mb={0}
+              fontWeight="300"
+              fontSize={[, 'xxs', 'xs']}
+              letterSpacing="sm"
+              textAlign="center"
+            >
+              | made with ❤️ and 🍺
+            </Text>
           </Text>
-        </Text>
-        {/* <Text
+          {/* <Text
             color="primary.accent-1"
             mb={0}
             fontWeight="300"
@@ -123,10 +128,10 @@ const Footer = () => (
             as="a"
             href="/privacy-policy"
             letterSpacing="sm"
-          >
+            >
             Privacy Policy
-          </Text>
-          <Text
+            </Text>
+            <Text
             color="primary.accent-1"
             mb={0}
             as="a"
@@ -134,13 +139,14 @@ const Footer = () => (
             fontSize={[, "xxs", "xs", "sm"]}
             href="/terms-and-conditions"
             letterSpacing="sm"
-          >
+            >
             Terms and Conditions
           </Text> */}
-        {/* </Grid> */}
-      </PageGutters>
+          {/* </Grid> */}
+        </PageGutters>
+      </Box>
     </Box>
-  </Box>
+  </ClientSideOnly>
 )
 
 export default Footer

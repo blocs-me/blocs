@@ -1,20 +1,20 @@
-import { useReducer } from "react"
-import GlobalContext from "./globalContext"
+import { useReducer } from 'react'
+import GlobalContext from './globalContext'
 import {
   SET_ACCESS_TOKEN,
   SET_AUTH_STATE,
   SET_AUTH_VALID,
   SET_AVATAR_LINK,
-  SET_USER_LOGGING_OUT,
-} from "./globalActions"
-import { DEFAULT } from "../../constants/fetchStates"
+  SET_USER_LOGGING_OUT
+} from './globalActions'
+import { DEFAULT } from '../../constants/fetchStates'
 
 const initalState = {
   authValid: false,
   accessToken: null,
   authState: DEFAULT,
-  avatarLink: "",
-  loggingOut: false,
+  avatarLink: '',
+  loggingOut: false
 }
 
 const reducer = (state = initalState, action = {}) => {
@@ -45,5 +45,7 @@ const GlobalProvider = ({ children }) => {
     </GlobalContext.Provider>
   )
 }
+
+GlobalContext.displayName = 'GlobalContextProvider'
 
 export default GlobalProvider

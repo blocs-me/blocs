@@ -1,6 +1,6 @@
-import faunaClient from "@/lambda/faunaClient"
-import { validatePomodoroPreset } from "@/lambda/lib/jsonValidator"
-import { query as q } from "faunadb"
+import faunaClient from '@/lambda/faunaClient'
+import { validatePomodoroPreset } from '@/lambda/lib/restValidator/jsonValidator'
+import { query as q } from 'faunadb'
 
 const patchPomodoroPreset = async (req, res, rest) => {
   const { body: preset } = req
@@ -9,7 +9,7 @@ const patchPomodoroPreset = async (req, res, rest) => {
   const isValid = validatePomodoroPreset(preset)
   if (!isValid) {
     res.status(400).json({
-      error: validatePomodoroPreset.errors,
+      error: validatePomodoroPreset.errors
     })
 
     return null
@@ -17,10 +17,10 @@ const patchPomodoroPreset = async (req, res, rest) => {
 
   try {
     const updatedPreset = await faunaClient.query(
-      q.Call(q.Function("update_pomodoro_preset"), [
+      q.Call(q.Function('update_pomodoro_preset'), [
         preset?.id,
         userRef,
-        { data: preset },
+        { data: preset }
       ])
     )
 
@@ -33,7 +33,7 @@ const patchPomodoroPreset = async (req, res, rest) => {
   } catch (err) {
     res
       .status(500)
-      .json({ error: err?.message || "Uh oh !, something went wrong" })
+      .json({ error: err?.message || 'Uh oh !, something went wrong' })
   }
 }
 

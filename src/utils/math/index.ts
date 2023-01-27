@@ -1,0 +1,6 @@
+export * from './largestFreq'
+export * from './getRandomNum'
+export * from './literToOunce'
+export * from './ounceToLiter'
+export * from './getPercent'
+export * from './msToHours'

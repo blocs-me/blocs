@@ -1,62 +1,62 @@
 /** @jsxImportSource @emotion/react */
-import { useEffect, forwardRef, useRef, useMemo, useState } from "react"
-import { createPortal } from "react-dom"
-import Link from "next/link"
-import { animate } from "popmotion"
-import Flex from "@/helpers/Flex"
-import Icon from "@/helpers/Icon"
-import Stack from "@/helpers/Stack"
-import Gear from "../../../../icons/gear.svg"
-import Card from "@/design-system/Card"
-import Text from "@/design-system/Text"
-import BatteryHalf from "../../../../icons/battery-half-full.svg"
-import BatteryFull from "../../../../icons/battery-full.svg"
-import Cloud from "../../../../icons/cloud.svg"
-import Clock from "../../../../icons/clock.svg"
-import { useClickOutside } from "@/hooks/useClickOutside"
-import Notch from "@/helpers/Notch"
-import slideIn from "@/keyframes/slideIn"
-import slideOut from "@/keyframes/slideOut"
+import { useEffect, forwardRef, useRef, useMemo, useState } from 'react'
+import { createPortal } from 'react-dom'
+import Link from 'next/link'
+import { animate } from 'popmotion'
+import Flex from '@/helpers/Flex'
+import Icon from '@/helpers/Icon'
+import Stack from '@/helpers/Stack'
+import Gear from '../../../../icons/gear.svg'
+import Card from '@/design-system/Card'
+import Text from '@/design-system/Text'
+import BatteryHalf from '../../../../icons/battery-half-full.svg'
+import BatteryFull from '../../../../icons/battery-full.svg'
+import Cloud from '../../../../icons/cloud.svg'
+import Clock from '../../../../icons/clock.svg'
+import { useClickOutside } from '@/hooks/useClickOutside'
+import Notch from '@/helpers/Notch'
+import slideIn from 'src/styles/keyframes/slideIn'
+import slideOut from 'src/styles/keyframes/slideOut'
 
 const links = [
   {
-    name: "short break",
+    name: 'short break',
     I: BatteryHalf,
-    onClick: () => {},
+    onClick: () => {}
   },
   {
-    name: "long break",
+    name: 'long break',
     I: BatteryFull,
-    onClick: () => {},
+    onClick: () => {}
   },
   {
-    name: "deep focus",
+    name: 'deep focus',
     I: Cloud,
-    onClick: () => {},
+    onClick: () => {}
   },
   {
-    name: "main settings",
+    name: 'main settings',
     I: Clock,
     onClick: (e) => {
       e.preventDefault()
     },
-    props: { href: "/pomodoro/main-menu" },
-    Component: Link,
-  },
+    props: { href: '/pomodoro/main-menu' },
+    Component: Link
+  }
 ]
 
 const TinyMenu = forwardRef((props, ref) => {
   const { iconRef, menuDimensions } = props
-  const container = global.window ? document.createElement("div") : null
+  const container = global.window ? document.createElement('div') : null
   const [viewportSize, setViewPortSize] = useState(0)
 
   useEffect(() => {
-    const body = document.querySelector("body")
+    const body = document.querySelector('body')
 
     if (container) {
       const dimensions = iconRef.current?.getBoundingClientRect()
       const { left, top } = dimensions || {}
-      container.style.position = "absolute"
+      container.style.position = 'absolute'
       container.style.top = `calc(${top}px)`
       container.style.left = `${left}px`
       container.style.transform = `translate(-25%, calc(-100% - 1.5rem))`
@@ -72,7 +72,7 @@ const TinyMenu = forwardRef((props, ref) => {
   useEffect(() => {
     let timer = null
 
-    window.addEventListener("resize", () => {
+    window.addEventListener('resize', () => {
       clearTimeout(timer)
 
       timer = setTimeout(() => {
@@ -130,7 +130,7 @@ const QuickAccessMenu = () => {
       duration: 250,
       onUpdate: (opacity) => {
         tinyMenuRef.current && (tinyMenuRef.current.style.opacity = opacity)
-      },
+      }
     })
     animate({
       from: 0,
@@ -143,13 +143,13 @@ const QuickAccessMenu = () => {
       onComplete: () => {
         open.current = false
         setShouldRenderMenu(false)
-      },
+      }
     })
   }
 
   useClickOutside({
     element: tinyMenuRef,
-    onClickOutside: handleClickOutside,
+    onClickOutside: handleClickOutside
   })
 
   const toggleMenu = (e) => {
@@ -172,7 +172,7 @@ const QuickAccessMenu = () => {
         duration: 250,
         onUpdate: (opacity) => {
           tinyMenuRef.current && (tinyMenuRef.current.style.opacity = opacity)
-        },
+        }
       })
 
       animate({
@@ -182,7 +182,7 @@ const QuickAccessMenu = () => {
         onUpdate: (y) => {
           tinyMenuRef.current &&
             (tinyMenuRef.current.style.transform = `translateY(${y}px)`)
-        },
+        }
       })
     }
   }, [shouldRenderMenu, tinyMenuRef])

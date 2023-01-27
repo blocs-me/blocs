@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
-import styled from "@emotion/styled"
-import tg from "@styled-system/theme-get"
-import Box from "@/helpers/Box"
-import theme from "src/styles/theme"
+import styled from '@emotion/styled'
+import tg from '@styled-system/theme-get'
+import Box from '@/helpers/Box'
+import theme from 'src/styles/theme'
 
 const Text = styled.span`
   display: flex;
@@ -10,13 +10,13 @@ const Text = styled.span`
   justify-content: center;
   font-family: inherit;
   padding: 3px 4px;
-  background: ${tg("colors.secondary")};
-  color: ${tg("colors.primary.accent-1")};
+  background: ${tg('colors.brand.accent-1')};
+  color: ${tg('colors.neural.white')};
   font-weight: 400;
   font-size: 0.5rem;
   line-height: 1;
   border-radius: 10px;
-  letter-spacing: ${tg("letterSpacings.sm")};
+  letter-spacing: ${tg('letterSpacings.sm')};
 
   @media (max-width: ${theme.breakpoints[3]}) {
     font-size: 0.4rem;
@@ -31,20 +31,18 @@ const Text = styled.span`
   }
 `
 
-const BetaWrapper = ({ children, color = "primary.accent-3" }) => {
+const BetaWrapper = ({ children, color = 'neural.white', text = 'alpha' }) => {
   return (
-    <Box position="relative" color={color} width="fit-content" as="span">
+    <Box position="relative" color={color} width="fit-content">
       {children}
       <Box
-        as="a"
-        href="https://en.wikipedia.org/wiki/Software_release_life_cycle#Alpha"
-        target="_blank"
         position="absolute"
         top="0"
         right="0"
-        css={{ transform: "translateX(100%)" }}
+        as="span"
+        css={{ transform: 'translateX(100%)' }}
       >
-        <Text>alpha</Text>
+        <Text>{text}</Text>
       </Box>
     </Box>
   )

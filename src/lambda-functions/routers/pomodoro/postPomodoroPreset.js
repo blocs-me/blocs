@@ -1,6 +1,6 @@
-import faunaClient from "@/lambda/faunaClient"
-import { validatePomodoroPreset } from "@/lambda/lib/jsonValidator"
-import { query as q } from "faunadb"
+import faunaClient from '@/lambda/faunaClient'
+import { validatePomodoroPreset } from '@/lambda/lib/restValidator/jsonValidator'
+import { query as q } from 'faunadb'
 
 const postPomodoroPreset = async (req, res, rest) => {
   const preset = req.body
@@ -11,27 +11,27 @@ const postPomodoroPreset = async (req, res, rest) => {
   if (!isValid) {
     console.log(validatePomodoroPreset.errors)
     res.status(400).json({
-      error: "Form data is invalid. Contact moniet@blocs.me if this persists.",
+      error: 'Form data is invalid. Contact moniet@blocs.me if this persists.'
     })
 
     return null
   }
 
   try {
-    const faundaRes = await faunaClient.query(
-      q.Create(q.Collection("pomodoro_presets"), {
+    const faunaRes = await faunaClient.query(
+      q.Create(q.Collection('pomodoro_presets'), {
         data: {
           ...preset,
           userId,
-          id: q.NewId(),
-        },
+          id: q.NewId()
+        }
       })
     )
-    res.status(200).json({ data: faundaRes?.data })
+    res.status(200).json({ data: faunaRes?.data })
   } catch (err) {
     console.error(err)
     res.status(500).json({
-      error: "Something went wrong when trying to create your preset",
+      error: 'Something went wrong when trying to create your preset'
     })
   }
 }

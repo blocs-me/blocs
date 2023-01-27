@@ -1,9 +1,8 @@
-import Box from "@/helpers/Box"
-import styled from "@emotion/styled"
-import { useDebouncedFn } from "beautiful-react-hooks"
-import { forwardRef, useEffect, useRef, useState } from "react"
-import Input from "../Input"
-import InputWrapper from "../Input/InputWrapper"
+import Box from '@/helpers/Box'
+import styled from '@emotion/styled'
+import { forwardRef, useEffect, useRef, useState } from 'react'
+import Input from '../Input'
+import InputWrapper from '../Input/InputWrapper'
 
 /* eslint-disable react/display-name */
 
@@ -20,7 +19,7 @@ const ColorInput = forwardRef(
       const input = colorBg.current
 
       if (input) {
-        input.style.setProperty("--bg", e?.target?.value)
+        input.style.setProperty('--bg', e?.target?.value)
       }
     }
 
@@ -28,12 +27,12 @@ const ColorInput = forwardRef(
       const input = colorBg.current
 
       if (input) {
-        input.style.setProperty("--bg", defaultValue)
+        input.style.setProperty('--bg', defaultValue)
       }
     }, [])
 
     return (
-      <InputWrapper htmlFor={htmlFor} label={label} css={{ width: "100%" }}>
+      <InputWrapper htmlFor={htmlFor} label={label} css={{ width: '100%' }}>
         <Box
           zIndex="0"
           width="calc(100% - 1rem)"
@@ -42,7 +41,7 @@ const ColorInput = forwardRef(
           position="absolute"
           top="50%"
           left="50%"
-          css={{ transform: "translate(-50%, -50%)", background: "var(--bg)" }}
+          css={{ transform: 'translate(-50%, -50%)', background: 'var(--bg)' }}
           ref={colorBg}
         />
         <Box
