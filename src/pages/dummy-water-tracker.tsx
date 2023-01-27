@@ -13,7 +13,7 @@ const DummyWaterTrackerPage = () => {
   }, [])
 
   return (
-    <WidgetPage bg="background" p="sm">
+    <WidgetPage bg="bg.notion" p="sm">
       <BlocsThemeProvider>
         <DummyWaterTracker
           progress={progress}

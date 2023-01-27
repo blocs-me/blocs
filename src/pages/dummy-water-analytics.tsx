@@ -3,7 +3,7 @@ import WidgetPage from '@/widgets/WidgetPage'
 
 const DummyPomodoroAnalytics = () => {
   return (
-    <WidgetPage p="sm" bg="background">
+    <WidgetPage p="sm" bg="bg.notion">
       <DummyAnalyticsBarChart
         units="L"
         width="100%"
