@@ -47,6 +47,7 @@ const SharingFeatureSection = () => {
           bg="primary.accent-2"
           center
           maxWidth="600px"
+          minWidth={['300px', , , '450px']}
         >
           <Image
             src="/handshake-3d.png"
@@ -80,7 +81,7 @@ const SharingFeatureSection = () => {
         <SlideIn delay={0.3} pause={!reveal}>
           <Text
             variant="p"
-            width={['100%', , , '500px', '600px']}
+            width={['100%', , , '500px', '400px', '500px']}
             textAlign={['center', , , , 'left']}
           >
             With this all new feature you can create a <b>special</b> link for
@@ -92,7 +93,7 @@ const SharingFeatureSection = () => {
         <SlideIn delay={0.4} pause={!reveal}>
           <Text
             variant="p"
-            width={['100%', , , '500px', '600px']}
+            width={['100%', , , '500px', '400px', '500px']}
             textAlign={['center', , , , 'left']}
           >
             The shareable widget link can be embeded in your{' '}
