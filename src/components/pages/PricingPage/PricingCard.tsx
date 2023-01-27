@@ -83,7 +83,7 @@ const PricingCard = ({
         width="100%"
         py="sm"
         bg={ctaColor}
-        color="background"
+        color={isPremium ? 'neutral.white' : 'background'}
         onClick={onClick}
         fontSize="sm"
         borderRadius="sm"
@@ -103,6 +103,8 @@ const PricingCard = ({
           {children}
         </ChildrenContainer>
       </div>
+
+      
     </Flex>
   )
 }

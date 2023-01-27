@@ -1,4 +1,4 @@
-import Text from '@/design-system/Text'
+ import Text from '@/design-system/Text'
 import Flex from '@/helpers/Flex'
 import Icon from '@/helpers/Icon'
 
