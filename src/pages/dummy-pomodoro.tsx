@@ -24,7 +24,7 @@ const Realistic = () => {
 
 const PomodoroDummy = () => {
   return (
-    <WidgetPage p="sm" bg="background">
+    <WidgetPage p="sm" bg="bg.notion">
       <BlocsThemeProvider>
         <PomodoroProvider>
           <DummyPomodoro
