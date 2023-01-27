@@ -27,7 +27,7 @@ import Trash from 'src/icons/trash'
 const EllipsesIcon = ({ selected, menuOpen }) => (
   <Icon
     width="20px"
-    stroke={selected || menuOpen ? 'primary.accent-4' : 'primary.accent-1'}
+    stroke={selected || menuOpen ? 'primary.accent-4' : 'primary.accent-3'}
   >
     <Ellipses css={{ transition: 'fill ease 0.2s' }} />
   </Icon>
