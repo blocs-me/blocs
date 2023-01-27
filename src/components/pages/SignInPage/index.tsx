@@ -37,7 +37,7 @@ const SignInPage = () => {
   const shouldPreventSignIn = lastSignedInAt
     ? (new Date().getTime() - new Date(lastSignedInAt).getTime()) /
         (1000 * 60) <
-      1 
+      1
     : false
 
   const handleSignIn = handleSubmit(async ({ email }) => {
@@ -116,11 +116,14 @@ const SignInPage = () => {
               error={errors?.email ? 'Please enter a valid email' : ''}
             />
             <Button
-              variant="default"
+              px="xxs"
+              py="xs"
               borderRadius="md"
               width="100%"
               bg="brand.accent-1"
+              fontSize="sm"
               type="submit"
+              color="foreground"
               mt="sm"
               disabled={linkSent || shouldPreventSignIn}
               loading={isLoading}
