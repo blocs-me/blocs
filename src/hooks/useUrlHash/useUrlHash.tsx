@@ -1,14 +1,7 @@
-import {
-  createContext,
-  useEffect,
-  useLayoutEffect,
-  useState,
-  ComponentType
-} from 'react'
+import { createContext, useEffect, useState, ComponentType } from 'react'
 import { useContext } from 'react'
 import { useRouter } from 'next/router'
 import { UrlHash } from '@/widgets/WaterTracker/types'
-import { useDidMount } from 'beautiful-react-hooks'
 
 const context = createContext({})
 
