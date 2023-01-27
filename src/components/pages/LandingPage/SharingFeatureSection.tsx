@@ -37,13 +37,16 @@ const SharingFeatureSection = () => {
       flexDirection={['column', , , , 'row']}
       py="lg"
       ref={ref}
+      alignItems={['center', , , , 'start']}
     >
       <SlideIn pause={!reveal}>
-        <Box
-          p="sm"
+        <Flex
+          p="md"
           borderRadius="md"
           boxShadow="insetDefault"
           bg="primary.accent-2"
+          center
+          maxWidth="600px"
         >
           <Image
             src="/handshake-3d.png"
@@ -53,9 +56,9 @@ const SharingFeatureSection = () => {
             objectFit="cover"
             priority
           />
-        </Box>
+        </Flex>
       </SlideIn>
-      <Flex flexDirection={'column'}>
+      <Flex flexDirection={'column'} alignItems={['center', , , , 'start']}>
         <SlideIn delay={0.2} pause={!reveal}>
           <Box width="fit-content">
             <Sparkles>
@@ -75,7 +78,11 @@ const SharingFeatureSection = () => {
         </SlideIn>
 
         <SlideIn delay={0.3} pause={!reveal}>
-          <Text variant="p" width={['100%', , , '400px', '500px', '600px']} >
+          <Text
+            variant="p"
+            width={['100%', , , '500px', '600px']}
+            textAlign={['center', , , , 'left']}
+          >
             With this all new feature you can create a <b>special</b> link for
             friends and family where they can see your progress and be your{' '}
             <b>accountability partner.</b>
@@ -83,7 +90,11 @@ const SharingFeatureSection = () => {
         </SlideIn>
 
         <SlideIn delay={0.4} pause={!reveal}>
-          <Text variant="p" width={['100%', , , '400px', '500px', '600px']}>
+          <Text
+            variant="p"
+            width={['100%', , , '500px', '600px']}
+            textAlign={['center', , , , 'left']}
+          >
             The shareable widget link can be embeded in your{' '}
             <b>friend&#39;s Notion workspace</b>, but it&#39;s only editable by
             you ensuring total control.

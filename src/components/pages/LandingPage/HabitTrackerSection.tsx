@@ -7,7 +7,7 @@ import { URLHashProvider } from '@/hooks/useUrlHash/useUrlHash'
 import { useEffect, useState } from 'react'
 
 const paraOne =
-  'Have a new habit you want to create ? No problem! With our new habit tracker widget you can create any habit and watch the list refresh everyday to tick off again ✅'
+  'Have a new habit you want to create ? No problem! With our new habit tracker widget you can create any habit and watch the list refresh everyday to tick off again ☑️'
 const paraTwo =
   'The coolest part of the habit tracker is the streak chart 📊 The only way to keep your streak going by is ticking off 100% of your habits everyday. 🔥'
 

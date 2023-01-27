@@ -55,31 +55,37 @@ const WidgetExplainerSection = ({
       justifyContent={['center', , , , 'space-between']}
       gap={'lg'}
     >
-      <SlideIn duration={1.5} pause={!reveal} css={{ flex: 1 }}>
+      <Box css={{ flex: 1 }}>
         <Flex
           flexDirection={'column'}
           width="min(100%, 500px)"
           m={['0 auto', , , , 0]}
         >
-          <Text
-            as="h3"
-            color="foreground"
-            fontWeight="bold"
-            mt={0}
-            mb="md"
-            letterSpacing="sm"
-            textAlign={['center', , , , 'left']}
-          >
-            {header}
-          </Text>
-          <Text variant="p" textAlign={['center', , , , 'left']}>
-            {paraOne}
-          </Text>
-          <Text variant="p" textAlign={['center', , , , 'left']}>
-            {paraTwo}
-          </Text>
+          <SlideIn delay={0.1} pause={!reveal}>
+            <Text
+              as="h3"
+              color="foreground"
+              fontWeight="bold"
+              mt={0}
+              mb="md"
+              letterSpacing="sm"
+              textAlign={['center', , , , 'left']}
+            >
+              {header}
+            </Text>
+          </SlideIn>
+          <SlideIn delay={0.2} pause={!reveal}>
+            <Text variant="p" textAlign={['center', , , , 'left']}>
+              {paraOne}
+            </Text>
+          </SlideIn>
+          <SlideIn delay={0.3} pause={!reveal}>
+            <Text variant="p" textAlign={['center', , , , 'left']}>
+              {paraTwo}
+            </Text>
+          </SlideIn>
         </Flex>
-      </SlideIn>
+      </Box>
 
       <Box
         borderRadius="md"

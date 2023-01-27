@@ -376,7 +376,7 @@ const LandingPage = () => {
           <Box pt="lg" />
           <Flex flexDirection="column">
             <Text variant="h4" textAlign={'center'} color="foreground">
-              And tons more Coming Soon!
+              And tons more coming soon!
             </Text>
             <Text
               variant="p"
