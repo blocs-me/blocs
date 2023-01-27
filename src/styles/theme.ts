@@ -103,7 +103,7 @@ const shadows = {
   neumorphicDefault: `0 0 0 1px rgb(0,0,0),   rgba(50, 50, 50, 0.08) 0px 2px 10px,
   rgba(50, 50, 50, 0.05) 0px 5px 20px,
   rgba(0, 0, 0, 0.03) 0px 10px 30px`,
-  insetDefault: `inset 0 0 10px rgba(30, 30, 30, 0.05)`
+  insetDefault: `inset 0 0 8px rgba(30, 30, 30, 0.06)`
 }
 
 const letterSpacings = {

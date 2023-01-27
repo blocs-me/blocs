@@ -121,7 +121,7 @@ const HabitTrackerDashboard = () => {
       }}
     >
       <Flex
-        width="100%"
+        // width={['100%', , '400px', , '400px']}
         flexWrap="wrap"
         flexDirection={['column-reverse', , , , , 'row']}
         alignItems={'start'}

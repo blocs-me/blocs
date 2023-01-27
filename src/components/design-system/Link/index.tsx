@@ -15,6 +15,7 @@ type Props = Partial<{
   color: string
   className: string
   target: string
+  rel?: string
 }> &
   IBox
 

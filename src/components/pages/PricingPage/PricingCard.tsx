@@ -17,6 +17,7 @@ type Props = {
   isPremium: boolean
   children?: ReactNode
   isLoading?: boolean
+  isLifetime?: boolean
 }
 
 const ChildrenContainer = styled.div`
@@ -44,6 +45,7 @@ const PricingCard = ({
   children,
   isPremium,
   isLoading,
+  isLifetime,
   ...rest
 }: Props & IBox) => {
   return (
@@ -83,7 +85,7 @@ const PricingCard = ({
         width="100%"
         py="sm"
         bg={ctaColor}
-        color={isPremium ? 'neutral.white' : 'background'}
+        color={isLifetime ? 'neutral.white' : 'background'}
         onClick={onClick}
         fontSize="sm"
         borderRadius="sm"
@@ -103,8 +105,6 @@ const PricingCard = ({
           {children}
         </ChildrenContainer>
       </div>
-
-      
     </Flex>
   )
 }

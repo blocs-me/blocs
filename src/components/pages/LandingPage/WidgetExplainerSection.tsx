@@ -1,10 +1,12 @@
 import Text from '@/design-system/Text'
 import Box from '@/helpers/Box'
 import Flex from '@/helpers/Flex'
+import Icon from '@/helpers/Icon'
 import float from '@/keyframes/float'
 import DummyAnalyticsBarChart from '@/widgets/AnalyticsBarChart/DummyAnalyticsBarChart'
 import DummyPomodoro from '@/widgets/Pomodoro/DummyPomodoro'
 import { useRef, useEffect, useState, ReactNode } from 'react'
+import Stopwatch from 'src/icons/stopwatch'
 import SlideIn from './LandingDemo/SlideIn'
 
 const WidgetExplainerSection = ({
@@ -35,7 +37,7 @@ const WidgetExplainerSection = ({
       },
       {
         // root: document.querySelector('#landing'),
-        threshold: 1.0
+        threshold: 0.5
       }
     )
 
@@ -46,30 +48,59 @@ const WidgetExplainerSection = ({
     <Flex
       ref={ref}
       width="100%"
-      py="lg"
-      justifyContent="space-between"
-      flexDirection={['column', , , reverse ? 'row-reverse' : 'row']}
-      gap="md"
+      py={['md', , , , 'lg']}
+      flexDirection={['column', , , , , reverse ? 'row-reverse' : 'row']}
       overflow="hidden"
+      alignItems={['center', , , , 'start']}
+      justifyContent={['center', , , , 'space-between']}
+      gap={'lg'}
     >
-      <SlideIn pause={!reveal}>
-        <Flex flexDirection="column" width="min(100%, 500px)">
+      <SlideIn duration={1.5} pause={!reveal} css={{ flex: 1 }}>
+        <Flex
+          flexDirection={'column'}
+          width="min(100%, 500px)"
+          m={['0 auto', , , , 0]}
+        >
           <Text
-            fontSize={['md', , 'lg']}
-            fontWeight={'bold'}
+            as="h3"
             color="foreground"
+            fontWeight="bold"
+            mt={0}
             mb="md"
             letterSpacing="sm"
+            textAlign={['center', , , , 'left']}
           >
             {header}
           </Text>
-          <Text variant="p">{paraOne}</Text>
-          <Text variant="p">{paraTwo}</Text>
+          <Text variant="p" textAlign={['center', , , , 'left']}>
+            {paraOne}
+          </Text>
+          <Text variant="p" textAlign={['center', , , , 'left']}>
+            {paraTwo}
+          </Text>
         </Flex>
       </SlideIn>
 
-      <Box borderRadius="md" bg="primary.accent-2" boxShadow="insetDefault">
-        <Flex gap="md" css={{ transform: 'scale(0.8)' }} p="sm">
+      <Box
+        borderRadius="md"
+        bg="primary.accent-2"
+        boxShadow="insetDefault"
+        py="sm"
+        width="100%"
+        css={{
+          transition: 'opacity 0.2s ease',
+          opacity: 'var(--opacity, 0)',
+          flex: 1
+        }}
+        style={{ '--opacity': reveal ? 1 : 0 }}
+        // width="min(100%, 700px)""
+      >
+        <Flex
+          gap="sm"
+          css={{ transform: 'scale(0.8)' }}
+          center
+          flexDirection={['column', , , , 'row']}
+        >
           {children(reveal)}
         </Flex>
       </Box>

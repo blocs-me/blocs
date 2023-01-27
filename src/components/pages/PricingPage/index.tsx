@@ -158,6 +158,7 @@ const PricingPage = () => {
             </PricingCard>
             <PricingCard
               header="Lifetime Access"
+              isLifetime
               price="30"
               priceDescSmall="unlimited access to all future widgets"
               priceDescLarge="Pay once and then never again!"
@@ -207,6 +208,7 @@ const PricingPage = () => {
                     m={0}
                     lineHeight={1.75}
                     textAlign="center"
+                    color="neutral.white"
                   >
                     <span>Limited</span>
                     <br />

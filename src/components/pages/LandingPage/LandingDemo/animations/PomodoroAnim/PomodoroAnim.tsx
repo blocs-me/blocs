@@ -24,10 +24,12 @@ const PomodoroAnim = ({ setNext, pause }) => {
           />
         </ScaleIn>
         <SlideIn delay={0.3}>
-          <DemoText>
-            Master your time with our supercharged ⏰ <b>pomodoro</b> widget
-            bundled with 📊 <b>analytics</b>
-          </DemoText>
+          <Box width={['250px', , , 'auto']}>
+            <DemoText>
+              Master your time with our supercharged ⏰ <b>pomodoro</b> widget
+              bundled with 📊 <b>analytics</b>
+            </DemoText>
+          </Box>
         </SlideIn>
       </Flex>
     </SwipeAnim>

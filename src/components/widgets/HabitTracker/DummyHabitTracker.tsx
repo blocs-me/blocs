@@ -55,7 +55,9 @@ const formatDate = new Intl.DateTimeFormat('en', {
 const DummyHabitTracker = ({
   isAnalyticsHidden = false,
   analyticsData = { data: null },
-  habits = { data: [] }
+  habits = { data: [] },
+  isEditable = false,
+  checkedValues = []
 }) => {
   const today = formatDate(new Date())
   const todayISO = getCurrentISOString()
@@ -67,6 +69,7 @@ const DummyHabitTracker = ({
   const donutProgress = useHabitStreakProgress(analyticsData)
   const scrollContainer = useRef<HTMLDivElement>(null)
   const columnOne = useRef<HTMLDivElement>(null)
+  const [checked, setChecked] = useState(checkedValues)
 
   const [hideTopFade, setHideTopFade] = useState(true)
   const [hideBottomFade, setHideBottomFade] = useState(false)
@@ -107,7 +110,7 @@ const DummyHabitTracker = ({
       position="relative"
       overflow="hidden"
     >
-      <FadeIn css={{ width: '100%', height: '100%', pointerEvents: 'none' }}>
+      <FadeIn css={{ width: '100%', height: '100%' }}>
         <Flex
           justifyContent="center"
           width="100%"
@@ -157,12 +160,24 @@ const DummyHabitTracker = ({
                   <CheckoboxesSkeleton isLoading={!habits} />
                   {habits?.data?.map((d) => (
                     <CheckboxWithText
-                      isChecked={analyticsData?.data?.habitsDone?.includes(
-                        d.id
-                      )}
+                      isChecked={checked?.includes(d.id)}
                       text={d.title}
                       id={d.id}
-                      onChange={() => {}}
+                      onChange={(str) => {
+                        isEditable &&
+                          (() => {
+                            const index = checked.findIndex((v) => v === d.id)
+
+                            if (index > -1) {
+                              setChecked([
+                                ...checked.slice(0, index),
+                                ...checked.slice(index + 1)
+                              ])
+                            } else {
+                              setChecked([d.id, ...checked])
+                            }
+                          })()
+                      }}
                       key={d.id}
                     />
                   ))}

@@ -45,6 +45,7 @@ const DummyAnalyticsBarChart = ({ units, ...rest }: Props) => {
       borderRadius="md"
       boxShadow="default"
       flexDirection="column"
+      bg="background"
       p={'sm'}
       {...rest}
     >

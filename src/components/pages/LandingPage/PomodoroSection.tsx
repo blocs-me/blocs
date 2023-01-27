@@ -5,9 +5,9 @@ import SlideIn from './LandingDemo/SlideIn'
 import WidgetExplainerSection from './WidgetExplainerSection'
 
 const paraOne =
-  'Blocs Pomodoro widget is packed with features to help you master your time.'
+  'Blocs Pomodoro widget is packed with features to help you be a master of your time.'
 const paraTwo =
-  'You can create different presets for each task and the best thing is, with Pomodoro analytics you can see exactly how you\'re spending your time!'
+  "You can create different presets for each task and the best thing, with Pomodoro analytics you can see exactly how you're spending time!"
 
 const PomodoroSection = () => {
   return (
@@ -20,17 +20,26 @@ const PomodoroSection = () => {
         <>
           <SlideIn
             pause={!reveal}
-            delay={0.2}
+            delay={0.3}
             css={{ animation: `${float} 1s ease infinite alternate` }}
           >
-            <DummyPomodoro css={{ transform: 'translateY(-10%)' }} />
+            <DummyPomodoro
+              height={'auto'}
+              width={['300px', , , '320px']}
+              css={{ transform: 'translateY(-20px)' }}
+            />
           </SlideIn>
           <SlideIn
             pause={!reveal}
-            delay={0.3}
+            delay={0.5}
             css={{ animation: `${float} 1s ease 0.2s infinite alternate` }}
           >
-            <DummyAnalyticsBarChart width="350px" height="400px" units="hr" />
+            <DummyAnalyticsBarChart
+              width={['300px', , , '340px']}
+              height={['350px', , , '380px']}
+              units="hr"
+              css={{ transform: 'translateY(10%)' }}
+            />
           </SlideIn>
         </>
       )}

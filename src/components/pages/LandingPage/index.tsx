@@ -23,6 +23,19 @@ import Email from '../../../icons/email.svg'
 import Twitter from '../../../icons/twitter.svg'
 import WidgetExplainerSection from './WidgetExplainerSection'
 import PomodoroSection from './PomodoroSection'
+import WaterTrackerSection from './WaterTrackerSection'
+import HabitTrackerSection from './HabitTrackerSection'
+import Image from 'next/image'
+import SharingFeatureSection from './SharingFeatureSection'
+import DSLink from '@/design-system/Link'
+import HeartAnim from './LandingDemo/animations/HeartAnim'
+import float from '@/keyframes/float'
+
+const M = ({ children }) => (
+  <Box as="span" color="brand.accent-1">
+    {children}
+  </Box>
+)
 
 const SocialIcons = ({
   href,
@@ -300,7 +313,7 @@ const LandingPage = () => {
             </Flex>
           </Flex>
           <Box as="hr" border="solid 1px" borderColor="primary.accent-1" />
-          <Flex justifyContent={'center'}>
+          <Flex justifyContent={'center'} mb="md" mt="lg">
             <Flex
               flexDirection="column"
               alignItems={'center'}
@@ -329,8 +342,73 @@ const LandingPage = () => {
             </Flex>
           </Flex>
 
+          <SharingFeatureSection />
           <PomodoroSection />
+          <WaterTrackerSection />
+          <HabitTrackerSection />
+
+          <Flex width="100%" center py="lg">
+            <Box
+              position="relative"
+              css={{ animation: `${float} 1s ease-in-out alternate infinite` }}
+            >
+              <Link
+                href="https://www.notion.so/widgets-demo-cdf30a30ba704d5b8a55dc7a196d3e7b"
+                passHref
+              >
+                <Button
+                  bg="foreground"
+                  color="background"
+                  borderRadius="sm"
+                  px="md"
+                  py="sm"
+                  fontSize="md"
+                  as="a"
+                >
+                  Widget Demo
+                </Button>
+              </Link>
+            </Box>
+          </Flex>
+
+          <Box pt="lg" />
+          <Box width="100%" height="2px" bg="primary.accent-1" />
+          <Box pt="lg" />
+          <Flex flexDirection="column">
+            <Text variant="h4" textAlign={'center'} color="foreground">
+              And tons more Coming Soon!
+            </Text>
+            <Text
+              variant="p"
+              width={['100%', , , '400px', '500px', '600px']}
+              m="0 auto"
+              textAlign="center"
+            >
+              From sleep trackers to goal setters, we have a bunch ideas to take
+              notion widgets to a whole new level!
+            </Text>
+            <Box mt="sm" />
+            <Text
+              variant="p"
+              width={['100%', , , '400px', '500px', '600px']}
+              m="0 auto"
+              textAlign="center"
+            >
+              Take a look at our{' '}
+              <DSLink
+                href="https://www.notion.so/81a847e283ca4d3583651d7d0d55f692?v=eb4ecf38b53949a6b531e387e90df22a"
+                passHref
+                inline
+                underline
+                rel="noopener"
+              >
+                roadmap
+              </DSLink>{' '}
+              to see what we’re working on.
+            </Text>
+          </Flex>
         </Box>
+        <Box pt="xl" />
       </PageLayout>
     </Box>
   )

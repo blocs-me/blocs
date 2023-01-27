@@ -8,6 +8,7 @@ import {
   compose,
   layout,
   padding,
+  shadow,
   space,
   typography,
   variant
@@ -55,7 +56,8 @@ const buttonStyles = compose(
   padding,
   typography,
   border,
-  flexbox
+  flexbox,
+  shadow
 )
 
 const variants = variant({

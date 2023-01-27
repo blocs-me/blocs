@@ -28,7 +28,7 @@ const SlideIn = ({
           container,
           {
             opacity: [0, 1],
-            y: [10, 0]
+            y: [13, 0]
           },
           {
             duration,
