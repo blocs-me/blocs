@@ -10,7 +10,7 @@ import DSLink from 'next/link'
 const RegoLink = ({ children, ...rest }) => (
   <Box mb="xs">
     <Link {...rest} color="primary.accent-4">
-      <Text css={{ cursor: 'pointer' }} fontSize="sm" as="a">
+      <Text css={{ cursor: 'pointer' }} fontSize="sm" as="span">
         {children}
       </Text>
     </Link>
@@ -92,7 +92,7 @@ const Footer = () => (
             </Text>
             <RegoLink href="/">Home</RegoLink>
             <RegoLink href="/pricing">Pricing</RegoLink>
-            <RegoLink href="/pricing">Sign In</RegoLink>
+            <RegoLink href="/sign-in">Sign In</RegoLink>
             <RegoLink href="/sitemap.xml">Sitemap</RegoLink>
           </Box>
         </Grid>
@@ -107,7 +107,7 @@ const Footer = () => (
             letterSpacing="sm"
             textAlign="center"
           >
-            ©{new Date().getFullYear()}blocs.me{' '}
+            ©{new Date().getFullYear()} blocs.me{' '}
             <Text
               as="span"
               color="neutral.white"
