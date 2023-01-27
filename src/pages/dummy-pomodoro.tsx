@@ -24,8 +24,8 @@ const Realistic = () => {
 
 const PomodoroDummy = () => {
   return (
-    <BlocsThemeProvider>
-      <WidgetPage p="sm">
+    <WidgetPage p="sm">
+      <BlocsThemeProvider>
         <PomodoroProvider>
           <DummyPomodoro
             height="auto"
@@ -35,8 +35,8 @@ const PomodoroDummy = () => {
           />
           <Realistic />
         </PomodoroProvider>
-      </WidgetPage>
-    </BlocsThemeProvider>
+      </BlocsThemeProvider>
+    </WidgetPage>
   )
 }
 
