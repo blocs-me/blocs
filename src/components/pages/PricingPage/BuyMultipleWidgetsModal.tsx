@@ -167,7 +167,7 @@ const BuyMultipleWidgetsModals = ({
         <Text as="div" css={{ alignSelf: 'end' }} color="primary.accent-3">
           Total Price :
           <Box width="30px" as="span" display="inline-block" ml="xxs">
-            ${totalPrice}
+            €{totalPrice}
           </Box>
         </Text>
 
