@@ -73,7 +73,7 @@ const PricingCard = ({
           mr="sm"
           lineHeight={1}
         >
-          ${price}
+          €{price}
         </Text>
         <Text variant="pSmall" mt={0} lineHeight={1}>
           {priceDescSmall}

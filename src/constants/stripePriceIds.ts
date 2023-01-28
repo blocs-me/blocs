@@ -17,6 +17,6 @@ const prod: PriceIds = {
   pomodoro: 'price_1MQWTjHyXnRceQpOMxQBvlW3'
 }
 
-const stripePriceIds = process.env.VERCEL_ENV === 'production' ? prod : local
+const stripePriceIds = process.env.VERCEL_ENV === 'local' ? local : prod
 
 export default stripePriceIds

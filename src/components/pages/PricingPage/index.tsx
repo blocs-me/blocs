@@ -219,7 +219,7 @@ const PricingPage = () => {
             </PricingCard>
             <PricingCard
               header="Per widget"
-              price="5"
+              price="4"
               priceDescSmall="Access premium features of the purchased widget"
               priceDescLarge="Own your widget forever!"
               cta="Buy a widget"
