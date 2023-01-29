@@ -36,17 +36,22 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
       if (error) throw error
 
-      let blocsUserById: BlocsUserServer = await queryGuard(() =>
-        faunaClient.query(
-          q.Get(
-            q.Match(q.Index('all_users_by_supabase_user_id'), data?.user?.id)
-          )
-        )
+      let blocsUserById: BlocsUserServer = await queryGuard(
+        () =>
+          faunaClient.query(
+            q.Get(
+              q.Match(q.Index('all_users_by_supabase_user_id'), data?.user?.id)
+            )
+          ),
+        true
       )
-      let blocsUserByEmail: BlocsUserServer = await queryGuard(() =>
-        faunaClient.query(
-          q.Get(q.Match(q.Index('all_users_by_email'), data?.user?.email))
-        )
+
+      let blocsUserByEmail: BlocsUserServer = await queryGuard(
+        () =>
+          faunaClient.query(
+            q.Get(q.Match(q.Index('all_users_by_email'), data?.user?.email))
+          ),
+        true
       )
 
       if (blocsUserById && !blocsUserByEmail) {
