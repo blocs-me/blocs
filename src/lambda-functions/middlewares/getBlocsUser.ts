@@ -19,10 +19,12 @@ const getBlocsUser = async (req: NextApiRequest, res: NextApiResponse) => {
     return null
   }
 
-  let blocsUser = await queryGuard(() =>
-    faunaClient.query(
-      q.Get(q.Match(q.Index('all_users_by_email'), data?.user?.email))
-    )
+  let blocsUser = await queryGuard(
+    () =>
+      faunaClient.query(
+        q.Get(q.Match(q.Index('all_users_by_email'), data?.user?.email))
+      ),
+    true
   )
 
   return blocsUser as BlocsUser
