@@ -92,7 +92,7 @@ const Sidebar = () => {
         {isPremium && !purchases.lifetimeAccess && (
           <Box mt="md">
             <Button
-              css={{ animation: `${float} 1s` }}
+              css={{ animation: `${float} 1s alternate infinite` }}
               loading={!user}
               fontWeight={200}
               fontSize="sm"
