@@ -15,6 +15,7 @@ import useBlocsUser from '@/hooks/useBlocsUser'
 import Sparkles from '@/design-system/Sparkles'
 import Box from '@/helpers/Box'
 import float from '@/keyframes/float'
+import daysBetween from '@/utils/dateUtils/daysBetween'
 
 const NavButton = ({ to, isActive, text, icon }) => {
   return (
@@ -45,6 +46,17 @@ const Sidebar = () => {
   const supabase = useSupabaseClient()
   const { user, purchases } = useBlocsUser()
   const isPremium = !!user?.data?.purchasedProducts?.length
+  const fourteenDays = 1000 * 60 * 60 * 24 * 14
+  const daysLeft = Math.max(
+    0,
+    14 -
+      daysBetween(
+        new Date(),
+        new Date(
+          user?.data?.freeTrialStartedAt || new Date().getTime() - fourteenDays
+        )
+      )
+  )
 
   const handleUpgrade = () => router.push('/pricing')
   const handleSignOut = async () => {
@@ -77,7 +89,7 @@ const Sidebar = () => {
           loading={!user}
           alt="profile picture"
         />
-        {!purchases.lifetimeAccess && (
+        {isPremium && !purchases.lifetimeAccess && (
           <Box mt="md">
             <Button
               css={{ animation: `${float} 1s` }}
@@ -92,7 +104,32 @@ const Sidebar = () => {
               borderRadius="sm"
               onClick={() => handleUpgrade()}
             >
-              See Pricing Plans
+              Pricing Plans
+            </Button>
+          </Box>
+        )}
+        {!purchases.lifetimeAccess && !isPremium && (
+          <Box mt="md">
+            <Button
+              css={{ animation: `${float} 1s` }}
+              loading={!user}
+              fontWeight={200}
+              fontSize="sm"
+              py="sm"
+              px="sm"
+              width="250px"
+              bg="foreground"
+              color="background"
+              borderRadius="sm"
+              onClick={() => handleUpgrade()}
+            >
+              Free Trial{' '}
+              {daysLeft > 0 && (
+                <small>
+                  ({daysLeft} day{daysLeft === 1 ? '' : 's'} left)
+                </small>
+              )}
+              {daysLeft === 0 && <small>(expired)</small>}
             </Button>
           </Box>
         )}

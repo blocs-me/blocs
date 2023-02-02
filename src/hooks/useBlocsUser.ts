@@ -18,36 +18,48 @@ const useBlocsUser = () => {
     fetchWithToken
   )
 
-  const purchases: Purchases = useMemo(() => {
+  const purchases: Purchases = (() => {
     const result = {}
     const allProductIds = Object.entries(stripeProductIds)
 
     user?.data?.purchasedProducts?.forEach((productId) => {
-      const index = allProductIds.findIndex(([__, val]) => val === productId)
-      if (index > -1) {
-        const key = allProductIds[index][0]
+      const [key, val] = allProductIds.find(([__, id]) => id === productId) || [
+        '',
+        ''
+      ]
+      if (key && val) {
         result[key] = true
       }
     })
 
     return result
-  }, [user?.data?.purchasedProducts])
+  })()
+
+  console.log({ purchases })
 
   const isUserOnFreeTrial = useMemo(() => {
-    if (user?.data?.purchasedProducts?.length) return false
-
     const freeTrialStartedAt = user?.data?.freeTrialStartedAt
     if (!freeTrialStartedAt) return false
-    const freeTrialDaysLeft = freeTrialStartedAt
-      ? daysBetween(new Date(), new Date(freeTrialStartedAt))
-      : 0
 
-    if (freeTrialDaysLeft <= 14) {
+    const fourteenDays = 1000 * 60 * 60 * 24 * 14
+    const freeTrialDaysLeft = Math.max(
+      0,
+      14 -
+        daysBetween(
+          new Date(),
+          new Date(
+            user?.data?.freeTrialStartedAt ||
+              new Date().getTime() - fourteenDays
+          )
+        )
+    )
+
+    if (freeTrialDaysLeft > 0) {
       return true
     }
 
     return false
-  }, [user?.data?.freeTrialStartedAt, user?.data?.purchasedProducts?.length])
+  }, [user?.data?.freeTrialStartedAt])
 
   return {
     user,

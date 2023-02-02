@@ -18,6 +18,6 @@ const local = {
 } as ProductIds
 
 const stripeProductIds: Partial<ProductIds> =
-  process.env.VERCEL_ENV === 'local' ? local : production
+  process.env.NEXT_PUBLIC_VERCEL_ENV === 'local' ? local : production
 
 export default stripeProductIds
