@@ -14,7 +14,6 @@ import { useForm } from 'react-hook-form'
 import useUrlHash from '@/hooks/useUrlHash'
 import useWaterTrackerSettings from '../../../widgets/WaterTracker/hooks/useWaterTrackerSettings'
 import usePatchWaterTrackerSettings from '@/widgets/WaterTracker/hooks/usePatchSettings'
-import Box from '@/helpers/Box'
 import useBlocsUser from '@/hooks/useBlocsUser'
 import PremiumOverlay from '../PremiumOverlay'
 
@@ -34,7 +33,7 @@ const withProviders = (Component: ComponentType) => {
         hash={{ token, shareableToken: publicToken, role: 'blocs-user' }}
       >
         <Component />
-        {user && !ownsWaterTracker && <PremiumOverlay />}
+        {user && !ownsWaterTracker && !isUserOnFreeTrial && <PremiumOverlay />}
       </URLHashProvider>
     )
   }

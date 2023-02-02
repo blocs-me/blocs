@@ -185,7 +185,7 @@ const HabitTrackerDashboard = () => {
         />
       </Flex>
 
-      {user && !ownsHabitTracker && <PremiumOverlay />}
+      {user && !ownsHabitTracker && !isUserOnFreeTrial && <PremiumOverlay />}
     </URLHashProvider>
   )
 }
