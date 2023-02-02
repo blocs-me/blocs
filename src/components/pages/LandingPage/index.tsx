@@ -117,24 +117,24 @@ const LandingPage = () => {
       <Box bg="background" height="fit-content">
         <PageLayout>
           <Head>
-            <title>blocs | notion widgets for habit building</title>
+            <title>blocs | notion widgets for habit tracking</title>
             <meta
               name="description"
               content="Blocs notion widgets help you build habits with amazing insights to understand yourself better. Track all your habits in one place !"
             />
             <link rel="canonical" href="https://blocs.me" />
 
-            <title>blocs | notion widgets for habit building</title>
+            <title>blocs | notion widgets for habit tracking</title>
             <meta
               name="title"
-              content="blocs | notion widgets for habit building"
+              content="blocs | notion widgets for habit tracking"
             />
 
             <meta property="og:type" content="website" />
             <meta property="og:url" content="https://www.blocs.me/" />
             <meta
               property="og:title"
-              content="blocs | notion widgets for habit building"
+              content="blocs | notion widgets for habit tracking"
             />
             <meta
               property="og:description"
@@ -153,7 +153,7 @@ const LandingPage = () => {
             <meta property="twitter:url" content="https://www.blocs.me/" />
             <meta
               property="twitter:title"
-              content="blocs | notion widgets for habit building"
+              content="blocs | notion widgets for habit tracking"
             />
             <meta
               property="twitter:description"
@@ -244,7 +244,7 @@ const LandingPage = () => {
                 {user?.aud === 'authenticated' && (
                   <Button
                     variant="outlined"
-                    maxWidth={["300px"]}
+                    maxWidth={['300px']}
                     width="100%"
                     height={'50px'}
                     borderRadius="sm"
