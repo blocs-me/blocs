@@ -23,6 +23,7 @@ import Nav from '@/design-system/Nav'
 import Button from '@/design-system/Button'
 import Home from 'src/icons/home'
 import Link from 'next/link'
+import BlocsThemeProvider from '@/helpers/BlocsThemeProvider'
 
 const LoadingScreen = () => {
   return (
