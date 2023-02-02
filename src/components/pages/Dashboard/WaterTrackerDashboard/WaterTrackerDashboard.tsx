@@ -170,7 +170,7 @@ const WaterTrackerDashboard = () => {
             loading={loadingGoal}
             disabled={loadingGoal}
           >
-            Save Habit
+            Save Goal
           </Button>
         </Flex>
       </Flex>

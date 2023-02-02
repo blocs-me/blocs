@@ -9,10 +9,9 @@ import WidgetModal from '../WidgetModal/WidgetModal'
 const UpdateGoalForm = () => {
   const { data: settings } = useWaterTrackerSettings()
   const { patchGoal, loadingGoal } = usePatchWaterTrackerSettings()
-  const units = settings?.data?.units
   const goal = settings?.data?.goal
-  const max = units === 'liter' ? 10 : 350
-  const min = units === 'liter' ? 1 : 34
+  const max = 10
+  const min = 1
 
   const {
     register,
