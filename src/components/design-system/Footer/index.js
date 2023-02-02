@@ -5,11 +5,10 @@ import Link from '../Link'
 import Text from '../Text'
 import ClientSideOnly from '@/helpers/ClientSideOnly'
 import PageGutters from '@/helpers/PageGutters'
-import DSLink from 'next/link'
 
 const RegoLink = ({ children, ...rest }) => (
   <Box mb="xs">
-    <Link {...rest} color="primary.accent-4">
+    <Link {...rest} color="primary.accent-4" passHref>
       <Text css={{ cursor: 'pointer' }} fontSize="sm" as="span">
         {children}
       </Text>
@@ -93,6 +92,8 @@ const Footer = () => (
             <RegoLink href="/">Home</RegoLink>
             <RegoLink href="/pricing">Pricing</RegoLink>
             <RegoLink href="/sign-in">Sign In</RegoLink>
+            <RegoLink href="/privacy-policy.pdf">Privacy Policy</RegoLink>
+            <RegoLink href="/t&c.pdf">Terms & Conditions</RegoLink>
             <RegoLink href="/sitemap.xml">Sitemap</RegoLink>
           </Box>
         </Grid>
