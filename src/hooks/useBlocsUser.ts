@@ -35,8 +35,6 @@ const useBlocsUser = () => {
     return result
   })()
 
-  console.log({ purchases })
-
   const isUserOnFreeTrial = useMemo(() => {
     const freeTrialStartedAt = user?.data?.freeTrialStartedAt
     if (!freeTrialStartedAt) return false

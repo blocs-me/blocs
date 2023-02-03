@@ -9,7 +9,7 @@ const postPomodoroPreset = async (req, res, rest) => {
   const { userId } = rest
 
   if (!isValid) {
-    console.log(validatePomodoroPreset.errors)
+    console.error(validatePomodoroPreset.errors)
     res.status(400).json({
       error: 'Form data is invalid. Contact moniet@blocs.me if this persists.'
     })
