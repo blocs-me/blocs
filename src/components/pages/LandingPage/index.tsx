@@ -408,7 +408,7 @@ const LandingPage = () => {
               >
                 Take a look at our{' '}
                 <DSLink
-                  href="https://www.notion.so/81a847e283ca4d3583651d7d0d55f692?v=eb4ecf38b53949a6b531e387e90df22a"
+                  href="https://www.notion.so/81a847e283ca4d3583651d7d0d55f692?v=50566259b00a4cadafee442e81b23305"
                   passHref
                   inline
                   underline
