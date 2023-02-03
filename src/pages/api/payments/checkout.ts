@@ -2,7 +2,6 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import Stripe from 'stripe'
 import { handle400Response } from '../../../lambda-functions/helpers/handleResponses'
 import getBlocsUser from '@/lambda/middlewares/getBlocsUser'
-import stripeProductIds from '@/constants/stripeProductIds'
 import stripePriceIds from '@/constants/stripePriceIds'
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
