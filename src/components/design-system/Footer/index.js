@@ -8,7 +8,7 @@ import PageGutters from '@/helpers/PageGutters'
 
 const RegoLink = ({ children, ...rest }) => (
   <Box mb="xs">
-    <Link {...rest} color="primary.accent-4" passHref>
+    <Link {...rest} color="foreground" passHref>
       <Text css={{ cursor: 'pointer' }} fontSize="sm" as="span">
         {children}
       </Text>
@@ -18,7 +18,7 @@ const RegoLink = ({ children, ...rest }) => (
 
 const Footer = () => (
   <ClientSideOnly>
-    <Box as="footer" bg="primary.accent-1">
+    <Box as="footer" bg="primary.accent-2">
       <PageGutters py="lg">
         <Grid
           width="100%"
@@ -37,12 +37,12 @@ const Footer = () => (
             >
               CONTACT
             </Text>
-            <Text fontSize="sm" fontWeight="400" color="primary.accent-4">
-              found a bug, have a feature request or simply want to get in touch
+            <Text fontSize="sm" fontWeight="400" color="foreground">
+              Found a bug, have a feature request or simply want to get in touch
               ?
             </Text>
-            <Text fontSize="sm" fontWeight="400" color="primary.accent-4">
-              reach out to me at{' '}
+            <Text fontSize="sm" fontWeight="400" color="foreground">
+              Reach out to me at{' '}
               <Link href="mailto:moniet@blocs.me" inline underline passHref>
                 {' '}
                 moniet@blocs.me 🖖{' '}
@@ -60,12 +60,12 @@ const Footer = () => (
             >
               WHAT IS BLOCS DOING NEXT ?
             </Text>
-            <Text fontSize="sm" fontWeight="400" color="primary.accent-4">
-              we have tons of new widgets lined up, from goal setters to sleep
+            <Text fontSize="sm" fontWeight="400" color="foreground">
+              We have tons of new widgets lined up, from goal setters to sleep
               and workout trackers
             </Text>
-            <Text fontSize="sm" fontWeight="400" color="primary.accent-4">
-              take a little looksy 👀 at our{' '}
+            <Text fontSize="sm" fontWeight="400" color="foreground">
+              Take a little looksy 👀 at our{' '}
               <Link
                 href="https://www.notion.so/81a847e283ca4d3583651d7d0d55f692?v=50566259b00a4cadafee442e81b23305"
                 passHref

@@ -104,8 +104,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             data: {
               email: data?.user?.email,
               supabaseUserId: data?.user?.id,
-              freeTrialStartedAt: new Date().toISOString(),
-              isSubsribed: true
+              freeTrialStartedAt: new Date().toISOString()
             }
           })
         )) as BlocsUserServer

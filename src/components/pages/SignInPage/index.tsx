@@ -123,7 +123,7 @@ const SignInPage = () => {
               bg="brand.accent-1"
               fontSize="sm"
               type="submit"
-              color="foreground"
+              color="neutral.white"
               mt="sm"
               disabled={linkSent || shouldPreventSignIn}
               loading={isLoading}

@@ -36,7 +36,7 @@ const Controller = styled.div`
   }
 `
 
-const IconWrapper = ({ children, onClick }) => (
+const IconWrapper = ({ children, onClick, ariaLabel }) => (
   <Box
     as="button"
     onClick={(e) => {
@@ -48,6 +48,7 @@ const IconWrapper = ({ children, onClick }) => (
     border="solid 1px"
     borderColor="brand.accent-1"
     p="8px"
+    aria-label={ariaLabel}
   >
     <Icon
       size="20px"
@@ -97,13 +98,16 @@ const Sequence = () => {
       {(showControls || isSmallScreen) && (
         <FadeIn>
           <Controller>
-            <IconWrapper onClick={() => togglePause()}>
+            <IconWrapper
+              onClick={() => togglePause()}
+              ariaLabel="Play or Pause"
+            >
               {pause ? <Play /> : <Pause />}
             </IconWrapper>
-            <IconWrapper onClick={() => setNext()}>
+            <IconWrapper onClick={() => setNext()} ariaLabel="Next Slide">
               <CaretRight />
             </IconWrapper>
-            <IconWrapper onClick={() => setPrev()}>
+            <IconWrapper onClick={() => setPrev()} ariaLabel="Previous Slide">
               <CaretLeft />
             </IconWrapper>
           </Controller>

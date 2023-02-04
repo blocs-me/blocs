@@ -7,7 +7,7 @@ import CircleButton from '../PomodoroMainPage/CircleButton'
 import Timer from '../Timer'
 import { PomodoroProvider } from '../usePomodoroStore'
 
-const DummyPomodoro = (props: IBox) => {
+const DummyPomodoro = (props: IBox & { role?: string }) => {
   return (
     <PomodoroProvider>
       <Box
@@ -30,9 +30,17 @@ const DummyPomodoro = (props: IBox) => {
         >
           <Timer loading={false} />
           <Flex justifyContent="center" mt="sm">
-            <CircleButton icon={<Play />} onClick={() => {}} />
+            <CircleButton
+              ariaLabel={'Start Pomodeoro'}
+              icon={<Play />}
+              onClick={() => {}}
+            />
             <Box ml="sm" />
-            <CircleButton icon={<Refresh />} onClick={() => {}} />
+            <CircleButton
+              ariaLabel={'Reset Pomodoro'}
+              icon={<Refresh />}
+              onClick={() => {}}
+            />
           </Flex>
         </Flex>
       </Box>

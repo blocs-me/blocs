@@ -63,7 +63,7 @@ const WidgetExplainerSection = ({
         >
           <SlideIn delay={0.1} pause={!reveal}>
             <Text
-              as="h3"
+              fontSize="1.728rem"
               color="foreground"
               fontWeight="bold"
               mt={0}

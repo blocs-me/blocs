@@ -4,12 +4,15 @@ import useDarkMode from '../useDarkMode'
 
 const { default: storage } = require('@/utils/storage')
 const { default: makeStore } = require('@/utils/makeStore')
-const { default: theme, darkModeColors, nightSky } = require('src/styles/theme')
+const { default: theme, darkModeColors } = require('src/styles/theme')
 
-const colorModes = {
+type ColorModes = 'light' | 'dark'
+
+const colorModes: {
+  [P in ColorModes]: Theme
+} = {
   light: theme,
-  dark: darkModeColors,
-  nightSky
+  dark: darkModeColors
 }
 
 const backgroundColors = {

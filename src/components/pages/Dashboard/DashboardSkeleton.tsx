@@ -4,13 +4,11 @@ import Box from '@/helpers/Box'
 import Flex from '@/helpers/Flex'
 import Skeleton from '@/helpers/Skeleton'
 import Stack from '@/helpers/Stack'
-import DashboardNav from './DashboardNav'
-import withWidgetProviders from '../../helpers/hocs/withWidgetProviders'
-import BlocsThemeProvider from '@/helpers/BlocsThemeProvider'
+import DashboardNavSkeleton from './DashboardNavSkeleton'
 
 const DashboardSkeleton = ({ message = '' }) => (
   <Flex flexDirection="column" bg="background">
-    <DashboardNav />
+    <DashboardNavSkeleton />
     <Flex height="calc(100vh - 80px)" maxWidth="100vw">
       <Flex
         width="300px"

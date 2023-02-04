@@ -42,7 +42,13 @@ export const A = styled(Text)`
   transition: color 0.2s ease;
 `
 
-export const NavLink = ({ href, text = '', passHref = false, as = 'a' }) => {
+export const NavLink = ({
+  href,
+  text = '',
+  passHref = false,
+  as = 'a',
+  preload = false
+}) => {
   const { pathname } = useRouter()
 
   const active = (() => {
@@ -59,7 +65,7 @@ export const NavLink = ({ href, text = '', passHref = false, as = 'a' }) => {
       alignSelf={['center', , , , 'end']}
       alignItems="center"
     >
-      <Link href={href} passHref={passHref}>
+      <Link href={href} passHref={passHref} prefetch={preload}>
         <A as={as} color={'foreground'} fontSize="sm" isActive={active}>
           {text}
         </A>
@@ -186,12 +192,14 @@ const Nav = ({ title = '', links = [] }) => {
           height="100%"
         >
           <div css={{ flex: 1 }}>
-            <Link href="/">
-              <a>
+            <Link href="/" passHref prefetch>
+              <a name="blocs home page">
                 <Icon
                   css={{ svg: { verticalAlign: 'middle' } }}
                   stroke="secondary"
                   fill="secondary"
+                  role="img"
+                  alt="Blocs Logo"
                 >
                   <Box width={['32px', '32px', '50px']}>
                     <Logo />
@@ -267,8 +275,8 @@ const Nav = ({ title = '', links = [] }) => {
               justifyContent="flex-end"
               height="100%"
             >
-              <NavLink href="/" text="Home" />
-              <NavLink href="/pricing" text="pricing" />
+              <NavLink href="/" text="Home" passHref preload />
+              <NavLink href="/pricing" text="pricing" passHref preload />
               <NavLink
                 href="https://glittery-ankle-1a8.notion.site/FAQs-0fd5043a0536496597ba827a5f0596b7"
                 text="FAQs"
@@ -276,7 +284,7 @@ const Nav = ({ title = '', links = [] }) => {
               />
               {!isSignedIn && (
                 <Box pt={['1.5rem', , , , '0']} pb={['0.5rem', '0.5rem', 0]}>
-                  <Link href="/sign-in">
+                  <Link href="/sign-in" passHref prefetch>
                     <Button as="a" variant="primary" borderRadius="sm">
                       Sign In
                     </Button>
@@ -284,6 +292,7 @@ const Nav = ({ title = '', links = [] }) => {
                 </Box>
               )}
               <Button
+                aria-label="Color Theme Toggle"
                 color="foreground"
                 icon={isDarkMode ? <Sun /> : <Moon />}
                 onClick={(e) => handleThemeChange(e)}

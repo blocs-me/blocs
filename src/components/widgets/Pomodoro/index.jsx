@@ -1,5 +1,3 @@
-/** @jsxImportSource @emotion/react */
-import { AnimatePresence, m, domAnimation, LazyMotion } from 'framer-motion'
 import Router, { useRouter } from 'next/router'
 import PomodoroMainPage from './PomodoroMainPage/index.js'
 import PomodoroMainMenu from './PomodoroMainMenu'
@@ -18,23 +16,13 @@ import WidgetModal from '../LegacyWidgetModal/index.js'
 import BackArrow from 'src/icons/back-arrow'
 import Icon from '@/helpers/Icon/index'
 import Hamburger from 'src/icons/hamburger'
-import { useTheme } from '@emotion/react'
-import { withUrlHashProvider } from '@/hooks/useUrlHash'
+import { css, useTheme } from '@emotion/react'
+import FadeIn from '@/helpers/FadeIn/index.js'
 
-const FadeIn = ({ id, children }) => (
-  <LazyMotion features={domAnimation}>
-    <m.div
-      key={id}
-      style={{ width: '100%', height: '100%' }}
-      exit={{ opacity: 0 }}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.2 }}
-    >
-      {children}
-    </m.div>
-  </LazyMotion>
-)
+const fadeInCss = css`
+  width: 100%;
+  height: 100%;
+`
 
 const Pomodoro = () => {
   const router = useRouter()
@@ -53,9 +41,6 @@ const Pomodoro = () => {
 
   const [authModal, setAuthModal] = useState(false)
   const [hovering, setHovering] = useState(false)
-  const { isLoggingIn, isLoggedIn } = useWidgetAuth({
-    onError: () => setAuthModal(true)
-  })
 
   return (
     <>
@@ -73,33 +58,31 @@ const Pomodoro = () => {
         onMouseLeave={() => setHovering(false)}
       >
         <Notifications>
-          <AnimatePresence exitBeforeEnter initial={false}>
-            {mainPage && (
-              <FadeIn id="main-page" key={1}>
-                <PomodoroMainPage isHovering={hovering} />
-              </FadeIn>
-            )}
-            {mainMenu && (
-              <FadeIn id="main-menu" key={2}>
-                <PomodoroMainMenu />
-              </FadeIn>
-            )}
-            {settingsMenu && (
-              <FadeIn id="settings" key={3}>
-                <PomodoroSettings />
-              </FadeIn>
-            )}
-            {labelsMenu && (
-              <FadeIn id="labels" key={4}>
-                <PomodoroPresets />
-              </FadeIn>
-            )}
-            {themeMenu && (
-              <FadeIn id="themeMenu" key={5}>
-                <PomodoroThemeMenu />
-              </FadeIn>
-            )}
-          </AnimatePresence>
+          {mainPage && (
+            <FadeIn id="main-page" css={fadeInCss}>
+              <PomodoroMainPage isHovering={hovering} />
+            </FadeIn>
+          )}
+          {mainMenu && (
+            <FadeIn id="main-menu" css={fadeInCss}>
+              <PomodoroMainMenu />
+            </FadeIn>
+          )}
+          {settingsMenu && (
+            <FadeIn id="settings" css={fadeInCss}>
+              <PomodoroSettings />
+            </FadeIn>
+          )}
+          {labelsMenu && (
+            <FadeIn id="labels" css={fadeInCss}>
+              <PomodoroPresets />
+            </FadeIn>
+          )}
+          {themeMenu && (
+            <FadeIn id="themeMenu" css={fadeInCss}>
+              <PomodoroThemeMenu />
+            </FadeIn>
+          )}
         </Notifications>
 
         <WidgetModal

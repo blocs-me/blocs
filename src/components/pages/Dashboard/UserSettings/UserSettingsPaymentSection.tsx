@@ -42,14 +42,14 @@ const FreeTrailStatus = () => {
       >
         {daysLeft ? 'Free 14 day trial' : 'Free'}
       </Text>
-      <Text color="brand.accent-2" fontSize="xs" mb={0}>
+      <Text color="primary.accent-4" fontSize="xs" mb={0}>
         Includes access to{' '}
         <Link
           href="/pricing"
           underline
           css={{ display: 'inline-block' }}
-          color="brand.accent-2"
-          borderColor="brand.accent-2"
+          color="primary.accent-4"
+          borderColor="primary.accent-4"
         >
           basic features
         </Link>

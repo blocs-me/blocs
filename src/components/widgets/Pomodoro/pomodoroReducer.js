@@ -1,5 +1,4 @@
 import storage from '@/utils/storage'
-import { ToDate } from 'faunadb'
 import {
   SET_STARTED_AT,
   SET_DOCUMENT_TIMELINE_START,

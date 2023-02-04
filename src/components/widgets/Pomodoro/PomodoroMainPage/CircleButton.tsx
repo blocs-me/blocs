@@ -1,7 +1,7 @@
 import Flex from '@/helpers/Flex'
 import Icon from '@/helpers/Icon'
 
-const CircleButton = ({ onClick, icon }) => {
+const CircleButton = ({ onClick, icon, ariaLabel }) => {
   return (
     <Flex
       as="button"
@@ -16,6 +16,7 @@ const CircleButton = ({ onClick, icon }) => {
       onClick={(e) => onClick(e)}
       alignItems="center"
       justifyContent="center"
+      aria-label={ariaLabel}
     >
       <Icon stroke="foreground" size="20px" m="auto" display="flex">
         {icon}

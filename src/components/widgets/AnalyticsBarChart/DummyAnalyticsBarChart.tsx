@@ -14,6 +14,7 @@ import { IBox } from '@/helpers/Box/Box.types'
 
 type Props = {
   units: string
+  role?: string
 } & IBox
 
 const DummyAnalyticsBarChart = ({ units, ...rest }: Props) => {
@@ -37,7 +38,7 @@ const DummyAnalyticsBarChart = ({ units, ...rest }: Props) => {
     }
 
     return result
-  }, [mounted])
+  }, [mounted]) // eslint-disable-line
 
   return (
     <Flex

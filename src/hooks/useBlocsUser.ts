@@ -15,7 +15,11 @@ const useBlocsUser = () => {
   const supabaseUser = useUser()
   const { data: user, ...rest } = useSWR<BlocsUserClient>(
     supabaseUser?.aud === 'authenticated' ? [USER_PATH] : null,
-    fetchWithToken
+    fetchWithToken,
+    {
+      errorRetryCount: 5,
+      shouldRetryOnError: true
+    }
   )
 
   const purchases: Purchases = (() => {

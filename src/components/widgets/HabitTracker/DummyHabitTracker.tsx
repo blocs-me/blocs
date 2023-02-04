@@ -110,6 +110,8 @@ const DummyHabitTracker = ({
       p="md"
       position="relative"
       overflow="hidden"
+      role="img"
+      aria-label="Habit Tracker Visual Example"
     >
       <FadeIn css={{ width: '100%', height: '100%' }}>
         <Flex

@@ -11,6 +11,7 @@ type Props = {
   progress?: number
   onClickUp?: () => void
   onClickDown?: () => void
+  role?: string
 }
 
 const DummyWaterTracker = ({
@@ -34,9 +35,17 @@ const DummyWaterTracker = ({
     >
       <Flex mb="sm" width="100%" alignItems="center">
         <Flex>
-          <CaretButton orientation="bottom" onClick={onClickDown} />
+          <CaretButton
+            orientation="bottom"
+            onClick={onClickDown}
+            aria-label="Increase to next water level"
+          />
           <Flex pl="xs" />
-          <CaretButton orientation="top" onClick={onClickUp} />
+          <CaretButton
+            orientation="top"
+            onClick={onClickUp}
+            aria-label="Decrease to previous water level"
+          />
         </Flex>
 
         <Box

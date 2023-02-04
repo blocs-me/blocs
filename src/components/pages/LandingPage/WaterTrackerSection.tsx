@@ -34,6 +34,8 @@ const WaterTrackerSection = () => {
         <>
           <SlideIn delay={0.2} pause={!reveal}>
             <DummyWaterTracker
+              role="img"
+              aria-label="Water Tracker Visual Example"
               width="350px"
               goal={4}
               progress={progress}
@@ -50,6 +52,8 @@ const WaterTrackerSection = () => {
               }}
             >
               <DummyAnalyticsBarChart
+                role="img"
+                aria-label="Water Tracker Analytics Bar Chart Visual Example"
                 width="350px"
                 height="400px"
                 units="L"

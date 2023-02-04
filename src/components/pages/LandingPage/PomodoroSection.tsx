@@ -24,6 +24,8 @@ const PomodoroSection = () => {
             css={{ animation: `${float} 1s ease infinite alternate` }}
           >
             <DummyPomodoro
+              role="img"
+              aria-label="Pomodoro Visual Example"
               height={'auto'}
               width={['300px', , , '320px']}
               css={{ transform: 'translateY(-20px)' }}
@@ -35,6 +37,8 @@ const PomodoroSection = () => {
             css={{ animation: `${float} 1s ease 0.2s infinite alternate` }}
           >
             <DummyAnalyticsBarChart
+              role="img"
+              aria-label="Pomodoro Analytics Bar Chart Visual Example"
               width={['300px', , , '340px']}
               height={['350px', , , '380px']}
               units="hr"

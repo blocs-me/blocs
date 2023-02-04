@@ -1,8 +1,6 @@
 import AnalyticsBarChart from '../AnalyticsBarChart'
 import Flex from '../../helpers/Flex/index'
 import useWaterTrackerAnalyticsRange from './useWaterTrackerAnalyticsRange'
-import { useAnalyticsBarChartStore } from '../AnalyticsBarChart/useAnalyticsBarChart'
-import { getCurrentISOString } from '../../../utils/dateUtils/getCurrentISOString'
 import Box from '@/helpers/Box'
 import { TooltipData } from '../../design-system/BarChart/types'
 import Text from '@/design-system/Text'

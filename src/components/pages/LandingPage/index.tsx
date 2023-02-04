@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useRef, useState } from 'react'
+import { ReactNode, useEffect, useState } from 'react'
 import Head from 'next/head'
 import PageLayout from '@/helpers/PageLayout'
 import useMediaQuery from '@/hooks/useMediaQuery'
@@ -21,14 +21,11 @@ import useSignInRedirectLink from '../../widgets/HabitTracker/hooks/useSignInRed
 import LandingDemo from './LandingDemo'
 import Email from '../../../icons/email.svg'
 import Twitter from '../../../icons/twitter.svg'
-import WidgetExplainerSection from './WidgetExplainerSection'
 import PomodoroSection from './PomodoroSection'
 import WaterTrackerSection from './WaterTrackerSection'
 import HabitTrackerSection from './HabitTrackerSection'
-import Image from 'next/image'
 import SharingFeatureSection from './SharingFeatureSection'
 import DSLink from '@/design-system/Link'
-import HeartAnim from './LandingDemo/animations/HeartAnim'
 import float from '@/keyframes/float'
 import BlocsThemeProvider from '@/helpers/BlocsThemeProvider'
 
@@ -40,14 +37,16 @@ const M = ({ children }) => (
 
 const SocialIcons = ({
   href,
-  children
+  children,
+  label
 }: {
   href: string
   children: ReactNode
+  label: string
 }) => {
   return (
     <Link href={href} passHref>
-      <a rel="noreferrer">
+      <a rel="noreferrer" aria-label={label}>
         <Flex
           bg="background"
           boxShadow="default"
@@ -304,13 +303,22 @@ const LandingPage = () => {
                       </Box>
                     </Text>
                     <Flex gap="sm">
-                      <SocialIcons href="https://linkedin.com/in/Moniet">
+                      <SocialIcons
+                        href="https://linkedin.com/in/Moniet"
+                        label="Link to blocs founder's Linkedin page"
+                      >
                         <Linkedin />
                       </SocialIcons>
-                      <SocialIcons href="https://twitter.com/__moniet">
+                      <SocialIcons
+                        href="https://twitter.com/__moniet"
+                        label="Link to blocs founder's Twitter page"
+                      >
                         <Twitter />
                       </SocialIcons>
-                      <SocialIcons href="mailto:moniet@blocs.me">
+                      <SocialIcons
+                        href="mailto:moniet@blocs.me"
+                        label="Link to blocs founder's Email"
+                      >
                         <Email />
                       </SocialIcons>
                     </Flex>
