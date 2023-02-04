@@ -64,7 +64,7 @@ const PomodoroDashboard = () => {
           width="100%"
           height="100%"
           alignItems="start"
-          justifyContent={['center', , , , , , 'start']}
+          justifyContent={['center', , , , , 'start']}
           p="md"
           gap={['lg', 'lg', , , , , 'md']}
           flexWrap="wrap"

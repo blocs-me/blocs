@@ -90,7 +90,7 @@ const WaterTrackerDashboard = () => {
       width="100%"
       height="100%"
       flexDirection={['column-reverse', , , , , 'column']}
-      alignItems="center"
+      alignItems={'start'}
     >
       <Flex
         p="md"
@@ -147,7 +147,7 @@ const WaterTrackerDashboard = () => {
           borderRadius="md"
           border="solid 2px"
           borderColor="primary.accent-2"
-          width={['100%', , '400px', , '100%', '400px']}
+          width={['100%', , , , '400px', '100%', '400px']}
         >
           <Text variant="h4" color="foreground">
             Set Your Daily Goal Here

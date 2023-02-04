@@ -61,11 +61,10 @@ const Dashboard = () => {
         <Flex
           display={'block'}
           bg="background"
-          width="100vw"
           height="100%"
           flexDirection={'column'}
         >
-          <Flex height="100vh" pt="80px" flexDirection={'column'} px="md">
+          <Flex height="100vh" pt="80px" flexDirection="column" px="md">
             <Nav />
 
             <Box
@@ -112,10 +111,16 @@ const Dashboard = () => {
   }
 
   return (
-    <>
-      <DashboardNav />
-
-      <Flex width="100%" minHeight="100vh" height="100%" bg="background">
+    <Box bg="background" width="100vw">
+      <Box width="min(100%, 1600px)" m="0 auto">
+        <DashboardNav />
+      </Box>
+      <Flex
+        width="min(100%, 1600px)"
+        minHeight="100vh"
+        height="100%"
+        m="0 auto"
+      >
         <Sidebar />
 
         <Box width="100%" bg="background" position="relative">
@@ -138,7 +143,7 @@ const Dashboard = () => {
       <Box width="100%">
         <Footer />
       </Box>
-    </>
+    </Box>
   )
 }
 
