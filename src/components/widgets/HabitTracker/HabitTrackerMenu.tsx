@@ -24,6 +24,7 @@ import { CopyIcon } from 'src/icons/copy'
 import Icon from '@/helpers/Icon'
 import useUrlHash from '@/hooks/useUrlHash'
 import { UrlHash } from '../WaterTracker/types'
+import useHabitTrackerAuth from './hooks/useHabitTrackerAuth'
 
 const colorModeText = {
   dark: 'Dark Mode',
@@ -48,6 +49,7 @@ const HabitTrackerMenu = ({
   const notifs = useNotifications()
   const [shareableLink, setShareableLink] = useState('')
   const { role } = useUrlHash<UrlHash>()
+  const { auth } = useHabitTrackerAuth()
 
   const { fetcher: fetchShareableLink, loading: isShareLinkLoading } =
     useFetchShareableLink('HABIT_TRACKER')
@@ -127,7 +129,9 @@ const HabitTrackerMenu = ({
       </FadeIn>
       <FadeIn>
         <Box position="absolute" top="sm" left="sm">
-          <Avatar variant="sm" src={'/'} alt="Profile Picture" />
+          {role === 'blocs-user' && (
+            <Avatar variant="sm" src={auth?.avatar_url} alt="Profile Picture" />
+          )}
         </Box>
       </FadeIn>
       <HabitManagerModal

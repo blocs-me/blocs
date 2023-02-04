@@ -211,12 +211,12 @@ const PomodoroActiveSessionMenu = () => {
           alignItems="center"
           justifyContent="center"
         >
-          {startedAt && (
+          {!!startedAt && (
             <Text color="foreground" fontWeight={200}>
               Pomodoro is in progress, stop to see the options
             </Text>
           )}
-          {startedAt && (
+          {!!startedAt && (
             <Button
               variant="danger"
               borderRadius="lg"

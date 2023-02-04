@@ -12,8 +12,9 @@ const AccountDeletionPage = () => {
   const supabase = useSupabaseClient()
 
   useEffect(() => {
+    supabase.auth.refreshSession()
     supabase.auth.signOut()
-  }, [supabase])
+  }, [!!supabase.auth]) // eslint-disable-line
 
   return (
     <Flex

@@ -30,6 +30,7 @@ const Timer = ({ loading }) => {
       height="auto"
       css={{ position: 'relative', cursor: 'pointer', 'user-select': 'none' }}
       onClick={(e) => handleClick(e)}
+      justifyContent="center"
     >
       <DefaultTimer loading={loading} />
     </Flex>

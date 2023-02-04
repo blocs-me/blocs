@@ -14,6 +14,7 @@ import {
   BlocsUserServer,
   BlocsUserClient
 } from '../../../global-types/blocs-user'
+import crypto from 'crypto'
 
 const pickBlocsUserData = (
   blocsUser: BlocsUserServer['data']
@@ -62,8 +63,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           data: {
             avatar_url: '',
             name: '',
-            supabaseUserId: '',
-            email: '',
+            supabaseUserId: crypto.randomUUID(),
+            email: crypto.randomUUID(),
             scheduledForDeletion: true
           }
         })
