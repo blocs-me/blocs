@@ -47,10 +47,10 @@ const formatData = (
   })()
 
   const count = timePeriod === 'weekly' ? 7 : numberOfDaysInMonth
-  const startDate = new Date(firstDate)
+  let startDate = new Date(firstDate)
 
   if (timePeriod === 'weekly') {
-    startDate.setDate(getMonday(startDate))
+    startDate = new Date(getMonday(firstDate))
   } else {
     startDate.setDate(1)
   }
