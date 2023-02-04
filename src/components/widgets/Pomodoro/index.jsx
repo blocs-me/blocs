@@ -41,6 +41,9 @@ const Pomodoro = () => {
 
   const [authModal, setAuthModal] = useState(false)
   const [hovering, setHovering] = useState(false)
+  const { isLoggingIn, isLoggedIn } = useWidgetAuth({
+    onError: () => setAuthModal(true)
+  })
 
   return (
     <>
