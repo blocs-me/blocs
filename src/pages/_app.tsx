@@ -4,12 +4,7 @@ import GlobalProvider from '../contexts/GlobalContextProvider/GlobalContextProvi
 import GlobalStyle from '../styles/GlobalStyle'
 import Reset from '../styles/Reset'
 import theme from '../styles/theme'
-import { useRouter } from 'next/router'
-import Nav from '@/design-system/Nav'
-import { createBrowserSupabaseClient } from '@supabase/auth-helpers-nextjs'
-import { SessionContextProvider } from '@supabase/auth-helpers-react'
-import { useState } from 'react'
-import SupabaseAuthProvider from '@/helpers/SupabaseAuthProvider'
+import { Analytics } from '@vercel/analytics/react'
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -22,12 +17,27 @@ function MyApp({ Component, pageProps }) {
             data-cf-beacon='{"token": "a9429c8dbd674c38bf769344e4abc7d8"}'
           />
         )}
+
+        <script
+          type="text/javascript"
+          defer
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function(c,l,a,r,i,t,y){
+                c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+                t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+                y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+              })(window, document, "clarity", "script", "foxjkrf7xa");
+            `
+          }}
+        />
       </Head>
       <GlobalProvider>
         <Reset />
         <GlobalStyle />
         <Component {...pageProps} />
       </GlobalProvider>
+      <Analytics />
     </ThemeProvider>
   )
 }
