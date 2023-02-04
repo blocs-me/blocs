@@ -57,8 +57,8 @@ const SignInPage = () => {
     if (error) {
       console.error(error)
       notif.createError(
-        'Uh oh! we were not able to create your sign in link.',
-        8000
+        'Uh oh! we were not able to create your sign in link. You can only request one link every minute.',
+        15000
       )
     } else {
       setLinkSent(true)
@@ -133,14 +133,13 @@ const SignInPage = () => {
               type="submit"
               color="neutral.white"
               mt="sm"
-              disabled={linkSent || shouldPreventSignIn}
               loading={isLoading}
             >
               Continue
             </Button>
           </form>
 
-          {(linkSent || shouldPreventSignIn) && (
+          {linkSent && (
             <Flex
               width="100%"
               p="sm"
