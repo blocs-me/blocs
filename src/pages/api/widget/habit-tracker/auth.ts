@@ -10,6 +10,7 @@ import {
 } from '@/lambda/helpers/handleResponses'
 import userOwnsWidget from '@/lambda/helpers/faunadb/userOwnsWidget'
 import { IHabitTrackerWidget } from '../../../../global-types/habit-tracker'
+import { BlocsUserServer } from '@/gtypes/blocs-user'
 // shows premium status of widget
 
 const ajv = new Ajv()
@@ -48,9 +49,14 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
   const hasPermission = await userOwnsWidget(widget.data.userId, 'habitTracker')
 
+  const user: BlocsUserServer = await faunaClient.query(
+    q.Get(q.Ref(q.Collection('users'), widget.data.userId))
+  )
+
   handle200Response(res, {
     data: {
-      isPremium: hasPermission
+      isPremium: hasPermission,
+      avatar_url: user?.data.avatar_url
     }
   })
 }

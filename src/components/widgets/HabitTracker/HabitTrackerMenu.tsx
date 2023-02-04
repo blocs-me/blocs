@@ -127,7 +127,7 @@ const HabitTrackerMenu = ({
       </FadeIn>
       <FadeIn>
         <Box position="absolute" top="sm" left="sm">
-          <Avatar variant="sm" src={'/'} alt="Profile Picture" />
+          <Avatar variant="sm" src={undefined} alt="Profile Picture" />
         </Box>
       </FadeIn>
       <HabitManagerModal
