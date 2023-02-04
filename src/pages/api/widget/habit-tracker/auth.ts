@@ -56,7 +56,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   handle200Response(res, {
     data: {
       isPremium: hasPermission,
-      avatar_url: user?.data.avatar_url
+      avatar_url: role === 'blocs-user' ? user?.data.avatar_url : undefined
     }
   })
 }

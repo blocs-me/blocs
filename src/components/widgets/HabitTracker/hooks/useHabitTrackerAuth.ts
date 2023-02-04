@@ -6,6 +6,7 @@ import { UrlHash } from '../../WaterTracker/types'
 type Auth = {
   data: {
     isPremium: boolean
+    avatar_url?: string
   }
 }
 
