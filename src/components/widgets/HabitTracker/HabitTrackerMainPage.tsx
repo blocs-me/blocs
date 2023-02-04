@@ -136,7 +136,7 @@ const HabitTrackerMainPage = ({ isAnalyticsHidden = false }) => {
                     key={d.id}
                   />
                 ))}
-                {!habits?.data?.length && <EmptyHabitsScreen />}
+                {habits && !habits?.data?.length && <EmptyHabitsScreen />}
                 <Box />
               </Stack>
               <Box height="40px" />

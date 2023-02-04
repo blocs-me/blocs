@@ -122,8 +122,6 @@ const LandingPage = () => {
               content="Blocs notion widgets help you build habits with amazing insights to understand yourself better. Track all your habits in one place !"
             />
             <link rel="canonical" href="https://blocs.me" />
-
-            <title>blocs | notion widgets for habit tracking</title>
             <meta
               name="title"
               content="blocs | notion widgets for habit tracking"
@@ -147,8 +145,8 @@ const LandingPage = () => {
 
             {/* twitter */}
             <meta property="twitter:card" content="summary_large_image" />
-            <meta name="twitter:site" content="@_moniet" />
-            <meta name="twitter:creator" content="@_moniet" />
+            <meta name="twitter:site" content="@__moniet" />
+            <meta name="twitter:creator" content="@__moniet" />
             <meta property="twitter:url" content="https://www.blocs.me/" />
             <meta
               property="twitter:title"

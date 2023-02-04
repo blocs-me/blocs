@@ -1,3 +1,4 @@
+import nextSeoConfig from '@/constants/next-seo.config'
 import Button from '@/design-system/Button'
 import Footer from '@/design-system/Footer'
 import Nav from '@/design-system/Nav'
@@ -8,6 +9,7 @@ import Box from '@/helpers/Box'
 import Flex from '@/helpers/Flex'
 import storage from '@/utils/storage'
 import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react'
+import { NextSeo } from 'next-seo'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
@@ -79,6 +81,12 @@ const SignInPage = () => {
       height="100%"
       bg="background"
     >
+      <NextSeo
+        {...nextSeoConfig}
+        title="Sign In | blocs notion widgets"
+        description="Sign in to your blocs notion account"
+        canonical="https://www.blocs.me/sign-in"
+      />
       <Nav />
       <Flex width="100%" height="100vh" py="xl" px="md" justifyContent="center">
         <Flex flexDirection="column" width="400px" alignItems="center">

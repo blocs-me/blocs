@@ -1,10 +1,8 @@
 import Footer from '@/design-system/Footer'
-import Nav from '@/design-system/Nav'
 import Text from '@/design-system/Text'
 import Box from '@/helpers/Box'
 import Flex from '@/helpers/Flex'
 import { postReq } from '@/utils/fetchingUtils'
-import { keyframes } from '@emotion/react'
 import PricingCard from './PricingCard'
 import PricingCardCheckbox from './PricingCardCheckbox/PricingCardCheckbox'
 import stripePriceIds from '../../../constants/stripePriceIds'
@@ -19,6 +17,9 @@ import Modal from '@/design-system/Modal'
 import Button from '@/design-system/Button'
 import Sparkles from '@/design-system/Sparkles'
 import float from '@/keyframes/float'
+import { NextSeo } from 'next-seo'
+import Nav from '@/design-system/Nav'
+import nextSeoConfig from '@/constants/next-seo.config'
 
 const handleEv = (e: MouseEvent) => {
   e.preventDefault()
@@ -91,6 +92,12 @@ const PricingPage = () => {
   return (
     <>
       <Flex pt="80px" flexDirection="column" bg="background" maxWidth="100vw">
+        <NextSeo
+          {...nextSeoConfig}
+          title="Pricing | blocs notion widgets | habit tracker"
+          description="Pricing for blocs widgets | €30 for lifetime access | €4 for any blocs notion widget; own it forever"
+          canonical="https://www.blocs.me/pricing"
+        />
         <Nav />
         <Flex
           width="100%"

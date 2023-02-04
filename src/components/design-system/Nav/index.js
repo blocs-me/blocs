@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import themeGet from '@styled-system/theme-get'
 import { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/router'
@@ -12,13 +11,9 @@ import Text from '../Text'
 import BetaWrapper from '../BetaWrapper'
 import Stack from '@/helpers/Stack'
 import { useClickOutside } from '@/hooks/useClickOutside'
-import notionOAuthData from '@/utils/notionOAuthData'
 import Avatar from '../Avatar'
 import Button from '../Button'
 import useMediaQuery from '@/hooks/useMediaQuery'
-import { LOADING } from '@/constants/fetchStates'
-import globalContext from '@/contexts/GlobalContextProvider/globalContext'
-import { NOTION_OAUTH_URL_REDIRECT_URL } from '@/utils/endpoints'
 import PageGutters from '@/helpers/PageGutters'
 import useIsTrueDarkMode from '@/hooks/useIsTrueDarkMode'
 import Sun from 'src/icons/sun'
@@ -193,7 +188,7 @@ const Nav = ({ title = '', links = [] }) => {
         >
           <div css={{ flex: 1 }}>
             <Link href="/" passHref prefetch>
-              <a name="blocs home page">
+              <a aria-label="blocs home page">
                 <Icon
                   css={{ svg: { verticalAlign: 'middle' } }}
                   stroke="secondary"
