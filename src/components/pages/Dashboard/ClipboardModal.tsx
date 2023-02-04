@@ -11,7 +11,7 @@ import { Theme } from 'src/styles/theme'
 const ClipboardModal = ({ isOpen, url, shareableUrl, hideModal }) => {
   const theme = useTheme() as Theme
   return (
-    <Modal visible={isOpen}>
+    <Modal visible={isOpen} hideModal={hideModal}>
       <Text fontSize="md" color="foreground" textAlign="center">
         Hooray ! 🥳
       </Text>

@@ -59,13 +59,18 @@ const PomodoroDashboard = () => {
 
   return (
     <Box width="100%">
-      <Flex width="100%" height="100%" flexDirection="column">
+      <Flex
+        width="100%"
+        height="100%"
+        flexDirection={['column-reverse', , , , , 'column']}
+        justifyContent="start"
+      >
         <Flex
           width="100%"
           height="100%"
           alignItems="start"
           justifyContent={['center', , , , , 'start']}
-          p="md"
+          p={['sm', , , , 'md']}
           gap={['lg', 'lg', , , , , 'md']}
           flexWrap="wrap"
         >

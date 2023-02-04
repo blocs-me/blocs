@@ -13,7 +13,10 @@ const WidgetLinkWrapper = ({
       <Button
         disabled={isLoading}
         loading={isLoading}
-        onClick={() => onClick()}
+        onClick={(e) => {
+          e.stopPropagation()
+          onClick()
+        }}
         mt="sm"
         border="solid 1px"
         borderColor="brand.accent-1"
