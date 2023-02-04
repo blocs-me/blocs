@@ -55,7 +55,7 @@ const CheckboxWithText = ({ isChecked, onChange, id, text }: Props) => {
     >
       <Checkbox size="28px" isChecked={isChecked} />
       <Box ml="xxs" />
-      <Box hoverColor="primary.accent-4">
+      <Box hoverColor="primary.accent-4" data-mask="habit-checkbox">
         <Text
           fontSize={'sm'}
           color={isChecked ? 'primary.accent-4' : 'foreground'}
