@@ -1,5 +1,6 @@
 import Box from '@/helpers/Box'
 import Flex from '@/helpers/Flex'
+import Image from 'next/image'
 import DemoText from '../../DemoText'
 import ScaleIn from '../../ScaleIn'
 import SlideIn from '../../SlideIn'
@@ -15,11 +16,12 @@ const WaterTrackerAnim = ({ setNext, pause }) => {
         alignItems={'center'}
       >
         <ScaleIn>
-          <Box
-            as="img"
-            width="100%"
-            height="auto"
+          <Image
+            width="450px"
+            height="315px"
             src="/water-tracker-demo.png"
+            alt="Water Tracker Visual Demo"
+            priority
           />
         </ScaleIn>
         <Box width={['250px', , '300px']}>

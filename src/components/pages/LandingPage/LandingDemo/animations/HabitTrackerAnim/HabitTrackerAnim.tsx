@@ -1,4 +1,5 @@
 import Box from '@/helpers/Box'
+import Image from 'next/image'
 
 import DemoText from '../../DemoText'
 import ScaleIn from '../../ScaleIn'
@@ -10,12 +11,14 @@ const HabitTrackerAnim = ({ setNext, pause }) => {
     <div>
       <SwipeAnim delayEnd={3} setNext={setNext} pauseAtEnd={pause}>
         <ScaleIn>
-          <Box
-            as="img"
-            width={['300px', , , '350px']}
-            src="/habit-tracker-demo.png"
-            m="0 auto"
-          />
+          <Box width={['300px', , , '350px']}>
+            <Image
+              width="350px"
+              height="294px"
+              alt="Habit Tracker Visual Demo"
+              src="/habit-tracker-demo.png"
+            />
+          </Box>
         </ScaleIn>
         <Box mt="sm" />
 
