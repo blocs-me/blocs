@@ -18,7 +18,7 @@ function MyApp({ Component, pageProps }) {
           />
         )}
 
-        {process.env.NEXT_VERCEL_ENV === 'production' && (
+        {process.env.NEXT_PUBLIC_VERCEL_ENV === 'production' && (
           <script
             type="text/javascript"
             defer
