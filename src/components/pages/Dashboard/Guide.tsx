@@ -5,9 +5,39 @@ import Image from 'next/image'
 import { Document } from 'src/icons/document'
 import Drop from 'src/icons/drop-icon'
 
-const Para = ({ children }) => {
+const WidgetsWarning = () => (
+  <Flex
+    m="sm"
+    p="sm"
+    borderRadius="md"
+    bg="primary.accent-2"
+    borderLeft="solid 5px"
+    borderColor="danger.medium"
+  >
+    <Text as="span" role="img" fontSize="md">
+      ⚠️
+    </Text>
+    <Para css={{ margin: 0 }}>
+      <b>
+        <i>
+          All widgets on the dashboard are only for visual purposes and only
+          work when embedded inside Notion.
+        </i>
+      </b>
+    </Para>
+  </Flex>
+)
+
+const Para = ({ children, className = undefined }) => {
   return (
-    <Text color="foreground" fontSize="sm" fontWeight={200} mb="sm" px="sm">
+    <Text
+      className={className}
+      color="foreground"
+      fontSize="sm"
+      fontWeight={200}
+      mb="sm"
+      px="sm"
+    >
       {children}
     </Text>
   )
@@ -70,6 +100,8 @@ const Guide = () => {
       <Details>
         <Summary>How to embed the widgets</Summary>
 
+        <WidgetsWarning />
+
         <Header>Step 1 : Copy The Link</Header>
 
         <Flex flexWrap="wrap" p="sm" borderRadius="sm" css={{ gap: '1rem' }}>
@@ -91,16 +123,16 @@ const Guide = () => {
           underneath your profile picture.
         </Para>
         <Para>
-          Simple click on <b>&#39;copy link&#39;</b>, and we&#39;ll auto copy the link
-          . In some cases we have two links. A <b>public</b>{' '}
-          link and a <b>private</b> link.
+          Simple click on <b>&#39;copy link&#39;</b>, and we&#39;ll auto copy
+          the link . In some cases we have two links. A <b>public</b> link and a{' '}
+          <b>private</b> link.
         </Para>
         <Para>
-          Why two links ? <br/>
-          Glad you asked 😬. If you want to share your analytics or your widgets with friends,
-          we will provide public link which you can share with them. They
-          won&#39;t be able to make any changes when this link is given to them
-          so your data will be safe.
+          Why two links ? <br />
+          Glad you asked 😬. If you want to share your analytics or your widgets
+          with friends, we will provide public link which you can share with
+          them. They won&#39;t be able to make any changes when this link is
+          given to them so your data will be safe.
         </Para>
 
         <Header>Step 2 : Embed The Copied Link In Notion</Header>
@@ -123,6 +155,8 @@ const Guide = () => {
       <Details>
         <Summary>Widget Basics</Summary>
         <Header>Settings</Header>
+        <WidgetsWarning />
+
         <Para>
           Every widget will have a menu icon where the settings are located. It
           looks something like this :
@@ -145,9 +179,9 @@ const Guide = () => {
         </Flex>
         <Para>
           Every widget with exception of the pomodoro can be shared with
-          friends. Inside the settings and on the blocs dashboard you&#39;ll find
-          the option to copy a <b>public</b> link which you can share with a
-          buddy.
+          friends. Inside the settings and on the blocs dashboard you&#39;ll
+          find the option to copy a <b>public</b> link which you can share with
+          a buddy.
         </Para>
 
         <Header>Theme</Header>
@@ -186,8 +220,9 @@ const Guide = () => {
           the widget) we will provide both a shareable link and a private link.
         </Para>
       </Details>
+
       {/* <Details>
-        <Summary>How to use : Templates And Ideas</Summary>
+        <Summary>ow to use : Templates And Ideas</Summary>
 
         <Header>Get things done : Notion Template</Header>
         <Para>
