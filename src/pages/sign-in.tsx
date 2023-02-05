@@ -7,7 +7,7 @@ const SignIn = () => {
   return (
     <SupabaseAuthProvider>
       <BlocsThemeProvider>
-        <Notifications zIndex="1000">
+        <Notifications zIndex="notification" pt="md">
           <SignInPage />
         </Notifications>
       </BlocsThemeProvider>

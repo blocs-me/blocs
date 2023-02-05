@@ -4,20 +4,19 @@ import getYearMonthDate from '@/utils/dateUtils/getYearMonthDate'
 
 export const getMonday = (date: Date) => {
   const dateCopy = new Date(date)
+  const time = date.getTime()
   const currentDay = date.getDay()
-  const dateOfMonth = date.getDate()
-  let result = dateCopy.getDate()
+  const dayInMs = 1000 * 60 * 60 * 24
+  let result = dateCopy.getTime()
 
   if (currentDay === 0) {
-    result = dateOfMonth - 6
+    const days = 6 * dayInMs
+    result = time - days
   }
 
   if (currentDay > 1) {
-    result = dateOfMonth - (currentDay - 1)
-  }
-
-  if (result < 0) {
-    result = result + 1
+    const days = (currentDay - 1) * dayInMs
+    result = time - days
   }
 
   return result
@@ -33,7 +32,7 @@ const useAnalyticsBarChartDateRange = () => {
     let to = new Date()
 
     if (timePeriod === 'weekly') {
-      from.setDate(getMonday(from))
+      from.setTime(getMonday(from))
 
       const pageMSOffset = page * weekDaysInMs
 

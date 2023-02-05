@@ -173,7 +173,14 @@ const PricingPage = () => {
               ctaColor="brand.accent-1"
               isPremium
               onClick={handleBuyLifetimeAccess}
-              css={{ transform: 'scale(1.05)' }}
+              css={{
+                '@media (min-width: 1100px)': {
+                  transform: 'scale(1.05)'
+                },
+                '@media (max-width: 767px)': {
+                  order: -1
+                }
+              }}
               boxShadow="lg"
               isLoading={isLifetimeAccessLoading}
             >
@@ -193,8 +200,8 @@ const PricingPage = () => {
                 color="background"
                 bg="brand.accent-1"
                 borderRadius="10px"
-                top="sm"
-                right="sm"
+                top={['xs', , , 'sm']}
+                right={['xxs', , , 'sm']}
                 border="solid 2px"
                 borderColor="brand.accent-4"
                 py="3px"

@@ -8,9 +8,11 @@ const userOwnsWidget = async (userId: string, widgetKey: ProductTitles) => {
 
   if (!blocsUser) return false
 
-  const ownsWidget = blocsUser?.data?.purchasedProducts?.includes(
-    stripeProductIds[widgetKey]
-  )
+  const ownsWidget =
+    blocsUser?.data?.purchasedProducts?.includes(stripeProductIds[widgetKey]) ||
+    blocsUser?.data?.purchasedProducts?.includes(
+      stripeProductIds.lifetimeAccess
+    )
 
   return ownsWidget || isTrialValid(blocsUser)
 }

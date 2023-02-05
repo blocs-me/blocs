@@ -13,7 +13,10 @@ const usePomodoroAuth = () => {
   const { role, token } = useUrlHash() as UrlHash
 
   const endpoint = `/api/pomodoro/auth?role=${role}&widgetToken=${token}`
-  const { data: auth, ...rest } = useSWR<Auth>(token ? endpoint : null, fetcher)
+  const { data: auth, ...rest } = useSWR<Auth>(
+    token && role ? endpoint : null,
+    fetcher
+  )
 
   return {
     auth: auth?.data,

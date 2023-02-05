@@ -48,9 +48,9 @@ const NotifItem = ({ type, content = '', isLastItem }) => {
         borderRadius="lg"
         boxShadow="lg"
         bg={bgColor}
-        width="fit-content"
+        width={'fit-content'}
         zIndex="notification"
-        minWidth="200px"
+        minWidth={['200px', , , '400px']}
         minHeight="50px"
         alignItems="center"
         justifyContent="center"
@@ -85,8 +85,8 @@ const NotifContainer = (props) => {
 
   return (
     <Flex
-      position="absolute"
-      top={0}
+      position={['absolute', , , 'fixed']}
+      top={[0, , , '80%']}
       left="50%"
       width="100%"
       justifyContent={['center', 'center', , 'end']}

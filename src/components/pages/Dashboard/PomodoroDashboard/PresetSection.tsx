@@ -59,17 +59,19 @@ const PresetsSection = ({ token }) => {
 
   return (
     <Flex
-      p="md"
+      p={['sm', , , , 'md']}
       width="100%"
+      m="0 auto"
       borderTop="solid 1px"
       borderColor="primary.accent-2"
       gap="md"
       flexDirection={['column', , , , , 'row']}
+      alignItems={['center', , , , , 'start']}
     >
       <Flex
         flexDirection="column"
-        alignItems="start"
-        width={['100%', , , , , '400px']}
+        alignItems={['center', , , , , 'start']}
+        width={['100%', , , , '400px']}
       >
         <Button
           px="sm"
@@ -109,8 +111,10 @@ const PresetsSection = ({ token }) => {
         gridAutoRows="110px"
         css={{ gap: '1rem' }}
         flexWrap="wrap"
-        width="100%"
-        height="500px"
+        width="min(100%, 500px)"
+        justifyContent="center"
+        height={['auto', , , , , '500px']}
+        mb={['md', , , , , '0']}
         overflow="auto"
       >
         {!presets &&
