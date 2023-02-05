@@ -10,7 +10,7 @@ function MyApp({ Component, pageProps }) {
   return (
     <ThemeProvider theme={theme}>
       <Head>
-        {process.env.NODE_ENV !== 'development' && (
+        {process.env.NEXT_PUBLIC_VERCEL_ENV === 'production' && (
           <script
             defer
             src="https://static.cloudflareinsights.com/beacon.min.js"
@@ -39,7 +39,7 @@ function MyApp({ Component, pageProps }) {
         <GlobalStyle />
         <Component {...pageProps} />
       </GlobalProvider>
-      <Analytics />
+      {process.env.NEXT_PUBLIC_VERCEL_ENV === 'production' && <Analytics />}
     </ThemeProvider>
   )
 }

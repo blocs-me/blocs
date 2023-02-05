@@ -3,6 +3,7 @@ import Stripe from 'stripe'
 import { handle400Response } from '../../../lambda-functions/helpers/handleResponses'
 import getBlocsUser from '@/lambda/middlewares/getBlocsUser'
 import stripePriceIds from '@/constants/stripePriceIds'
+import { ProductTitles } from '@/gtypes/stripe'
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
   apiVersion: '2022-11-15'
@@ -63,14 +64,18 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           return { customer_email, customer_creation: 'always' } // for signed in user
       })()
 
-    const boughtProduct = (key) =>
+    const boughtProduct = (key: ProductTitles) =>
       products.find((p) => p.price === stripePriceIds[key]) ? 'true' : 'false'
+
+    const isUnlimitedAccess = products.find(
+      (p) => p.price === stripePriceIds.unlimitedAccess
+    )
 
     try {
       const session = await stripe.checkout.sessions.create({
         ...paymentOptions,
         line_items: products,
-        mode: 'payment',
+        mode: isUnlimitedAccess ? 'subscription' : 'payment',
         success_url: `${req.headers.origin}/dashboard/pomodoro?payment_success=true`,
         cancel_url: `${req.headers.origin}/pricing?canceled=true`,
         automatic_tax: { enabled: true },
@@ -78,7 +83,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           habitTracker: boughtProduct('habitTracker'),
           waterTracker: boughtProduct('waterTracker'),
           pomodoro: boughtProduct('pomodoro'),
-          lifetimeAccess: boughtProduct('lifetimeAccess')
+          lifetimeAccess: boughtProduct('lifetimeAccess'),
+          unlimitedAccess: boughtProduct('unlimitedAccess')
         }
       })
 

@@ -56,7 +56,7 @@ const handleStripeCheckout = async (products: Products) => {
 const buyLifetimeAccess = (blocsUser: BlocsUserClient) => {
   handleStripeCheckout([
     {
-      price: stripePriceIds.lifetimeAccess,
+      price: stripePriceIds.unlimitedAccess,
       quantity: 1
     }
   ])
@@ -73,7 +73,7 @@ const PricingPage = () => {
     handleEv(e)
 
     if (!user) return setShowSignInMessage(true)
-    if (purchases?.lifetimeAccess) return null
+    if (purchases?.lifetimeAccess || purchases?.unlimitedAccess) return null
 
     setShowMultiWidgetModal(true)
   }
@@ -81,7 +81,7 @@ const PricingPage = () => {
   const handleBuyLifetimeAccess = (e: MouseEvent) => {
     handleEv(e)
     if (!user) return setShowSignInMessage(true)
-    if (!purchases?.lifetimeAccess) {
+    if (!purchases?.unlimitedAccess) {
       setIsLifeTimeAccessLoading(true)
       buyLifetimeAccess(user)
     }
@@ -164,11 +164,11 @@ const PricingPage = () => {
               />
             </PricingCard>
             <PricingCard
-              header="Lifetime Access"
+              header="Unlimited Access"
               isLifetime
-              price="30"
-              priceDescSmall="unlimited access to all future widgets"
-              priceDescLarge="Pay once and then never again!"
+              price="2 / month"
+              priceDescSmall="unlimited access to all current & future widgets"
+              priceDescLarge="A small monthly subscription for access to everything"
               cta="Buy now"
               ctaColor="brand.accent-1"
               isPremium
@@ -195,48 +195,13 @@ const PricingPage = () => {
               <Text variant="pSmall">Extras:</Text>
               <PricingCardCheckbox text="Share your progress with friends" />
               <PricingCardCheckbox text="Save data to notion (coming soon)" />
-              <Box
-                position="absolute"
-                color="background"
-                bg="brand.accent-1"
-                borderRadius="10px"
-                top={['xs', , , 'sm']}
-                right={['xxs', , , 'sm']}
-                border="solid 2px"
-                borderColor="brand.accent-4"
-                py="3px"
-                px="xs"
-                css={{
-                  animation: `${float} 1s ease-in-out infinite alternate`
-                }}
-              >
-                <Sparkles
-                  minSize={8}
-                  maxSize={15}
-                  duration={800}
-                  numOfStars={3}
-                  // css={{ marginTop: '-10px' }}
-                >
-                  <Text
-                    fontSize="xxs"
-                    m={0}
-                    lineHeight={1.75}
-                    textAlign="center"
-                    color="neutral.white"
-                  >
-                    <span>Limited</span>
-                    <br />
-                    {/* TODO: Show realtime data for countdown 👇 */}
-                  </Text>
-                </Sparkles>
-              </Box>
             </PricingCard>
             <PricingCard
               header="Per widget"
               price="4"
               priceDescSmall="Access premium features of the purchased widget"
               priceDescLarge="Own your widget forever!"
-              cta="Buy a widget"
+              cta="Buy any widget"
               isPremium
               onClick={handleBuyMultiWidgets}
             >

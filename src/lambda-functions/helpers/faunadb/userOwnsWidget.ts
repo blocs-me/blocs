@@ -12,6 +12,9 @@ const userOwnsWidget = async (userId: string, widgetKey: ProductTitles) => {
     blocsUser?.data?.purchasedProducts?.includes(stripeProductIds[widgetKey]) ||
     blocsUser?.data?.purchasedProducts?.includes(
       stripeProductIds.lifetimeAccess
+    ) ||
+    blocsUser?.data?.purchasedProducts?.includes(
+      stripeProductIds.unlimitedAccess
     )
 
   return ownsWidget || isTrialValid(blocsUser)

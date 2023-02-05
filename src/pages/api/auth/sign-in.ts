@@ -10,7 +10,6 @@ import { query as q } from 'faunadb'
 import { BlocsUserServer } from '../../../global-types/blocs-user'
 import addUserToMailingList from '@/lambda/helpers/addUserToMailingList'
 import Stripe from 'stripe'
-import { getCurrentISOString } from '@/utils/dateUtils/getCurrentISOString'
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
   apiVersion: '2022-11-15'
