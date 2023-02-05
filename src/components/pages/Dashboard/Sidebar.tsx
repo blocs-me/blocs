@@ -144,8 +144,7 @@ const Sidebar = () => {
                 py="sm"
                 px="sm"
                 width="250px"
-                border="solid 1px"
-                color="background"
+                color="neutral.white"
                 borderRadius="sm"
                 as="div"
                 textAlign={'center'}
