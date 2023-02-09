@@ -16,6 +16,7 @@ import useWaterTrackerSettings from '../../../widgets/WaterTracker/hooks/useWate
 import usePatchWaterTrackerSettings from '@/widgets/WaterTracker/hooks/usePatchSettings'
 import useBlocsUser from '@/hooks/useBlocsUser'
 import PremiumOverlay from '../PremiumOverlay'
+import Box from '@/helpers/Box'
 
 const withProviders = (Component: ComponentType) => {
   return () => {
@@ -108,10 +109,18 @@ const WaterTrackerDashboard = () => {
             setOpenClipboardModal(true)
           }}
         >
-          <Flex>
+          <Flex position="relative">
             <DummyWaterTracker
               goal={settings?.data?.goal || 2}
               width={'350px'}
+            />
+            <Box
+              position="absolute"
+              top={0}
+              left={0}
+              width="100%"
+              height="100%"
+              css={{ cursor: 'not-allowed' }}
             />
           </Flex>
         </WidgetLinkWrapper>
@@ -124,11 +133,21 @@ const WaterTrackerDashboard = () => {
             setOpenClipboardModal(true)
           }}
         >
-          <DummyAnalyticsBarChart
-            width={['350px', , , , '350px', '500px']}
-            height={['350px', , , , '410px', '410px']}
-            units="L"
-          />
+          <Box position="relative">
+            <DummyAnalyticsBarChart
+              width={['350px', , , , '350px', '500px']}
+              height={['350px', , , , '410px', '410px']}
+              units="L"
+            />
+            <Box
+              position="absolute"
+              top={0}
+              left={0}
+              width="100%"
+              height="100%"
+              css={{ cursor: 'not-allowed' }}
+            />
+          </Box>
         </WidgetLinkWrapper>
       </Flex>
 

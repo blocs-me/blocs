@@ -127,9 +127,19 @@ const HabitTrackerDashboard = () => {
         alignItems={'start'}
         pb="md"
       >
-        <Box pl="md" pt="md">
+        <Box pl="md" pt="md" position="relative">
           <WidgetLinkWrapper onClick={handleCopy} isLoading={isLoading}>
-            <HabitTrackerWidget />
+            <Box position="relative">
+              <HabitTrackerWidget />
+              <Box
+                position="absolute"
+                top={0}
+                left={0}
+                width="100%"
+                height="100%"
+                css={{ cursor: 'not-allowed' }}
+              />
+            </Box>
           </WidgetLinkWrapper>
         </Box>
         <Flex

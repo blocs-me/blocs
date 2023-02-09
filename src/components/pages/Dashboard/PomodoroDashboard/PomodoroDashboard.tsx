@@ -78,14 +78,34 @@ const PomodoroDashboard = () => {
             isLoading={isLoading}
             onClick={() => copyPomodoro()}
           >
-            <DummyPomodoro />
+            <Box position="relative">
+              <DummyPomodoro />
+              <Box
+                position="absolute"
+                top={0}
+                left={0}
+                width="100%"
+                height="100%"
+                css={{ cursor: 'not-allowed' }}
+              />
+            </Box>
           </WidgetLinkWrapper>
           <WidgetLinkWrapper isLoading={isLoading} onClick={() => copyChart()}>
-            <AnalyticsBarChart
-              units="hr"
-              height={['350px', '300px', , '350px', '400px']}
-              width={['300px', '350px', , '350px', , '500px']}
-            />
+            <Box position="relative">
+              <AnalyticsBarChart
+                units="hr"
+                height={['350px', '300px', , '350px', '400px']}
+                width={['300px', '350px', , '350px', , '500px']}
+              />
+              <Box
+                position="absolute"
+                top={0}
+                left={0}
+                width="100%"
+                height="100%"
+                css={{ cursor: 'not-allowed' }}
+              />
+            </Box>
           </WidgetLinkWrapper>
         </Flex>
         <Flex width="100%">
