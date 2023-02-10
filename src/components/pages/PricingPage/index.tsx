@@ -20,6 +20,9 @@ import float from '@/keyframes/float'
 import { NextSeo } from 'next-seo'
 import Nav from '@/design-system/Nav'
 import nextSeoConfig from '@/constants/next-seo.config'
+import useRegion from '../../../hooks/useRegion'
+import { dollarRegions, euroRegions } from '@/constants/paymentRegions'
+import stripeProductIds from '@/constants/stripeProductIds'
 
 const handleEv = (e: MouseEvent) => {
   e.preventDefault()
@@ -53,10 +56,23 @@ const handleStripeCheckout = async (products: Products) => {
   }
 }
 
-const buyLifetimeAccess = (blocsUser: BlocsUserClient) => {
+const buyLifetimeAccess = (region: string) => {
+  const isEuroRegion = euroRegions.includes(region)
+
   handleStripeCheckout([
     {
-      price: stripePriceIds.lifetimeAccess,
+      price: stripePriceIds.lifetimeAccess[isEuroRegion ? 'euros' : 'dollars'],
+      quantity: 1
+    }
+  ])
+}
+
+const buyUnlimitedAccess = (region: string) => {
+  const isEuroRegion = euroRegions.includes(region)
+
+  handleStripeCheckout([
+    {
+      price: stripePriceIds.unlimitedAccess[isEuroRegion ? 'euros' : 'dollars'],
       quantity: 1
     }
   ])
@@ -68,6 +84,9 @@ const PricingPage = () => {
   const [showSignInMessage, setShowSignInMessage] = useState(false)
   const [showMultiWidgetModal, setShowMultiWidgetModal] = useState(false)
   const [isLifetimeAccessLoading, setIsLifeTimeAccessLoading] = useState(false)
+  const region = useRegion()
+  const isEuroRegion = euroRegions.includes(region)
+  const priceSymbol = isEuroRegion ? '€' : '$'
 
   const handleBuyMultiWidgets = (e: MouseEvent) => {
     handleEv(e)
@@ -83,8 +102,16 @@ const PricingPage = () => {
     if (!user) return setShowSignInMessage(true)
     if (!purchases?.lifetimeAccess) {
       setIsLifeTimeAccessLoading(true)
-      buyLifetimeAccess(user)
+      buyLifetimeAccess(region)
     }
+  }
+
+  const handleBuyUnlimitedAccess = (e: MouseEvent) => {
+    handleEv(e)
+    if (!user) return setShowSignInMessage(true)
+    if (purchases.unlimitedAccess) return null
+
+    buyUnlimitedAccess(region)
   }
 
   const handleRedirect = () => router.push('/sign-in')
@@ -141,7 +168,7 @@ const PricingPage = () => {
           >
             <PricingCard
               header="Free Trial"
-              price="0"
+              price={`${priceSymbol}0`}
               priceDescSmall="Free 14 day trial to try out premium features"
               priceDescLarge="Basic features will always be free!"
               cta="Try for free"
@@ -164,15 +191,19 @@ const PricingPage = () => {
               />
             </PricingCard>
             <PricingCard
-              header="Lifetime Access"
-              isLifetime
-              price="30"
-              priceDescSmall="unlimited access to all future widgets"
-              priceDescLarge="Pay once and then never again!"
-              cta="Buy now"
+              header="Unlimited Access"
+              price={`${priceSymbol}2`}
+              priceDescSmall="Unlimited access to all features"
+              priceDescLarge="Full access for a small monthly fee!"
+              cta="Subscribe"
               ctaColor="brand.accent-1"
+              onClick={handleBuyUnlimitedAccess}
+              isMonthly
               isPremium
-              onClick={handleBuyLifetimeAccess}
+              isLifetime
+              boxShadow={'lg'}
+              // border="solid 1px"
+              // borderColor={'brand.accent-1'}
               css={{
                 '@media (min-width: 1100px)': {
                   transform: 'scale(1.05)'
@@ -181,8 +212,6 @@ const PricingPage = () => {
                   order: -1
                 }
               }}
-              boxShadow="lg"
-              isLoading={isLifetimeAccessLoading}
             >
               <PricingCardCheckbox text="Pomodoro" />
               <PricingCardCheckbox text="Water Analytics" />
@@ -195,6 +224,7 @@ const PricingPage = () => {
               <Text variant="pSmall">Extras:</Text>
               <PricingCardCheckbox text="Share your progress with friends" />
               <PricingCardCheckbox text="Save data to notion (coming soon)" />
+
               <Box
                 position="absolute"
                 color="background"
@@ -224,16 +254,15 @@ const PricingPage = () => {
                     textAlign="center"
                     color="neutral.white"
                   >
-                    <span>Limited</span>
-                    <br />
-                    {/* TODO: Show realtime data for countdown 👇 */}
+                    <span>popular</span>
                   </Text>
                 </Sparkles>
               </Box>
             </PricingCard>
+
             <PricingCard
               header="Per widget"
-              price="4"
+              price={isEuroRegion ? `${priceSymbol}4` : `${priceSymbol}5`}
               priceDescSmall="Access premium features of the purchased widget"
               priceDescLarge="Own your widget forever!"
               cta="Buy a widget"

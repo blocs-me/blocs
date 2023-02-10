@@ -18,6 +18,7 @@ type Props = {
   children?: ReactNode
   isLoading?: boolean
   isLifetime?: boolean
+  isMonthly?: boolean
 }
 
 const ChildrenContainer = styled.div`
@@ -46,6 +47,7 @@ const PricingCard = ({
   isPremium,
   isLoading,
   isLifetime,
+  isMonthly,
   ...rest
 }: Props & IBox) => {
   return (
@@ -73,7 +75,12 @@ const PricingCard = ({
           mr="sm"
           lineHeight={1}
         >
-          €{price}
+          {price}
+          {isMonthly && (
+            <Text fontSize="sm" as="span">
+              /month
+            </Text>
+          )}
         </Text>
         <Text variant="pSmall" mt={0} lineHeight={1}>
           {priceDescSmall}
