@@ -41,20 +41,7 @@ const ClipboardModal = ({ isOpen, url, shareableUrl, hideModal }) => {
           <ClipboardSection url={shareableUrl} />
         </>
       )}
-      <Text variant="pSmall" textAlign="center" mt="xs">
-        Check out the guide{' '}
-        <Link
-          className=""
-          passHref
-          inline
-          fontWeight="bold"
-          underline
-          target="_blank"
-          href="https://glittery-ankle-1a8.notion.site/Pomodoro-Guide-8c1c69370f904b1084b221dc3e4acd3a"
-        >
-          on notion
-        </Link>
-      </Text>
+
       <Flex mt="md" hoverColor="secondary">
         <Button
           m="auto"
