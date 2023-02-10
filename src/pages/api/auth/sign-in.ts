@@ -24,6 +24,13 @@ const getClientUserData = (blocsUser: BlocsUserServer) => ({
   freeTrialStartedAt: blocsUser?.data?.freeTrialStartedAt
 })
 
+const createStripeUser = async (email: string) => {
+  const stripeUser = await stripe.customers.create({
+    email
+  })
+  return stripeUser
+}
+
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'POST') {
     try {
@@ -78,11 +85,14 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       if (!blocsUserById && blocsUserByEmail) {
         // already existing user signs in with supabase for the first time
 
+        const stripeUser = await createStripeUser(blocsUserByEmail?.data.email)
+
         let blocsUser: BlocsUserServer = await faunaClient.query(
           q.Update(blocsUserByEmail.ref, {
             data: {
               supabaseUserId: data?.user?.id,
-              freeTrialStartedAt: new Date().toISOString()
+              freeTrialStartedAt: new Date().toISOString(),
+              stripeCustomerId: stripeUser.id
             }
           })
         )
@@ -99,11 +109,14 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       if (!blocsUserByEmail && !blocsUserById) {
         // first time sign in
 
+        const stripeUser = await createStripeUser(data.user.email)
+
         blocsUser = (await faunaClient.query(
           q.Create(q.Collection('users'), {
             data: {
               email: data?.user?.email,
               supabaseUserId: data?.user?.id,
+              stripeCustomerId: stripeUser.id,
               freeTrialStartedAt: new Date().toISOString()
             }
           })
