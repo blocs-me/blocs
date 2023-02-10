@@ -9,6 +9,8 @@ import CheckIcon from './PricingCardCheckbox/CheckedIcon'
 import Plus from '../../../icons/plus.svg'
 import Icon from '@/helpers/Icon'
 import useBlocsUser from '@/hooks/useBlocsUser'
+import useRegion from '../../../hooks/useRegion'
+import { euroRegions } from '@/constants/paymentRegions'
 
 type Props = {
   isOpen: boolean
@@ -20,20 +22,25 @@ type LineItem = {
   quantity: 1
 }
 
-const allItems: {
+const getAllItems: (region: string) => {
   [index: string]: LineItem
-} = {
-  habitTracker: {
-    price: stripePriceIds.habitTracker,
-    quantity: 1
-  },
-  pomodoro: {
-    price: stripePriceIds.pomodoro,
-    quantity: 1
-  },
-  waterTracker: {
-    price: stripePriceIds.waterTracker,
-    quantity: 1
+} = (region) => {
+  const isEuroRegion = euroRegions.includes(region)
+  const priceKey = isEuroRegion ? 'euros' : 'dollars'
+
+  return {
+    habitTracker: {
+      price: stripePriceIds.habitTracker[priceKey],
+      quantity: 1
+    },
+    pomodoro: {
+      price: stripePriceIds.pomodoro[priceKey],
+      quantity: 1
+    },
+    waterTracker: {
+      price: stripePriceIds.waterTracker[priceKey],
+      quantity: 1
+    }
   }
 }
 
@@ -83,12 +90,15 @@ const BuyMultipleWidgetsModals = ({
   const [products, setProducts] = useState<LineItem[]>([])
   const { purchases } = useBlocsUser()
   const [isLoading, setIsLoading] = useState(false)
+  const region = useRegion()
+  const allItems = getAllItems(region)
+  const isEuroRegion = euroRegions.includes(region)
 
   useEffect(() => {
     setIsLoading(false)
   }, [])
 
-  const totalPrice = products.length * 4
+  const totalPrice = products.length * (isEuroRegion ? 4 : 5)
 
   const pickProduct = (e: MouseEvent, productStr: keyof typeof allItems) => {
     const product: LineItem = allItems[productStr]
@@ -167,14 +177,19 @@ const BuyMultipleWidgetsModals = ({
         <Text as="div" css={{ alignSelf: 'end' }} color="primary.accent-3">
           Total Price :
           <Box width="30px" as="span" display="inline-block" ml="xxs">
-            €{totalPrice}
+            {isEuroRegion ? '€' : '$'}
+            {totalPrice}
           </Box>
         </Text>
 
         <Box width="100%" height="2px" bg="primary.accent-1" mt="sm" />
         <Button
-          variant="default"
           bg="brand.accent-1"
+          py="xs"
+          px="sm"
+          fontSize="sm"
+          fontWeight="200"
+          color="neutral.white"
           borderRadius="sm"
           mt="md"
           onClick={(e) => handleSubmit(e)}
