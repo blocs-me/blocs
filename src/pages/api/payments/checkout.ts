@@ -3,6 +3,7 @@ import Stripe from 'stripe'
 import { handle400Response } from '../../../lambda-functions/helpers/handleResponses'
 import getBlocsUser from '@/lambda/middlewares/getBlocsUser'
 import stripePriceIds from '@/constants/stripePriceIds'
+import { ProductTitles } from '../../../global-types/stripe'
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
   apiVersion: '2022-11-15'
@@ -56,8 +57,14 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       }
     }
 
-    const boughtProduct = (key) =>
-      products.find((p) => p.price === stripePriceIds[key]) ? 'true' : 'false'
+    const boughtProduct = (key: ProductTitles) =>
+      products.find(
+        (p) =>
+          p.price === stripePriceIds[key].dollars ||
+          p.price === stripePriceIds[key].euros
+      )
+        ? 'true'
+        : 'false'
 
     const isUnlimitedAccess = products.find(
       (p) =>
@@ -91,7 +98,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           habitTracker: boughtProduct('habitTracker'),
           waterTracker: boughtProduct('waterTracker'),
           pomodoro: boughtProduct('pomodoro'),
-          lifetimeAccess: boughtProduct('lifetimeAccess')
+          lifetimeAccess: boughtProduct('lifetimeAccess'),
+          unlimitedAccess: boughtProduct('unlimitedAccess')
         }
       })
 
