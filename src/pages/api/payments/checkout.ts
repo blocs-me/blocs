@@ -56,6 +56,19 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       }
     }
 
+    const boughtProduct = (key) =>
+      products.find((p) => p.price === stripePriceIds[key]) ? 'true' : 'false'
+
+    const isUnlimitedAccess = products.find(
+      (p) =>
+        p.price === stripePriceIds.unlimitedAccess.dollars ||
+        p.price === stripePriceIds.unlimitedAccess.euros
+    )
+
+    if (isUnlimitedAccess && products.length > 1) {
+      return handle400Response(res)
+    }
+
     const paymentOptions: Partial<Stripe.Checkout.SessionCreateParams> =
       (() => {
         if (stripeCustomerId) return { customer: stripeCustomerId } // would happen on second purchase for signed in user
@@ -63,14 +76,14 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           return { customer_email, customer_creation: 'always' } // for signed in user
       })()
 
-    const boughtProduct = (key) =>
-      products.find((p) => p.price === stripePriceIds[key]) ? 'true' : 'false'
-
     try {
       const session = await stripe.checkout.sessions.create({
         ...paymentOptions,
+        customer_update: {
+          address: 'auto'
+        },
         line_items: products,
-        mode: 'payment',
+        mode: isUnlimitedAccess ? 'subscription' : 'payment',
         success_url: `${req.headers.origin}/dashboard/pomodoro?payment_success=true`,
         cancel_url: `${req.headers.origin}/pricing?canceled=true`,
         automatic_tax: { enabled: true },
