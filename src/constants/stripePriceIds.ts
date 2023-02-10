@@ -24,8 +24,8 @@ const local: PriceIds = {
     dollars: 'price_1MZryuHyXnRceQpO03FvIJ6X'
   },
   unlimitedAccess: {
-    euros: 'price_1MZiPaHyXnRceQpOIdQvOHIh',
-    dollars: 'price_1MY3x1HyXnRceQpOJBTIK4Ph'
+    euros: 'price_1MZig7HyXnRceQpOa53IeyCb',
+    dollars: 'price_1MY5p3HyXnRceQpOPn3jrwnl'
   }
 }
 
