@@ -52,7 +52,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       try {
         await faunaClient.query(
           q.Update(user.ref, {
-            isSubscribed: false
+            data: {
+              isSubscribed: false
+            }
           } as Partial<BlocsUserServer>)
         )
 
@@ -69,7 +71,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       try {
         await faunaClient.query(
           q.Update(user.ref, {
-            isSubscribed: true
+            data: {
+              isSubscribed: true
+            }
           } as Partial<BlocsUserServer>)
         )
 

@@ -4,7 +4,6 @@ import {
   handle500Response
 } from '../../../lambda-functions/helpers/handleResponses'
 import getBlocsUser from '@/lambda/middlewares/getBlocsUser'
-import checkIfUserIsSubscribed from '@/lambda/helpers/checkIfUserIsSubscribed'
 import removeUserFromMailingList from '../../../lambda-functions/helpers/removeUserFromMailingList'
 import faunaClient from '@/lambda/faunaClient'
 import { query as q } from 'faunadb'
@@ -25,22 +24,18 @@ const pickBlocsUserData = (
   isDeleted: blocsUser?.isDeleted,
   scheduledForDeletion: blocsUser?.scheduledForDeletion,
   avatar_url: blocsUser?.avatar_url,
-  freeTrialStartedAt: blocsUser?.freeTrialStartedAt
+  freeTrialStartedAt: blocsUser?.freeTrialStartedAt,
+  isSubscribed: blocsUser?.isSubscribed
 })
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'GET') {
     try {
       let blocsUser = await getBlocsUser(req, res)
-      const isSubscribed = await (blocsUser
-        ? checkIfUserIsSubscribed(blocsUser?.data)
-        : false)
-
       if (blocsUser) {
         handle200Response(res, {
           data: {
-            ...pickBlocsUserData(blocsUser?.data),
-            isSubscribed
+            ...pickBlocsUserData(blocsUser?.data)
           }
         })
       } else {
