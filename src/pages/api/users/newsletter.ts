@@ -7,6 +7,10 @@ import {
 } from '../../../lambda-functions/helpers/handleResponses'
 import md5 from 'md5'
 import getBlocsUser from '@/lambda/middlewares/getBlocsUser'
+import faunaClient from '@/lambda/faunaClient'
+import { query as q } from 'faunadb'
+import { BlocsUserServer } from '@/gtypes/blocs-user'
+import { handle200Response } from '../../../lambda-functions/helpers/handleResponses'
 
 const ajv = new Ajv()
 
@@ -44,45 +48,33 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     const user = await getBlocsUser(req, res)
     const { status } = req.body as Body
 
-    const nameArr = user?.data?.name?.split(' ')
-    const [FNAME = '', LNAME = ''] = [nameArr?.[0], nameArr?.slice(-1)?.[0]]
-    const email_address = user?.data?.email
-
     if (status === 'unsubscribe') {
       try {
-        await mailchimp.lists.setListMember(
-          process.env.MAILCHIMP_LIST_ID,
-          md5(user?.data?.email),
-          {
-            email_address,
-            status: 'unsubscribed',
-            merge_fields: {
-              FNAME,
-              LNAME
+        await faunaClient.query(
+          q.Update(user.ref, {
+            data: {
+              isSubscribed: false
             }
-          }
+          } as Partial<BlocsUserServer>)
         )
 
-        res.status(200).json({
-          message: 'Successfully unsubscribed'
-        })
+        return handle200Response(res, 'Sucessfully unsubscribed')
       } catch (err) {
         console.error(err)
 
-        handle500Response(
+        return handle500Response(
           res,
           'Something went wrong when unsubscribing from the newsletter'
         )
       }
     } else {
       try {
-        await mailchimp.lists.setListMember(
-          process.env.MAILCHIMP_LIST_ID,
-          md5(user?.data?.email),
-          {
-            email_address,
-            status: 'subscribed'
-          }
+        await faunaClient.query(
+          q.Update(user.ref, {
+            data: {
+              isSubscribed: true
+            }
+          } as Partial<BlocsUserServer>)
         )
 
         res.status(200).json({
