@@ -108,8 +108,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             }
           })
         )) as BlocsUserServer
-
-        await addUserToMailingList(blocsUser?.data, true)
       }
 
       if (blocsUserByEmail || blocsUserById) {
