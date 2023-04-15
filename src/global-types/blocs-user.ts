@@ -26,5 +26,6 @@ export type BlocsUserServer = {
     purchasedProducts?: string[]
     stripeCustomerId?: string
     freeTrialStartedAt?: string
+    isSubscribed: boolean
   }
 }
