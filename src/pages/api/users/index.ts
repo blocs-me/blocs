@@ -4,16 +4,15 @@ import {
   handle500Response
 } from '../../../lambda-functions/helpers/handleResponses'
 import getBlocsUser from '@/lambda/middlewares/getBlocsUser'
-import removeUserFromMailingList from '../../../lambda-functions/helpers/removeUserFromMailingList'
 import faunaClient from '@/lambda/faunaClient'
 import { query as q } from 'faunadb'
 import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs'
-import Stripe from 'stripe'
 import {
   BlocsUserServer,
   BlocsUserClient
 } from '../../../global-types/blocs-user'
 import crypto from 'crypto'
+import checkIfUserIsSubscribed from '@/lambda/helpers/checkIfUserIsSubscribed'
 
 const pickBlocsUserData = (
   blocsUser: BlocsUserServer['data']
@@ -52,7 +51,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     const supabase = createServerSupabaseClient({ req, res })
 
     try {
-      await removeUserFromMailingList(blocsUser)
       await faunaClient.query(
         q.Update(blocsUser.ref, {
           data: {
