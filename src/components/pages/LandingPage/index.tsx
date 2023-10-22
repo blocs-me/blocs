@@ -282,10 +282,13 @@ const LandingPage = () => {
                 )}
 
                 <Flex mt="lg" css={{ gap: '1rem' }}>
-                  <Avatar
-                    src="/moniet.png"
-                    alt="Blocs Founder Profile Picture"
-                  />
+                  <Flex flexDirection={'column'} alignItems={'center'}>
+                    <Avatar
+                      src="/moniet.png"
+                      alt="Blocs Founder Profile Picture"
+                    />
+                  </Flex>
+
                   <Flex flexDirection="column">
                     <Text
                       fontSize="sm"
@@ -297,7 +300,7 @@ const LandingPage = () => {
                       Moniet Sawhney
                       <br />
                       <Box as="small" color="primary.accent-4">
-                        Founder
+                        Creator of blocs{' '}
                       </Box>
                     </Text>
                     <Flex gap="sm">
@@ -320,6 +323,29 @@ const LandingPage = () => {
                         <Email />
                       </SocialIcons>
                     </Flex>
+
+                    <Box as="a" href="mailto:info@moniet.dev" width="115px">
+                      <Button
+                        as="span"
+                        display="block"
+                        bg="primary.accent-2"
+                        color="primary.accent-4"
+                        boxShadow="default"
+                        borderRadius="10px"
+                        fontSize={'xxs'}
+                        // border="solid 1px"
+                        // borderColor="primary.accent-4"
+                        mt="10px"
+                        px={'10px'}
+                        py="5px"
+                        letterSpacing={'1px'}
+                        width="100%"
+                        minWidth={'115px'}
+                        textAlign={'center'}
+                      >
+                        👨‍💻 hire me
+                      </Button>
+                    </Box>
                   </Flex>
                 </Flex>
               </Flex>
