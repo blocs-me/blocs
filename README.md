@@ -1,34 +1,50 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Blocs me
 
-## Getting Started
+## Tech stack
 
-First, run the development server:
+- stripe
+- subabase authentication
 
-```bash
-npm run dev
-# or
-yarn dev
+## Architecture
+
+- ``
+
+# Project Setup
+
+## Environment Variables
+
+```
+  FAUNA_DB_SECRET=**** # use diff database when working locally to prevent writing to prod
+
+  # For lambdas
+  VERCEL_ENV=local # auto set in vercel
+  NEXT_PUBLIC_VERCEL_ENV=local # auto set in vercel
+  JWT_SALT=****
+  NEXT_PUBLIC_SUPABASE_URL=****
+  NEXT_PUBLIC_SUPABASE_ANON_KEY=****
+  STRIPE_SECRET_KEY=****
+  STRIPE_WEBHOOK_SIGNING_SECRET=****
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Make an account with stripe, and get the `STRIPE_SECRET_KEY` and `STRIPE_WEBHOOK_SIGNING_SECRET` from your account.
+Make sure to use keys from 'testing' mode in stripe.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+## Local Development
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+- For Fauna db I suggest creating a test database on the website dashboard, you can then run the `migrations.ts` file to migrate all of the 
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+## Production
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+# To Update
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Emails and MX Records
+Previously setup with Zoho, I can recommend them as 
+a platform for custom emails. It's easy to setup. 
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Currently, the MX records will are pointed from namecheap to zoho.in. 
+If you want a custom email, then you will need to update these records
+with your own email provided like Gmail. 
 
-## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
