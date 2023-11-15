@@ -23,7 +23,7 @@ import Nav from '@/design-system/Nav'
 import Button from '@/design-system/Button'
 import Home from 'src/icons/home'
 import Link from 'next/link'
-import BlocsThemeProvider from '@/helpers/BlocsThemeProvider'
+import DashboardMaintenance from '@/design-system/Maintenance/DashboardMaintenance'
 
 const LoadingScreen = () => {
   return (
@@ -38,12 +38,16 @@ const LoadingScreen = () => {
   )
 }
 
+const isMaintenance = process.env.NEXT_PUBLIC_MAINTENANCE === 'yes'
+
 const Dashboard = () => {
   const router = useRouter()
   const { path } = router.query
   const user = useUser()
   const session = useSessionContext()
   const isSmallScreen = useMediaQuery('(min-width: 768px)')
+  const showMaintenance =
+    isMaintenance && !['settings', 'guide'].includes(path as string)
 
   useEffect(() => {
     if (user?.aud !== 'authenticated' && !session.isLoading) {
@@ -127,13 +131,20 @@ const Dashboard = () => {
           <Notifications mt="md">
             <WidgetAuthProvider>
               <PomodoroProvider>
-                {path === 'pomodoro' && <PomodoroDashboard />}
+                {path === 'pomodoro' && !showMaintenance && (
+                  <PomodoroDashboard />
+                )}
+                {showMaintenance && <DashboardMaintenance />}
               </PomodoroProvider>
             </WidgetAuthProvider>
 
             <Suspense fallback={<LoadingScreen />}>
-              {path === 'habit-tracker' && <HabitTrackerDashboard />}
-              {path === 'water-tracker' && <WaterTrackerDashboard />}
+              {path === 'habit-tracker' && !showMaintenance && (
+                <HabitTrackerDashboard />
+              )}
+              {path === 'water-tracker' && !showMaintenance && (
+                <WaterTrackerDashboard />
+              )}
               {path === 'settings' && <UserSettings />}
               {path === 'guide' && <Guide />}
             </Suspense>

@@ -179,7 +179,7 @@ const Nav = ({ title = '', links = [] }) => {
       borderBottom="solid 1px"
       borderBottomColor="primary.accent-2"
     >
-      <PageGutters height="80px">
+      <PageGutters height={'80px'}>
         <Flex
           alignItems="center"
           justifyContent="space-between"
