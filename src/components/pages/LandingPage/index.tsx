@@ -29,6 +29,8 @@ import DSLink from '@/design-system/Link'
 import float from '@/keyframes/float'
 import BlocsThemeProvider from '@/helpers/BlocsThemeProvider'
 
+const isMaintenance = process.env.NEXT_PUBLIC_MAINTENANCE === 'yes'
+
 const M = ({ children }) => (
   <Box as="span" color="brand.accent-1">
     {children}
@@ -161,11 +163,38 @@ const LandingPage = () => {
               content="https://www.blocs.me/blocs-social-banner.png"
             />
           </Head>
-
-          <Box position="absolute" left="0" top="0" width="100vw">
-            <Nav />
-          </Box>
           <Box minHeight="100vh" height="100%" width="100%" mt="80px">
+            <Nav />
+            {isMaintenance && (
+              <Box
+                width="100%"
+                bg="primary.accent-2"
+                px="1rem"
+                py="0.8rem"
+                borderRadius="md"
+                boxShadow="md"
+                css={{ transform: 'translateY(1rem)' }}
+              >
+                <Box
+                  p="0.2rem 0.6rem"
+                  borderRadius="10px"
+                  width="fit-content"
+                  mx="auto"
+                  right="2rem"
+                  bottom="2rem"
+                >
+                  <Text
+                    fontSize="xs"
+                    textAlign={'center'}
+                    mb="0"
+                    color="primary.accent-4"
+                  >
+                    🚧&nbsp;&nbsp;We&#39;re down for maintenance today for a few
+                    hours, we&#39;ll be back up soon!
+                  </Text>
+                </Box>
+              </Box>
+            )}
             <Flex
               minHeight="calc(100vh - 80px)"
               height="100%"
