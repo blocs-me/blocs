@@ -27,7 +27,7 @@ You can take a look at the `.env.example` file
   NEXT_PUBLIC_SUPABASE_ANON_KEY=****
   STRIPE_SECRET_KEY=****
   STRIPE_WEBHOOK_SIGNING_SECRET=****
-  
+
 ```
 
 Make an account with stripe, and get the `STRIPE_SECRET_KEY` and `STRIPE_WEBHOOK_SIGNING_SECRET` from your account.
@@ -38,6 +38,10 @@ Make sure to use keys from 'testing' mode in stripe.
 - For Fauna db I suggest creating a test database on the website dashboard, you can then run the `migrations.ts` file to migrate all of the
 
 ## Production
+
+- Be careful when pushing to 'main', branch, every deployment it automatically published
+- Currently, no CI/CD exists except for the husky git-hook that runs the jest before publishing, it would make sense to include more unit tests
+  Tip : Vercel CLI is a great way to manage Secrets and deployments to proudction
 
 # To Update
 
