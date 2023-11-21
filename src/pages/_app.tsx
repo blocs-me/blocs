@@ -10,14 +10,6 @@ function MyApp({ Component, pageProps }) {
   return (
     <ThemeProvider theme={theme}>
       <Head>
-        {process.env.NODE_ENV !== 'development' && (
-          <script
-            defer
-            src="https://static.cloudflareinsights.com/beacon.min.js"
-            data-cf-beacon='{"token": "a9429c8dbd674c38bf769344e4abc7d8"}'
-          />
-        )}
-
         {process.env.NEXT_PUBLIC_VERCEL_ENV === 'production' && (
           <script defer data-domain="blocs.me" src="https://plausible.io/js/script.js"></script>
         )}
@@ -27,7 +19,6 @@ function MyApp({ Component, pageProps }) {
         <GlobalStyle />
         <Component {...pageProps} />
       </GlobalProvider>
-      <Analytics />
     </ThemeProvider>
   )
 }
