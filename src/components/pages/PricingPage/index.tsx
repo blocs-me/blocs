@@ -142,6 +142,7 @@ const PricingPage = () => {
             <PricingCard
               header="Free Trial"
               price="0"
+              priceAnchor=''
               priceDescSmall="Free 14 day trial to try out premium features"
               priceDescLarge="Basic features will always be free!"
               cta="Try for free"
@@ -166,7 +167,8 @@ const PricingPage = () => {
             <PricingCard
               header="Lifetime Access"
               isLifetime
-              price="30"
+              price="39"
+              priceAnchor=''
               priceDescSmall="unlimited access to all future widgets"
               priceDescLarge="Pay once and then never again!"
               cta="Buy now"
@@ -220,11 +222,11 @@ const PricingPage = () => {
                   <Text
                     fontSize="xxs"
                     m={0}
-                    lineHeight={1.75}
+                    lineHeight={1.4}
                     textAlign="center"
                     color="neutral.white"
                   >
-                    <span>Limited</span>
+                    <span>Limited Offer</span>
                     <br />
                     {/* TODO: Show realtime data for countdown 👇 */}
                   </Text>
@@ -233,7 +235,8 @@ const PricingPage = () => {
             </PricingCard>
             <PricingCard
               header="Per widget"
-              price="4"
+              price="19"
+              priceAnchor=''
               priceDescSmall="Access premium features of the purchased widget"
               priceDescLarge="Own your widget forever!"
               cta="Buy a widget"

@@ -179,6 +179,11 @@ const Nav = ({ title = '', links = [] }) => {
       borderBottom="solid 1px"
       borderBottomColor="primary.accent-2"
     >
+      <Box width="100%" bg="neutral.black">
+        <Text fontSize="sm" textAlign={'center'} mb="0" color="neutral.white">
+          🎉 It is BLACK FRIDAY! Enjoy an 50% discount using code <b>BF2023</b>
+        </Text>
+      </Box>
       <PageGutters height={'80px'}>
         <Flex
           alignItems="center"

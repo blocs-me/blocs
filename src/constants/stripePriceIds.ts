@@ -4,6 +4,10 @@ type PriceIds = {
   [P in ProductTitles]?: string
 } & {
   legacyLifetimeAccess?: string
+  legacyV2lifetimeAccess?: string
+  legacyWaterTracker?: string
+  legacyHabitTracker?: string
+  legacyPomodoro?: string
 }
 
 const local: PriceIds = {
@@ -14,11 +18,15 @@ const local: PriceIds = {
 }
 
 const prod: PriceIds = {
-  lifetimeAccess: 'price_1MXMgYHyXnRceQpOw5BY6Xxw',
+  legacyV2lifetimeAccess: 'price_1MXMgYHyXnRceQpOw5BY6Xxw',
   legacyLifetimeAccess: 'price_1MQWR6HyXnRceQpOpEBmf9Te', // needed to add this for the validation for preventing 2nd time purchase of the same product
-  waterTracker: 'price_1MQWXtHyXnRceQpOyPLvj3gW',
-  habitTracker: 'price_1MQWVtHyXnRceQpOcvXB73Mv',
-  pomodoro: 'price_1MQWTjHyXnRceQpOMxQBvlW3'
+  legacyWaterTracker: 'price_1MQWXtHyXnRceQpOyPLvj3gW',
+  legacyHabitTracker: 'price_1MQWVtHyXnRceQpOcvXB73Mv',
+  legacyPomodoro: 'price_1MQWTjHyXnRceQpOMxQBvlW3',
+  lifetimeAccess: 'price_1OFN1NHyXnRceQpO7GNmghkK',
+  waterTracker: 'price_1OFN82HyXnRceQpO9xbQXXsC',
+  habitTracker: 'price_1OFN8YHyXnRceQpOP5ZAwOGF',
+  pomodoro: 'price_1OFMfOHyXnRceQpOZNmPwYZt'
 }
 
 const stripePriceIds =

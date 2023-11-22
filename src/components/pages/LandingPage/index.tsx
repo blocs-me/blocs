@@ -198,7 +198,7 @@ const LandingPage = () => {
             <Flex
               minHeight="calc(100vh - 80px)"
               height="100%"
-              flexDirection={['column', , , , , 'row']}
+              flexDirection={'column'}
               gap="md"
               pb="lg"
             >
@@ -206,20 +206,19 @@ const LandingPage = () => {
                 flex={1}
                 flexDirection="column"
                 justifyContent="start"
-                alignItems={['center', , , , , 'start']}
+                alignItems={'center'}
                 pt="lg"
               >
-                <Box position="relative" maxWidth="500px">
+                <Box position="relative" maxWidth="800px">
                   <Text
                     as="h1"
-                    fontSize={['lg', , , 'xl']}
+                    fontSize={['lg', , , 'xxl']}
                     fontWeight="bold"
                     color="foreground"
-                    textAlign={['center', , , , , 'left']}
+                    textAlign={'center'}
                     css={{ zIndex: 1, position: 'relative' }}
                   >
-                    Build better habits
-                    <wbr /> on Notion with our <wbr />
+                    Build better habits on Notion with our 
                     beautiful{' '}
                     <Box
                       as="span"
@@ -310,7 +309,7 @@ const LandingPage = () => {
                   </Box>
                 )}
 
-                <Flex mt="lg" css={{ gap: '1rem' }}>
+                {/* <Flex mt="lg" css={{ gap: '1rem' }}>
                   <Flex flexDirection={'column'} alignItems={'center'}>
                     <Avatar
                       src="/moniet.png"
@@ -376,7 +375,7 @@ const LandingPage = () => {
                       </Button>
                     </Box>
                   </Flex>
-                </Flex>
+                </Flex> */}
               </Flex>
 
               <Flex flex={1} justifyContent={['center']}>

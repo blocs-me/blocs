@@ -88,7 +88,7 @@ const BuyMultipleWidgetsModals = ({
     setIsLoading(false)
   }, [])
 
-  const totalPrice = products.length * 4
+  const totalPrice = products.length * 19
 
   const pickProduct = (e: MouseEvent, productStr: keyof typeof allItems) => {
     const product: LineItem = allItems[productStr]
@@ -167,7 +167,7 @@ const BuyMultipleWidgetsModals = ({
         <Text as="div" css={{ alignSelf: 'end' }} color="primary.accent-3">
           Total Price :
           <Box width="30px" as="span" display="inline-block" ml="xxs">
-            €{totalPrice}
+            ${totalPrice}
           </Box>
         </Text>
 

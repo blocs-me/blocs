@@ -9,6 +9,7 @@ import { IBox } from '../../helpers/Box/Box.types'
 type Props = {
   header: string
   price: string
+  priceAnchor: string
   priceDescSmall: string
   priceDescLarge: string
   onClick: (e: MouseEvent) => void
@@ -37,6 +38,7 @@ const ChildrenContainer = styled.div`
 const PricingCard = ({
   header,
   price,
+  priceAnchor,
   priceDescLarge,
   priceDescSmall,
   onClick,
@@ -65,6 +67,16 @@ const PricingCard = ({
       </Text>
 
       <Flex alignItems="center">
+        {priceAnchor ? (<><Text
+          fontSize="lg"
+          fontWeight="bold"
+          color="primary.accent-4"
+          m={0}
+          mr="xxs"
+          lineHeight={1}
+        >
+          <del>${price}</del>
+        </Text>
         <Text
           fontSize="xl"
           fontWeight="bold"
@@ -73,8 +85,17 @@ const PricingCard = ({
           mr="sm"
           lineHeight={1}
         >
-          €{price}
-        </Text>
+          ${priceAnchor}
+        </Text></>):(<Text
+          fontSize="xl"
+          fontWeight="bold"
+          color="foreground"
+          m={0}
+          mr="sm"
+          lineHeight={1}
+        >
+          ${price}
+        </Text>)}
         <Text variant="pSmall" mt={0} lineHeight={1}>
           {priceDescSmall}
         </Text>

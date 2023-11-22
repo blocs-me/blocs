@@ -19,7 +19,6 @@ const CheckIcon = (props: IBox) => (
       viewBox="0 0 20 14"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      css={{ margin: 'auto' }}
     >
       <Path
         as="path"
