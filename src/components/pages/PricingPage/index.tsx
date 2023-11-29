@@ -9,7 +9,7 @@ import stripePriceIds from '../../../constants/stripePriceIds'
 import { useRouter } from 'next/router'
 import getStripe from '@/hooks/getStripe'
 import Stripe from 'stripe'
-import { MouseEvent, useState } from 'react'
+import { MouseEvent, useEffect, useState } from 'react'
 import BuyMultipleWidgetsModals from './BuyMultipleWidgetsModal'
 import useBlocsUser from '@/hooks/useBlocsUser'
 import { BlocsUserClient } from '../../../global-types/blocs-user'
@@ -20,6 +20,7 @@ import float from '@/keyframes/float'
 import { NextSeo } from 'next-seo'
 import Nav from '@/design-system/Nav'
 import nextSeoConfig from '@/constants/next-seo.config'
+import { Round } from 'faunadb'
 
 const handleEv = (e: MouseEvent) => {
   e.preventDefault()
@@ -68,6 +69,12 @@ const PricingPage = () => {
   const [showSignInMessage, setShowSignInMessage] = useState(false)
   const [showMultiWidgetModal, setShowMultiWidgetModal] = useState(false)
   const [isLifetimeAccessLoading, setIsLifeTimeAccessLoading] = useState(false)
+  const [daysLeft, setDaysLeft] = useState(0);
+
+
+  useEffect(() => {
+    setDaysLeft(Math.round((new Date("2023-12-04").getTime() - new Date().getTime() )/ (1000 * 60 * 60 * 24)));
+  },[])
 
   const handleBuyMultiWidgets = (e: MouseEvent) => {
     handleEv(e)
@@ -95,7 +102,7 @@ const PricingPage = () => {
         <NextSeo
           {...nextSeoConfig}
           title="Pricing | blocs notion widgets | habit tracker"
-          description="Pricing for blocs widgets | €30 for lifetime access | €4 for any blocs notion widget; own it forever"
+          description="Pricing for blocs widgets | $69 for lifetime access | $32 for any blocs notion widget; own it forever"
           canonical="https://www.blocs.me/pricing"
         />
         <Nav />
@@ -167,12 +174,13 @@ const PricingPage = () => {
             <PricingCard
               header="Lifetime Access"
               isLifetime
-              price="39"
-              priceAnchor=''
-              priceDescSmall="unlimited access to all future widgets"
-              priceDescLarge="Pay once and then never again!"
+              price="65"
+              priceAnchor='39'
+              priceDescSmall="Unlimited access"
+              priceDescLarge="Pay once and use forever!"
               cta="Buy now"
               ctaColor="brand.accent-1"
+              ctaTrackEventName="buy-lifetime-access"
               isPremium
               onClick={handleBuyLifetimeAccess}
               css={{
@@ -226,7 +234,7 @@ const PricingPage = () => {
                     textAlign="center"
                     color="neutral.white"
                   >
-                    <span>Limited Offer</span>
+                    <span>Limited Offer<br/>{daysLeft} seats left</span>
                     <br />
                     {/* TODO: Show realtime data for countdown 👇 */}
                   </Text>
@@ -235,10 +243,10 @@ const PricingPage = () => {
             </PricingCard>
             <PricingCard
               header="Per widget"
-              price="19"
-              priceAnchor=''
+              price="32"
+              priceAnchor='19'
               priceDescSmall="Access premium features of the purchased widget"
-              priceDescLarge="Own your widget forever!"
+              priceDescLarge="Pay once and use forever!"
               cta="Buy a widget"
               isPremium
               onClick={handleBuyMultiWidgets}

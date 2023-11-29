@@ -11,7 +11,7 @@ function MyApp({ Component, pageProps }) {
     <ThemeProvider theme={theme}>
       <Head>
         {process.env.NEXT_PUBLIC_VERCEL_ENV === 'production' && (
-          <script defer data-domain="blocs.me" src="https://plausible.io/js/script.js"></script>
+          <script defer data-domain="blocs.me" src="https://plausible.io/js/script.tagged-events.js"/>
         )}
       </Head>
       <GlobalProvider>

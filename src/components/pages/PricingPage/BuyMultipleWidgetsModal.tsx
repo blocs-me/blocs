@@ -173,6 +173,7 @@ const BuyMultipleWidgetsModals = ({
 
         <Box width="100%" height="2px" bg="primary.accent-1" mt="sm" />
         <Button
+          className='plausible-event-name=buy-multiple-widgets'
           variant="default"
           bg="brand.accent-1"
           borderRadius="sm"

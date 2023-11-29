@@ -181,7 +181,8 @@ const Nav = ({ title = '', links = [] }) => {
     >
       <Box width="100%" bg="brand.accent-1" px="xs">
         <Text fontSize="sm" textAlign={'center'} mb="0" color="neutral.white">
-          🎉 It is BLACK FRIDAY! Enjoy an 50% discount using code <b>BF2023</b>
+          ✨ We are extending our Cyber Monday deals. Get <b>40%</b> discount
+          now! ✨
         </Text>
       </Box>
       <PageGutters height={'80px'}>

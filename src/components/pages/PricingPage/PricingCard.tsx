@@ -15,6 +15,7 @@ type Props = {
   onClick: (e: MouseEvent) => void
   ctaColor?: string
   cta: string
+  ctaTrackEventName?: string
   isPremium: boolean
   children?: ReactNode
   isLoading?: boolean
@@ -44,6 +45,7 @@ const PricingCard = ({
   onClick,
   cta,
   ctaColor = 'foreground',
+  ctaTrackEventName = '',
   children,
   isPremium,
   isLoading,
@@ -104,6 +106,7 @@ const PricingCard = ({
 
       <Button
         width="100%"
+        className={ctaTrackEventName ? `plausible-event-name=${ctaTrackEventName}`: ''}
         py="sm"
         bg={ctaColor}
         color={isLifetime ? 'neutral.white' : 'background'}

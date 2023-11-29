@@ -74,7 +74,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         success_url: `${req.headers.origin}/dashboard/pomodoro?payment_success=true`,
         cancel_url: `${req.headers.origin}/pricing?canceled=true`,
         automatic_tax: { enabled: true },
-        allow_promotion_codes: true,
         metadata: {
           habitTracker: boughtProduct('habitTracker'),
           waterTracker: boughtProduct('waterTracker'),
