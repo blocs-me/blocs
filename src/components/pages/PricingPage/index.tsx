@@ -234,7 +234,7 @@ const PricingPage = () => {
                     textAlign="center"
                     color="neutral.white"
                   >
-                    <span>Limited Offer<br/>{daysLeft} seats left</span>
+                    <span>Limited Offer<br/>{daysLeft} days left</span>
                     <br />
                     {/* TODO: Show realtime data for countdown 👇 */}
                   </Text>
