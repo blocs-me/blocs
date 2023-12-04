@@ -5,7 +5,7 @@ import getBlocsUser from '@/lambda/middlewares/getBlocsUser'
 import stripePriceIds from '@/constants/stripePriceIds'
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-  apiVersion: '2022-11-15'
+  apiVersion: '2023-08-16'
 })
 
 type Products = { price: string; quantity: number }[]
@@ -70,7 +70,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       const session = await stripe.checkout.sessions.create({
         ...paymentOptions,
         line_items: products,
-        mode: 'payment',
+        mode: 'subscription',
         success_url: `${req.headers.origin}/dashboard/pomodoro?payment_success=true`,
         cancel_url: `${req.headers.origin}/pricing?canceled=true`,
         automatic_tax: { enabled: true },

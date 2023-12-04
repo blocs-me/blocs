@@ -36,3 +36,4 @@ src/pages/users.js
 public/sitemap.xml
 public/sitemap-0.xml
 tsconfig.tsbuildinfo
+.env*.local
