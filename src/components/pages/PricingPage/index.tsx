@@ -73,7 +73,7 @@ const PricingPage = () => {
 
 
   useEffect(() => {
-    setDaysLeft(Math.round((new Date("2023-12-04").getTime() - new Date().getTime() )/ (1000 * 60 * 60 * 24)));
+    setDaysLeft(Math.round((new Date("2023-12-07").getTime() - new Date().getTime() )/ (1000 * 60 * 60 * 24)));
   },[])
 
   const handleBuyMultiWidgets = (e: MouseEvent) => {
