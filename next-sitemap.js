@@ -1,6 +1,6 @@
 const sitemap = {
   siteUrl: 'https://www.blocs.me',
-  generateRobotsTxt: false,
+  generateRobotsTxt: true,
   exclude: [
     '/dashboard/*',
     '/main-analytics',
