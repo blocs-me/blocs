@@ -123,7 +123,7 @@ const LandingPage = () => {
               name="description"
               content="Blocs notion widgets help you build habits with amazing insights to understand yourself better. Track all your habits in one place !"
             />
-            <link rel="canonical" href="https://blocs.me" />
+            <link rel="canonical" href="https://www.blocs.me" />
             <meta property="og:type" content="website" />
             <meta property="og:url" content="https://www.blocs.me/" />
             <meta
