@@ -5,6 +5,7 @@ import Flex from '@/helpers/Flex'
 import styled from '@emotion/styled'
 import { MouseEvent, ReactNode } from 'react'
 import { IBox } from '../../helpers/Box/Box.types'
+import CheckoutButton from '@/design-system/CheckoutButton'
 
 type Props = {
   header: string
@@ -20,6 +21,9 @@ type Props = {
   children?: ReactNode
   isLoading?: boolean
   isLifetime?: boolean
+  useCheckoutButton?: boolean
+  isCurrentPlan?: boolean
+  disableButton?: boolean
 }
 
 const ChildrenContainer = styled.div`
@@ -50,6 +54,9 @@ const PricingCard = ({
   isPremium,
   isLoading,
   isLifetime,
+  useCheckoutButton = false,
+  isCurrentPlan = false,
+  disableButton = false,
   ...rest
 }: Props & IBox) => {
   return (
@@ -58,6 +65,8 @@ const PricingCard = ({
       borderRadius="md"
       bg="background"
       boxShadow="default"
+      border={isCurrentPlan ? "2px solid": ""}
+      borderColor={isCurrentPlan ? 'primary.accent-4' : ''}
       p="sm"
       flexDirection="column"
       width="300px"
@@ -103,8 +112,7 @@ const PricingCard = ({
         </Text>
       </Flex>
       <Text variant="pSmall">{priceDescLarge}</Text>
-
-      <Button
+      {!useCheckoutButton && (<Button
         width="100%"
         className={ctaTrackEventName ? `plausible-event-name=${ctaTrackEventName}`: ''}
         py="sm"
@@ -114,10 +122,26 @@ const PricingCard = ({
         fontSize="sm"
         borderRadius="sm"
         loading={isLoading}
-        disabled={isLoading}
+        disabled={isLoading || disableButton}
+        css={{ cursor: disableButton ? 'default' : ''}}
       >
         {cta}
-      </Button>
+      </Button>)}
+      {useCheckoutButton && (<CheckoutButton
+        width="100%"
+        className={ctaTrackEventName ? `plausible-event-name=${ctaTrackEventName}`: ''}
+        py="sm"
+        bg={ctaColor}
+        color={isLifetime ? 'neutral.white' : 'background'}
+        onClick={onClick}
+        fontSize="sm"
+        borderRadius="sm"
+        loading={isLoading}
+        disabled={isLoading ||disableButton}
+        css={{ cursor: disableButton ? 'default' : ''}}
+      >
+        {cta}
+      </CheckoutButton>)}
 
       <Box width="100%" height="1px" bg="primary.accent-1" />
       <div>

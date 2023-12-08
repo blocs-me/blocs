@@ -95,7 +95,7 @@ const HabitTrackerDashboard = () => {
   const [showForm, setShowForm] = useState(false)
   const { purchases, isUserOnFreeTrial, user } = useBlocsUser()
   const ownsHabitTracker =
-    purchases.lifetimeAccess || purchases.habitTracker || isUserOnFreeTrial
+    purchases.lifetimeAccess || purchases.habitTracker || purchases.lifestylePro || isUserOnFreeTrial
 
   const { token, publicToken, isLoading } = useCreateToken(
     'HABIT_TRACKER',

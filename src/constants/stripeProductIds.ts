@@ -4,17 +4,19 @@ export type ProductIds = {
 }
 
 const production = {
-  lifetimeAccess: 'prod_NAsBHn5G2gY7YR',
+  lifestylePro: 'prod_NAsBHn5G2gY7YR',
+  lifetimeAccess: 'prod_NIfHOoMMB6Nc86',
   waterTracker: 'prod_NAsIXOtxrA0jDS',
   habitTracker: 'prod_NAsGMR57WW9rFj',
   pomodoro: 'prod_NAsEG9NZW2CWGI'
 } as ProductIds
 
 const local = {
+  lifestylePro: 'prod_P6TblgdGT0w0Jc',
   lifetimeAccess: 'prod_NAvjZe37uqV8lm',
-  waterTracker: 'prod_NAxFsXZbbI5Nug',
-  pomodoro: 'prod_NAwqtwT4Ze0n3S',
-  habitTracker: 'prod_NAwpIE4Kv2yyZR'
+  waterTracker: 'prod_P6Te1GFTjvKM0A',
+  pomodoro: 'prod_P6TceTHzQiRF8e',
+  habitTracker: 'prod_P6Tf1HsdBkXNRV'
 } as ProductIds
 
 const stripeProductIds: Partial<ProductIds> =

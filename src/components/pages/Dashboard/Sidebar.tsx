@@ -16,6 +16,7 @@ import Sparkles from '@/design-system/Sparkles'
 import Box from '@/helpers/Box'
 import float from '@/keyframes/float'
 import daysBetween from '@/utils/dateUtils/daysBetween'
+import { isLifestylePro, isLifestyleBasic } from '@/lambda/helpers/subscriptionChecker'
 
 const NavButton = ({ to, isActive, text, icon }) => {
   return (
@@ -31,9 +32,9 @@ const NavButton = ({ to, isActive, text, icon }) => {
         bg={isActive ? 'brand.accent-5' : 'transparent'}
         hoverColor={'brand.accent-1'}
         hoverBg={'brand.accent-5'}
-        fontSize="sm"
+        fontSize="sm" 
       >
-        {text}
+          {text}
       </Button>
     </Link>
   )
@@ -89,7 +90,27 @@ const Sidebar = () => {
           loading={!user}
           alt="profile picture"
         />
-        {isPremium && !purchases.lifetimeAccess && (
+        {isLifestyleBasic(purchases) && (
+          <Box mt="md" boxShadow="default" borderRadius="md" bg="background">
+              <Button
+                bg="brand.accent-1"
+                loading={!user}
+                fontWeight={500}
+                fontSize="sm"
+                py="sm"
+                px="sm"
+                width="250px"
+                color="neutral.white"
+                borderRadius="sm"
+                as="div"
+                textAlign={'center'}
+                css={{ userSelect: 'none' }}
+              >
+                Lifestyle Basic 
+              </Button>
+          </Box>
+        )}
+        {isPremium && isLifestyleBasic(purchases) && (
           <Box mt="md">
             <Button
               css={{ animation: `${float} 1s alternate infinite` }}
@@ -104,11 +125,11 @@ const Sidebar = () => {
               borderRadius="sm"
               onClick={() => handleUpgrade()}
             >
-              Pricing Plans
+              Upgrade
             </Button>
           </Box>
         )}
-        {!purchases.lifetimeAccess && !isPremium && (
+        {!isPremium && (
           <Box mt="md">
             <Button
               css={{ animation: `${float} 1s` }}
@@ -133,13 +154,12 @@ const Sidebar = () => {
             </Button>
           </Box>
         )}
-        {purchases.lifetimeAccess && (
+        {isLifestylePro(purchases) && (
           <Box mt="md" boxShadow="default" borderRadius="md" bg="background">
-            <Sparkles>
               <Button
                 bg="brand.accent-1"
                 loading={!user}
-                fontWeight={200}
+                fontWeight={500}
                 fontSize="sm"
                 py="sm"
                 px="sm"
@@ -150,9 +170,8 @@ const Sidebar = () => {
                 textAlign={'center'}
                 css={{ userSelect: 'none' }}
               >
-                Lifetime Access
+                {purchases.lifetimeAccess ? ("Lifetime Access"): ("Lifestyle Pro")}  
               </Button>
-            </Sparkles>
           </Box>
         )}
         <Flex

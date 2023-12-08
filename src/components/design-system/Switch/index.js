@@ -52,14 +52,14 @@ const Input = styled.input`
   }
 `
 
-const Switch = ({ register, id, ariaLabel, checked }) => (
+const Switch = ({ id, ariaLabel, checked, onChange }) => (
   <Container>
     <Input
       type="checkbox"
       aria-label={ariaLabel}
       id={id}
       checked={checked}
-      {...register}
+      onChange={onChange}
     />
     <Bg />
     <Circle />

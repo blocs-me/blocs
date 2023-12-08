@@ -22,7 +22,7 @@ const withProviders = (Component: ComponentType) => {
   return () => {
     const { purchases, isUserOnFreeTrial, user } = useBlocsUser()
     const ownsWaterTracker =
-      purchases?.waterTracker || purchases?.lifetimeAccess || isUserOnFreeTrial
+      purchases?.waterTracker || purchases?.lifetimeAccess || purchases?.lifestylePro || isUserOnFreeTrial
 
     const { token, publicToken } = useCreateToken(
       'WATER_TRACKER',

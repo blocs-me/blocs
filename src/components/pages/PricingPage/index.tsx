@@ -7,7 +7,6 @@ import PricingCard from './PricingCard'
 import PricingCardCheckbox from './PricingCardCheckbox/PricingCardCheckbox'
 import stripePriceIds from '../../../constants/stripePriceIds'
 import { useRouter } from 'next/router'
-import getStripe from '@/hooks/getStripe'
 import Stripe from 'stripe'
 import { MouseEvent, useEffect, useState } from 'react'
 import BuyMultipleWidgetsModals from './BuyMultipleWidgetsModal'
@@ -21,11 +20,9 @@ import { NextSeo } from 'next-seo'
 import Nav from '@/design-system/Nav'
 import nextSeoConfig from '@/constants/next-seo.config'
 import { Round } from 'faunadb'
-
-const handleEv = (e: MouseEvent) => {
-  e.preventDefault()
-  e.stopPropagation()
-}
+import Switch from '@/design-system/Switch'
+import { set } from 'react-hook-form'
+import { isLifestyleBasic, isLifestylePlan, isLifestylePro } from '@/lambda/helpers/subscriptionChecker'
 
 type Products = {
   price: string
@@ -42,22 +39,16 @@ const handleStripeCheckout = async (products: Products) => {
         }
       }
     )
-    const stripe = await getStripe()
-
-    const { error } = await stripe!.redirectToCheckout({
-      sessionId: checkoutSession.id
-    })
-
-    throw error
+    window.location.href = checkoutSession.url;
   } catch (err) {
     console.error(err)
   }
 }
 
-const buyLifetimeAccess = (blocsUser: BlocsUserClient) => {
-  handleStripeCheckout([
+const subscribeLifestylePro = async (blocsUser: BlocsUserClient, yearly: boolean = false) => {
+  await handleStripeCheckout([
     {
-      price: stripePriceIds.lifetimeAccess,
+      price: yearly ? stripePriceIds.yearly.lifestylePro : stripePriceIds.monthly.lifestylePro,
       quantity: 1
     }
   ])
@@ -69,29 +60,30 @@ const PricingPage = () => {
   const [showSignInMessage, setShowSignInMessage] = useState(false)
   const [showMultiWidgetModal, setShowMultiWidgetModal] = useState(false)
   const [isLifetimeAccessLoading, setIsLifeTimeAccessLoading] = useState(false)
-  const [daysLeft, setDaysLeft] = useState(0);
+  const [isYearly, setIsYearly] = useState(false)
 
-
-  useEffect(() => {
-    setDaysLeft(Math.round((new Date("2023-12-04").getTime() - new Date().getTime() )/ (1000 * 60 * 60 * 24)));
-  },[])
+  const handleEv = (e: MouseEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+  }
 
   const handleBuyMultiWidgets = (e: MouseEvent) => {
     handleEv(e)
-
     if (!user) return setShowSignInMessage(true)
     if (purchases?.lifetimeAccess) return null
-
-    setShowMultiWidgetModal(true)
+    setShowMultiWidgetModal(true);
   }
 
-  const handleBuyLifetimeAccess = (e: MouseEvent) => {
-    handleEv(e)
+  const handleBuyLifetimeAccess = async (e: MouseEvent) => {
     if (!user) return setShowSignInMessage(true)
-    if (!purchases?.lifetimeAccess) {
+    if (!purchases?.lifestylePro) {
       setIsLifeTimeAccessLoading(true)
-      buyLifetimeAccess(user)
+      await subscribeLifestylePro(user, isYearly)
     }
+  }
+
+  const handleYearOrMonthly = (e: MouseEvent) => {
+    setIsYearly(!isYearly)
   }
 
   const handleRedirect = () => router.push('/sign-in')
@@ -129,14 +121,57 @@ const PricingPage = () => {
             <Text
               as="h2"
               mt={0}
-              fontSize="md"
-              fontWeight={200}
+              fontSize="sm"
+              fontWeight={400}
               letterSpacing={'md'}
               color="primary.accent-4"
               textAlign="center"
             >
               Choose a plan that works best for you!
             </Text>
+            <Flex flexDirection='row' center mt="md" mb="sm">
+              <Text
+                as="h3"
+                mt={0}
+                mb={0}
+                mr={16}
+                fontSize="md"
+                fontWeight={200}
+                letterSpacing={'md'}
+                color="primary.accent-4"
+                textAlign="center"
+              >
+                Pay monthly 
+              </Text>
+              <Switch
+                  checked={isYearly}
+                  id={'payment-switch'}
+                  ariaLabel={'payment-switch'}
+                  onChange={handleYearOrMonthly}
+                />
+                <Text
+                as="h3"
+                mt={16}
+                mb={0}
+                ml={16}
+                fontSize="md"
+                fontWeight={200}
+                letterSpacing={'md'}
+                color="primary.accent-4"
+                textAlign="center"
+              >
+                Pay yearly<Text
+                as="section"
+                mt={4}
+                mb={0}
+                fontSize="xxs"
+                fontWeight={600}
+                letterSpacing={'sm'}
+                color={"white"}
+                textAlign="center"
+              >Get 2 months FREE</Text>
+              </Text>
+            </Flex>
           </div>
 
           <Flex
@@ -154,6 +189,7 @@ const PricingPage = () => {
               priceDescLarge="Basic features will always be free!"
               cta="Try for free"
               isPremium={false}
+              disableButton={isLifestylePlan(purchases)}
               onClick={(e) => router.push('/sign-in?start-free-trial=true')}
             >
               <PricingCardCheckbox text="Pomodoro" />
@@ -172,17 +208,17 @@ const PricingPage = () => {
               />
             </PricingCard>
             <PricingCard
-              header="Lifetime Access"
+              header="Lifestyle Pro"
               isLifetime
-              price="65"
-              priceAnchor='39'
-              priceDescSmall="Unlimited access"
-              priceDescLarge="Pay once and use forever!"
-              cta="Buy now"
+              price={isYearly ? "60" : "6"}
+              priceAnchor=''
+              priceDescSmall={isYearly ? "/ year" : "/ month"}
+              priceDescLarge="Best plan to change your habits."
+              cta={"Start now"}
               ctaColor="brand.accent-1"
-              ctaTrackEventName="buy-lifetime-access"
+              ctaTrackEventName="buy-lifestyle-pro"
               isPremium
-              onClick={handleBuyLifetimeAccess}
+              onClick={ handleBuyLifetimeAccess }
               css={{
                 '@media (min-width: 1100px)': {
                   transform: 'scale(1.05)'
@@ -192,6 +228,9 @@ const PricingPage = () => {
                 }
               }}
               boxShadow="lg"
+              useCheckoutButton
+              isCurrentPlan={isLifestylePro(purchases)}
+              disableButton={isLifestyleBasic(purchases) || isLifestylePro(purchases)}
               isLoading={isLifetimeAccessLoading}
             >
               <PricingCardCheckbox text="Pomodoro" />
@@ -205,7 +244,7 @@ const PricingPage = () => {
               <Text variant="pSmall">Extras:</Text>
               <PricingCardCheckbox text="Share your progress with friends" />
               <PricingCardCheckbox text="Save data to notion (coming soon)" />
-              <Box
+              {!isLifestyleBasic(purchases) && (<Box
                 position="absolute"
                 color="background"
                 bg="brand.accent-1"
@@ -220,13 +259,6 @@ const PricingPage = () => {
                   animation: `${float} 1s ease-in-out infinite alternate`
                 }}
               >
-                <Sparkles
-                  minSize={8}
-                  maxSize={15}
-                  duration={800}
-                  numOfStars={3}
-                  // css={{ marginTop: '-10px' }}
-                >
                   <Text
                     fontSize="xxs"
                     m={0}
@@ -234,21 +266,21 @@ const PricingPage = () => {
                     textAlign="center"
                     color="neutral.white"
                   >
-                    <span>Limited Offer<br/>{daysLeft} days left</span>
+                    <span>{isLifestylePro(purchases) ? "Current Plan": "Most popular"}</span>
                     <br />
-                    {/* TODO: Show realtime data for countdown 👇 */}
                   </Text>
-                </Sparkles>
-              </Box>
+              </Box>)}
             </PricingCard>
             <PricingCard
-              header="Per widget"
-              price="32"
-              priceAnchor='19'
-              priceDescSmall="Access premium features of the purchased widget"
-              priceDescLarge="Pay once and use forever!"
-              cta="Buy a widget"
-              isPremium
+              header="Lifestyle Basic"
+              price={isYearly ? "40" : "4"}
+              priceAnchor=''
+              priceDescSmall={isYearly ? "/ year per widget" : "/ month per widget"}
+              priceDescLarge="best plan for those who only want to change selected habits."
+              cta={isLifestyleBasic(purchases) ? "Add more" : "Start now"}
+              isPremium 
+              isCurrentPlan={isLifestyleBasic(purchases)}
+              disableButton={isLifestylePro(purchases)}
               onClick={handleBuyMultiWidgets}
             >
               <PricingCardCheckbox text="Pomodoro" />
@@ -262,6 +294,32 @@ const PricingPage = () => {
               <Text variant="pSmall">Extras:</Text>
               <PricingCardCheckbox text="Share your progress with friends" />
               <PricingCardCheckbox text="Save data to notion (coming soon)" />
+              {isLifestyleBasic(purchases) && (<Box
+                position="absolute"
+                color="background"
+                bg="brand.accent-1"
+                borderRadius="10px"
+                top={['xs', , , 'sm']}
+                right={['xxs', , , 'sm']}
+                border="solid 2px"
+                borderColor="brand.accent-4"
+                py="3px"
+                px="xs"
+                css={{
+                  animation: `${float} 1s ease-in-out infinite alternate`
+                }}
+              >
+                  <Text
+                    fontSize="xxs"
+                    m={0}
+                    lineHeight={1.4}
+                    textAlign="center"
+                    color="neutral.white"
+                  >
+                    <span>Current Plan</span>
+                    <br />
+                  </Text>
+              </Box>)}
             </PricingCard>
           </Flex>
         </Flex>
@@ -269,6 +327,7 @@ const PricingPage = () => {
       </Flex>
       <BuyMultipleWidgetsModals
         isOpen={showMultiWidgetModal}
+        isYearly={isYearly}
         onClose={(e) => {
           e.stopPropagation()
           setShowMultiWidgetModal(false)
