@@ -1,5 +1,4 @@
 import BetaWrapper from '@/design-system/BetaWrapper'
-import Sparkles from '@/design-system/Sparkles'
 import Text from '@/design-system/Text'
 import Box from '@/helpers/Box'
 import Flex from '@/helpers/Flex'
@@ -62,7 +61,6 @@ const SharingFeatureSection = () => {
       <Flex flexDirection={'column'} alignItems={['center', , , , 'start']}>
         <SlideIn delay={0.2} pause={!reveal}>
           <Box width="fit-content">
-            <Sparkles>
               <BetaWrapper text="new" color="neutral.white">
                 <Text
                   as="h3"
@@ -74,7 +72,6 @@ const SharingFeatureSection = () => {
                   Sharing Feature
                 </Text>
               </BetaWrapper>
-            </Sparkles>
           </Box>
         </SlideIn>
 

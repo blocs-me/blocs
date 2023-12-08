@@ -37,13 +37,7 @@ export const A = styled(Text)`
   transition: color 0.2s ease;
 `
 
-export const NavLink = ({
-  href,
-  text = '',
-  passHref = false,
-  as = 'a',
-  preload = false
-}) => {
+export const NavLink = ({ href, text = '', passHref = false, as = 'a' }) => {
   const { pathname } = useRouter()
 
   const active = (() => {
@@ -60,7 +54,7 @@ export const NavLink = ({
       alignSelf={['center', , , , 'end']}
       alignItems="center"
     >
-      <Link href={href} passHref={passHref} prefetch={preload}>
+      <Link href={href} passHref={passHref}>
         <A as={as} color={'foreground'} fontSize="sm" isActive={active}>
           {text}
         </A>
@@ -179,12 +173,12 @@ const Nav = ({ title = '', links = [] }) => {
       borderBottom="solid 1px"
       borderBottomColor="primary.accent-2"
     >
-      <Box width="100%" bg="brand.accent-1" px="xs">
+      {/* <Box width="100%" bg="brand.accent-1" px="xs">
         <Text fontSize="sm" textAlign={'center'} mb="0" color="neutral.white">
           ✨ We are extending our Cyber Monday deals. Get <b>40%</b> discount
           now! ✨
         </Text>
-      </Box>
+      </Box> */}
       <PageGutters height={'80px'}>
         <Flex
           alignItems="center"
@@ -193,7 +187,7 @@ const Nav = ({ title = '', links = [] }) => {
           height="100%"
         >
           <div css={{ flex: 1 }}>
-            <Link href="/" passHref prefetch>
+            <Link href="/" passHref>
               <a aria-label="blocs home page">
                 <Icon
                   css={{ svg: { verticalAlign: 'middle' } }}
@@ -285,7 +279,7 @@ const Nav = ({ title = '', links = [] }) => {
               />
               {!isSignedIn && (
                 <Box pt={['1.5rem', , , , '0']} pb={['0.5rem', '0.5rem', 0]}>
-                  <Link href="/sign-in" passHref prefetch>
+                  <Link href="/sign-in" passHref>
                     <Button as="a" variant="primary" borderRadius="sm">
                       Sign In
                     </Button>

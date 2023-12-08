@@ -13,14 +13,14 @@ const Container = styled.div`
   border: solid 5px;
   border-color: ${themeGet('colors.brand.accent-4')};
   border-left-color: ${themeGet('colors.brand.accent-1')};
-  animation: ${rotate} 2s linear infinite;
+  animation: ${rotate} ${({ speed }) => speed || '2s'} linear infinite;
   width: ${({ width }) => width || '40px'};
   height: ${({ height }) => height || '40px'};
   border-radius: 50%;
 `
 
-const Loader = ({ width, height }) => (
-  <Container width={width} height={height} />
+const Loader = ({ width, height, speed = '2s' }) => (
+  <Container width={width} height={height} speed={speed} />
 )
 
 export default Loader

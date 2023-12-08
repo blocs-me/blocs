@@ -5,7 +5,6 @@ import Box from '@/helpers/Box'
 import Button from '@/design-system/Button'
 import Link from 'next/link'
 import float from '@/keyframes/float'
-import Sparkles from '@/design-system/Sparkles'
 import { IBox } from '@/helpers/Box/Box.types'
 import useUrlHash from '@/hooks/useUrlHash'
 
@@ -62,13 +61,11 @@ const PremiumOverlay = ({
           css={{ animation: `${float} 1s ease-in-out alternate infinite` }}
           boxShadow="default"
         >
-          <Sparkles duration={600}>
             <Link href="/pricing">
               <Button variant="primary" borderRadius={'sm'} as="a">
                 See Pricing Plans
               </Button>
             </Link>
-          </Sparkles>
         </Box>
       </Box>
     </Flex>

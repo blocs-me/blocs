@@ -10,6 +10,30 @@ import { Past } from '../../../../icons/Past'
 import daysBetween from '@/utils/dateUtils/daysBetween'
 import { MouseEvent } from 'react'
 import { postReq } from '@/utils/fetchingUtils'
+import PricingCardCheckbox from '@/pages/PricingPage/PricingCardCheckbox'
+import styled from '@emotion/styled'
+import { BlocsUserClient } from '@/gtypes/blocs-user'
+import stripeProductIds from '@/constants/stripeProductIds'
+
+const ChildrenContainer = styled.div`
+  & > p:not(:first-of-type) {
+    margin-top: 1rem;
+  }
+
+  & > p {
+    margin-bottom: 0.8rem;
+  }
+
+  & [data-type='checkbox'] {
+    margin-top: 0.25rem;
+  }
+`
+
+function hasProductActivated( user: BlocsUserClient, product: string) {
+  const products = user?.data?.purchasedProducts
+  if (products.includes(stripeProductIds.lifestylePro) || products.includes(stripeProductIds.lifetimeAccess)) return true
+  return  products?.includes(product)
+}
 
 const FreeTrailStatus = () => {
   const { user } = useBlocsUser()
@@ -84,6 +108,7 @@ const FreeTrailStatus = () => {
 
 const PremiumStatus = () => {
   const theme = useTheme() as Theme
+  const { user } = useBlocsUser()
   const handleClick = (e: MouseEvent) => {
     e.preventDefault()
     e.stopPropagation()
@@ -127,6 +152,12 @@ const PremiumStatus = () => {
       <Text color="primary.accent-4" fontSize="xs" mb={0}>
         Includes access to widget(s), analytics and extras
       </Text>
+      <Text variant="pSmall" mt="16px">Activated Widgets:</Text>
+      <ChildrenContainer>
+        <PricingCardCheckbox text="Pomodoro" isChecked={hasProductActivated(user,stripeProductIds.pomodoro)} />
+        <PricingCardCheckbox text="Habit Tracker" isChecked={hasProductActivated(user,stripeProductIds.habitTracker)}/>
+        <PricingCardCheckbox text="Water Tracker" isChecked={hasProductActivated(user,stripeProductIds.waterTracker)} />
+      </ChildrenContainer>
       <Text
         fontWeight="light"
         color="success.medium"
@@ -135,7 +166,7 @@ const PremiumStatus = () => {
         mt="sm"
         fontStyle="italic"
       >
-        *Manage your payment details
+        *Manage your payment details and subscription
       </Text>
 
       <button

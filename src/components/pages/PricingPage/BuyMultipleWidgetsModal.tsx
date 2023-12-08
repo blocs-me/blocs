@@ -1,5 +1,4 @@
 import stripePriceIds from '@/constants/stripePriceIds'
-import Button from '@/design-system/Button'
 import Modal from '@/design-system/Modal'
 import Text from '@/design-system/Text'
 import Box from '@/helpers/Box'
@@ -9,14 +8,18 @@ import CheckIcon from './PricingCardCheckbox/CheckedIcon'
 import Plus from '../../../icons/plus.svg'
 import Icon from '@/helpers/Icon'
 import useBlocsUser from '@/hooks/useBlocsUser'
+import CheckoutButton from '@/design-system/CheckoutButton'
+import { $ } from '@/utils/JSelectors'
 
 type Props = {
   isOpen: boolean
+  isYearly: boolean
   onClose: () => void
 }
 
 type LineItem = {
-  price: string
+  price_yearly: string
+  price_monthly: string
   quantity: 1
 }
 
@@ -24,15 +27,18 @@ const allItems: {
   [index: string]: LineItem
 } = {
   habitTracker: {
-    price: stripePriceIds.habitTracker,
+    price_yearly: stripePriceIds.yearly.habitTracker,
+    price_monthly: stripePriceIds.monthly.habitTracker,
     quantity: 1
   },
   pomodoro: {
-    price: stripePriceIds.pomodoro,
+    price_yearly: stripePriceIds.yearly.pomodoro,
+    price_monthly: stripePriceIds.monthly.pomodoro,
     quantity: 1
   },
   waterTracker: {
-    price: stripePriceIds.waterTracker,
+    price_yearly: stripePriceIds.yearly.waterTracker,
+    price_monthly: stripePriceIds.monthly.waterTracker,
     quantity: 1
   }
 }
@@ -55,8 +61,7 @@ const ProductItem = ({
       alignItems="center"
       css={{
         cursor: 'pointer',
-        '&:hover': { opacity: 0.8 },
-        transiiton: 'opacity 0.2s ease'
+        // '&:hover': { opacity: 0.8 },
       }}
       px="sm"
       py="xs"
@@ -78,22 +83,20 @@ const ProductItem = ({
 const BuyMultipleWidgetsModals = ({
   isOpen,
   onClose,
+  isYearly,
   handleStripeCheckout
 }) => {
   const [products, setProducts] = useState<LineItem[]>([])
   const { purchases } = useBlocsUser()
   const [isLoading, setIsLoading] = useState(false)
-
-  useEffect(() => {
-    setIsLoading(false)
-  }, [])
-
-  const totalPrice = products.length * 19
+  const pricePerWidget = isYearly ? 40 : 4
+  
+  const totalPrice = products.length * pricePerWidget
 
   const pickProduct = (e: MouseEvent, productStr: keyof typeof allItems) => {
     const product: LineItem = allItems[productStr]
     const productIndex = products.findIndex(
-      (prod) => prod?.price === product.price
+      (prod) => prod?.price_monthly === product.price_monthly || prod?.price_yearly === product.price_yearly
     )
 
     if (productIndex > -1) {
@@ -107,21 +110,22 @@ const BuyMultipleWidgetsModals = ({
   }
 
   const getIsProductSelected = (str: string) => {
-    const priceId = allItems[str]?.price
-    const productIndex = products.findIndex((prod) => prod?.price === priceId)
+    const priceId = allItems[str]?.price_monthly || allItems[str]?.price_yearly
+    const productIndex = products.findIndex((prod) => prod?.price_monthly === priceId || prod?.price_yearly === priceId)
     return productIndex > -1
   }
 
   const handleSubmit = async (e: MouseEvent) => {
-    e?.preventDefault()
-    e?.stopPropagation()
-
     setIsLoading(true)
-    handleStripeCheckout(products)
+    const productsToPurchase = products.map((prod) => ({
+      price: isYearly ? prod.price_yearly : prod.price_monthly,
+      quantity: prod.quantity
+    }))
+    await handleStripeCheckout(productsToPurchase)
     setIsLoading(false)
   }
 
-  if (purchases.lifetimeAccess) return null
+  // if (purchases.lifetimeAccess) return null
 
   return (
     <Modal visible={isOpen} hideModal={onClose}>
@@ -172,7 +176,7 @@ const BuyMultipleWidgetsModals = ({
         </Text>
 
         <Box width="100%" height="2px" bg="primary.accent-1" mt="sm" />
-        <Button
+        <CheckoutButton
           className='plausible-event-name=buy-multiple-widgets'
           variant="default"
           bg="brand.accent-1"
@@ -183,7 +187,7 @@ const BuyMultipleWidgetsModals = ({
           loading={isLoading}
         >
           Continue
-        </Button>
+        </CheckoutButton>
       </Flex>
     </Modal>
   )
