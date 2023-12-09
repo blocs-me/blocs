@@ -5,7 +5,7 @@ const DarkModeTimer = ({ progress }: { progress: number }) => {
   const [strokeDashoffset, strokeDasharray] = useSvgTimer({ progress, radius })
 
   return (
-    <svg viewBox="0 0 358 358" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 358 358" height="100%" width="100%" fill="none" xmlns="http://www.w3.org/2000/svg">
       <circle cx="179.178" cy="176.588" r="163.529" fill="#2B2B2B" />
       <g filter="url(#filter0_iiiii_996_505)">
         <circle

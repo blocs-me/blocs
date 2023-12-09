@@ -6,7 +6,7 @@ const LightModeTimer = ({ progress }: { progress: number }) => {
   const [strokeDashoffset, strokeDasharray] = useSvgTimer({ progress, radius })
 
   return (
-    <svg viewBox="0 0 358 358" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 358 358" height="100%" width="100%" fill="none" xmlns="http://www.w3.org/2000/svg">
       <g filter="url(#filter0_iiii_1012_514)">
         <circle
           cx="179.178"
