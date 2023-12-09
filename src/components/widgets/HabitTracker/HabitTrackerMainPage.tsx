@@ -147,7 +147,7 @@ const HabitTrackerMainPage = ({ isAnalyticsHidden = false }) => {
         </Flex>
 
         {!isSmallScreen && !isAnalyticsHidden && (
-          <Flex flexDirection="column" justifyContent="space-between" ml="md">
+          <Flex flexDirection="column" ml="md" css={{rowGap:"28px"}}>
             <BorderedBox p="sm">
               <Text color="foreground" fontSize={'xs'} fontWeight={200} m={0}>
                 {today}
