@@ -75,6 +75,7 @@ const PricingPage = () => {
   }
 
   const handleBuyLifetimeAccess = async (e: MouseEvent) => {
+    handleEv(e)
     if (!user) return setShowSignInMessage(true)
     if (!purchases?.lifestylePro) {
       setIsLifeTimeAccessLoading(true)
@@ -169,7 +170,7 @@ const PricingPage = () => {
                 letterSpacing={'sm'}
                 color={"white"}
                 textAlign="center"
-              >Get 2 months FREE</Text>
+              >Save up to 50%</Text>
               </Text>
             </Flex>
           </div>
@@ -187,6 +188,7 @@ const PricingPage = () => {
               priceAnchor=''
               priceDescSmall="Free 14 day trial to try out premium features"
               priceDescLarge="Basic features will always be free!"
+              priceDescFootprint={''}
               cta="Try for free"
               isPremium={false}
               disableButton={isLifestylePlan(purchases)}
@@ -210,9 +212,10 @@ const PricingPage = () => {
             <PricingCard
               header="Lifestyle Pro"
               isLifetime
-              price={isYearly ? "60" : "6"}
+              price={isYearly ? "3" : "6"}
               priceAnchor=''
-              priceDescSmall={isYearly ? "/ year" : "/ month"}
+              priceDescSmall={"/ month"}
+              priceDescFootprint={isYearly ? "Billed $36 annually" : ''}
               priceDescLarge="Best plan to change your habits."
               cta={"Start now"}
               ctaColor="brand.accent-1"
@@ -273,10 +276,11 @@ const PricingPage = () => {
             </PricingCard>
             <PricingCard
               header="Lifestyle Basic"
-              price={isYearly ? "40" : "4"}
+              price={isYearly ? "2" : "4"}
               priceAnchor=''
-              priceDescSmall={isYearly ? "/ year per widget" : "/ month per widget"}
-              priceDescLarge="best plan for those who only want to change selected habits."
+              priceDescSmall={"/ month per widget"}
+              priceDescFootprint={isYearly ? "Billed $24 annually" : ''}
+              priceDescLarge="Best plan to change specific habits."
               cta={isLifestyleBasic(purchases) ? "Add more" : "Start now"}
               isPremium 
               isCurrentPlan={isLifestyleBasic(purchases)}

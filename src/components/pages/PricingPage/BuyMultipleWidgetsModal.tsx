@@ -89,7 +89,7 @@ const BuyMultipleWidgetsModals = ({
   const [products, setProducts] = useState<LineItem[]>([])
   const { purchases } = useBlocsUser()
   const [isLoading, setIsLoading] = useState(false)
-  const pricePerWidget = isYearly ? 40 : 4
+  const pricePerWidget = isYearly ? 2 : 4
   
   const totalPrice = products.length * pricePerWidget
 
@@ -169,7 +169,7 @@ const BuyMultipleWidgetsModals = ({
         )}
         <Box mt="md" />
         <Text as="div" css={{ alignSelf: 'end' }} color="primary.accent-3">
-          Total Price :
+          Total Price per month:
           <Box width="30px" as="span" display="inline-block" ml="xxs">
             ${totalPrice}
           </Box>

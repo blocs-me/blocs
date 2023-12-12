@@ -26,10 +26,10 @@ const local: PriceIds = {
 
 const prod: PriceIds = {
   yearly: {
-    lifestylePro: 'price_1OLARVHyXnRceQpOwQpQjjwS',
-    waterTracker: 'price_1OLAJfHyXnRceQpOK1gisVYa',
-    habitTracker: 'price_1OLALIHyXnRceQpOoEV6tc1j',
-    pomodoro: 'price_1OLAM2HyXnRceQpOaSlvURg5'
+    lifestylePro: 'price_1OMb1gHyXnRceQpOC64hlwPS',
+    waterTracker: 'price_1OMb5VHyXnRceQpOTTGbZrx6',
+    habitTracker: 'price_1OMb3cHyXnRceQpOicKpzH3B',
+    pomodoro: 'price_1OMb2tHyXnRceQpOmevQ6u9x'
   },
   monthly: {
     lifestylePro: 'price_1OLARHHyXnRceQpOvNcZVRnf',

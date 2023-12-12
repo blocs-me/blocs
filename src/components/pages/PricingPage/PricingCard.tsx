@@ -6,6 +6,8 @@ import styled from '@emotion/styled'
 import { MouseEvent, ReactNode } from 'react'
 import { IBox } from '../../helpers/Box/Box.types'
 import CheckoutButton from '@/design-system/CheckoutButton'
+import Grid from '@/helpers/Grid'
+import Stack from '@/helpers/Stack'
 
 type Props = {
   header: string
@@ -13,6 +15,7 @@ type Props = {
   priceAnchor: string
   priceDescSmall: string
   priceDescLarge: string
+  priceDescFootprint: string
   onClick: (e: MouseEvent) => void
   ctaColor?: string
   cta: string
@@ -46,6 +49,7 @@ const PricingCard = ({
   priceAnchor,
   priceDescLarge,
   priceDescSmall,
+  priceDescFootprint,
   onClick,
   cta,
   ctaColor = 'foreground',
@@ -76,7 +80,7 @@ const PricingCard = ({
       <Text as="h3" variant="mediumBold" m={0}>
         {header}
       </Text>
-
+      <Stack gap="0px">
       <Flex alignItems="center">
         {priceAnchor ? (<><Text
           fontSize="lg"
@@ -111,6 +115,10 @@ const PricingCard = ({
           {priceDescSmall}
         </Text>
       </Flex>
+        {priceDescFootprint && (<Text fontSize={12} color={'primary.accent-4'} mt={10} lineHeight={0} mb={16}>
+          {priceDescFootprint}
+        </Text>)}
+        </Stack>
       <Text variant="pSmall">{priceDescLarge}</Text>
       {!useCheckoutButton && (<Button
         width="100%"
