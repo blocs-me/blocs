@@ -60,7 +60,7 @@ const PricingPage = () => {
   const [showSignInMessage, setShowSignInMessage] = useState(false)
   const [showMultiWidgetModal, setShowMultiWidgetModal] = useState(false)
   const [isLifetimeAccessLoading, setIsLifeTimeAccessLoading] = useState(false)
-  const [isYearly, setIsYearly] = useState(false)
+  const [isYearly, setIsYearly] = useState(true)
 
   const handleEv = (e: MouseEvent) => {
     e.preventDefault()
