@@ -72,6 +72,7 @@ const LandingPage = () => {
   const {
     handleSubmit,
     register,
+    getValues,
     formState: { errors }
   } = useForm()
   const supabase = useSupabaseClient()
@@ -213,8 +214,7 @@ const LandingPage = () => {
                     textAlign={'center'}
                     css={{ zIndex: 1, position: 'relative' }}
                   >
-                    Build better habits on Notion with our 
-                    beautiful{' '}
+                    Build better habits on Notion with our beautiful{' '}
                     <Box
                       as="span"
                       color="brand.accent-1"
@@ -280,18 +280,28 @@ const LandingPage = () => {
                     p="md"
                     bg="background"
                     borderRadius="md"
-                    css={{ textAlign: 'center' }}
+                    css={{ textAlign: 'center', maxWidth: '600px' }}
                     border="solid 2px"
                     borderColor="primary.accent-1"
                     boxShadow="sm"
                   >
+                    <Icon
+                      as="span"
+                      display="inline-flex"
+                      fill="foreground"
+                      width="120px"
+                      mb={'sm'}
+                    >
+                      <Email />
+                    </Icon>
                     <Text
                       fontSize="sm"
                       fontWeight="bold"
                       color="foreground"
                       mb={'xs'}
                     >
-                      Hooray! 🥳 We&#39;ve sent an invite to your email
+                      Hooray! 🥳 We&#39;ve sent an invite to your email{' '}
+                      {getValues('email')}
                     </Text>
                     <Text
                       fontSize="sm"

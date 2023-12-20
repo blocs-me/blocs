@@ -16,7 +16,9 @@ import { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { BlocsLogo } from 'src/icons/blocs-logo'
 import { isEmail } from 'validator'
+import Email from '../../../icons/email.svg'
 import useSignInRedirectLink from '../../widgets/HabitTracker/hooks/useSignInRedirectLink'
+import Icon from '@/helpers/Icon'
 
 const SignInPage = () => {
   const emailRedirectLink = useSignInRedirectLink()
@@ -147,6 +149,9 @@ const SignInPage = () => {
               bg="primary.accent-2"
               mt="md"
             >
+              <Icon as="span" fill="primary.accent-4" width="100px" mr="10px">
+                <Email />
+              </Icon>
               <Text
                 fontSize="sm"
                 color="primary.accent-4"
