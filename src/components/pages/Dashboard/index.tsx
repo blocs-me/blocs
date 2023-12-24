@@ -115,7 +115,7 @@ const Dashboard = () => {
   }
 
   return (
-    <Box bg="background" width="100vw">
+    <Box bg="background" width="100%">
       <Box width="min(100%, 1600px)" m="0 auto">
         <DashboardNav />
       </Box>
