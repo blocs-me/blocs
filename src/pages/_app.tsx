@@ -5,6 +5,7 @@ import GlobalStyle from '../styles/GlobalStyle'
 import Reset from '../styles/Reset'
 import theme from '../styles/theme'
 import { Analytics } from '@vercel/analytics/react'
+import Script from 'next/script'
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -12,10 +13,10 @@ function MyApp({ Component, pageProps }) {
       <Head>
         {process.env.NEXT_PUBLIC_VERCEL_ENV === 'production' && (
           <>
-          <script defer data-domain="blocs.me" src="https://plausible.io/js/script.tagged-events.js"></script>
-          <script
-            dangerouslySetInnerHTML={{
-              __html: `
+            <script defer data-domain="blocs.me" src="https://plausible.io/js/script.tagged-events.js"></script>
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `
               (function(h,o,t,j,a,r){
                 h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
                 h._hjSettings={hjid:3797364,hjsv:6};
@@ -25,7 +26,7 @@ function MyApp({ Component, pageProps }) {
                 a.appendChild(r);
               })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
               `,
-            }} />
+              }} />
           </>
         )}
       </Head>
@@ -33,6 +34,8 @@ function MyApp({ Component, pageProps }) {
         <Reset />
         <GlobalStyle />
         <Component {...pageProps} />
+        {process.env.NEXT_PUBLIC_VERCEL_ENV === 'production' && (
+          <Script src="https://scripts.simpleanalyticscdn.com/latest.js" />)}
       </GlobalProvider>
     </ThemeProvider>
   )
