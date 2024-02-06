@@ -34,8 +34,6 @@ function MyApp({ Component, pageProps }) {
         <Reset />
         <GlobalStyle />
         <Component {...pageProps} />
-        {process.env.NEXT_PUBLIC_VERCEL_ENV === 'production' && (
-          <Script src="https://scripts.simpleanalyticscdn.com/latest.js" />)}
       </GlobalProvider>
     </ThemeProvider>
   )
