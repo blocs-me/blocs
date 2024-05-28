@@ -17,6 +17,7 @@ import Box from '@/helpers/Box'
 import float from '@/keyframes/float'
 import daysBetween from '@/utils/dateUtils/daysBetween'
 import { isLifestylePro, isLifestyleBasic } from '@/lambda/helpers/subscriptionChecker'
+import Giftbox from 'src/icons/giftbox'
 
 const NavButton = ({ to, isActive, text, icon }) => {
   return (
@@ -32,9 +33,9 @@ const NavButton = ({ to, isActive, text, icon }) => {
         bg={isActive ? 'brand.accent-5' : 'transparent'}
         hoverColor={'brand.accent-1'}
         hoverBg={'brand.accent-5'}
-        fontSize="sm" 
+        fontSize="sm"
       >
-          {text}
+        {text}
       </Button>
     </Link>
   )
@@ -51,12 +52,12 @@ const Sidebar = () => {
   const daysLeft = Math.max(
     0,
     14 -
-      daysBetween(
-        new Date(),
-        new Date(
-          user?.data?.freeTrialStartedAt || new Date().getTime() - fourteenDays
-        )
+    daysBetween(
+      new Date(),
+      new Date(
+        user?.data?.freeTrialStartedAt || new Date().getTime() - fourteenDays
       )
+    )
   )
 
   const handleUpgrade = () => router.push('/pricing')
@@ -92,22 +93,22 @@ const Sidebar = () => {
         />
         {isLifestyleBasic(purchases) && (
           <Box mt="md" boxShadow="default" borderRadius="md" bg="background">
-              <Button
-                bg="brand.accent-1"
-                loading={!user}
-                fontWeight={500}
-                fontSize="sm"
-                py="sm"
-                px="sm"
-                width="250px"
-                color="neutral.white"
-                borderRadius="sm"
-                as="div"
-                textAlign={'center'}
-                css={{ userSelect: 'none' }}
-              >
-                Lifestyle Basic 
-              </Button>
+            <Button
+              bg="brand.accent-1"
+              loading={!user}
+              fontWeight={500}
+              fontSize="sm"
+              py="sm"
+              px="sm"
+              width="250px"
+              color="neutral.white"
+              borderRadius="sm"
+              as="div"
+              textAlign={'center'}
+              css={{ userSelect: 'none' }}
+            >
+              Lifestyle Basic
+            </Button>
           </Box>
         )}
         {isPremium && isLifestyleBasic(purchases) && (
@@ -156,22 +157,22 @@ const Sidebar = () => {
         )}
         {isLifestylePro(purchases) && (
           <Box mt="md" boxShadow="default" borderRadius="md" bg="background">
-              <Button
-                bg="brand.accent-1"
-                loading={!user}
-                fontWeight={500}
-                fontSize="sm"
-                py="sm"
-                px="sm"
-                width="250px"
-                color="neutral.white"
-                borderRadius="sm"
-                as="div"
-                textAlign={'center'}
-                css={{ userSelect: 'none' }}
-              >
-                {purchases.lifetimeAccess ? ("Lifetime Access"): ("Lifestyle Pro")}  
-              </Button>
+            <Button
+              bg="brand.accent-1"
+              loading={!user}
+              fontWeight={500}
+              fontSize="sm"
+              py="sm"
+              px="sm"
+              width="250px"
+              color="neutral.white"
+              borderRadius="sm"
+              as="div"
+              textAlign={'center'}
+              css={{ userSelect: 'none' }}
+            >
+              {purchases.lifetimeAccess ? ("Lifetime Access") : ("Lifestyle Pro")}
+            </Button>
           </Box>
         )}
         <Flex
@@ -203,6 +204,12 @@ const Sidebar = () => {
             icon={<Document />}
             isActive={path === 'guide'}
             text="Guide"
+          />
+          <NavButton
+            to="/feedback"
+            icon={<Giftbox />}
+            isActive={path === 'feedback'}
+            text="Feature Wish"
           />
           <NavButton
             to="/dashboard/settings"
