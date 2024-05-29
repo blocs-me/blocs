@@ -209,7 +209,7 @@ const Sidebar = () => {
             to="/feedback"
             icon={<Giftbox />}
             isActive={path === 'feedback'}
-            text="Feature Wish"
+            text="Feature Wishes"
           />
           <NavButton
             to="/dashboard/settings"
