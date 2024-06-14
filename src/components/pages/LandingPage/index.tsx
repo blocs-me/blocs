@@ -119,21 +119,21 @@ const LandingPage = () => {
       <Box bg="background" height="fit-content">
         <PageLayout>
           <Head>
-            <title>Notion widgets for habit tracking | blocs</title>
+            <title>Notion habit tracker | blocs</title>
             <meta
               name="description"
-              content="Blocs notion widgets help you build habits with amazing insights to understand yourself better. Track all your habits in one place !"
+              content="Blocs notion habit tracker help you build habits with amazing insights to understand yourself better. Track all your habits in one place!"
             />
             <link rel="canonical" href="https://www.blocs.me" />
             <meta property="og:type" content="website" />
             <meta property="og:url" content="https://www.blocs.me/" />
             <meta
               property="og:title"
-              content="blocs | notion widgets for habit tracking"
+              content="blocs | notion habit tracker widgets"
             />
             <meta
               property="og:description"
-              content="Blocs notion widgets help you build habits with amazing insights to understand yourself better. Track all your habits in one place !"
+              content="Blocs notion habit tracker help you build habits with amazing insights to understand yourself better. Track all your habits in one place!"
             />
             <meta
               property="og:image"
@@ -148,11 +148,11 @@ const LandingPage = () => {
             <meta property="twitter:url" content="https://www.blocs.me/" />
             <meta
               property="twitter:title"
-              content="blocs | notion widgets for habit tracking"
+              content="blocs | notion habit tracker widgets"
             />
             <meta
               property="twitter:description"
-              content="Blocs notion widgets help you build habits with amazing insights to understand yourself better. Track all your habits in one place !"
+              content="Blocs notion habit tracker help you build habits with amazing insights to understand yourself better. Track all your habits in one place!"
             />
             <meta
               property="twitter:image"
@@ -230,7 +230,7 @@ const LandingPage = () => {
                     mt="sm"
                     as="form"
                     onSubmit={onSubmit}
-                    // height="fit-content"
+                  // height="fit-content"
                   >
                     <div>
                       <TextInput
