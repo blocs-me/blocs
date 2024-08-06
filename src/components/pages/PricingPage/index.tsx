@@ -142,15 +142,15 @@ const PricingPage = () => {
                 color="primary.accent-4"
                 textAlign="center"
               >
-                Pay monthly 
+                Pay monthly
               </Text>
               <Switch
-                  checked={isYearly}
-                  id={'payment-switch'}
-                  ariaLabel={'payment-switch'}
-                  onChange={handleYearOrMonthly}
-                />
-                <Text
+                checked={isYearly}
+                id={'payment-switch'}
+                ariaLabel={'payment-switch'}
+                onChange={handleYearOrMonthly}
+              />
+              <Text
                 as="h3"
                 mt={16}
                 mb={0}
@@ -162,15 +162,15 @@ const PricingPage = () => {
                 textAlign="center"
               >
                 Pay yearly<Text
-                as="section"
-                mt={4}
-                mb={0}
-                fontSize="xxs"
-                fontWeight={600}
-                letterSpacing={'sm'}
-                color={"white"}
-                textAlign="center"
-              >Save up to 50%</Text>
+                  as="section"
+                  mt={4}
+                  mb={0}
+                  fontSize="xxs"
+                  fontWeight={600}
+                  letterSpacing={'sm'}
+                  color={"white"}
+                  textAlign="center"
+                >Save up to 50%</Text>
               </Text>
             </Flex>
           </div>
@@ -212,16 +212,16 @@ const PricingPage = () => {
             <PricingCard
               header="Lifestyle Pro"
               isLifetime
-              price={isYearly ? "3" : "6"}
+              price={isYearly ? "19" : "4"}
               priceAnchor=''
-              priceDescSmall={"/ month"}
-              priceDescFootprint={isYearly ? "Billed $36 annually" : ''}
+              priceDescSmall={isYearly ? "/ year" : "/ month"}
+              priceDescFootprint={''}
               priceDescLarge="Best plan to change your habits."
               cta={"Start now"}
               ctaColor="brand.accent-1"
               ctaTrackEventName="buy-lifestyle-pro"
               isPremium
-              onClick={ handleBuyLifetimeAccess }
+              onClick={handleBuyLifetimeAccess}
               css={{
                 '@media (min-width: 1100px)': {
                   transform: 'scale(1.05)'
@@ -262,27 +262,27 @@ const PricingPage = () => {
                   animation: `${float} 1s ease-in-out infinite alternate`
                 }}
               >
-                  <Text
-                    fontSize="xxs"
-                    m={0}
-                    lineHeight={1.4}
-                    textAlign="center"
-                    color="neutral.white"
-                  >
-                    <span>{isLifestylePro(purchases) ? "Current Plan": "Most popular"}</span>
-                    <br />
-                  </Text>
+                <Text
+                  fontSize="xxs"
+                  m={0}
+                  lineHeight={1.4}
+                  textAlign="center"
+                  color="neutral.white"
+                >
+                  <span>{isLifestylePro(purchases) ? "Current Plan" : "Most popular"}</span>
+                  <br />
+                </Text>
               </Box>)}
             </PricingCard>
             <PricingCard
               header="Lifestyle Basic"
-              price={isYearly ? "2" : "4"}
+              price={isYearly ? "24" : "4"}
               priceAnchor=''
-              priceDescSmall={"/ month per widget"}
-              priceDescFootprint={isYearly ? "Billed $24 annually" : ''}
+              priceDescSmall={isYearly ? "/ year per widget" : "/ month per widget"}
+              priceDescFootprint={''}
               priceDescLarge="Best plan to change specific habits."
               cta={isLifestyleBasic(purchases) ? "Add more" : "Start now"}
-              isPremium 
+              isPremium
               isCurrentPlan={isLifestyleBasic(purchases)}
               disableButton={isLifestylePro(purchases)}
               onClick={handleBuyMultiWidgets}
@@ -313,16 +313,16 @@ const PricingPage = () => {
                   animation: `${float} 1s ease-in-out infinite alternate`
                 }}
               >
-                  <Text
-                    fontSize="xxs"
-                    m={0}
-                    lineHeight={1.4}
-                    textAlign="center"
-                    color="neutral.white"
-                  >
-                    <span>Current Plan</span>
-                    <br />
-                  </Text>
+                <Text
+                  fontSize="xxs"
+                  m={0}
+                  lineHeight={1.4}
+                  textAlign="center"
+                  color="neutral.white"
+                >
+                  <span>Current Plan</span>
+                  <br />
+                </Text>
               </Box>)}
             </PricingCard>
           </Flex>
