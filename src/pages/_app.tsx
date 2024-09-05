@@ -14,7 +14,8 @@ function MyApp({ Component, pageProps }) {
       <OpenPanelComponent
         clientId={process.env.OPENPANEL_CLIENT_ID}
         trackScreenViews={true}
-        disabled={process.env.NEXT_PUBLIC_VERCEL_ENV !== 'production'}
+        // disabled={process.env.NEXT_PUBLIC_VERCEL_ENV !== 'production'}
+        disabled={true}
       />
       <Head>
         {process.env.NEXT_PUBLIC_VERCEL_ENV === 'production' && (
