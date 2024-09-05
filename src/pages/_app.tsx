@@ -12,10 +12,10 @@ function MyApp({ Component, pageProps }) {
   return (
     <ThemeProvider theme={theme}>
       <OpenPanelComponent
-        clientId={process.env.OPENPANEL_CLIENT_ID}
+        clientId="bb19c157-0c77-47ad-a427-3e90eea51aef"
         trackScreenViews={true}
-        // disabled={process.env.NEXT_PUBLIC_VERCEL_ENV !== 'production'}
-        disabled={true}
+        disabled={process.env.NEXT_PUBLIC_VERCEL_ENV !== 'production'}
+      // disabled={true}
       />
       <Head>
         {process.env.NEXT_PUBLIC_VERCEL_ENV === 'production' && (
