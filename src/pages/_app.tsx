@@ -15,13 +15,6 @@ function MyApp({ Component, pageProps }) {
         trackScreenViews={true}
         disabled={process.env.NEXT_PUBLIC_VERCEL_ENV !== 'production'}
       />
-      <Head>
-        {process.env.NEXT_PUBLIC_VERCEL_ENV === 'production' && (
-          <>
-            <Script defer data-domain="blocs.me" src="https://plausible.io/js/script.tagged-events.js" />
-          </>
-        )}
-      </Head>
       <GlobalProvider>
         <Reset />
         <GlobalStyle />
