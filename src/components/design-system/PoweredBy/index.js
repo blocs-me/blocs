@@ -6,8 +6,7 @@ const PoweredBy = ({ type = '' }) => {
   const op = useOpenPanel()
   const { auth } = usePomodoroAuth()
 
-  const isPaidUser = auth && !auth?.isPremium
-  console.log('isPaidUser', isPaidUser)
+  const isPaidUser = auth?.isPremium
   if (isPaidUser) return null
 
   return (
