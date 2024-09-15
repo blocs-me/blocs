@@ -7,6 +7,7 @@ const PoweredBy = ({ type = '' }) => {
   const { user } = useBlocsUser()
 
   const isPaidUser = user?.data?.purchasedProducts.length > 0
+  console.log('isPaidUser', isPaidUser)
   if (isPaidUser) return null
 
   return (
