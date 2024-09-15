@@ -15,6 +15,8 @@ import AnalyticsBarChartMenu from './AnalyticsBarChartMenu'
 import FadeIn from '@/helpers/FadeIn'
 import Notifications from '@/design-system/Notifications'
 import Loader from '@/design-system/Loader'
+import Button from '@/design-system/Button'
+import PoweredBy from '@/design-system/PoweredBy'
 const PremiumOverlay = lazy(() => import('@/pages/Dashboard/PremiumOverlay'))
 
 type Props = {
@@ -185,6 +187,7 @@ const AnalyticsBarChart = ({
           </Suspense>
         </Box>
       )}
+      <PoweredBy type="bar-chart" />
     </Flex>
   )
 }

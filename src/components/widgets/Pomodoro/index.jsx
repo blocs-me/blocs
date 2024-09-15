@@ -1,8 +1,8 @@
 import Router, { useRouter } from 'next/router'
 import PomodoroMainPage from './PomodoroMainPage/index.js'
-import PomodoroMainMenu from './PomodoroMainMenu'
-import PomodoroSettings from './PomodoroSettings'
-import { usePomodoroStore } from './usePomodoroStore'
+import PomodoroMainMenu from './PomodoroMainMenu/index.js'
+import PomodoroSettings from './PomodoroSettings/index.js'
+import { usePomodoroStore } from './usePomodoroStore.js'
 import PomodoroPresets from './PomodoroPresets/index.js'
 import Notifications from '@/design-system/Notifications/index.js'
 import PomodoroThemeMenu from './PomdoroThemeMenu/index.js'
@@ -18,6 +18,7 @@ import Icon from '@/helpers/Icon/index'
 import Hamburger from 'src/icons/hamburger'
 import { css, useTheme } from '@emotion/react'
 import FadeIn from '@/helpers/FadeIn/index.js'
+import PoweredBy from '@/design-system/PoweredBy'
 
 const fadeInCss = css`
   width: 100%;
@@ -182,6 +183,7 @@ const Pomodoro = () => {
           </Flex>
         </Box>
         <div id="pomo-modal-wrapper" />
+        <PoweredBy type="pomodoro" />
       </Box>
     </>
   )

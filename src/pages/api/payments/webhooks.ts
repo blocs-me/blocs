@@ -14,6 +14,7 @@ import { findCheckoutSession } from '@/lambda/lib/stripe'
 import getBlocsUserById from '@/lambda/helpers/faunadb/getBlocsUserById'
 import getBlocsUserByStripeCustomerId from '@/lambda/helpers/faunadb/getBlocsUserByStripeId'
 import getBlocsUserByEmail from '@/lambda/middlewares/getBlocsUserByEmail'
+import { SlackPurchaseNotification } from '@/lambda/lib/slack'
 
 const cors = Cors({
   allowMethods: ['POST', 'HEAD']
@@ -137,6 +138,19 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           stripeCustomerId: customerId,
           purchasedProducts
         })
+
+        // Send Slack notification
+        try {
+          const data = user.data
+          await SlackPurchaseNotification({
+            customer_name: data.name,
+            email: data.email,
+            plan_name: products.join(', '),
+            unit_price: session?.amount_total.toString()
+          })
+        } catch (e) {
+          console.error('Slack notification issue:', e?.message)
+        }
 
         break
       }
@@ -269,7 +283,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       // Unhandled event type
     }
   } catch (e) {
-    console.error('stripe error: ' + e.message + ' | EVENT TYPE: ' + eventType)
+    console.error(`stripe error: ${e.message} | EVENT TYPE: ${eventType}`)
   }
 
   handle200Response(res, {
