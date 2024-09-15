@@ -1,12 +1,12 @@
 import { useOpenPanel } from '@openpanel/nextjs'
 import Text from '../Text'
-import useBlocsUser from '@/hooks/useBlocsUser'
+import usePomodoroAuth from '@/widgets/PomodoroAnalyticsBarChart/usePomodoroAuth'
 
 const PoweredBy = ({ type = '' }) => {
   const op = useOpenPanel()
-  const { user } = useBlocsUser()
+  const { auth } = usePomodoroAuth()
 
-  const isPaidUser = !!user?.data?.purchasedProducts?.length
+  const isPaidUser = auth && !auth?.isPremium
   console.log('isPaidUser', isPaidUser)
   if (isPaidUser) return null
 
