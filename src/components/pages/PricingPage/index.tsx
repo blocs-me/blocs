@@ -247,6 +247,7 @@ const PricingPage = () => {
               <Text variant="pSmall">Extras:</Text>
               <PricingCardCheckbox text="Share your progress with friends" />
               <PricingCardCheckbox text="Save data to notion (coming soon)" />
+              <PricingCardCheckbox text="iOS and Android support (coming soon)" />
               {!isLifestyleBasic(purchases) && (<Box
                 position="absolute"
                 color="background"

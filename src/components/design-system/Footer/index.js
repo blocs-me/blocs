@@ -64,19 +64,6 @@ const Footer = () => (
               We have tons of new widgets lined up, from goal setters to sleep
               and workout trackers
             </Text>
-            <Text fontSize="sm" fontWeight="400" color="foreground">
-              Take a little looksy 👀 at our{' '}
-              <Link
-                href="https://www.notion.so/81a847e283ca4d3583651d7d0d55f692?v=50566259b00a4cadafee442e81b23305"
-                passHref
-                inline
-                underline
-                rel="noopener"
-              >
-                roadmap
-              </Link>{' '}
-              to see how we&#39;re progressing
-            </Text>
           </Box>
           <Box width="min(100%, 350px)">
             <Text
@@ -95,6 +82,27 @@ const Footer = () => (
             <RegoLink href="/privacy-policy.pdf">Privacy Policy</RegoLink>
             <RegoLink href="/t&c.pdf">Terms & Conditions</RegoLink>
             <RegoLink href="/sitemap.xml">Sitemap</RegoLink>
+          </Box>
+          <Box width="min(100%, 350px)">
+            <Text
+              as="h3"
+              fontSize="md"
+              color="foreground"
+              fontWeight="bold"
+              mb="sm"
+              mt={0}
+            >
+              PARTNERS
+            </Text>
+            <RegoLink target="_blank" href="https://www.datajumbo.co">
+              Data Jumbo
+            </RegoLink>
+            <RegoLink target="_blank" href="https://www.notion-widgets.com">
+              Notion Widgets
+            </RegoLink>
+            <RegoLink target="_blank" href="https://datadrop.app">
+              DataDrop
+            </RegoLink>
           </Box>
         </Grid>
       </PageGutters>
