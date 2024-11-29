@@ -98,7 +98,7 @@ const PricingPage = () => {
           {...nextSeoConfig}
           title="Pricing | blocs notion widgets | habit tracker"
           description="Pricing for blocs widgets | $69 for lifetime access | $32 for any blocs notion widget; own it forever"
-          canonical="https://www.blocs.me/pricing"
+          canonical="https://blocs.me/pricing"
         />
         <Nav />
         <Flex

@@ -4,7 +4,7 @@ const cors = async (req, res) => {
   const env = process.env.VERCEL_ENV
   const local = { origin: 'http://localhost:3000' }
   const production = {
-    origin: 'https://www.blocs.me'
+    origin: 'https://blocs.me'
   }
   const preview = {
     origin: 'https://blocs-dev.vercel.app'

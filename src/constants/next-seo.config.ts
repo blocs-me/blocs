@@ -6,7 +6,7 @@ const nextSeoConfig = {
       'Pricing for blocs widgets | €30 for lifetime access | €4 for any blocs notion widget; own it forever',
     images: [
       {
-        url: 'https://www.blocs.me/blocs-social-banner.png',
+        url: 'https://blocs.me/blocs-social-banner.png',
         alt: 'Blocs notion widget social banner'
       }
     ]

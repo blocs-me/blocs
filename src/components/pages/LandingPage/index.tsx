@@ -124,9 +124,9 @@ const LandingPage = () => {
               name="description"
               content="Blocs notion habit tracker help you build habits with amazing insights to understand yourself better. Track all your habits in one place!"
             />
-            <link rel="canonical" href="https://www.blocs.me" />
+            <link rel="canonical" href="https://blocs.me" />
             <meta property="og:type" content="website" />
-            <meta property="og:url" content="https://www.blocs.me/" />
+            <meta property="og:url" content="https://blocs.me/" />
             <meta
               property="og:title"
               content="blocs | notion habit tracker widgets"
@@ -137,7 +137,7 @@ const LandingPage = () => {
             />
             <meta
               property="og:image"
-              content="https://www.blocs.me/blocs-social-banner.png"
+              content="https://blocs.me/blocs-social-banner.png"
             />
             <meta property="og:site_name" content="blocs" />
 
@@ -145,7 +145,7 @@ const LandingPage = () => {
             <meta property="twitter:card" content="summary_large_image" />
             <meta name="twitter:site" content="@__moniet" />
             <meta name="twitter:creator" content="@__moniet" />
-            <meta property="twitter:url" content="https://www.blocs.me/" />
+            <meta property="twitter:url" content="https://blocs.me/" />
             <meta
               property="twitter:title"
               content="blocs | notion habit tracker widgets"
@@ -156,7 +156,7 @@ const LandingPage = () => {
             />
             <meta
               property="twitter:image"
-              content="https://www.blocs.me/blocs-social-banner.png"
+              content="https://blocs.me/blocs-social-banner.png"
             />
           </Head>
           <Box minHeight="100vh" height="100%" width="100%" mt="80px">

@@ -52,7 +52,7 @@ const FeedbackPage = () => {
           {...nextSeoConfig}
           title="Feedback | blocs notion widgets | habit tracker"
           description="Feedback board for blocs widgets. Vote on features, report bugs, and suggest new features."
-          canonical="https://www.blocs.me/feedback"
+          canonical="https://blocs.me/feedback"
         />
         <FeedbackNav />
         <Flex
