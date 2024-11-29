@@ -46,8 +46,6 @@ const handleStripeCheckout = async (products: Products) => {
 }
 
 const subscribeLifestylePro = async (blocsUser: BlocsUserClient, yearly: boolean = false) => {
-  console.log('env', process.env.NEXT_PUBLIC_VERCEL_ENV);
-  console.log('subscribeLifestylePro', yearly ? stripePriceIds.yearly.lifestylePro : stripePriceIds.monthly.lifestylePro);
   await handleStripeCheckout([
     {
       price: yearly ? stripePriceIds.yearly.lifestylePro : stripePriceIds.monthly.lifestylePro,

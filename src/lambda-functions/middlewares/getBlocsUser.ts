@@ -9,7 +9,7 @@ const getBlocsUser = async (req: NextApiRequest, res: NextApiResponse) => {
   const supabase = createServerSupabaseClient({ req, res })
 
   const { data, error } = await supabase.auth.getUser()
-  console.log('data', data, error)
+
   if (error) {
     console.error(error)
     res.status(500).json({
@@ -26,7 +26,6 @@ const getBlocsUser = async (req: NextApiRequest, res: NextApiResponse) => {
       ),
     true
   )
-  console.log('blocsUser', blocsUser)
 
   return blocsUser as BlocsUser
 }
