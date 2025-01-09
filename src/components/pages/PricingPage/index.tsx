@@ -212,7 +212,7 @@ const PricingPage = () => {
             <PricingCard
               header="Lifestyle Pro"
               isLifetime
-              price={isYearly ? "19" : "4"}
+              price={isYearly ? "12" : "2"}
               priceAnchor=''
               priceDescSmall={isYearly ? "/ year" : "/ month"}
               priceDescFootprint={''}
