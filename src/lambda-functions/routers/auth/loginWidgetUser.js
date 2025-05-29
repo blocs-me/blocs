@@ -12,6 +12,7 @@ const loginWidgetUser = async (req, res) => {
     const tokenData = await faunaClient.query(
       q.Call(q.Function("is_temp_access_token_valid"), tempAccessToken)
     )
+    console.log(tokenData)
 
     const blocsUserId = tokenData?.data?.userId
     if (!blocsUserId) {
