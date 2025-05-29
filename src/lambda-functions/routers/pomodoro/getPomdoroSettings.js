@@ -10,6 +10,8 @@ const getPomdoroSettings = async (req, res) => {
       q.Call(q.Function('pomodoro_settings_by_user_id'), 303985067693179406) // add user id dynamically
     )
 
+    console.log(faunaRes)
+
     res.status(200).json({
       data: faunaRes.data
     })
