@@ -23,6 +23,7 @@ const useWaterTrackerAnalyticsRange = () => {
   const path = `${WATER_TRACKER_ANALYTICS_PATH}?from=${from}&to=${to}&widgetToken=${token}&role=${role}`
 
   const response = useSWR(token && auth?.isPremium ? path : null, fetcher)
+  console.log(response?.data)
   const data = response?.data?.data?.map((d, id) => {
     return {
       ...d,
