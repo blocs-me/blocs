@@ -1,14 +1,16 @@
 // Client user type is different so we acn
 export type BlocsUserClient = {
-  avatar_url: string
-  email: string
-  name?: string
-  isSubscribed: boolean
-  isDeleted?: boolean
-  scheduledForDeletion: boolean
-  stripeCustomerId: string
-  purchasedProducts: string[]
-  freeTrialStartedAt?: string
+  data: {
+    avatar_url: string
+    email: string
+    name?: string
+    isSubscribed: boolean
+    isDeleted?: boolean
+    scheduledForDeletion: boolean
+    stripeCustomerId: string
+    purchasedProducts: string[]
+    freeTrialStartedAt?: string
+  }
 }
 
 export type BlocsUserServer = {

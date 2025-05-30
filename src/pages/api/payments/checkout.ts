@@ -23,8 +23,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       stripeCustomerId?: string
     }
 
-    console.log('products', products)
-
     const blocsUser = await getBlocsUser(req, res)
     if (!blocsUser) return null
 

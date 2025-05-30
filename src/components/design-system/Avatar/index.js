@@ -51,6 +51,7 @@ const Avatar = ({
   >
     {loading && <Skeleton width="100%" height="100%" borderRadius="50%" />}
     {src && !loading && <Image src={src} alt={alt} />}
+    {!src && !loading && <Image src={'/profile.svg'} alt={alt} />}
     <Box position="absolute" size="100%" top="0" left="0" borderRadius="50%" />
   </Container>
 )

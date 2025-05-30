@@ -12,7 +12,7 @@ import {
 
 const pickBlocsUserData = (
   blocsUser: BlocsUserServer
-): Partial<BlocsUserClient> => ({
+): Partial<BlocsUserClient['data']> => ({
   name: blocsUser?.name,
   email: blocsUser?.email,
   purchasedProducts: blocsUser?.purchasedProducts,

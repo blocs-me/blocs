@@ -26,7 +26,7 @@ const useBlocsUser = () => {
     const result = {}
     const allProductIds = Object.entries(stripeProductIds)
 
-    user?.purchasedProducts?.forEach((productId) => {
+    user?.data?.purchasedProducts?.forEach((productId) => {
       const [key, val] = allProductIds.find(([__, id]) => id === productId) || [
         '',
         ''
@@ -40,7 +40,7 @@ const useBlocsUser = () => {
   })()
 
   const isUserOnFreeTrial = useMemo(() => {
-    const freeTrialStartedAt = user?.freeTrialStartedAt
+    const freeTrialStartedAt = user?.data?.freeTrialStartedAt
     if (!freeTrialStartedAt) return false
 
     const fourteenDays = 1000 * 60 * 60 * 24 * 14
@@ -50,7 +50,8 @@ const useBlocsUser = () => {
         daysBetween(
           new Date(),
           new Date(
-            user?.freeTrialStartedAt || new Date().getTime() - fourteenDays
+            user?.data?.freeTrialStartedAt ||
+              new Date().getTime() - fourteenDays
           )
         )
     )
@@ -60,7 +61,7 @@ const useBlocsUser = () => {
     }
 
     return false
-  }, [user?.freeTrialStartedAt])
+  }, [user?.data?.freeTrialStartedAt])
 
   return {
     user,

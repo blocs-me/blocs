@@ -72,8 +72,6 @@ const getWaterTrackerAnalytics = async (
         .select()
         .single()
 
-      console.log('madeData', madeData, madeDataError)
-
       return res.status(200).json({
         data: {
           waterConsumed: madeData.water_consumed,

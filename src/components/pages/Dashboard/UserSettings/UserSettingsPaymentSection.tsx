@@ -30,7 +30,7 @@ const ChildrenContainer = styled.div`
 `
 
 function hasProductActivated(user: BlocsUserClient, product: string) {
-  const products = user?.purchasedProducts
+  const products = user?.data?.purchasedProducts
   if (products.includes(stripeProductIds.lifestylePro) || products.includes(stripeProductIds.lifetimeAccess)) return true
   return products?.includes(product)
 }
@@ -44,7 +44,7 @@ const FreeTrailStatus = () => {
     daysBetween(
       new Date(),
       new Date(
-        user?.freeTrialStartedAt || new Date().getTime() - fourteenDays
+        user?.data?.freeTrialStartedAt || new Date().getTime() - fourteenDays
       )
     )
   )
@@ -189,7 +189,7 @@ const LoadingState = () => {
 
 const UserSettingsPaymentSection = () => {
   const { user } = useBlocsUser()
-  const isPremium = !!user?.purchasedProducts?.length
+  const isPremium = !!user?.data?.purchasedProducts?.length
 
   if (!user) return <LoadingState />
 
