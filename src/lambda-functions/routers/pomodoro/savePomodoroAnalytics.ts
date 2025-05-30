@@ -1,7 +1,4 @@
-import faunaClient from '@/lambda/faunaClient'
 import { NextApiRequest, NextApiResponse } from 'next'
-import { query as q } from 'faunadb'
-import { queryGuard } from '../../helpers/faunadb/queryGuard'
 import {
   IPomdoroWidget,
   PomodoroAnalayticsBody
@@ -13,6 +10,9 @@ import {
 } from '../../helpers/handleResponses'
 import { validatePomodoroAnalytics } from '@/lambda/lib/restValidator/jsonValidator'
 import { handle200Response } from '../../helpers/handleResponses'
+import { supabaseQueryGuard } from '@/lambda/helpers/supabase/queryGuard'
+import supabase from '@/lambda/helpers/supabase'
+import { mapWidgetAccessTokenToType } from '@/lambda/helpers/supabase/mapDbToType'
 
 const savePomodoroAnalytics = async (
   req: NextApiRequest,
@@ -25,22 +25,30 @@ const savePomodoroAnalytics = async (
 
   if (!isValid) return handle400Response(res)
 
-  const widget = await queryGuard<IPomdoroWidget>(() =>
-    faunaClient.query(q.Get(q.Match(q.Index('widget_by_token'), token)))
+  const widget = await supabaseQueryGuard(() =>
+    supabase
+      .from('widget_access_tokens')
+      .select('*')
+      .eq('token', token)
+      .single()
   )
 
-  if (!widget) return handle404Response(res)
+  const remappedWidget = mapWidgetAccessTokenToType(widget)
+
+  if (!remappedWidget) return handle404Response(res)
+
+  const data = {
+    preset_id: pomoSession.presetId,
+    started_at: pomoSession.startedAt,
+    ended_at: pomoSession.endedAt,
+    time_spent: pomoSession.timeSpent,
+    iso_date_string: pomoSession.isoDateString,
+    created_at: new Date(pomoSession.isoDateString),
+    widget_id: remappedWidget.id
+  }
 
   try {
-    await faunaClient.query(
-      q.Create(q.Collection('pomodoro_analytics'), {
-        data: {
-          ...pomoSession,
-          createdAt: q.Date(pomoSession.isoDateString),
-          widgetRef: widget.ref
-        }
-      })
-    )
+    await supabase.from('pomodoro_analytics').insert(data).select().single()
 
     return handle200Response(res)
   } catch (err) {

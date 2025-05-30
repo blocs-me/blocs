@@ -1,5 +1,7 @@
-import { query as q } from 'faunadb'
-import faunaClient from '../faunaClient'
+import { supabaseQueryGuard } from '../helpers/supabase/queryGuard'
+import supabase from '../helpers/supabase'
+import { IWidgetAccessToken } from '../../global-types/widget-access-token'
+import { mapWidgetAccessTokenToType } from '../helpers/supabase/mapDbToType'
 
 const getWidgetUser = async (req, res, rest) => {
   const token = rest.bearerToken
@@ -10,16 +12,20 @@ const getWidgetUser = async (req, res, rest) => {
       return res.status(401).json({ error: 'Unauthorized acccess' })
     }
 
-    const index =
-      role === 'friend' ? 'widget_by_shareable_token' : 'widget_by_token'
+    const field = role === 'friend' ? 'shareable_token' : 'token'
 
-    const widget = await faunaClient
-      .query(q.Get(q.Match(q.Index(index), token)))
-      .then((data) => data)
-      .catch((err) => null)
+    const widget = await supabaseQueryGuard(() =>
+      supabase
+        .from('widget_access_tokens')
+        .select('*')
+        .eq(field, token)
+        .single()
+    )
 
-    const userId = widget?.data?.userId
-    const widgetToken = widget?.data?.token
+    const widgetMapped = mapWidgetAccessTokenToType(widget)
+
+    const userId = widgetMapped.userId
+    const widgetToken = widgetMapped.token
 
     if (!userId || !widgetToken) {
       throw new Error('Unauthorized Access')

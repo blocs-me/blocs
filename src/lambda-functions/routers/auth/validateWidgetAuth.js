@@ -1,32 +1,31 @@
-import faunaClient from '@/lambda/faunaClient'
-import { getBlocsUser } from '@/lambda/helpers/faunadb/getBlocsUserRef'
-import { query as q } from 'faunadb'
+import supabase from '@/lambda/helpers/supabase'
+import { mapWidgetAccessTokenToType } from '@/lambda/helpers/supabase/mapDbToType'
 
 const validateWidgetAuth = async (req, res, rest) => {
   const token = rest.bearerToken
   if (!token) res.status(401).json({ error: 'Unauthorized acccess' })
 
   try {
-    const widget = await faunaClient
-      .query(
-        q.Paginate(q.Match(q.Index('widget_access_tokens_by_token'), token))
-      )
-      .then((res) => res)
-      .catch(() => null)
+    const { data: widget } = await supabase
+      .from('widget_access_tokens')
+      .select('user_id')
+      .eq('token', token)
+      .single()
 
-    const userId = widget?.data?.[0]
+    const mapWidgetToType = mapWidgetAccessTokenToType(widget)
 
-    rest.userId = userId
-
-    await getBlocsUser(req, res, rest)
-
-    const user = await faunaClient.query(q.Get(rest.userRef))
+    rest.userId = mapWidgetToType.userId
+    const { data: user } = await supabase
+      .from('users')
+      .select('*')
+      .eq('id', rest.userId)
+      .single()
 
     res.status(200).json({
       data: {
         valid: true,
         user: {
-          avatar_url: user?.data.avatar_url
+          avatar_url: user?.avatar_url
         }
       }
     })

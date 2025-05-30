@@ -1,30 +1,35 @@
-import faunaClient from '@/lambda/faunaClient'
-import { query as q } from 'faunadb'
 import { IHabitTrackerWidget } from '../../../global-types/habit-tracker'
 import { getCurrentISOString } from '../../../utils/dateUtils/getCurrentISOString'
+import supabase from '@/lambda/helpers/supabase'
+import { IWidgetAccessToken } from '@/gtypes/widget-access-token'
+import { mapWidgetAccessTokenToType } from '@/lambda/helpers/supabase/mapDbToType'
 
 export const handleUpdate = async (
-  newData: Partial<IHabitTrackerWidget['data']>,
-  widget: IHabitTrackerWidget
+  newData: Partial<IWidgetAccessToken>,
+  widget: IWidgetAccessToken
 ) => {
-  if (!widget && newData) {
-    return {
-      data: {
-        bestStreak: widget.data.bestStreak,
-        currentStreak: widget.data.currentStreak,
-        currentStreakUpdatedAt: widget.data.currentStreakUpdatedAt
-      }
-    }
-  }
-
+  // if (!widget && newData) {
+  //   return {
+  //     bestStreak: widget.bestStreak,
+  //     currentStreak: widget.currentStreak,
+  //     currentStreakUpdatedAt: widget.currentStreakUpdatedAt
+  //   }
+  // }
   try {
-    const updated = await faunaClient.query(
-      q.Update(widget.ref, {
-        data: { ...newData } // ⚠️ need to destructure otherwise data will not save
+    const { data: updated } = await supabase
+      .from('widget_access_tokens')
+      .update({
+        best_streak: newData.bestStreak,
+        best_streak_updated_at: newData.bestStreakUpdatedAt,
+        current_streak: newData.currentStreak,
+        current_streak_updated_at: newData.currentStreakUpdatedAt
       })
-    )
+      .eq('id', widget.id)
+      .select()
+      .single()
 
-    return updated as IHabitTrackerWidget
+    const mappedWidget = mapWidgetAccessTokenToType(updated)
+    return mappedWidget as IWidgetAccessToken
   } catch (error) {
     console.error(error)
     return null
@@ -33,15 +38,19 @@ export const handleUpdate = async (
 
 export const calculateStreak = async (
   percentDone: number,
-  widget: IHabitTrackerWidget,
+  widget: IWidgetAccessToken,
   isoDateString: string
-): Promise<Partial<IHabitTrackerWidget['data']> | null> => {
-  const bestStreak = widget.data.bestStreak
-  const currentStreak = widget.data.currentStreak
-  const currentStreakUpdatedAt = widget.data.currentStreakUpdatedAt
+): Promise<Partial<IWidgetAccessToken> | null> => {
+  const bestStreak = widget.bestStreak
+  const currentStreak = widget.currentStreak || 0
+  const currentStreakUpdatedAt = widget.currentStreakUpdatedAt || isoDateString
 
   if (currentStreak === 0 && bestStreak === 0 && percentDone !== 100)
-    return widget?.data
+    return {
+      bestStreak,
+      currentStreak,
+      currentStreakUpdatedAt
+    }
 
   const yesterdayISOStr = (() => {
     const yesterday = new Date(isoDateString)

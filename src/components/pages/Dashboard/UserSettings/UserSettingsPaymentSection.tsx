@@ -29,10 +29,10 @@ const ChildrenContainer = styled.div`
   }
 `
 
-function hasProductActivated( user: BlocsUserClient, product: string) {
-  const products = user?.data?.purchasedProducts
+function hasProductActivated(user: BlocsUserClient, product: string) {
+  const products = user?.purchasedProducts
   if (products.includes(stripeProductIds.lifestylePro) || products.includes(stripeProductIds.lifetimeAccess)) return true
-  return  products?.includes(product)
+  return products?.includes(product)
 }
 
 const FreeTrailStatus = () => {
@@ -41,12 +41,12 @@ const FreeTrailStatus = () => {
   const daysLeft = Math.max(
     0,
     14 -
-      daysBetween(
-        new Date(),
-        new Date(
-          user?.data?.freeTrialStartedAt || new Date().getTime() - fourteenDays
-        )
+    daysBetween(
+      new Date(),
+      new Date(
+        user?.freeTrialStartedAt || new Date().getTime() - fourteenDays
       )
+    )
   )
 
   return (
@@ -154,9 +154,9 @@ const PremiumStatus = () => {
       </Text>
       <Text variant="pSmall" mt="16px">Activated Widgets:</Text>
       <ChildrenContainer>
-        <PricingCardCheckbox text="Pomodoro" isChecked={hasProductActivated(user,stripeProductIds.pomodoro)} />
-        <PricingCardCheckbox text="Habit Tracker" isChecked={hasProductActivated(user,stripeProductIds.habitTracker)}/>
-        <PricingCardCheckbox text="Water Tracker" isChecked={hasProductActivated(user,stripeProductIds.waterTracker)} />
+        <PricingCardCheckbox text="Pomodoro" isChecked={hasProductActivated(user, stripeProductIds.pomodoro)} />
+        <PricingCardCheckbox text="Habit Tracker" isChecked={hasProductActivated(user, stripeProductIds.habitTracker)} />
+        <PricingCardCheckbox text="Water Tracker" isChecked={hasProductActivated(user, stripeProductIds.waterTracker)} />
       </ChildrenContainer>
       <Text
         fontWeight="light"
@@ -189,7 +189,7 @@ const LoadingState = () => {
 
 const UserSettingsPaymentSection = () => {
   const { user } = useBlocsUser()
-  const isPremium = !!user?.data?.purchasedProducts?.length
+  const isPremium = !!user?.purchasedProducts?.length
 
   if (!user) return <LoadingState />
 

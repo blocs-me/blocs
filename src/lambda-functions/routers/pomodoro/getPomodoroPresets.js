@@ -1,5 +1,6 @@
-import faunaClient from '@/lambda/faunaClient'
-import { Call, query as q, Select } from 'faunadb'
+import supabase from '@/lambda/helpers/supabase'
+import { IPomodoroPreset } from '@/gtypes/pomodoro-preset'
+import { mapPomodoroPresetToType } from '@/lambda/helpers/supabase/mapDbToType'
 
 const defaultPresetData = {
   longBreakInterval: 600000,
@@ -11,31 +12,41 @@ const defaultPresetData = {
 }
 
 const getPomodoroPresets = async (req, res, rest) => {
-  const { userRef, userId } = rest
+  const { userId } = rest
   const { filter } = req.query
 
   try {
-    const userPresets = await faunaClient.query(
-      q.Call(q.Function('get_pomodoro_presets_by_user_ref'), userRef)
+    const { data: userPresets } = await supabase
+      .from('pomodoro_presets')
+      .select('*')
+      .eq('user_id', userId)
+
+    const presets = userPresets?.map((preset) =>
+      mapPomodoroPresetToType(preset)
     )
 
-    if (userPresets?.data?.length === 0) {
-      const preset = await faunaClient.query(
-        q.Create(q.Collection('pomodoro_presets'), {
-          data: {
-            ...defaultPresetData,
-            id: q.NewId(),
-            userId
-          }
+    if (userPresets?.length === 0) {
+      const newPreset = await supabase
+        .from('pomodoro_presets')
+        .insert({
+          long_break_interval: defaultPresetData.longBreakInterval,
+          short_break_interval: defaultPresetData.shortBreakInterval,
+          pomodoro_interval: defaultPresetData.pomodoroInterval,
+          label: defaultPresetData.label,
+          label_color: defaultPresetData.labelColor,
+          default_preset: defaultPresetData.defaultPreset,
+          user_id: userId
         })
-      )
-      userPresets?.data?.push({
-        ...(preset?.data || {}),
+        .select()
+        .single()
+
+      presets?.push({
+        ...(mapPomodoroPresetToType(newPreset) || {}),
         userId: null
       })
     }
 
-    const remappedPresets = userPresets?.data.map((preset) => {
+    const remappedPresets = presets.map((preset) => {
       delete preset.userId
       return preset
     })

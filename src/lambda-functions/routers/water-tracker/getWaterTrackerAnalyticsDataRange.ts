@@ -1,15 +1,14 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import faunaClient from '@/lambda/faunaClient'
-import { query as q } from 'faunadb'
-import { queryGuard } from '../../helpers/faunadb/queryGuard'
-import { IWaterTrackerWidget } from '../../../global-types/water-tracker'
-import { AsFaunaReturn } from '../../../global-types/fauna'
 import {
   handle404Response,
-  handle200Response
+  handle200Response,
+  handle500Response
 } from '../../helpers/handleResponses'
 import { validateWaterAnalyticsByRange } from '@/lambda/lib/restValidator/jsonValidator'
 import { handle400Response } from '../../helpers/handleResponses'
+import supabase from '@/lambda/helpers/supabase'
+import { supabaseQueryGuard } from '@/lambda/helpers/supabase/queryGuard'
+import { getCurrentISOString } from '@/utils/dateUtils/getCurrentISOString'
 
 type FaunaWaterAnalytics = {
   data: {
@@ -31,25 +30,43 @@ const getWaterTrackerAnalyticsRange = async (
 
   const { from, to, widgetToken, role } = req.query
 
-  const widgetIndex =
-    role === 'blocs-user' ? 'widget_by_token' : 'widget_by_shareable_token'
+  const field = role === 'blocs-user' ? 'token' : 'shareable_token'
 
-  const widget = await queryGuard<AsFaunaReturn<IWaterTrackerWidget>>(() =>
-    faunaClient.query(q.Get(q.Match(q.Index(widgetIndex), widgetToken)))
+  const widget = await supabaseQueryGuard(() =>
+    supabase
+      .from('widget_access_tokens')
+      .select('*')
+      .eq(field, widgetToken)
+      .maybeSingle()
   )
 
   if (!widget) {
     return handle404Response(res, 'Widget not found')
   }
 
-  const waterAnalytics = await queryGuard<FaunaWaterAnalytics>(() =>
-    faunaClient.query(
-      q.Call(q.Function('get_water_tracker_analytics'), widget.ref, from, to)
-    )
-  )
+  const { data: waterAnalytics, error: waterAnalyticsError } = await supabase
+    .from('water_tracker_analytics')
+    .select('created_at, water_consumed, id')
+    .eq('widget_id', widget.id)
+    .gte('created_at', from)
+    .lte('created_at', to)
+    .order('created_at', { ascending: true })
+
+  if (waterAnalyticsError) {
+    console.error(waterAnalyticsError)
+    return handle500Response(res, 'Error fetching water analytics')
+  }
+
+  const entries = waterAnalytics?.map((entry) => {
+    return {
+      date: getCurrentISOString(entry.created_at),
+      id: entry.id,
+      value: entry.water_consumed
+    }
+  })
 
   handle200Response(res, {
-    data: waterAnalytics?.data || []
+    data: entries || []
   })
 }
 

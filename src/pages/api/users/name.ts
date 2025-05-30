@@ -6,8 +6,6 @@ import {
 } from '../../../lambda-functions/helpers/handleResponses'
 import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs'
 import getBlocsUser from '@/lambda/middlewares/getBlocsUser'
-import faunaClient from '@/lambda/faunaClient'
-import { query as q } from 'faunadb'
 const ajv = new Ajv()
 
 const validate = (data) =>
@@ -36,13 +34,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     if (blocsUser) {
       try {
-        await faunaClient.query(
-          q.Update(blocsUser?.ref, {
-            data: {
-              name
-            }
-          })
-        )
+        const supabase = createServerSupabaseClient({ req, res })
+        await supabase.from('users').update({ name }).eq('id', blocsUser.id)
 
         res.status(200).json({})
       } catch (err) {

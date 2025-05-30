@@ -1,10 +1,9 @@
 import widgetTypes from '@/constants/widgetTypes'
 
 import { NextApiRequest, NextApiResponse } from 'next'
-import faunaClient from '@/lambda/faunaClient'
-import { query as q } from 'faunadb'
 import { validateWaterTrackerSettings } from '@/lambda/lib/restValidator/jsonValidator'
 import { IWaterTrackerWidget } from '../../../global-types/water-tracker'
+import supabase from '@/lambda/helpers/supabase'
 
 const updateWaterTrackerSetting = async (
   req: NextApiRequest,
@@ -27,13 +26,11 @@ const updateWaterTrackerSetting = async (
   }
 
   try {
-    const widget = (await faunaClient
-      .query(q.Get(q.Match(q.Index('widget_by_token'), widgetToken)))
-      .then((data) => data)
-      .catch((err) => {
-        console.error(err)
-        return null
-      })) as { ref: any; data: IWaterTrackerWidget }
+    const { data: widget } = await supabase
+      .from('widget_access_tokens')
+      .select('*')
+      .eq('token', widgetToken)
+      .maybeSingle()
 
     if (!widget || widgetType !== widgetTypes.WATER_TRACKER)
       res.status(404).json({
@@ -45,26 +42,25 @@ const updateWaterTrackerSetting = async (
 
     const newSettings = JSON.parse(
       JSON.stringify({
-        ...widget.data?.settings,
+        ...widget.settings,
         ...settings
       })
     )
 
-    const newWidget = (await faunaClient.query(
-      q.Update(widget.ref, {
-        data: {
-          settings: {
-            ...newSettings
-          }
-        }
+    const { data: newWidget } = await supabase
+      .from('widget_access_tokens')
+      .update({
+        settings: newSettings
       })
-    )) as { ref: any; data: IWaterTrackerWidget }
+      .eq('id', widget.id)
+      .select()
+      .single()
 
     res.status(200).json({
       status: 200,
       data: {
         settings: {
-          ...(newWidget?.data?.settings || {})
+          ...(newWidget?.settings || {})
         }
       }
     })

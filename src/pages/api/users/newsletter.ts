@@ -1,16 +1,12 @@
-import mailchimp from '@/lambda/mailchimpMarketingClient'
 import Ajv from 'ajv'
 import { NextApiRequest, NextApiResponse } from 'next'
 import {
   handle400Response,
   handle500Response
 } from '../../../lambda-functions/helpers/handleResponses'
-import md5 from 'md5'
 import getBlocsUser from '@/lambda/middlewares/getBlocsUser'
-import faunaClient from '@/lambda/faunaClient'
-import { query as q } from 'faunadb'
-import { BlocsUserServer } from '@/gtypes/blocs-user'
 import { handle200Response } from '../../../lambda-functions/helpers/handleResponses'
+import supabase from '@/lambda/helpers/supabase'
 
 const ajv = new Ajv()
 
@@ -50,13 +46,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     if (status === 'unsubscribe') {
       try {
-        await faunaClient.query(
-          q.Update(user.ref, {
-            data: {
-              isSubscribed: false
-            }
-          } as Partial<BlocsUserServer>)
-        )
+        await supabase
+          .from('users')
+          .update({ isSubscribed: false })
+          .eq('id', user.id)
 
         return handle200Response(res, 'Sucessfully unsubscribed')
       } catch (err) {
@@ -69,13 +62,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       }
     } else {
       try {
-        await faunaClient.query(
-          q.Update(user.ref, {
-            data: {
-              isSubscribed: true
-            }
-          } as Partial<BlocsUserServer>)
-        )
+        await supabase
+          .from('users')
+          .update({ isSubscribed: true })
+          .eq('id', user.id)
 
         res.status(200).json({
           message: 'Successfully subscribed'

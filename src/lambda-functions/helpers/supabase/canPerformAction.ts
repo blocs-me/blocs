@@ -1,7 +1,7 @@
-import userOwnsWidget from '@/lambda/helpers/faunadb/userOwnsWidget'
 import { handle401Response } from '@/lambda/helpers/handleResponses'
 import { NextApiResponse } from 'next'
 import { ProductTitles } from '../../../global-types/stripe'
+import userOwnsWidget from './userOwnsWidget'
 
 const canPerformAction = async (
   userId: string,

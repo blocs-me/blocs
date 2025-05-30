@@ -8,13 +8,11 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import jwt from 'jsonwebtoken'
 
 const pickBlocsUserData = (
-  blocsUser: BlocsUserServer['data']
-): Partial<BlocsUserClient['data']> => ({
-  name: blocsUser?.name,
+  blocsUser: BlocsUserServer
+): Partial<BlocsUserClient> => ({
+  name: blocsUser?.name || blocsUser?.email,
   email: blocsUser?.email,
   purchasedProducts: blocsUser?.purchasedProducts,
-  isDeleted: blocsUser?.isDeleted,
-  scheduledForDeletion: blocsUser?.scheduledForDeletion,
   avatar_url: blocsUser?.avatar_url,
   freeTrialStartedAt: blocsUser?.freeTrialStartedAt,
   isSubscribed: blocsUser?.isSubscribed
@@ -22,25 +20,16 @@ const pickBlocsUserData = (
 
 const PRIVATE_KEY = process.env.CANNY_PRIVATE_KEY
 
-const extractUserId = (refString: string) => {
-  const match = refString.match(/Ref\(Collection\("users"\), "(\d+)"\)/)
-  if (match) {
-    return match[1]
-  }
-
-  throw new Error('Could not extract user ID from ref string')
-}
-
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'GET') {
     try {
       let blocsUser = await getBlocsUser(req, res)
       if (blocsUser) {
-        const user = pickBlocsUserData(blocsUser?.data)
+        const user = pickBlocsUserData(blocsUser)
         const userInfo = {
           name: user.name,
           email: user.email,
-          id: extractUserId(String(blocsUser.ref)),
+          id: blocsUser.id,
           avatarURL: user.avatar_url
         }
 

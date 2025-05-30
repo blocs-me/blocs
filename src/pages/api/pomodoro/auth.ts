@@ -4,13 +4,11 @@ import {
   handle400Response,
   handle404Response
 } from '../../../lambda-functions/helpers/handleResponses'
-import { queryGuard } from '@/lambda/helpers/faunadb/queryGuard'
-import faunaClient from '@/lambda/faunaClient'
-import { query as q } from 'faunadb'
-import { AsFaunaReturn } from '@/gtypes/fauna'
 import { IWaterTrackerWidget } from '@/gtypes/water-tracker'
-import userOwnsWidget from '../../../lambda-functions/helpers/faunadb/userOwnsWidget'
 import { handle200Response } from '../../../lambda-functions/helpers/handleResponses'
+import { supabaseQueryGuard } from '@/lambda/helpers/supabase/queryGuard'
+import supabase from '@/lambda/helpers/supabase'
+import userOwnsWidget from '@/lambda/helpers/supabase/userOwnsWidget'
 // shows premium status of widget
 
 const ajv = new Ajv()
@@ -38,16 +36,19 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
   const { widgetToken, role } = req.query
 
-  const widgetIndex =
-    role === 'blocs-user' ? 'widget_by_token' : 'widget_by_shareable_token'
+  const widgetField = role === 'blocs-user' ? 'token' : 'shareable_token'
 
-  const widget = await queryGuard<AsFaunaReturn<IWaterTrackerWidget>>(() =>
-    faunaClient.query(q.Get(q.Match(q.Index(widgetIndex), widgetToken)))
+  const widget = await supabaseQueryGuard<IWaterTrackerWidget>(() =>
+    supabase
+      .from('widget_access_tokens')
+      .select('*')
+      .eq(widgetField, widgetToken)
+      .maybeSingle()
   )
 
   if (!widget) return handle404Response(res)
 
-  const hasPermission = await userOwnsWidget(widget.data.userId, 'pomodoro')
+  const hasPermission = await userOwnsWidget(widget.user_id, 'pomodoro')
 
   handle200Response(res, {
     data: {

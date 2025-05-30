@@ -1,15 +1,17 @@
-import faunaClient from '@/lambda/faunaClient'
-import { queryGuard } from '@/lambda/helpers/faunadb/queryGuard'
 import {
   handle200Response,
   handle400Response,
   handle404Response
 } from '@/lambda/helpers/handleResponses'
 import { NextApiRequest, NextApiResponse } from 'next'
-import { query as q } from 'faunadb'
-import { AsFaunaReturn } from 'src/global-types/fauna'
-import { IWaterTrackerWidget } from 'src/global-types/water-tracker'
 import { validatePomodoroAnalyticsByRange } from '@/lambda/lib/restValidator/jsonValidator'
+import { IWidgetAccessToken } from '@/gtypes/widget-access-token'
+import { supabaseQueryGuard } from '@/lambda/helpers/supabase/queryGuard'
+import supabase from '@/lambda/helpers/supabase'
+import {
+  mapPomodoroAnalyticsToType,
+  mapWidgetAccessTokenToType
+} from '@/lambda/helpers/supabase/mapDbToType'
 
 const getPomodoroAnalytics = async (
   req: NextApiRequest,
@@ -24,32 +26,56 @@ const getPomodoroAnalytics = async (
 
   const { from, to, widgetToken, role } = req.query
 
-  const widgetIndex =
-    role === 'blocs-user' ? 'widget_by_token' : 'widget_by_shareable_token'
+  const widgetIndex = role === 'blocs-user' ? 'token' : 'shareable_token'
 
-  const widget = await queryGuard<AsFaunaReturn<IWaterTrackerWidget>>(() =>
-    faunaClient.query(q.Get(q.Match(q.Index(widgetIndex), widgetToken)))
+  const widget = await supabaseQueryGuard<IWidgetAccessToken>(() =>
+    supabase
+      .from('widget_access_tokens')
+      .select('*')
+      .eq(widgetIndex, widgetToken)
+      .single()
   )
 
-  if (!widget) {
+  const widgetMapped = mapWidgetAccessTokenToType(widget)
+
+  if (!widgetMapped) {
     return handle404Response(res, 'Widget not found')
   }
 
-  const pomodoroAnalytics = (await queryGuard(() =>
-    faunaClient.query(
-      q.Call(
-        q.Function('get_pomodoro_analytics_by_date_range'),
-        widget.ref,
-        from,
-        to
-      )
-    )
-  )) as {
-    data: any[]
+  const { data: pomodoroAnalytics } = await supabase
+    .from('pomodoro_analytics')
+    .select('*')
+    .eq('widget_id', widgetMapped.id)
+    .gte('created_at', from)
+    .lte('created_at', to)
+
+  const remappedPomodoroAnalytics = pomodoroAnalytics?.map((row) =>
+    mapPomodoroAnalyticsToType(row)
+  )
+
+  // Group by date (ignoring time part)
+  const grouped: { [date: string]: any[] } = {}
+
+  for (const row of remappedPomodoroAnalytics || []) {
+    const date = row.isoDateString
+    if (!grouped[date]) {
+      grouped[date] = []
+    }
+    const entries = [
+      row.presetId,
+      row.isoDateString,
+      row.presetId,
+      row.timeSpent
+    ]
+    grouped[date].push(entries)
   }
 
+  const groupedPomodoroAnalytics = Object.entries(grouped).map(
+    ([date, entries]) => [date, entries]
+  )
+
   handle200Response(res, {
-    data: pomodoroAnalytics?.data || []
+    data: groupedPomodoroAnalytics || []
   })
 }
 

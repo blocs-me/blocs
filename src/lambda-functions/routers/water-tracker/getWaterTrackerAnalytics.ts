@@ -1,8 +1,7 @@
-import { query as q } from 'faunadb'
 import { NextApiRequest, NextApiResponse } from 'next'
-import faunaClient from '@/lambda/faunaClient'
 import { validateWaterTrackerQueryParams } from '@/lambda/lib/restValidator/jsonValidator'
-import canPerformAction from '@/lambda/helpers/faunadb/canPerformAction'
+import canPerformAction from '@/lambda/helpers/supabase/canPerformAction'
+import supabase from '@/lambda/helpers/supabase'
 
 type AnalyticsData = {
   data: {
@@ -28,13 +27,13 @@ const getWaterTrackerAnalytics = async (
 
   const { role, widgetToken, isoDateString, date } = req.query
 
-  const faunaIndex =
-    role === 'friend' ? 'widget_by_shareable_token' : 'widget_by_token'
+  const field = role === 'friend' ? 'shareable_token' : 'token'
 
-  const widget = await faunaClient
-    .query(q.Get(q.Match(q.Index(faunaIndex), widgetToken)))
-    .then((data) => data)
-    .catch(() => null)
+  const { data: widget } = await supabase
+    .from('widget_access_tokens')
+    .select('*')
+    .eq(field, widgetToken)
+    .maybeSingle()
 
   if (!widget) {
     return res.status(404).json({
@@ -46,46 +45,40 @@ const getWaterTrackerAnalytics = async (
   }
 
   const hasPermission = await canPerformAction(
-    widget.data.userId,
+    widget.user_id,
     'waterTracker',
     res
   )
   if (!hasPermission) return null
 
-  const currentAnalyticsData = await faunaClient
-    .query(
-      q.Get(
-        q.Match(
-          q.Index('water_tracker_analytics_by_iso_date_str'),
-          isoDateString,
-          widget.ref
-        )
-      )
-    )
-    .then((data) => data as AnalyticsData)
-    .catch(() => null)
+  const { data: currentAnalyticsData } = await supabase
+    .from('water_tracker_analytics')
+    .select('*')
+    .eq('iso_date_string', isoDateString)
+    .eq('widget_id', widget.id)
+    .maybeSingle()
 
   try {
     if (!currentAnalyticsData) {
-      const madeData = await faunaClient
-        .query(
-          q.Create(q.Collection('water_tracker_analytics'), {
-            data: {
-              waterConsumed: 0,
-              isoDateString: isoDateString,
-              lastUpdatedAt: Number(date),
-              createdAt: q.Date(isoDateString),
-              widgetRef: widget.ref
-            }
-          })
-        )
-        .then((data) => data as AnalyticsData)
+      const { data: madeData, error: madeDataError } = await supabase
+        .from('water_tracker_analytics')
+        .insert({
+          water_consumed: 0,
+          iso_date_string: isoDateString,
+          last_updated_at: new Date(Number(date)),
+          created_at: new Date(isoDateString as string),
+          widget_id: widget.id
+        })
+        .select()
+        .single()
+
+      console.log('madeData', madeData, madeDataError)
 
       return res.status(200).json({
         data: {
-          waterConsumed: madeData.data.waterConsumed,
-          isoDateString: madeData.data.isoDateString,
-          lastUpdatedAt: madeData.data.lastUpdatedAt
+          waterConsumed: madeData.water_consumed,
+          isoDateString: madeData.iso_date_string,
+          lastUpdatedAt: madeData.last_updated_at
         }
       })
     }
@@ -93,9 +86,9 @@ const getWaterTrackerAnalytics = async (
     res.status(200).json({
       status: 200,
       data: {
-        waterConsumed: currentAnalyticsData.data.waterConsumed,
-        isoDateString: currentAnalyticsData.data.isoDateString,
-        lastUpdatedAt: currentAnalyticsData.data.lastUpdatedAt
+        waterConsumed: currentAnalyticsData.water_consumed,
+        isoDateString: currentAnalyticsData.iso_date_string,
+        lastUpdatedAt: currentAnalyticsData.last_updated_at
       }
     })
   } catch (err) {

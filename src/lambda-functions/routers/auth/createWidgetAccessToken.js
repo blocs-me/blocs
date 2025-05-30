@@ -1,8 +1,9 @@
-import faunaClient from '@/lambda/faunaClient'
 import { validateWidgetTokenReq } from '@/lambda/lib/restValidator/jsonValidator'
-import { query as q } from 'faunadb'
 import crypto from 'crypto'
 import getBlocsUser from '@/lambda/middlewares/getBlocsUser'
+import { mapWidgetAccessTokenToType } from '@/lambda/helpers/supabase/mapDbToType'
+import supabase from '@/lambda/helpers/supabase'
+import { supabaseQueryGuard } from '@/lambda/helpers/supabase/queryGuard'
 
 const createWidgetAccessToken = async (req, res) => {
   try {
@@ -19,62 +20,51 @@ const createWidgetAccessToken = async (req, res) => {
 
     const blocsUser = await getBlocsUser(req, res)
 
-    if (!blocsUser?.ref) throw new Error('blocs user not defined')
+    if (!blocsUser?.id) throw new Error('blocs user not defined')
 
-    const blocsUserId = blocsUser?.ref?.id
+    const blocsUserId = blocsUser?.id
 
-    const widgetToken = await faunaClient
-      .query(
-        q.Paginate(
-          q.Match(q.Index('widget_access_tokens_by_user'), blocsUserId)
-        )
-      )
-      .then((res) => {
-        return res?.data?.find(([type]) => type === widgetType)
-      })
-      .catch(() => null)
+    const { data: widget, error } = await supabase
+      .from('widget_access_tokens')
+      .select('*')
+      .eq('user_id', blocsUserId)
+      .eq('widget_type', widgetType)
+      .maybeSingle()
 
-    const shouldCreateToken = !widgetToken
-    const shouldCreatePublicToken = widgetToken && !widgetToken?.[3]
-    let publicToken = widgetToken?.[3]
+    const widgetMapped = mapWidgetAccessTokenToType(widget)
+
+    const shouldCreateToken = !widgetMapped
+    const shouldCreatePublicToken = widgetMapped && !widgetMapped.shareableToken
+    let publicToken = widgetMapped?.shareableToken
 
     if (shouldCreatePublicToken) {
       publicToken = crypto.randomUUID()
 
-      const widget = await faunaClient.query(
-        q.Get(q.Match(q.Index('widget_by_token'), widgetToken[2]))
-      )
-
-      await faunaClient.query(
-        q.Update(widget.ref, {
-          data: {
-            shareableToken: publicToken
-          }
-        })
+      await supabaseQueryGuard(() =>
+        supabase
+          .from('widget_access_tokens')
+          .update({ shareable_token: publicToken })
+          .eq('token', widgetMapped.token)
       )
     }
 
     if (shouldCreateToken) {
-      const newWidgetTokenData = await faunaClient.query(
-        q.Create(q.Collection('widget_access_tokens'), {
-          data: {
-            userId: blocsUserId,
-            token: crypto.randomUUID(),
-            shareableToken: crypto.randomUUID(),
-            ...(widgetType === 'WATER_TRACKER'
-              ? {
-                  settings: {
-                    goal: 2
-                  }
-                }
-              : {}),
-            widgetType: widgetType
-          }
+      const { data: newWidgetTokenData, error } = await supabase
+        .from('widget_access_tokens')
+        .insert({
+          user_id: blocsUserId,
+          token: crypto.randomUUID(),
+          shareable_token: crypto.randomUUID(),
+          settings: widgetType === 'WATER_TRACKER' ? { goal: 2 } : null,
+          widget_type: widgetType
         })
-      )
+        .select()
+        .single()
 
-      const token = newWidgetTokenData.data.token
-      const shareableToken = newWidgetTokenData.data.shareableToken
+      if (error) throw error
+
+      const token = newWidgetTokenData.token
+      const shareableToken = newWidgetTokenData.shareable_token
 
       return res.status(200).json({
         data: {
@@ -86,7 +76,7 @@ const createWidgetAccessToken = async (req, res) => {
 
     res.status(200).json({
       data: {
-        token: widgetToken?.[2],
+        token: widgetMapped.token,
         shareableToken: publicToken
       }
     })

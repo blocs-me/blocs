@@ -1,9 +1,9 @@
 import { validateHabitSchema } from '@/lambda/lib/restValidator/jsonValidator'
 import { NextApiRequest, NextApiResponse } from 'next'
-import faunaClient from '@/lambda/faunaClient'
-import { query as q } from 'faunadb'
 import { HabitItem } from '../../../global-types/habit-tracker'
-import canPerformAction from '../../helpers/faunadb/canPerformAction'
+import canPerformAction from '../../helpers/supabase/canPerformAction'
+import supabase from '@/lambda/helpers/supabase'
+import { mapWidgetAccessTokenToType } from '@/lambda/helpers/supabase/mapDbToType'
 
 const editHabit = async (req: NextApiRequest, res: NextApiResponse) => {
   const isValid = validateHabitSchema(req.body)
@@ -20,15 +20,11 @@ const editHabit = async (req: NextApiRequest, res: NextApiResponse) => {
   const habit = req.body
   const { widgetToken } = req.query
 
-  const widgetIndexKey = 'widget_by_token'
-
-  const widget = await faunaClient
-    .query(q.Get(q.Match(q.Index(widgetIndexKey), widgetToken)))
-    .then((data) => data)
-    .catch((error) => {
-      console.error(error)
-      return null
-    })
+  const { data: widget } = await supabase
+    .from('widget_access_tokens')
+    .select('*')
+    .eq('token', widgetToken)
+    .maybeSingle()
 
   if (!widget) {
     res.status(404).json({
@@ -39,15 +35,17 @@ const editHabit = async (req: NextApiRequest, res: NextApiResponse) => {
     return null
   }
 
+  const widgetData = mapWidgetAccessTokenToType(widget)
+
   const hasPermission = await canPerformAction(
-    widget.data.userId,
+    widgetData.userId,
     'habitTracker',
     res
   )
   if (!hasPermission) return null
 
-  const prevHabits = widget.data.habits
-  const shouldUpdate = widget.data.habits.find(
+  const prevHabits = widgetData.habits
+  const shouldUpdate = (widgetData.habits as unknown as HabitItem[]).find(
     (curHabit: HabitItem) => curHabit.id === habit.id
   )
 
@@ -66,18 +64,19 @@ const editHabit = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   const newHabits = [
-    ...prevHabits.filter((curHabit: HabitItem) => curHabit.id !== habit.id),
+    ...(prevHabits as unknown as HabitItem[]).filter(
+      (curHabit: HabitItem) => curHabit.id !== habit.id
+    ),
     editedHabit
   ]
 
   try {
-    await faunaClient.query(
-      q.Update(widget.ref, {
-        data: {
-          habits: newHabits
-        }
+    await supabase
+      .from('widget_access_tokens')
+      .update({
+        habits: newHabits
       })
-    )
+      .eq('id', widgetData.id)
 
     res.status(200).json({})
   } catch (err) {

@@ -1,9 +1,8 @@
-import faunaClient from '@/lambda/faunaClient'
 import { NextApiRequest, NextApiResponse } from 'next'
-import { query as q } from 'faunadb'
-import Rest from '@/lambda/lib/rest'
 import crypto from 'crypto'
-import { queryGuard } from '@/lambda/helpers/faunadb/queryGuard'
+import { supabaseQueryGuard } from '@/lambda/helpers/supabase/queryGuard'
+import supabase from '@/lambda/helpers/supabase'
+import { mapWidgetAccessTokenToType } from '@/lambda/helpers/supabase/mapDbToType'
 
 const createShareableWidgetToken = async (
   req: NextApiRequest,
@@ -11,15 +10,18 @@ const createShareableWidgetToken = async (
 ) => {
   const { widgetToken, widgetType } = req.query
 
-  const widget = await faunaClient
-    .query(q.Get(q.Match(q.Index('widget_by_token'), widgetToken)))
-    .then((data) => data)
-    .catch((err) => {
-      console.error(err)
-      return null
-    })
+  const { data: widgetDb, error: widgetError } = await supabase
+    .from('widget_access_tokens')
+    .select('*')
+    .eq('token', widgetToken)
+    .single()
 
-  if (!widget) {
+  if (widgetError) {
+    console.error(widgetError)
+  }
+
+  const widgetMapped = mapWidgetAccessTokenToType(widgetDb)
+  if (!widgetMapped) {
     res.status(404).json({
       error: {
         message: 'Widget was not found'
@@ -29,27 +31,23 @@ const createShareableWidgetToken = async (
   }
 
   const shouldCreateToken =
-    !widget?.data?.shareableToken &&
-    (widget?.data?.type === widgetType ||
-      widget?.data?.widgetType === widgetType)
+    !widgetMapped?.shareableToken && widgetMapped?.widgetType === widgetType
 
   if (!shouldCreateToken) {
     return res
       .status(200)
-      .json({ status: 200, shareableToken: widget.data.shareableToken })
+      .json({ status: 200, shareableToken: widgetMapped.shareableToken })
   }
 
   try {
     const token = crypto.randomUUID()
 
-    await queryGuard(() =>
-      faunaClient.query(
-        q.Update(widget.ref, {
-          data: {
-            shareableToken: token
-          }
-        })
-      )
+    await supabaseQueryGuard(() =>
+      supabase
+        .from('widget_access_tokens')
+        .update({ shareable_token: token })
+        .eq('token', widgetToken)
+        .select()
     )
 
     res.status(200).json({

@@ -1,9 +1,7 @@
-import faunaClient from '@/lambda/faunaClient'
 import { validateWaterTrackerAnalytics } from '@/lambda/lib/restValidator/jsonValidator'
-import { ounceToLiter } from '@/utils/math'
 import { NextApiRequest, NextApiResponse } from 'next'
-import { query as q } from 'faunadb'
-import canPerformAction from '@/lambda/helpers/faunadb/canPerformAction'
+import canPerformAction from '@/lambda/helpers/supabase/canPerformAction'
+import supabase from '@/lambda/helpers/supabase'
 
 type Request = {
   date: number
@@ -35,13 +33,11 @@ const saveWaterTrackerAnalytics = async (
 
   const data = req.body as Request
 
-  const widget = await faunaClient
-    .query(q.Get(q.Match(q.Index('widget_by_token'), widgetToken)))
-    .then((data) => data)
-    .catch((err) => {
-      console.error(err)
-      return null
-    })
+  const { data: widget } = await supabase
+    .from('widget_access_tokens')
+    .select('*')
+    .eq('token', widgetToken)
+    .maybeSingle()
 
   if (!widget) {
     res.status(404).json({
@@ -53,50 +49,35 @@ const saveWaterTrackerAnalytics = async (
   }
 
   const hasPermission = await canPerformAction(
-    widget.data.userId,
+    widget.user_id,
     'waterTracker',
     res
   )
   if (!hasPermission) return null
 
-  const existingData = await faunaClient
-    .query(
-      q.Get(
-        q.Match(
-          q.Index('water_tracker_analytics_by_iso_date_str'),
-          data.isoDateString,
-          widget.ref
-        )
-      )
-    )
-    .then((data) => data)
-    .catch((err) => {
-      console.error(err)
-      return null
-    })
+  const { data: existingData } = await supabase
+    .from('water_tracker_analytics')
+    .select('*')
+    .eq('iso_date_string', data.isoDateString)
+    .eq('widget_id', widget.id)
+    .maybeSingle()
 
   if (existingData) {
-    const updatedData = (await faunaClient
-      .query(
-        q.Update(existingData.ref, {
-          data: {
-            lastUpdatedAt: data.date,
-            waterConsumed: data.waterConsumed
-          }
-        })
-      )
-      .then((data) => data)
-      .catch((err) => {
-        console.error(err)
-      })) as {
-      data: AnalyticsSchema
-    }
+    const { data: updatedData, error: updatedDataError } = await supabase
+      .from('water_tracker_analytics')
+      .update({
+        last_updated_at: new Date(data.date),
+        water_consumed: data.waterConsumed
+      })
+      .eq('id', existingData.id)
+      .select()
+      .single()
 
     res.status(200).json({
       status: 200,
       data: {
-        waterConsumed: updatedData?.data.waterConsumed,
-        lastUpdatedAt: updatedData?.data.lastUpdatedAt
+        waterConsumed: updatedData?.water_consumed,
+        lastUpdatedAt: updatedData?.last_updated_at
       }
     })
 
@@ -104,22 +85,22 @@ const saveWaterTrackerAnalytics = async (
   }
 
   try {
-    await faunaClient.query(
-      q.Create(q.Collection('water_tracker_analytics'), {
-        data: {
-          waterConsumed: data.waterConsumed,
-          lastUpdatedAt: data.date,
-          createdAt: q.Date(data.isoDateString),
-          isoDateString: data.isoDateString,
-          widgetRef: widget.ref
-        }
+    const { data: createdData } = await supabase
+      .from('water_tracker_analytics')
+      .insert({
+        water_consumed: data.waterConsumed,
+        last_updated_at: new Date(data.date),
+        created_at: new Date(data.isoDateString),
+        iso_date_string: data.isoDateString,
+        widget_id: widget.id
       })
-    )
+      .select()
+      .single()
 
     res.status(200).json({
       status: 200,
-      waterConsumed: data.waterConsumed,
-      lastUpdatedAt: data.date
+      waterConsumed: createdData.water_consumed,
+      lastUpdatedAt: createdData.last_updated_at
     })
   } catch (err) {
     console.error(err)

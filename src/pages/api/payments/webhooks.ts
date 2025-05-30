@@ -11,10 +11,10 @@ import { buffer } from 'micro'
 import Cors from 'micro-cors'
 import stripeProductIds from '@/constants/stripeProductIds'
 import { findCheckoutSession } from '@/lambda/lib/stripe'
-import getBlocsUserById from '@/lambda/helpers/faunadb/getBlocsUserById'
-import getBlocsUserByStripeCustomerId from '@/lambda/helpers/faunadb/getBlocsUserByStripeId'
+import getBlocsUserById from '@/lambda/helpers/supabase/getBlocsUserById'
 import getBlocsUserByEmail from '@/lambda/middlewares/getBlocsUserByEmail'
 import { SlackPurchaseNotification } from '@/lambda/lib/slack'
+import getBlocsUserByStripeCustomerId from '@/lambda/helpers/supabase/getBlocsUserByStripeId'
 
 const cors = Cors({
   allowMethods: ['POST', 'HEAD']
@@ -131,7 +131,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         }
 
         const purchasedProducts = Array.from(
-          new Set([...(user?.data?.purchasedProducts || []), ...products])
+          new Set([...(user?.purchasedProducts || []), ...products])
         )
 
         await updateUserData(user, {
@@ -141,7 +141,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
         // Send Slack notification
         try {
-          const data = user.data
+          const data = user
           await SlackPurchaseNotification({
             customer_name: data.name,
             email: data.email,
@@ -228,7 +228,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         }
 
         const purchasedProducts = Array.from(
-          new Set([...(user?.data?.purchasedProducts || [])])
+          new Set([...(user?.purchasedProducts || [])])
         )
 
         const deletedProducts = getPurchasedProductsBySubscription(

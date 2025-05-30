@@ -1,10 +1,13 @@
 import { validateHabitSchema } from '@/lambda/lib/restValidator/jsonValidator'
 import { NextApiRequest, NextApiResponse } from 'next'
-import faunaClient from '@/lambda/faunaClient'
-import { query as q } from 'faunadb'
 import { HabitItem } from '../../../global-types/habit-tracker'
 import { getPercent } from '../../../utils/math/getPercent'
-import canPerformAction from '../../helpers/faunadb/canPerformAction'
+import canPerformAction from '../../helpers/supabase/canPerformAction'
+import supabase from '@/lambda/helpers/supabase'
+import {
+  mapHabitAnalyticsToType,
+  mapWidgetAccessTokenToType
+} from '@/lambda/helpers/supabase/mapDbToType'
 
 const deleteHabit = async (req: NextApiRequest, res: NextApiResponse) => {
   const isValid = validateHabitSchema(req.body)
@@ -21,15 +24,11 @@ const deleteHabit = async (req: NextApiRequest, res: NextApiResponse) => {
   const habit = req.body
   const { widgetToken, isoDateString } = req.query
 
-  const widgetIndexKey = 'widget_by_token'
-
-  const widget = await faunaClient
-    .query(q.Get(q.Match(q.Index(widgetIndexKey), widgetToken)))
-    .then((data) => data)
-    .catch((error) => {
-      console.error(error)
-      return null
-    })
+  const { data: widget } = await supabase
+    .from('widget_access_tokens')
+    .select('*')
+    .eq('token', widgetToken)
+    .maybeSingle()
 
   if (!widget) {
     res.status(404).json({
@@ -40,15 +39,17 @@ const deleteHabit = async (req: NextApiRequest, res: NextApiResponse) => {
     return null
   }
 
+  const widgetData = mapWidgetAccessTokenToType(widget)
+
   const hasPermission = await canPerformAction(
-    widget.data.userId,
+    widgetData.userId,
     'habitTracker',
     res
   )
   if (!hasPermission) return null
 
-  const prevHabits = JSON.parse(JSON.stringify(widget.data.habits))
-  const shouldDelete = widget.data.habits.find(
+  const prevHabits = JSON.parse(JSON.stringify(widgetData.habits))
+  const shouldDelete = (widgetData.habits as unknown as HabitItem[]).find(
     (curHabit: HabitItem) => curHabit.id === habit.id
   )
 
@@ -65,70 +66,61 @@ const deleteHabit = async (req: NextApiRequest, res: NextApiResponse) => {
     (curHabit: HabitItem) => curHabit.id !== habit.id
   )
 
-  const todayAnalytics = await faunaClient
-    .query(
-      q.Get(
-        q.Match(
-          q.Index('habit_trackers_analytics_by_iso_date_str'),
-          isoDateString,
-          widget.ref
-        )
-      )
-    )
-    .then((data) => data)
-    .catch((error) => {
-      console.error(error)
-      return null
-    })
+  const { data: todayAnalytics } = await supabase
+    .from('habit_trackers_analytics')
+    .select('*')
+    .eq('iso_date_string', isoDateString)
+    .eq('widget_id', widgetData.id)
+    .maybeSingle()
+
+  const todayAnalyticsData = mapHabitAnalyticsToType(todayAnalytics)
 
   let newPercentDone = 0
 
   if (todayAnalytics) {
-    const prevHabitsDone = todayAnalytics.data.habitsDone
+    const prevHabitsDone = todayAnalyticsData.habitsDone as string[]
     const newHabitsDone = prevHabitsDone.filter(
       (habitId) => habitId !== habit.id
     )
     newPercentDone = getPercent(newHabitsDone.length, newHabits.length, 'floor')
 
-    await faunaClient
-      .query(
-        q.Update(todayAnalytics.ref, {
-          data: {
-            habitsDone: newHabitsDone,
-            percentDone: newPercentDone
-          }
+    try {
+      await supabase
+        .from('habit_trackers_analytics')
+        .update({
+          habits_done: newHabitsDone,
+          percent_done: newPercentDone
         })
-      )
-      .catch((err) => {
-        console.error(err)
-        res.status(500).json({
-          status: 500,
-          error: { message: 'Something went wrong on the server' }
-        })
+        .eq('id', todayAnalytics.id)
+    } catch (err) {
+      console.error(err)
+      res.status(500).json({
+        status: 500,
+        error: { message: 'Something went wrong on the server' }
       })
+    }
   }
 
   const currentStreak =
     newPercentDone === 100 &&
-    isoDateString !== widget.data.currentStreakUpdatedAt
-      ? widget.data.currentStreak + 1
-      : widget.data.currentStreak
+    isoDateString !== widgetData.currentStreakUpdatedAt
+      ? widgetData.currentStreak + 1
+      : widgetData.currentStreak
   const currentStreakUpdatedAt =
     newPercentDone === 100 &&
-    isoDateString !== widget.data.currentStreakUpdatedAt
+    isoDateString !== widgetData.currentStreakUpdatedAt
       ? isoDateString
-      : widget.data.currentStreakUpdatedAt
+      : widgetData.currentStreakUpdatedAt
 
   try {
-    await faunaClient.query(
-      q.Update(widget.ref, {
-        data: {
-          habits: newHabits,
-          currentStreak,
-          currentStreakUpdatedAt
-        }
+    await supabase
+      .from('widget_access_tokens')
+      .update({
+        habits: newHabits,
+        current_streak: currentStreak,
+        current_streak_updated_at: currentStreakUpdatedAt
       })
-    )
+      .eq('id', widgetData.id)
 
     res.status(200).json({})
   } catch (err) {

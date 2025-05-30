@@ -1,7 +1,7 @@
 export type IWaterTrackerWidget = {
-  userId: string
+  user_id: string
   token: string
-  shareableToken?: string
+  shareable_token?: string
   settings: {
     goal: number
     units: 'liter' | 'ounce'

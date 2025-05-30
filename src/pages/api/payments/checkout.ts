@@ -40,7 +40,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       email: customer_email,
       stripeCustomerId,
       purchaseHistory
-    } = blocsUser?.data
+    } = blocsUser
 
     if (purchaseHistory?.length) {
       let purchasedPriceIds = !purchaseHistory?.length
@@ -71,7 +71,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         success_url: `${req.headers.origin}/dashboard/pomodoro?payment_success=true`,
         cancel_url: `${req.headers.origin}/pricing?canceled=true`,
         automatic_tax: { enabled: true },
-        client_reference_id: blocsUser?.ref?.id
+        client_reference_id: blocsUser.id
       })
 
       res.status(200).json(session)

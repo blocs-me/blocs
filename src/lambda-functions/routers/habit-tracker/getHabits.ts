@@ -1,19 +1,15 @@
-import { query as q } from 'faunadb'
-import faunaClient from '@/lambda/faunaClient'
+import supabase from '@/lambda/helpers/supabase'
 
 const getHabits = async (req, res) => {
   const { widgetToken, role } = req.query
 
-  const widgetIndexKey =
-    role === 'blocs-user' ? 'widget_by_token' : 'widget_by_shareable_token'
+  const widgetIndexKey = role === 'blocs-user' ? 'token' : 'shareable_token'
 
-  const widget = await faunaClient
-    .query(q.Get(q.Match(q.Index(widgetIndexKey), widgetToken)))
-    .then((data) => data)
-    .catch((error) => {
-      console.error(error)
-      return null
-    })
+  const { data: widget } = await supabase
+    .from('widget_access_tokens')
+    .select('*')
+    .eq(widgetIndexKey, widgetToken)
+    .maybeSingle()
 
   if (!widget) {
     res.status(404).json({
@@ -26,7 +22,7 @@ const getHabits = async (req, res) => {
 
   res.status(200).json({
     status: 200,
-    data: widget.data.habits
+    data: widget.habits
   })
 }
 

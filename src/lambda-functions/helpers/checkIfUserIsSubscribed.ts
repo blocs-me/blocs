@@ -5,7 +5,7 @@ import { BlocsUserServer } from 'src/global-types/blocs-user'
 
 const listId = process.env.MAILCHIMP_LIST_ID
 
-const checkIfUserIsSubscribed = async (user: BlocsUserServer['data']) => {
+const checkIfUserIsSubscribed = async (user: BlocsUserServer) => {
   if (!user)
     throw new Error(
       'Mailchimp Error : could not retrieve user status; user not defined'

@@ -1,7 +1,6 @@
-import faunaClient from '@/lambda/faunaClient'
 import { NextApiRequest, NextApiResponse } from 'next'
-import { query as q } from 'faunadb'
 import { calculateStreak, handleUpdate } from './calculateAndUpdateStreak'
+import supabase from '@/lambda/helpers/supabase'
 
 const getHabitTrackerAnalytics = async (
   req: NextApiRequest,
@@ -13,16 +12,13 @@ const getHabitTrackerAnalytics = async (
     isoDateString: string
   }
 
-  const widgetIndexKey =
-    role === 'blocs-user' ? 'widget_by_token' : 'widget_by_shareable_token'
+  const widgetIndexKey = role === 'blocs-user' ? 'token' : 'shareable_token'
 
-  const widget = await faunaClient
-    .query(q.Get(q.Match(q.Index(widgetIndexKey), widgetToken)))
-    .then((data) => data)
-    .catch((error) => {
-      console.error(error)
-      return null
-    })
+  const { data: widget } = await supabase
+    .from('widget_access_tokens')
+    .select('*')
+    .eq(widgetIndexKey, widgetToken)
+    .maybeSingle()
 
   if (!widget) {
     res.status(404).json({
@@ -33,29 +29,20 @@ const getHabitTrackerAnalytics = async (
     return null
   }
 
-  const existingAnalyticsDoc = await faunaClient
-    .query(
-      q.Get(
-        q.Match(
-          q.Index('habit_trackers_analytics_by_iso_date_str'),
-          isoDateString,
-          widget.ref
-        )
-      )
-    )
-    .then((data) => data)
-    .catch((error) => {
-      console.error(error)
-      return null
-    })
+  const { data: existingAnalyticsDoc } = await supabase
+    .from('habit_tracker_analytics')
+    .select('*')
+    .eq('iso_date_string', isoDateString)
+    .eq('widget_id', widget.id)
+    .maybeSingle()
 
   if (existingAnalyticsDoc) {
     res.status(200).json({
       data: {
-        percentDone: existingAnalyticsDoc?.data?.percentDone,
-        habitsDone: existingAnalyticsDoc?.data?.habitsDone,
-        bestStreak: widget?.data?.bestStreak,
-        currentStreak: widget?.data?.currentStreak
+        percentDone: existingAnalyticsDoc?.percent_done,
+        habitsDone: existingAnalyticsDoc?.habits_done,
+        bestStreak: widget?.best_streak,
+        currentStreak: widget?.current_streak
       }
     })
 
@@ -63,23 +50,16 @@ const getHabitTrackerAnalytics = async (
   }
 
   try {
-    const newData = await faunaClient
-      .query(
-        q.Create(q.Collection('habit_tracker_analytics'), {
-          data: {
-            habitsDone: [],
-            percentDone: 0,
-            isoDateString,
-            widgetRef: widget.ref,
-            createdAt: q.Date(isoDateString)
-          }
-        })
-      )
-      .then((data) => data as { data: any })
-      .catch((err) => {
-        console.error(err)
-        return null
+    const { data: newData, error } = await supabase
+      .from('habit_tracker_analytics')
+      .insert({
+        habits_done: [],
+        percent_done: 0,
+        iso_date_string: new Date(isoDateString),
+        widget_id: widget.id
       })
+      .select()
+      .single()
 
     if (!newData) {
       const error = new Error('Could not create habit tracker analytics')
@@ -92,10 +72,10 @@ const getHabitTrackerAnalytics = async (
     res.status(200).json({
       status: 200,
       data: {
-        percentDone: newData?.data?.percentDone,
-        habitsDone: newData?.data?.habitsDone,
-        bestStreak: streaks?.data?.bestStreak,
-        currentStreak: streaks?.data?.currentStreak
+        percentDone: newData?.percent_done,
+        habitsDone: newData?.habits_done,
+        bestStreak: streaks?.bestStreak,
+        currentStreak: streaks?.currentStreak
       }
     })
   } catch (error) {

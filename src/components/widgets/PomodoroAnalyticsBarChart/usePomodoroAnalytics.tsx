@@ -47,6 +47,7 @@ export const usePomodoroAnalytics = () => {
     token ? path : null,
     fetcher
   )
+
   const data = response?.data ? formatData(response?.data?.data) : []
 
   return { ...response, data }

@@ -1,11 +1,10 @@
 import { validateHabitSchema } from '@/lambda/lib/restValidator/jsonValidator'
 import { NextApiRequest, NextApiResponse } from 'next'
-import faunaClient from '@/lambda/faunaClient'
-import { query as q } from 'faunadb'
 import { getCurrentISOString } from '@/utils/dateUtils/getCurrentISOString'
-import { IHabitTrackerWidget } from '../../../global-types/habit-tracker'
 import { handle200Response } from '../../helpers/handleResponses'
-import canPerformAction from '../../helpers/faunadb/canPerformAction'
+import canPerformAction from '../../helpers/supabase/canPerformAction'
+import supabase from '@/lambda/helpers/supabase'
+import { mapWidgetAccessTokenToType } from '@/lambda/helpers/supabase/mapDbToType'
 
 const createHabit = async (req: NextApiRequest, res: NextApiResponse) => {
   const isValid = validateHabitSchema(req.body)
@@ -21,15 +20,11 @@ const createHabit = async (req: NextApiRequest, res: NextApiResponse) => {
   const habit = req.body
   const { widgetToken, isoDateString } = req.query
 
-  const widgetIndexKey = 'widget_by_token'
-
-  const widget: IHabitTrackerWidget = await faunaClient
-    .query(q.Get(q.Match(q.Index(widgetIndexKey), widgetToken)))
-    .then((data) => data)
-    .catch((error) => {
-      console.error(error)
-      return null
-    })
+  const { data: widget } = await supabase
+    .from('widget_access_tokens')
+    .select('*')
+    .eq('token', widgetToken)
+    .maybeSingle()
 
   if (!widget) {
     res.status(404).json({
@@ -40,8 +35,10 @@ const createHabit = async (req: NextApiRequest, res: NextApiResponse) => {
     return null
   }
 
+  const widgetData = mapWidgetAccessTokenToType(widget)
+
   const hasPermission = await canPerformAction(
-    widget.data.userId,
+    widgetData.userId,
     'habitTracker',
     res
   )
@@ -55,32 +52,31 @@ const createHabit = async (req: NextApiRequest, res: NextApiResponse) => {
 
   // reset streak + date so it can be updated again
   const currentStreak =
-    isoDateString === widget.data.currentStreakUpdatedAt
-      ? Math.max(0, widget.data.currentStreak - 1)
-      : widget.data.currentStreak
+    isoDateString === widgetData.currentStreakUpdatedAt
+      ? Math.max(0, widgetData.currentStreak - 1)
+      : widgetData.currentStreak
   const currentStreakUpdatedAt =
-    isoDateString === widget.data.currentStreakUpdatedAt
+    isoDateString === widgetData.currentStreakUpdatedAt
       ? yesterdayISOStr
-      : widget.data.currentStreakUpdatedAt
+      : widgetData.currentStreakUpdatedAt
 
-  const prevHabits = widget?.data?.habits || []
+  const prevHabits = widgetData?.habits || []
 
   try {
-    await faunaClient.query(
-      q.Update(widget.ref, {
-        data: {
-          currentStreak,
-          currentStreakUpdatedAt,
-          habits: [
-            ...prevHabits,
-            {
-              id: q.NewId(),
-              title: habit.title
-            }
-          ]
-        }
+    await supabase
+      .from('widget_access_tokens')
+      .update({
+        current_streak: currentStreak,
+        current_streak_updated_at: currentStreakUpdatedAt,
+        habits: [
+          ...prevHabits,
+          {
+            id: crypto.randomUUID(),
+            title: habit.title
+          }
+        ]
       })
-    )
+      .eq('id', widgetData.id)
 
     handle200Response(res)
   } catch (err) {

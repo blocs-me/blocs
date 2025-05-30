@@ -1,15 +1,17 @@
-import { Update } from "faunadb"
-import faunaClient from "../faunaClient"
+import supabase from './supabase'
 
 const updateUserData = async (user, data) => {
   try {
-    const updatedUser = await faunaClient.query(
-      Update(user.ref, {
-        data,
-      })
-    )
+    const { data: updatedUser, error } = await supabase
+      .from('users')
+      .update(data)
+      .eq('id', user.id)
+      .select()
+      .single()
 
-    return updatedUser.data
+    if (error) throw error
+
+    return updatedUser
   } catch (err) {
     throw err
   }
