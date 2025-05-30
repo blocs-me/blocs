@@ -9,7 +9,7 @@ import jwt from 'jsonwebtoken'
 
 const pickBlocsUserData = (
   blocsUser: BlocsUserServer
-): Partial<BlocsUserClient> => ({
+): Partial<BlocsUserClient['data']> => ({
   name: blocsUser?.name || blocsUser?.email,
   email: blocsUser?.email,
   purchasedProducts: blocsUser?.purchasedProducts,
