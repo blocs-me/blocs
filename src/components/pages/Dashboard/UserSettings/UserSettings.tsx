@@ -70,7 +70,7 @@ const UserSettings = () => {
   const notif = useNotifications()
   const router = useRouter()
 
-  const [avatarUrl, setAvatarUrl] = useState(blocsUser?.user?.data?.avatar_url)
+  const [avatarUrl, setAvatarUrl] = useState(blocsUser?.user?.avatar_url)
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [confirmEmail, setConfirmEmail] = useState(false)
@@ -80,15 +80,15 @@ const UserSettings = () => {
 
   useEffect(() => {
     if (blocsUser?.user) {
-      setName(blocsUser?.user?.data?.name)
-      setEmail(blocsUser?.user?.data?.email)
-      setIsSubscribed(blocsUser?.user?.data?.isSubscribed)
-      setAvatarUrl(blocsUser?.user?.data?.avatar_url)
+      setName(blocsUser?.user?.name)
+      setEmail(blocsUser?.user?.email)
+      setIsSubscribed(blocsUser?.user?.isSubscribed)
+      setAvatarUrl(blocsUser?.user?.avatar_url)
     }
   }, [blocsUser?.user]) // eslint-disable-line
 
   const [isSubscribed, setIsSubscribed] = useState(
-    blocsUser?.user?.data?.isSubscribed
+    blocsUser?.user?.isSubscribed
   )
   const isLoading = !user || !blocsUser?.user || !blocsUser?.isValidating
 
@@ -302,7 +302,7 @@ const UserSettings = () => {
           >
             <Box
               as="img"
-              src={blocsUser.user?.data?.avatar_url || '/profile.svg'}
+              src={blocsUser.user?.avatar_url || '/profile.svg'}
               alt="Change profile photo"
               borderRadius="50%"
               size="100px"

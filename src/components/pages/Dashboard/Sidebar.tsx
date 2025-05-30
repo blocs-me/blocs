@@ -47,7 +47,7 @@ const Sidebar = () => {
   const notif = useNotifications()
   const supabase = useSupabaseClient()
   const { user, purchases } = useBlocsUser()
-  const isPremium = !!user?.data?.purchasedProducts?.length
+  const isPremium = !!user?.purchasedProducts?.length
   const fourteenDays = 1000 * 60 * 60 * 24 * 14
   const daysLeft = Math.max(
     0,
@@ -55,7 +55,7 @@ const Sidebar = () => {
     daysBetween(
       new Date(),
       new Date(
-        user?.data?.freeTrialStartedAt || new Date().getTime() - fourteenDays
+        user?.freeTrialStartedAt || new Date().getTime() - fourteenDays
       )
     )
   )
@@ -87,7 +87,7 @@ const Sidebar = () => {
     >
       <Flex flexDirection="column" alignItems="center">
         <Avatar
-          src={user?.data?.avatar_url}
+          src={user?.avatar_url}
           loading={!user}
           alt="profile picture"
         />

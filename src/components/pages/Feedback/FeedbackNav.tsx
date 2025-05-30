@@ -57,7 +57,7 @@ const FeedbackNav = () => {
                     variant="sm"
                     alt="profile picture"
                     loading={!blocsUser.user}
-                    src={blocsUser.user?.data?.avatar_url}
+                    src={blocsUser.user?.avatar_url}
                 />
             </Flex>
         </Flex>

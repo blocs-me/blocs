@@ -5,7 +5,7 @@ import { BlocsUserServer } from '../../global-types/blocs-user'
 import md5 from 'md5'
 
 const addUserToMailingList = async (
-  user: BlocsUserServer['data'],
+  user: BlocsUserServer,
   isNew: boolean = false
 ) => {
   const { email, name } = user || {}

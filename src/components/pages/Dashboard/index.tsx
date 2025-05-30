@@ -47,7 +47,7 @@ const Dashboard = () => {
   const session = useSessionContext()
   const isSmallScreen = useMediaQuery('(min-width: 768px)')
   const showMaintenance =
-    isMaintenance && !['settings', 'guide'].includes(path as string)
+    isMaintenance && !['guide'].includes(path as string)
 
   useEffect(() => {
     if (user?.aud !== 'authenticated' && !session.isLoading) {
@@ -145,7 +145,9 @@ const Dashboard = () => {
               {path === 'water-tracker' && !showMaintenance && (
                 <WaterTrackerDashboard />
               )}
-              {path === 'settings' && <UserSettings />}
+              {path === 'settings' && !showMaintenance && (
+                <UserSettings />
+              )}
               {path === 'guide' && <Guide />}
             </Suspense>
           </Notifications>
