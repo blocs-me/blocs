@@ -10,7 +10,7 @@ const validateWidgetAuth = async (req, res, rest) => {
       .from('widget_access_tokens')
       .select('user_id')
       .eq('token', token)
-      .single()
+      .maybeSingle()
 
     const mapWidgetToType = mapWidgetAccessTokenToType(widget)
 
@@ -19,7 +19,7 @@ const validateWidgetAuth = async (req, res, rest) => {
       .from('users')
       .select('*')
       .eq('id', rest.userId)
-      .single()
+      .maybeSingle()
 
     res.status(200).json({
       data: {
