@@ -2,9 +2,6 @@ import Rest from '@/lambda/lib/rest'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs'
 import { handle401Response } from '@/lambda/helpers/handleResponses'
-import { queryGuard } from '@/lambda/helpers/faunadb/queryGuard'
-import faunaClient from '@/lambda/faunaClient'
-import { query as q } from 'faunadb'
 import { handle500Response } from '../../../lambda-functions/helpers/handleResponses'
 
 const saveUserAvatar = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -16,24 +13,21 @@ const saveUserAvatar = async (req: NextApiRequest, res: NextApiResponse) => {
     return handle401Response(res)
   }
 
-  const blocsUser = (await queryGuard(() =>
-    faunaClient.query(
-      q.Get(q.Match(q.Index('all_users_by_email'), data?.user?.email))
-    )
-  )) as { data: any; ref }
+  const { data: blocsUser } = await supabase
+    .from('users')
+    .select('*')
+    .eq('email', data?.user?.email)
+    .maybeSingle()
 
   if (!blocsUser) return null
 
-  const blocsUserRef = blocsUser.ref
-
   try {
-    await faunaClient.query(
-      q.Update(blocsUserRef, {
-        data: {
-          avatar_url
-        }
+    await supabase
+      .from('users')
+      .update({
+        avatar_url
       })
-    )
+      .eq('id', blocsUser.id)
 
     res.status(200).json({
       message: 'Successfully saved the profile picture',

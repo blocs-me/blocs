@@ -1,7 +1,6 @@
-import faunaClient from '@/lambda/faunaClient'
 import { NextApiRequest, NextApiResponse } from 'next'
-import { query as q } from 'faunadb'
-import canPerformAction from '@/lambda/helpers/faunadb/canPerformAction'
+import canPerformAction from '@/lambda/helpers/supabase/canPerformAction'
+import supabase from '@/lambda/helpers/supabase'
 
 const getWaterTrackerSettings = async (
   req: NextApiRequest,
@@ -9,17 +8,14 @@ const getWaterTrackerSettings = async (
 ) => {
   const { widgetToken, role } = req.query
 
-  const widgetIndex =
-    role === 'friend' ? 'widget_by_shareable_token' : 'widget_by_token'
+  const field = role === 'friend' ? 'shareable_token' : 'token'
 
   try {
-    const widget = await faunaClient
-      .query(q.Get(q.Match(q.Index(widgetIndex), widgetToken)))
-      .then((data) => data)
-      .catch((err) => {
-        console.error(err)
-        return null
-      })
+    const widget = await supabase
+      .from('widget_access_tokens')
+      .select('*')
+      .eq(field, widgetToken)
+      .maybeSingle()
 
     if (!widget)
       return res.status(404).json({
@@ -30,7 +26,7 @@ const getWaterTrackerSettings = async (
       })
 
     const hasPermission = await canPerformAction(
-      widget.data.userId,
+      widget.data.user_id,
       'waterTracker',
       res
     )
@@ -42,16 +38,14 @@ const getWaterTrackerSettings = async (
       isAdmin &&
       (await (async () => {
         if (isAdmin) {
-          const user = (await faunaClient.query(
-            q.Get(q.Ref(q.Collection('users'), widget?.data?.userId))
-          )) as {
-            data: {
-              avatar_url: string
-            }
-          }
+          const { data: user } = await supabase
+            .from('users')
+            .select('avatar_url')
+            .eq('id', widget?.data?.user_id)
+            .maybeSingle()
 
           return {
-            avatarUrl: user?.data?.avatar_url
+            avatarUrl: user?.avatar_url
           }
         }
 

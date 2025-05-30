@@ -4,24 +4,18 @@ import {
   handle500Response
 } from '../../../lambda-functions/helpers/handleResponses'
 import getBlocsUser from '@/lambda/middlewares/getBlocsUser'
-import faunaClient from '@/lambda/faunaClient'
-import { query as q } from 'faunadb'
 import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs'
 import {
   BlocsUserServer,
   BlocsUserClient
 } from '../../../global-types/blocs-user'
-import crypto from 'crypto'
-import checkIfUserIsSubscribed from '@/lambda/helpers/checkIfUserIsSubscribed'
 
 const pickBlocsUserData = (
-  blocsUser: BlocsUserServer['data']
-): Partial<BlocsUserClient['data']> => ({
+  blocsUser: BlocsUserServer
+): Partial<BlocsUserClient> => ({
   name: blocsUser?.name,
   email: blocsUser?.email,
   purchasedProducts: blocsUser?.purchasedProducts,
-  isDeleted: blocsUser?.isDeleted,
-  scheduledForDeletion: blocsUser?.scheduledForDeletion,
   avatar_url: blocsUser?.avatar_url,
   freeTrialStartedAt: blocsUser?.freeTrialStartedAt,
   isSubscribed: blocsUser?.isSubscribed
@@ -34,7 +28,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       if (blocsUser) {
         handle200Response(res, {
           data: {
-            ...pickBlocsUserData(blocsUser?.data)
+            ...pickBlocsUserData(blocsUser)
           }
         })
       } else {
@@ -51,21 +45,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     const supabase = createServerSupabaseClient({ req, res })
 
     try {
-      await faunaClient.query(
-        q.Update(blocsUser.ref, {
-          data: {
-            avatar_url: '',
-            name: '',
-            supabaseUserId: crypto.randomUUID(),
-            email: crypto.randomUUID(),
-            scheduledForDeletion: true
-          }
-        })
-      )
-      const { data, error } = await supabase.auth.getUser()
-      await supabase.from('profiles').delete().eq('id', data.user.id)
-
-      if (error) throw error
+      await supabase.from('users').delete().eq('id', blocsUser.id)
+      await supabase.auth.admin.deleteUser(blocsUser.supabaseUserId)
 
       handle200Response(res, {
         message: 'Sad to see you go! Your account has been deleted'

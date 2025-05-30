@@ -1,4 +1,3 @@
-import { getBlocsUser } from '@/lambda/helpers/faunadb/getBlocsUserRef'
 import Rest from '@/lambda/lib/rest'
 import getWidgetUser from '@/lambda/middlewares/getWidgetUser'
 import { getBearerToken } from '@/lambda/middlewares/getBearerToken'
@@ -12,7 +11,6 @@ const handler = async (req, res) => {
 
   await getBearerToken(req, res, rest)
   await getWidgetUser(req, res, rest)
-  await getBlocsUser(req, res, rest)
 
   await rest.get(getPomodoroPresets)
   await rest.post(postPomodoroPreset)

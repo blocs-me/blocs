@@ -1,11 +1,17 @@
-import faunaClient from '@/lambda/faunaClient'
 import { validateHabitTrackerAnalytics } from '@/lambda/lib/restValidator/jsonValidator'
-import { query as q, query } from 'faunadb'
 import { getPercent } from '../../../utils/math/getPercent'
 import { calculateStreak, handleUpdate } from './calculateAndUpdateStreak'
-import canPerformAction from '../../helpers/faunadb/canPerformAction'
+import canPerformAction from '../../helpers/supabase/canPerformAction'
+import supabase from '@/lambda/helpers/supabase'
+import { HabitItem } from '@/gtypes/habit-tracker'
+import { NextApiRequest } from 'next'
+import { NextApiResponse } from 'next'
+import { mapWidgetAccessTokenToType } from '@/lambda/helpers/supabase/mapDbToType'
 
-const saveHabitTrackerAnalytics = async (req, res) => {
+const saveHabitTrackerAnalytics = async (
+  req: NextApiRequest,
+  res: NextApiResponse
+) => {
   const isValid = validateHabitTrackerAnalytics(req.body)
   const { role } = req.query
 
@@ -25,15 +31,22 @@ const saveHabitTrackerAnalytics = async (req, res) => {
   const { widgetToken } = req.query
   const { habitIds, isoDateString } = req.body
 
-  const widgetIndexKey = role === 'blocs-user' ? 'widget_by_token' : null
+  const widgetIndexKey = role === 'blocs-user' ? 'token' : null
 
-  const widget = await faunaClient
-    .query(q.Get(q.Match(q.Index(widgetIndexKey), widgetToken)))
-    .then((data) => data)
-    .catch((error) => {
-      console.error(error)
-      return null
+  if (!widgetIndexKey) {
+    res.status(400).json({
+      status: 400,
+      error: {
+        message: '[Bad Request] Provided data is incorrect'
+      }
     })
+  }
+
+  const { data: widget } = await supabase
+    .from('widget_access_tokens')
+    .select('*')
+    .eq(widgetIndexKey, widgetToken)
+    .maybeSingle()
 
   if (!widget) {
     res.status(404).json({
@@ -45,29 +58,20 @@ const saveHabitTrackerAnalytics = async (req, res) => {
   }
 
   const hasPermission = await canPerformAction(
-    widget.data.userId,
+    widget.user_id,
     'habitTracker',
     res
   )
   if (!hasPermission) return null
 
-  const existingAnalyticsDoc = await faunaClient
-    .query(
-      q.Get(
-        q.Match(
-          q.Index('habit_trackers_analytics_by_iso_date_str'),
-          isoDateString,
-          widget.ref
-        )
-      )
-    )
-    .then((data) => data)
-    .catch((error) => {
-      console.error(error)
-      return null
-    })
+  const { data: existingAnalyticsDoc } = await supabase
+    .from('habit_tracker_analytics')
+    .select('*')
+    .eq('iso_date_string', isoDateString)
+    .eq('widget_id', widget.id)
+    .maybeSingle()
 
-  const allHabits = widget.data.habits
+  const allHabits = (widget.habits as unknown as HabitItem[]) || []
   const habitsBelongsToUser = habitIds.every((habitId) =>
     allHabits.find((realHabit) => realHabit.id === habitId)
   )
@@ -86,41 +90,37 @@ const saveHabitTrackerAnalytics = async (req, res) => {
 
     const habitsDone = habitIds
 
+    const mappedWidget = mapWidgetAccessTokenToType(widget)
     const updatedStreaks = await calculateStreak(
       percentDone,
-      widget,
+      mappedWidget,
       isoDateString
     )
-      .then((data) => data)
-      .catch((error) => {
-        console.error(error)
-        return widget
-      })
 
     const streaks = await handleUpdate(updatedStreaks, widget)
 
-    const updatedData = await faunaClient
-      .query(
-        q.Update(existingAnalyticsDoc.ref, {
-          data: {
-            habitsDone,
-            percentDone
-          }
-        })
-      )
-      .then((data) => data as { data: any })
-      .catch((err) => {
-        console.error(err)
-        return null
+    const { data: updatedData, error } = await supabase
+      .from('habit_tracker_analytics')
+      .update({
+        habits_done: habitsDone,
+        percent_done: percentDone
       })
+      .eq('id', existingAnalyticsDoc.id)
+      .select()
+      .single()
+
+    if (error) {
+      console.error(error)
+      return null
+    }
 
     return res.status(200).json({
       status: 200,
       data: {
-        percentDone: updatedData?.data?.percentDone,
-        habitsDone: updatedData?.data?.habitsDone,
-        bestStreak: streaks.data.bestStreak,
-        currentStreak: streaks.data.currentStreak
+        percentDone: updatedData?.percent_done,
+        habitsDone: updatedData?.habits_done,
+        bestStreak: streaks?.bestStreak,
+        currentStreak: streaks?.currentStreak
       }
     })
   }
@@ -129,29 +129,28 @@ const saveHabitTrackerAnalytics = async (req, res) => {
     const percentDone = getPercent(1, allHabits.length, 'floor')
     const habitsDone = habitIds
 
-    const newAnalyticsData = await faunaClient
-      .query(
-        q.Create(q.Collection('habit_tracker_analytics'), {
-          data: {
-            habitsDone,
-            percentDone,
-            isoDateString,
-            widgetRef: widget.ref,
-            createdAt: q.Date(isoDateString)
-          }
-        })
-      )
-      .then((data) => data as { data: any })
-      .catch((err) => {
-        console.error(err)
-        return null
+    const { data: newAnalyticsData, error } = await supabase
+      .from('habit_tracker_analytics')
+      .insert({
+        habits_done: habitsDone,
+        percent_done: percentDone,
+        iso_date_string: isoDateString,
+        widget_id: widget.id,
+        created_at: new Date(isoDateString)
       })
+      .select()
+      .single()
+
+    if (error) {
+      console.error(error)
+      return null
+    }
 
     res.status(200).json({
       status: 200,
       data: {
-        percentDone: newAnalyticsData?.data?.percentDone,
-        habitsDone: newAnalyticsData?.data?.habitsDone
+        percentDone: newAnalyticsData?.percent_done,
+        habitsDone: newAnalyticsData?.habits_done
       }
     })
   } catch (error) {

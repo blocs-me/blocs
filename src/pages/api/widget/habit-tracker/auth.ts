@@ -1,16 +1,12 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import Ajv from 'ajv'
-import { queryGuard } from '@/lambda/helpers/faunadb/queryGuard'
-import faunaClient from '@/lambda/faunaClient'
-import { query as q } from 'faunadb'
 import {
   handle200Response,
   handle404Response,
   handle400Response
 } from '@/lambda/helpers/handleResponses'
-import userOwnsWidget from '@/lambda/helpers/faunadb/userOwnsWidget'
-import { IHabitTrackerWidget } from '../../../../global-types/habit-tracker'
-import { BlocsUserServer } from '@/gtypes/blocs-user'
+import supabase from '@/lambda/helpers/supabase'
+import userOwnsWidget from '@/lambda/helpers/supabase/userOwnsWidget'
 // shows premium status of widget
 
 const ajv = new Ajv()
@@ -38,25 +34,28 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
   const { widgetToken, role } = req.query
 
-  const widgetIndex =
-    role === 'blocs-user' ? 'widget_by_token' : 'widget_by_shareable_token'
+  const field = role === 'blocs-user' ? 'token' : 'shareable_token'
 
-  const widget = await queryGuard<IHabitTrackerWidget>(() =>
-    faunaClient.query(q.Get(q.Match(q.Index(widgetIndex), widgetToken)))
-  )
+  const { data: widget } = await supabase
+    .from('widget_access_tokens')
+    .select('user_id')
+    .eq(field, widgetToken)
+    .maybeSingle()
 
   if (!widget) return handle404Response(res)
 
-  const hasPermission = await userOwnsWidget(widget.data.userId, 'habitTracker')
+  const hasPermission = await userOwnsWidget(widget.user_id, 'habitTracker')
 
-  const user: BlocsUserServer = await faunaClient.query(
-    q.Get(q.Ref(q.Collection('users'), widget.data.userId))
-  )
+  const { data: user } = await supabase
+    .from('users')
+    .select('*')
+    .eq('id', widget.user_id)
+    .single()
 
   handle200Response(res, {
     data: {
       isPremium: hasPermission,
-      avatar_url: role === 'blocs-user' ? user?.data.avatar_url : undefined
+      avatar_url: role === 'blocs-user' ? user?.avatar_url : undefined
     }
   })
 }

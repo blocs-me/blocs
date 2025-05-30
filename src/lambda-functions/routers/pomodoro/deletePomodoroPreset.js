@@ -1,7 +1,6 @@
-import faunaClient from '@/lambda/faunaClient'
+import supabase from '@/lambda/helpers/supabase'
+import { supabaseQueryGuard } from '@/lambda/helpers/supabase/queryGuard'
 import { validatePomodoroPreset } from '@/lambda/lib/restValidator/jsonValidator'
-import { query as q } from 'faunadb'
-import { queryGuard } from '@/lambda/helpers/faunadb/queryGuard'
 
 const deletePomodoroPreset = async (req, res, rest) => {
   const { user, body: preset } = req
@@ -16,27 +15,30 @@ const deletePomodoroPreset = async (req, res, rest) => {
     })
   }
 
-  const { userRef } = rest
+  const { userId } = rest
 
   try {
-    const userPresets = await faunaClient.query(
-      q.Call(q.Function('get_pomodoro_presets_by_user_ref'), userRef)
-    )
+    const { data: userPresets } = await supabase
+      .from('pomodoro_presets')
+      .select('*')
+      .eq('user_id', userId)
 
-    const canDelete = userPresets?.data?.length > 1
+    const canDelete = userPresets?.length > 1
 
     if (!canDelete) {
       const error = new Error(
-        'Cannot delete,you  need at least than one pomodoro preset'
+        'Cannot delete, you need at least one pomodoro preset'
       )
 
       throw error
     }
 
-    const curPreset = await queryGuard(() =>
-      faunaClient.query(
-        q.Get(q.Match(q.Index('pomodoro_preset_by_id'), preset?.id))
-      )
+    const curPreset = await supabaseQueryGuard(() =>
+      supabase
+        .from('pomodoro_presets')
+        .select('*')
+        .eq('id', preset?.id)
+        .single()
     )
 
     if (!curPreset) {
@@ -46,20 +48,19 @@ const deletePomodoroPreset = async (req, res, rest) => {
       throw err
     }
 
-    const deletedPreset = await faunaClient.query(
-      q.Update(curPreset.ref, {
-        data: {
-          isDeleted: true
-        }
-      })
-    )
+    const { data: deletedPreset, error: deletedPresetError } = await supabase
+      .from('pomodoro_presets')
+      .delete()
+      .eq('id', preset?.id)
+      .select()
+      .single()
 
-    if (deletedPreset?.error) {
-      const errorObject = new Error(deletedPreset.error)
+    if (deletedPresetError) {
+      const errorObject = new Error(deletedPresetError.message)
       throw errorObject
     }
 
-    res.status(200).json({ data: deletedPreset?.data })
+    res.status(200).json({ data: deletedPreset })
   } catch (error) {
     console.log(error)
     res.status(500).json({

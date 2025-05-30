@@ -1,9 +1,8 @@
 import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs'
 import { NextApiRequest, NextApiResponse } from 'next'
-import faunaClient from '../faunaClient'
-import { queryGuard } from '../helpers/faunadb/queryGuard'
-import { query as q } from 'faunadb'
 import { BlocsUserServer as BlocsUser } from '../../global-types/blocs-user'
+import { supabaseQueryGuard } from '../helpers/supabase/queryGuard'
+import { mapUserToBlocUserServer } from '../helpers/supabase/mapDbToType'
 
 const getBlocsUser = async (req: NextApiRequest, res: NextApiResponse) => {
   const supabase = createServerSupabaseClient({ req, res })
@@ -19,15 +18,17 @@ const getBlocsUser = async (req: NextApiRequest, res: NextApiResponse) => {
     return null
   }
 
-  let blocsUser = await queryGuard(
+  let blocsUser = await supabaseQueryGuard(
     () =>
-      faunaClient.query(
-        q.Get(q.Match(q.Index('all_users_by_email'), data?.user?.email))
-      ),
+      supabase
+        .from('users')
+        .select('*')
+        .eq('supabase_user_id', data?.user?.id)
+        .maybeSingle(),
     true
   )
 
-  return blocsUser as BlocsUser
+  return mapUserToBlocUserServer(blocsUser) as BlocsUser
 }
 
 export default getBlocsUser

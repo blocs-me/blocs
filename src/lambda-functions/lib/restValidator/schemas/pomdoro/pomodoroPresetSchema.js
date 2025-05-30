@@ -1,46 +1,46 @@
 const pomodoroPresetSchema = {
-  type: "object",
+  type: 'object',
   properties: {
     label: {
-      type: "string",
-      minLength: 1,
+      type: 'string',
+      minLength: 1
     },
     labelColor: {
-      type: "string",
+      type: 'string',
       minLength: 4,
-      maxLength: 7,
+      maxLength: 7
     },
     pomodoroInterval: {
-      type: "number",
+      type: 'number',
       minimum: 300000,
-      maximum: 7200000,
+      maximum: 7200000
     },
     shortBreakInterval: {
-      type: "number",
+      type: 'number',
       minimum: 0,
-      maximum: 7200000,
+      maximum: 7200000
     },
     longBreakInterval: {
-      type: "number",
+      type: 'number',
       minimum: 0,
-      maximum: 7200000,
+      maximum: 7200000
     },
     id: {
-      type: ["string", "null"],
+      type: ['string', 'null']
     },
     defaultPreset: {
-      type: "boolean",
-    },
+      type: 'boolean'
+    }
   },
   required: [
-    "id",
-    "label",
-    "labelColor",
-    "pomodoroInterval",
-    "shortBreakInterval",
-    "longBreakInterval",
+    'id',
+    'label',
+    'labelColor',
+    'pomodoroInterval',
+    'shortBreakInterval',
+    'longBreakInterval'
   ],
-  additionalProperties: false,
+  additionalProperties: false
 }
 
 export default pomodoroPresetSchema

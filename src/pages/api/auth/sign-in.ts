@@ -4,13 +4,10 @@ import {
   handle500Response,
   handle200Response
 } from '../../../lambda-functions/helpers/handleResponses'
-import { queryGuard } from '@/lambda/helpers/faunadb/queryGuard'
-import faunaClient from '@/lambda/faunaClient'
-import { query as q } from 'faunadb'
+import { supabaseQueryGuard } from '../../../lambda-functions/helpers/supabase/queryGuard'
 import { BlocsUserServer } from '../../../global-types/blocs-user'
-import addUserToMailingList from '@/lambda/helpers/addUserToMailingList'
 import Stripe from 'stripe'
-import { getCurrentISOString } from '@/utils/dateUtils/getCurrentISOString'
+import { mapUserToBlocUserServer } from '@/lambda/helpers/supabase/mapDbToType'
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
   apiVersion: '2023-08-16',
@@ -18,11 +15,11 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
 })
 
 const getClientUserData = (blocsUser: BlocsUserServer) => ({
-  email: blocsUser?.data?.email,
-  avatar_url: blocsUser?.data?.avatar_url,
-  name: blocsUser?.data?.name,
-  stripeCustomerId: blocsUser?.data?.stripeCustomerId || null,
-  freeTrialStartedAt: blocsUser?.data?.freeTrialStartedAt
+  email: blocsUser?.email,
+  avatar_url: blocsUser?.avatar_url,
+  name: blocsUser?.name,
+  stripeCustomerId: blocsUser?.stripeCustomerId || null,
+  freeTrialStartedAt: blocsUser?.freeTrialStartedAt
 })
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -33,64 +30,75 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         res
       })
 
-      const { data, error } = await supabase.auth.getUser()
+      const { data: authData, error: authError } = await supabase.auth.getUser()
 
-      if (error) throw error
+      if (authError) throw authError
 
-      let blocsUserById: BlocsUserServer = await queryGuard(
-        () =>
-          faunaClient.query(
-            q.Get(
-              q.Match(q.Index('all_users_by_supabase_user_id'), data?.user?.id)
-            )
-          ),
-        true
-      )
+      let blocsUserById: BlocsUserServer =
+        await supabaseQueryGuard<BlocsUserServer>(
+          () =>
+            supabase
+              .from('users')
+              .select('*')
+              .eq('supabase_user_id', authData?.user?.id)
+              .single(),
+          true
+        )
+      blocsUserById = mapUserToBlocUserServer(blocsUserById)
 
-      let blocsUserByEmail: BlocsUserServer = await queryGuard(
-        () =>
-          faunaClient.query(
-            q.Get(q.Match(q.Index('all_users_by_email'), data?.user?.email))
-          ),
-        true
-      )
+      let blocsUserByEmail: BlocsUserServer =
+        await supabaseQueryGuard<BlocsUserServer>(
+          () =>
+            supabase
+              .from('users')
+              .select('*')
+              .eq('email', authData?.user?.email)
+              .single(),
+          true
+        )
+
+      blocsUserByEmail = mapUserToBlocUserServer(blocsUserByEmail)
 
       if (blocsUserById && !blocsUserByEmail) {
         // implies email has changed
-        let blocsUser: BlocsUserServer = await faunaClient.query(
-          q.Update(blocsUserById.ref, {
-            data: {
-              email: data?.user?.email
-            }
-          })
-        )
+        const { data: updatedUser, error: updateError } = await supabase
+          .from('users')
+          .update({ email: authData?.user?.email })
+          .eq('id', blocsUserById.id)
+          .select()
+          .single()
 
-        await stripe.customers.update(blocsUser.data.stripeCustomerId, {
-          email: data?.user?.email
+        if (updateError) throw updateError
+
+        await stripe.customers.update(updatedUser.stripeCustomerId, {
+          email: authData?.user?.email
         })
 
         return handle200Response(res, {
           data: {
-            user: getClientUserData(blocsUser)
+            user: getClientUserData(updatedUser)
           }
         })
       }
 
       if (!blocsUserById && blocsUserByEmail) {
         // already existing user signs in with supabase for the first time
-
-        let blocsUser: BlocsUserServer = await faunaClient.query(
-          q.Update(blocsUserByEmail.ref, {
-            data: {
-              supabaseUserId: data?.user?.id,
-              freeTrialStartedAt: new Date().toISOString()
-            }
+        const { data: updatedUser, error: updateError } = await supabase
+          .from('users')
+          .update({
+            supabase_user_id: authData?.user?.id,
+            free_trial_started_at: new Date().toISOString()
           })
-        )
+          .eq('id', blocsUserByEmail.id)
+          .select()
+          .single()
+
+        const updatedUserMapped = mapUserToBlocUserServer(updatedUser)
+        if (updateError) throw updateError
 
         return handle200Response(res, {
           data: {
-            user: getClientUserData(blocsUser)
+            user: getClientUserData(updatedUserMapped)
           }
         })
       }
@@ -99,16 +107,18 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
       if (!blocsUserByEmail && !blocsUserById) {
         // first time sign in
-
-        blocsUser = (await faunaClient.query(
-          q.Create(q.Collection('users'), {
-            data: {
-              email: data?.user?.email,
-              supabaseUserId: data?.user?.id,
-              freeTrialStartedAt: new Date().toISOString()
-            }
+        const { data: newUser, error: createError } = await supabase
+          .from('users')
+          .insert({
+            email: authData?.user?.email,
+            supabase_user_id: authData?.user?.id,
+            free_trial_started_at: new Date().toISOString()
           })
-        )) as BlocsUserServer
+          .select()
+          .single()
+
+        if (createError) throw createError
+        blocsUser = mapUserToBlocUserServer(newUser)
       }
 
       if (blocsUserByEmail || blocsUserById) {

@@ -1,10 +1,13 @@
-import faunaClient from '@/lambda/faunaClient'
+import supabase from '@/lambda/helpers/supabase'
+import {
+  mapPomodoroPresetToType,
+  mapTypeToPomodoroPreset
+} from '@/lambda/helpers/supabase/mapDbToType'
 import { validatePomodoroPreset } from '@/lambda/lib/restValidator/jsonValidator'
-import { query as q } from 'faunadb'
 
 const patchPomodoroPreset = async (req, res, rest) => {
   const { body: preset } = req
-  const { userRef } = rest
+  const { userId } = rest
 
   const isValid = validatePomodoroPreset(preset)
   if (!isValid) {
@@ -16,20 +19,26 @@ const patchPomodoroPreset = async (req, res, rest) => {
   }
 
   try {
-    const updatedPreset = await faunaClient.query(
-      q.Call(q.Function('update_pomodoro_preset'), [
-        preset?.id,
-        userRef,
-        { data: preset }
-      ])
-    )
+    const { data: updatedPreset, error: updatedPresetError } = await supabase
+      .from('pomodoro_presets')
+      .update({
+        long_break_interval: preset.longBreakInterval,
+        short_break_interval: preset.shortBreakInterval,
+        pomodoro_interval: preset.pomodoroInterval,
+        label: preset.label,
+        label_color: preset.labelColor
+      })
+      .eq('id', preset?.id)
+      .eq('user_id', userId)
+      .select()
+      .single()
 
-    if (updatedPreset?.error) {
-      const errorObject = new Error(updatedPreset.error)
+    if (updatedPresetError) {
+      const errorObject = new Error(updatedPresetError.message)
       throw errorObject
     }
-
-    res.status(200).json({ data: updatedPreset?.data })
+    const remappedPreset = mapPomodoroPresetToType(updatedPreset)
+    res.status(200).json({ data: remappedPreset })
   } catch (err) {
     res
       .status(500)

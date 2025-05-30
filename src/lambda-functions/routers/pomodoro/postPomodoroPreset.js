@@ -1,6 +1,6 @@
-import faunaClient from '@/lambda/faunaClient'
+import supabase from '@/lambda/helpers/supabase'
+import { mapTypeToPomodoroPreset } from '@/lambda/helpers/supabase/mapDbToType'
 import { validatePomodoroPreset } from '@/lambda/lib/restValidator/jsonValidator'
-import { query as q } from 'faunadb'
 
 const postPomodoroPreset = async (req, res, rest) => {
   const preset = req.body
@@ -18,16 +18,21 @@ const postPomodoroPreset = async (req, res, rest) => {
   }
 
   try {
-    const faunaRes = await faunaClient.query(
-      q.Create(q.Collection('pomodoro_presets'), {
-        data: {
-          ...preset,
-          userId,
-          id: q.NewId()
-        }
+    const { data: preset_data } = await supabase
+      .from('pomodoro_presets')
+      .insert({
+        long_break_interval: preset.longBreakInterval,
+        short_break_interval: preset.shortBreakInterval,
+        pomodoro_interval: preset.pomodoroInterval,
+        label: preset.label,
+        label_color: preset.labelColor,
+        default_preset: preset.defaultPreset,
+        user_id: userId
       })
-    )
-    res.status(200).json({ data: faunaRes?.data })
+      .select()
+      .single()
+
+    res.status(200).json({ data: preset_data })
   } catch (err) {
     console.error(err)
     res.status(500).json({
