@@ -19,13 +19,13 @@ const getWidgetUser = async (req, res, rest) => {
         .from('widget_access_tokens')
         .select('*')
         .eq(field, token)
-        .single()
+        .maybeSingle()
     )
 
     const widgetMapped = mapWidgetAccessTokenToType(widget)
 
-    const userId = widgetMapped.userId
-    const widgetToken = widgetMapped.token
+    const userId = widgetMapped?.userId || null
+    const widgetToken = widgetMapped?.token || null
 
     if (!userId || !widgetToken) {
       throw new Error('Unauthorized Access')
