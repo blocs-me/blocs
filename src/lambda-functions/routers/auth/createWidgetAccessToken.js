@@ -21,10 +21,7 @@ const createWidgetAccessToken = async (req, res) => {
     const blocsUser = await getBlocsUser(req, res)
 
     if (!blocsUser?.id) {
-      await supabase.auth.signOut()
-      return res.redirect(307, '/signin', {
-        error: 'blocs user not defined'
-      })
+      return res.status(401).json({ error: 'Unauthorized' })
     }
 
     const blocsUserId = blocsUser?.id
