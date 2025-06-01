@@ -85,16 +85,18 @@ export const SlackPurchaseNotification = async (body: {
 }) => {
   const { customer_name, email, plan_name, unit_price } = body
   try {
-    const messageRes = await fetch('https://slack.com/api/chat.postMessage', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${process.env.NEXT_PUBLIC_SLACK_TOKEN}`
-      },
-      body: JSON.stringify(
-        createMessage(customer_name, email, plan_name, unit_price)
-      )
-    })
+    const messageRes = await fetch(
+      'https://hooks.slack.com/services/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',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(
+          createMessage(customer_name, email, plan_name, unit_price)
+        )
+      }
+    )
 
     if (!messageRes.ok) {
       throw new Error(
