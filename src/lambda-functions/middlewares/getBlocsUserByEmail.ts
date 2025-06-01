@@ -5,7 +5,7 @@ import { mapUserToBlocUserServer } from '../helpers/supabase/mapDbToType'
 
 const getBlocsUserByEmail = async (email: string) => {
   const blocsUser = await supabaseQueryGuard(() =>
-    supabase.from('users').select('*').eq('email', email).single()
+    supabase.from('users').select('*').eq('email', email).maybeSingle()
   )
 
   return mapUserToBlocUserServer(blocsUser) as BlocsUserServer

@@ -135,8 +135,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         )
 
         await updateUserData(user, {
-          stripeCustomerId: customerId,
-          purchasedProducts
+          stripe_customer_id: customerId,
+          purchased_products: purchasedProducts
         })
 
         // Send Slack notification
@@ -164,8 +164,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
         user = await getBlocsUserByEmail(stripeObject.email)
         if (user) {
-          updateUserData(user, {
-            stripeCustomerId: stripeObject.id
+          await updateUserData(user, {
+            stripe_customer_id: stripeObject.id
           })
         }
 
@@ -239,7 +239,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         )
 
         await updateUserData(user, {
-          purchasedProducts: updatedPurchasedProducts
+          purchased_products: updatedPurchasedProducts
         })
 
         break

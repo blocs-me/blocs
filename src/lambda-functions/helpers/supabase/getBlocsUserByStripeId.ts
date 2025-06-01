@@ -7,8 +7,8 @@ const getBlocsUserByStripeCustomerId = async (stripeCustomerId: string) => {
     supabase
       .from('users')
       .select('*')
-      .eq('stripeCustomerId', stripeCustomerId)
-      .single()
+      .eq('stripe_customer_id', stripeCustomerId)
+      .maybeSingle()
   )
   return blocsUser
 }

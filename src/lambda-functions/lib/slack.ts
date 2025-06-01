@@ -84,6 +84,8 @@ export const SlackPurchaseNotification = async (body: {
   unit_price: string
 }) => {
   const { customer_name, email, plan_name, unit_price } = body
+  const price = Number(unit_price)
+  const total = price > 0 ? price / 100 : 0
   try {
     const messageRes = await fetch(
       'https://hooks.slack.com/services/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',
@@ -93,7 +95,7 @@ export const SlackPurchaseNotification = async (body: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(
-          createMessage(customer_name, email, plan_name, unit_price)
+          createMessage(customer_name, email, plan_name, total.toString())
         )
       }
     )
