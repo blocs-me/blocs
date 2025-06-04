@@ -33,7 +33,7 @@ const getPomodoroAnalytics = async (
       .from('widget_access_tokens')
       .select('*')
       .eq(widgetIndex, widgetToken)
-      .single()
+      .maybeSingle()
   )
 
   const widgetMapped = mapWidgetAccessTokenToType(widget)

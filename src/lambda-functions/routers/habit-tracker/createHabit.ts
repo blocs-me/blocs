@@ -5,6 +5,7 @@ import { handle200Response } from '../../helpers/handleResponses'
 import canPerformAction from '../../helpers/supabase/canPerformAction'
 import supabase from '@/lambda/helpers/supabase'
 import { mapWidgetAccessTokenToType } from '@/lambda/helpers/supabase/mapDbToType'
+import crypto from 'crypto'
 
 const createHabit = async (req: NextApiRequest, res: NextApiResponse) => {
   const isValid = validateHabitSchema(req.body)

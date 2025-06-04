@@ -19,7 +19,7 @@ export const handleUpdate = async (
     const { data: updated } = await supabase
       .from('widget_access_tokens')
       .update({
-        best_streak: newData.bestStreak,
+        best_streak: newData.bestStreak || 0,
         best_streak_updated_at: newData.bestStreakUpdatedAt,
         current_streak: newData.currentStreak,
         current_streak_updated_at: newData.currentStreakUpdatedAt
