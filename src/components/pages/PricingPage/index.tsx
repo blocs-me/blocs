@@ -276,28 +276,31 @@ const PricingPage = () => {
               </Box>)}
             </PricingCard>
             <PricingCard
-              header="Lifestyle Basic"
-              price={isYearly ? "24" : "4"}
+              header="Lifestyle Team"
+              price={isYearly ? "16" : "3"}
               priceAnchor=''
-              priceDescSmall={isYearly ? "/ year per widget" : "/ month per widget"}
+              priceDescSmall={isYearly ? "/ year per user" : "/ month per user"}
               priceDescFootprint={''}
-              priceDescLarge="Best plan to change specific habits."
-              cta={isLifestyleBasic(purchases) ? "Add more" : "Start now"}
+              priceDescLarge="Best plan to change habits for your team."
+              cta={"Register Now"}
               isPremium
               isCurrentPlan={isLifestyleBasic(purchases)}
-              disableButton={isLifestylePro(purchases)}
-              onClick={handleBuyMultiWidgets}
+              disableButton={false}
+              onClick={() => window.open('https://tally.so/r/mOqvKg', '_blank')}
             >
               <PricingCardCheckbox text="Pomodoro" />
-              <PricingCardCheckbox text="or Water Analytics" />
-              <PricingCardCheckbox text="or Habit Tracker" />
+              <PricingCardCheckbox text="Water Analytics" />
+              <PricingCardCheckbox text="Habit Tracker" />
+              <PricingCardCheckbox text="Team Ranking" />
               <Box height="20px" />
               <Text variant="pSmall">Analytics:</Text>
               <PricingCardCheckbox text="Unlimited analytics data retention" />
               <PricingCardCheckbox text="Weekly / monthly analytics" />
+              <PricingCardCheckbox text="Best of the week ranking" />
 
               <Text variant="pSmall">Extras:</Text>
               <PricingCardCheckbox text="Share your progress with friends" />
+              <PricingCardCheckbox text="Share your team ranking on your website or screen" />
               <PricingCardCheckbox text="Save data to notion (coming soon)" />
               {isLifestyleBasic(purchases) && (<Box
                 position="absolute"
