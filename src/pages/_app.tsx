@@ -13,7 +13,6 @@ function MyApp({ Component, pageProps }) {
         {process.env.NEXT_PUBLIC_VERCEL_ENV === 'production' && (
           <>
             <script defer data-domain="blocs.me" src="https://plausible.io/js/script.tagged-events.js" />
-            <Script src="https://scripts.simpleanalyticscdn.com/latest.js" />
           </>
         )}
       </Head>
