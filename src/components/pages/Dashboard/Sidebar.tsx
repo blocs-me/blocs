@@ -206,12 +206,6 @@ const Sidebar = () => {
             text="Guide"
           />
           <NavButton
-            to="/feedback"
-            icon={<Giftbox />}
-            isActive={path === 'feedback'}
-            text="Feature Wishes"
-          />
-          <NavButton
             to="/dashboard/settings"
             icon={<Gear />}
             isActive={path === 'settings'}
