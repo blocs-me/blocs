@@ -66,6 +66,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         ...paymentOptions,
         line_items: products,
         mode: 'subscription',
+        allow_promotion_codes: true,
         success_url: `${req.headers.origin}/dashboard/pomodoro?payment_success=true`,
         cancel_url: `${req.headers.origin}/pricing?canceled=true`,
         automatic_tax: { enabled: true },
