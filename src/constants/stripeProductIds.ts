@@ -4,7 +4,7 @@ export type ProductIds = {
 }
 
 const production = {
-  lifestylePro: 'prod_NAsBHn5G2gY7YR',
+  lifestylePro: 'prod_UAHNvUa6RAPJaJ',
   lifetimeAccess: 'prod_NIfHOoMMB6Nc86',
   waterTracker: 'prod_NAsIXOtxrA0jDS',
   habitTracker: 'prod_NAsGMR57WW9rFj',
