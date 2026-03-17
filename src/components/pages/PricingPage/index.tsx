@@ -97,7 +97,7 @@ const PricingPage = () => {
               textAlign="center"
               lineHeight={1.3}
             >
-              Stop leaving Notion to start a timer
+              Stop leaving Notion for your productivity tools
             </Text>
             <Text
               as="h2"
