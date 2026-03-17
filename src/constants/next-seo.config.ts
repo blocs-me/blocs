@@ -1,18 +1,17 @@
 const nextSeoConfig = {
   openGraph: {
-    title: 'blocs | notion widgets for habit tracking',
+    title: 'Blocs — Notion Widgets for Focus & Habits',
     type: 'website',
     description:
-      'Pricing for blocs widgets | €30 for lifetime access | €4 for any blocs notion widget; own it forever',
+      'Stay focused inside Notion with Pomodoro, Habit Tracker, and Water Tracker widgets. Embed directly into your workspace.',
     images: [
       {
         url: 'https://blocs.me/blocs-social-banner.png',
-        alt: 'Blocs notion widget social banner'
+        alt: 'Blocs — Notion Widgets for Focus & Habits'
       }
     ]
   },
   twitter: {
-    handle: '@__moniet',
     cardType: 'summary_large_image'
   }
 }
