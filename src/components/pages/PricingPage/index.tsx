@@ -18,6 +18,7 @@ import Nav from '@/design-system/Nav'
 import nextSeoConfig from '@/constants/next-seo.config'
 import Switch from '@/design-system/Switch'
 import { isLifestylePlan, isLifestylePro } from '@/lambda/helpers/subscriptionChecker'
+import { PRO_PLAN_NAME } from '@/constants/planNames'
 
 type Products = {
   price: string
@@ -166,7 +167,7 @@ const PricingPage = () => {
             mt="sm"
           >
             <PricingCard
-              header="Focus Pro"
+              header={PRO_PLAN_NAME}
               isLifetime
               price={isYearly ? "36" : "5"}
               priceAnchor=''
@@ -176,7 +177,7 @@ const PricingPage = () => {
                 ? "That's $3/mo — less than a single coffee."
                 : "Cancel anytime. No commitment."
               }
-              cta={isLifestylePro(purchases) ? "Current Plan" : "Get Focus Pro"}
+              cta={isLifestylePro(purchases) ? "Current Plan" : `Get ${PRO_PLAN_NAME}`}
               ctaColor="brand.accent-1"
               ctaTrackEventName="buy-lifestyle-pro"
               isPremium

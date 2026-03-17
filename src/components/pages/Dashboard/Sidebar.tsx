@@ -1,6 +1,7 @@
 import Avatar from '@/design-system/Avatar'
 import Button from '@/design-system/Button'
 import Flex from '@/helpers/Flex'
+import { PRO_PLAN_NAME } from '@/constants/planNames'
 import Link from 'next/link'
 import { Document } from 'src/icons/document'
 import Drop from 'src/icons/drop-icon'
@@ -171,7 +172,7 @@ const Sidebar = () => {
               textAlign={'center'}
               css={{ userSelect: 'none' }}
             >
-              {purchases.lifetimeAccess ? ("Lifetime Access") : ("Lifestyle Pro")}
+              {purchases.lifetimeAccess ? ("Lifetime Access") : (PRO_PLAN_NAME)}
             </Button>
           </Box>
         )}
