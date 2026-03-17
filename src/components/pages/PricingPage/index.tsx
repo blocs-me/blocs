@@ -8,19 +8,16 @@ import PricingCardCheckbox from './PricingCardCheckbox/PricingCardCheckbox'
 import stripePriceIds from '../../../constants/stripePriceIds'
 import { useRouter } from 'next/router'
 import Stripe from 'stripe'
-import { MouseEvent, useEffect, useState } from 'react'
-import BuyMultipleWidgetsModals from './BuyMultipleWidgetsModal'
+import { MouseEvent, useState } from 'react'
 import useBlocsUser from '@/hooks/useBlocsUser'
 import { BlocsUserClient } from '../../../global-types/blocs-user'
 import Modal from '@/design-system/Modal'
 import Button from '@/design-system/Button'
-import Sparkles from '@/design-system/Sparkles'
-import float from '@/keyframes/float'
 import { NextSeo } from 'next-seo'
 import Nav from '@/design-system/Nav'
 import nextSeoConfig from '@/constants/next-seo.config'
 import Switch from '@/design-system/Switch'
-import { isLifestyleBasic, isLifestylePlan, isLifestylePro } from '@/lambda/helpers/subscriptionChecker'
+import { isLifestylePlan, isLifestylePro } from '@/lambda/helpers/subscriptionChecker'
 
 type Products = {
   price: string
@@ -43,7 +40,7 @@ const handleStripeCheckout = async (products: Products) => {
   }
 }
 
-const subscribeLifestylePro = async (blocsUser: BlocsUserClient, yearly: boolean = false) => {
+const subscribePro = async (blocsUser: BlocsUserClient, yearly: boolean = false) => {
   await handleStripeCheckout([
     {
       price: yearly ? stripePriceIds.yearly.lifestylePro : stripePriceIds.monthly.lifestylePro,
@@ -56,33 +53,17 @@ const PricingPage = () => {
   const router = useRouter()
   const { user, purchases } = useBlocsUser()
   const [showSignInMessage, setShowSignInMessage] = useState(false)
-  const [showMultiWidgetModal, setShowMultiWidgetModal] = useState(false)
-  const [isLifetimeAccessLoading, setIsLifeTimeAccessLoading] = useState(false)
-  const [isYearly, setIsYearly] = useState(false)
+  const [isCheckoutLoading, setIsCheckoutLoading] = useState(false)
+  const [isYearly, setIsYearly] = useState(true)
 
-  const handleEv = (e: MouseEvent) => {
+  const handleBuyPro = async (e: MouseEvent) => {
     e.preventDefault()
     e.stopPropagation()
-  }
-
-  const handleBuyMultiWidgets = (e: MouseEvent) => {
-    handleEv(e)
-    if (!user) return setShowSignInMessage(true)
-    if (purchases?.lifetimeAccess) return null
-    setShowMultiWidgetModal(true);
-  }
-
-  const handleBuyLifetimeAccess = async (e: MouseEvent) => {
-    handleEv(e)
     if (!user) return setShowSignInMessage(true)
     if (!purchases?.lifestylePro) {
-      setIsLifeTimeAccessLoading(true)
-      await subscribeLifestylePro(user, isYearly)
+      setIsCheckoutLoading(true)
+      await subscribePro(user, isYearly)
     }
-  }
-
-  const handleYearOrMonthly = (e: MouseEvent) => {
-    setIsYearly(!isYearly)
   }
 
   const handleRedirect = () => router.push('/sign-in')
@@ -92,8 +73,8 @@ const PricingPage = () => {
       <Flex pt="80px" flexDirection="column" bg="background" maxWidth="100vw">
         <NextSeo
           {...nextSeoConfig}
-          title="Pricing | blocs notion widgets | habit tracker"
-          description="Pricing for blocs widgets | $69 for lifetime access | $32 for any blocs notion widget; own it forever"
+          title="Pricing | Blocs — Notion Widgets for Focus & Habits"
+          description="Stay focused inside Notion with Pomodoro, Habit Tracker, and Water Tracker widgets. Pro plan from $3/mo."
           canonical="https://blocs.me/pricing"
         />
         <Nav />
@@ -106,250 +87,150 @@ const PricingPage = () => {
           flexDirection="column"
           px="md"
         >
-          <div>
+          <Box maxWidth="560px">
             <Text
               as="h1"
               color="foreground"
-              mb="sm"
+              mb="xs"
               fontWeight={'bold'}
               fontSize="xl"
               textAlign="center"
+              lineHeight={1.3}
             >
-              Flexible Pricing Plans
+              Pays for itself the first time you stay focused instead of switching tabs
             </Text>
             <Text
               as="h2"
-              mt={0}
-              fontSize="sm"
+              mt="xs"
+              fontSize="md"
               fontWeight={400}
-              letterSpacing={'md'}
               color="primary.accent-4"
               textAlign="center"
+              lineHeight={1.5}
             >
-              Choose a plan that works best for you!
+              Pomodoro timer, habit tracker, and water tracker — all embedded directly in your Notion workspace.
             </Text>
-            <Flex flexDirection='row' center mt="md" mb="sm">
+            <Flex flexDirection='row' justifyContent="center" alignItems="center" mt="md" mb="sm">
               <Text
-                as="h3"
                 mt={0}
                 mb={0}
                 mr={16}
                 fontSize="md"
-                fontWeight={200}
-                letterSpacing={'md'}
-                color="primary.accent-4"
+                fontWeight={isYearly ? 200 : 600}
+                color={isYearly ? "primary.accent-4" : "foreground"}
                 textAlign="center"
               >
-                Pay monthly
+                Monthly
               </Text>
               <Switch
                 checked={isYearly}
                 id={'payment-switch'}
                 ariaLabel={'payment-switch'}
-                onChange={handleYearOrMonthly}
+                onChange={() => setIsYearly(!isYearly)}
               />
               <Text
-                as="h3"
-                mt={16}
+                mt={0}
                 mb={0}
                 ml={16}
                 fontSize="md"
-                fontWeight={200}
-                letterSpacing={'md'}
-                color="primary.accent-4"
+                fontWeight={isYearly ? 600 : 200}
+                color={isYearly ? "foreground" : "primary.accent-4"}
                 textAlign="center"
               >
-                Pay yearly<Text
-                  as="section"
-                  mt={4}
-                  mb={0}
-                  fontSize="xxs"
-                  fontWeight={600}
-                  letterSpacing={'sm'}
-                  color={"white"}
-                  textAlign="center"
-                >Save up to 50%</Text>
+                Yearly
               </Text>
+              {isYearly && (
+                <Box
+                  bg="brand.accent-5"
+                  borderRadius="sm"
+                  py="3px"
+                  px="xs"
+                  ml="xs"
+                >
+                  <Text
+                    fontSize="xxs"
+                    fontWeight={600}
+                    m={0}
+                    color="brand.accent-1"
+                  >
+                    Save 40%
+                  </Text>
+                </Box>
+              )}
             </Flex>
-          </div>
+          </Box>
 
           <Flex
-            css={{ gap: '1.8rem' }}
             width="100%"
             justifyContent="center"
-            flexWrap="wrap"
             mt="md"
           >
             <PricingCard
-              header="Free Trial"
-              price="0"
-              priceAnchor=''
-              priceDescSmall="Free 14 day trial to try out premium features"
-              priceDescLarge="Basic features will always be free!"
-              priceDescFootprint={''}
-              cta="Try for free"
-              isPremium={false}
-              disableButton={isLifestylePlan(purchases)}
-              onClick={(e) => router.push('/sign-in?start-free-trial=true')}
-            >
-              <PricingCardCheckbox text="Pomodoro" />
-              <PricingCardCheckbox text="Habit Tracker" isChecked={false} />
-              <PricingCardCheckbox text="Water Tracker" isChecked={false} />
-
-              <Text variant="pSmall">Analytics:</Text>
-              <PricingCardCheckbox text="One week of data retention" />
-              <PricingCardCheckbox
-                text="Unlimited analytics data retention"
-                isChecked={false}
-              />
-              <PricingCardCheckbox
-                text="Weekly / monthly analytics"
-                isChecked={false}
-              />
-            </PricingCard>
-            <PricingCard
-              header="Lifestyle Pro"
+              header="Focus Pro"
               isLifetime
-              price={isYearly ? "12" : "2"}
+              price={isYearly ? "36" : "5"}
               priceAnchor=''
               priceDescSmall={isYearly ? "/ year" : "/ month"}
               priceDescFootprint={''}
-              priceDescLarge="Best plan to change your habits."
-              cta={"Start now"}
+              priceDescLarge={isYearly
+                ? "That's $3/mo — less than a single coffee."
+                : "Cancel anytime. No commitment."
+              }
+              cta={isLifestylePro(purchases) ? "Current Plan" : "Get Focus Pro"}
               ctaColor="brand.accent-1"
               ctaTrackEventName="buy-lifestyle-pro"
               isPremium
-              onClick={handleBuyLifetimeAccess}
-              css={{
-                '@media (min-width: 1100px)': {
-                  transform: 'scale(1.05)'
-                },
-                '@media (max-width: 767px)': {
-                  order: -1
-                }
-              }}
+              onClick={handleBuyPro}
               boxShadow="lg"
               useCheckoutButton
               isCurrentPlan={isLifestylePro(purchases)}
-              disableButton={isLifestyleBasic(purchases) || isLifestylePro(purchases)}
-              isLoading={isLifetimeAccessLoading}
+              disableButton={isLifestylePlan(purchases)}
+              isLoading={isCheckoutLoading}
+              width={["100%", , "380px"]}
             >
-              <PricingCardCheckbox text="Pomodoro" />
-              <PricingCardCheckbox text="Water Analytics" />
-              <PricingCardCheckbox text="Habit Tracker" />
-              <PricingCardCheckbox text="All future widgets..." />
-              <Text variant="pSmall">Analytics:</Text>
-              <PricingCardCheckbox text="Unlimited analytics data retention" />
-              <PricingCardCheckbox text="Weekly / monthly analytics" />
-
-              <Text variant="pSmall">Extras:</Text>
-              <PricingCardCheckbox text="Share your progress with friends" />
-              <PricingCardCheckbox text="Save data to notion (coming soon)" />
-              <PricingCardCheckbox text="iOS and Android support (coming soon)" />
-              {!isLifestyleBasic(purchases) && (<Box
-                position="absolute"
-                color="background"
-                bg="brand.accent-1"
-                borderRadius="10px"
-                top={['xs', , , 'sm']}
-                right={['xxs', , , 'sm']}
-                border="solid 2px"
-                borderColor="brand.accent-4"
-                py="3px"
-                px="xs"
-                css={{
-                  animation: `${float} 1s ease-in-out infinite alternate`
-                }}
-              >
-                <Text
-                  fontSize="xxs"
-                  m={0}
-                  lineHeight={1.4}
-                  textAlign="center"
-                  color="neutral.white"
-                >
-                  <span>{isLifestylePro(purchases) ? "Current Plan" : "Most popular"}</span>
-                  <br />
-                </Text>
-              </Box>)}
-            </PricingCard>
-            <PricingCard
-              header="Lifestyle Team"
-              price={isYearly ? "16" : "3"}
-              priceAnchor=''
-              priceDescSmall={isYearly ? "/ year per user" : "/ month per user"}
-              priceDescFootprint={''}
-              priceDescLarge="Best plan to change habits for your team."
-              cta={"Register Now"}
-              isPremium
-              isCurrentPlan={isLifestyleBasic(purchases)}
-              disableButton={false}
-              onClick={() => window.open('https://tally.so/r/mOqvKg', '_blank')}
-            >
-              <PricingCardCheckbox text="Pomodoro" />
-              <PricingCardCheckbox text="Water Analytics" />
-              <PricingCardCheckbox text="Habit Tracker" />
-              <PricingCardCheckbox text="Team Ranking" />
-              <Box height="20px" />
-              <Text variant="pSmall">Analytics:</Text>
-              <PricingCardCheckbox text="Unlimited analytics data retention" />
-              <PricingCardCheckbox text="Weekly / monthly analytics" />
-              <PricingCardCheckbox text="Best of the week ranking" />
-
-              <Text variant="pSmall">Extras:</Text>
-              <PricingCardCheckbox text="Share your progress with friends" />
-              <PricingCardCheckbox text="Share your team ranking on your website or screen" />
-              <PricingCardCheckbox text="Save data to notion (coming soon)" />
-              {isLifestyleBasic(purchases) && (<Box
-                position="absolute"
-                color="background"
-                bg="brand.accent-1"
-                borderRadius="10px"
-                top={['xs', , , 'sm']}
-                right={['xxs', , , 'sm']}
-                border="solid 2px"
-                borderColor="brand.accent-4"
-                py="3px"
-                px="xs"
-                css={{
-                  animation: `${float} 1s ease-in-out infinite alternate`
-                }}
-              >
-                <Text
-                  fontSize="xxs"
-                  m={0}
-                  lineHeight={1.4}
-                  textAlign="center"
-                  color="neutral.white"
-                >
-                  <span>Current Plan</span>
-                  <br />
-                </Text>
-              </Box>)}
+              <PricingCardCheckbox text="Pomodoro timer with custom presets" />
+              <PricingCardCheckbox text="Habit tracker with streaks" />
+              <PricingCardCheckbox text="Water tracker with daily goals" />
+              <PricingCardCheckbox text="Unlimited analytics history" />
+              <PricingCardCheckbox text="Weekly and monthly progress reports" />
+              <PricingCardCheckbox text="Share progress with friends" />
+              <PricingCardCheckbox text="All future widgets included" />
+              <PricingCardCheckbox text="No branding on your widgets" />
             </PricingCard>
           </Flex>
+
+          <Text
+            mt="md"
+            fontSize="sm"
+            color="primary.accent-4"
+            textAlign="center"
+            lineHeight={1.6}
+          >
+            We also offer a{' '}
+            <Text
+              as="a"
+              fontSize="sm"
+              color="brand.accent-1"
+              css={{ cursor: 'pointer', textDecoration: 'underline' }}
+              onClick={() => router.push('/sign-in?start-free-trial=true')}
+            >
+              free 14-day trial
+            </Text>
+            {' '}so you can try everything before you commit.
+          </Text>
         </Flex>
         <Footer />
       </Flex>
-      <BuyMultipleWidgetsModals
-        isOpen={showMultiWidgetModal}
-        isYearly={isYearly}
-        onClose={(e) => {
-          e.stopPropagation()
-          setShowMultiWidgetModal(false)
-        }}
-        handleStripeCheckout={handleStripeCheckout}
-      />
 
       <Modal
         visible={showSignInMessage}
         hideModal={() => setShowSignInMessage(false)}
       >
         <Text variant="mediumBold" textAlign="center">
-          Thanks for your interest in the premium widgets!
+          One quick step before checkout
         </Text>
         <Text fontSize="md" textAlign="center" color="primary.accent-4">
-          You need to sign in to make the purchase
+          Sign in to your account to complete your purchase.
         </Text>
         <Button
           bg="brand.accent-1"

@@ -153,11 +153,10 @@ const PricingCard = ({
 
       <Box width="100%" height="1px" bg="primary.accent-1" />
       <div>
-        <Text color="foreground" fontSize="sm" fontWeight="bold" mb={0}>
-          Features:
+        <Text color="foreground" fontSize="sm" fontWeight="bold" mb="xs">
+          Everything you need:
         </Text>
         <ChildrenContainer>
-          <Text variant="pSmall">Widgets:</Text>
           {children}
         </ChildrenContainer>
       </div>
