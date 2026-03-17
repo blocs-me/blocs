@@ -19,9 +19,7 @@ import float from '@/keyframes/float'
 import { NextSeo } from 'next-seo'
 import Nav from '@/design-system/Nav'
 import nextSeoConfig from '@/constants/next-seo.config'
-import { Round } from 'faunadb'
 import Switch from '@/design-system/Switch'
-import { set } from 'react-hook-form'
 import { isLifestyleBasic, isLifestylePlan, isLifestylePro } from '@/lambda/helpers/subscriptionChecker'
 
 type Products = {
