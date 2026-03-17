@@ -1,4 +1,3 @@
-import Head from 'next/head'
 import { ThemeProvider } from '@emotion/react'
 import GlobalProvider from '../contexts/GlobalContextProvider/GlobalContextProvider'
 import GlobalStyle from '../styles/GlobalStyle'
@@ -9,13 +8,11 @@ import Script from 'next/script'
 function MyApp({ Component, pageProps }) {
   return (
     <ThemeProvider theme={theme}>
-      <Head>
-        {process.env.NEXT_PUBLIC_VERCEL_ENV === 'production' && (
-          <>
-            <script defer data-domain="blocs.me" src="https://plausible.io/js/script.tagged-events.js" />
-          </>
-        )}
-      </Head>
+      <Script
+        defer
+        data-domain="blocs.me"
+        src="https://analytics.aryanbhasin.com/js/script.tagged-events.js"
+      />
       <GlobalProvider>
         <Reset />
         <GlobalStyle />
