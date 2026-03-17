@@ -82,12 +82,12 @@ const PricingPage = () => {
           width="100%"
           height="100%"
           alignItems="center"
-          pt="md"
-          pb="xl"
+          pt="sm"
+          pb="lg"
           flexDirection="column"
           px="md"
         >
-          <Box maxWidth="560px">
+          <div>
             <Text
               as="h1"
               color="foreground"
@@ -97,7 +97,7 @@ const PricingPage = () => {
               textAlign="center"
               lineHeight={1.3}
             >
-              Pays for itself the first time you stay focused instead of switching tabs
+              Stop leaving Notion to start a timer
             </Text>
             <Text
               as="h2"
@@ -108,9 +108,9 @@ const PricingPage = () => {
               textAlign="center"
               lineHeight={1.5}
             >
-              Pomodoro timer, habit tracker, and water tracker — all embedded directly in your Notion workspace.
+              Pomodoro, habit tracker, and water tracker — embedded directly in your Notion workspace.
             </Text>
-            <Flex flexDirection='row' justifyContent="center" alignItems="center" mt="md" mb="sm">
+            <Flex flexDirection='row' justifyContent="center" alignItems="center" mt="sm" mb="xs">
               <Text
                 mt={0}
                 mb={0}
@@ -158,12 +158,12 @@ const PricingPage = () => {
                 </Box>
               )}
             </Flex>
-          </Box>
+          </div>
 
           <Flex
             width="100%"
             justifyContent="center"
-            mt="md"
+            mt="sm"
           >
             <PricingCard
               header="Focus Pro"
@@ -200,7 +200,7 @@ const PricingPage = () => {
           </Flex>
 
           <Text
-            mt="md"
+            mt="sm"
             fontSize="sm"
             color="primary.accent-4"
             textAlign="center"
