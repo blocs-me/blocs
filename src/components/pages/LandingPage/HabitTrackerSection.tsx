@@ -1,4 +1,3 @@
-import SlideIn from './LandingDemo/SlideIn'
 import WidgetExplainerSection from './WidgetExplainerSection'
 import DummyHabitTracker from '@/widgets/HabitTracker/DummyHabitTracker'
 import Box from '@/helpers/Box'
@@ -6,6 +5,7 @@ import { IHabitTrackerWidget } from '@/gtypes/habit-tracker'
 import { URLHashProvider } from '@/hooks/useUrlHash/useUrlHash'
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
+import Button from '@/design-system/Button'
 
 const paraOne =
   'Build consistent habits with a daily checklist inside Notion. Track your streaks, see your best runs, and stay motivated with progress analytics.'
@@ -44,44 +44,39 @@ const HabitTrackerSection = () => {
       paraOne={paraOne}
       paraTwo={
         <Link href="/habit-tracker-widget" passHref>
-          <Box
+          <Button
             as="a"
-            fontSize="sm"
-            color="brand.accent-1"
-            fontWeight={600}
-            css={{ textDecoration: 'underline', cursor: 'pointer' }}
+            bg="brand.accent-1"
+            color="background"
+            borderRadius="sm"
+            px="md"
+            py="xxs"
+            fontSize="xs"
+            fontWeight="bold"
+            height="40px"
           >
             Try the free Habit Tracker →
-          </Box>
+          </Button>
         </Link>
       }
     >
-      {(reveal) => (
-        <>
-          <SlideIn delay={0.2} pause={!reveal}>
-            <Box>
-              <URLHashProvider hash={{ role: 'blocs-user' }}>
-                <DummyHabitTracker
-                  smallScreenAt="600px"
-                  isEditable
-                  habits={{ data: habits }}
-                  checkedValues={['1', '2']}
-                  analyticsData={{
-                    data: {
-                      bestStreak: 60,
-                      currentStreak
-                    }
-                  }}
-                />
-              </URLHashProvider>
-            </Box>
-          </SlideIn>
-          {/* <SlideIn delay={0.2} pause={!reveal}>
-            <Box width="300px">
-              <DummyHabitTracker isAnalyticsHidden />
-            </Box>
-          </SlideIn> */}
-        </>
+      {() => (
+        <Box>
+          <URLHashProvider hash={{ role: 'blocs-user' }}>
+            <DummyHabitTracker
+              smallScreenAt="600px"
+              isEditable
+              habits={{ data: habits }}
+              checkedValues={['1', '2']}
+              analyticsData={{
+                data: {
+                  bestStreak: 60,
+                  currentStreak
+                }
+              }}
+            />
+          </URLHashProvider>
+        </Box>
       )}
     </WidgetExplainerSection>
   )

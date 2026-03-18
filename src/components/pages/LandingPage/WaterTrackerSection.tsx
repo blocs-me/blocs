@@ -1,11 +1,10 @@
 import float from '@/keyframes/float'
 import DummyAnalyticsBarChart from '@/widgets/AnalyticsBarChart/DummyAnalyticsBarChart'
 import DummyWaterTracker from '@/widgets/WaterTracker/DummyWaterTracker'
-import SlideIn from './LandingDemo/SlideIn'
 import WidgetExplainerSection from './WidgetExplainerSection'
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
-import Box from '@/helpers/Box'
+import Button from '@/design-system/Button'
 
 const paraOne =
   'Set a daily water goal and track your intake without leaving Notion. Watch your hydration habits improve over time with weekly and monthly analytics.'
@@ -29,50 +28,50 @@ const WaterTrackerSection = () => {
       paraOne={paraOne}
       paraTwo={
         <Link href="/water-tracker-widget" passHref>
-          <Box
+          <Button
             as="a"
-            fontSize="sm"
-            color="brand.accent-1"
-            fontWeight={600}
-            css={{ textDecoration: 'underline', cursor: 'pointer' }}
+            bg="brand.accent-1"
+            color="background"
+            borderRadius="sm"
+            px="md"
+            py="xxs"
+            fontSize="xs"
+            fontWeight="bold"
+            height="40px"
           >
             Try the free Water Tracker →
-          </Box>
+          </Button>
         </Link>
       }
       reverse
     >
-      {(reveal) => (
+      {() => (
         <>
-          <SlideIn delay={0.2} pause={!reveal}>
-            <DummyWaterTracker
+          <DummyWaterTracker
+            role="img"
+            aria-label="Water Tracker Visual Example"
+            width="350px"
+            goal={4}
+            progress={progress}
+            css={{
+              animation: `${float} 1s ease infinite alternate`
+            }}
+            mt={[0, , , , '-25px']}
+          />
+          <div
+            css={{
+              animation: `${float} 1s ease 0.2s infinite alternate`
+            }}
+          >
+            <DummyAnalyticsBarChart
               role="img"
-              aria-label="Water Tracker Visual Example"
+              aria-label="Water Tracker Analytics Bar Chart Visual Example"
               width="350px"
-              goal={4}
-              progress={progress}
-              css={{
-                animation: `${float} 1s ease infinite alternate`
-              }}
-              mt={[0, , , , '-25px']}
+              height="400px"
+              units="L"
+              mb={[0, , , , '-60px']}
             />
-          </SlideIn>
-          <SlideIn delay={0.3} pause={!reveal}>
-            <div
-              css={{
-                animation: `${float} 1s ease 0.2s infinite alternate`
-              }}
-            >
-              <DummyAnalyticsBarChart
-                role="img"
-                aria-label="Water Tracker Analytics Bar Chart Visual Example"
-                width="350px"
-                height="400px"
-                units="L"
-                mb={[0, , , , '-60px']}
-              />
-            </div>
-          </SlideIn>
+          </div>
         </>
       )}
     </WidgetExplainerSection>

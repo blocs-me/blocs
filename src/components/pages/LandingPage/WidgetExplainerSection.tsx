@@ -1,13 +1,7 @@
 import Text from '@/design-system/Text'
 import Box from '@/helpers/Box'
 import Flex from '@/helpers/Flex'
-import Icon from '@/helpers/Icon'
-import float from '@/keyframes/float'
-import DummyAnalyticsBarChart from '@/widgets/AnalyticsBarChart/DummyAnalyticsBarChart'
-import DummyPomodoro from '@/widgets/Pomodoro/DummyPomodoro'
-import { useRef, useEffect, useState, ReactNode } from 'react'
-import Stopwatch from 'src/icons/stopwatch'
-import SlideIn from './LandingDemo/SlideIn'
+import { ReactNode } from 'react'
 
 const WidgetExplainerSection = ({
   header,
@@ -19,34 +13,11 @@ const WidgetExplainerSection = ({
   header?: string
   paraOne: string
   paraTwo?: ReactNode
-  children?: (reveal: boolean) => JSX.Element
+  children?: () => JSX.Element
   reverse?: boolean
 }) => {
-  const ref = useRef()
-
-  const [reveal, setReveal] = useState(false)
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (args) => {
-        args.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setReveal(true)
-          }
-        })
-      },
-      {
-        // root: document.querySelector('#landing'),
-        threshold: 0.5
-      }
-    )
-
-    observer.observe(ref.current)
-  }, [])
-
   return (
     <Flex
-      ref={ref}
       width="100%"
       py={['md', , , , 'lg']}
       flexDirection={['column', , , , , reverse ? 'row-reverse' : 'row']}
@@ -61,29 +32,25 @@ const WidgetExplainerSection = ({
           width="min(100%, 500px)"
           m={['0 auto', , , , 0]}
         >
-          <SlideIn delay={0.1} pause={!reveal}>
-            <Text
-              fontSize="1.728rem"
-              color="foreground"
-              fontWeight="bold"
-              mt={0}
-              mb="md"
-              letterSpacing="sm"
-              textAlign={['center', , , , 'left']}
-            >
-              {header}
-            </Text>
-          </SlideIn>
-          <SlideIn delay={0.2} pause={!reveal}>
-            <Text variant="p" textAlign={['center', , , , 'left']}>
-              {paraOne}
-            </Text>
-          </SlideIn>
-          <SlideIn delay={0.3} pause={!reveal}>
-            <Text variant="p" textAlign={['center', , , , 'left']}>
+          <Text
+            fontSize="1.728rem"
+            color="foreground"
+            fontWeight="bold"
+            mt={0}
+            mb="md"
+            letterSpacing="sm"
+            textAlign={['center', , , , 'left']}
+          >
+            {header}
+          </Text>
+          <Text variant="p" textAlign={['center', , , , 'left']}>
+            {paraOne}
+          </Text>
+          {paraTwo && (
+            <Box mt="xs" textAlign={['center', , , , 'left']}>
               {paraTwo}
-            </Text>
-          </SlideIn>
+            </Box>
+          )}
         </Flex>
       </Box>
 
@@ -93,13 +60,7 @@ const WidgetExplainerSection = ({
         boxShadow="insetDefault"
         py="sm"
         width="100%"
-        css={{
-          transition: 'opacity 0.2s ease',
-          opacity: 'var(--opacity, 0)',
-          flex: 1
-        }}
-        style={{ '--opacity': reveal ? 1 : 0 }}
-        // width="min(100%, 700px)""
+        css={{ flex: 1 }}
       >
         <Flex
           gap="sm"
@@ -107,7 +68,7 @@ const WidgetExplainerSection = ({
           center
           flexDirection={['column', , , , 'row']}
         >
-          {children(reveal)}
+          {children()}
         </Flex>
       </Box>
     </Flex>
