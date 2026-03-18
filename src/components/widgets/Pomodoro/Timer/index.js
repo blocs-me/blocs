@@ -25,8 +25,8 @@ const Timer = ({ loading }) => {
 
   return (
     <Flex
-      width="85%"
-      minWidth="250px"
+      width="70%"
+      minWidth="200px"
       height="auto"
       css={{ position: 'relative', cursor: 'pointer', 'user-select': 'none' }}
       onClick={(e) => handleClick(e)}

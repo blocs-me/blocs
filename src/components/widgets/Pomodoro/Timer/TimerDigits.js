@@ -24,7 +24,7 @@ const TimerDigits = ({ clock, loading, label, labelColor, presetMode }) => {
         {!loading && (
           <>
             <Text
-              fontSize="lg"
+              fontSize="xl"
               fontWeight="bold"
               color="foreground"
               lineHeight={0}
@@ -36,7 +36,7 @@ const TimerDigits = ({ clock, loading, label, labelColor, presetMode }) => {
               {clock.minutes}
             </Text>
             <Text
-              fontSize="lg"
+              fontSize="xl"
               fontWeight="bold"
               color="foreground"
               lineHeight={0}
@@ -47,7 +47,7 @@ const TimerDigits = ({ clock, loading, label, labelColor, presetMode }) => {
               :
             </Text>
             <Text
-              fontSize="lg"
+              fontSize="xl"
               fontWeight="bold"
               color="foreground"
               lineHeight={0}

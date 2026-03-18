@@ -3,6 +3,7 @@ import Flex from '@/helpers/Flex'
 import Box from '@/helpers/Box'
 import Text from '@/design-system/Text'
 import Switch from '@/design-system/Switch'
+import Link from 'next/link'
 import { usePomodoroStore, usePomodoroDispatch } from './usePomodoroStore'
 import { setPomodoroPreferences } from './pomodoroActions'
 
@@ -125,6 +126,28 @@ const PomodoroSettingsPopover = ({ onClose }: { onClose: () => void }) => {
           }}
         />
       </Row>
+      <Box height="1px" bg="primary.accent-1" my="xs" />
+
+      <Link href="/pricing" passHref>
+        <Box
+          as="a"
+          css={{
+            display: 'block',
+            textDecoration: 'none',
+            cursor: 'pointer',
+            borderRadius: '6px',
+            padding: '8px',
+            '&:hover': { backgroundColor: 'var(--colors-primary-accent-2)' }
+          }}
+        >
+          <Text fontSize="xxs" fontWeight={600} color="brand.accent-1" m={0}>
+            Custom Durations
+          </Text>
+          <Text fontSize="10px" color="primary.accent-4" m={0} mt="2px">
+            Set your own Pomodoro and break times with Pro
+          </Text>
+        </Box>
+      </Link>
     </Box>
   )
 }
