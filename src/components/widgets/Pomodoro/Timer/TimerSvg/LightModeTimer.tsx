@@ -1,9 +1,10 @@
-import Box from '@/helpers/Box'
 import { useSvgTimer } from './useSvgTimer'
+import { POMODORO_INTERVAL_MODE } from '../../pomodoroPresetModes'
 
-const LightModeTimer = ({ progress }: { progress: number }) => {
+const LightModeTimer = ({ progress, presetMode }: { progress: number; presetMode?: string }) => {
   const radius = 163.53
   const [strokeDashoffset, strokeDasharray] = useSvgTimer({ progress, radius })
+  const isPomodoro = !presetMode || presetMode === POMODORO_INTERVAL_MODE
 
   return (
     <svg viewBox="0 0 358 358" height="100%" width="100%" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -28,7 +29,7 @@ const LightModeTimer = ({ progress }: { progress: number }) => {
           transformOrigin: 'center',
           transition: 'stroke-dashoffset 0.2s linear'
         }}
-        stroke="url(#paint0_angular_1012_514)"
+        stroke={isPomodoro ? 'url(#paint_pomodoro)' : 'url(#paint_break)'}
         strokeWidth="30"
       />
       <defs>
@@ -42,93 +43,36 @@ const LightModeTimer = ({ progress }: { progress: number }) => {
           colorInterpolationFilters="sRGB"
         >
           <feFlood floodOpacity="0" result="BackgroundImageFix" />
-          <feBlend
-            mode="normal"
-            in="SourceGraphic"
-            in2="BackgroundImageFix"
-            result="shape"
-          />
-          <feColorMatrix
-            in="SourceAlpha"
-            type="matrix"
-            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-            result="hardAlpha"
-          />
+          <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+          <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
           <feOffset dx="4" dy="4" />
           <feGaussianBlur stdDeviation="4" />
           <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" />
-          <feColorMatrix
-            type="matrix"
-            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.04 0"
-          />
-          <feBlend
-            mode="normal"
-            in2="shape"
-            result="effect1_innerShadow_1012_514"
-          />
-          <feColorMatrix
-            in="SourceAlpha"
-            type="matrix"
-            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-            result="hardAlpha"
-          />
-          <feMorphology
-            radius="1"
-            operator="erode"
-            in="SourceAlpha"
-            result="effect2_innerShadow_1012_514"
-          />
+          <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.04 0" />
+          <feBlend mode="normal" in2="shape" result="effect1_innerShadow_1012_514" />
+          <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
+          <feMorphology radius="1" operator="erode" in="SourceAlpha" result="effect2_innerShadow_1012_514" />
           <feOffset dx="2" dy="2" />
           <feGaussianBlur stdDeviation="2" />
           <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" />
-          <feColorMatrix
-            type="matrix"
-            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.02 0"
-          />
-          <feBlend
-            mode="normal"
-            in2="effect1_innerShadow_1012_514"
-            result="effect2_innerShadow_1012_514"
-          />
-          <feColorMatrix
-            in="SourceAlpha"
-            type="matrix"
-            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-            result="hardAlpha"
-          />
+          <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.02 0" />
+          <feBlend mode="normal" in2="effect1_innerShadow_1012_514" result="effect2_innerShadow_1012_514" />
+          <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
           <feOffset dx="10" dy="10" />
           <feGaussianBlur stdDeviation="10" />
           <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" />
-          <feColorMatrix
-            type="matrix"
-            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.02 0"
-          />
-          <feBlend
-            mode="normal"
-            in2="effect2_innerShadow_1012_514"
-            result="effect3_innerShadow_1012_514"
-          />
-          <feColorMatrix
-            in="SourceAlpha"
-            type="matrix"
-            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-            result="hardAlpha"
-          />
+          <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.02 0" />
+          <feBlend mode="normal" in2="effect2_innerShadow_1012_514" result="effect3_innerShadow_1012_514" />
+          <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
           <feOffset dx="15" dy="15" />
           <feGaussianBlur stdDeviation="15" />
           <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" />
-          <feColorMatrix
-            type="matrix"
-            values="0 0 0 0 0.283333 0 0 0 0 0.283333 0 0 0 0 0.283333 0 0 0 0.02 0"
-          />
-          <feBlend
-            mode="normal"
-            in2="effect3_innerShadow_1012_514"
-            result="effect4_innerShadow_1012_514"
-          />
+          <feColorMatrix type="matrix" values="0 0 0 0 0.283333 0 0 0 0 0.283333 0 0 0 0 0.283333 0 0 0 0.02 0" />
+          <feBlend mode="normal" in2="effect3_innerShadow_1012_514" result="effect4_innerShadow_1012_514" />
         </filter>
+        {/* Pomodoro: warm pink/coral gradient */}
         <radialGradient
-          id="paint0_angular_1012_514"
+          id="paint_pomodoro"
           cx="180"
           cy="180"
           r="1000"
@@ -136,10 +80,25 @@ const LightModeTimer = ({ progress }: { progress: number }) => {
           gradientTransform="translate(189.765 178.794) rotate(0.5474)"
           spreadMethod="pad"
         >
-          <stop offset="0.125565" stopColor="#76D9DF" />
-          <stop offset="0.37875" stopColor="#71B2EF" />
-          <stop offset="0.621158" stopColor="#638BF2" />
-          <stop offset="0.794879" stopColor="#61F0F9" />
+          <stop offset="0.125" stopColor="#FF6B6B" />
+          <stop offset="0.38" stopColor="#EE5A6A" />
+          <stop offset="0.62" stopColor="#E84393" />
+          <stop offset="0.80" stopColor="#FF7675" />
+        </radialGradient>
+        {/* Break: cool blue gradient (original) */}
+        <radialGradient
+          id="paint_break"
+          cx="180"
+          cy="180"
+          r="1000"
+          gradientUnits="userSpaceOnUse"
+          gradientTransform="translate(189.765 178.794) rotate(0.5474)"
+          spreadMethod="pad"
+        >
+          <stop offset="0.125" stopColor="#76D9DF" />
+          <stop offset="0.38" stopColor="#71B2EF" />
+          <stop offset="0.62" stopColor="#638BF2" />
+          <stop offset="0.80" stopColor="#61F0F9" />
         </radialGradient>
       </defs>
     </svg>

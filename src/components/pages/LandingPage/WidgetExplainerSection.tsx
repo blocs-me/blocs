@@ -18,7 +18,7 @@ const WidgetExplainerSection = ({
 }: {
   header?: string
   paraOne: string
-  paraTwo?: string
+  paraTwo?: ReactNode
   children?: (reveal: boolean) => JSX.Element
   reverse?: boolean
 }) => {

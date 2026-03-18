@@ -1,7 +1,5 @@
 import Timer from '../Timer'
-import Button from '@/design-system/Button'
 import Flex from '@/helpers/Flex'
-import CircleButtonGroup from './CircleButtonGroup'
 import CircleButton from './CircleButton'
 import { usePomodoroStore, usePomodoroDispatch } from '../usePomodoroStore'
 import {
@@ -9,24 +7,20 @@ import {
   setDocumentTimelineStart,
   setStartedAt,
   setPausedAt,
-  SET_STARTED_AT
 } from '../pomodoroActions'
 import useSWR from 'swr'
 import { POMODORO_PRESETS_PATH } from '@/utils/endpoints'
-import fetcher from '@/utils/fetcher'
 import useNotifications from '@/design-system/Notifications/useNotifications'
 import fetchWithToken from 'src/services/fetchWithToken'
-import Skeleton from '@/helpers/Skeleton'
 import PomodoroActiveSessionMenu from '../PomodoroActiveSessionMenu.js'
+import ModeTabBar from '../ModeTabBar'
 import { useEffect, useState } from 'react'
 import { useTheme } from '@emotion/react'
 import { useWidgetAuthStore } from '@/hooks/useWidgetAuth'
 import { $ } from '@/utils/JSelectors'
-import storage from '@/utils/storage'
 import Box from '@/helpers/Box'
 import { Play } from 'src/icons/play'
 import { Pause } from 'src/icons/pause'
-import Icon from '@/helpers/Icon'
 import { Refresh } from 'src/icons/refresh'
 
 const PomodoroMainPage = ({ isHovering }) => {
@@ -141,6 +135,7 @@ const PomodoroMainPage = ({ isHovering }) => {
         onMouseLeave={(e) => handleMouseLeave(e)}
         id="pomodoro-container"
       >
+        <ModeTabBar />
         <Timer loading={!presets || loading} />
         <Flex
           justifyContent="center"

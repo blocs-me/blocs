@@ -21,7 +21,6 @@ import PomodoroSection from './PomodoroSection'
 import WaterTrackerSection from './WaterTrackerSection'
 import HabitTrackerSection from './HabitTrackerSection'
 import BlocsThemeProvider from '@/helpers/BlocsThemeProvider'
-import Footer from '@/design-system/Footer'
 
 const isMaintenance = process.env.NEXT_PUBLIC_MAINTENANCE === 'yes'
 
@@ -290,7 +289,6 @@ const LandingPage = () => {
             <HabitTrackerSection />
           </Box>
         </PageLayout>
-        <Footer />
       </Box>
     </BlocsThemeProvider>
   )

@@ -43,7 +43,7 @@ const initialState = {
   },
   currentPreset: {
     id: '0',
-    longBreakInterval: 600000,
+    longBreakInterval: 900000,
     shortBreakInterval: 300000,
     pomodoroInterval: 1500000,
     label: 'work',

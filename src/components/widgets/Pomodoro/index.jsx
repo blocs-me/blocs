@@ -15,10 +15,11 @@ import Box from '@/helpers/Box/index.js'
 import WidgetModal from '../LegacyWidgetModal/index.js'
 import BackArrow from 'src/icons/back-arrow'
 import Icon from '@/helpers/Icon/index'
-import Hamburger from 'src/icons/hamburger'
+import Gear from '../../../icons/gear.svg'
 import { css, useTheme } from '@emotion/react'
 import FadeIn from '@/helpers/FadeIn/index.js'
 import PoweredBy from '@/design-system/PoweredBy'
+import PomodoroSettingsPopover from './PomodoroSettingsPopover.tsx'
 
 const fadeInCss = css`
   width: 100%;
@@ -42,6 +43,7 @@ const Pomodoro = () => {
 
   const [authModal, setAuthModal] = useState(false)
   const [hovering, setHovering] = useState(false)
+  const [showSettings, setShowSettings] = useState(false)
   const { isLoggingIn, isLoggedIn } = useWidgetAuth({
     onError: () => setAuthModal(true)
   })
@@ -132,32 +134,29 @@ const Pomodoro = () => {
             transition: 'opacity 0.3s ease'
           }}
         >
-          <Flex
-            as="button"
-            borderRadius="md"
-            alignItems="center"
-            justifyContent="center"
-            bg="primary.accent-2"
-            p="xs"
-            size="40px"
-            overflow="hidden"
-            opacity="var(--opacity)"
-            onClick={() => {
-              const link =
-                mainPage || isMenuSubPage ? '/pomodoro/main-menu' : '/pomodoro'
-              Router.push(link)
-            }}
-            style={{
-              '--opacity': hovering ? 1 : 0
-            }}
-            css={{
-              '&:hover': {
-                boxShadow: theme.shadows.default,
-                transition: 'box-shadow 0.3s ease'
-              }
-            }}
-          >
-            {(mainMenu || mainPage) && (
+          {/* Gear icon for main page, back arrow for sub-pages */}
+          {mainPage && (
+            <Flex
+              as="button"
+              borderRadius="md"
+              alignItems="center"
+              justifyContent="center"
+              bg="primary.accent-2"
+              p="xs"
+              size="40px"
+              overflow="hidden"
+              opacity="var(--opacity)"
+              onClick={() => setShowSettings(!showSettings)}
+              style={{
+                '--opacity': hovering ? 1 : 0
+              }}
+              css={{
+                '&:hover': {
+                  boxShadow: theme.shadows.default,
+                  transition: 'box-shadow 0.3s ease'
+                }
+              }}
+            >
               <Icon
                 m="auto"
                 fill="foreground"
@@ -165,22 +164,64 @@ const Pomodoro = () => {
                 height="15px"
                 display="flex"
               >
-                {<Hamburger isOpen={mainMenu} />}
+                <Gear />
               </Icon>
-            )}
+            </Flex>
+          )}
 
-            {isMenuSubPage && (
-              <Icon
-                display="flex"
-                m="auto"
-                stroke="foreground"
-                width="15px"
-                height="15px"
-              >
-                <BackArrow />
-              </Icon>
-            )}
-          </Flex>
+          {(mainMenu || isMenuSubPage) && (
+            <Flex
+              as="button"
+              borderRadius="md"
+              alignItems="center"
+              justifyContent="center"
+              bg="primary.accent-2"
+              p="xs"
+              size="40px"
+              overflow="hidden"
+              onClick={() => {
+                const link = mainMenu ? '/pomodoro' : '/pomodoro/main-menu'
+                Router.push(link)
+              }}
+              style={{
+                '--opacity': hovering ? 1 : 0
+              }}
+              css={{
+                opacity: 'var(--opacity)',
+                '&:hover': {
+                  boxShadow: theme.shadows.default,
+                  transition: 'box-shadow 0.3s ease'
+                }
+              }}
+            >
+              {mainMenu && (
+                <Icon
+                  m="auto"
+                  fill="foreground"
+                  width="15px"
+                  height="15px"
+                  display="flex"
+                >
+                  <Gear />
+                </Icon>
+              )}
+              {isMenuSubPage && (
+                <Icon
+                  display="flex"
+                  m="auto"
+                  stroke="foreground"
+                  width="15px"
+                  height="15px"
+                >
+                  <BackArrow />
+                </Icon>
+              )}
+            </Flex>
+          )}
+
+          {showSettings && mainPage && (
+            <PomodoroSettingsPopover onClose={() => setShowSettings(false)} />
+          )}
         </Box>
         <div id="pomo-modal-wrapper" />
         <PoweredBy type="pomodoro" />

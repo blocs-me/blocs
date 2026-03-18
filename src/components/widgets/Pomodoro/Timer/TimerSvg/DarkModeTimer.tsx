@@ -1,6 +1,7 @@
 import Box from '@/helpers/Box'
 import { useSvgTimer } from './useSvgTimer'
-const DarkModeTimer = ({ progress }: { progress: number }) => {
+import { POMODORO_INTERVAL_MODE } from '../../pomodoroPresetModes'
+const DarkModeTimer = ({ progress, presetMode }: { progress: number; presetMode?: string }) => {
   const radius = 163.53
   const [strokeDashoffset, strokeDasharray] = useSvgTimer({ progress, radius })
 
@@ -21,7 +22,7 @@ const DarkModeTimer = ({ progress }: { progress: number }) => {
         cx="179.176"
         cy="179.294"
         r="163.53"
-        stroke="url(#paint0_angular_996_505)"
+        stroke={(!presetMode || presetMode === POMODORO_INTERVAL_MODE) ? 'url(#paint_dark_pomodoro)' : 'url(#paint_dark_break)'}
         strokeWidth="30"
         css={{
           transform: 'rotate(-90deg)',
@@ -141,7 +142,7 @@ const DarkModeTimer = ({ progress }: { progress: number }) => {
           />
         </filter>
         <radialGradient
-          id="paint0_angular_996_505"
+          id="paint_dark_pomodoro"
           cx="180"
           cy="180"
           r="800"
@@ -149,10 +150,24 @@ const DarkModeTimer = ({ progress }: { progress: number }) => {
           gradientTransform="translate(189.765 179.294) rotate(-90)"
           spreadMethod="pad"
         >
-          <stop offset="0.125565" stopColor="#27B1BA" />
-          <stop offset="0.37875" stopColor="#1680E2" />
-          <stop offset="0.621158" stopColor="#3D6CE6" />
-          <stop offset="0.794879" stopColor="#0CCFDC" />
+          <stop offset="0.125" stopColor="#FF6B6B" />
+          <stop offset="0.38" stopColor="#EE5A6A" />
+          <stop offset="0.62" stopColor="#E84393" />
+          <stop offset="0.80" stopColor="#FF7675" />
+        </radialGradient>
+        <radialGradient
+          id="paint_dark_break"
+          cx="180"
+          cy="180"
+          r="800"
+          gradientUnits="userSpaceOnUse"
+          gradientTransform="translate(189.765 179.294) rotate(-90)"
+          spreadMethod="pad"
+        >
+          <stop offset="0.125" stopColor="#27B1BA" />
+          <stop offset="0.38" stopColor="#1680E2" />
+          <stop offset="0.62" stopColor="#3D6CE6" />
+          <stop offset="0.80" stopColor="#0CCFDC" />
         </radialGradient>
       </defs>
     </svg>

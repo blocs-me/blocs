@@ -9,7 +9,7 @@ const DefaultTimer = () => {
 
   return (
     <>
-      <TimerSvg progress={percentProgressed} />
+      <TimerSvg progress={percentProgressed} presetMode={presetMode} />
       <TimerDigits clock={clock} {...currentPreset} presetMode={presetMode} />
     </>
   )
