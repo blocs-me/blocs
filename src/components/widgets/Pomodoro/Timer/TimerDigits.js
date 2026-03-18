@@ -12,6 +12,8 @@ import { usePomodoroStore } from '../usePomodoroStore'
 import useTimer from './useTimer'
 
 const TimerDigits = ({ clock, loading, label, labelColor, presetMode }) => {
+  const isPomodoro = presetMode === POMODORO_INTERVAL_MODE
+  const badgeColor = isPomodoro ? '#EE5A6A' : '#71B2EF'
   return (
     <Box
       position="absolute"
@@ -81,7 +83,7 @@ const TimerDigits = ({ clock, loading, label, labelColor, presetMode }) => {
               mr="xxs"
               bg="var(--bg)"
               css={{ verticalAlign: 'middle' }}
-              style={{ '--bg': labelColor }}
+              style={{ '--bg': badgeColor }}
               color="foreground"
             />
             <Box as="span" color="foreground" mt="-2px">
