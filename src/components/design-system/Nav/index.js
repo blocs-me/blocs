@@ -272,11 +272,7 @@ const Nav = ({ title = '', links = [] }) => {
             >
               <NavLink href="/" text="Home" passHref preload />
               <NavLink href="/pricing" text="pricing" passHref preload />
-              <NavLink
-                href="https://glittery-ankle-1a8.notion.site/FAQs-0fd5043a0536496597ba827a5f0596b7"
-                text="FAQs"
-                passHref
-              />
+              <NavLink href="/faqs" text="FAQs" passHref preload />
               {!isSignedIn && (
                 <Box pt={['1.5rem', , , , '0']} pb={['0.5rem', '0.5rem', 0]}>
                   <Link href="/sign-in" passHref>

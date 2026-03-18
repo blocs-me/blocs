@@ -60,6 +60,7 @@ const Footer = () => (
             </Text>
             <RegoLink href="/">Home</RegoLink>
             <RegoLink href="/pricing">Pricing</RegoLink>
+            <RegoLink href="/faqs">FAQs</RegoLink>
             <RegoLink href="/sign-in">Sign In</RegoLink>
             <RegoLink href="/privacy-policy.pdf">Privacy Policy</RegoLink>
             <RegoLink href="/t&c.pdf">Terms & Conditions</RegoLink>

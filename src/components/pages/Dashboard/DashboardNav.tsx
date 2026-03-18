@@ -65,10 +65,7 @@ const DashboardNav = () => {
             <LinkText>Home</LinkText>
           </a>
         </Link>
-        <Link
-          href="https://glittery-ankle-1a8.notion.site/FAQs-0fd5043a0536496597ba827a5f0596b7"
-          passHref
-        >
+        <Link href="/faqs" passHref>
           <a>
             <LinkText>FAQs</LinkText>
           </a>

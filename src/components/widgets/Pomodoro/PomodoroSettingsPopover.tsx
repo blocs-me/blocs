@@ -6,6 +6,7 @@ import Switch from '@/design-system/Switch'
 import Link from 'next/link'
 import { usePomodoroStore, usePomodoroDispatch } from './usePomodoroStore'
 import { setPomodoroPreferences } from './pomodoroActions'
+import useColorMode, { useColorModeStore } from '@/hooks/useColorMode'
 
 const Label = ({ children }: { children: React.ReactNode }) => (
   <Text m={0} fontSize="xs" fontWeight={400} color="foreground">
@@ -23,7 +24,28 @@ const Row = ({ children }: { children: React.ReactNode }) => (
   </Flex>
 )
 
-const PomodoroSettingsPopover = ({ onClose }: { onClose: () => void }) => {
+const ThemeButton = ({ label, active, onClick }: { label: string; active: boolean; onClick: () => void }) => (
+  <Box
+    as="button"
+    flex="1"
+    py="4px"
+    borderRadius="sm"
+    bg={active ? 'brand.accent-1' : 'primary.accent-2'}
+    color={active ? 'neutral.white' : 'foreground'}
+    css={{
+      border: 'none',
+      cursor: 'pointer',
+      fontSize: '11px',
+      fontWeight: active ? 600 : 400,
+      transition: 'all 0.15s ease'
+    }}
+    onClick={onClick}
+  >
+    {label}
+  </Box>
+)
+
+const PomodoroSettingsPopover = ({ onClose, isAuthenticated }: { onClose: () => void; isAuthenticated?: boolean }) => {
   const { preferences } = usePomodoroStore()
   const dispatch = usePomodoroDispatch()
   const ref = useRef<HTMLDivElement>(null)
@@ -32,6 +54,15 @@ const PomodoroSettingsPopover = ({ onClose }: { onClose: () => void }) => {
   const [autoStartPomodoro, setAutoStartPomodoro] = useState(!!preferences.autoStartPomodoro)
   const [autoStartBreak, setAutoStartBreak] = useState(!!preferences.autoStartBreak)
   const [deepFocus, setDeepFocus] = useState(!!preferences.deepFocus)
+  const [longBreakAfter, setLongBreakAfter] = useState(Number(preferences.startLongBreakAfter) || 4)
+
+  const { colorMode } = useColorModeStore() || {}
+  const { setTheme, setBackground } = useColorMode()
+
+  const handleThemeChange = (mode: string) => {
+    setTheme(mode)
+    setBackground(mode)
+  }
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
@@ -52,6 +83,12 @@ const PomodoroSettingsPopover = ({ onClose }: { onClose: () => void }) => {
   const handleVolumeChange = (val: number) => {
     setAlarmVolume(val)
     save({ alarmVolume: val })
+  }
+
+  const handleLongBreakAfterChange = (val: number) => {
+    const clamped = Math.max(0, Math.min(20, val))
+    setLongBreakAfter(clamped)
+    save({ startLongBreakAfter: clamped })
   }
 
   return (
@@ -87,6 +124,29 @@ const PomodoroSettingsPopover = ({ onClose }: { onClose: () => void }) => {
       </Box>
 
       <Box height="1px" bg="primary.accent-1" my="xs" />
+
+      <Row>
+        <Label>Long break after</Label>
+        <Flex alignItems="center" css={{ gap: '4px' }}>
+          <input
+            type="number"
+            min={0}
+            max={20}
+            value={longBreakAfter}
+            onChange={(e) => handleLongBreakAfterChange(Number(e.target.value))}
+            style={{
+              width: '40px',
+              textAlign: 'center',
+              border: '1px solid var(--colors-primary-accent-2)',
+              borderRadius: '4px',
+              padding: '2px 4px',
+              fontSize: '12px',
+              background: 'transparent',
+              color: 'var(--colors-foreground)'
+            }}
+          />
+        </Flex>
+      </Row>
 
       <Row>
         <Label>Auto-start Pomodoro</Label>
@@ -126,28 +186,64 @@ const PomodoroSettingsPopover = ({ onClose }: { onClose: () => void }) => {
           }}
         />
       </Row>
+
       <Box height="1px" bg="primary.accent-1" my="xs" />
 
-      <Link href="/pricing" passHref>
-        <Box
-          as="a"
-          css={{
-            display: 'block',
-            textDecoration: 'none',
-            cursor: 'pointer',
-            borderRadius: '6px',
-            padding: '8px',
-            '&:hover': { backgroundColor: 'var(--colors-primary-accent-2)' }
-          }}
-        >
-          <Text fontSize="xxs" fontWeight={600} color="brand.accent-1" m={0}>
-            Custom Durations
-          </Text>
-          <Text fontSize="10px" color="primary.accent-4" m={0} mt="2px">
-            Set your own Pomodoro and break times with Pro
-          </Text>
-        </Box>
-      </Link>
+      <Row>
+        <Label>Theme</Label>
+      </Row>
+      <Flex css={{ gap: '4px' }} mb="xs">
+        <ThemeButton label="Light" active={colorMode === 'light'} onClick={() => handleThemeChange('light')} />
+        <ThemeButton label="Dark" active={colorMode === 'dark'} onClick={() => handleThemeChange('dark')} />
+        <ThemeButton label="Auto" active={colorMode === 'auto'} onClick={() => handleThemeChange('auto')} />
+      </Flex>
+
+      <Box height="1px" bg="primary.accent-1" my="xs" />
+
+      {isAuthenticated ? (
+        <Link href="/pomodoro/labels" passHref>
+          <Box
+            as="a"
+            onClick={onClose}
+            css={{
+              display: 'block',
+              textDecoration: 'none',
+              cursor: 'pointer',
+              borderRadius: '6px',
+              padding: '8px',
+              '&:hover': { backgroundColor: 'var(--colors-primary-accent-2)' }
+            }}
+          >
+            <Text fontSize="xxs" fontWeight={600} color="brand.accent-1" m={0}>
+              Manage Presets
+            </Text>
+            <Text fontSize="10px" color="primary.accent-4" m={0} mt="2px">
+              Custom durations, labels, and colors
+            </Text>
+          </Box>
+        </Link>
+      ) : (
+        <Link href="/pricing" passHref>
+          <Box
+            as="a"
+            css={{
+              display: 'block',
+              textDecoration: 'none',
+              cursor: 'pointer',
+              borderRadius: '6px',
+              padding: '8px',
+              '&:hover': { backgroundColor: 'var(--colors-primary-accent-2)' }
+            }}
+          >
+            <Text fontSize="xxs" fontWeight={600} color="brand.accent-1" m={0}>
+              Custom Durations
+            </Text>
+            <Text fontSize="10px" color="primary.accent-4" m={0} mt="2px">
+              Set your own Pomodoro and break times with Pro
+            </Text>
+          </Box>
+        </Link>
+      )}
     </Box>
   )
 }

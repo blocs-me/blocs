@@ -220,7 +220,7 @@ const Pomodoro = () => {
           )}
 
           {showSettings && mainPage && (
-            <PomodoroSettingsPopover onClose={() => setShowSettings(false)} />
+            <PomodoroSettingsPopover onClose={() => setShowSettings(false)} isAuthenticated={isLoggedIn} />
           )}
         </Box>
         <div id="pomo-modal-wrapper" />
