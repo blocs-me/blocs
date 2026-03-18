@@ -3,7 +3,7 @@ import { URLHashProvider } from '@/hooks/useUrlHash/useUrlHash'
 import HabitTracker from '@/widgets/HabitTracker'
 import DummyHabitTracker from '@/widgets/HabitTracker/DummyHabitTracker'
 import WidgetPage from '@/widgets/WidgetPage'
-import DemoBanner from '@/widgets/DemoBanner'
+import Text from '@/design-system/Text'
 import { useRouter } from 'next/router'
 
 const createHabit = (title: string, id: number) => ({ id, title })
@@ -17,6 +17,25 @@ const demoHabits = {
     createHabit('No caffeine', 5)
   ]
 }
+
+const PoweredByBlocs = () => (
+  <a
+    href="https://blocs.me/habit-tracker-widget"
+    target="_blank"
+    rel="noopener noreferrer"
+    style={{ textDecoration: 'none' }}
+  >
+    <Text
+      fontSize="10px"
+      textAlign="center"
+      color="primary.accent-4"
+      mt="8px"
+      mb={0}
+    >
+      Powered by Blocs
+    </Text>
+  </a>
+)
 
 const DemoHabitTracker = () => {
   return (
@@ -35,7 +54,7 @@ const DemoHabitTracker = () => {
               }
             }}
           />
-          <DemoBanner />
+          <PoweredByBlocs />
         </URLHashProvider>
       </WidgetPage>
     </BlocsThemeProvider>

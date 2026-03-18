@@ -4,6 +4,8 @@ import DummyWaterTracker from '@/widgets/WaterTracker/DummyWaterTracker'
 import SlideIn from './LandingDemo/SlideIn'
 import WidgetExplainerSection from './WidgetExplainerSection'
 import { useEffect, useState } from 'react'
+import Link from 'next/link'
+import Box from '@/helpers/Box'
 
 const paraOne =
   'Set a daily water goal and track your intake without leaving Notion. Watch your hydration habits improve over time with weekly and monthly analytics.'
@@ -25,6 +27,19 @@ const WaterTrackerSection = () => {
     <WidgetExplainerSection
       header="Water Tracker"
       paraOne={paraOne}
+      paraTwo={
+        <Link href="/water-tracker-widget" passHref>
+          <Box
+            as="a"
+            fontSize="sm"
+            color="brand.accent-1"
+            fontWeight={600}
+            css={{ textDecoration: 'underline', cursor: 'pointer' }}
+          >
+            Try the free Water Tracker →
+          </Box>
+        </Link>
+      }
       reverse
     >
       {(reveal) => (

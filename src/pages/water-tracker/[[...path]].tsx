@@ -2,18 +2,31 @@ import BlocsThemeProvider from '@/helpers/BlocsThemeProvider'
 import DummyWaterTracker from '@/widgets/WaterTracker/DummyWaterTracker'
 import WaterTracker from '@/widgets/WaterTracker'
 import WidgetPage from '@/widgets/WidgetPage'
-import DemoBanner from '@/widgets/DemoBanner'
+import Text from '@/design-system/Text'
 import { useRouter } from 'next/router'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
+
+const PoweredByBlocs = () => (
+  <a
+    href="https://blocs.me/water-tracker-widget"
+    target="_blank"
+    rel="noopener noreferrer"
+    style={{ textDecoration: 'none' }}
+  >
+    <Text
+      fontSize="10px"
+      textAlign="center"
+      color="primary.accent-4"
+      mt="8px"
+      mb={0}
+    >
+      Powered by Blocs
+    </Text>
+  </a>
+)
 
 const DemoWaterTracker = () => {
   const [progress, setProgress] = useState(0)
-
-  useEffect(() => {
-    setTimeout(() => {
-      setProgress(1)
-    }, 500)
-  }, [])
 
   return (
     <WidgetPage bg="bg.notion" p="sm">
@@ -23,7 +36,7 @@ const DemoWaterTracker = () => {
           onClickUp={() => setProgress((p) => Math.min(3, p + 1))}
           onClickDown={() => setProgress((p) => Math.max(0, p - 1))}
         />
-        <DemoBanner />
+        <PoweredByBlocs />
       </BlocsThemeProvider>
     </WidgetPage>
   )

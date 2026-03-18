@@ -10,40 +10,32 @@ import BlocsThemeProvider from '@/helpers/BlocsThemeProvider'
 import Link from 'next/link'
 import { CopyWidgetButton, StepCard, BenefitCard, FAQItem } from '@/pages/WidgetMarketingPage/shared'
 
-const WIDGET_URL = 'https://blocs.me/pomodoro'
+const WIDGET_URL = 'https://blocs.me/water-tracker'
 
 const faqs = [
   {
-    question: 'What is a Pomodoro timer?',
-    answer: 'A Pomodoro timer breaks your work into focused 25-minute intervals (called "pomodoros") separated by short breaks. After four pomodoros, you take a longer break. This technique helps maintain concentration and prevents burnout.'
+    question: 'How does the Water Tracker work?',
+    answer: 'Set a daily water goal (1-10 liters), then tap the up arrow each time you drink water. The animated bowl fills up as you get closer to your goal. Your progress resets each day.'
   },
   {
-    question: 'How long is a Pomodoro session?',
-    answer: 'A standard Pomodoro session is 25 minutes of focused work, followed by a 5-minute short break. After completing four sessions, you take a 15-minute long break.'
+    question: 'How do I add this to my Notion page?',
+    answer: 'Click "Copy Widget URL" above, then open your Notion page and type /embed. Press Enter, paste the URL, and click "Embed link". The tracker will appear directly in your page.'
   },
   {
-    question: 'How do I add this timer to my Notion page?',
-    answer: 'Click "Copy Widget URL" above, then open your Notion page and type /embed. Press Enter, paste the URL, and click "Embed link". The timer will appear directly in your page.'
+    question: 'Is the Water Tracker free?',
+    answer: 'Yes, the core Water Tracker is completely free to use and embed in Notion. No sign-up required. Focus Pro unlocks additional features like weekly/monthly analytics and theme customization.'
   },
   {
-    question: 'Can I customize the timer duration?',
-    answer: 'The free version uses standard Pomodoro intervals (25/5/15 minutes). With Focus Pro, you can create custom presets with any duration for each timer mode.'
+    question: 'Can I change my daily water goal?',
+    answer: 'With Focus Pro, you can set a custom daily goal anywhere from 1 to 10 liters. The free version uses a default goal of 3 liters.'
   },
   {
-    question: 'Does the timer work offline?',
-    answer: 'Yes. Once the widget is loaded, the timer runs in your browser and does not require an internet connection to count down.'
+    question: 'Can I see my water intake over time?',
+    answer: 'Focus Pro includes built-in analytics with daily, weekly, and monthly bar charts so you can track your hydration habits over time.'
   },
   {
-    question: 'Is this Pomodoro timer free?',
-    answer: 'Yes, the core Pomodoro timer is completely free to use and embed in Notion. No sign-up required. Focus Pro unlocks additional features like custom presets, analytics, and theme customization.'
-  },
-  {
-    question: 'Can I track my focus time over multiple days?',
-    answer: 'With Focus Pro, you get built-in analytics that track your daily and weekly focus time, including charts and streak tracking. The free version tracks your current session only.'
-  },
-  {
-    question: 'What happens when the timer ends?',
-    answer: 'You will hear a sound alert when the timer completes. You can customize the alert sound and volume in the widget settings.'
+    question: 'Does the tracker save my progress?',
+    answer: 'The free version tracks your current session in the browser. With Focus Pro, your data is saved to the cloud so your progress persists across devices and sessions.'
   }
 ]
 
@@ -60,30 +52,30 @@ const faqSchema = {
   }))
 }
 
-export default function PomodoroTimerPage() {
+export default function WaterTrackerWidgetPage() {
   return (
     <BlocsThemeProvider>
       <Box bg="background">
         <Head>
-          <title>Free Pomodoro Timer for Notion — Blocs</title>
+          <title>Free Water Tracker for Notion — Blocs</title>
           <meta
             name="description"
-            content="Embed a free Pomodoro timer in your Notion workspace. 25-minute focus sessions with short and long breaks. No sign-up required."
+            content="Embed a free water tracker in your Notion workspace. Set a daily goal, track your intake, and build better hydration habits. No sign-up required."
           />
-          <link rel="canonical" href="https://blocs.me/pomodoro-timer" />
+          <link rel="canonical" href="https://blocs.me/water-tracker-widget" />
           <meta property="og:type" content="website" />
-          <meta property="og:url" content="https://blocs.me/pomodoro-timer" />
-          <meta property="og:title" content="Free Pomodoro Timer for Notion — Blocs" />
+          <meta property="og:url" content="https://blocs.me/water-tracker-widget" />
+          <meta property="og:title" content="Free Water Tracker for Notion — Blocs" />
           <meta
             property="og:description"
-            content="Embed a free Pomodoro timer in your Notion workspace. 25-minute focus sessions with short and long breaks. No sign-up required."
+            content="Embed a free water tracker in your Notion workspace. Set a daily goal, track your intake, and build better hydration habits. No sign-up required."
           />
           <meta property="og:image" content="https://blocs.me/blocs-social-banner.png" />
           <meta property="twitter:card" content="summary_large_image" />
-          <meta property="twitter:title" content="Free Pomodoro Timer for Notion — Blocs" />
+          <meta property="twitter:title" content="Free Water Tracker for Notion — Blocs" />
           <meta
             property="twitter:description"
-            content="Embed a free Pomodoro timer in your Notion workspace. 25-minute focus sessions with short and long breaks. No sign-up required."
+            content="Embed a free water tracker in your Notion workspace. Set a daily goal, track your intake, and build better hydration habits. No sign-up required."
           />
           <script
             type="application/ld+json"
@@ -109,7 +101,7 @@ export default function PomodoroTimerPage() {
               m={0}
               mb="xs"
             >
-              Free Pomodoro Timer for{' '}
+              Free Water Tracker for{' '}
               <Box as="span" color="brand.accent-1">Notion</Box>
             </Text>
             <Text
@@ -123,7 +115,7 @@ export default function PomodoroTimerPage() {
               lineHeight={1.5}
               maxWidth="600px"
             >
-              Stay focused with the Pomodoro Technique — embedded directly in your Notion workspace. No sign-up required.
+              Track your daily water intake right inside Notion. Set a goal, tap to log, and watch your hydration improve. No sign-up required.
             </Text>
 
             {/* Widget embed */}
@@ -140,11 +132,11 @@ export default function PomodoroTimerPage() {
               mb="sm"
             >
               <iframe
-                src="/pomodoro"
+                src="/water-tracker"
                 width="100%"
                 height="100%"
                 style={{ border: 'none' }}
-                title="Blocs Pomodoro Timer"
+                title="Blocs Water Tracker"
               />
             </Box>
 
@@ -214,8 +206,8 @@ export default function PomodoroTimerPage() {
               />
               <StepCard
                 number="3"
-                title="Start Focusing"
-                description="Your Pomodoro timer is live. Hit play and focus on your work."
+                title="Track Your Water"
+                description="Tap the up arrow each time you drink. Watch the bowl fill up as you hit your goal."
               />
             </Flex>
           </PageGutters>
@@ -262,14 +254,14 @@ export default function PomodoroTimerPage() {
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/pomodoro-guide.gif"
-                alt="How to embed the Pomodoro timer in Notion"
+                alt="How to embed a Blocs widget in Notion"
                 style={{ width: '100%', height: 'auto', display: 'block' }}
               />
             </Box>
           </Flex>
         </PageGutters>
 
-        {/* Pomodoro Technique */}
+        {/* Why Track Water */}
         <Box bg="primary.accent-2" py="lg">
           <PageGutters>
             <Text
@@ -281,7 +273,7 @@ export default function PomodoroTimerPage() {
               m={0}
               mb="xs"
             >
-              The Pomodoro Technique
+              Why Track Your Water Intake?
             </Text>
             <Text
               fontSize="sm"
@@ -293,9 +285,8 @@ export default function PomodoroTimerPage() {
               maxWidth="650px"
               mx="auto"
             >
-              Developed by Francesco Cirillo in the late 1980s, the Pomodoro Technique uses a simple
-              cycle of focused work and breaks to improve concentration and prevent burnout. Work for
-              25 minutes, take a 5-minute break, and repeat. After four cycles, take a longer 15-minute break.
+              Most people don&#39;t drink enough water. A simple visual reminder in the tool you already
+              use every day makes it easy to build the habit without thinking about it.
             </Text>
             <Flex
               justifyContent="center"
@@ -303,16 +294,16 @@ export default function PomodoroTimerPage() {
               flexDirection={['column', , , 'row']}
             >
               <BenefitCard
-                title="Reduced Burnout"
-                description="Strategic breaks prevent mental fatigue and keep you fresh throughout the day."
+                title="Stay Hydrated"
+                description="A visual goal tracker keeps hydration top-of-mind throughout your workday."
               />
               <BenefitCard
-                title="Better Focus"
-                description="25-minute sessions create urgency and eliminate the temptation to multitask."
+                title="Build the Habit"
+                description="Logging each glass creates a daily routine that sticks over time."
               />
               <BenefitCard
-                title="Track Your Progress"
-                description="See exactly how you spend your time with built-in focus analytics."
+                title="See Your Progress"
+                description="Weekly and monthly analytics show your hydration trends at a glance."
               />
             </Flex>
           </PageGutters>
@@ -350,7 +341,7 @@ export default function PomodoroTimerPage() {
                 m={0}
                 mb="xs"
               >
-                Want more from your Pomodoro?
+                Want more from your Water Tracker?
               </Text>
               <Text
                 fontSize="sm"
@@ -361,7 +352,7 @@ export default function PomodoroTimerPage() {
                 lineHeight={1.5}
                 maxWidth="500px"
               >
-                Focus Pro unlocks custom presets, focus analytics, theme customization,
+                Focus Pro unlocks custom goals, hydration analytics, theme customization,
                 and more — starting at $3/month.
               </Text>
               <Link href="/pricing" passHref>
