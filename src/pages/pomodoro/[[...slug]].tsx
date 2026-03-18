@@ -14,9 +14,28 @@ import {
   usePomodoroDispatch
 } from '@/widgets/Pomodoro/usePomodoroStore'
 import WidgetPage from '@/widgets/WidgetPage'
-import DemoBanner from '@/widgets/DemoBanner'
+import Text from '@/design-system/Text'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
+
+const PoweredByBlocs = () => (
+  <a
+    href="https://blocs.me/pomodoro-timer"
+    target="_blank"
+    rel="noopener noreferrer"
+    style={{ textDecoration: 'none' }}
+  >
+    <Text
+      fontSize="10px"
+      textAlign="center"
+      color="primary.accent-4"
+      mt="8px"
+      mb={0}
+    >
+      Powered by Blocs
+    </Text>
+  </a>
+)
 
 const DemoPomodoro = () => {
   const pomodoroDispatch = usePomodoroDispatch()
@@ -36,7 +55,7 @@ const DemoPomodoro = () => {
             maxWidth="385px"
             minWidth="300px"
           />
-          <DemoBanner />
+          <PoweredByBlocs />
         </PomodoroProvider>
       </BlocsThemeProvider>
     </WidgetPage>
