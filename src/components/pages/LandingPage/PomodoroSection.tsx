@@ -21,7 +21,7 @@ const PomodoroSection = () => {
             color="background"
             borderRadius="sm"
             px="md"
-            py="xxs"
+            py="xs"
             fontSize="xs"
             fontWeight="bold"
             height="40px"

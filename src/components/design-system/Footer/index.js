@@ -23,7 +23,7 @@ const Footer = () => (
         <Grid
           width="100%"
           mx="auto"
-          gridTemplateColumns={['1fr', '1fr', '1fr', 'repeat(3, 1fr)']}
+          gridTemplateColumns={['1fr', '1fr', 'repeat(2, 1fr)', 'repeat(4, 1fr)']}
           gridGap={['sm', 'sm', 'lg', 'auto']}
         >
           <Box width="min(100%, 350px)">
@@ -64,6 +64,21 @@ const Footer = () => (
             <RegoLink href="/sign-in">Sign In</RegoLink>
             <RegoLink href="/privacy-policy.pdf">Privacy Policy</RegoLink>
             <RegoLink href="/t&c.pdf">Terms & Conditions</RegoLink>
+          </Box>
+          <Box width="min(100%, 350px)">
+            <Text
+              as="h3"
+              fontSize="md"
+              color="foreground"
+              fontWeight="bold"
+              mb="sm"
+              mt={0}
+            >
+              FREE WIDGETS
+            </Text>
+            <RegoLink href="/pomodoro-timer">Pomodoro Timer</RegoLink>
+            <RegoLink href="/water-tracker-widget">Water Tracker</RegoLink>
+            <RegoLink href="/habit-tracker-widget">Habit Tracker</RegoLink>
           </Box>
           <Box width="min(100%, 350px)">
             <Text

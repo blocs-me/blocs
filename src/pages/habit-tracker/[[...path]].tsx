@@ -40,7 +40,7 @@ const PoweredByBlocs = () => (
 const DemoHabitTracker = () => {
   return (
     <BlocsThemeProvider>
-      <WidgetPage p="sm" bg="bg.notion">
+      <WidgetPage p="sm" bg="bg.notion" flexDirection="column">
         <URLHashProvider hash={{ role: 'blocs-user' }}>
           <DummyHabitTracker
             smallScreenAt="600px"

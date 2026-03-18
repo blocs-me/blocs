@@ -271,6 +271,55 @@ const Nav = ({ title = '', links = [] }) => {
               height="100%"
             >
               <NavLink href="/" text="Home" passHref preload />
+              <Box
+                position="relative"
+                height="100%"
+                css={{
+                  '&:hover > div': { opacity: 1, pointerEvents: 'auto', transform: 'translateY(0)' }
+                }}
+              >
+                <Flex
+                  height="100%"
+                  alignSelf={['center', , , , 'end']}
+                  alignItems="center"
+                  css={{ cursor: 'pointer' }}
+                >
+                  <A color="foreground" fontSize="sm">Widgets</A>
+                </Flex>
+                <Box
+                  position={['relative', , , , 'absolute']}
+                  top={[0, , , , '100%']}
+                  left={[0, , , , '-12px']}
+                  bg="background"
+                  borderRadius="md"
+                  boxShadow={['none', , , , 'lg']}
+                  p={['0', , , , 'xs']}
+                  pt={['xs', , , , 'xs']}
+                  minWidth="180px"
+                  css={{
+                    opacity: [1, , , , 0],
+                    pointerEvents: ['auto', , , , 'none'],
+                    transform: ['none', , , , 'translateY(8px)'],
+                    transition: 'opacity 0.2s ease, transform 0.2s ease'
+                  }}
+                >
+                  <Link href="/pomodoro-timer" passHref>
+                    <A as="a" color="foreground" fontSize="sm" display="block" css={{ padding: '6px 12px', borderRadius: '6px', '&:hover': { background: 'var(--colors-primary-accent-2)' } }}>
+                      Pomodoro Timer
+                    </A>
+                  </Link>
+                  <Link href="/water-tracker-widget" passHref>
+                    <A as="a" color="foreground" fontSize="sm" display="block" css={{ padding: '6px 12px', borderRadius: '6px', '&:hover': { background: 'var(--colors-primary-accent-2)' } }}>
+                      Water Tracker
+                    </A>
+                  </Link>
+                  <Link href="/habit-tracker-widget" passHref>
+                    <A as="a" color="foreground" fontSize="sm" display="block" css={{ padding: '6px 12px', borderRadius: '6px', '&:hover': { background: 'var(--colors-primary-accent-2)' } }}>
+                      Habit Tracker
+                    </A>
+                  </Link>
+                </Box>
+              </Box>
               <NavLink href="/pricing" text="pricing" passHref preload />
               <NavLink href="/faqs" text="FAQs" passHref preload />
               {!isSignedIn && (

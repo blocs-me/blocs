@@ -126,33 +126,12 @@ export default function PomodoroTimerPage() {
               Stay focused with the Pomodoro Technique — embedded directly in your Notion workspace. No sign-up required.
             </Text>
 
-            {/* Widget embed */}
-            <Box
-              width="100%"
-              maxWidth="420px"
-              css={{
-                aspectRatio: '0.85',
-                border: '2px solid',
-                borderColor: 'var(--colors-primary-accent-1)',
-                borderRadius: '16px',
-                overflow: 'hidden'
-              }}
-              mb="sm"
-            >
-              <iframe
-                src="/pomodoro"
-                width="100%"
-                height="100%"
-                style={{ border: 'none' }}
-                title="Blocs Pomodoro Timer"
-              />
-            </Box>
-
             {/* CTAs */}
             <Flex
               gap="sm"
               flexDirection={['column', , 'row']}
               alignItems="center"
+              mb="md"
             >
               <CopyWidgetButton url={WIDGET_URL} />
               <Box
@@ -168,17 +147,38 @@ export default function PomodoroTimerPage() {
                   fontWeight: 600,
                   color: 'var(--colors-foreground)',
                   cursor: 'pointer',
-                  display: 'inline-block',
-                  textAlign: 'center',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
                   minWidth: '200px',
                   height: '50px',
-                  lineHeight: '24px',
                   '&:hover': { opacity: 0.8 }
                 }}
               >
                 How to Embed →
               </Box>
             </Flex>
+
+            {/* Widget embed */}
+            <Box
+              width="100%"
+              maxWidth="420px"
+              css={{
+                aspectRatio: '0.85',
+                border: '2px solid',
+                borderColor: 'var(--colors-primary-accent-1)',
+                borderRadius: '16px',
+                overflow: 'hidden'
+              }}
+            >
+              <iframe
+                src="/pomodoro"
+                width="100%"
+                height="100%"
+                style={{ border: 'none' }}
+                title="Blocs Pomodoro Timer"
+              />
+            </Box>
           </Flex>
         </PageGutters>
 
@@ -370,12 +370,11 @@ export default function PomodoroTimerPage() {
                   bg="brand.accent-1"
                   color="background"
                   borderRadius="sm"
-                  px="md"
-                  py="xs"
                   fontSize="sm"
                   fontWeight="bold"
-                  height="50px"
                   minWidth="200px"
+                  height="50px"
+                  css={{ display: 'flex', alignItems: 'center', justifyContent: 'center', textDecoration: 'none' }}
                 >
                   See Pricing
                 </Button>
