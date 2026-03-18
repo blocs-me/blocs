@@ -243,3 +243,47 @@ When a free user tries to access a gated feature:
 - **Free data:** localStorage only, no anonymous session tracking
 - **Branding:** "Powered by Blocs" on free embeds, links to `/pomodoro-timer`
 - **Video:** Using `public/pomodoro-guide.gif` + `public/notion-embed.png` instead of video
+
+---
+
+## Completed Work (PR #86, merged 2026-03-18)
+
+### Phase 1: Dedicated Page (Part 2) — Done
+
+- Built `/pomodoro-timer` marketing page with:
+  - Hero with live embedded widget (iframe of `/pomodoro`) + "Copy Widget URL" CTA
+  - "How It Works" 3-step section (Copy → Paste in Notion → Focus)
+  - Embed guide with `pomodoro-guide.gif`
+  - Pomodoro Technique explainer with 3 benefit cards
+  - 8 FAQs with JSON-LD structured data for Google rich results
+  - Focus Pro upgrade CTA at bottom
+  - Full SEO meta tags targeting "free pomodoro timer for notion"
+- Replaced `DemoBanner` on `/pomodoro` (no-token) with "Powered by Blocs" linking to `/pomodoro-timer`
+- `/pomodoro` is now the clean embed URL (no banner, no sign-up required)
+- Page auto-included in sitemap (not in exclude list)
+- Added "Try the free Pomodoro timer" link in landing page PomodoroSection
+
+### Phase 2: UX Simplification (Part 1) — Done
+
+- **ModeTabBar**: Pomodoro / Short Break / Long Break tabs on the main timer screen. Clicking a tab stops the timer and switches mode.
+- **PomodoroSettingsPopover**: Gear icon in top-right opens a dropdown with volume slider, auto-start toggles, deep focus toggle, and "Custom Durations" Pro paywall CTA.
+- Replaced hamburger menu with gear icon on main page. Sub-page navigation (presets, theme) still accessible via routes for authenticated users.
+- **DummyPomodoro fully interactive**: play/pause, reset, mode tabs, gear icon + settings popover. No more auto-start on page load.
+- **Timer fixes**: Added `interval` to useEffect deps so timer display resets correctly when switching modes.
+- **Long break default**: Changed from 10min to 15min (standard Pomodoro convention).
+- **Visual improvements**: Smaller ring (85% → 70%), larger digits (lg → xl font size).
+- **Mode-specific colors**: Warm pink/coral ring gradient for Pomodoro, cool blue for breaks. Label badge matches (red for work, blue for breaks). Applied to both light and dark mode.
+- **Custom Durations paywall**: Settings popover includes a CTA linking to /pricing for Pro custom intervals.
+
+### Phase 3: Free-Tier Plumbing (Part 3) — Partially Done
+
+The free-tier embed flow is now working end-to-end for Pomodoro:
+- `/pomodoro` without a token renders a fully interactive widget with localStorage preferences
+- "Powered by Blocs" branding links to `/pomodoro-timer`
+- Settings popover has "Custom Durations" upgrade prompt
+- No sign-up required to use the basic timer
+
+**Still TODO for Phase 3:**
+- `usePomodoroMode` hook for explicit free/pro feature gating (currently DummyPomodoro vs Pomodoro component split handles this implicitly)
+- Apply same pattern to water-tracker and habit-tracker (dedicated pages + interactive demos)
+- Design deeper paywall triggers (analytics access, theme customization)
