@@ -6,9 +6,7 @@ import WidgetExplainerSection from './WidgetExplainerSection'
 import { useEffect, useState } from 'react'
 
 const paraOne =
-  'Never forget to hydrate with our water tracker widget which you can embed right next to your to do list inside Notion!'
-const paraTwo =
-  'The big advantage with the analytics widget is that you can be inspired by watching yourself improve over time.'
+  'Set a daily water goal and track your intake without leaving Notion. Watch your hydration habits improve over time with weekly and monthly analytics.'
 
 const WaterTrackerSection = () => {
   const [progress, setProgress] = useState(0)
@@ -27,7 +25,6 @@ const WaterTrackerSection = () => {
     <WidgetExplainerSection
       header="Water Tracker"
       paraOne={paraOne}
-      paraTwo={paraTwo}
       reverse
     >
       {(reveal) => (

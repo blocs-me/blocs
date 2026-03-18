@@ -5,16 +5,13 @@ import SlideIn from './LandingDemo/SlideIn'
 import WidgetExplainerSection from './WidgetExplainerSection'
 
 const paraOne =
-  'Blocs Pomodoro widget is packed with features to help you be a master of your time.'
-const paraTwo =
-  "You can create different presets for each task and the best thing, with Pomodoro analytics you can see exactly how you're spending time!"
+  'Stay on task with a Pomodoro timer embedded right in your Notion workspace. Create custom presets for different tasks and track your focus time with built-in analytics.'
 
 const PomodoroSection = () => {
   return (
     <WidgetExplainerSection
       header="Pomodoro"
       paraOne={paraOne}
-      paraTwo={paraTwo}
     >
       {(reveal) => (
         <>
