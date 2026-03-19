@@ -2,7 +2,6 @@ import Avatar from '@/design-system/Avatar'
 import Button from '@/design-system/Button'
 import Flex from '@/helpers/Flex'
 import { PRO_PLAN_NAME } from '@/constants/planNames'
-import Link from 'next/link'
 import { Document } from 'src/icons/document'
 import Drop from 'src/icons/drop-icon'
 import Stopwatch from 'src/icons/stopwatch'
@@ -21,23 +20,23 @@ import { isLifestylePro, isLifestyleBasic } from '@/lambda/helpers/subscriptionC
 import Giftbox from 'src/icons/giftbox'
 
 const NavButton = ({ to, isActive, text, icon }) => {
+  const router = useRouter()
   return (
-    <Link href={to} style={{ textDecoration: 'none' }}>
-      <Button
-        width="250px"
-        py="xs"
-        px="md"
-        borderRadius="sm"
-        icon={icon}
-        color={isActive ? 'brand.accent-1' : 'primary.accent-4'}
-        bg={isActive ? 'brand.accent-5' : 'transparent'}
-        hoverColor={'brand.accent-1'}
-        hoverBg={'brand.accent-5'}
-        fontSize="sm"
-      >
-        {text}
-      </Button>
-    </Link>
+    <Button
+      width="250px"
+      py="xs"
+      px="md"
+      borderRadius="sm"
+      icon={icon}
+      color={isActive ? 'brand.accent-1' : 'primary.accent-4'}
+      bg={isActive ? 'brand.accent-5' : 'transparent'}
+      hoverColor={'brand.accent-1'}
+      hoverBg={'brand.accent-5'}
+      fontSize="sm"
+      onClick={() => router.push(to)}
+    >
+      {text}
+    </Button>
   )
 }
 

@@ -55,7 +55,7 @@ export const NavLink = ({ href, text = '' }) => {
       alignItems="center"
     >
       <Link href={href} style={{ textDecoration: 'none' }}>
-        <A color={'foreground'} fontSize="sm" isActive={active}>
+        <A as="span" color={'foreground'} fontSize="sm" isActive={active}>
           {text}
         </A>
       </Link>
