@@ -6,6 +6,12 @@ import DummyHabitTracker from '@/widgets/HabitTracker/DummyHabitTracker'
 import WidgetPage from '@/widgets/WidgetPage'
 import Text from '@/design-system/Text'
 import { useRouter } from 'next/router'
+import { useState, useEffect, useCallback } from 'react'
+import storage from '@/utils/storage'
+
+const STORAGE_KEY = 'blocsHabitTrackerDemo'
+
+const getTodayKey = () => new Date().toISOString().slice(0, 10)
 
 const createHabit = (title: string, id: number) => ({ id, title })
 
@@ -17,6 +23,22 @@ const demoHabits = {
     createHabit('French, 15 min', 4),
     createHabit('No caffeine', 5)
   ]
+}
+
+const loadChecked = (): number[] => {
+  try {
+    const saved = storage.getItem(STORAGE_KEY)
+    if (!saved) return []
+    const parsed = JSON.parse(saved)
+    if (parsed.date !== getTodayKey()) return []
+    return parsed.checked ?? []
+  } catch {
+    return []
+  }
+}
+
+const saveChecked = (checked: number[]) => {
+  storage.setItem(STORAGE_KEY, JSON.stringify({ date: getTodayKey(), checked }))
 }
 
 const PoweredByBlocs = () => (
@@ -39,6 +61,21 @@ const PoweredByBlocs = () => (
 )
 
 const DemoHabitTracker = () => {
+  const [checked, setChecked] = useState<number[]>([])
+  const [loaded, setLoaded] = useState(false)
+
+  useEffect(() => {
+    setChecked(loadChecked())
+    setLoaded(true)
+  }, [])
+
+  const handleCheck = useCallback((checked: number[]) => {
+    setChecked(checked)
+    saveChecked(checked)
+  }, [])
+
+  if (!loaded) return null
+
   return (
     <BlocsThemeProvider>
       <WidgetPage p="sm" bg="bg.notion" flexDirection="column">
@@ -50,7 +87,8 @@ const DemoHabitTracker = () => {
             smallScreenAt="600px"
             isEditable
             habits={demoHabits}
-            checkedValues={[1, 2]}
+            checkedValues={checked}
+            onCheckedChange={handleCheck}
             analyticsData={{
               data: {
                 bestStreak: 60,

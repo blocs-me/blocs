@@ -58,7 +58,8 @@ const DummyHabitTracker = ({
   habits = { data: [] },
   isEditable = false,
   checkedValues = [],
-  smallScreenAt = '1000px'
+  smallScreenAt = '1000px',
+  onCheckedChange = undefined as ((checked: any[]) => void) | undefined
 }) => {
   const today = formatDate(new Date())
   const todayISO = getCurrentISOString()
@@ -170,15 +171,19 @@ const DummyHabitTracker = ({
                         isEditable &&
                           (() => {
                             const index = checked.findIndex((v) => v === d.id)
+                            let next
 
                             if (index > -1) {
-                              setChecked([
+                              next = [
                                 ...checked.slice(0, index),
                                 ...checked.slice(index + 1)
-                              ])
+                              ]
                             } else {
-                              setChecked([d.id, ...checked])
+                              next = [d.id, ...checked]
                             }
+
+                            setChecked(next)
+                            onCheckedChange?.(next)
                           })()
                       }}
                       key={d.id}
