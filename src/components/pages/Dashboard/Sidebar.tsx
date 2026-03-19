@@ -33,6 +33,7 @@ const NavButton = ({ to, isActive, text, icon }) => {
       hoverColor={'brand.accent-1'}
       hoverBg={'brand.accent-5'}
       fontSize="sm"
+      justifyContent="flex-start"
       onClick={() => router.push(to)}
     >
       {text}
