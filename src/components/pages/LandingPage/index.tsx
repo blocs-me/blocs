@@ -198,7 +198,6 @@ const LandingPage = () => {
                         fontSize="sm"
                         fontWeight="bold"
                         height="50px"
-                        px="lg"
                         minWidth="200px"
                         css={{ display: 'flex', alignItems: 'center', justifyContent: 'center', textDecoration: 'none' }}
                       >
@@ -213,7 +212,6 @@ const LandingPage = () => {
                         fontSize="sm"
                         fontWeight="bold"
                         height="50px"
-                        px="lg"
                         minWidth="200px"
                         css={{ display: 'flex', alignItems: 'center', justifyContent: 'center', textDecoration: 'none' }}
                       >
