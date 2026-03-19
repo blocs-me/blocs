@@ -136,6 +136,8 @@ const Btn = styled('button', {
   shouldForwardProp
 })<ButtonProps>(
   {
+    display: 'inline-flex',
+    alignItems: 'center',
     position: 'relative',
     overflow: 'hidden',
 
