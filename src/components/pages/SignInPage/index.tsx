@@ -16,9 +16,9 @@ import { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { BlocsLogo } from 'src/icons/blocs-logo'
 import { isEmail } from 'validator'
-import Email from '../../../icons/email.svg'
 import useSignInRedirectLink from '../../widgets/HabitTracker/hooks/useSignInRedirectLink'
 import Icon from '@/helpers/Icon'
+import Email from '../../../icons/email.svg'
 
 const SignInPage = () => {
   const emailRedirectLink = useSignInRedirectLink()
@@ -26,6 +26,7 @@ const SignInPage = () => {
   const {
     register,
     formState: { errors },
+    getValues,
     handleSubmit
   } = useForm()
   const [linkSent, setLinkSent] = useState(false)
@@ -37,6 +38,8 @@ const SignInPage = () => {
   const [lastSignedInAt, setLastSignedInAt] = useState(
     storage.getItem('lastSignedInAt')
   )
+
+  const isReturningUser = storage.getItem('prevLoggedIn') === 'yes'
 
   const shouldPreventSignIn = lastSignedInAt
     ? (new Date().getTime() - new Date(lastSignedInAt).getTime()) /
@@ -59,7 +62,7 @@ const SignInPage = () => {
     if (error) {
       console.error(error)
       notif.createError(
-        'Uh oh! we were not able to create your sign in link. You can only request one link every minute.',
+        'We could not send a sign-in link. You can only request one link per minute.',
         15000
       )
     } else {
@@ -85,9 +88,9 @@ const SignInPage = () => {
     >
       <NextSeo
         {...nextSeoConfig}
-        title="Sign In | blocs notion widgets"
-        description="Sign in to your blocs notion account"
-        canonical="https://www.blocs.me/sign-in"
+        title="Sign In — Blocs"
+        description="Sign in to your Blocs account to customize your Notion widgets. No password required — we'll send you a magic link."
+        canonical="https://blocs.me/sign-in"
       />
       <Nav />
       <Flex width="100%" height="100vh" py="xl" px="md" justifyContent="center">
@@ -106,12 +109,12 @@ const SignInPage = () => {
             fontWeight="bold"
             mb="xs"
           >
-            Sign In
+            Sign in to Blocs
           </Text>
-          <Text fontSize="md" color="primary.accent-4" textAlign="center">
-            {storage.getItem('prevLoggedIn') === 'yes'
-              ? 'Welcome Back!'
-              : 'No password is required to sign in !'}
+          <Text fontSize="md" color="primary.accent-4" textAlign="center" m={0}>
+            {isReturningUser
+              ? 'Welcome back! Enter your email for a sign-in link.'
+              : 'Enter your email and we\'ll send you a sign-in link. No password needed.'}
           </Text>
           <Box mt="sm" />
           <form onSubmit={handleSignIn} css={{ width: '100%' }}>
@@ -148,18 +151,31 @@ const SignInPage = () => {
               borderRadius="md"
               bg="primary.accent-2"
               mt="md"
+              flexDirection="column"
+              alignItems="center"
             >
-              <Icon as="span" fill="primary.accent-4" width="100px" mr="10px">
+              <Icon as="span" fill="primary.accent-4" width="80px" mb="xs">
                 <Email />
               </Icon>
               <Text
                 fontSize="sm"
-                color="primary.accent-4"
-                textAlign={'center'}
-                mb={0}
+                fontWeight="bold"
+                color="foreground"
+                textAlign="center"
+                mb="xxs"
               >
-                We&#39;ve emailed you a magic link for a password free sign in.
-                ✨
+                Check your inbox
+              </Text>
+              <Text
+                fontSize="sm"
+                color="primary.accent-4"
+                textAlign="center"
+                mb={0}
+                lineHeight={1.5}
+              >
+                We sent a sign-in link to{' '}
+                <strong>{getValues('email')}</strong>.
+                Click the link to sign in — it expires in 1 hour.
               </Text>
             </Flex>
           )}

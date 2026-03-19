@@ -1,22 +1,14 @@
-import { ReactNode, useEffect, useState } from 'react'
 import Head from 'next/head'
 import PageLayout from '@/helpers/PageLayout'
 import Box from '@/helpers/Box'
 import Nav from '@/design-system/Nav'
 import Flex from '@/helpers/Flex'
 import Text from '@/design-system/Text'
-import TextInput from '@/design-system/TextInput'
 import Button from '@/design-system/Button'
 import Link from 'next/link'
-import Icon from '@/helpers/Icon'
-import { useForm } from 'react-hook-form'
-import { isEmail } from 'validator'
-import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react'
-import storage from '@/utils/storage'
+import { useUser } from '@supabase/auth-helpers-react'
 import { useRouter } from 'next/router'
-import useSignInRedirectLink from '../../widgets/HabitTracker/hooks/useSignInRedirectLink'
 import LandingDemo from './LandingDemo'
-import Email from '../../../icons/email.svg'
 import PomodoroSection from './PomodoroSection'
 import WaterTrackerSection from './WaterTrackerSection'
 import HabitTrackerSection from './HabitTrackerSection'
@@ -45,51 +37,10 @@ const organizationSchema = {
 }
 
 const LandingPage = () => {
-  const emailRedirectLink = useSignInRedirectLink()
-  const {
-    handleSubmit,
-    register,
-    getValues,
-    formState: { errors }
-  } = useForm()
-  const supabase = useSupabaseClient()
   const user = useUser()
-  const [disableSignUp, setDisableSignUp] = useState(false)
-  const [signUpError, setSignUpError] = useState(false)
   const router = useRouter()
 
-  const goToDashboard = () => router.push('/dashboard/pomodoro')
-
-  const [invitedAt, setInvitedAt] = useState(0)
-  useEffect(() => {
-    const cachedInvite = storage.getItem('invited')
-
-    if (cachedInvite) {
-      const timeDiff =
-        new Date().getDate() - new Date(Number(cachedInvite)).getDate()
-      const tenMins = 1000 * 60 * 10
-      if (tenMins < timeDiff) setInvitedAt(Number(cachedInvite))
-    }
-  }, [])
-
-  const onSubmit = handleSubmit(async (formState) => {
-    setDisableSignUp(true)
-    const { data, error } = await supabase.auth.signInWithOtp({
-      email: formState.email,
-      options: {
-        emailRedirectTo: emailRedirectLink
-      }
-    })
-
-    if (error) {
-      setSignUpError(true)
-    } else {
-      setInvitedAt(new Date().getTime())
-      storage.setItem('invited', new Date().getTime())
-    }
-
-    setDisableSignUp(false)
-  })
+  const isSignedIn = user?.aud === 'authenticated'
 
   return (
     <BlocsThemeProvider>
@@ -214,46 +165,10 @@ const LandingPage = () => {
                     mt="xs"
                     lineHeight={1.5}
                   >
-                    Stay focused inside Notion with Pomodoro, Habit Tracker, and Water Tracker widgets
+                    Embed a Pomodoro timer, Water Tracker, or Habit Tracker directly in your Notion workspace. Free, no sign-up required.
                   </Text>
                 </Box>
-                {!user && !invitedAt && (
-                  <Flex
-                    maxWidth="400px"
-                    mt="sm"
-                    as="form"
-                    onSubmit={onSubmit}
-                  >
-                    <div>
-                      <TextInput
-                        ariaLabel="Email input for signing up"
-                        placeholder="Enter Your Email"
-                        {...register('email', {
-                          required: true,
-                          validate: (v: string) => isEmail(v)
-                        })}
-                        error={
-                          errors?.email ? 'Please provide a valid email' : ''
-                        }
-                        css={{ borderRadius: '10px 0 0 10px', height: '60px' }}
-                      />
-                    </div>
-                    <Button
-                      bg="foreground"
-                      color="background"
-                      borderRadius="0 10px 10px 0"
-                      fontSize="sm"
-                      fontWeight={200}
-                      width={['fit-content', , , '150px']}
-                      px="sm"
-                      disabled={disableSignUp}
-                      height={'60px'}
-                    >
-                      Get Started
-                    </Button>
-                  </Flex>
-                )}
-                {user?.aud === 'authenticated' && (
+                {isSignedIn ? (
                   <Button
                     variant="outlined"
                     maxWidth={['300px']}
@@ -262,47 +177,62 @@ const LandingPage = () => {
                     borderRadius="sm"
                     hoverBg="foreground"
                     hoverColor="background"
-                    onClick={() => goToDashboard()}
+                    mt="sm"
+                    onClick={() => router.push('/dashboard/pomodoro')}
                   >
                     Go to dashboard
                   </Button>
-                )}
-                {!!invitedAt && !user && (
-                  <Box
-                    p="md"
-                    bg="background"
-                    borderRadius="md"
-                    css={{ textAlign: 'center', maxWidth: '600px' }}
-                    border="solid 2px"
-                    borderColor="primary.accent-1"
-                    boxShadow="sm"
+                ) : (
+                  <Flex
+                    gap="sm"
+                    mt="sm"
+                    flexDirection={['column', , 'row']}
+                    alignItems="center"
                   >
-                    <Icon
-                      as="span"
-                      display="inline-flex"
-                      fill="foreground"
-                      width="120px"
-                      mb={'sm'}
-                    >
-                      <Email />
-                    </Icon>
-                    <Text
-                      fontSize="sm"
-                      fontWeight="bold"
-                      color="foreground"
-                      mb={'xs'}
-                    >
-                      Hooray! 🥳 We&#39;ve sent an invite to your email{' '}
-                      {getValues('email')}
-                    </Text>
-                    <Text
-                      fontSize="sm"
-                      fontWeight="200"
-                      color="primary.accent-4"
-                      mb={0}
-                    >
-                      Click on the invite to sign in to blocs
-                    </Text>
+                    <Link href="/pomodoro-timer" passHref>
+                      <Button
+                        as="a"
+                        bg="brand.accent-1"
+                        color="background"
+                        borderRadius="sm"
+                        fontSize="sm"
+                        fontWeight="bold"
+                        height="50px"
+                        minWidth="200px"
+                        css={{ display: 'flex', alignItems: 'center', justifyContent: 'center', textDecoration: 'none' }}
+                      >
+                        Try the Pomodoro Timer
+                      </Button>
+                    </Link>
+                    <Link href="/water-tracker-widget" passHref>
+                      <Button
+                        as="a"
+                        variant="outlined"
+                        borderRadius="sm"
+                        fontSize="sm"
+                        fontWeight="bold"
+                        height="50px"
+                        minWidth="200px"
+                        css={{ display: 'flex', alignItems: 'center', justifyContent: 'center', textDecoration: 'none' }}
+                      >
+                        Try the Water Tracker
+                      </Button>
+                    </Link>
+                  </Flex>
+                )}
+                {!isSignedIn && (
+                  <Box
+                    as="a"
+                    href="#widgets"
+                    mt="sm"
+                    css={{
+                      fontSize: '12px',
+                      color: 'var(--colors-primary-accent-4)',
+                      textDecoration: 'underline',
+                      cursor: 'pointer'
+                    }}
+                  >
+                    Or explore all widgets
                   </Box>
                 )}
               </Flex>
@@ -312,9 +242,11 @@ const LandingPage = () => {
               </Flex>
             </Flex>
 
-            <PomodoroSection />
-            <WaterTrackerSection />
-            <HabitTrackerSection />
+            <Box id="widgets">
+              <PomodoroSection />
+              <WaterTrackerSection />
+              <HabitTrackerSection />
+            </Box>
           </Box>
         </PageLayout>
       </Box>

@@ -3,7 +3,6 @@ import Flex from '@/helpers/Flex'
 import Box from '@/helpers/Box'
 import Text from '@/design-system/Text'
 import Switch from '@/design-system/Switch'
-import Link from 'next/link'
 import { usePomodoroStore, usePomodoroDispatch } from './usePomodoroStore'
 import { setPomodoroPreferences } from './pomodoroActions'
 import useColorMode, { useColorModeStore } from '@/hooks/useColorMode'
@@ -201,48 +200,50 @@ const PomodoroSettingsPopover = ({ onClose, isAuthenticated }: { onClose: () => 
       <Box height="1px" bg="primary.accent-1" my="xs" />
 
       {isAuthenticated ? (
-        <Link href="/pomodoro/labels" passHref>
-          <Box
-            as="a"
-            onClick={onClose}
-            css={{
-              display: 'block',
-              textDecoration: 'none',
-              cursor: 'pointer',
-              borderRadius: '6px',
-              padding: '8px',
-              '&:hover': { backgroundColor: 'var(--colors-primary-accent-2)' }
-            }}
-          >
-            <Text fontSize="xxs" fontWeight={600} color="brand.accent-1" m={0}>
-              Manage Presets
-            </Text>
-            <Text fontSize="10px" color="primary.accent-4" m={0} mt="2px">
-              Custom durations, labels, and colors
-            </Text>
-          </Box>
-        </Link>
+        <Box
+          as="a"
+          href="/pomodoro/labels"
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={onClose}
+          css={{
+            display: 'block',
+            textDecoration: 'none',
+            cursor: 'pointer',
+            borderRadius: '6px',
+            padding: '8px',
+            '&:hover': { backgroundColor: 'var(--colors-primary-accent-2)' }
+          }}
+        >
+          <Text fontSize="xxs" fontWeight={600} color="brand.accent-1" m={0}>
+            Manage Presets
+          </Text>
+          <Text fontSize="10px" color="primary.accent-4" m={0} mt="2px">
+            Custom durations, labels, and colors
+          </Text>
+        </Box>
       ) : (
-        <Link href="/pricing" passHref>
-          <Box
-            as="a"
-            css={{
-              display: 'block',
-              textDecoration: 'none',
-              cursor: 'pointer',
-              borderRadius: '6px',
-              padding: '8px',
-              '&:hover': { backgroundColor: 'var(--colors-primary-accent-2)' }
-            }}
-          >
-            <Text fontSize="xxs" fontWeight={600} color="brand.accent-1" m={0}>
-              Custom Durations
-            </Text>
-            <Text fontSize="10px" color="primary.accent-4" m={0} mt="2px">
-              Set your own Pomodoro and break times with Pro
-            </Text>
-          </Box>
-        </Link>
+        <Box
+          as="a"
+          href="https://blocs.me/sign-in"
+          target="_blank"
+          rel="noopener noreferrer"
+          css={{
+            display: 'block',
+            textDecoration: 'none',
+            cursor: 'pointer',
+            borderRadius: '6px',
+            padding: '8px',
+            '&:hover': { backgroundColor: 'var(--colors-primary-accent-2)' }
+          }}
+        >
+          <Text fontSize="xxs" fontWeight={600} color="brand.accent-1" m={0}>
+            Custom Durations
+          </Text>
+          <Text fontSize="10px" color="primary.accent-4" m={0} mt="2px">
+            Sign in to customize your timer durations
+          </Text>
+        </Box>
       )}
     </Box>
   )
