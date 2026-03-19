@@ -91,3 +91,18 @@ Then refactor `pomodoro-timer.tsx` to import from shared.
 - Making DummyWaterTracker / DummyHabitTracker more interactive (they already are)
 - Analytics page changes
 - PoweredBy component in authenticated widget (already exists)
+
+---
+
+## Completed (2026-03-19)
+
+All steps implemented and deployed:
+- Water Tracker demo: DemoBanner replaced with "Powered by Blocs", auto-start removed
+- Habit Tracker demo: DemoBanner replaced with "Powered by Blocs", flexDirection fixed
+- `/water-tracker-widget` marketing page: full SEO, 6 FAQs with JSON-LD, SoftwareApplication schema
+- `/habit-tracker-widget` marketing page: full SEO, 6 FAQs with JSON-LD, SoftwareApplication schema
+- Shared components extracted to `src/components/pages/WidgetMarketingPage/shared.tsx`
+- Landing page: "Try the free X" buttons on all three widget sections, animations removed
+- Nav: "Widgets" hover dropdown added
+- Footer: "Free Widgets" column added
+- SEO audit fixes: noindex on embed pages, og:image, heading semantics, expanded meta descriptions, structured data
