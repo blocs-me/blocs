@@ -54,13 +54,13 @@ export const NavLink = ({ href, text = '', passHref = false, as = 'a' }) => {
       alignSelf={['center', , , , 'end']}
       alignItems="center"
     >
-      <Link href={href} passHref={passHref}>
+      <Link href={href}>
         <A as={as} color={'foreground'} fontSize="sm" isActive={active}>
           {text}
         </A>
       </Link>
     </Flex>
-  )
+  );
 }
 
 const Hamburger = ({ open }) => {
@@ -187,20 +187,20 @@ const Nav = ({ title = '', links = [] }) => {
           height="100%"
         >
           <div css={{ flex: 1 }}>
-            <Link href="/" passHref>
-              <a aria-label="blocs home page">
-                <Icon
-                  css={{ svg: { verticalAlign: 'middle' } }}
-                  stroke="secondary"
-                  fill="secondary"
-                  role="img"
-                  alt="Blocs Logo"
-                >
-                  <Box width={['32px', '32px', '50px']}>
-                    <Logo />
-                  </Box>
-                </Icon>
-              </a>
+            <Link href="/" aria-label="blocs home page">
+
+              <Icon
+                css={{ svg: { verticalAlign: 'middle' } }}
+                stroke="secondary"
+                fill="secondary"
+                role="img"
+                alt="Blocs Logo"
+              >
+                <Box width={['32px', '32px', '50px']}>
+                  <Logo />
+                </Box>
+              </Icon>
+
             </Link>
           </div>
           {title && (
@@ -275,7 +275,7 @@ const Nav = ({ title = '', links = [] }) => {
               <NavLink href="/faqs" text="FAQs" passHref preload />
               {!isSignedIn && (
                 <Box pt={['1.5rem', , , , '0']} pb={['0.5rem', '0.5rem', 0]}>
-                  <Link href="/sign-in" passHref>
+                  <Link href="/sign-in">
                     <Button as="a" variant="primary" borderRadius="sm">
                       Sign In
                     </Button>
@@ -290,14 +290,14 @@ const Nav = ({ title = '', links = [] }) => {
               />
               {isSignedIn && (
                 <Link href="/dashboard/pomodoro">
-                  <a>
-                    <Avatar
-                      loading={!blocsUser?.user}
-                      variant="sm"
-                      src={blocsUser.user?.data?.avatar_url}
-                      alt="User Profile"
-                    />
-                  </a>
+
+                  <Avatar
+                    loading={!blocsUser?.user}
+                    variant="sm"
+                    src={blocsUser.user?.data?.avatar_url}
+                    alt="User Profile"
+                  />
+
                 </Link>
               )}
             </Stack>
@@ -305,7 +305,7 @@ const Nav = ({ title = '', links = [] }) => {
         </Flex>
       </PageGutters>
     </Box>
-  )
+  );
 }
 
 export default Nav

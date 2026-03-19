@@ -1,6 +1,6 @@
 import Box from '@/helpers/Box'
 import Flex from '@/helpers/Flex'
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 import DemoText from '../../DemoText'
 import ScaleIn from '../../ScaleIn'
 import SlideIn from '../../SlideIn'

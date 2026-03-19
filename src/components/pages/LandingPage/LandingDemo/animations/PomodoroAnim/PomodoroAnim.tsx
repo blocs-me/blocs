@@ -4,7 +4,7 @@ import ScaleIn from '../../ScaleIn'
 import SlideIn from '../../SlideIn'
 import SwipeAnim from '../../SwipeAnim'
 import Box from '@/helpers/Box'
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 
 const PomodoroAnim = ({ setNext, pause }) => {
   return (

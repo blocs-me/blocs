@@ -21,7 +21,7 @@ const WidgetMenuButton = ({ href = '/', isOpen = false }) => {
         ':hover': { boxShadow: theme.shadows.default }
       }}
     >
-      <Link href={href} css={{ width: '100%', height: '100%' }} passHref>
+      <Link href={href} css={{ width: '100%', height: '100%' }}>
         <Flex as="a" size="100%">
           <Icon
             m="auto"
@@ -35,7 +35,7 @@ const WidgetMenuButton = ({ href = '/', isOpen = false }) => {
         </Flex>
       </Link>
     </Flex>
-  )
+  );
 }
 
 export default WidgetMenuButton

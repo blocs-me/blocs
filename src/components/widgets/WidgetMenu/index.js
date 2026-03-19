@@ -9,30 +9,30 @@ import ButtonGroup, { ButtonGroupButton } from '@/design-system/ButtonGroup'
 const WidgetMenuItem = ({ href, itemIcon, title, iconProps = {} }) => {
   return (
     <ButtonGroupButton as="li" css={{ cursor: ' pointer' }}>
-      <Link href={href}>
-        <a css={{ display: 'flex', alignItems: 'center' }}>
-          <Icon
-            size="20px"
-            stroke="foreground"
-            mr="sm"
-            display="flex"
-            {...iconProps}
-          >
-            {itemIcon}
-          </Icon>
-          <Text
-            fontSize="md"
-            fontWeight="400"
-            color="foreground"
-            lineHeight={1.5}
-            mb={0}
-          >
-            {title}
-          </Text>
-        </a>
+      <Link href={href} css={{ display: 'flex', alignItems: 'center' }}>
+
+        <Icon
+          size="20px"
+          stroke="foreground"
+          mr="sm"
+          display="flex"
+          {...iconProps}
+        >
+          {itemIcon}
+        </Icon>
+        <Text
+          fontSize="md"
+          fontWeight="400"
+          color="foreground"
+          lineHeight={1.5}
+          mb={0}
+        >
+          {title}
+        </Text>
+
       </Link>
     </ButtonGroupButton>
-  )
+  );
 }
 
 const WidgetMenu = ({ menuItems = [], gap = 'sm' }) => {

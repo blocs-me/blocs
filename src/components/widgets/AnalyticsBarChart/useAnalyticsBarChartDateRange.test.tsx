@@ -1,5 +1,5 @@
 import { getMonday } from './useAnalyticsBarChartDateRange'
-import { act, renderHook } from '@testing-library/react-hooks'
+import { renderHook } from '@testing-library/react'
 import useAnalyticsBarChartDefaultValue from './useAnalyticsBarChartDefaultValue'
 import { ReactNode } from 'react'
 import { AnalyticsBarChartProvider } from './useAnalyticsBarChart'
