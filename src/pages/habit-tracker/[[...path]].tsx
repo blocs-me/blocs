@@ -1,3 +1,4 @@
+import Head from 'next/head'
 import BlocsThemeProvider from '@/helpers/BlocsThemeProvider'
 import { URLHashProvider } from '@/hooks/useUrlHash/useUrlHash'
 import HabitTracker from '@/widgets/HabitTracker'
@@ -41,6 +42,9 @@ const DemoHabitTracker = () => {
   return (
     <BlocsThemeProvider>
       <WidgetPage p="sm" bg="bg.notion" flexDirection="column">
+        <Head>
+          <meta name="robots" content="noindex" />
+        </Head>
         <URLHashProvider hash={{ role: 'blocs-user' }}>
           <DummyHabitTracker
             smallScreenAt="600px"
@@ -68,5 +72,12 @@ export default function HabitTrackerPage() {
 
   if (!router.query.token) return <DemoHabitTracker />
 
-  return <HabitTracker />
+  return (
+    <>
+      <Head>
+        <meta name="robots" content="noindex" />
+      </Head>
+      <HabitTracker />
+    </>
+  )
 }

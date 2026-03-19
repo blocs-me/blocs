@@ -1,3 +1,4 @@
+import Head from 'next/head'
 import BlocsThemeProvider from '@/helpers/BlocsThemeProvider'
 import DummyWaterTracker from '@/widgets/WaterTracker/DummyWaterTracker'
 import WaterTracker from '@/widgets/WaterTracker'
@@ -30,6 +31,9 @@ const DemoWaterTracker = () => {
 
   return (
     <WidgetPage bg="bg.notion" p="sm">
+      <Head>
+        <meta name="robots" content="noindex" />
+      </Head>
       <BlocsThemeProvider>
         <DummyWaterTracker
           progress={progress}
@@ -49,5 +53,12 @@ export default function WaterTrackerPage() {
 
   if (!router.query.token) return <DemoWaterTracker />
 
-  return <WaterTracker />
+  return (
+    <>
+      <Head>
+        <meta name="robots" content="noindex" />
+      </Head>
+      <WaterTracker />
+    </>
+  )
 }

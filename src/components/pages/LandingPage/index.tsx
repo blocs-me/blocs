@@ -24,6 +24,26 @@ import BlocsThemeProvider from '@/helpers/BlocsThemeProvider'
 
 const isMaintenance = process.env.NEXT_PUBLIC_MAINTENANCE === 'yes'
 
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'Blocs',
+  url: 'https://blocs.me'
+}
+
+const organizationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Blocs',
+  url: 'https://blocs.me',
+  logo: 'https://blocs.me/blocs-social-banner.png',
+  contactPoint: {
+    '@type': 'ContactPoint',
+    email: 'support@blocs.me',
+    contactType: 'customer support'
+  }
+}
+
 const LandingPage = () => {
   const emailRedirectLink = useSignInRedirectLink()
   const {
@@ -79,7 +99,7 @@ const LandingPage = () => {
             <title>Blocs — Notion Widgets for Focus & Habits</title>
             <meta
               name="description"
-              content="Stay focused inside Notion with Pomodoro, Habit Tracker, and Water Tracker widgets. Embed directly into your workspace."
+              content="Free Notion widgets for focus and productivity. Embed a Pomodoro timer, Habit Tracker, and Water Tracker directly in your workspace. No sign-up required."
             />
             <link rel="canonical" href="https://blocs.me" />
             <meta property="og:type" content="website" />
@@ -90,7 +110,7 @@ const LandingPage = () => {
             />
             <meta
               property="og:description"
-              content="Stay focused inside Notion with Pomodoro, Habit Tracker, and Water Tracker widgets. Embed directly into your workspace."
+              content="Free Notion widgets for focus and productivity. Embed a Pomodoro timer, Habit Tracker, and Water Tracker directly in your workspace. No sign-up required."
             />
             <meta
               property="og:image"
@@ -106,11 +126,19 @@ const LandingPage = () => {
             />
             <meta
               property="twitter:description"
-              content="Stay focused inside Notion with Pomodoro, Habit Tracker, and Water Tracker widgets. Embed directly into your workspace."
+              content="Free Notion widgets for focus and productivity. Embed a Pomodoro timer, Habit Tracker, and Water Tracker directly in your workspace. No sign-up required."
             />
             <meta
               property="twitter:image"
               content="https://blocs.me/blocs-social-banner.png"
+            />
+            <script
+              type="application/ld+json"
+              dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
+            />
+            <script
+              type="application/ld+json"
+              dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
             />
           </Head>
           <Box minHeight="100vh" height="100%" width="100%" mt="80px">

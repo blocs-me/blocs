@@ -33,6 +33,7 @@ const WidgetExplainerSection = ({
           m={['0 auto', , , , 0]}
         >
           <Text
+            as="h2"
             fontSize="1.728rem"
             color="foreground"
             fontWeight="bold"

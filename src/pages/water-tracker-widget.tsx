@@ -39,6 +39,21 @@ const faqs = [
   }
 ]
 
+const appSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'Blocs Water Tracker',
+  applicationCategory: 'HealthApplication',
+  operatingSystem: 'Web',
+  url: 'https://blocs.me/water-tracker-widget',
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'USD'
+  },
+  description: 'Free water tracker widget for Notion. Set a daily goal, track your intake, and build better hydration habits.'
+}
+
 const faqSchema = {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
@@ -71,11 +86,16 @@ export default function WaterTrackerWidgetPage() {
             content="Embed a free water tracker in your Notion workspace. Set a daily goal, track your intake, and build better hydration habits. No sign-up required."
           />
           <meta property="og:image" content="https://blocs.me/blocs-social-banner.png" />
+          <meta property="og:image" content="https://blocs.me/blocs-social-banner.png" />
           <meta property="twitter:card" content="summary_large_image" />
           <meta property="twitter:title" content="Free Water Tracker for Notion — Blocs" />
           <meta
             property="twitter:description"
             content="Embed a free water tracker in your Notion workspace. Set a daily goal, track your intake, and build better hydration habits. No sign-up required."
+          />
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(appSchema) }}
           />
           <script
             type="application/ld+json"
@@ -255,6 +275,8 @@ export default function WaterTrackerWidgetPage() {
               <img
                 src="/pomodoro-guide.gif"
                 alt="How to embed a Blocs widget in Notion"
+                width={600}
+                height={338}
                 style={{ width: '100%', height: 'auto', display: 'block' }}
               />
             </Box>

@@ -39,6 +39,21 @@ const faqs = [
   }
 ]
 
+const appSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'Blocs Habit Tracker',
+  applicationCategory: 'ProductivityApplication',
+  operatingSystem: 'Web',
+  url: 'https://blocs.me/habit-tracker-widget',
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'USD'
+  },
+  description: 'Free habit tracker widget for Notion. Build daily habits, track streaks, and stay consistent.'
+}
+
 const faqSchema = {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
@@ -76,6 +91,10 @@ export default function HabitTrackerWidgetPage() {
           <meta
             property="twitter:description"
             content="Embed a free habit tracker in your Notion workspace. Build daily habits, track streaks, and stay consistent. No sign-up required."
+          />
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(appSchema) }}
           />
           <script
             type="application/ld+json"
@@ -255,6 +274,8 @@ export default function HabitTrackerWidgetPage() {
               <img
                 src="/pomodoro-guide.gif"
                 alt="How to embed a Blocs widget in Notion"
+                width={600}
+                height={338}
                 style={{ width: '100%', height: 'auto', display: 'block' }}
               />
             </Box>

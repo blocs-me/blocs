@@ -95,6 +95,15 @@ export default function FAQsPage() {
           name="description"
           content="Frequently asked questions about Blocs: free Notion widgets for Pomodoro timing, water tracking, and habit tracking."
         />
+        <link rel="canonical" href="https://blocs.me/faqs" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://blocs.me/faqs" />
+        <meta property="og:title" content="FAQs - Blocs" />
+        <meta
+          property="og:description"
+          content="Frequently asked questions about Blocs: free Notion widgets for Pomodoro timing, water tracking, and habit tracking."
+        />
+        <meta property="og:image" content="https://blocs.me/blocs-social-banner.png" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}

@@ -1,3 +1,4 @@
+import Head from 'next/head'
 import useNotifications from '@/design-system/Notifications/useNotifications'
 import BlocsThemeProvider from '@/helpers/BlocsThemeProvider'
 import { ColorModeProvider } from '@/hooks/useColorMode'
@@ -32,6 +33,9 @@ const PoweredByBlocs = () => (
 const DemoPomodoro = () => {
   return (
     <WidgetPage p="sm" bg="bg.notion">
+      <Head>
+        <meta name="robots" content="noindex" />
+      </Head>
       <BlocsThemeProvider>
         <DummyPomodoro
           height="auto"
@@ -54,7 +58,14 @@ export default function MainPomodoro() {
     return <DemoPomodoro />
   }
 
-  return <AuthenticatedPomodoro />
+  return (
+    <>
+      <Head>
+        <meta name="robots" content="noindex" />
+      </Head>
+      <AuthenticatedPomodoro />
+    </>
+  )
 }
 
 function AuthenticatedPomodoro() {

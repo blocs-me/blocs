@@ -47,6 +47,21 @@ const faqs = [
   }
 ]
 
+const appSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'Blocs Pomodoro Timer',
+  applicationCategory: 'ProductivityApplication',
+  operatingSystem: 'Web',
+  url: 'https://blocs.me/pomodoro-timer',
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'USD'
+  },
+  description: 'Free Pomodoro timer widget for Notion. 25-minute focus sessions with short and long breaks.'
+}
+
 const faqSchema = {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
@@ -84,6 +99,10 @@ export default function PomodoroTimerPage() {
           <meta
             property="twitter:description"
             content="Embed a free Pomodoro timer in your Notion workspace. 25-minute focus sessions with short and long breaks. No sign-up required."
+          />
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(appSchema) }}
           />
           <script
             type="application/ld+json"
@@ -263,6 +282,8 @@ export default function PomodoroTimerPage() {
               <img
                 src="/pomodoro-guide.gif"
                 alt="How to embed the Pomodoro timer in Notion"
+                width={600}
+                height={338}
                 style={{ width: '100%', height: 'auto', display: 'block' }}
               />
             </Box>
