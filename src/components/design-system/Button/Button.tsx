@@ -138,6 +138,7 @@ const Btn = styled('button', {
   {
     display: 'inline-flex',
     alignItems: 'center',
+    justifyContent: 'center',
     position: 'relative',
     overflow: 'hidden',
 
