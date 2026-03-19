@@ -37,7 +37,7 @@ export const A = styled(Text)`
   transition: color 0.2s ease;
 `
 
-export const NavLink = ({ href, text = '', passHref = false, as = 'a' }) => {
+export const NavLink = ({ href, text = '' }) => {
   const { pathname } = useRouter()
 
   const active = (() => {
@@ -54,13 +54,13 @@ export const NavLink = ({ href, text = '', passHref = false, as = 'a' }) => {
       alignSelf={['center', , , , 'end']}
       alignItems="center"
     >
-      <Link href={href}>
-        <A as={as} color={'foreground'} fontSize="sm" isActive={active}>
+      <Link href={href} style={{ textDecoration: 'none' }}>
+        <A color={'foreground'} fontSize="sm" isActive={active}>
           {text}
         </A>
       </Link>
     </Flex>
-  );
+  )
 }
 
 const Hamburger = ({ open }) => {
@@ -270,13 +270,13 @@ const Nav = ({ title = '', links = [] }) => {
               justifyContent="flex-end"
               height="100%"
             >
-              <NavLink href="/" text="Home" passHref preload />
-              <NavLink href="/pricing" text="pricing" passHref preload />
-              <NavLink href="/faqs" text="FAQs" passHref preload />
+              <NavLink href="/" text="Home" />
+              <NavLink href="/pricing" text="pricing" />
+              <NavLink href="/faqs" text="FAQs" />
               {!isSignedIn && (
                 <Box pt={['1.5rem', , , , '0']} pb={['0.5rem', '0.5rem', 0]}>
-                  <Link href="/sign-in">
-                    <Button as="a" variant="primary" borderRadius="sm">
+                  <Link href="/sign-in" style={{ textDecoration: 'none' }}>
+                    <Button variant="primary" borderRadius="sm">
                       Sign In
                     </Button>
                   </Link>

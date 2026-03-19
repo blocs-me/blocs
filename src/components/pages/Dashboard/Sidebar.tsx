@@ -22,10 +22,9 @@ import Giftbox from 'src/icons/giftbox'
 
 const NavButton = ({ to, isActive, text, icon }) => {
   return (
-    <Link href={to} passHref>
+    <Link href={to} style={{ textDecoration: 'none' }}>
       <Button
         width="250px"
-        as="a"
         py="xs"
         px="md"
         borderRadius="sm"

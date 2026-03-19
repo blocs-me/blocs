@@ -95,8 +95,8 @@ const SignInPage = () => {
       <Nav />
       <Flex width="100%" height="100vh" py="xl" px="md" justifyContent="center">
         <Flex flexDirection="column" width="400px" alignItems="center">
-          <Link href="/" passHref>
-            <Box size="40px" mb="md" as="a">
+          <Link href="/">
+            <Box size="40px" mb="md">
               <BlocsLogo />
             </Box>
           </Link>
@@ -154,7 +154,7 @@ const SignInPage = () => {
               flexDirection="column"
               alignItems="center"
             >
-              <Icon as="span" fill="primary.accent-4" width="80px" mb="xs">
+              <Icon fill="primary.accent-4" width="40px" mb="xs">
                 <Email />
               </Icon>
               <Text
