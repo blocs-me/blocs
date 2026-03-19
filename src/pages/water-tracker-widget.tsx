@@ -75,7 +75,7 @@ export default function WaterTrackerWidgetPage() {
           <title>Free Water Tracker for Notion — Blocs</title>
           <meta
             name="description"
-            content="Embed a free water tracker in your Notion workspace. Set a daily goal, track your intake, and build better hydration habits. No sign-up required."
+            content="Embed a free water tracker in your Notion workspace. Set a daily goal, log each glass, and build better hydration habits with visual progress tracking. No sign-up required."
           />
           <link rel="canonical" href="https://blocs.me/water-tracker-widget" />
           <meta property="og:type" content="website" />
@@ -83,7 +83,7 @@ export default function WaterTrackerWidgetPage() {
           <meta property="og:title" content="Free Water Tracker for Notion — Blocs" />
           <meta
             property="og:description"
-            content="Embed a free water tracker in your Notion workspace. Set a daily goal, track your intake, and build better hydration habits. No sign-up required."
+            content="Embed a free water tracker in your Notion workspace. Set a daily goal, log each glass, and build better hydration habits with visual progress tracking. No sign-up required."
           />
           <meta property="og:image" content="https://blocs.me/blocs-social-banner.png" />
           <meta property="og:image" content="https://blocs.me/blocs-social-banner.png" />
@@ -91,7 +91,7 @@ export default function WaterTrackerWidgetPage() {
           <meta property="twitter:title" content="Free Water Tracker for Notion — Blocs" />
           <meta
             property="twitter:description"
-            content="Embed a free water tracker in your Notion workspace. Set a daily goal, track your intake, and build better hydration habits. No sign-up required."
+            content="Embed a free water tracker in your Notion workspace. Set a daily goal, log each glass, and build better hydration habits with visual progress tracking. No sign-up required."
           />
           <script
             type="application/ld+json"

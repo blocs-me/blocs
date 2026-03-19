@@ -83,7 +83,7 @@ export default function PomodoroTimerPage() {
           <title>Free Pomodoro Timer for Notion — Blocs</title>
           <meta
             name="description"
-            content="Embed a free Pomodoro timer in your Notion workspace. 25-minute focus sessions with short and long breaks. No sign-up required."
+            content="Embed a free Pomodoro timer in your Notion workspace. 25-minute focus sessions with short and long breaks to boost productivity. No sign-up required. Works with any Notion page."
           />
           <link rel="canonical" href="https://blocs.me/pomodoro-timer" />
           <meta property="og:type" content="website" />
@@ -91,14 +91,14 @@ export default function PomodoroTimerPage() {
           <meta property="og:title" content="Free Pomodoro Timer for Notion — Blocs" />
           <meta
             property="og:description"
-            content="Embed a free Pomodoro timer in your Notion workspace. 25-minute focus sessions with short and long breaks. No sign-up required."
+            content="Embed a free Pomodoro timer in your Notion workspace. 25-minute focus sessions with short and long breaks to boost productivity. No sign-up required. Works with any Notion page."
           />
           <meta property="og:image" content="https://blocs.me/blocs-social-banner.png" />
           <meta property="twitter:card" content="summary_large_image" />
           <meta property="twitter:title" content="Free Pomodoro Timer for Notion — Blocs" />
           <meta
             property="twitter:description"
-            content="Embed a free Pomodoro timer in your Notion workspace. 25-minute focus sessions with short and long breaks. No sign-up required."
+            content="Embed a free Pomodoro timer in your Notion workspace. 25-minute focus sessions with short and long breaks to boost productivity. No sign-up required. Works with any Notion page."
           />
           <script
             type="application/ld+json"

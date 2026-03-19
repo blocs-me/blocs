@@ -96,7 +96,7 @@ const LandingPage = () => {
       <Box bg="background" height="fit-content">
         <PageLayout>
           <Head>
-            <title>Blocs — Notion Widgets for Focus & Habits</title>
+            <title>Free Notion Widgets for Focus & Habits | Blocs</title>
             <meta
               name="description"
               content="Free Notion widgets for focus and productivity. Embed a Pomodoro timer, Habit Tracker, and Water Tracker directly in your workspace. No sign-up required."
@@ -106,7 +106,7 @@ const LandingPage = () => {
             <meta property="og:url" content="https://blocs.me/" />
             <meta
               property="og:title"
-              content="Blocs — Notion Widgets for Focus & Habits"
+              content="Free Notion Widgets for Focus & Habits | Blocs"
             />
             <meta
               property="og:description"
@@ -122,7 +122,7 @@ const LandingPage = () => {
             <meta property="twitter:url" content="https://blocs.me/" />
             <meta
               property="twitter:title"
-              content="Blocs — Notion Widgets for Focus & Habits"
+              content="Free Notion Widgets for Focus & Habits | Blocs"
             />
             <meta
               property="twitter:description"

@@ -90,7 +90,7 @@ export default function FAQsPage() {
   return (
     <BlocsThemeProvider>
       <Head>
-        <title>FAQs - Blocs</title>
+        <title>FAQs — Free Notion Widgets | Blocs</title>
         <meta
           name="description"
           content="Frequently asked questions about Blocs: free Notion widgets for Pomodoro timing, water tracking, and habit tracking."
@@ -98,7 +98,7 @@ export default function FAQsPage() {
         <link rel="canonical" href="https://blocs.me/faqs" />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://blocs.me/faqs" />
-        <meta property="og:title" content="FAQs - Blocs" />
+        <meta property="og:title" content="FAQs — Free Notion Widgets | Blocs" />
         <meta
           property="og:description"
           content="Frequently asked questions about Blocs: free Notion widgets for Pomodoro timing, water tracking, and habit tracking."
