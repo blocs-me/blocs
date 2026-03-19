@@ -271,9 +271,6 @@ const Nav = ({ title = '', links = [] }) => {
               height="100%"
             >
               <NavLink href="/" text="Home" passHref preload />
-              <NavLink href="/pomodoro-timer" text="Pomodoro" passHref />
-              <NavLink href="/water-tracker-widget" text="Water Tracker" passHref />
-              <NavLink href="/habit-tracker-widget" text="Habit Tracker" passHref />
               <NavLink href="/pricing" text="pricing" passHref preload />
               <NavLink href="/faqs" text="FAQs" passHref preload />
               {!isSignedIn && (
