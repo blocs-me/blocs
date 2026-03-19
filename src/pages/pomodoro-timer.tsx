@@ -27,7 +27,7 @@ const faqs = [
   },
   {
     question: 'Can I customize the timer duration?',
-    answer: 'The free version uses standard Pomodoro intervals (25/5/15 minutes). With Focus Pro, you can create custom presets with any duration for each timer mode.'
+    answer: 'The free version uses standard Pomodoro intervals (25/5/15 minutes). With Blocs Pro, you can create custom presets with any duration for each timer mode.'
   },
   {
     question: 'Does the timer work offline?',
@@ -35,11 +35,11 @@ const faqs = [
   },
   {
     question: 'Is this Pomodoro timer free?',
-    answer: 'Yes, the core Pomodoro timer is completely free to use and embed in Notion. No sign-up required. Focus Pro unlocks additional features like custom presets, analytics, and theme customization.'
+    answer: 'Yes, the core Pomodoro timer is completely free to use and embed in Notion. No sign-up required. Blocs Pro unlocks additional features like custom presets, analytics, and theme customization.'
   },
   {
     question: 'Can I track my focus time over multiple days?',
-    answer: 'With Focus Pro, you get built-in analytics that track your daily and weekly focus time, including charts and streak tracking. The free version tracks your current session only.'
+    answer: 'With Blocs Pro, you get built-in analytics that track your daily and weekly focus time, including charts and streak tracking. The free version tracks your current session only.'
   },
   {
     question: 'What happens when the timer ends?',
@@ -382,7 +382,7 @@ export default function PomodoroTimerPage() {
                 lineHeight={1.5}
                 maxWidth="500px"
               >
-                Focus Pro unlocks custom presets, focus analytics, theme customization,
+                Blocs Pro unlocks custom presets, focus analytics, theme customization,
                 and more — starting at $6/month.
               </Text>
               <Link href="/pricing" style={{ textDecoration: 'none' }}>

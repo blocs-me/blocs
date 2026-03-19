@@ -1,1 +1,1 @@
-export const PRO_PLAN_NAME = 'Focus Pro'
+export const PRO_PLAN_NAME = 'Blocs Pro'

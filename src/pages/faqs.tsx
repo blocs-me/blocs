@@ -33,7 +33,7 @@ const FAQItem = ({ question, answer }: { question: string; answer: React.ReactNo
 const faqs = [
   {
     question: 'Is Blocs free to use?',
-    answer: 'Yes! Every Blocs widget (Pomodoro Timer, Water Tracker, Habit Tracker) is free to embed in Notion with no sign-up required. Focus Pro unlocks additional features like custom presets, analytics, and theme customization.'
+    answer: 'Yes! Every Blocs widget (Pomodoro Timer, Water Tracker, Habit Tracker) is free to embed in Notion with no sign-up required. Blocs Pro unlocks additional features like custom presets, analytics, and theme customization.'
   },
   {
     question: 'How do I add a widget to my Notion page?',
@@ -44,12 +44,12 @@ const faqs = [
     answer: 'Blocs currently offers three widgets: a Pomodoro Timer for focused work sessions, a Water Tracker to monitor daily water intake, and a Habit Tracker for building daily habits. All are designed to work inside Notion.'
   },
   {
-    question: 'What is Focus Pro?',
-    answer: 'Focus Pro is the paid plan that unlocks premium features across all widgets: custom timer presets with personalized durations and labels, focus analytics and streak tracking, theme customization, and more.'
+    question: 'What is Blocs Pro?',
+    answer: 'Blocs Pro is the paid plan that unlocks premium features across all widgets: custom timer presets with personalized durations and labels, focus analytics and streak tracking, theme customization, and more.'
   },
   {
     question: 'Why charge for Blocs?',
-    answer: 'Running Blocs costs real money: servers, databases, and development time. The free tier covers the core experience. Focus Pro supports ongoing development and lets us keep improving the widgets without ads or selling your data.'
+    answer: 'Running Blocs costs real money: servers, databases, and development time. The free tier covers the core experience. Blocs Pro supports ongoing development and lets us keep improving the widgets without ads or selling your data.'
   },
   {
     question: 'Does the Pomodoro timer work offline?',
@@ -57,11 +57,11 @@ const faqs = [
   },
   {
     question: 'Can I customize the Pomodoro timer durations?',
-    answer: 'The free version uses standard Pomodoro intervals (25-minute focus, 5-minute short break, 15-minute long break). With Focus Pro, you can create custom presets with any duration and save multiple configurations.'
+    answer: 'The free version uses standard Pomodoro intervals (25-minute focus, 5-minute short break, 15-minute long break). With Blocs Pro, you can create custom presets with any duration and save multiple configurations.'
   },
   {
     question: 'Can I track my focus time and habits over time?',
-    answer: 'With Focus Pro, you get built-in analytics that track your daily and weekly focus time, water intake, and habit streaks with charts and statistics.'
+    answer: 'With Blocs Pro, you get built-in analytics that track your daily and weekly focus time, water intake, and habit streaks with charts and statistics.'
   },
   {
     question: 'How do I cancel my subscription?',

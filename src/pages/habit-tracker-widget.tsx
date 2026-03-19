@@ -23,11 +23,11 @@ const faqs = [
   },
   {
     question: 'Is the Habit Tracker free?',
-    answer: 'Yes, the core Habit Tracker is completely free to use and embed in Notion. No sign-up required. Focus Pro unlocks additional features like custom habits, streak analytics, and theme customization.'
+    answer: 'Yes, the core Habit Tracker is completely free to use and embed in Notion. No sign-up required. Blocs Pro unlocks additional features like custom habits, streak analytics, and theme customization.'
   },
   {
     question: 'How many habits can I track?',
-    answer: 'With Focus Pro, you can create as many habits as you like. The free demo version comes with sample habits to try out the interface.'
+    answer: 'With Blocs Pro, you can create as many habits as you like. The free demo version comes with sample habits to try out the interface.'
   },
   {
     question: 'What are streaks?',
@@ -35,7 +35,7 @@ const faqs = [
   },
   {
     question: 'Can I share my habits with someone?',
-    answer: 'With Focus Pro, you can generate a shareable link that lets friends or accountability partners view your habit progress in read-only mode.'
+    answer: 'With Blocs Pro, you can generate a shareable link that lets friends or accountability partners view your habit progress in read-only mode.'
   }
 ]
 
@@ -373,7 +373,7 @@ export default function HabitTrackerWidgetPage() {
                 lineHeight={1.5}
                 maxWidth="500px"
               >
-                Focus Pro unlocks custom habits, streak analytics, theme customization,
+                Blocs Pro unlocks custom habits, streak analytics, theme customization,
                 and more — starting at $6/month.
               </Text>
               <Link href="/pricing" style={{ textDecoration: 'none' }}>

@@ -74,8 +74,8 @@ const PricingPage = () => {
       <Flex pt="80px" flexDirection="column" bg="background" maxWidth="100vw">
         <NextSeo
           {...nextSeoConfig}
-          title="Pricing — Focus Pro for Notion Widgets | Blocs"
-          description="Upgrade to Focus Pro for custom Pomodoro presets, habit streak analytics, hydration tracking, and theme customization. From $3/month billed yearly. Free 14-day trial."
+          title="Pricing — Blocs Pro for Notion Widgets | Blocs"
+          description="Upgrade to Blocs Pro for custom Pomodoro presets, habit streak analytics, hydration tracking, and theme customization. From $3/month billed yearly. Free 14-day trial."
           canonical="https://blocs.me/pricing"
         />
         <Nav />

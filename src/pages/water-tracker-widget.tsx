@@ -23,19 +23,19 @@ const faqs = [
   },
   {
     question: 'Is the Water Tracker free?',
-    answer: 'Yes, the core Water Tracker is completely free to use and embed in Notion. No sign-up required. Focus Pro unlocks additional features like weekly/monthly analytics and theme customization.'
+    answer: 'Yes, the core Water Tracker is completely free to use and embed in Notion. No sign-up required. Blocs Pro unlocks additional features like weekly/monthly analytics and theme customization.'
   },
   {
     question: 'Can I change my daily water goal?',
-    answer: 'With Focus Pro, you can set a custom daily goal anywhere from 1 to 10 liters. The free version uses a default goal of 3 liters.'
+    answer: 'With Blocs Pro, you can set a custom daily goal anywhere from 1 to 10 liters. The free version uses a default goal of 3 liters.'
   },
   {
     question: 'Can I see my water intake over time?',
-    answer: 'Focus Pro includes built-in analytics with daily, weekly, and monthly bar charts so you can track your hydration habits over time.'
+    answer: 'Blocs Pro includes built-in analytics with daily, weekly, and monthly bar charts so you can track your hydration habits over time.'
   },
   {
     question: 'Does the tracker save my progress?',
-    answer: 'The free version tracks your current session in the browser. With Focus Pro, your data is saved to the cloud so your progress persists across devices and sessions.'
+    answer: 'The free version tracks your current session in the browser. With Blocs Pro, your data is saved to the cloud so your progress persists across devices and sessions.'
   }
 ]
 
@@ -374,7 +374,7 @@ export default function WaterTrackerWidgetPage() {
                 lineHeight={1.5}
                 maxWidth="500px"
               >
-                Focus Pro unlocks custom goals, hydration analytics, theme customization,
+                Blocs Pro unlocks custom goals, hydration analytics, theme customization,
                 and more — starting at $6/month.
               </Text>
               <Link href="/pricing" style={{ textDecoration: 'none' }}>
