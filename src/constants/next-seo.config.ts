@@ -1,13 +1,13 @@
 const nextSeoConfig = {
   openGraph: {
-    title: 'Blocs — Notion Widgets for Focus & Habits',
+    title: 'Free Notion Widgets for Focus & Habits | Blocs',
     type: 'website',
     description:
-      'Stay focused inside Notion with Pomodoro, Habit Tracker, and Water Tracker widgets. Embed directly into your workspace.',
+      'Free Notion widgets for focus and productivity. Embed a Pomodoro timer, Habit Tracker, and Water Tracker directly in your workspace. No sign-up required.',
     images: [
       {
         url: 'https://blocs.me/blocs-social-banner.png',
-        alt: 'Blocs — Notion Widgets for Focus & Habits'
+        alt: 'Free Notion Widgets for Focus & Habits | Blocs'
       }
     ]
   },

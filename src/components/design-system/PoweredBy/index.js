@@ -1,9 +1,7 @@
-import { useOpenPanel } from '@openpanel/nextjs'
 import Text from '../Text'
 import usePomodoroAuth from '@/widgets/PomodoroAnalyticsBarChart/usePomodoroAuth'
 
 const PoweredBy = ({ type = '' }) => {
-  const op = useOpenPanel()
   const { auth } = usePomodoroAuth()
 
   const isPaidUser = auth?.isPremium
@@ -12,7 +10,6 @@ const PoweredBy = ({ type = '' }) => {
   return (
     <a
       href="https://blocs.me"
-      onClick={() => op.track('powered-by-click', { widget_type: type })}
       target="_blank"
       rel="noopener noreferrer"
     >
