@@ -14,9 +14,8 @@ const PomodoroSection = () => {
       header="Pomodoro"
       paraOne={paraOne}
       paraTwo={
-        <Link href="/pomodoro-timer" passHref>
+        <Link href="/pomodoro-timer" style={{ textDecoration: 'none' }}>
           <Button
-            as="a"
             bg="brand.accent-1"
             color="background"
             borderRadius="sm"

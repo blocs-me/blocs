@@ -129,17 +129,17 @@ const PomodoroMainMenu = () => {
       </Box>
       <ButtonGroup css={{ '& a': { cursor: 'pointer' } }}>
         <Link href={menuItems[0].href}>
-          <ButtonGroupButton p="sm" icon={<Gear />} as="a">
+          <ButtonGroupButton p="sm" icon={<Gear />}>
             Settings
           </ButtonGroupButton>
         </Link>
         <Link href={menuItems[1].href}>
-          <ButtonGroupButton as="a" p="sm" icon={<Stopwatch />}>
+          <ButtonGroupButton p="sm" icon={<Stopwatch />}>
             Pomodoro
           </ButtonGroupButton>
         </Link>
         <Link href={menuItems[2].href}>
-          <ButtonGroupButton as="a" p="sm" icon={<CircleHalf />}>
+          <ButtonGroupButton p="sm" icon={<CircleHalf />}>
             Theme
           </ButtonGroupButton>
         </Link>

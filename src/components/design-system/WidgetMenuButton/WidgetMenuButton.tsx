@@ -21,18 +21,16 @@ const WidgetMenuButton = ({ href = '/', isOpen = false }) => {
         ':hover': { boxShadow: theme.shadows.default }
       }}
     >
-      <Link href={href} css={{ width: '100%', height: '100%' }}>
-        <Flex as="a" size="100%">
-          <Icon
-            m="auto"
-            fill="foreground"
-            width="15px"
-            height="15px"
-            display="flex"
-          >
-            <Hamburger isOpen={isOpen} />
-          </Icon>
-        </Flex>
+      <Link href={href} style={{ width: '100%', height: '100%', display: 'flex' }}>
+        <Icon
+          m="auto"
+          fill="foreground"
+          width="15px"
+          height="15px"
+          display="flex"
+        >
+          <Hamburger isOpen={isOpen} />
+        </Icon>
       </Link>
     </Flex>
   );

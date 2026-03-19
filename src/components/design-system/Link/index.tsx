@@ -46,12 +46,10 @@ const Link = ({
     as="span"
     {...rest}
   >
-    <L href={href}>
+    <L href={href} style={{ textDecoration: 'none' }} {...(target ? { target } : {})}>
       <Text
-        as="a"
         color={color}
         fontWeight={fontWeight}
-        {...(target ? { target } : {})}
       >
         {children}
       </Text>

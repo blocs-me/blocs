@@ -43,9 +43,8 @@ const HabitTrackerSection = () => {
       header="Habit Tracker"
       paraOne={paraOne}
       paraTwo={
-        <Link href="/habit-tracker-widget" passHref>
+        <Link href="/habit-tracker-widget" style={{ textDecoration: 'none' }}>
           <Button
-            as="a"
             bg="brand.accent-1"
             color="background"
             borderRadius="sm"

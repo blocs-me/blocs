@@ -27,9 +27,8 @@ const WaterTrackerSection = () => {
       header="Water Tracker"
       paraOne={paraOne}
       paraTwo={
-        <Link href="/water-tracker-widget" passHref>
+        <Link href="/water-tracker-widget" style={{ textDecoration: 'none' }}>
           <Button
-            as="a"
             bg="brand.accent-1"
             color="background"
             borderRadius="sm"

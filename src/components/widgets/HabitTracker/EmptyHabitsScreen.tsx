@@ -10,7 +10,6 @@ const EmptyHabitsScreen = () => {
     <>
       <Link href="/habit-tracker/menu">
         <Flex
-          as="a"
           borderRadius="md"
           p="sm"
           bg="primary.accent-2"

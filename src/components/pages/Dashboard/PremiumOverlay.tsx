@@ -61,8 +61,8 @@ const PremiumOverlay = ({
           css={{ animation: `${float} 1s ease-in-out alternate infinite` }}
           boxShadow="default"
         >
-            <Link href="/pricing">
-              <Button variant="primary" borderRadius={'sm'} as="a">
+            <Link href="/pricing" style={{ textDecoration: 'none' }}>
+              <Button variant="primary" borderRadius={'sm'}>
                 See Pricing Plans
               </Button>
             </Link>

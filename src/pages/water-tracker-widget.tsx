@@ -377,9 +377,8 @@ export default function WaterTrackerWidgetPage() {
                 Focus Pro unlocks custom goals, hydration analytics, theme customization,
                 and more — starting at $6/month.
               </Text>
-              <Link href="/pricing">
+              <Link href="/pricing" style={{ textDecoration: 'none' }}>
                 <Button
-                  as="a"
                   bg="brand.accent-1"
                   color="background"
                   borderRadius="sm"

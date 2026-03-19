@@ -21,7 +21,6 @@ const DemoBanner = () => {
         </Text>
         <Link href="/pricing">
           <Box
-            as="a"
             fontSize="sm"
             color="brand.accent-3"
             fontWeight="bold"

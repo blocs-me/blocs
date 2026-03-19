@@ -96,9 +96,8 @@ const Dashboard = () => {
                 This Dashboard is only available on desktop and tablet.
               </Text>
               <Box mt="md" />
-              <Link href="/" passHref>
+              <Link href="/" style={{ textDecoration: 'none' }}>
                 <Button
-                  as="a"
                   variant="success"
                   color="neutral.white"
                   icon={<Home />}
