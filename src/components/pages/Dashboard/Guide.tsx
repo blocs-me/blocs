@@ -1,7 +1,7 @@
 import Text from '@/design-system/Text'
 import Box from '@/helpers/Box'
 import Flex from '@/helpers/Flex'
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 import { Document } from 'src/icons/document'
 import Drop from 'src/icons/drop-icon'
 

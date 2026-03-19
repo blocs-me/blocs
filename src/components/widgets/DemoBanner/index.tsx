@@ -19,7 +19,7 @@ const DemoBanner = () => {
         <Text fontSize="sm" color="background" m={0}>
           This is a demo.
         </Text>
-        <Link href="/pricing" passHref>
+        <Link href="/pricing">
           <Box
             as="a"
             fontSize="sm"
@@ -32,7 +32,7 @@ const DemoBanner = () => {
         </Link>
       </Flex>
     </Box>
-  )
+  );
 }
 
 export default DemoBanner

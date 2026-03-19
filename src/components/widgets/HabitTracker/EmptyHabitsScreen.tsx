@@ -8,7 +8,7 @@ import CheckoboxesSkeleton from './CheckboxesSkeleton'
 const EmptyHabitsScreen = () => {
   return (
     <>
-      <Link href="/habit-tracker/menu" passHref>
+      <Link href="/habit-tracker/menu">
         <Flex
           as="a"
           borderRadius="md"
@@ -37,7 +37,7 @@ const EmptyHabitsScreen = () => {
       </Link>
       <CheckoboxesSkeleton isLoading />
     </>
-  )
+  );
 }
 
 export default EmptyHabitsScreen

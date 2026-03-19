@@ -46,7 +46,7 @@ const Link = ({
     as="span"
     {...rest}
   >
-    <L href={href} passHref={passHref}>
+    <L href={href}>
       <Text
         as="a"
         color={color}

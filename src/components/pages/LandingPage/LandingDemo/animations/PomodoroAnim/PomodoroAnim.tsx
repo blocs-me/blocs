@@ -4,7 +4,7 @@ import ScaleIn from '../../ScaleIn'
 import SlideIn from '../../SlideIn'
 import SwipeAnim from '../../SwipeAnim'
 import Box from '@/helpers/Box'
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 
 const PomodoroAnim = ({ setNext, pause }) => {
   return (
@@ -23,8 +23,8 @@ const PomodoroAnim = ({ setNext, pause }) => {
             <Image
               src="/pomodoro-demo.png"
               alt="Pomodoro Visual Demo"
-              width="400px"
-              height="336px"
+              width={400}
+              height={336}
               priority
             />
           </Box>

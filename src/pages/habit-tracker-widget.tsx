@@ -376,7 +376,7 @@ export default function HabitTrackerWidgetPage() {
                 Focus Pro unlocks custom habits, streak analytics, theme customization,
                 and more — starting at $6/month.
               </Text>
-              <Link href="/pricing" passHref>
+              <Link href="/pricing">
                 <Button
                   as="a"
                   bg="brand.accent-1"
@@ -398,5 +398,5 @@ export default function HabitTrackerWidgetPage() {
         <Footer />
       </Box>
     </BlocsThemeProvider>
-  )
+  );
 }

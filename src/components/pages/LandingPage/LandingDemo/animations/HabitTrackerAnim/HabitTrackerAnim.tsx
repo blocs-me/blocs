@@ -1,5 +1,5 @@
 import Box from '@/helpers/Box'
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 
 import DemoText from '../../DemoText'
 import ScaleIn from '../../ScaleIn'
@@ -13,8 +13,8 @@ const HabitTrackerAnim = ({ setNext, pause }) => {
         <ScaleIn>
           <Box width={['300px', , , '350px']}>
             <Image
-              width="350px"
-              height="294px"
+              width={350}
+              height={294}
               alt="Habit Tracker Visual Demo"
               src="/habit-tracker-demo.png"
             />
