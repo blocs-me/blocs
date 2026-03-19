@@ -5,17 +5,16 @@ Acquired March 2026 for $300. ~17 paying customers, ~$30 MRR.
 
 ## Stack
 
-- **Framework:** Next.js 12 (Pages Router) with React 17
+- **Framework:** Next.js 15 (Pages Router) with React 19
 - **Language:** Mixed JS/TS (gradual TypeScript migration in progress)
 - **Styling:** Emotion + Rebass + styled-system
 - **Database:** Supabase (PostgreSQL) — auth + custom `users` table
 - **Payments:** Stripe (subscriptions + one-time purchases)
-- **Email:** SendGrid (needs API key swap to Aryan's account)
 - **Analytics:** Self-hosted Plausible at analytics.aryanbhasin.com (migration pending)
-- **Deployment:** Vercel (free plan) — new project needed
+- **Deployment:** Vercel
 - **Domain:** blocs.me (transferred from Namecheap)
-- **Node version:** 16.15.0 (via Volta, specified in package.json)
-- **Package manager:** npm (package-lock.json present; yarn.lock also exists)
+- **Node version:** 18.18.0 (via Volta, specified in package.json)
+- **Package manager:** bun (bun.lock present; package-lock.json and yarn.lock also exist)
 
 ## Project Structure
 
@@ -67,11 +66,11 @@ Users sign up -> dashboard -> copy widget embed URL (with token) -> paste as ifr
 ## Commands
 
 ```bash
-npm run dev          # Local dev server (localhost:3000)
-npm run build        # Production build (runs next-sitemap postbuild)
-npm run lint         # ESLint
-npm test             # Jest (watch mode)
-npm run test:git     # Jest (single run, used in pre-commit hook)
+bun run dev          # Local dev server with Turbopack (localhost:3000)
+bun run build        # Production build (runs next-sitemap postbuild)
+bun run lint         # ESLint
+bun test             # Jest (watch mode)
+bun run test:git     # Jest (single run, used in pre-commit hook)
 ```
 
 ## Environment Variables
@@ -96,9 +95,9 @@ See `docs/blocs-acquisition-context.md` for full acquisition context and checkli
 - Domain transferred
 
 ### TODO
-- Create new Vercel project, deploy, point DNS
-- Swap SendGrid API key to Aryan's account
 - Set up Plausible tracking (self-hosted at analytics.aryanbhasin.com)
-- Cancel 3 zombie past-due Stripe subscriptions
-- Add `.env` to `.gitignore`
-- Update SEO config (still references @__moniet Twitter handle)
+
+### Known Caveats
+- `@supabase/auth-helpers-*` packages are deprecated (v0.10.0 bridge version); migration to `@supabase/ssr` is a future task
+- `bun install` requires no special flags; `npm install` needs `--legacy-peer-deps` due to some packages declaring React 18 peer deps
+- Next.js 15 `<Link>` renders its own `<a>` — do NOT use `as="a"` on child components inside `<Link>`
