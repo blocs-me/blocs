@@ -96,6 +96,80 @@ const Hamburger = ({ open }) => {
   )
 }
 
+const DropdownMenu = styled(Box)`
+  transition: opacity 0.2s ease, transform 0.2s ease;
+`
+
+const widgetLinks = [
+  { href: '/pomodoro-timer', label: 'Pomodoro Timer' },
+  { href: '/water-tracker-widget', label: 'Water Tracker' },
+  { href: '/habit-tracker-widget', label: 'Habit Tracker' }
+]
+
+const WidgetsDropdown = ({ isDesktop }) => {
+  const [open, setOpen] = useState(false)
+  const ref = useRef(null)
+
+  useClickOutside({
+    onClickOutside: () => setOpen(false),
+    element: ref
+  })
+
+  return (
+    <Box
+      position="relative"
+      height="100%"
+      ref={ref}
+      onMouseEnter={() => isDesktop && setOpen(true)}
+      onMouseLeave={() => isDesktop && setOpen(false)}
+    >
+      <Flex
+        height="100%"
+        alignSelf={['center', , , , 'end']}
+        alignItems="center"
+        css={{ cursor: 'pointer' }}
+        onClick={() => setOpen(!open)}
+      >
+        <A color="foreground" fontSize="sm">Widgets</A>
+      </Flex>
+      <DropdownMenu
+        position={isDesktop ? 'absolute' : 'relative'}
+        top={isDesktop ? '100%' : 0}
+        left={isDesktop ? '-12px' : 0}
+        bg="background"
+        borderRadius="md"
+        boxShadow={isDesktop ? 'lg' : 'none'}
+        p={isDesktop ? 'xs' : '0'}
+        pt="xs"
+        minWidth="180px"
+        css={{
+          opacity: open ? 1 : 0,
+          pointerEvents: open ? 'auto' : 'none',
+          transform: open ? 'translateY(0)' : (isDesktop ? 'translateY(8px)' : 'none')
+        }}
+      >
+        {widgetLinks.map(({ href, label }) => (
+          <Link key={href} href={href} passHref>
+            <A
+              as="a"
+              color="foreground"
+              fontSize="sm"
+              display="block"
+              css={{
+                padding: '6px 12px',
+                borderRadius: '6px',
+                '&:hover': { background: 'var(--colors-primary-accent-2)' }
+              }}
+            >
+              {label}
+            </A>
+          </Link>
+        ))}
+      </DropdownMenu>
+    </Box>
+  )
+}
+
 const Nav = ({ title = '', links = [] }) => {
   const [hideNav, setHideNav] = useState(false)
   const [showMobileNav, setShowMobileNav] = useState(false)
@@ -271,55 +345,7 @@ const Nav = ({ title = '', links = [] }) => {
               height="100%"
             >
               <NavLink href="/" text="Home" passHref preload />
-              <Box
-                position="relative"
-                height="100%"
-                css={{
-                  '&:hover > div': { opacity: 1, pointerEvents: 'auto', transform: 'translateY(0)' }
-                }}
-              >
-                <Flex
-                  height="100%"
-                  alignSelf={['center', , , , 'end']}
-                  alignItems="center"
-                  css={{ cursor: 'pointer' }}
-                >
-                  <A color="foreground" fontSize="sm">Widgets</A>
-                </Flex>
-                <Box
-                  position={['relative', , , , 'absolute']}
-                  top={[0, , , , '100%']}
-                  left={[0, , , , '-12px']}
-                  bg="background"
-                  borderRadius="md"
-                  boxShadow={['none', , , , 'lg']}
-                  p={['0', , , , 'xs']}
-                  pt={['xs', , , , 'xs']}
-                  minWidth="180px"
-                  css={{
-                    opacity: [1, , , , 0],
-                    pointerEvents: ['auto', , , , 'none'],
-                    transform: ['none', , , , 'translateY(8px)'],
-                    transition: 'opacity 0.2s ease, transform 0.2s ease'
-                  }}
-                >
-                  <Link href="/pomodoro-timer" passHref>
-                    <A as="a" color="foreground" fontSize="sm" display="block" css={{ padding: '6px 12px', borderRadius: '6px', '&:hover': { background: 'var(--colors-primary-accent-2)' } }}>
-                      Pomodoro Timer
-                    </A>
-                  </Link>
-                  <Link href="/water-tracker-widget" passHref>
-                    <A as="a" color="foreground" fontSize="sm" display="block" css={{ padding: '6px 12px', borderRadius: '6px', '&:hover': { background: 'var(--colors-primary-accent-2)' } }}>
-                      Water Tracker
-                    </A>
-                  </Link>
-                  <Link href="/habit-tracker-widget" passHref>
-                    <A as="a" color="foreground" fontSize="sm" display="block" css={{ padding: '6px 12px', borderRadius: '6px', '&:hover': { background: 'var(--colors-primary-accent-2)' } }}>
-                      Habit Tracker
-                    </A>
-                  </Link>
-                </Box>
-              </Box>
+              <WidgetsDropdown isDesktop={isDesktop} />
               <NavLink href="/pricing" text="pricing" passHref preload />
               <NavLink href="/faqs" text="FAQs" passHref preload />
               {!isSignedIn && (

@@ -17,8 +17,8 @@ const WaterTrackerAnim = ({ setNext, pause }) => {
       >
         <ScaleIn>
           <Image
-            width="450px"
-            height="315px"
+            width={450}
+            height={315}
             src="/water-tracker-demo.png"
             alt="Water Tracker Visual Demo"
             priority

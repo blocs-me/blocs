@@ -23,8 +23,8 @@ const PomodoroAnim = ({ setNext, pause }) => {
             <Image
               src="/pomodoro-demo.png"
               alt="Pomodoro Visual Demo"
-              width="400px"
-              height="336px"
+              width={400}
+              height={336}
               priority
             />
           </Box>

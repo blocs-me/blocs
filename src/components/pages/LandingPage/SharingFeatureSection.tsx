@@ -50,8 +50,8 @@ const SharingFeatureSection = () => {
         >
           <Image
             src="/handshake-3d.png"
-            width="600px"
-            height="350px"
+            width={600}
+            height={350}
             alt="Handshake 3D Image"
             objectFit="cover"
             priority
