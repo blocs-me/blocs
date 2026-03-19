@@ -75,7 +75,7 @@ const PricingPage = () => {
         <NextSeo
           {...nextSeoConfig}
           title="Pricing | Blocs — Notion Widgets for Focus & Habits"
-          description="Stay focused inside Notion with Pomodoro, Habit Tracker, and Water Tracker widgets. Pro plan from $3/mo."
+          description="Stay focused inside Notion with Pomodoro, Habit Tracker, and Water Tracker widgets. Pro plan from $6/mo."
           canonical="https://blocs.me/pricing"
         />
         <Nav />
@@ -154,7 +154,7 @@ const PricingPage = () => {
                     m={0}
                     color="brand.accent-1"
                   >
-                    Save 40%
+                    Save 50%
                   </Text>
                 </Box>
               )}
@@ -169,12 +169,12 @@ const PricingPage = () => {
             <PricingCard
               header={PRO_PLAN_NAME}
               isLifetime
-              price={isYearly ? "36" : "5"}
+              price={isYearly ? "36" : "6"}
               priceAnchor=''
               priceDescSmall={isYearly ? "/ year" : "/ month"}
               priceDescFootprint={''}
               priceDescLarge={isYearly
-                ? "That's $3/mo — less than a single coffee."
+                ? "That's $3/mo — less than a coffee."
                 : "Cancel anytime. No commitment."
               }
               cta={isLifestylePro(purchases) ? "Current Plan" : `Get ${PRO_PLAN_NAME}`}

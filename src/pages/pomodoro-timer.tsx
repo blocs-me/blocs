@@ -383,7 +383,7 @@ export default function PomodoroTimerPage() {
                 maxWidth="500px"
               >
                 Focus Pro unlocks custom presets, focus analytics, theme customization,
-                and more — starting at $3/month.
+                and more — starting at $6/month.
               </Text>
               <Link href="/pricing" passHref>
                 <Button
