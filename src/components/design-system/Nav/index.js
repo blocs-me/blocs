@@ -276,7 +276,7 @@ const Nav = ({ title = '', links = [] }) => {
               {!isSignedIn && (
                 <Box pt={['1.5rem', , , , '0']} pb={['0.5rem', '0.5rem', 0]}>
                   <Link href="/sign-in" style={{ textDecoration: 'none' }}>
-                    <Button variant="primary" borderRadius="sm">
+                    <Button className="plausible-event-name=Nav+Sign+In" variant="primary" borderRadius="sm">
                       Sign In
                     </Button>
                   </Link>

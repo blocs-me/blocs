@@ -387,6 +387,7 @@ export default function PomodoroTimerPage() {
               </Text>
               <Link href="/pricing" style={{ textDecoration: 'none' }}>
                 <Button
+                  className="plausible-event-name=CTA+See+Pricing+Pomodoro"
                   bg="brand.accent-1"
                   color="background"
                   borderRadius="sm"

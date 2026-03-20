@@ -191,6 +191,7 @@ const LandingPage = () => {
                   >
                     <Link href="/pomodoro-timer" style={{ textDecoration: 'none' }}>
                       <Button
+                        className="plausible-event-name=CTA+Try+Pomodoro"
                         bg="brand.accent-1"
                         color="background"
                         borderRadius="sm"
@@ -205,6 +206,7 @@ const LandingPage = () => {
                     </Link>
                     <Link href="/water-tracker-widget" style={{ textDecoration: 'none' }}>
                       <Button
+                        className="plausible-event-name=CTA+Try+Water+Tracker"
                         variant="outlined"
                         borderRadius="sm"
                         fontSize="sm"

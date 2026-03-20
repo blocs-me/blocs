@@ -378,6 +378,7 @@ export default function HabitTrackerWidgetPage() {
               </Text>
               <Link href="/pricing" style={{ textDecoration: 'none' }}>
                 <Button
+                  className="plausible-event-name=CTA+See+Pricing+Habit+Tracker"
                   bg="brand.accent-1"
                   color="background"
                   borderRadius="sm"

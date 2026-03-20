@@ -129,6 +129,7 @@ const SignInPage = () => {
               error={errors?.email ? 'Please enter a valid email' : ''}
             />
             <Button
+              className="plausible-event-name=Sign+In+Submit"
               px="xxs"
               py="xs"
               borderRadius="md"

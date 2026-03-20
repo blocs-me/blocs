@@ -379,6 +379,7 @@ export default function WaterTrackerWidgetPage() {
               </Text>
               <Link href="/pricing" style={{ textDecoration: 'none' }}>
                 <Button
+                  className="plausible-event-name=CTA+See+Pricing+Water+Tracker"
                   bg="brand.accent-1"
                   color="background"
                   borderRadius="sm"
