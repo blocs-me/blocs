@@ -114,6 +114,7 @@ const Sidebar = () => {
         {isPremium && isLifestyleBasic(purchases) && (
           <Box mt="md">
             <Button
+              className="plausible-event-name=Dashboard+Upgrade"
               css={{ animation: `${float} 1s alternate infinite` }}
               loading={!user}
               fontWeight={200}
@@ -133,6 +134,7 @@ const Sidebar = () => {
         {!isPremium && (
           <Box mt="md">
             <Button
+              className="plausible-event-name=Dashboard+Upgrade"
               css={{ animation: `${float} 1s` }}
               loading={!user}
               fontWeight={200}

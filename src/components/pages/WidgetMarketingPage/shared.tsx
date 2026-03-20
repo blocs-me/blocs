@@ -15,6 +15,7 @@ export const CopyWidgetButton = ({ url }: { url: string }) => {
 
   return (
     <Button
+      className="plausible-event-name=Copy+Widget+URL"
       bg="brand.accent-1"
       color="background"
       borderRadius="sm"

@@ -54,6 +54,7 @@ const ClipboardSection = ({ url }) => {
           width="45px"
           as="button"
           boxShadow="default"
+          className="plausible-event-name=Dashboard+Copy+Link"
           onClick={() => {
             setShowCopied(true)
             setTimeout(() => {

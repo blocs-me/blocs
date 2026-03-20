@@ -62,7 +62,7 @@ const PremiumOverlay = ({
           boxShadow="default"
         >
             <Link href="/pricing" style={{ textDecoration: 'none' }}>
-              <Button variant="primary" borderRadius={'sm'}>
+              <Button className="plausible-event-name=Dashboard+See+Pricing" variant="primary" borderRadius={'sm'}>
                 See Pricing Plans
               </Button>
             </Link>
