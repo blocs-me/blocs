@@ -104,7 +104,9 @@ const DummyHabitTracker = ({
   return (
     <Flex
       width={isSmallScreen ? 'auto' : '550px'}
-      height={'470px'}
+      minHeight="200px"
+      height="100%"
+      maxHeight="470px"
       bg="background"
       boxShadow="default"
       borderRadius="lg"
@@ -156,7 +158,7 @@ const DummyHabitTracker = ({
               <ScrollProvider
                 ref={scrollContainer}
                 onScroll={(e) => handleScroll(e, hideTopFade)}
-                maxHeight={isSmallScreen ? '300px' : '325px'}
+                css={{ flex: 1, overflow: 'auto' }}
                 mt={isSmallScreen ? 'md' : 'sm'}
                 pr="md"
               >

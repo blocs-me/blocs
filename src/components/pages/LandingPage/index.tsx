@@ -8,7 +8,6 @@ import Button from '@/design-system/Button'
 import Link from 'next/link'
 import { useUser } from '@supabase/auth-helpers-react'
 import { useRouter } from 'next/router'
-import LandingDemo from './LandingDemo'
 import PomodoroSection from './PomodoroSection'
 import WaterTrackerSection from './WaterTrackerSection'
 import HabitTrackerSection from './HabitTrackerSection'
@@ -237,9 +236,6 @@ const LandingPage = () => {
                 )}
               </Flex>
 
-              <Flex flex={1} justifyContent={['center']}>
-                <LandingDemo />
-              </Flex>
             </Flex>
 
             <Box id="widgets">
