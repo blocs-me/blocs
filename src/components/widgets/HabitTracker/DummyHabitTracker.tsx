@@ -6,11 +6,16 @@ import ScrollProvider from '@/design-system/ScrollProvider'
 import Stack from '@/helpers/Stack'
 import Box from '@/helpers/Box'
 import FadeProvider from '@/design-system/FadeProvider'
+import Icon from '@/helpers/Icon'
+import Gear from 'src/icons/gear'
+import Moon from 'src/icons/moon'
+import Sun from 'src/icons/sun'
 import { UIEvent, useEffect, useRef, useState } from 'react'
 
 import useColorMode from '@/hooks/useColorMode'
 import useDarkMode from '@/hooks/useDarkMode'
 import useMediaQuery from '@/hooks/useMediaQuery'
+import useIsTrueDarkMode from '@/hooks/useIsTrueDarkMode'
 import FadeIn from '@/helpers/FadeIn'
 import { useDebouncedCallback } from 'beautiful-react-hooks'
 import { getCurrentISOString } from '../../../utils/dateUtils/getCurrentISOString'
@@ -74,7 +79,7 @@ const AddHabitInput = ({ onAdd }: { onAdd: (title: string) => void }) => {
           flex: 1,
           border: '1px solid var(--colors-primary-accent-2)',
           borderRadius: '6px',
-          padding: '6px 10px',
+          padding: '6px 2px',
           fontSize: '14px',
           background: 'transparent',
           color: 'var(--colors-foreground)',
@@ -91,15 +96,15 @@ const AddHabitInput = ({ onAdd }: { onAdd: (title: string) => void }) => {
           border: 'none',
           cursor: 'pointer',
           borderRadius: '6px',
-          padding: '6px 12px',
-          fontSize: '14px',
-          fontWeight: 600,
+          padding: '6px 10px',
+          fontSize: '13px',
           background: 'var(--colors-brand-accent-1)',
           color: 'white',
+          lineHeight: 1,
           '&:hover': { opacity: 0.85 }
         }}
       >
-        +
+        ✓
       </Box>
     </Flex>
   )
@@ -130,6 +135,132 @@ const RemoveButton = ({ onClick }: { onClick: () => void }) => (
   </Box>
 )
 
+const FreeSettingsPopover = ({ onClose }: { onClose: () => void }) => {
+  const { colorMode, setTheme, setBackground } = useColorMode()
+  const isDarkMode = useIsTrueDarkMode()
+  const ref = useRef<HTMLDivElement>(null)
+  const [showSignInCTA, setShowSignInCTA] = useState(false)
+
+  const handleThemeChange = (mode: string) => {
+    setTheme(mode)
+    setBackground(mode)
+  }
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) {
+        onClose()
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [onClose])
+
+  return (
+    <Box
+      ref={ref}
+      position="absolute"
+      top="48px"
+      right="0"
+      width="220px"
+      bg="background"
+      borderRadius="md"
+      boxShadow="lg"
+      p="sm"
+      zIndex={100}
+      css={{ border: '1px solid var(--colors-primary-accent-1)' }}
+    >
+      <Text fontSize="xxs" fontWeight={600} color="primary.accent-4" m={0} mb="xs" css={{ textTransform: 'uppercase', letterSpacing: '1px' }}>
+        Settings
+      </Text>
+
+      <Text m={0} fontSize="xs" fontWeight={400} color="foreground" mb="xxs">
+        Theme
+      </Text>
+      <Flex css={{ gap: '4px' }} mb="xs">
+        {['light', 'dark', 'auto'].map(mode => (
+          <Box
+            key={mode}
+            as="button"
+            flex="1"
+            py="4px"
+            borderRadius="sm"
+            bg={colorMode === mode ? 'brand.accent-1' : 'primary.accent-2'}
+            color={colorMode === mode ? 'neutral.white' : 'foreground'}
+            css={{
+              border: 'none',
+              cursor: 'pointer',
+              fontSize: '11px',
+              fontWeight: colorMode === mode ? 600 : 400,
+              textTransform: 'capitalize',
+              transition: 'all 0.15s ease'
+            }}
+            onClick={() => handleThemeChange(mode)}
+          >
+            {mode === 'auto' ? 'System' : mode === 'dark' ? 'Dark' : 'Light'}
+          </Box>
+        ))}
+      </Flex>
+
+      <Box height="1px" bg="primary.accent-1" my="xs" />
+
+      {!showSignInCTA ? (
+        <Box
+          as="button"
+          width="100%"
+          css={{
+            display: 'block',
+            textAlign: 'left',
+            background: 'transparent',
+            border: 'none',
+            cursor: 'pointer',
+            borderRadius: '6px',
+            padding: '8px',
+            '&:hover': { backgroundColor: 'var(--colors-primary-accent-2)' }
+          }}
+          onClick={() => setShowSignInCTA(true)}
+        >
+          <Text fontSize="xxs" fontWeight={600} color="foreground" m={0}>
+            Show Analytics
+          </Text>
+          <Text fontSize="10px" color="primary.accent-4" m={0} mt="2px">
+            View streaks, progress, and more
+          </Text>
+        </Box>
+      ) : (
+        <Box p="xs" borderRadius="md" bg="primary.accent-2">
+          <Text fontSize="xs" fontWeight={600} color="foreground" m={0} mb="xxs">
+            Track your streaks
+          </Text>
+          <Text fontSize="xxs" color="primary.accent-4" m={0} mb="xs" lineHeight={1.4}>
+            Sign in to Blocs to see streaks, analytics, and daily progress. It&apos;s free.
+          </Text>
+          <Box
+            as="a"
+            href="https://blocs.me/sign-in"
+            target="_blank"
+            rel="noopener noreferrer"
+            css={{
+              display: 'block',
+              textAlign: 'center',
+              textDecoration: 'none',
+              padding: '6px 12px',
+              borderRadius: '6px',
+              fontSize: '12px',
+              fontWeight: 600,
+              background: 'var(--colors-brand-accent-1)',
+              color: 'white',
+              '&:hover': { opacity: 0.85 }
+            }}
+          >
+            Sign in to Blocs
+          </Box>
+        </Box>
+      )}
+    </Box>
+  )
+}
+
 const DummyHabitTracker = ({
   isAnalyticsHidden = false,
   analyticsData = { data: null },
@@ -154,6 +285,8 @@ const DummyHabitTracker = ({
   const columnOne = useRef<HTMLDivElement>(null)
   const [checked, setChecked] = useState(checkedValues)
 
+  const [isHovering, setIsHovering] = useState(false)
+  const [showSettings, setShowSettings] = useState(false)
   const [hideTopFade, setHideTopFade] = useState(true)
   const [hideBottomFade, setHideBottomFade] = useState(false)
   const handleScroll = useDebouncedCallback(
@@ -196,7 +329,46 @@ const DummyHabitTracker = ({
       overflow="hidden"
       role={onAddHabit ? 'region' : 'img'}
       aria-label={onAddHabit ? 'Habit Tracker' : 'Habit Tracker Visual Example'}
+      onMouseOver={() => setIsHovering(true)}
+      onMouseLeave={() => setIsHovering(false)}
+      style={{ '--settings-opacity': isHovering || showSettings ? 1 : 0 } as React.CSSProperties}
     >
+      {onAddHabit && (
+        <Box
+          position="absolute"
+          top="sm"
+          right="sm"
+          zIndex={50}
+          css={{
+            opacity: 'var(--settings-opacity)',
+            transition: 'opacity 0.3s ease'
+          }}
+        >
+          <Flex
+            as="button"
+            borderRadius="md"
+            alignItems="center"
+            justifyContent="center"
+            bg="primary.accent-2"
+            p="xs"
+            size="40px"
+            overflow="hidden"
+            onClick={() => setShowSettings(!showSettings)}
+            css={{
+              border: 'none',
+              cursor: 'pointer',
+              '&:hover': { boxShadow: '0 1px 3px rgba(0,0,0,0.12)' }
+            }}
+          >
+            <Icon m="auto" fill="foreground" width="15px" height="15px" display="flex">
+              <Gear />
+            </Icon>
+          </Flex>
+          {showSettings && (
+            <FreeSettingsPopover onClose={() => setShowSettings(false)} />
+          )}
+        </Box>
+      )}
       <FadeIn css={{ width: '100%', height: '100%' }}>
         <Flex
           justifyContent="center"
@@ -276,7 +448,7 @@ const DummyHabitTracker = ({
                       )}
                     </Flex>
                   ))}
-                  {onAddHabit && habits?.data?.length < (maxHabits ?? Infinity) && (
+                  {onAddHabit && habits?.data?.length > 0 && habits?.data?.length < (maxHabits ?? Infinity) && (
                     <AddHabitInput onAdd={onAddHabit} />
                   )}
                   {onAddHabit && maxHabits && habits?.data?.length >= maxHabits && (
@@ -307,12 +479,7 @@ const DummyHabitTracker = ({
                     </Text>
                   )}
                   {habits && !habits?.data?.length && onAddHabit && (
-                    <Box>
-                      <Text fontSize="sm" color="primary.accent-4" m={0} mb="xs">
-                        Add your first habit to get started
-                      </Text>
-                      <AddHabitInput onAdd={onAddHabit} />
-                    </Box>
+                    <AddHabitInput onAdd={onAddHabit} />
                   )}
                   <Box />
                 </Stack>
