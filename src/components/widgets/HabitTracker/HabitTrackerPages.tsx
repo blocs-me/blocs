@@ -15,7 +15,7 @@ import PremiumOverlay from '@/pages/Dashboard/PremiumOverlay'
 const HabitTrackerLayout = () => {
   const [isHovering, setIsHovering] = useState(false)
   const [isAnalyticsHidden, hideAnalytics] = useState(
-    storage.getItem('isAnalyticsHidden') === 'true'
+    storage.getItem('isAnalyticsHidden') !== 'false'
   )
   const { path } = useRouter().query
 

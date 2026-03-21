@@ -19,9 +19,7 @@ const demoHabits = {
   data: [
     createHabit('Study math', 1),
     createHabit('Exercise', 2),
-    createHabit('Reading, 30 mins', 3),
-    createHabit('French, 15 min', 4),
-    createHabit('No caffeine', 5)
+    createHabit('Reading, 30 mins', 3)
   ]
 }
 
@@ -86,15 +84,10 @@ const DemoHabitTracker = () => {
           <DummyHabitTracker
             smallScreenAt="600px"
             isEditable
+            isAnalyticsHidden
             habits={demoHabits}
             checkedValues={checked}
             onCheckedChange={handleCheck}
-            analyticsData={{
-              data: {
-                bestStreak: 60,
-                currentStreak: 40
-              }
-            }}
           />
           <PoweredByBlocs />
         </URLHashProvider>
