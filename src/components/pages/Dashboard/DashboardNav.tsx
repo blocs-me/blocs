@@ -17,7 +17,6 @@ import { Writing } from 'src/icons/writing'
 import Drop from 'src/icons/drop-icon'
 import { useEffect, useRef, useState } from 'react'
 import { isLifestylePro } from '@/lambda/helpers/subscriptionChecker'
-import { postReq } from '@/utils/fetchingUtils'
 import daysBetween from '@/utils/dateUtils/daysBetween'
 import Icon from '@/helpers/Icon'
 
@@ -83,11 +82,8 @@ const AccountDropdown = ({ onClose }: { onClose: () => void }) => {
   }
 
   const handleManageSubscription = () => {
-    postReq('/api/payments/customer-portal-session').then((res) => {
-      window.open(res.url, '_blank')
-    }).catch(() => {
-      notif.createError('Could not open subscription management')
-    })
+    router.push('/dashboard/plan')
+    onClose()
   }
 
   return (

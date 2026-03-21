@@ -9,6 +9,7 @@ import DashboardNav from './DashboardNav'
 const PomodoroDashboard = lazy(() => import('./PomodoroDashboard'))
 const HabitTrackerDashboard = lazy(() => import('./HabitTrackerDashboard'))
 const WaterTrackerDashboard = lazy(() => import('./WaterTrackerDashboard'))
+const PlanPage = lazy(() => import('./PlanPage'))
 import { useSessionContext, useUser } from '@supabase/auth-helpers-react'
 import Loader from '@/design-system/Loader'
 import Text from '@/design-system/Text'
@@ -32,7 +33,7 @@ const LoadingScreen = () => (
 )
 
 const isMaintenance = process.env.NEXT_PUBLIC_MAINTENANCE === 'yes'
-const validPaths = ['pomodoro', 'habit-tracker', 'water-tracker']
+const validPaths = ['pomodoro', 'habit-tracker', 'water-tracker', 'plan']
 
 const Dashboard = () => {
   const router = useRouter()
@@ -114,6 +115,9 @@ const Dashboard = () => {
             )}
             {path === 'water-tracker' && !isMaintenance && (
               <WaterTrackerDashboard />
+            )}
+            {path === 'plan' && !isMaintenance && (
+              <PlanPage />
             )}
           </Suspense>
         </Notifications>
