@@ -17,7 +17,7 @@ Allow free users to edit habits (add/remove/rename) without signing in, stored i
 - **Custom habits**: users can add, remove, and rename habits
 - **Daily check-off**: persists in localStorage, resets daily (existing behavior)
 - **Habit list stored in localStorage**: keyed by a stable key, not date-dependent
-- **Max 5 habits** for free (soft limit — could increase later)
+- **Max 3 habits** for free
 
 ### Gated behind sign-in (paywall trigger)
 
@@ -74,5 +74,5 @@ Allow free users to edit habits (add/remove/rename) without signing in, stored i
 ## Open Questions
 
 - Should we show placeholder streak data behind the blur (fake "3 day streak") to tease the feature, or just blur an empty area?
-- Should the 5-habit limit be enforced with a "Sign in for unlimited habits" message, or just silently cap at 5?
+- ~~Should the 5-habit limit be enforced with a "Sign in for unlimited habits" message, or just silently cap at 5?~~ **Decided: Cap at 3 with "Sign in for unlimited habits" message + button**
 - Do we want an edit mode toggle, or always show edit affordances (X to delete, + to add)?
