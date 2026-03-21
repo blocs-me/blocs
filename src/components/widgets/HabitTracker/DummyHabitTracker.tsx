@@ -73,33 +73,32 @@ const AddHabitInput = ({ onAdd }: { onAdd: (title: string) => void }) => {
         type="text"
         value={value}
         placeholder="New habit..."
+        color="foreground"
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => setValue(e.target.value)}
         onKeyDown={(e: React.KeyboardEvent) => e.key === 'Enter' && handleSubmit()}
         css={{
           flex: 1,
-          border: '1px solid var(--colors-primary-accent-2)',
-          borderRadius: '6px',
+          border: 'none',
+          borderBottom: '1px solid',
+          borderColor: 'inherit',
+          borderRadius: 0,
           padding: '6px 2px',
           fontSize: '14px',
           background: 'transparent',
-          color: 'var(--colors-foreground)',
-          outline: 'none',
-          '&:focus': {
-            borderColor: 'var(--colors-brand-accent-1)'
-          }
+          outline: 'none'
         }}
       />
       <Box
         as="button"
+        bg="brand.accent-1"
+        color="neutral.white"
+        borderRadius="sm"
         onClick={handleSubmit}
         css={{
           border: 'none',
           cursor: 'pointer',
-          borderRadius: '6px',
           padding: '6px 10px',
           fontSize: '13px',
-          background: 'var(--colors-brand-accent-1)',
-          color: 'white',
           lineHeight: 1,
           '&:hover': { opacity: 0.85 }
         }}
@@ -113,6 +112,7 @@ const AddHabitInput = ({ onAdd }: { onAdd: (title: string) => void }) => {
 const RemoveButton = ({ onClick }: { onClick: () => void }) => (
   <Box
     as="button"
+    color="primary.accent-4"
     onClick={(e: React.MouseEvent) => {
       e.preventDefault()
       e.stopPropagation()
@@ -124,7 +124,6 @@ const RemoveButton = ({ onClick }: { onClick: () => void }) => (
       cursor: 'pointer',
       padding: '2px 6px',
       fontSize: '14px',
-      color: 'var(--colors-primary-accent-4)',
       borderRadius: '4px',
       opacity: 0.5,
       transition: 'opacity 0.15s ease',
@@ -168,7 +167,8 @@ const FreeSettingsPopover = ({ onClose }: { onClose: () => void }) => {
       boxShadow="lg"
       p="sm"
       zIndex={100}
-      css={{ border: '1px solid var(--colors-primary-accent-1)' }}
+      border="1px solid"
+      borderColor="primary.accent-1"
     >
       <Text fontSize="xxs" fontWeight={600} color="primary.accent-4" m={0} mb="xs" css={{ textTransform: 'uppercase', letterSpacing: '1px' }}>
         Settings
@@ -240,16 +240,16 @@ const FreeSettingsPopover = ({ onClose }: { onClose: () => void }) => {
             href="https://blocs.me/sign-in"
             target="_blank"
             rel="noopener noreferrer"
+            bg="brand.accent-1"
+            color="neutral.white"
+            borderRadius="sm"
             css={{
               display: 'block',
               textAlign: 'center',
               textDecoration: 'none',
               padding: '6px 12px',
-              borderRadius: '6px',
               fontSize: '12px',
               fontWeight: 600,
-              background: 'var(--colors-brand-accent-1)',
-              color: 'white',
               '&:hover': { opacity: 0.85 }
             }}
           >
@@ -461,10 +461,10 @@ const DummyHabitTracker = ({
                         href="https://blocs.me/sign-in"
                         target="_blank"
                         rel="noopener noreferrer"
+                        color="brand.accent-1"
                         css={{
                           fontSize: '12px',
                           fontWeight: 600,
-                          color: 'var(--colors-brand-accent-1)',
                           textDecoration: 'none',
                           '&:hover': { textDecoration: 'underline' }
                         }}
