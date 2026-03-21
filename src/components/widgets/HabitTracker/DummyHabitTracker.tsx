@@ -88,23 +88,25 @@ const AddHabitInput = ({ onAdd }: { onAdd: (title: string) => void }) => {
           outline: 'none'
         }}
       />
-      <Box
-        as="button"
-        bg="brand.accent-1"
-        color="neutral.white"
-        borderRadius="sm"
-        onClick={handleSubmit}
-        css={{
-          border: 'none',
-          cursor: 'pointer',
-          padding: '6px 10px',
-          fontSize: '13px',
-          lineHeight: 1,
-          '&:hover': { opacity: 0.85 }
-        }}
-      >
-        ✓
-      </Box>
+      {value.trim() && (
+        <Box
+          as="button"
+          bg="brand.accent-1"
+          color="neutral.white"
+          borderRadius="sm"
+          onClick={handleSubmit}
+          css={{
+            border: 'none',
+            cursor: 'pointer',
+            padding: '6px 10px',
+            fontSize: '13px',
+            lineHeight: 1,
+            '&:hover': { opacity: 0.85 }
+          }}
+        >
+          ✓
+        </Box>
+      )}
     </Flex>
   )
 }

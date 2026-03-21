@@ -155,7 +155,7 @@ const SignInPage = () => {
               flexDirection="column"
               alignItems="center"
             >
-              <Icon fill="primary.accent-4" width="40px" mb="xs">
+              <Icon fill="primary.accent-4" width="40px" height="40px" mb="xs">
                 <Email />
               </Icon>
               <Text

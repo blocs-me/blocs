@@ -7,7 +7,7 @@ import ClientSideOnly from '@/helpers/ClientSideOnly'
 import PageGutters from '@/helpers/PageGutters'
 
 const RegoLink = ({ children, ...rest }) => (
-  <Box mb="xs">
+  <Box mb="xxs">
     <Link {...rest} color="foreground" passHref>
       <Text css={{ cursor: 'pointer' }} fontSize="sm" as="span">
         {children}
@@ -23,8 +23,8 @@ const Footer = () => (
         <Grid
           width="100%"
           mx="auto"
-          gridTemplateColumns={['1fr', '1fr', 'repeat(2, 1fr)', 'repeat(4, 1fr)']}
-          gridGap={['sm', 'sm', 'lg', 'auto']}
+          gridTemplateColumns={['1fr', '1fr', 'repeat(3, 1fr)']}
+          gridGap={['sm', 'sm', 'lg']}
         >
           <Box width="min(100%, 350px)">
             <Text
@@ -58,10 +58,8 @@ const Footer = () => (
             >
               LINKS
             </Text>
-            <RegoLink href="/">Home</RegoLink>
             <RegoLink href="/pricing">Pricing</RegoLink>
             <RegoLink href="/faqs">FAQs</RegoLink>
-            <RegoLink href="/sign-in">Sign In</RegoLink>
             <RegoLink href="/privacy-policy.pdf">Privacy Policy</RegoLink>
             <RegoLink href="/t&c.pdf">Terms & Conditions</RegoLink>
           </Box>
