@@ -39,14 +39,20 @@ const Dashboard = () => {
   const user = useUser()
   const session = useSessionContext()
   const isSmallScreen = useMediaQuery('(min-width: 768px)')
-  const showMaintenance =
-    isMaintenance && !['guide'].includes(path as string)
+  const validPaths = ['pomodoro', 'habit-tracker', 'water-tracker']
+  const showMaintenance = isMaintenance
 
   useEffect(() => {
     if (user?.aud !== 'authenticated' && !session.isLoading) {
       router.push('/sign-in')
     }
   }, [router, user, session])
+
+  useEffect(() => {
+    if (path && !validPaths.includes(path as string)) {
+      router.replace('/dashboard/pomodoro')
+    }
+  }, [path, router])
 
   if (!user) {
     return <DashboardSkeleton />

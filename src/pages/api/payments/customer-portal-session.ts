@@ -14,7 +14,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const session = await stripe.billingPortal.sessions.create({
       customer: customerId,
-      return_url: `${req.headers.origin}/dashboard/settings`
+      return_url: `${req.headers.origin}/dashboard/pomodoro`
     })
 
     res.status(200).json({ url: session.url })
