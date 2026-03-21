@@ -80,27 +80,6 @@ const Footer = () => (
             <RegoLink href="/water-tracker-widget">Water Tracker</RegoLink>
             <RegoLink href="/habit-tracker-widget">Habit Tracker</RegoLink>
           </Box>
-          <Box width="min(100%, 350px)">
-            <Text
-              as="h3"
-              fontSize="md"
-              color="foreground"
-              fontWeight="bold"
-              mb="sm"
-              mt={0}
-            >
-              PARTNERS
-            </Text>
-            <RegoLink target="_blank" href="https://www.datajumbo.co">
-              Data Jumbo
-            </RegoLink>
-            <RegoLink target="_blank" href="https://www.notion-widgets.com">
-              Notion Widgets
-            </RegoLink>
-            <RegoLink target="_blank" href="https://datadrop.app">
-              DataDrop
-            </RegoLink>
-          </Box>
         </Grid>
       </PageGutters>
       <Box bg="neutral.black" py="xs">

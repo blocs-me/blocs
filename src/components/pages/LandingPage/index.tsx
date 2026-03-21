@@ -225,9 +225,9 @@ const LandingPage = () => {
                     as="a"
                     href="#widgets"
                     mt="sm"
+                    color="primary.accent-4"
                     css={{
                       fontSize: '12px',
-                      color: 'var(--colors-primary-accent-4)',
                       textDecoration: 'underline',
                       cursor: 'pointer'
                     }}

@@ -103,25 +103,26 @@ const Pomodoro = () => {
             justifyContent="center"
             flexDirection="column"
             size="100%"
+            p="sm"
           >
-            <Text fontSize="md" color="primary.accent-3">
-              😞 Uh oh !
+            <Text fontSize="sm" color="primary.accent-3" m={0}>
+              😞 Uh oh! Looks like the link expired.
             </Text>
-            <Text variant="pSmall">Looks like the link expired</Text>
-            <Text variant="pSmall" mt="xs">
-              You will need to go back to the dashboard and create another link
+            <Text fontSize="xs" color="primary.accent-4" mt="xs" mb={0}>
+              Go back to the dashboard and create a new link.
             </Text>
 
             <Button
-              mt="md"
+              mt="sm"
               variant="default"
               bg="primary.accent-4"
               borderRadius="md"
               as="a"
               href="https://blocs.me/dashboard/sign-in"
               target="_blank"
+              fontSize="xs"
             >
-              To the dashboard 🚀
+              Go to dashboard
             </Button>
           </Flex>
         </WidgetModal>

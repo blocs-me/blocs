@@ -1,13 +1,18 @@
-import Box from '@/helpers/Box'
 import Flex from '@/helpers/Flex'
 import Icon from '@/helpers/Icon'
 import { useTheme } from '@emotion/react'
-import Link from 'next/link'
+import { useRouter } from 'next/router'
 import Hamburger from 'src/icons/hamburger'
 import { Theme } from 'src/styles/theme'
 
 const WidgetMenuButton = ({ href = '/', isOpen = false }) => {
   const theme = useTheme() as Theme
+  const router = useRouter()
+
+  const handleClick = () => {
+    router.push({ pathname: href, query: router.query })
+  }
+
   return (
     <Flex
       size="40px"
@@ -20,20 +25,19 @@ const WidgetMenuButton = ({ href = '/', isOpen = false }) => {
         transition: 'box-shadow 0.3s ease',
         ':hover': { boxShadow: theme.shadows.default }
       }}
+      onClick={handleClick}
     >
-      <Link href={href} style={{ width: '100%', height: '100%', display: 'flex' }}>
-        <Icon
-          m="auto"
-          fill="foreground"
-          width="15px"
-          height="15px"
-          display="flex"
-        >
-          <Hamburger isOpen={isOpen} />
-        </Icon>
-      </Link>
+      <Icon
+        m="auto"
+        fill="foreground"
+        width="15px"
+        height="15px"
+        display="flex"
+      >
+        <Hamburger isOpen={isOpen} />
+      </Icon>
     </Flex>
-  );
+  )
 }
 
 export default WidgetMenuButton
