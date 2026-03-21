@@ -65,7 +65,8 @@ const useFetch = (url, options = {}) => {
   const mounted = useRef({ value: true })
 
   useEffect(() => {
-    mounted.current.value = true
+    const ref = mounted.current
+    ref.value = true
 
     const cachedData = shouldCache
       ? JSON.parse(localStorage.getItem(url) || JSON.stringify(''))
@@ -77,13 +78,13 @@ const useFetch = (url, options = {}) => {
       setData(cachedData.data)
       setLoading(false)
     } else {
-      shouldFetch && handleReq(mounted.current)
+      shouldFetch && handleReq(ref)
     }
 
     return () => {
-      mounted.current.value = false
+      ref.value = false
     }
-  }, [shouldFetch])
+  }, [shouldFetch]) // eslint-disable-line react-hooks/exhaustive-deps
 
   return {
     fetcher: () => handleReq(mounted.current),

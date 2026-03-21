@@ -1,124 +1,61 @@
 import Flex from '@/helpers/Flex'
+import Box from '@/helpers/Box'
+import Text from '@/design-system/Text'
 import { DummyPomodoroInner } from '@/widgets/Pomodoro/DummyPomodoro'
 import AnalyticsBarChart from '@/widgets/AnalyticsBarChart/DummyAnalyticsBarChart'
-import Box from '@/helpers/Box'
-import WidgetLinkWrapper from '../WidgetLinkWrapper'
-import { useState } from 'react'
-import ClipboardModal from '../ClipboardModal'
 import { useCreateToken } from '../useCreateToken'
-import { useRouter } from 'next/router'
-import useClipboard from '@/hooks/useClipboard'
-import PresetsSection from './PresetSection'
 import { useEffect } from 'react'
 import { useWidgetAuthDispatch } from '@/hooks/useWidgetAuth'
+import CopyLinkButton from '../CopyLinkButton'
+import HowToEmbedButton from '../HowToEmbedButton'
 
 const PomodoroDashboard = () => {
-  const { token, publicToken, isLoading } = useCreateToken('POMODORO', true)
-  const { path } = useRouter().query
-  const clipboard = useClipboard()
-  const [url, setUrl] = useState('')
-  const [publicUrl, setPublicUrl] = useState('')
-
+  const { token, isLoading } = useCreateToken('POMODORO', true)
   const dispatch = useWidgetAuthDispatch()
 
   useEffect(() => {
-    dispatch({
-      type: 'SET_TOKEN',
-      token
-    })
+    if (token) {
+      dispatch({ type: 'SET_TOKEN', token })
+    }
   }, [token, dispatch])
 
-  const links = (() => {
-    const baseUrl = window?.origin
-    const pomoUrl = `${baseUrl}/${path}?token=${token}&role=blocs-user`
-    const barChartUrl = `${baseUrl}/bar-chart/${path}?token=${token}&role=blocs-user`
-    const barChartPublicUrl = `${baseUrl}/bar-chart/${path}?token=${publicToken}&role=friend`
-
-    return {
-      pomoUrl,
-      barChartUrl,
-      barChartPublicUrl
-    }
-  })()
-
-  const copyPomodoro = () => {
-    clipboard(links.pomoUrl)
-    setUrl(links.pomoUrl)
-  }
-
-  const copyChart = () => {
-    clipboard(links.barChartUrl)
-    setUrl(links.barChartUrl)
-    setPublicUrl(links.barChartPublicUrl)
-  }
-
-  const clear = () => {
-    setUrl('')
-    setPublicUrl('')
-  }
+  const baseUrl = typeof window !== 'undefined' ? window.origin : ''
+  const widgetUrl = token ? `${baseUrl}/pomodoro?token=${token}&role=blocs-user` : ''
+  const analyticsUrl = token ? `${baseUrl}/bar-chart/pomodoro?token=${token}&role=blocs-user` : ''
 
   return (
-    <Box width="100%">
-      <Flex
-        width="100%"
-        height="100%"
-        flexDirection={['column-reverse', , , , , 'column']}
-        justifyContent="start"
-      >
-        <Flex
-          width="100%"
-          height="100%"
-          alignItems="start"
-          justifyContent={['center', , , , , 'start']}
-          p={['sm', , , , 'md']}
-          gap={['lg', 'lg', , , , , 'md']}
-          flexWrap="wrap"
-        >
-          <WidgetLinkWrapper
-            isLoading={isLoading}
-            onClick={() => copyPomodoro()}
-          >
-            <Box position="relative">
-              <DummyPomodoroInner />
-              <Box
-                position="absolute"
-                top={0}
-                left={0}
-                width="100%"
-                height="100%"
-                css={{ cursor: 'not-allowed' }}
-              />
-            </Box>
-          </WidgetLinkWrapper>
-          <WidgetLinkWrapper isLoading={isLoading} onClick={() => copyChart()}>
-            <Box position="relative">
-              <AnalyticsBarChart
-                units="hr"
-                height={['350px', '300px', , '350px', '400px']}
-                width={['300px', '350px', , '350px', , '500px']}
-              />
-              <Box
-                position="absolute"
-                top={0}
-                left={0}
-                width="100%"
-                height="100%"
-                css={{ cursor: 'not-allowed' }}
-              />
-            </Box>
-          </WidgetLinkWrapper>
+    <Flex flexDirection="column" css={{ gap: '2rem' }}>
+      <Flex flexDirection="column">
+        <Flex alignItems="center" justifyContent="space-between" mb="sm">
+          <Flex alignItems="center" css={{ gap: '12px' }}>
+            <Text as="h2" fontSize="md" fontWeight={700} color="foreground" m={0}>
+              Pomodoro Timer
+            </Text>
+            <HowToEmbedButton />
+          </Flex>
+          <CopyLinkButton url={widgetUrl} disabled={isLoading} />
         </Flex>
-        <Flex width="100%">
-          <PresetsSection token={token} />
+        <Flex justifyContent="center">
+          <DummyPomodoroInner />
         </Flex>
       </Flex>
-      <ClipboardModal
-        isOpen={!!url}
-        url={url}
-        shareableUrl={publicUrl}
-        hideModal={() => clear()}
-      />
-    </Box>
+
+      <Flex flexDirection="column">
+        <Flex alignItems="center" justifyContent="space-between" mb="sm">
+          <Text as="h2" fontSize="md" fontWeight={700} color="foreground" m={0}>
+            Analytics
+          </Text>
+          <CopyLinkButton url={analyticsUrl} disabled={isLoading} />
+        </Flex>
+        <Flex justifyContent="center">
+          <AnalyticsBarChart
+            units="hr"
+            height={['300px', '350px', '400px']}
+            width={['100%', '500px', '600px']}
+          />
+        </Flex>
+      </Flex>
+    </Flex>
   )
 }
 

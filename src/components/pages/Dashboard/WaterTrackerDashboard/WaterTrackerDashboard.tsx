@@ -1,204 +1,79 @@
 import Flex from '@/helpers/Flex'
-import DummyWaterTracker from '@/widgets/WaterTracker/DummyWaterTracker'
-import WidgetLinkWrapper from '../WidgetLinkWrapper'
-import { useCreateToken } from '../useCreateToken'
-import { useState, ComponentType, useEffect } from 'react'
-import ClipboardModal from '../ClipboardModal'
-import DummyAnalyticsBarChart from '@/widgets/AnalyticsBarChart/DummyAnalyticsBarChart'
-import useClipboard from '@/hooks/useClipboard'
-import { URLHashProvider } from '@/hooks/useUrlHash/useUrlHash'
-import NumberInput from '@/design-system/NumberInput'
-import Button from '@/design-system/Button'
 import Text from '@/design-system/Text'
-import { useForm } from 'react-hook-form'
-import useUrlHash from '@/hooks/useUrlHash'
-import useWaterTrackerSettings from '../../../widgets/WaterTracker/hooks/useWaterTrackerSettings'
-import usePatchWaterTrackerSettings from '@/widgets/WaterTracker/hooks/usePatchSettings'
-import useBlocsUser from '@/hooks/useBlocsUser'
-import PremiumOverlay from '../PremiumOverlay'
 import Box from '@/helpers/Box'
+import DummyWaterTracker from '@/widgets/WaterTracker/DummyWaterTracker'
+import DummyAnalyticsBarChart from '@/widgets/AnalyticsBarChart/DummyAnalyticsBarChart'
+import { useCreateToken } from '../useCreateToken'
+import { URLHashProvider } from '@/hooks/useUrlHash/useUrlHash'
+import useWaterTrackerSettings from '@/widgets/WaterTracker/hooks/useWaterTrackerSettings'
+import useBlocsUser from '@/hooks/useBlocsUser'
+import CopyLinkButton from '../CopyLinkButton'
+import HowToEmbedButton from '../HowToEmbedButton'
+import { ComponentType } from 'react'
 
 const withProviders = (Component: ComponentType) => {
   return () => {
-    const { purchases, isUserOnFreeTrial, user } = useBlocsUser()
+    const { purchases, isUserOnFreeTrial } = useBlocsUser()
     const ownsWaterTracker =
-      purchases?.waterTracker || purchases?.lifetimeAccess || purchases?.lifestylePro || isUserOnFreeTrial
+      purchases?.waterTracker || purchases?.lifetimeAccess || purchases?.lifestylePro || isUserOnFreeTrial
 
-    const { token, publicToken } = useCreateToken(
-      'WATER_TRACKER',
-      ownsWaterTracker
-    )
+    const { token, publicToken } = useCreateToken('WATER_TRACKER', ownsWaterTracker)
 
     return (
-      <URLHashProvider
-        hash={{ token, shareableToken: publicToken, role: 'blocs-user' }}
-      >
+      <URLHashProvider hash={{ token, shareableToken: publicToken, role: 'blocs-user' }}>
         <Component />
-        {user && !ownsWaterTracker && !isUserOnFreeTrial && <PremiumOverlay />}
       </URLHashProvider>
     )
   }
 }
 
 const WaterTrackerDashboard = () => {
-  const { token, shareableToken: publicToken } = useUrlHash() as {
-    token?: string
-    shareableToken: string
-  }
-
-  const [openClipboardModal, setOpenClipboardModal] = useState(false)
-  const clipboard = useClipboard()
-  const [url, setUrl] = useState('')
-  const [publicUrl, setPublicUrl] = useState('')
-
   const { data: settings } = useWaterTrackerSettings()
-  const { patchGoal, loadingGoal } = usePatchWaterTrackerSettings()
+  const { purchases, isUserOnFreeTrial } = useBlocsUser()
+  const ownsWaterTracker =
+    purchases?.waterTracker || purchases?.lifetimeAccess || purchases?.lifestylePro || isUserOnFreeTrial
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset
-  } = useForm({
-    reValidateMode: 'onChange'
-  })
+  const { token, isLoading } = useCreateToken('WATER_TRACKER', ownsWaterTracker)
 
-  useEffect(() => {
-    reset({ goal: settings?.data?.goal })
-  }, [settings, reset])
-
-  const onSubmit = handleSubmit((formData) => {
-    patchGoal(formData.goal)
-  })
-
-  const links = (() => {
-    const baseUrl = global?.window?.origin
-    const waterTrackerUrl = `${baseUrl}/water-tracker?token=${token}&role=blocs-user`
-    const waterTrackerPublicUrl = `${baseUrl}/water-tracker?token=${publicToken}&role=friend`
-    const barChartUrl = `${baseUrl}/bar-chart/water-tracker?token=${token}&role=blocs-user`
-    const barChartPublicUrl = `${baseUrl}/bar-chart/water-tracker?token=${publicToken}&role=friend`
-
-    return {
-      waterTrackerUrl,
-      waterTrackerPublicUrl,
-      barChartUrl,
-      barChartPublicUrl
-    }
-  })()
+  const baseUrl = typeof window !== 'undefined' ? window.origin : ''
+  const widgetUrl = token ? `${baseUrl}/water-tracker?token=${token}&role=blocs-user` : ''
+  const analyticsUrl = token ? `${baseUrl}/bar-chart/water-tracker?token=${token}&role=blocs-user` : ''
 
   return (
-    <Flex
-      width="100%"
-      height="100%"
-      flexDirection={['column-reverse', , , , , 'column']}
-      alignItems={'start'}
-      justifyContent="start"
-    >
-      <Flex
-        p="md"
-        gap={['lg', , , , 'md']}
-        flexWrap="wrap"
-        justifyContent="center"
-      >
-        <WidgetLinkWrapper
-          isLoading={!token}
-          onClick={() => {
-            setUrl(links.waterTrackerUrl)
-            setPublicUrl(links.waterTrackerPublicUrl)
-            clipboard(links.waterTrackerUrl)
-            setOpenClipboardModal(true)
-          }}
-        >
-          <Flex position="relative">
-            <DummyWaterTracker
-              goal={settings?.data?.goal || 2}
-              width={'350px'}
-            />
-            <Box
-              position="absolute"
-              top={0}
-              left={0}
-              width="100%"
-              height="100%"
-              css={{ cursor: 'not-allowed' }}
-            />
+    <Flex flexDirection="column" css={{ gap: '2rem' }}>
+      <Flex flexDirection="column">
+        <Flex alignItems="center" justifyContent="space-between" mb="sm">
+          <Flex alignItems="center" css={{ gap: '12px' }}>
+            <Text as="h2" fontSize="md" fontWeight={700} color="foreground" m={0}>
+              Water Tracker
+            </Text>
+            <HowToEmbedButton />
           </Flex>
-        </WidgetLinkWrapper>
-        <WidgetLinkWrapper
-          isLoading={!token}
-          onClick={() => {
-            setUrl(links.barChartUrl)
-            setPublicUrl(links.barChartUrl)
-            clipboard(links.barChartUrl)
-            setOpenClipboardModal(true)
-          }}
-        >
-          <Box position="relative">
-            <DummyAnalyticsBarChart
-              width={['350px', , , , '350px', '500px']}
-              height={['350px', , , , '410px', '410px']}
-              units="L"
-            />
-            <Box
-              position="absolute"
-              top={0}
-              left={0}
-              width="100%"
-              height="100%"
-              css={{ cursor: 'not-allowed' }}
-            />
-          </Box>
-        </WidgetLinkWrapper>
-      </Flex>
-
-      <Flex
-        p="md"
-        borderTop="solid 1px"
-        borderColor="primary.accent-2"
-        width="100%"
-        justifyContent={['center', , , , , 'start']}
-      >
-        <Flex
-          as="form"
-          flexDirection="column"
-          onSubmit={onSubmit}
-          boxShadow="md"
-          p="md"
-          borderRadius="md"
-          border="solid 2px"
-          borderColor="primary.accent-2"
-          width={'min(100%,400px)'}
-        >
-          <Text variant="h4" color="foreground">
-            Set Your Daily Goal Here
-          </Text>
-          <NumberInput
-            label="Goal (in Liters)"
-            ariaLabel="Set Daily Goal"
-            {...register('goal', {
-              required: true,
-              valueAsNumber: true
-            })}
-            min={1}
-            max={10}
-            error={errors.goal ? 'Goal must be between {min} & {max}' : false}
+          <CopyLinkButton url={widgetUrl} disabled={isLoading} />
+        </Flex>
+        <Flex justifyContent="center">
+          <DummyWaterTracker
+            goal={settings?.data?.goal || 3}
+            width="350px"
           />
-          <Button
-            variant="success"
-            mt="sm"
-            loading={loadingGoal}
-            disabled={loadingGoal}
-          >
-            Save Goal
-          </Button>
         </Flex>
       </Flex>
-      <ClipboardModal
-        isOpen={openClipboardModal}
-        url={url}
-        shareableUrl={publicUrl}
-        hideModal={() => setOpenClipboardModal(false)}
-      />
+
+      <Flex flexDirection="column">
+        <Flex alignItems="center" justifyContent="space-between" mb="sm">
+          <Text as="h2" fontSize="md" fontWeight={700} color="foreground" m={0}>
+            Analytics
+          </Text>
+          <CopyLinkButton url={analyticsUrl} disabled={isLoading} />
+        </Flex>
+        <Flex justifyContent="center">
+          <DummyAnalyticsBarChart
+            width={['100%', '500px', '600px']}
+            height={['300px', '350px', '400px']}
+            units="L"
+          />
+        </Flex>
+      </Flex>
     </Flex>
   )
 }
