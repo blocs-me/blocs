@@ -14,7 +14,7 @@ Acquired March 2026 for $300. ~17 paying customers, ~$30 MRR.
 - **Deployment:** Vercel
 - **Domain:** blocs.me (transferred from Namecheap)
 - **Node version:** 18.18.0 (via Volta, specified in package.json)
-- **Package manager:** bun (bun.lock present; package-lock.json and yarn.lock also exist)
+- **Package manager:** bun
 
 ## Project Structure
 
@@ -99,5 +99,5 @@ See `docs/blocs-acquisition-context.md` for full acquisition context and checkli
 
 ### Known Caveats
 - `@supabase/auth-helpers-*` packages are deprecated (v0.10.0 bridge version); migration to `@supabase/ssr` is a future task
-- `bun install` requires no special flags; `npm install` needs `--legacy-peer-deps` due to some packages declaring React 18 peer deps
+- Use `bun install` — don't use npm/yarn (no package-lock.json or yarn.lock; bun.lock is the only lock file)
 - Next.js 15 `<Link>` renders its own `<a>` — do NOT use `as="a"` on child components inside `<Link>`
