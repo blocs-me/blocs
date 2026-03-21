@@ -7,7 +7,7 @@ import AnalyticsBarChart from '@/widgets/AnalyticsBarChart'
 import useWaterTrackerAnalyticsRange from '@/widgets/WaterTrackerAnalytics/useWaterTrackerAnalyticsRange'
 import useWaterTrackerAuth from '@/widgets/WaterTrackerAnalytics/useWaterTrackerAuth'
 import useAnalyticsBarChartDefaultValue from '@/widgets/AnalyticsBarChart/useAnalyticsBarChartDefaultValue'
-import { AnalyticsBarChartProvider } from '@/widgets/AnalyticsBarChart/useAnalyticsBarChart'
+import { AnalyticsBarChartProvider, useAnalyticsBarChartDispatch } from '@/widgets/AnalyticsBarChart/useAnalyticsBarChart'
 import { useCreateToken } from '../useCreateToken'
 import { URLHashProvider } from '@/hooks/useUrlHash/useUrlHash'
 import useWaterTrackerSettings from '@/widgets/WaterTracker/hooks/useWaterTrackerSettings'
@@ -15,7 +15,7 @@ import usePatchWaterTrackerSettings from '@/widgets/WaterTracker/hooks/usePatchS
 import useBlocsUser from '@/hooks/useBlocsUser'
 import CopyLinkButton from '../CopyLinkButton'
 import HowToEmbedButton from '../HowToEmbedButton'
-import { ComponentType, useEffect } from 'react'
+import { ComponentType, ReactNode, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import NumberInput from '@/design-system/NumberInput'
 
@@ -43,6 +43,14 @@ const WaterTrackerAnalytics = () => {
       hideMenu
     />
   )
+}
+
+const WeeklyViewEnforcer = ({ children }: { children: ReactNode }) => {
+  const dispatch = useAnalyticsBarChartDispatch()
+  useEffect(() => {
+    dispatch({ type: 'SET_TIME_FORMAT', payload: 'weekly' })
+  }, []) // eslint-disable-line
+  return <>{children}</>
 }
 
 const withProviders = (Component: ComponentType) => {
@@ -155,7 +163,9 @@ const WaterTrackerDashboard = () => {
         <Flex justifyContent="center">
           <Box width={['100%', '500px', '600px']} height="500px">
             <AnalyticsBarChartProvider>
-              <WaterTrackerAnalytics />
+              <WeeklyViewEnforcer>
+                <WaterTrackerAnalytics />
+              </WeeklyViewEnforcer>
             </AnalyticsBarChartProvider>
           </Box>
         </Flex>

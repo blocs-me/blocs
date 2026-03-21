@@ -2,22 +2,18 @@ import Flex from '@/helpers/Flex'
 import Box from '@/helpers/Box'
 import Text from '@/design-system/Text'
 import Button from '@/design-system/Button'
+import Icon from '@/helpers/Icon'
 import { DummyPomodoroInner } from '@/widgets/Pomodoro/DummyPomodoro'
 import PomodoroAnalyticsBarChart from '@/widgets/PomodoroAnalyticsBarChart'
 import { useCreateToken } from '../useCreateToken'
 import { useEffect, useMemo, useState } from 'react'
-import { usePomodoroDispatch } from '@/widgets/Pomodoro/usePomodoroStore'
+import { usePomodoroDispatch, usePomodoroStore } from '@/widgets/Pomodoro/usePomodoroStore'
 import { setCurrentPomodoroPreset } from '@/widgets/Pomodoro/pomodoroActions'
 import { URLHashProvider } from '@/hooks/useUrlHash/useUrlHash'
-import { AnalyticsBarChartProvider } from '@/widgets/AnalyticsBarChart/useAnalyticsBarChart'
+import { AnalyticsBarChartProvider, useAnalyticsBarChartDispatch } from '@/widgets/AnalyticsBarChart/useAnalyticsBarChart'
 import CopyLinkButton from '../CopyLinkButton'
 import HowToEmbedButton from '../HowToEmbedButton'
 import Modal from '@/design-system/Modal'
-import TextInput from '@/design-system/TextInput'
-import NumberInput from '@/design-system/NumberInput'
-const ColorInput = require('@/design-system/ColorInput').default as any
-import { useForm } from 'react-hook-form'
-import { usePomodoroStore } from '@/widgets/Pomodoro/usePomodoroStore'
 import usePresetApi from '@/widgets/Pomodoro/PomodoroPresets/usePresetApi'
 import useNotifications from '@/design-system/Notifications/useNotifications'
 import msToMins from '@/utils/msToMins'
@@ -26,6 +22,44 @@ import useSWR from 'swr'
 import fetchWithToken from 'src/services/fetchWithToken'
 import { POMODORO_PRESETS_PATH } from '@/utils/endpoints'
 import useBlocsUser from '@/hooks/useBlocsUser'
+import Stopwatch from 'src/icons/stopwatch'
+import { Cup } from 'src/icons/cup'
+
+const DurationRow = ({ icon, label, minutes, onChange }) => (
+  <Flex alignItems="center" py="xs" px="sm" width="100%" css={{ gap: '10px' }}>
+    <Icon fill="foreground" size="18px" as="span" display="flex" css={{ flexShrink: 0 }}>
+      {icon}
+    </Icon>
+    <Text as="span" fontSize="xs" fontWeight="500" color="foreground" m={0} css={{ flex: 1 }}>
+      {label}
+    </Text>
+    <Flex alignItems="center" css={{ gap: '4px', flexShrink: 0 }}>
+      <Box
+        as="input"
+        type="number"
+        min={1}
+        max={120}
+        value={minutes}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+          onChange(Math.max(1, Math.min(120, Number(e.target.value))))
+        }
+        color="foreground"
+        css={{
+          width: '48px',
+          textAlign: 'center',
+          border: '1px solid',
+          borderColor: 'inherit',
+          borderRadius: '4px',
+          padding: '4px',
+          fontSize: '12px',
+          background: 'transparent',
+          outline: 'none'
+        }}
+      />
+      <Text as="span" fontSize="xxs" color="primary.accent-4" m={0}>min</Text>
+    </Flex>
+  </Flex>
+)
 
 const PresetEditModal = ({ isOpen, onClose, token }) => {
   const { currentPreset = {} } = usePomodoroStore()
@@ -40,42 +74,33 @@ const PresetEditModal = ({ isOpen, onClose, token }) => {
 
   const latestPreset = presets?.data?.[0] || currentPreset
 
-  const defaultValues = useMemo(() => ({
-    label: latestPreset?.label || 'work',
-    labelColor: latestPreset?.labelColor || '#e00079',
-    pomodoroInterval: msToMins(latestPreset?.pomodoroInterval) || 25,
-    shortBreakInterval: msToMins(latestPreset?.shortBreakInterval) || 5,
-    longBreakInterval: msToMins(latestPreset?.longBreakInterval) || 15
-  }), [latestPreset])
-
-  const {
-    register,
-    handleSubmit,
-    watch,
-    reset,
-    formState: { errors }
-  } = useForm({ defaultValues })
-
-  useEffect(() => {
-    if (isOpen) reset(defaultValues)
-  }, [isOpen, defaultValues, reset])
-
-  const formData = watch()
+  const [pomo, setPomo] = useState(msToMins(latestPreset?.pomodoroInterval) || 25)
+  const [shortBreak, setShortBreak] = useState(msToMins(latestPreset?.shortBreakInterval) || 5)
+  const [longBreak, setLongBreak] = useState(msToMins(latestPreset?.longBreakInterval) || 15)
   const [saving, setSaving] = useState(false)
 
-  const requestBody = {
-    ...formData,
+  useEffect(() => {
+    if (isOpen && latestPreset) {
+      setPomo(msToMins(latestPreset.pomodoroInterval) || 25)
+      setShortBreak(msToMins(latestPreset.shortBreakInterval) || 5)
+      setLongBreak(msToMins(latestPreset.longBreakInterval) || 15)
+    }
+  }, [isOpen]) // eslint-disable-line
+
+  const requestBody = useMemo(() => ({
+    label: latestPreset?.label || 'work',
+    labelColor: latestPreset?.labelColor || '#e00079',
     id: latestPreset?.id || null,
-    pomodoroInterval: minsAsms(formData?.pomodoroInterval),
-    shortBreakInterval: minsAsms(formData?.shortBreakInterval),
-    longBreakInterval: minsAsms(formData?.longBreakInterval)
-  }
+    pomodoroInterval: minsAsms(pomo),
+    shortBreakInterval: minsAsms(shortBreak),
+    longBreakInterval: minsAsms(longBreak)
+  }), [pomo, shortBreak, longBreak, latestPreset])
 
   const { patchPreset, postPreset } = usePresetApi(requestBody, presets?.data, {
     onError: () => notifs.createError('Could not save preset')
   })
 
-  const onSubmit = handleSubmit(async () => {
+  const handleSave = async () => {
     setSaving(true)
     try {
       if (latestPreset?.id) {
@@ -90,74 +115,46 @@ const PresetEditModal = ({ isOpen, onClose, token }) => {
       notifs.createError('Could not save preset')
     }
     setSaving(false)
-  })
+  }
 
   return (
     <Modal visible={isOpen} hideModal={onClose}>
       <Box p="xs">
-        <Text fontSize="md" fontWeight={700} color="foreground" m={0} mb="md">
-          Customize Pomodoro
+        <Text fontSize="md" fontWeight={700} color="foreground" m={0} mb="sm">
+          Customize Durations
         </Text>
-        <Flex flexDirection="column" css={{ gap: '0.75rem' }}>
-          <TextInput
-            label="Label"
-            placeholder="e.g. work, study"
-            ariaLabel="Preset label"
-            {...register('label', { required: true })}
-          />
-          {/* @ts-ignore — ColorInput is untyped JS forwardRef */}
-          <ColorInput
-            label="Color"
-            htmlFor="labelColor"
-            ariaLabel="Preset color"
-            defaultValue={formData?.labelColor}
-            {...register('labelColor', { required: true })}
-          />
-          <NumberInput
-            label="Pomodoro (min)"
-            min={1}
-            max={120}
-            error={errors.pomodoroInterval ? 'Must be 1-120 minutes' : ''}
-            {...register('pomodoroInterval', {
-              required: true,
-              valueAsNumber: true,
-              min: 1,
-              max: 120
-            })}
-          />
-          <NumberInput
-            label="Short break (min)"
-            min={0}
-            max={120}
-            {...register('shortBreakInterval', {
-              required: true,
-              valueAsNumber: true
-            })}
-          />
-          <NumberInput
-            label="Long break (min)"
-            min={0}
-            max={120}
-            {...register('longBreakInterval', {
-              required: true,
-              valueAsNumber: true
-            })}
-          />
+        <Text fontSize="xxs" fontWeight={600} color="primary.accent-4" m={0} mb="xs" css={{ textTransform: 'uppercase', letterSpacing: '1px' }}>
+          Durations
+        </Text>
+        <DurationRow icon={<Stopwatch />} label={latestPreset?.label || 'Pomodoro'} minutes={pomo} onChange={setPomo} />
+        <DurationRow icon={<Cup />} label="Short break" minutes={shortBreak} onChange={setShortBreak} />
+        <DurationRow icon={<Cup />} label="Long break" minutes={longBreak} onChange={setLongBreak} />
+        <Box height="1px" bg="primary.accent-2" my="xs" mx="sm" />
+        <Box px="sm">
           <Button
             variant="success"
             width="100%"
             py="xs"
             borderRadius="md"
-            onClick={onSubmit}
+            onClick={handleSave}
             loading={saving}
             disabled={saving}
           >
             Save
           </Button>
-        </Flex>
+        </Box>
       </Box>
     </Modal>
   )
+}
+
+// Forces weekly view on mount so x-axis labels always show in dashboard context
+const WeeklyViewEnforcer = ({ children }: { children: React.ReactNode }) => {
+  const dispatch = useAnalyticsBarChartDispatch()
+  useEffect(() => {
+    dispatch({ type: 'SET_TIME_FORMAT', payload: 'weekly' })
+  }, []) // eslint-disable-line
+  return <>{children}</>
 }
 
 const PomodoroDashboard = () => {
@@ -200,7 +197,7 @@ const PomodoroDashboard = () => {
             </Flex>
           </Flex>
           <Flex justifyContent="center">
-            <DummyPomodoroInner hideGear />
+            <DummyPomodoroInner />
           </Flex>
         </Flex>
 
@@ -214,7 +211,9 @@ const PomodoroDashboard = () => {
           <Flex justifyContent="center">
             <Box width={['100%', '500px', '600px']} height="500px">
               <AnalyticsBarChartProvider>
-                <PomodoroAnalyticsBarChart hideMenu />
+                <WeeklyViewEnforcer>
+                  <PomodoroAnalyticsBarChart hideMenu />
+                </WeeklyViewEnforcer>
               </AnalyticsBarChartProvider>
             </Box>
           </Flex>
