@@ -128,14 +128,15 @@ const Dashboard = () => {
 
         <Box width="100%" bg="background" position="relative">
           <Notifications mt="md">
-            <WidgetAuthProvider>
-              <PomodoroProvider>
-                {path === 'pomodoro' && !showMaintenance && (
+            {showMaintenance && <DashboardMaintenance />}
+
+            {path === 'pomodoro' && !showMaintenance && (
+              <WidgetAuthProvider>
+                <PomodoroProvider>
                   <PomodoroDashboard />
-                )}
-                {showMaintenance && <DashboardMaintenance />}
-              </PomodoroProvider>
-            </WidgetAuthProvider>
+                </PomodoroProvider>
+              </WidgetAuthProvider>
+            )}
 
             <Suspense fallback={<LoadingScreen />}>
               {path === 'habit-tracker' && !showMaintenance && (

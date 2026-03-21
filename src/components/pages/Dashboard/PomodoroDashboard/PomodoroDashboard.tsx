@@ -1,5 +1,5 @@
 import Flex from '@/helpers/Flex'
-import DummyPomodoro from '@/widgets/Pomodoro/DummyPomodoro'
+import { DummyPomodoroInner } from '@/widgets/Pomodoro/DummyPomodoro'
 import AnalyticsBarChart from '@/widgets/AnalyticsBarChart/DummyAnalyticsBarChart'
 import Box from '@/helpers/Box'
 import WidgetLinkWrapper from '../WidgetLinkWrapper'
@@ -79,7 +79,7 @@ const PomodoroDashboard = () => {
             onClick={() => copyPomodoro()}
           >
             <Box position="relative">
-              <DummyPomodoro />
+              <DummyPomodoroInner />
               <Box
                 position="absolute"
                 top={0}

@@ -131,4 +131,5 @@ const DummyPomodoro = (props: IBox & { role?: string }) => {
   )
 }
 
+export { DummyPomodoroInner }
 export default DummyPomodoro

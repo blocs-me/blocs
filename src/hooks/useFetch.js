@@ -62,9 +62,11 @@ const useFetch = (url, options = {}) => {
     }
   }
 
-  let mounted = { value: true, fetching: false }
+  const mounted = useRef({ value: true })
 
   useEffect(() => {
+    mounted.current.value = true
+
     const cachedData = shouldCache
       ? JSON.parse(localStorage.getItem(url) || JSON.stringify(''))
       : {}
@@ -75,16 +77,16 @@ const useFetch = (url, options = {}) => {
       setData(cachedData.data)
       setLoading(false)
     } else {
-      shouldFetch && handleReq(mounted)
+      shouldFetch && handleReq(mounted.current)
     }
 
     return () => {
-      mounted.value = false
+      mounted.current.value = false
     }
   }, [shouldFetch])
 
   return {
-    fetcher: () => handleReq(mounted),
+    fetcher: () => handleReq(mounted.current),
     loading,
     error,
     data
