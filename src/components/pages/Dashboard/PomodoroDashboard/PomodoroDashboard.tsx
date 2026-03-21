@@ -77,6 +77,8 @@ const PresetEditModal = ({ isOpen, onClose, token }) => {
   const [pomo, setPomo] = useState(msToMins(latestPreset?.pomodoroInterval) || 25)
   const [shortBreak, setShortBreak] = useState(msToMins(latestPreset?.shortBreakInterval) || 5)
   const [longBreak, setLongBreak] = useState(msToMins(latestPreset?.longBreakInterval) || 15)
+  const [label, setLabel] = useState(latestPreset?.label || 'work')
+  const [labelColor, setLabelColor] = useState(latestPreset?.labelColor || '#e00079')
   const [saving, setSaving] = useState(false)
 
   useEffect(() => {
@@ -84,17 +86,19 @@ const PresetEditModal = ({ isOpen, onClose, token }) => {
       setPomo(msToMins(latestPreset.pomodoroInterval) || 25)
       setShortBreak(msToMins(latestPreset.shortBreakInterval) || 5)
       setLongBreak(msToMins(latestPreset.longBreakInterval) || 15)
+      setLabel(latestPreset.label || 'work')
+      setLabelColor(latestPreset.labelColor || '#e00079')
     }
   }, [isOpen]) // eslint-disable-line
 
   const requestBody = useMemo(() => ({
-    label: latestPreset?.label || 'work',
-    labelColor: latestPreset?.labelColor || '#e00079',
+    label,
+    labelColor,
     id: latestPreset?.id || null,
     pomodoroInterval: minsAsms(pomo),
     shortBreakInterval: minsAsms(shortBreak),
     longBreakInterval: minsAsms(longBreak)
-  }), [pomo, shortBreak, longBreak, latestPreset])
+  }), [pomo, shortBreak, longBreak, label, labelColor, latestPreset])
 
   const { patchPreset, postPreset } = usePresetApi(requestBody, presets?.data, {
     onError: () => notifs.createError('Could not save preset')
@@ -121,12 +125,44 @@ const PresetEditModal = ({ isOpen, onClose, token }) => {
     <Modal visible={isOpen} hideModal={onClose}>
       <Box p="xs">
         <Text fontSize="md" fontWeight={700} color="foreground" m={0} mb="sm">
-          Customize Durations
+          Customize Pomodoro
         </Text>
-        <Text fontSize="xxs" fontWeight={600} color="primary.accent-4" m={0} mb="xs" css={{ textTransform: 'uppercase', letterSpacing: '1px' }}>
+
+        <Text fontSize="xxs" fontWeight={600} color="primary.accent-4" m={0} mb="xs" px="sm" css={{ textTransform: 'uppercase', letterSpacing: '1px' }}>
+          Label
+        </Text>
+        <Flex alignItems="center" px="sm" pb="xs" css={{ gap: '8px' }}>
+          <Box
+            as="input"
+            type="color"
+            value={labelColor}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setLabelColor(e.target.value)}
+            css={{ width: '32px', height: '32px', border: 'none', background: 'none', cursor: 'pointer', padding: 0, flexShrink: 0 }}
+          />
+          <Box
+            as="input"
+            type="text"
+            value={label}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setLabel(e.target.value)}
+            color="foreground"
+            css={{
+              flex: 1,
+              border: '1px solid',
+              borderColor: 'inherit',
+              borderRadius: '4px',
+              padding: '6px 8px',
+              fontSize: '13px',
+              background: 'transparent',
+              outline: 'none'
+            }}
+          />
+        </Flex>
+
+        <Box height="1px" bg="primary.accent-2" my="xs" mx="sm" />
+        <Text fontSize="xxs" fontWeight={600} color="primary.accent-4" m={0} mb="xs" px="sm" css={{ textTransform: 'uppercase', letterSpacing: '1px' }}>
           Durations
         </Text>
-        <DurationRow icon={<Stopwatch />} label={latestPreset?.label || 'Pomodoro'} minutes={pomo} onChange={setPomo} />
+        <DurationRow icon={<Stopwatch />} label={label || 'Pomodoro'} minutes={pomo} onChange={setPomo} />
         <DurationRow icon={<Cup />} label="Short break" minutes={shortBreak} onChange={setShortBreak} />
         <DurationRow icon={<Cup />} label="Long break" minutes={longBreak} onChange={setLongBreak} />
         <Box height="1px" bg="primary.accent-2" my="xs" mx="sm" />
