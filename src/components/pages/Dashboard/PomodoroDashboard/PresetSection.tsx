@@ -91,19 +91,16 @@ const PresetsSection = ({ token }) => {
             initCreateForm()
           }}
         >
-          Create Preset
+          Customize
         </Button>
         <Text variant="pSmall" width="100%">
-          Create Pomodoro presets to track how you spend time on different
-          tasks.
+          Create presets to customize your Pomodoro, short break, and long break
+          durations. Add labels and colors to track how you spend time on
+          different tasks.
           <br />
           <br />
-          Once created, you can select them inside the pomodoro widget and we’ll
-          log how much time is spent on each preset.
-          <br />
-          <br />
-          The analytics widget will show real time updates on your daily
-          progress.
+          Select presets inside the widget and we&apos;ll log your time
+          automatically. View your progress in the analytics widget.
         </Text>
       </Flex>
       <Grid

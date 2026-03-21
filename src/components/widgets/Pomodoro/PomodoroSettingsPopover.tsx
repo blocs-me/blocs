@@ -202,7 +202,7 @@ const PomodoroSettingsPopover = ({ onClose, isAuthenticated }: { onClose: () => 
       {isAuthenticated ? (
         <Box
           as="a"
-          href="/pomodoro/labels"
+          href="https://blocs.me/dashboard/pomodoro"
           target="_blank"
           rel="noopener noreferrer"
           onClick={onClose}
@@ -216,10 +216,10 @@ const PomodoroSettingsPopover = ({ onClose, isAuthenticated }: { onClose: () => 
           }}
         >
           <Text fontSize="xxs" fontWeight={600} color="brand.accent-1" m={0}>
-            Manage Presets
+            Customize Durations
           </Text>
           <Text fontSize="10px" color="primary.accent-4" m={0} mt="2px">
-            Custom durations, labels, and colors
+            Go to dashboard to customize durations and more
           </Text>
         </Box>
       ) : (
@@ -238,7 +238,7 @@ const PomodoroSettingsPopover = ({ onClose, isAuthenticated }: { onClose: () => 
           }}
         >
           <Text fontSize="xxs" fontWeight={600} color="brand.accent-1" m={0}>
-            Custom Durations
+            Customize Durations
           </Text>
           <Text fontSize="10px" color="primary.accent-4" m={0} mt="2px">
             Sign in to customize your timer durations
