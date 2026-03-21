@@ -1,6 +1,5 @@
 import Text from '@/design-system/Text'
 import Flex from '@/helpers/Flex'
-import DonutChart from '@/design-system/DonutChart'
 import CheckboxWithText from './CheckboxWithText'
 import ScrollProvider from '@/design-system/ScrollProvider'
 import Stack from '@/helpers/Stack'
@@ -8,53 +7,55 @@ import Box from '@/helpers/Box'
 import FadeProvider from '@/design-system/FadeProvider'
 import Icon from '@/helpers/Icon'
 import Gear from 'src/icons/gear'
-import Moon from 'src/icons/moon'
-import Sun from 'src/icons/sun'
 import { UIEvent, useEffect, useRef, useState } from 'react'
 
 import useColorMode from '@/hooks/useColorMode'
-import useDarkMode from '@/hooks/useDarkMode'
 import useMediaQuery from '@/hooks/useMediaQuery'
 import useIsTrueDarkMode from '@/hooks/useIsTrueDarkMode'
 import FadeIn from '@/helpers/FadeIn'
 import { useDebouncedCallback } from 'beautiful-react-hooks'
 import { getCurrentISOString } from '../../../utils/dateUtils/getCurrentISOString'
 import CheckoboxesSkeleton from './CheckboxesSkeleton'
-import BorderedBox from './BorderedBox'
-import { getPercent } from '@/utils/math'
-import styled from '@emotion/styled'
-
-const useHabitStreakProgress = (analytics) => {
-  const bestStreak = analytics?.data?.bestStreak
-  const currentStreak = analytics?.data?.currentStreak
-
-  const streakProgress = (() => {
-    if (currentStreak < bestStreak)
-      return getPercent(currentStreak, bestStreak, 'floor')
-
-    if (currentStreak < 7) return getPercent(currentStreak, 7, 'floor')
-    if (currentStreak < 14) return getPercent(currentStreak, 14, 'floor')
-    if (currentStreak < 30) return getPercent(currentStreak, 30, 'floor')
-
-    if (currentStreak >= 30) {
-      let count = 50
-
-      while (currentStreak >= count) {
-        count = count + 50
-      }
-
-      return count
-    }
-  })()
-
-  return streakProgress
-}
 
 const formatDate = new Intl.DateTimeFormat('en', {
   day: 'numeric',
   month: 'long',
   year: 'numeric'
 }).format
+
+const GRID_DAYS = 30
+const GRID_COLS = 6
+
+const StreakGrid = ({ currentStreak }: { currentStreak: number }) => {
+  const cells = Array.from({ length: GRID_DAYS }, (_, i) => {
+    const dayIndex = GRID_DAYS - 1 - i
+    const isActive = dayIndex < currentStreak
+    return isActive
+  })
+
+  return (
+    <Box
+      css={{
+        display: 'grid',
+        gridTemplateColumns: `repeat(${GRID_COLS}, 1fr)`,
+        gap: '3px'
+      }}
+    >
+      {cells.map((isActive, i) => (
+        <Box
+          key={i}
+          borderRadius="3px"
+          bg={isActive ? 'brand.accent-1' : 'primary.accent-2'}
+          css={{
+            aspectRatio: '1',
+            opacity: isActive ? 0.85 : 1,
+            transition: 'background 0.15s ease'
+          }}
+        />
+      ))}
+    </Box>
+  )
+}
 
 const AddHabitInput = ({ onAdd }: { onAdd: (title: string) => void }) => {
   const [value, setValue] = useState('')
@@ -273,16 +274,12 @@ const DummyHabitTracker = ({
   onCheckedChange = undefined as ((checked: any[]) => void) | undefined,
   onAddHabit = undefined as ((title: string) => void) | undefined,
   onRemoveHabit = undefined as ((id: number) => void) | undefined,
-  maxHabits = undefined as number | undefined
+  maxHabits = undefined as number | undefined,
+  hideSettingsGear = false
 }) => {
   const today = formatDate(new Date())
   const todayISO = getCurrentISOString()
-  const { colorMode } = useColorMode()
-  const isSystemDM = useDarkMode()
-  const isDarkMode =
-    (colorMode === 'auto' && isSystemDM) || colorMode === 'dark'
   const isSmallScreen = useMediaQuery(`(max-width: ${smallScreenAt})`)
-  const donutProgress = useHabitStreakProgress(analyticsData)
   const scrollContainer = useRef<HTMLDivElement>(null)
   const columnOne = useRef<HTMLDivElement>(null)
   const [checked, setChecked] = useState(checkedValues)
@@ -335,7 +332,7 @@ const DummyHabitTracker = ({
       onMouseLeave={() => setIsHovering(false)}
       style={{ '--settings-opacity': isHovering || showSettings ? 1 : 0 } as React.CSSProperties}
     >
-      {onAddHabit && (
+      {onAddHabit && !hideSettingsGear && (
         <Box
           position="absolute"
           top="sm"
@@ -396,17 +393,15 @@ const DummyHabitTracker = ({
               >
                 Daily Habits
               </Text>
-              {(isSmallScreen || isAnalyticsHidden) && (
-                <Text
-                  as="time"
-                  color="primary.accent-4"
-                  fontSize="sm"
-                  fontWeight={200}
-                  datetime={todayISO}
-                >
-                  {today}
-                </Text>
-              )}
+              <Text
+                as="time"
+                color="primary.accent-4"
+                fontSize="xs"
+                fontWeight={200}
+                datetime={todayISO}
+              >
+                {today}
+              </Text>
             </Flex>
 
             <Box position="relative">
@@ -493,50 +488,35 @@ const DummyHabitTracker = ({
           </Flex>
 
           {!isSmallScreen && !isAnalyticsHidden && (
-            <Flex flexDirection="column" justifyContent="space-between" ml="md">
-              <BorderedBox p="sm">
-                <Text color="foreground" fontSize={'xs'} fontWeight={200} m={0}>
-                  {today}
-                </Text>
-              </BorderedBox>
-              <BorderedBox p="sm">
-                <Text color="foreground" fontSize="xs" fontWeight={200} m={0}>
-                  Your best streak is {analyticsData?.data?.bestStreak}{' '}
-                  {analyticsData?.data?.bestStreak === 1 ? 'day' : 'days'}
-                </Text>
-              </BorderedBox>
-              <Box position="relative">
-                <BorderedBox p="xs">
-                  <DonutChart
-                    background="primary.accent-2"
-                    foreground={isDarkMode ? 'url(#dm-gradient)' : '#3957edc6'}
-                    textColor="foreground"
-                    strokeWidthInner={3}
-                    strokeWidthOuter={10}
-                    progress={donutProgress || 0}
-                    size="100%"
-                  />
-                </BorderedBox>
-
+            <Flex flexDirection="column" ml="md" width="180px" css={{ flexShrink: 0, gap: '12px' }}>
+              <Flex css={{ gap: '6px' }} alignItems="center">
                 <Box
-                  position="absolute"
-                  maxWidth="135px"
-                  top="50%"
-                  left="50%"
-                  transform="translate(-50%, -50%)"
+                  px="xs"
+                  py="2px"
+                  borderRadius="sm"
+                  bg="brand.accent-5"
                 >
-                  <Text
-                    color="foreground"
-                    fontSize="xxs"
-                    fontWeight={200}
-                    m={0}
-                    textAlign="center"
-                  >
-                    {analyticsData?.data?.currentStreak}{' '}
-                    {analyticsData?.data?.currentStreak === 1 ? 'day' : 'days'}{' '}
-                    streak
+                  <Text fontSize="10px" fontWeight={700} color="brand.accent-1" m={0} css={{ whiteSpace: 'nowrap' }}>
+                    Best: {analyticsData?.data?.bestStreak || 0} {analyticsData?.data?.bestStreak === 1 ? 'day' : 'days'}
                   </Text>
                 </Box>
+                <Box
+                  px="xs"
+                  py="2px"
+                  borderRadius="sm"
+                  bg="primary.accent-2"
+                >
+                  <Text fontSize="10px" fontWeight={600} color="foreground" m={0} css={{ whiteSpace: 'nowrap' }}>
+                    Now: {analyticsData?.data?.currentStreak || 0}
+                  </Text>
+                </Box>
+              </Flex>
+
+              <Box>
+                <Text fontSize="10px" color="primary.accent-4" m={0} mb="xs" fontWeight={500}>
+                  Last 30 days
+                </Text>
+                <StreakGrid currentStreak={analyticsData?.data?.currentStreak || 0} />
               </Box>
             </Flex>
           )}

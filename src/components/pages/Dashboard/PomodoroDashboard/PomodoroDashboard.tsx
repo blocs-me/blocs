@@ -2,11 +2,12 @@ import Flex from '@/helpers/Flex'
 import Box from '@/helpers/Box'
 import Text from '@/design-system/Text'
 import Button from '@/design-system/Button'
-import { DummyPomodoroInner } from '@/widgets/Pomodoro/DummyPomodoro'
-import AnalyticsBarChart from '@/widgets/AnalyticsBarChart/DummyAnalyticsBarChart'
+import PomodoroMainPage from '@/widgets/Pomodoro/PomodoroMainPage'
+import PomodoroAnalyticsBarChart from '@/widgets/PomodoroAnalyticsBarChart'
 import { useCreateToken } from '../useCreateToken'
 import { useEffect, useMemo, useState } from 'react'
 import { useWidgetAuthDispatch } from '@/hooks/useWidgetAuth'
+import { URLHashProvider } from '@/hooks/useUrlHash/useUrlHash'
 import CopyLinkButton from '../CopyLinkButton'
 import HowToEmbedButton from '../HowToEmbedButton'
 import Modal from '@/design-system/Modal'
@@ -22,6 +23,7 @@ import minsAsms from '@/utils/minsAsms'
 import useSWR from 'swr'
 import fetchWithToken from 'src/services/fetchWithToken'
 import { POMODORO_PRESETS_PATH } from '@/utils/endpoints'
+import useBlocsUser from '@/hooks/useBlocsUser'
 
 const PresetEditModal = ({ isOpen, onClose, token }) => {
   const { currentPreset = {} } = usePomodoroStore()
@@ -155,13 +157,18 @@ const PresetEditModal = ({ isOpen, onClose, token }) => {
 }
 
 const PomodoroDashboard = () => {
-  const { token, isLoading } = useCreateToken('POMODORO', true)
+  const { purchases, isUserOnFreeTrial } = useBlocsUser()
+  const ownsPomodoro =
+    purchases.lifetimeAccess || purchases.pomodoro || purchases.lifestylePro || isUserOnFreeTrial
+  const { token, isLoading } = useCreateToken('POMODORO', ownsPomodoro)
   const dispatch = useWidgetAuthDispatch()
   const [showPresetModal, setShowPresetModal] = useState(false)
 
   useEffect(() => {
     if (token) {
       dispatch({ type: 'SET_TOKEN', token })
+      dispatch({ type: 'SET_IS_LOGGED_IN', isLoggedIn: true })
+      dispatch({ type: 'SET_IS_LOGGING_IN', isLoggingIn: false })
     }
   }, [token, dispatch])
 
@@ -170,59 +177,72 @@ const PomodoroDashboard = () => {
   const analyticsUrl = token ? `${baseUrl}/bar-chart/pomodoro?token=${token}&role=blocs-user` : ''
 
   return (
-    <Flex flexDirection="column" css={{ gap: '2rem' }}>
-      <Flex flexDirection="column">
-        <Flex alignItems="center" justifyContent="space-between" mb="sm">
-          <Flex alignItems="center" css={{ gap: '12px' }}>
-            <Text as="h2" fontSize="md" fontWeight={700} color="foreground" m={0}>
-              Pomodoro Timer
-            </Text>
-            <HowToEmbedButton />
+    <URLHashProvider hash={{ token, role: 'blocs-user' }}>
+      <Flex flexDirection="column" css={{ gap: '2rem' }}>
+        <Flex flexDirection="column">
+          <Flex alignItems="center" justifyContent="space-between" mb="sm">
+            <Flex alignItems="center" css={{ gap: '12px' }}>
+              <Text as="h2" fontSize="md" fontWeight={700} color="foreground" m={0}>
+                Pomodoro Timer
+              </Text>
+              <HowToEmbedButton />
+            </Flex>
+            <Flex css={{ gap: '8px' }} alignItems="center">
+              <Button
+                px="sm"
+                py="xs"
+                borderRadius="md"
+                fontSize="xs"
+                fontWeight={600}
+                border="solid 1px"
+                borderColor="foreground"
+                color="foreground"
+                onClick={() => setTimeout(() => setShowPresetModal(true), 0)}
+              >
+                Customize
+              </Button>
+              <CopyLinkButton url={widgetUrl} disabled={isLoading} />
+            </Flex>
           </Flex>
-          <Flex css={{ gap: '8px' }} alignItems="center">
-            <Button
-              px="sm"
-              py="xs"
-              borderRadius="md"
-              fontSize="xs"
-              fontWeight={600}
-              border="solid 1px"
-              borderColor="foreground"
-              color="foreground"
-              onClick={() => setShowPresetModal(true)}
+          <Flex justifyContent="center">
+            <Box
+              width="min(100%, 550px)"
+              height="400px"
+              bg="background"
+              boxShadow="default"
+              borderRadius="lg"
+              position="relative"
+              overflow="hidden"
             >
-              Customize
-            </Button>
-            <CopyLinkButton url={widgetUrl} disabled={isLoading} />
+              <PomodoroMainPage isHovering={false} />
+            </Box>
           </Flex>
         </Flex>
-        <Flex justifyContent="center">
-          <DummyPomodoroInner />
-        </Flex>
-      </Flex>
 
-      <Flex flexDirection="column">
-        <Flex alignItems="center" justifyContent="space-between" mb="sm">
-          <Text as="h2" fontSize="md" fontWeight={700} color="foreground" m={0}>
-            Analytics
-          </Text>
-          <CopyLinkButton url={analyticsUrl} disabled={isLoading} />
+        <Flex flexDirection="column">
+          <Flex alignItems="center" justifyContent="space-between" mb="sm">
+            <Text as="h2" fontSize="md" fontWeight={700} color="foreground" m={0}>
+              Analytics
+            </Text>
+            <CopyLinkButton url={analyticsUrl} disabled={isLoading} />
+          </Flex>
+          <Flex justifyContent="center">
+            <Box
+              width={['100%', '500px', '600px']}
+              height={['300px', '350px', '400px']}
+            >
+              <PomodoroAnalyticsBarChart />
+            </Box>
+          </Flex>
         </Flex>
-        <Flex justifyContent="center">
-          <AnalyticsBarChart
-            units="hr"
-            height={['300px', '350px', '400px']}
-            width={['100%', '500px', '600px']}
-          />
-        </Flex>
-      </Flex>
 
-      <PresetEditModal
-        isOpen={showPresetModal}
-        onClose={() => setShowPresetModal(false)}
-        token={token}
-      />
-    </Flex>
+        <PresetEditModal
+          isOpen={showPresetModal}
+          onClose={() => setShowPresetModal(false)}
+          token={token}
+        />
+      </Flex>
+    </URLHashProvider>
   )
 }
 

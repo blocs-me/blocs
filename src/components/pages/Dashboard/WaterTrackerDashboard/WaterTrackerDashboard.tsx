@@ -3,7 +3,10 @@ import Text from '@/design-system/Text'
 import Box from '@/helpers/Box'
 import Button from '@/design-system/Button'
 import DummyWaterTracker from '@/widgets/WaterTracker/DummyWaterTracker'
-import DummyAnalyticsBarChart from '@/widgets/AnalyticsBarChart/DummyAnalyticsBarChart'
+import AnalyticsBarChart from '@/widgets/AnalyticsBarChart'
+import useWaterTrackerAnalyticsRange from '@/widgets/WaterTrackerAnalytics/useWaterTrackerAnalyticsRange'
+import useWaterTrackerAuth from '@/widgets/WaterTrackerAnalytics/useWaterTrackerAuth'
+import useAnalyticsBarChartDefaultValue from '@/widgets/AnalyticsBarChart/useAnalyticsBarChartDefaultValue'
 import { useCreateToken } from '../useCreateToken'
 import { URLHashProvider } from '@/hooks/useUrlHash/useUrlHash'
 import useWaterTrackerSettings from '@/widgets/WaterTracker/hooks/useWaterTrackerSettings'
@@ -11,10 +14,34 @@ import usePatchWaterTrackerSettings from '@/widgets/WaterTracker/hooks/usePatchS
 import useBlocsUser from '@/hooks/useBlocsUser'
 import CopyLinkButton from '../CopyLinkButton'
 import HowToEmbedButton from '../HowToEmbedButton'
-import useClipboard from '@/hooks/useClipboard'
 import { ComponentType, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import NumberInput from '@/design-system/NumberInput'
+
+const renderWaterTooltip = (d: any) => (
+  <Box color="foreground" css={{ fontWeight: 200 }}>
+    <div>{d.value} {d.value === 1 ? 'Liter' : 'Liters'}</div>
+  </Box>
+)
+
+const WaterTrackerAnalytics = () => {
+  const { data: analytics } = useWaterTrackerAnalyticsRange()
+  const { auth } = useWaterTrackerAuth()
+  const fallback = useAnalyticsBarChartDefaultValue()
+
+  return (
+    <AnalyticsBarChart
+      menuPage="/bar-chart/water-tracker/menu"
+      mainPage="/bar-chart/water-tracker"
+      minY={5}
+      data={analytics?.data?.length ? analytics.data : fallback}
+      units="L"
+      renderTooltip={renderWaterTooltip}
+      disableControls={!auth?.isPremium}
+      showPremiumOverlay={auth && !auth?.isPremium}
+    />
+  )
+}
 
 const withProviders = (Component: ComponentType) => {
   return () => {
@@ -124,11 +151,12 @@ const WaterTrackerDashboard = () => {
           <CopyLinkButton url={analyticsUrl} disabled={isLoading} />
         </Flex>
         <Flex justifyContent="center">
-          <DummyAnalyticsBarChart
+          <Box
             width={['100%', '500px', '600px']}
             height={['300px', '350px', '400px']}
-            units="L"
-          />
+          >
+            <WaterTrackerAnalytics />
+          </Box>
         </Flex>
       </Flex>
     </Flex>

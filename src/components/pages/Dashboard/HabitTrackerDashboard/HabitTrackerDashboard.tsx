@@ -52,6 +52,7 @@ const HabitTrackerWidget = () => {
       isEditable
       onAddHabit={handleAddHabit}
       onRemoveHabit={handleRemoveHabit}
+      hideSettingsGear
     />
   )
 }

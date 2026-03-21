@@ -129,7 +129,7 @@ const AccountDropdown = ({ onClose }: { onClose: () => void }) => {
             }}
             onClick={handleManageSubscription}
           >
-            Cancel or Update Plan
+            Manage Plan
           </Box>
         </>
       )}
