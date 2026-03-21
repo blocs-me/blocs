@@ -18,7 +18,6 @@ import CheckoboxesSkeleton from './CheckboxesSkeleton'
 import BorderedBox from './BorderedBox'
 import { getPercent } from '@/utils/math'
 import styled from '@emotion/styled'
-import EmptyHabitsScreen from './EmptyHabitsScreen'
 
 const useHabitStreakProgress = (analytics) => {
   const bestStreak = analytics?.data?.bestStreak
@@ -52,6 +51,85 @@ const formatDate = new Intl.DateTimeFormat('en', {
   year: 'numeric'
 }).format
 
+const AddHabitInput = ({ onAdd }: { onAdd: (title: string) => void }) => {
+  const [value, setValue] = useState('')
+
+  const handleSubmit = () => {
+    const trimmed = value.trim()
+    if (!trimmed) return
+    onAdd(trimmed)
+    setValue('')
+  }
+
+  return (
+    <Flex alignItems="center" mt="xs" css={{ gap: '6px' }}>
+      <Box
+        as="input"
+        type="text"
+        value={value}
+        placeholder="New habit..."
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setValue(e.target.value)}
+        onKeyDown={(e: React.KeyboardEvent) => e.key === 'Enter' && handleSubmit()}
+        css={{
+          flex: 1,
+          border: '1px solid var(--colors-primary-accent-2)',
+          borderRadius: '6px',
+          padding: '6px 10px',
+          fontSize: '14px',
+          background: 'transparent',
+          color: 'var(--colors-foreground)',
+          outline: 'none',
+          '&:focus': {
+            borderColor: 'var(--colors-brand-accent-1)'
+          }
+        }}
+      />
+      <Box
+        as="button"
+        onClick={handleSubmit}
+        css={{
+          border: 'none',
+          cursor: 'pointer',
+          borderRadius: '6px',
+          padding: '6px 12px',
+          fontSize: '14px',
+          fontWeight: 600,
+          background: 'var(--colors-brand-accent-1)',
+          color: 'white',
+          '&:hover': { opacity: 0.85 }
+        }}
+      >
+        +
+      </Box>
+    </Flex>
+  )
+}
+
+const RemoveButton = ({ onClick }: { onClick: () => void }) => (
+  <Box
+    as="button"
+    onClick={(e: React.MouseEvent) => {
+      e.preventDefault()
+      e.stopPropagation()
+      onClick()
+    }}
+    css={{
+      border: 'none',
+      background: 'transparent',
+      cursor: 'pointer',
+      padding: '2px 6px',
+      fontSize: '14px',
+      color: 'var(--colors-primary-accent-4)',
+      borderRadius: '4px',
+      opacity: 0.5,
+      transition: 'opacity 0.15s ease',
+      '&:hover': { opacity: 1 }
+    }}
+  >
+    ✕
+  </Box>
+)
+
 const DummyHabitTracker = ({
   isAnalyticsHidden = false,
   analyticsData = { data: null },
@@ -59,7 +137,10 @@ const DummyHabitTracker = ({
   isEditable = false,
   checkedValues = [],
   smallScreenAt = '1000px',
-  onCheckedChange = undefined as ((checked: any[]) => void) | undefined
+  onCheckedChange = undefined as ((checked: any[]) => void) | undefined,
+  onAddHabit = undefined as ((title: string) => void) | undefined,
+  onRemoveHabit = undefined as ((id: number) => void) | undefined,
+  maxHabits = undefined as number | undefined
 }) => {
   const today = formatDate(new Date())
   const todayISO = getCurrentISOString()
@@ -113,8 +194,8 @@ const DummyHabitTracker = ({
       p="md"
       position="relative"
       overflow="hidden"
-      role="img"
-      aria-label="Habit Tracker Visual Example"
+      role={onAddHabit ? 'region' : 'img'}
+      aria-label={onAddHabit ? 'Habit Tracker' : 'Habit Tracker Visual Example'}
     >
       <FadeIn css={{ width: '100%', height: '100%' }}>
         <Flex
@@ -165,33 +246,74 @@ const DummyHabitTracker = ({
                 <Stack mt="sm" width="100%">
                   <CheckoboxesSkeleton isLoading={!habits} />
                   {habits?.data?.map((d) => (
-                    <CheckboxWithText
-                      isChecked={checked?.includes(d.id)}
-                      text={d.title}
-                      id={d.id}
-                      onChange={(str) => {
-                        isEditable &&
-                          (() => {
-                            const index = checked.findIndex((v) => v === d.id)
-                            let next
+                    <Flex key={d.id} alignItems="center" justifyContent="space-between">
+                      <CheckboxWithText
+                        isChecked={checked?.includes(d.id)}
+                        text={d.title}
+                        id={d.id}
+                        onChange={(str) => {
+                          isEditable &&
+                            (() => {
+                              const index = checked.findIndex((v) => v === d.id)
+                              let next
 
-                            if (index > -1) {
-                              next = [
-                                ...checked.slice(0, index),
-                                ...checked.slice(index + 1)
-                              ]
-                            } else {
-                              next = [d.id, ...checked]
-                            }
+                              if (index > -1) {
+                                next = [
+                                  ...checked.slice(0, index),
+                                  ...checked.slice(index + 1)
+                                ]
+                              } else {
+                                next = [d.id, ...checked]
+                              }
 
-                            setChecked(next)
-                            onCheckedChange?.(next)
-                          })()
-                      }}
-                      key={d.id}
-                    />
+                              setChecked(next)
+                              onCheckedChange?.(next)
+                            })()
+                        }}
+                      />
+                      {onRemoveHabit && (
+                        <RemoveButton onClick={() => onRemoveHabit(d.id)} />
+                      )}
+                    </Flex>
                   ))}
-                  {habits && !habits?.data?.length && <EmptyHabitsScreen />}
+                  {onAddHabit && habits?.data?.length < (maxHabits ?? Infinity) && (
+                    <AddHabitInput onAdd={onAddHabit} />
+                  )}
+                  {onAddHabit && maxHabits && habits?.data?.length >= maxHabits && (
+                    <Box mt="xs">
+                      <Text fontSize="xxs" color="primary.accent-4" m={0} mb="xxs">
+                        Free limit reached ({maxHabits} habits)
+                      </Text>
+                      <Box
+                        as="a"
+                        href="https://blocs.me/sign-in"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        css={{
+                          fontSize: '12px',
+                          fontWeight: 600,
+                          color: 'var(--colors-brand-accent-1)',
+                          textDecoration: 'none',
+                          '&:hover': { textDecoration: 'underline' }
+                        }}
+                      >
+                        Sign in for unlimited habits →
+                      </Box>
+                    </Box>
+                  )}
+                  {habits && !habits?.data?.length && !onAddHabit && (
+                    <Text fontSize="sm" color="primary.accent-4" m={0}>
+                      No habits yet
+                    </Text>
+                  )}
+                  {habits && !habits?.data?.length && onAddHabit && (
+                    <Box>
+                      <Text fontSize="sm" color="primary.accent-4" m={0} mb="xs">
+                        Add your first habit to get started
+                      </Text>
+                      <AddHabitInput onAdd={onAddHabit} />
+                    </Box>
+                  )}
                   <Box />
                 </Stack>
                 <Box height="40px" />
