@@ -10,7 +10,12 @@ const WidgetMenuButton = ({ href = '/', isOpen = false }) => {
   const router = useRouter()
 
   const handleClick = () => {
-    router.push({ pathname: href, query: router.query })
+    // Only forward auth-related params, not catch-all route params (path, slug)
+    const { token, role } = router.query
+    const query: Record<string, string | string[]> = {}
+    if (token) query.token = token as string
+    if (role) query.role = role as string
+    router.push({ pathname: href, query })
   }
 
   return (

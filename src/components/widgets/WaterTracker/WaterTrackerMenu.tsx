@@ -1,6 +1,6 @@
 import Flex from '@/helpers/Flex'
 import WidgetMenuButton from '../../design-system/WidgetMenuButton/WidgetMenuButton'
-import Avatar from '@/design-system/Avatar'
+import Home from 'src/icons/home'
 import Moon from 'src/icons/moon'
 import ButtonGroup, { ButtonGroupButton } from '@/design-system/ButtonGroup'
 import Drop from 'src/icons/drop-icon'
@@ -93,13 +93,6 @@ const WaterTrackerMenu = () => {
         position="absolute"
         zIndex="10"
       >
-        {role === 'blocs-user' && (
-          <Avatar
-            alt="your profile picture"
-            variant="sm"
-            src={settings?.data?.avatarUrl}
-          />
-        )}
         <WidgetMenuButton href="/water-tracker" isOpen />
       </Flex>
       <FadeIn css={{ display: 'flex', height: '100%' }}>
@@ -135,6 +128,14 @@ const WaterTrackerMenu = () => {
           >
             Shareable Link
           </ButtonGroupButton>
+          {role === 'blocs-user' && (
+            <ButtonGroupButton
+              icon={<Home />}
+              onClick={() => window.open('https://blocs.me/dashboard/water-tracker', '_blank')}
+            >
+              Go to Dashboard
+            </ButtonGroupButton>
+          )}
         </ButtonGroup>
 
         <UpdateGoalModal

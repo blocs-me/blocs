@@ -41,7 +41,7 @@ const UpdateGoalForm = () => {
       <NumberInput
         type="number"
         ariaLabel="Set Daily Goal"
-        label="Goal"
+        label="Goal (litres)"
         {...register('goal', {
           required: true,
           valueAsNumber: true,
