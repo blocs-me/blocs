@@ -18,7 +18,7 @@ import {
   setPausedAt
 } from '../pomodoroActions'
 
-const DummyPomodoroInner = (props: IBox & { role?: string }) => {
+const DummyPomodoroInner = ({ hideGear = false, ...props }: IBox & { role?: string; hideGear?: boolean }) => {
   const {
     session: { startedAt, pausedAt }
   } = usePomodoroStore()
@@ -80,7 +80,7 @@ const DummyPomodoroInner = (props: IBox & { role?: string }) => {
       </Flex>
 
       {/* Gear icon */}
-      <Box
+      {!hideGear && <Box
         position="absolute"
         top="sm"
         right="sm"
@@ -118,7 +118,7 @@ const DummyPomodoroInner = (props: IBox & { role?: string }) => {
         {showSettings && (
           <PomodoroSettingsPopover onClose={() => setShowSettings(false)} />
         )}
-      </Box>
+      </Box>}
     </Box>
   )
 }

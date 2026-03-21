@@ -2,11 +2,12 @@ import Flex from '@/helpers/Flex'
 import Box from '@/helpers/Box'
 import Text from '@/design-system/Text'
 import Button from '@/design-system/Button'
-import PomodoroMainPage from '@/widgets/Pomodoro/PomodoroMainPage'
+import { DummyPomodoroInner } from '@/widgets/Pomodoro/DummyPomodoro'
 import PomodoroAnalyticsBarChart from '@/widgets/PomodoroAnalyticsBarChart'
 import { useCreateToken } from '../useCreateToken'
 import { useEffect, useMemo, useState } from 'react'
-import { useWidgetAuthDispatch } from '@/hooks/useWidgetAuth'
+import { usePomodoroDispatch } from '@/widgets/Pomodoro/usePomodoroStore'
+import { setCurrentPomodoroPreset } from '@/widgets/Pomodoro/pomodoroActions'
 import { URLHashProvider } from '@/hooks/useUrlHash/useUrlHash'
 import { AnalyticsBarChartProvider } from '@/widgets/AnalyticsBarChart/useAnalyticsBarChart'
 import CopyLinkButton from '../CopyLinkButton'
@@ -28,6 +29,7 @@ import useBlocsUser from '@/hooks/useBlocsUser'
 
 const PresetEditModal = ({ isOpen, onClose, token }) => {
   const { currentPreset = {} } = usePomodoroStore()
+  const pomodoroDispatch = usePomodoroDispatch()
   const notifs = useNotifications()
 
   const { data: presets } = useSWR(
@@ -81,6 +83,7 @@ const PresetEditModal = ({ isOpen, onClose, token }) => {
       } else {
         await postPreset()
       }
+      pomodoroDispatch(setCurrentPomodoroPreset(requestBody))
       notifs.createSuccess('Preset saved')
       onClose()
     } catch {
@@ -162,16 +165,7 @@ const PomodoroDashboard = () => {
   const ownsPomodoro =
     purchases.lifetimeAccess || purchases.pomodoro || purchases.lifestylePro || isUserOnFreeTrial
   const { token, isLoading } = useCreateToken('POMODORO', ownsPomodoro)
-  const dispatch = useWidgetAuthDispatch()
   const [showPresetModal, setShowPresetModal] = useState(false)
-
-  useEffect(() => {
-    if (token) {
-      dispatch({ type: 'SET_TOKEN', token })
-      dispatch({ type: 'SET_IS_LOGGED_IN', isLoggedIn: true })
-      dispatch({ type: 'SET_IS_LOGGING_IN', isLoggingIn: false })
-    }
-  }, [token, dispatch])
 
   const baseUrl = typeof window !== 'undefined' ? window.origin : ''
   const widgetUrl = token ? `${baseUrl}/pomodoro?token=${token}&role=blocs-user` : ''
@@ -206,18 +200,7 @@ const PomodoroDashboard = () => {
             </Flex>
           </Flex>
           <Flex justifyContent="center">
-            <Box
-              height="400px"
-              bg="background"
-              boxShadow="default"
-              css={{ aspectRatio: '0.85' }}
-              borderRadius="lg"
-              p="sm"
-              position="relative"
-              overflow="hidden"
-            >
-              <PomodoroMainPage isHovering={false} />
-            </Box>
+            <DummyPomodoroInner hideGear />
           </Flex>
         </Flex>
 
@@ -229,10 +212,7 @@ const PomodoroDashboard = () => {
             <CopyLinkButton url={analyticsUrl} disabled={isLoading} />
           </Flex>
           <Flex justifyContent="center">
-            <Box
-              width={['100%', '500px', '600px']}
-              height={['300px', '350px', '400px']}
-            >
+            <Box width={['100%', '500px', '600px']} height="500px">
               <AnalyticsBarChartProvider>
                 <PomodoroAnalyticsBarChart hideMenu />
               </AnalyticsBarChartProvider>

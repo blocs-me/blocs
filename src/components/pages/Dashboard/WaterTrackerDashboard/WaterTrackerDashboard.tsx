@@ -153,10 +153,7 @@ const WaterTrackerDashboard = () => {
           <CopyLinkButton url={analyticsUrl} disabled={isLoading} />
         </Flex>
         <Flex justifyContent="center">
-          <Box
-            width={['100%', '500px', '600px']}
-            height={['300px', '350px', '400px']}
-          >
+          <Box width={['100%', '500px', '600px']} height="500px">
             <AnalyticsBarChartProvider>
               <WaterTrackerAnalytics />
             </AnalyticsBarChartProvider>
