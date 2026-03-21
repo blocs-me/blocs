@@ -91,14 +91,10 @@ const PomodoroMainPage = ({ isHovering }) => {
   }
 
   useEffect(() => {
-    if (presets?.data?.length === 1) {
-      const preset = presets.data[0]
-
-      if (preset.id !== currentPreset?.id) {
-        pomodoroDispatch(setCurrentPomodoroPreset(preset))
-      }
+    if (presets?.data?.[0]) {
+      pomodoroDispatch(setCurrentPomodoroPreset(presets.data[0]))
     }
-  }, [presets, currentPreset]) // eslint-disable-line
+  }, [presets]) // eslint-disable-line
 
   // useEffect(() => {
   //   const hideBanner = storage.getItem('blocs-release-banner') === 'true'

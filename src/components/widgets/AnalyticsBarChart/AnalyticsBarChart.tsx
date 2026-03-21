@@ -26,6 +26,7 @@ type Props = {
   showPremiumOverlay?: boolean
   disableControls?: boolean
   isOverlayEscapable?: boolean
+  hideMenu?: boolean
 } & Required<Pick<BarChartProps, 'data' | 'renderTooltip' | 'minY'>>
 
 const AnalyticsBarChart = ({
@@ -37,7 +38,8 @@ const AnalyticsBarChart = ({
   menuPage,
   showPremiumOverlay,
   disableControls,
-  isOverlayEscapable
+  isOverlayEscapable,
+  hideMenu
 }: Props) => {
   const [{ timePeriod, page }, dispatch] = useAnalyticsBarChart()
   const container = useRef()
@@ -115,12 +117,14 @@ const AnalyticsBarChart = ({
             </>
           )}
           {isMenuPage && <Box />}
-          <Box css={{ alignSelf: 'end' }}>
-            <WidgetMenuButton
-              href={isMainPage ? menuPage : mainPage}
-              isOpen={isMenuPage}
-            />
-          </Box>
+          {!hideMenu && (
+            <Box css={{ alignSelf: 'end' }}>
+              <WidgetMenuButton
+                href={isMainPage ? menuPage : mainPage}
+                isOpen={isMenuPage}
+              />
+            </Box>
+          )}
         </Flex>
 
         <FadeIn

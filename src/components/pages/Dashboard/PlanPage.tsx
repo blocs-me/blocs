@@ -103,12 +103,12 @@ const PlanPage = () => {
           <Text fontSize="xs" fontWeight={700} color="foreground" m={0} css={{ flex: 1 }}>
             Feature
           </Text>
-          <Text fontSize="xs" fontWeight={700} color="foreground" m={0} width="60px" textAlign="center">
-            Free
-          </Text>
-          <Text fontSize="xs" fontWeight={700} color="brand.accent-1" m={0} width="60px" textAlign="center">
-            Pro
-          </Text>
+          <Box width="60px" textAlign="center">
+            <Text fontSize="xs" fontWeight={700} color="foreground" m={0}>Free</Text>
+          </Box>
+          <Box width="60px" textAlign="center">
+            <Text fontSize="xs" fontWeight={700} color="brand.accent-1" m={0}>Pro</Text>
+          </Box>
         </Flex>
 
         {features.map((f) => {

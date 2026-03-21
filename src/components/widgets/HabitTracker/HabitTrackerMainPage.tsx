@@ -1,6 +1,5 @@
 import Text from '@/design-system/Text'
 import Flex from '@/helpers/Flex'
-import DonutChart from '@/design-system/DonutChart'
 import CheckboxWithText from './CheckboxWithText'
 import ScrollProvider from '@/design-system/ScrollProvider'
 import Stack from '@/helpers/Stack'
@@ -8,8 +7,6 @@ import Box from '@/helpers/Box'
 import FadeProvider from '@/design-system/FadeProvider'
 import { UIEvent, useEffect, useRef, useState } from 'react'
 
-import useColorMode from '@/hooks/useColorMode'
-import useDarkMode from '@/hooks/useDarkMode'
 import useMediaQuery from '@/hooks/useMediaQuery'
 import FadeIn from '@/helpers/FadeIn'
 import { useDebouncedCallback } from 'beautiful-react-hooks'
@@ -17,12 +14,9 @@ import { useFetchHabits } from './hooks/useFetchHabits'
 import useFetchHabitsAnalytics from './hooks/useFetchHabitsAnalytics'
 import useSaveHabitsAnalytics from './hooks/useSaveHabitsAnalytics'
 import { getCurrentISOString } from '../../../utils/dateUtils/getCurrentISOString'
-import useHabitStreakProgress from './hooks/useHabitStreakProgress'
 import CheckoboxesSkeleton from './CheckboxesSkeleton'
-import BorderedBox from './BorderedBox'
-import float from '@/keyframes/float'
-import Link from 'next/link'
 import EmptyHabitsScreen from './EmptyHabitsScreen'
+import StreakGrid from './StreakGrid'
 
 const formatDate = new Intl.DateTimeFormat('en', {
   day: 'numeric',
@@ -33,15 +27,10 @@ const formatDate = new Intl.DateTimeFormat('en', {
 const HabitTrackerMainPage = ({ isAnalyticsHidden = false }) => {
   const today = formatDate(new Date())
   const todayISO = getCurrentISOString()
-  const { colorMode } = useColorMode()
-  const isSystemDM = useDarkMode()
-  const isDarkMode =
-    (colorMode === 'auto' && isSystemDM) || colorMode === 'dark'
   const isSmallScreen = useMediaQuery('(max-width: 600px)')
   const { data: habits } = useFetchHabits()
   const { data: analyticsData } = useFetchHabitsAnalytics()
   const saveHabits = useSaveHabitsAnalytics()
-  const donutProgress = useHabitStreakProgress()
   const scrollContainer = useRef<HTMLDivElement>(null)
   const columnOne = useRef<HTMLDivElement>(null)
 
@@ -104,17 +93,15 @@ const HabitTrackerMainPage = ({ isAnalyticsHidden = false }) => {
             >
               Daily Habits
             </Text>
-            {(isSmallScreen || isAnalyticsHidden) && (
-              <Text
-                as="time"
-                color="primary.accent-4"
-                fontSize="sm"
-                fontWeight={200}
-                datetime={todayISO}
-              >
-                {today}
-              </Text>
-            )}
+            <Text
+              as="time"
+              color="primary.accent-4"
+              fontSize="xs"
+              fontWeight={200}
+              datetime={todayISO}
+            >
+              {today}
+            </Text>
           </Flex>
 
           <Box position="relative">
@@ -147,58 +134,11 @@ const HabitTrackerMainPage = ({ isAnalyticsHidden = false }) => {
         </Flex>
 
         {!isSmallScreen && !isAnalyticsHidden && (
-          <Flex flexDirection="column" ml="md" css={{rowGap:"28px"}}>
-            <BorderedBox p="sm">
-              <Text color="foreground" fontSize={'xs'} fontWeight={200} m={0}>
-                {today}
-              </Text>
-            </BorderedBox>
-            <BorderedBox p="sm">
-              <Text color="foreground" fontSize="xs" fontWeight={200} m={0}>
-                Your best streak is{' '}
-                {analyticsData?.data?.bestStreak ||
-                  analyticsData?.data?.currentStreak ||
-                  0}{' '}
-                {(analyticsData?.data?.bestStreak ||
-                  analyticsData?.data?.currentStreak ||
-                  0) === 1
-                  ? 'day'
-                  : 'days'}
-              </Text>
-            </BorderedBox>
-            <Box position="relative">
-              <BorderedBox p="xs">
-                <DonutChart
-                  background="primary.accent-2"
-                  foreground={isDarkMode ? 'url(#dm-gradient)' : '#3957edc6'}
-                  textColor="foreground"
-                  strokeWidthInner={3}
-                  strokeWidthOuter={10}
-                  progress={donutProgress || 0}
-                  size="100%"
-                />
-              </BorderedBox>
-
-              <Box
-                position="absolute"
-                maxWidth="135px"
-                top="50%"
-                left="50%"
-                transform="translate(-50%, -50%)"
-              >
-                <Text
-                  color="foreground"
-                  fontSize="xxs"
-                  fontWeight={200}
-                  m={0}
-                  textAlign="center"
-                >
-                  {analyticsData?.data?.currentStreak}{' '}
-                  {analyticsData?.data?.currentStreak === 1 ? 'day' : 'days'}{' '}
-                  streak
-                </Text>
-              </Box>
-            </Box>
+          <Flex flexDirection="column" ml="md" width="180px" css={{ flexShrink: 0, justifyContent: 'center' }}>
+            <StreakGrid
+              currentStreak={analyticsData?.data?.currentStreak || 0}
+              bestStreak={analyticsData?.data?.bestStreak || 0}
+            />
           </Flex>
         )}
       </Flex>

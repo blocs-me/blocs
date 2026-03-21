@@ -9,7 +9,7 @@ import useAnalyticsBarChartDefaultValue from '../AnalyticsBarChart/useAnalyticsB
 
 const renderTooltip = (d) => <Tooltip {...d} />
 
-const PomodoroAnalyticsBarChart = () => {
+const PomodoroAnalyticsBarChart = ({ hideMenu }: { hideMenu?: boolean }) => {
   usePomodoroPresets() // fetches presets to display on the tooltip
   const { data: analytics } = usePomodoroAnalytics()
   const { auth } = usePomodoroAuth()
@@ -28,6 +28,7 @@ const PomodoroAnalyticsBarChart = () => {
       renderTooltip={renderTooltip}
       showPremiumOverlay={showPremiumOverlay}
       disableControls={!auth?.isPremium}
+      hideMenu={hideMenu}
     />
   )
 }

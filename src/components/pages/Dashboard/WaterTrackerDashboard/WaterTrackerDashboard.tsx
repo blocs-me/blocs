@@ -7,6 +7,7 @@ import AnalyticsBarChart from '@/widgets/AnalyticsBarChart'
 import useWaterTrackerAnalyticsRange from '@/widgets/WaterTrackerAnalytics/useWaterTrackerAnalyticsRange'
 import useWaterTrackerAuth from '@/widgets/WaterTrackerAnalytics/useWaterTrackerAuth'
 import useAnalyticsBarChartDefaultValue from '@/widgets/AnalyticsBarChart/useAnalyticsBarChartDefaultValue'
+import { AnalyticsBarChartProvider } from '@/widgets/AnalyticsBarChart/useAnalyticsBarChart'
 import { useCreateToken } from '../useCreateToken'
 import { URLHashProvider } from '@/hooks/useUrlHash/useUrlHash'
 import useWaterTrackerSettings from '@/widgets/WaterTracker/hooks/useWaterTrackerSettings'
@@ -39,6 +40,7 @@ const WaterTrackerAnalytics = () => {
       renderTooltip={renderWaterTooltip}
       disableControls={!auth?.isPremium}
       showPremiumOverlay={auth && !auth?.isPremium}
+      hideMenu
     />
   )
 }
@@ -155,7 +157,9 @@ const WaterTrackerDashboard = () => {
             width={['100%', '500px', '600px']}
             height={['300px', '350px', '400px']}
           >
-            <WaterTrackerAnalytics />
+            <AnalyticsBarChartProvider>
+              <WaterTrackerAnalytics />
+            </AnalyticsBarChartProvider>
           </Box>
         </Flex>
       </Flex>

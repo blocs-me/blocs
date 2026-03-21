@@ -16,46 +16,13 @@ import FadeIn from '@/helpers/FadeIn'
 import { useDebouncedCallback } from 'beautiful-react-hooks'
 import { getCurrentISOString } from '../../../utils/dateUtils/getCurrentISOString'
 import CheckoboxesSkeleton from './CheckboxesSkeleton'
+import StreakGrid from './StreakGrid'
 
 const formatDate = new Intl.DateTimeFormat('en', {
   day: 'numeric',
   month: 'long',
   year: 'numeric'
 }).format
-
-const GRID_DAYS = 30
-const GRID_COLS = 6
-
-const StreakGrid = ({ currentStreak }: { currentStreak: number }) => {
-  const cells = Array.from({ length: GRID_DAYS }, (_, i) => {
-    const dayIndex = GRID_DAYS - 1 - i
-    const isActive = dayIndex < currentStreak
-    return isActive
-  })
-
-  return (
-    <Box
-      css={{
-        display: 'grid',
-        gridTemplateColumns: `repeat(${GRID_COLS}, 1fr)`,
-        gap: '3px'
-      }}
-    >
-      {cells.map((isActive, i) => (
-        <Box
-          key={i}
-          borderRadius="3px"
-          bg={isActive ? 'brand.accent-1' : 'primary.accent-2'}
-          css={{
-            aspectRatio: '1',
-            opacity: isActive ? 0.85 : 1,
-            transition: 'background 0.15s ease'
-          }}
-        />
-      ))}
-    </Box>
-  )
-}
 
 const AddHabitInput = ({ onAdd }: { onAdd: (title: string) => void }) => {
   const [value, setValue] = useState('')
@@ -488,36 +455,11 @@ const DummyHabitTracker = ({
           </Flex>
 
           {!isSmallScreen && !isAnalyticsHidden && (
-            <Flex flexDirection="column" ml="md" width="180px" css={{ flexShrink: 0, gap: '12px' }}>
-              <Flex css={{ gap: '6px' }} alignItems="center">
-                <Box
-                  px="xs"
-                  py="2px"
-                  borderRadius="sm"
-                  bg="brand.accent-5"
-                >
-                  <Text fontSize="10px" fontWeight={700} color="brand.accent-1" m={0} css={{ whiteSpace: 'nowrap' }}>
-                    Best: {analyticsData?.data?.bestStreak || 0} {analyticsData?.data?.bestStreak === 1 ? 'day' : 'days'}
-                  </Text>
-                </Box>
-                <Box
-                  px="xs"
-                  py="2px"
-                  borderRadius="sm"
-                  bg="primary.accent-2"
-                >
-                  <Text fontSize="10px" fontWeight={600} color="foreground" m={0} css={{ whiteSpace: 'nowrap' }}>
-                    Now: {analyticsData?.data?.currentStreak || 0}
-                  </Text>
-                </Box>
-              </Flex>
-
-              <Box>
-                <Text fontSize="10px" color="primary.accent-4" m={0} mb="xs" fontWeight={500}>
-                  Last 30 days
-                </Text>
-                <StreakGrid currentStreak={analyticsData?.data?.currentStreak || 0} />
-              </Box>
+            <Flex flexDirection="column" ml="md" width="180px" css={{ flexShrink: 0, justifyContent: 'center' }}>
+              <StreakGrid
+                currentStreak={analyticsData?.data?.currentStreak || 0}
+                bestStreak={analyticsData?.data?.bestStreak || 0}
+              />
             </Flex>
           )}
         </Flex>

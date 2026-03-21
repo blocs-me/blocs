@@ -8,6 +8,7 @@ import { useCreateToken } from '../useCreateToken'
 import { useEffect, useMemo, useState } from 'react'
 import { useWidgetAuthDispatch } from '@/hooks/useWidgetAuth'
 import { URLHashProvider } from '@/hooks/useUrlHash/useUrlHash'
+import { AnalyticsBarChartProvider } from '@/widgets/AnalyticsBarChart/useAnalyticsBarChart'
 import CopyLinkButton from '../CopyLinkButton'
 import HowToEmbedButton from '../HowToEmbedButton'
 import Modal from '@/design-system/Modal'
@@ -206,11 +207,12 @@ const PomodoroDashboard = () => {
           </Flex>
           <Flex justifyContent="center">
             <Box
-              width="min(100%, 550px)"
               height="400px"
               bg="background"
               boxShadow="default"
+              css={{ aspectRatio: '0.85' }}
               borderRadius="lg"
+              p="sm"
               position="relative"
               overflow="hidden"
             >
@@ -231,7 +233,9 @@ const PomodoroDashboard = () => {
               width={['100%', '500px', '600px']}
               height={['300px', '350px', '400px']}
             >
-              <PomodoroAnalyticsBarChart />
+              <AnalyticsBarChartProvider>
+                <PomodoroAnalyticsBarChart hideMenu />
+              </AnalyticsBarChartProvider>
             </Box>
           </Flex>
         </Flex>
