@@ -6,7 +6,7 @@ import Notifications from '@/design-system/Notifications'
 import { PomodoroProvider } from '../../widgets/Pomodoro/usePomodoroStore'
 import { WidgetAuthProvider } from '@/hooks/useWidgetAuth'
 import DashboardNav from './DashboardNav'
-import PomodoroDashboard from './PomodoroDashboard'
+const PomodoroDashboard = lazy(() => import('./PomodoroDashboard'))
 const HabitTrackerDashboard = lazy(() => import('./HabitTrackerDashboard'))
 const WaterTrackerDashboard = lazy(() => import('./WaterTrackerDashboard'))
 import { useSessionContext, useUser } from '@supabase/auth-helpers-react'
@@ -32,6 +32,7 @@ const LoadingScreen = () => (
 )
 
 const isMaintenance = process.env.NEXT_PUBLIC_MAINTENANCE === 'yes'
+const validPaths = ['pomodoro', 'habit-tracker', 'water-tracker']
 
 const Dashboard = () => {
   const router = useRouter()
@@ -39,8 +40,6 @@ const Dashboard = () => {
   const user = useUser()
   const session = useSessionContext()
   const isSmallScreen = useMediaQuery('(min-width: 768px)')
-  const validPaths = ['pomodoro', 'habit-tracker', 'water-tracker']
-  const showMaintenance = isMaintenance
 
   useEffect(() => {
     if (user?.aud !== 'authenticated' && !session.isLoading) {
@@ -76,25 +75,14 @@ const Dashboard = () => {
           bg="primary.accent-2"
           css={{ textAlign: 'center' }}
         >
-          <Text
-            as="h1"
-            fontWeight={600}
-            color="foreground"
-            fontSize="md"
-            mb="xs"
-          >
+          <Text as="h1" fontWeight={600} color="foreground" fontSize="md" mb="xs">
             Dashboard is desktop only
           </Text>
           <Text fontSize="sm" color="primary.accent-4" mb="md">
             Open this page on a larger screen to manage your widgets.
           </Text>
           <Link href="/" style={{ textDecoration: 'none' }}>
-            <Button
-              variant="success"
-              color="neutral.white"
-              icon={<Home />}
-              borderRadius="md"
-            >
+            <Button variant="success" color="neutral.white" icon={<Home />} borderRadius="md">
               Back Home
             </Button>
           </Link>
@@ -109,23 +97,22 @@ const Dashboard = () => {
         <DashboardNav />
       </Box>
 
-      <Box width="min(100%, 1200px)" m="0 auto" p="md">
+      <Box key={path as string} width="min(100%, 1200px)" m="0 auto" p="md">
         <Notifications>
-          {showMaintenance && <DashboardMaintenance />}
-
-          {path === 'pomodoro' && !showMaintenance && (
-            <WidgetAuthProvider>
-              <PomodoroProvider>
-                <PomodoroDashboard />
-              </PomodoroProvider>
-            </WidgetAuthProvider>
-          )}
+          {isMaintenance && <DashboardMaintenance />}
 
           <Suspense fallback={<LoadingScreen />}>
-            {path === 'habit-tracker' && !showMaintenance && (
+            {path === 'pomodoro' && !isMaintenance && (
+              <WidgetAuthProvider>
+                <PomodoroProvider>
+                  <PomodoroDashboard />
+                </PomodoroProvider>
+              </WidgetAuthProvider>
+            )}
+            {path === 'habit-tracker' && !isMaintenance && (
               <HabitTrackerDashboard />
             )}
-            {path === 'water-tracker' && !showMaintenance && (
+            {path === 'water-tracker' && !isMaintenance && (
               <WaterTrackerDashboard />
             )}
           </Suspense>

@@ -19,7 +19,7 @@ const HowToEmbedButton = () => {
           textDecoration: 'underline',
           '&:hover': { opacity: 0.7 }
         }}
-        onClick={() => setShowModal(true)}
+        onClick={() => setTimeout(() => setShowModal(true), 0)}
       >
         How to embed
       </Text>

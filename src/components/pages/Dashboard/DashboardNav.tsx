@@ -107,9 +107,14 @@ const AccountDropdown = ({ onClose }: { onClose: () => void }) => {
     >
       {isPremium && (
         <>
-          <Text fontSize="xxs" fontWeight={600} color="success.medium" m={0} mb="xs">
-            Pro Plan
-          </Text>
+          <Box px="xs" py="xs" borderRadius="sm" bg="brand.accent-5" mb="xs">
+            <Text fontSize="xxs" fontWeight={700} color="brand.accent-1" m={0}>
+              Pro Plan
+            </Text>
+            <Text fontSize="10px" color="primary.accent-4" m={0} mt="2px">
+              All widgets, analytics, and customization
+            </Text>
+          </Box>
           <Box
             as="button"
             width="100%"
@@ -122,13 +127,13 @@ const AccountDropdown = ({ onClose }: { onClose: () => void }) => {
               background: 'transparent',
               border: 'none',
               cursor: 'pointer',
-              fontSize: '13px',
+              fontSize: '12px',
+              color: 'var(--colors-primary-accent-4)',
               '&:hover': { backgroundColor: 'var(--colors-primary-accent-2)' }
             }}
-            color="foreground"
             onClick={handleManageSubscription}
           >
-            Manage Subscription
+            Cancel or Update Plan
           </Box>
         </>
       )}
@@ -192,10 +197,11 @@ const AccountDropdown = ({ onClose }: { onClose: () => void }) => {
 }
 
 const TrialBadge = () => {
-  const { user, isUserOnFreeTrial } = useBlocsUser()
+  const { user, isUserOnFreeTrial, purchases } = useBlocsUser()
   const router = useRouter()
+  const isPremium = isLifestylePro(purchases)
 
-  if (!isUserOnFreeTrial || !user) return null
+  if (isPremium || !isUserOnFreeTrial || !user) return null
 
   const fourteenDays = 1000 * 60 * 60 * 24 * 14
   const daysLeft = Math.max(
@@ -256,24 +262,26 @@ const DashboardNav = () => {
       borderBottom="solid 1px"
       borderColor="primary.accent-2"
     >
-      <Flex
-        size="35px"
-        onClick={() => router.push('/')}
-        css={{ cursor: 'pointer', flexShrink: 0 }}
-      >
-        <BlocsLogo />
-      </Flex>
+      <Flex alignItems="center" css={{ gap: '16px' }}>
+        <Flex
+          size="35px"
+          onClick={() => router.push('/')}
+          css={{ cursor: 'pointer', flexShrink: 0 }}
+        >
+          <BlocsLogo />
+        </Flex>
 
-      <Flex css={{ gap: '4px' }} alignItems="center">
-        {tabs.map((tab) => (
-          <Tab
-            key={tab.path}
-            label={tab.label}
-            icon={tab.icon}
-            isActive={path === tab.path}
-            onClick={() => router.push(`/dashboard/${tab.path}`)}
-          />
-        ))}
+        <Flex css={{ gap: '4px' }} alignItems="center">
+          {tabs.map((tab) => (
+            <Tab
+              key={tab.path}
+              label={tab.label}
+              icon={tab.icon}
+              isActive={path === tab.path}
+              onClick={() => router.push(`/dashboard/${tab.path}`)}
+            />
+          ))}
+        </Flex>
       </Flex>
 
       <Flex css={{ gap: '12px' }} alignItems="center">
