@@ -225,7 +225,7 @@ const PomodoroSettingsPopover = ({ onClose, isAuthenticated }: { onClose: () => 
       ) : (
         <Box
           as="a"
-          href="https://blocs.me/sign-in"
+          href="https://blocs.me/pricing"
           target="_blank"
           rel="noopener noreferrer"
           css={{
@@ -241,7 +241,7 @@ const PomodoroSettingsPopover = ({ onClose, isAuthenticated }: { onClose: () => 
             Customize Durations
           </Text>
           <Text fontSize="10px" color="primary.accent-4" m={0} mt="2px">
-            Sign in to customize your timer durations
+            Get Pro to customize your timer durations
           </Text>
         </Box>
       )}

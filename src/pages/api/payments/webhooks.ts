@@ -13,8 +13,9 @@ import stripeProductIds from '@/constants/stripeProductIds'
 import { findCheckoutSession } from '@/lambda/lib/stripe'
 import getBlocsUserById from '@/lambda/helpers/supabase/getBlocsUserById'
 import getBlocsUserByEmail from '@/lambda/middlewares/getBlocsUserByEmail'
-import { SlackPurchaseNotification } from '@/lambda/lib/slack'
 import getBlocsUserByStripeCustomerId from '@/lambda/helpers/supabase/getBlocsUserByStripeId'
+import supabase from '@/lambda/helpers/supabase'
+import supabaseAdmin from '@/lambda/helpers/supabaseAdmin'
 
 const cors = Cors({
   allowMethods: ['POST', 'HEAD']
@@ -107,27 +108,76 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     switch (eventType) {
       case 'checkout.session.completed': {
-        // First payment is successful and a subscription is created (if mode was set to "subscription" in ButtonCheckout)
-        // ✅ Grant access to the product
-
         const session = await findCheckoutSession(data.object.id)
 
         const customerId = session?.customer
         const userId = data.object.client_reference_id
+        const customerEmail = session?.customer_details?.email
         const products = getPurchasedProducts(session?.line_items?.data)
 
         if (products.length == 0) break
 
         let user = await getBlocsUserByStripeCustomerId(customerId as string)
 
-        // Get or create the user. userId is normally pass in the checkout session (clientReferenceID) to identify the user when we get the webhook event
-        if (!user) {
-          if (userId) {
-            user = await getBlocsUserById(userId)
-          } else {
-            console.error('No user found')
-            throw new Error('No user found')
+        if (!user && userId) {
+          user = await getBlocsUserById(userId)
+        }
+
+        // Anonymous checkout (no existing account) — auto-create user
+        if (!user && customerEmail) {
+          user = await getBlocsUserByEmail(customerEmail)
+
+          if (!user) {
+            // Create Supabase auth user
+            const { data: authUser, error: authError } = await supabaseAdmin.auth.admin.createUser({
+              email: customerEmail,
+              email_confirm: true
+            })
+
+            if (authError) {
+              console.error('Failed to create auth user:', authError.message)
+              throw new Error(`Failed to create auth user: ${authError.message}`)
+            }
+
+            // Create users table row
+            const { data: newUser, error: insertError } = await supabase
+              .from('users')
+              .insert({
+                email: customerEmail,
+                supabase_user_id: authUser.user.id,
+                purchased_products: products,
+                stripe_customer_id: customerId,
+                purchase_history: [session.id]
+              })
+              .select()
+              .single()
+
+            if (insertError) {
+              console.error('Failed to insert user row:', insertError.message)
+              throw new Error(`Failed to insert user row: ${insertError.message}`)
+            }
+
+            // Send magic link so user can log in
+            const { error: otpError } = await supabaseAdmin.auth.admin.generateLink({
+              type: 'magiclink',
+              email: customerEmail,
+              options: {
+                redirectTo: 'https://blocs.me/dashboard/pomodoro'
+              }
+            })
+
+            if (otpError) {
+              console.error('Failed to send magic link:', otpError.message)
+            }
+
+            user = { id: newUser.id, email: customerEmail, purchasedProducts: products, stripeCustomerId: customerId as string } as any
+            break
           }
+        }
+
+        if (!user) {
+          console.error('No user found for checkout session')
+          throw new Error('No user found')
         }
 
         const purchasedProducts = Array.from(
@@ -138,19 +188,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           stripe_customer_id: customerId,
           purchased_products: purchasedProducts
         })
-
-        // Send Slack notification
-        try {
-          const data = user
-          await SlackPurchaseNotification({
-            customer_name: data.name,
-            email: data.email,
-            plan_name: products.join(', '),
-            unit_price: session?.amount_total.toString()
-          })
-        } catch (e) {
-          console.error('Slack notification issue:', e?.message)
-        }
 
         break
       }
@@ -290,72 +327,5 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     received: true
   })
 }
-
-// const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-//   const sig = req.headers['stripe-signature']
-
-//   const buf = await buffer(req)
-
-//   let event
-
-//   try {
-//     event = stripe.webhooks.constructEvent(buf.toString(), sig, webhookSecret)
-//   } catch (err) {
-//     console.error(err)
-//     res.status(400).send(`Webhook Error: ${err.message}`)
-//   }
-
-//   if (req.method === 'POST') {
-//     const paymentInfo = event.data.object
-
-//     if (
-//       (event?.type === 'checkout.session.completed' ||
-//         event?.type === 'checkout.session.async_payment_succeeded') &&
-//       paymentInfo?.payment_status === 'paid'
-//     ) {
-//       const customerEmail = paymentInfo.customer_details?.email
-//       const stripeCustomerId = paymentInfo?.customer
-//       const checkoutSessionId = paymentInfo?.id
-//       const blocsUser = await getBlocsUserByEmail(customerEmail)
-//       const updatedPurchaseHistory = Array.from(
-//         new Set([
-//           ...(blocsUser?.data?.purchaseHistory || []),
-//           checkoutSessionId
-//         ])
-//       )
-
-//       const products = Object.entries(paymentInfo.metadata)
-//         .filter(([__, val]) => val === 'true')
-//         .map(([key]) => stripeProductIds[key])
-
-//       const purchasedProducts = Array.from(
-//         new Set([...(blocsUser?.data?.purchasedProducts || []), ...products])
-//       )
-
-//       try {
-//         await upsertBlocsUser(customerEmail, {
-//           email: customerEmail,
-//           purchaseHistory: updatedPurchaseHistory,
-//           purchasedProducts,
-//           stripeCustomerId
-//         })
-//         handle200Response(res, {
-//           received: true
-//         })
-//       } catch (err) {
-//         console.error(err)
-//         return handle500Response(res)
-//       }
-//     }
-
-//     handle200Response(res, {
-//       received: true
-//     })
-//   }
-
-//   handle200Response(res, {
-//     received: true
-//   })
-// }
 
 export default cors(handler)

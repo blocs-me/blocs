@@ -203,11 +203,11 @@ const FreeSettingsPopover = ({ onClose }: { onClose: () => void }) => {
             Track your streaks
           </Text>
           <Text fontSize="xxs" color="primary.accent-4" m={0} mb="xs" lineHeight={1.4}>
-            Sign in to Blocs to see streaks, analytics, and daily progress. It&apos;s free.
+            Get Blocs Pro to see streaks, analytics, and daily progress.
           </Text>
           <Box
             as="a"
-            href="https://blocs.me/sign-in"
+            href="https://blocs.me/pricing"
             target="_blank"
             rel="noopener noreferrer"
             bg="brand.accent-1"
@@ -223,7 +223,7 @@ const FreeSettingsPopover = ({ onClose }: { onClose: () => void }) => {
               '&:hover': { opacity: 0.85 }
             }}
           >
-            Sign in to Blocs
+            Get Blocs Pro
           </Box>
         </Box>
       )}
@@ -422,7 +422,7 @@ const DummyHabitTracker = ({
                       </Text>
                       <Box
                         as="a"
-                        href="https://blocs.me/sign-in"
+                        href="https://blocs.me/pricing"
                         target="_blank"
                         rel="noopener noreferrer"
                         color="brand.accent-1"
@@ -433,7 +433,7 @@ const DummyHabitTracker = ({
                           '&:hover': { textDecoration: 'underline' }
                         }}
                       >
-                        Sign in for unlimited habits →
+                        Get Pro for unlimited habits →
                       </Box>
                     </Box>
                   )}

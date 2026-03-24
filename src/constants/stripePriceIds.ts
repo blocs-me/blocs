@@ -7,6 +7,9 @@ type PriceIds = {
   monthly: {
     [P in ProductTitles]?: string
   }
+  lifetime: {
+    [P in ProductTitles]?: string
+  }
 }
 
 const local: PriceIds = {
@@ -21,6 +24,9 @@ const local: PriceIds = {
     waterTracker: 'price_1OIGh6HyXnRceQpO84gfblUT',
     habitTracker: 'price_1OIGhoHyXnRceQpOdYBXmAqg',
     pomodoro: 'price_1OIGfSHyXnRceQpOqxt6LKQA'
+  },
+  lifetime: {
+    lifetimeAccess: 'price_1TEScnHuSirGScmMkVXQC1pT'
   }
 }
 
@@ -36,6 +42,9 @@ const prod: PriceIds = {
     waterTracker: 'price_1OLAJNHyXnRceQpO9llRMycu',
     habitTracker: 'price_1OLAL6HyXnRceQpODDgZY1Zx',
     pomodoro: 'price_1OLALsHyXnRceQpO2Bi2KpUq'
+  },
+  lifetime: {
+    lifetimeAccess: 'price_1TEScnHuSirGScmMkVXQC1pT'
   }
 }
 

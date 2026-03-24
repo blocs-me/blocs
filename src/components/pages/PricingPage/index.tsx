@@ -2,249 +2,238 @@ import Footer from '@/design-system/Footer'
 import Text from '@/design-system/Text'
 import Box from '@/helpers/Box'
 import Flex from '@/helpers/Flex'
-import { postReq } from '@/utils/fetchingUtils'
-import PricingCard from './PricingCard'
-import PricingCardCheckbox from './PricingCardCheckbox/PricingCardCheckbox'
-import stripePriceIds from '../../../constants/stripePriceIds'
-import { useRouter } from 'next/router'
-import Stripe from 'stripe'
-import { MouseEvent, useState } from 'react'
-import useBlocsUser from '@/hooks/useBlocsUser'
-import { BlocsUserClient } from '../../../global-types/blocs-user'
-import Modal from '@/design-system/Modal'
 import Button from '@/design-system/Button'
+import { postReq } from '@/utils/fetchingUtils'
+import { useState } from 'react'
 import { NextSeo } from 'next-seo'
 import Nav from '@/design-system/Nav'
 import nextSeoConfig from '@/constants/next-seo.config'
-import Switch from '@/design-system/Switch'
-import { isLifestylePlan, isLifestylePro } from '@/lambda/helpers/subscriptionChecker'
-import { PRO_PLAN_NAME } from '@/constants/planNames'
 
-type Products = {
-  price: string
-  quantity: 1
-}[]
+const features = [
+  { label: 'Pomodoro Timer', free: true },
+  { label: 'Habit Tracker', free: true },
+  { label: 'Water Tracker', free: true },
+  { label: 'Edit Durations & Goals', free: false },
+  { label: 'Unlimited Habits', free: false },
+  { label: 'Analytics & Streaks', free: false },
+  { label: 'No Branding', free: false }
+]
 
-const handleStripeCheckout = async (products: Products) => {
-  try {
-    const checkoutSession: Stripe.Checkout.Session = await postReq(
-      '/api/payments/checkout',
-      {
-        body: {
-          products
-        }
-      }
-    )
-    window.location.href = checkoutSession.url;
-  } catch (err) {
-    console.error(err)
-  }
-}
+const Check = () => (
+  <Text as="span" m={0} color="success.medium" css={{ fontSize: '16px' }}>
+    &#10003;
+  </Text>
+)
 
-const subscribePro = async (blocsUser: BlocsUserClient, yearly: boolean = false) => {
-  await handleStripeCheckout([
-    {
-      price: yearly ? stripePriceIds.yearly.lifestylePro : stripePriceIds.monthly.lifestylePro,
-      quantity: 1
-    }
-  ])
-}
+const Cross = () => (
+  <Text as="span" m={0} color="primary.accent-4" css={{ fontSize: '16px', opacity: 0.4 }}>
+    &#10005;
+  </Text>
+)
+
+const LockIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
+    <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+  </svg>
+)
+
+const FeatureBullet = ({ text }: { text: string }) => (
+  <Flex alignItems="center" css={{ gap: '10px' }}>
+    <Box
+      width="22px"
+      height="22px"
+      borderRadius="50%"
+      bg="brand.accent-5"
+      css={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}
+    >
+      <Text as="span" m={0} color="brand.accent-1" css={{ fontSize: '12px', fontWeight: 700 }}>
+        &#10003;
+      </Text>
+    </Box>
+    <Text fontSize="sm" color="foreground" m={0}>{text}</Text>
+  </Flex>
+)
 
 const PricingPage = () => {
-  const router = useRouter()
-  const { user, purchases } = useBlocsUser()
-  const [showSignInMessage, setShowSignInMessage] = useState(false)
-  const [isCheckoutLoading, setIsCheckoutLoading] = useState(false)
-  const [isYearly, setIsYearly] = useState(true)
+  const [isLoading, setIsLoading] = useState(false)
 
-  const handleBuyPro = async (e: MouseEvent) => {
-    e.preventDefault()
-    e.stopPropagation()
-    if (!user) return setShowSignInMessage(true)
-    if (!purchases?.lifestylePro) {
-      setIsCheckoutLoading(true)
-      await subscribePro(user, isYearly)
+  const handleCheckout = async () => {
+    setIsLoading(true)
+    try {
+      const res = await postReq('/api/payments/checkout-lifetime')
+      window.location.href = res.url
+    } catch (err) {
+      console.error(err)
+      setIsLoading(false)
     }
   }
-
-  const handleRedirect = () => router.push('/sign-in')
 
   return (
     <>
-      <Flex pt="80px" flexDirection="column" bg="background" maxWidth="100vw">
+      <Flex pt="80px" flexDirection="column" bg="background" minHeight="100vh">
         <NextSeo
           {...nextSeoConfig}
-          title="Pricing — Blocs Pro for Notion Widgets | Blocs"
-          description="Upgrade to Blocs Pro for custom Pomodoro presets, habit streak analytics, hydration tracking, and theme customization. From $3/month billed yearly. Free 14-day trial."
+          title="Pricing — Blocs"
+          description="Get lifetime access to all Blocs widgets with full customization, analytics, and no branding. One-time payment, no subscription."
           canonical="https://blocs.me/pricing"
         />
         <Nav />
         <Flex
           width="100%"
-          height="100%"
           alignItems="center"
           pt="sm"
           pb="lg"
           flexDirection="column"
           px="md"
         >
-          <div>
-            <Text
-              as="h1"
-              color="foreground"
-              mb="xs"
-              fontWeight={'bold'}
-              fontSize="xl"
-              textAlign="center"
-              lineHeight={1.3}
-            >
-              Stop leaving Notion for your productivity tools
-            </Text>
-            <Text
-              as="h2"
-              mt="xs"
-              fontSize="md"
-              fontWeight={400}
-              color="primary.accent-4"
-              textAlign="center"
-              lineHeight={1.5}
-            >
-              Pomodoro, habit tracker, and water tracker — embedded directly in your Notion workspace.
-            </Text>
-            <Flex flexDirection='row' justifyContent="center" alignItems="center" mt="sm" mb="xs">
-              <Text
-                mt={0}
-                mb={0}
-                mr={16}
-                fontSize="md"
-                fontWeight={isYearly ? 200 : 600}
-                color={isYearly ? "primary.accent-4" : "foreground"}
-                textAlign="center"
-              >
-                Monthly
-              </Text>
-              <Switch
-                checked={isYearly}
-                id={'payment-switch'}
-                ariaLabel={'payment-switch'}
-                onChange={() => setIsYearly(!isYearly)}
-              />
-              <Text
-                mt={0}
-                mb={0}
-                ml={16}
-                fontSize="md"
-                fontWeight={isYearly ? 600 : 200}
-                color={isYearly ? "foreground" : "primary.accent-4"}
-                textAlign="center"
-              >
-                Yearly
-              </Text>
-              {isYearly && (
+          <Text
+            as="h1"
+            color="foreground"
+            mb="xxs"
+            fontWeight="bold"
+            fontSize="xl"
+            textAlign="center"
+            lineHeight={1.3}
+          >
+            Your productivity tools, inside Notion
+          </Text>
+          <Text
+            as="h2"
+            mt="xxs"
+            fontSize="md"
+            fontWeight={400}
+            color="primary.accent-4"
+            textAlign="center"
+            lineHeight={1.5}
+            maxWidth="500px"
+            mb="sm"
+          >
+            Pomodoro timer, habit tracker, and water tracker — fully customizable, embedded in your workspace.
+          </Text>
+
+          <Flex css={{ gap: '8px' }} flexDirection="column" width="min(100%, 300px)" mb="sm">
+            <FeatureBullet text="Custom Pomodoro durations" />
+            <FeatureBullet text="Unlimited habits & streak tracking" />
+            <FeatureBullet text="Analytics & progress charts" />
+            <FeatureBullet text="No branding on your widgets" />
+          </Flex>
+
+          <Box
+            width="min(100%, 380px)"
+            borderRadius="md"
+            border="2px solid"
+            borderColor="brand.accent-1"
+            overflow="hidden"
+          >
+            <Box px="md" py="sm">
+              <Flex justifyContent="space-between" alignItems="center" mb="xxs">
+                <Text fontSize="lg" fontWeight={700} color="foreground" m={0}>
+                  Lifetime Access
+                </Text>
                 <Box
                   bg="brand.accent-5"
                   borderRadius="sm"
                   py="3px"
                   px="xs"
-                  ml="xs"
                 >
-                  <Text
-                    fontSize="xxs"
-                    fontWeight={600}
-                    m={0}
-                    color="brand.accent-1"
-                  >
-                    Save 50%
+                  <Text fontSize="xxs" fontWeight={600} m={0} color="brand.accent-1">
+                    ONE-TIME
                   </Text>
                 </Box>
-              )}
+              </Flex>
+
+              <Text fontSize="sm" color="primary.accent-4" m={0} mb="xs">
+                Pay once, keep forever
+              </Text>
+
+              <Flex alignItems="baseline" mb="sm">
+                <Text fontSize="xxl" fontWeight={700} color="foreground" m={0} lineHeight={1}>
+                  $17
+                </Text>
+              </Flex>
+
+              <Button
+                className="plausible-event-name=Checkout+Lifetime"
+                width="100%"
+                py="xs"
+                borderRadius="md"
+                fontSize="sm"
+                bg="brand.accent-1"
+                color="neutral.white"
+                onClick={handleCheckout}
+                loading={isLoading}
+                disabled={isLoading}
+              >
+                Get Blocs Pro
+              </Button>
+
+              <Text fontSize="xs" color="primary.accent-4" textAlign="center" m={0} mt="xs">
+                No subscription. No recurring charges.
+              </Text>
+            </Box>
+
+            <Flex px="md" py="xs" bg="primary.accent-2" justifyContent="center" alignItems="center" css={{ gap: '6px' }}>
+              <Box color="primary.accent-4" css={{ display: 'flex', alignItems: 'center' }}>
+                <LockIcon />
+              </Box>
+              <Text fontSize="xxs" color="primary.accent-4" m={0}>
+                Secure payment via Stripe
+              </Text>
             </Flex>
-          </div>
+          </Box>
 
-          <Flex
-            width="100%"
-            justifyContent="center"
-            mt="sm"
-          >
-            <PricingCard
-              header={PRO_PLAN_NAME}
-              isLifetime
-              price={isYearly ? "36" : "6"}
-              priceAnchor=''
-              priceDescSmall={isYearly ? "/ year" : "/ month"}
-              priceDescFootprint={''}
-              priceDescLarge={isYearly
-                ? "That's $3/mo — less than a coffee."
-                : "Cancel anytime. No commitment."
-              }
-              cta={isLifestylePro(purchases) ? "Current Plan" : `Get ${PRO_PLAN_NAME}`}
-              ctaColor="brand.accent-1"
-              ctaTrackEventName="buy-lifestyle-pro"
-              isPremium
-              onClick={handleBuyPro}
-              boxShadow="lg"
-              useCheckoutButton
-              isCurrentPlan={isLifestylePro(purchases)}
-              disableButton={isLifestylePlan(purchases)}
-              isLoading={isCheckoutLoading}
-              width={["100%", , "380px"]}
+          <Box mt="lg" width="min(100%, 500px)">
+            <Box
+              border="1px solid"
+              borderColor="primary.accent-2"
+              borderRadius="md"
+              overflow="hidden"
             >
-              <PricingCardCheckbox text="Pomodoro timer with custom presets" />
-              <PricingCardCheckbox text="Habit tracker with streaks" />
-              <PricingCardCheckbox text="Water tracker with daily goals" />
-              <PricingCardCheckbox text="Unlimited analytics history" />
-              <PricingCardCheckbox text="Weekly and monthly progress reports" />
-              <PricingCardCheckbox text="Share progress with friends" />
-              <PricingCardCheckbox text="All future widgets included" />
-              <PricingCardCheckbox text="No branding on your widgets" />
-            </PricingCard>
-          </Flex>
+              <Flex
+                px="md"
+                py="sm"
+                bg="primary.accent-2"
+                justifyContent="space-between"
+                alignItems="center"
+              >
+                <Text fontSize="xs" fontWeight={700} color="foreground" m={0} css={{ flex: 1 }}>
+                  Feature
+                </Text>
+                <Box width="60px" textAlign="center">
+                  <Text fontSize="xs" fontWeight={700} color="foreground" m={0}>Free</Text>
+                </Box>
+                <Box width="60px" textAlign="center">
+                  <Text fontSize="xs" fontWeight={700} color="brand.accent-1" m={0}>Pro</Text>
+                </Box>
+              </Flex>
 
-          <Text
-            mt="sm"
-            fontSize="sm"
-            color="primary.accent-4"
-            textAlign="center"
-            lineHeight={1.6}
-          >
-            We also offer a{' '}
-            <Text
-              as="a"
-              fontSize="sm"
-              color="brand.accent-1"
-              css={{ cursor: 'pointer', textDecoration: 'underline' }}
-              onClick={() => router.push('/sign-in?start-free-trial=true')}
-            >
-              free 14-day trial
-            </Text>
-            {' '}so you can try everything before you commit.
-          </Text>
+              {features.map((f) => (
+                <Flex
+                  key={f.label}
+                  px="md"
+                  py="xs"
+                  justifyContent="space-between"
+                  alignItems="center"
+                  borderTop="1px solid"
+                  borderColor="primary.accent-2"
+                >
+                  <Text fontSize="sm" color="foreground" m={0} css={{ flex: 1 }}>
+                    {f.label}
+                  </Text>
+                  <Box width="60px" textAlign="center">
+                    {f.free ? <Check /> : <Cross />}
+                  </Box>
+                  <Box width="60px" textAlign="center">
+                    <Check />
+                  </Box>
+                </Flex>
+              ))}
+            </Box>
+          </Box>
         </Flex>
         <Footer />
       </Flex>
-
-      <Modal
-        visible={showSignInMessage}
-        hideModal={() => setShowSignInMessage(false)}
-      >
-        <Text variant="mediumBold" textAlign="center">
-          One quick step before checkout
-        </Text>
-        <Text fontSize="md" textAlign="center" color="primary.accent-4">
-          Sign in to your account to complete your purchase.
-        </Text>
-        <Button
-          bg="brand.accent-1"
-          color="background"
-          borderRadius="sm"
-          mt="sm"
-          width="100%"
-          height="50px"
-          onClick={() => handleRedirect()}
-        >
-          Sign In
-        </Button>
-      </Modal>
     </>
   )
 }

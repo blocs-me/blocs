@@ -115,11 +115,11 @@ const FreeWaterSettingsPopover = ({ onClose }: { onClose: () => void }) => {
             Custom water goals
           </Text>
           <Text fontSize="xxs" color="primary.accent-4" m={0} mb="xs" lineHeight={1.4}>
-            Sign in to Blocs to set a custom daily goal, track analytics, and more. It&apos;s free.
+            Get Blocs Pro to set a custom daily goal, track analytics, and more.
           </Text>
           <Box
             as="a"
-            href="https://blocs.me/sign-in"
+            href="https://blocs.me/pricing"
             target="_blank"
             rel="noopener noreferrer"
             bg="brand.accent-1"
@@ -135,7 +135,7 @@ const FreeWaterSettingsPopover = ({ onClose }: { onClose: () => void }) => {
               '&:hover': { opacity: 0.85 }
             }}
           >
-            Sign in to Blocs
+            Get Blocs Pro
           </Box>
         </Box>
       )}
