@@ -78,6 +78,7 @@ const Footer = () => (
             <RegoLink href="/water-tracker-widget">Water Tracker</RegoLink>
             <RegoLink href="/habit-tracker-widget">Habit Tracker</RegoLink>
             <RegoLink href="/countdown-timer">Countdown Timer</RegoLink>
+            <RegoLink href="/progress-bar-widget">Progress Bar</RegoLink>
           </Box>
         </Grid>
       </PageGutters>

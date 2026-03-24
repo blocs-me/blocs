@@ -14,6 +14,7 @@ const features = [
   { label: 'Habit Tracker', free: true },
   { label: 'Water Tracker', free: true },
   { label: 'Countdown Timer', free: false },
+  { label: 'Progress Bar', free: false },
   { label: 'Edit Durations & Goals', free: false },
   { label: 'Unlimited Habits', free: false },
   { label: 'Analytics & Streaks', free: false },
@@ -110,11 +111,11 @@ const PricingPage = () => {
             maxWidth="700px"
             mb="sm"
           >
-            Pomodoro, habits, water tracking, and countdown timers — fully customizable, embedded in your workspace.
+            Pomodoro, habits, water tracking, countdown timers, and progress bars — fully customizable, embedded in your workspace.
           </Text>
 
           <Flex css={{ gap: '8px' }} flexDirection="column" width="min(100%, 420px)" mb="sm">
-            <FeatureBullet text="4 widgets: Pomodoro, Habits, Water, Countdown" />
+            <FeatureBullet text="5 widgets: Pomodoro, Habits, Water, Countdown, Progress Bar" />
             <FeatureBullet text="Full customization & custom durations" />
             <FeatureBullet text="Analytics, streaks & progress charts" />
             <FeatureBullet text="No branding on your widgets" />

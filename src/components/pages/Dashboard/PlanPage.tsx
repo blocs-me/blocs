@@ -24,6 +24,7 @@ const features = [
   { label: 'Habit Tracker', product: stripeProductIds.habitTracker, free: true },
   { label: 'Water Tracker', product: stripeProductIds.waterTracker, free: true },
   { label: 'Countdown Timer', product: null, free: false },
+  { label: 'Progress Bar', product: null, free: false },
   { label: 'Analytics Charts', product: null, free: false },
   { label: 'Custom Themes', product: null, free: false },
   { label: 'Shareable Links', product: null, free: false },
