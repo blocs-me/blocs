@@ -114,7 +114,7 @@ const PricingPage = () => {
             Pomodoro, habits, water tracking, countdown timers, and progress bars — fully customizable, embedded in your workspace.
           </Text>
 
-          <Flex css={{ gap: '8px' }} flexDirection="column" width="min(100%, 420px)" mb="sm">
+          <Flex css={{ gap: '8px' }} flexDirection="column" width="min(100%, 500px)" mb="sm">
             <FeatureBullet text="5 widgets: Pomodoro, Habits, Water, Countdown, Progress Bar" />
             <FeatureBullet text="Full customization & custom durations" />
             <FeatureBullet text="Analytics, streaks & progress charts" />
