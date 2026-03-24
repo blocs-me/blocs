@@ -91,7 +91,7 @@ const ProgressBarDashboard = () => {
 
   return (
     <Flex css={{ gap: '24px' }}>
-      <Box flex="1" maxWidth="calc(100% - 304px)">
+      <Box css={{ flex: '1 1 0', minWidth: 0 }}>
         <Flex justifyContent="space-between" alignItems="center" mb="sm">
           <Text as="h2" fontSize="lg" fontWeight={700} color="foreground" m={0}>
             Progress Bar
@@ -107,6 +107,8 @@ const ProgressBarDashboard = () => {
           border="1px solid"
           borderColor="primary.accent-2"
           overflow="hidden"
+          minHeight="280px"
+          css={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
         >
           {config.mode === 'manual' && <ManualPreview config={config} />}
           {config.mode === 'dateRange' && <DateRangePreview config={config} />}
@@ -115,12 +117,11 @@ const ProgressBarDashboard = () => {
       </Box>
 
       <Box
-        width="280px"
+        css={{ flex: '0 0 300px', alignSelf: 'flex-start' }}
         p="sm"
         borderRadius="md"
         border="1px solid"
         borderColor="primary.accent-2"
-        css={{ flexShrink: 0, alignSelf: 'flex-start' }}
       >
         <ProgressBarSettings config={config} onChange={handleChange} />
       </Box>

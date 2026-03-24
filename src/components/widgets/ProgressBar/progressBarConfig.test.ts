@@ -8,10 +8,11 @@ import {
 
 describe('progressBarConfig', () => {
   describe('getDefaultConfig', () => {
-    it('returns manual mode with sensible defaults', () => {
+    it('returns calendar mode with sensible defaults', () => {
       const config = getDefaultConfig()
-      expect(config.mode).toBe('manual')
+      expect(config.mode).toBe('calendar')
       expect(config.style).toBe('bar')
+      expect(config.fillColor).toBe('#E00079')
       expect(config.total).toBe(100)
       expect(config.startValue).toBe(0)
       expect(config.increment).toBe(1)
@@ -92,7 +93,7 @@ describe('progressBarConfig', () => {
       const config = getDefaultConfig()
       const url = configToEmbedUrl(config)
       expect(url).toMatch(/^https:\/\/blocs\.me\/progress-bar\?/)
-      expect(url).toContain('mode=manual')
+      expect(url).toContain('mode=cal')
     })
   })
 })

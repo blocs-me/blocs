@@ -166,7 +166,7 @@ const LandingPage = () => {
                     mt="xs"
                     lineHeight={1.5}
                   >
-                    Embed a Pomodoro timer, Water Tracker, or Habit Tracker directly in your Notion workspace. Free, no sign-up required.
+                    Embed a Pomodoro timer, habit tracker, water tracker, countdown timer, and progress bar directly in your Notion workspace.
                   </Text>
                 </Box>
                 {isSignedIn ? (

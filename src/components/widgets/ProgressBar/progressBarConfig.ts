@@ -33,12 +33,12 @@ export function getDefaultConfig(): ProgressWidgetConfig {
   tomorrow.setHours(23, 59, 0, 0)
 
   return {
-    mode: 'manual',
+    mode: 'calendar',
     style: 'bar',
-    title: 'Progress',
+    title: 'Time Progress',
     showTitle: true,
     theme: 'light',
-    fillColor: '',
+    fillColor: '#E00079',
     total: 100,
     startValue: 0,
     increment: 1,
@@ -69,7 +69,7 @@ export function configToParams(config: ProgressWidgetConfig): string {
   params.set('title', config.title)
   if (!config.showTitle) params.set('showTitle', '0')
   if (config.theme !== 'light') params.set('theme', config.theme)
-  if (config.fillColor) params.set('fill', config.fillColor)
+  if (config.fillColor && config.fillColor !== '#E00079') params.set('fill', config.fillColor)
 
   if (config.mode === 'manual') {
     params.set('total', String(config.total))
@@ -121,7 +121,7 @@ export function configFromParams(params: URLSearchParams): ProgressWidgetConfig 
     title: params.get('title') || defaults.title,
     showTitle: params.get('showTitle') !== '0',
     theme: (params.get('theme') as 'light' | 'dark') || 'light',
-    fillColor: params.get('fill') || '',
+    fillColor: params.get('fill') || '#E00079',
     total: Number(params.get('total')) || defaults.total,
     startValue: Number(params.get('startVal')) || 0,
     increment: Number(params.get('inc')) || 1,
