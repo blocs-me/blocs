@@ -16,6 +16,7 @@ import Stopwatch from 'src/icons/stopwatch'
 import { Writing } from 'src/icons/writing'
 import Drop from 'src/icons/drop-icon'
 import Hourglass from 'src/icons/hourglass'
+import ProgressBarIcon from 'src/icons/progress-bar-icon'
 import { useEffect, useRef, useState } from 'react'
 import { isLifestylePro } from '@/lambda/helpers/subscriptionChecker'
 import Icon from '@/helpers/Icon'
@@ -24,7 +25,8 @@ const tabs = [
   { path: 'pomodoro', label: 'Pomodoro', icon: <Stopwatch /> },
   { path: 'habit-tracker', label: 'Habits', icon: <Writing /> },
   { path: 'water-tracker', label: 'Water', icon: <Drop /> },
-  { path: 'countdown', label: 'Countdown', icon: <Hourglass /> }
+  { path: 'countdown', label: 'Countdown', icon: <Hourglass /> },
+  { path: 'progress-bar', label: 'Progress', icon: <ProgressBarIcon /> }
 ]
 
 const Tab = ({ label, icon, isActive, onClick }) => (

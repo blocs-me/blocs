@@ -11,6 +11,7 @@ const HabitTrackerDashboard = lazy(() => import('./HabitTrackerDashboard'))
 const WaterTrackerDashboard = lazy(() => import('./WaterTrackerDashboard'))
 const PlanPage = lazy(() => import('./PlanPage'))
 const CountdownDashboard = lazy(() => import('./CountdownDashboard'))
+const ProgressBarDashboard = lazy(() => import('./ProgressBarDashboard'))
 import { useSessionContext, useUser } from '@supabase/auth-helpers-react'
 import Loader from '@/design-system/Loader'
 import Text from '@/design-system/Text'
@@ -42,7 +43,7 @@ const MaybeProGate = ({ isPro, children }: { isPro: boolean; children: React.Rea
 }
 
 const isMaintenance = process.env.NEXT_PUBLIC_MAINTENANCE === 'yes'
-const validPaths = ['pomodoro', 'habit-tracker', 'water-tracker', 'countdown', 'plan']
+const validPaths = ['pomodoro', 'habit-tracker', 'water-tracker', 'countdown', 'progress-bar', 'plan']
 
 const Dashboard = () => {
   const router = useRouter()
@@ -136,6 +137,11 @@ const Dashboard = () => {
             {path === 'countdown' && !isMaintenance && (
               <MaybeProGate isPro={isPro}>
                 <CountdownDashboard />
+              </MaybeProGate>
+            )}
+            {path === 'progress-bar' && !isMaintenance && (
+              <MaybeProGate isPro={isPro}>
+                <ProgressBarDashboard />
               </MaybeProGate>
             )}
             {path === 'plan' && !isMaintenance && (
