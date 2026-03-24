@@ -18,7 +18,6 @@ import Drop from 'src/icons/drop-icon'
 import Hourglass from 'src/icons/hourglass'
 import { useEffect, useRef, useState } from 'react'
 import { isLifestylePro } from '@/lambda/helpers/subscriptionChecker'
-import daysBetween from '@/utils/dateUtils/daysBetween'
 import Icon from '@/helpers/Icon'
 
 const tabs = [
@@ -194,20 +193,12 @@ const AccountDropdown = ({ onClose }: { onClose: () => void }) => {
   )
 }
 
-const TrialBadge = () => {
-  const { user, isUserOnFreeTrial, purchases } = useBlocsUser()
+const UpgradePill = () => {
+  const { purchases } = useBlocsUser()
   const router = useRouter()
   const isPremium = isLifestylePro(purchases)
 
-  if (isPremium || !isUserOnFreeTrial || !user) return null
-
-  const fourteenDays = 1000 * 60 * 60 * 24 * 14
-  const daysLeft = Math.max(
-    0,
-    14 - daysBetween(new Date(), new Date(user?.data?.freeTrialStartedAt || new Date().getTime() - fourteenDays))
-  )
-
-  if (daysLeft <= 0) return null
+  if (isPremium) return null
 
   return (
     <Box
@@ -215,8 +206,8 @@ const TrialBadge = () => {
       px="xs"
       py="4px"
       borderRadius="sm"
-      bg="brand.accent-5"
-      color="brand.accent-1"
+      bg="brand.accent-1"
+      color="neutral.white"
       css={{
         border: 'none',
         cursor: 'pointer',
@@ -227,7 +218,7 @@ const TrialBadge = () => {
       }}
       onClick={() => router.push('/pricing')}
     >
-      {daysLeft} day{daysLeft === 1 ? '' : 's'} left
+      Upgrade
     </Box>
   )
 }
@@ -283,7 +274,7 @@ const DashboardNav = () => {
       </Flex>
 
       <Flex css={{ gap: '12px' }} alignItems="center">
-        <TrialBadge />
+        <UpgradePill />
         <Button
           p="0"
           onClick={handleThemeChange}

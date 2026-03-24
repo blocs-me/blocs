@@ -3,11 +3,21 @@ import Flex from '@/helpers/Flex'
 import Icon from '@/helpers/Icon'
 import { CopyIcon } from 'src/icons/copy'
 import Text from '@/design-system/Text'
+import useBlocsUser from '@/hooks/useBlocsUser'
+import { isLifestylePro } from '@/lambda/helpers/subscriptionChecker'
+import { useRouter } from 'next/router'
 
 const CopyLinkButton = ({ url, disabled = false }: { url: string; disabled?: boolean }) => {
   const [copied, setCopied] = useState(false)
+  const { purchases } = useBlocsUser()
+  const isPro = isLifestylePro(purchases)
+  const router = useRouter()
 
-  const handleCopy = () => {
+  const handleClick = () => {
+    if (!isPro) {
+      router.push('/pricing')
+      return
+    }
     if (!url || disabled) return
     navigator.clipboard.writeText(url)
     setCopied(true)
@@ -33,7 +43,7 @@ const CopyLinkButton = ({ url, disabled = false }: { url: string; disabled?: boo
         opacity: disabled ? 0.5 : 1,
         '&:hover': { opacity: disabled ? 0.5 : 0.85 }
       }}
-      onClick={handleCopy}
+      onClick={handleClick}
     >
       <Icon fill="neutral.white" width="14px" height="14px" display="flex" as="span" stroke="neutral.white">
         <CopyIcon />
