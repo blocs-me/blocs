@@ -82,20 +82,25 @@ export type CountdownConfig = {
 
 export function useCountdown(config: CountdownConfig) {
   const { endDate, countUp, visibleUnits } = config
+  const endMs = endDate.getTime()
 
-  const compute = useCallback(() => {
+  const [state, setState] = useState(() => {
     const result = computeCountdown(new Date(), endDate, countUp)
     const units = visibleUnits ?? autoDetectUnits(result.parts)
     return { ...result, visibleUnits: units }
-  }, [endDate, countUp, visibleUnits])
-
-  const [state, setState] = useState(compute)
+  })
 
   useEffect(() => {
-    setState(compute())
-    const interval = setInterval(() => setState(compute()), 1000)
+    const tick = () => {
+      const target = new Date(endMs)
+      const result = computeCountdown(new Date(), target, countUp)
+      const units = visibleUnits ?? autoDetectUnits(result.parts)
+      setState({ ...result, visibleUnits: units })
+    }
+    tick()
+    const interval = setInterval(tick, 1000)
     return () => clearInterval(interval)
-  }, [compute])
+  }, [endMs, countUp, visibleUnits])
 
   return state
 }

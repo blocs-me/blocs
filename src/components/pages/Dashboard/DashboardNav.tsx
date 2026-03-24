@@ -50,7 +50,7 @@ const Tab = ({ label, icon, isActive, onClick }) => (
     }}
     onClick={onClick}
   >
-    <Icon fill="currentColor" width="14px" height="14px" display="flex" as="span">
+    <Icon fill="currentColor" stroke="currentColor" width="14px" height="14px" display="flex" as="span">
       {icon}
     </Icon>
     {label}

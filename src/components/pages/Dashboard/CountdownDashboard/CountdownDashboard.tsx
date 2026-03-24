@@ -47,7 +47,7 @@ const CountdownDashboard = () => {
 
   return (
     <Flex css={{ gap: '24px' }}>
-      <Box flex="1">
+      <Box flex="1" maxWidth="calc(100% - 304px)">
         <Flex justifyContent="space-between" alignItems="center" mb="sm">
           <Text as="h2" fontSize="lg" fontWeight={700} color="foreground" m={0}>
             Countdown Timer
@@ -76,27 +76,6 @@ const CountdownDashboard = () => {
           />
         </Box>
 
-        <Box
-          p="sm"
-          borderRadius="md"
-          bg="primary.accent-2"
-        >
-          <Text fontSize="xxs" fontWeight={600} color="primary.accent-4" m={0} mb="xxs" css={{ textTransform: 'uppercase', letterSpacing: '1px' }}>
-            Embed URL
-          </Text>
-          <Text
-            fontSize="xs"
-            color="foreground"
-            m={0}
-            css={{
-              wordBreak: 'break-all',
-              fontFamily: 'monospace',
-              lineHeight: 1.5
-            }}
-          >
-            {embedUrl}
-          </Text>
-        </Box>
       </Box>
 
       <Box
