@@ -15,6 +15,7 @@ import { SignOutIcon } from 'src/icons/signout-icon'
 import Stopwatch from 'src/icons/stopwatch'
 import { Writing } from 'src/icons/writing'
 import Drop from 'src/icons/drop-icon'
+import Hourglass from 'src/icons/hourglass'
 import { useEffect, useRef, useState } from 'react'
 import { isLifestylePro } from '@/lambda/helpers/subscriptionChecker'
 import daysBetween from '@/utils/dateUtils/daysBetween'
@@ -23,7 +24,8 @@ import Icon from '@/helpers/Icon'
 const tabs = [
   { path: 'pomodoro', label: 'Pomodoro', icon: <Stopwatch /> },
   { path: 'habit-tracker', label: 'Habits', icon: <Writing /> },
-  { path: 'water-tracker', label: 'Water', icon: <Drop /> }
+  { path: 'water-tracker', label: 'Water', icon: <Drop /> },
+  { path: 'countdown', label: 'Countdown', icon: <Hourglass /> }
 ]
 
 const Tab = ({ label, icon, isActive, onClick }) => (
