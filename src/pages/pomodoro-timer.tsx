@@ -383,7 +383,7 @@ export default function PomodoroTimerPage() {
                 maxWidth="500px"
               >
                 Blocs Pro unlocks custom presets, focus analytics, theme customization,
-                and more — starting at $6/month.
+                and more — one-time $17 payment.
               </Text>
               <Link href="/pricing" style={{ textDecoration: 'none' }}>
                 <Button

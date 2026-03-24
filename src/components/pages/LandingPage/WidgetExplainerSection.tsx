@@ -5,12 +5,14 @@ import { ReactNode } from 'react'
 
 const WidgetExplainerSection = ({
   header,
+  headerExtra,
   paraOne,
   paraTwo,
   children,
   reverse
 }: {
   header?: string
+  headerExtra?: ReactNode
   paraOne: string
   paraTwo?: ReactNode
   children?: () => JSX.Element
@@ -43,6 +45,7 @@ const WidgetExplainerSection = ({
             textAlign={['center', , , , 'left']}
           >
             {header}
+            {headerExtra}
           </Text>
           <Text variant="p" textAlign={['center', , , , 'left']}>
             {paraOne}

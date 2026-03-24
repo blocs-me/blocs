@@ -72,11 +72,12 @@ const Footer = () => (
               mb="sm"
               mt={0}
             >
-              FREE WIDGETS
+              NOTION WIDGETS
             </Text>
             <RegoLink href="/pomodoro-timer">Pomodoro Timer</RegoLink>
             <RegoLink href="/water-tracker-widget">Water Tracker</RegoLink>
             <RegoLink href="/habit-tracker-widget">Habit Tracker</RegoLink>
+            <RegoLink href="/countdown-timer">Countdown Timer</RegoLink>
           </Box>
         </Grid>
       </PageGutters>

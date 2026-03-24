@@ -375,7 +375,7 @@ export default function WaterTrackerWidgetPage() {
                 maxWidth="500px"
               >
                 Blocs Pro unlocks custom goals, hydration analytics, theme customization,
-                and more — starting at $6/month.
+                and more — one-time $17 payment.
               </Text>
               <Link href="/pricing" style={{ textDecoration: 'none' }}>
                 <Button

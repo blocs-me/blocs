@@ -11,6 +11,7 @@ import { useRouter } from 'next/router'
 import PomodoroSection from './PomodoroSection'
 import WaterTrackerSection from './WaterTrackerSection'
 import HabitTrackerSection from './HabitTrackerSection'
+import CountdownSection from './CountdownSection'
 import BlocsThemeProvider from '@/helpers/BlocsThemeProvider'
 
 const isMaintenance = process.env.NEXT_PUBLIC_MAINTENANCE === 'yes'
@@ -242,6 +243,7 @@ const LandingPage = () => {
               <PomodoroSection />
               <WaterTrackerSection />
               <HabitTrackerSection />
+              <CountdownSection />
             </Box>
           </Box>
         </PageLayout>
