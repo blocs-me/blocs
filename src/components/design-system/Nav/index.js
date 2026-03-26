@@ -272,7 +272,7 @@ const Nav = ({ title = '', links = [] }) => {
             >
               <NavLink href="/" text="Home" />
               <NavLink href="/pricing" text="pricing" />
-              <NavLink href="/faqs" text="FAQs" />
+              <NavLink href="/blog" text="Blog" />
               {!isSignedIn && (
                 <Box pt={['1.5rem', , , , '0']} pb={['0.5rem', '0.5rem', 0]}>
                   <Link href="/sign-in" style={{ textDecoration: 'none' }}>
