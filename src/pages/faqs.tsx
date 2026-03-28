@@ -4,7 +4,6 @@ import Footer from '@/design-system/Footer'
 import Text from '@/design-system/Text'
 import Box from '@/helpers/Box'
 import PageGutters from '@/helpers/PageGutters'
-import BlocsThemeProvider from '@/helpers/BlocsThemeProvider'
 import Link from 'next/link'
 
 const FAQItem = ({ question, answer }: { question: string; answer: React.ReactNode }) => (
@@ -88,7 +87,7 @@ const faqSchema = {
 
 export default function FAQsPage() {
   return (
-    <BlocsThemeProvider>
+    <>
       <Head>
         <title>FAQs — Free Notion Widgets | Blocs</title>
         <meta
@@ -147,6 +146,6 @@ export default function FAQsPage() {
       </PageGutters>
 
       <Footer />
-    </BlocsThemeProvider>
+    </>
   )
 }

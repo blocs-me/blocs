@@ -6,7 +6,6 @@ import Button from '@/design-system/Button'
 import Box from '@/helpers/Box'
 import Flex from '@/helpers/Flex'
 import PageGutters from '@/helpers/PageGutters'
-import BlocsThemeProvider from '@/helpers/BlocsThemeProvider'
 import Link from 'next/link'
 import { CopyWidgetButton, StepCard, BenefitCard, FAQItem } from '@/pages/WidgetMarketingPage/shared'
 
@@ -77,7 +76,7 @@ const faqSchema = {
 
 export default function PomodoroTimerPage() {
   return (
-    <BlocsThemeProvider>
+    <>
       <Box bg="background">
         <Head>
           <title>Free Pomodoro Timer for Notion — Blocs</title>
@@ -406,6 +405,6 @@ export default function PomodoroTimerPage() {
 
         <Footer />
       </Box>
-    </BlocsThemeProvider>
+    </>
   );
 }

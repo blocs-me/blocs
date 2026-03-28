@@ -6,7 +6,6 @@ import Button from '@/design-system/Button'
 import Box from '@/helpers/Box'
 import Flex from '@/helpers/Flex'
 import PageGutters from '@/helpers/PageGutters'
-import BlocsThemeProvider from '@/helpers/BlocsThemeProvider'
 import Link from 'next/link'
 import { StepCard, BenefitCard, FAQItem } from '@/pages/WidgetMarketingPage/shared'
 import DummyWeatherPreview from '@/widgets/Weather/DummyWeatherPreview'
@@ -72,7 +71,7 @@ const faqSchema = {
 
 export default function WeatherWidgetPage() {
   return (
-    <BlocsThemeProvider>
+    <>
       <Box bg="background">
         <Head>
           <title>Weather Widget for Notion — Blocs Pro</title>
@@ -333,6 +332,6 @@ export default function WeatherWidgetPage() {
 
         <Footer />
       </Box>
-    </BlocsThemeProvider>
+    </>
   )
 }

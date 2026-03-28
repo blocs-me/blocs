@@ -1,4 +1,3 @@
-import BlocsThemeProvider from '@/helpers/BlocsThemeProvider'
 import Nav from '@/design-system/Nav'
 import Footer from '@/design-system/Footer'
 import Text from '@/design-system/Text'
@@ -217,10 +216,4 @@ const WelcomeContent = () => {
   )
 }
 
-const Welcome = () => (
-  <BlocsThemeProvider>
-    <WelcomeContent />
-  </BlocsThemeProvider>
-)
-
-export default Welcome
+export default WelcomeContent

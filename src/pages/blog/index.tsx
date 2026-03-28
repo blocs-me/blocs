@@ -7,7 +7,6 @@ import Text from '@/design-system/Text'
 import Box from '@/helpers/Box'
 import Flex from '@/helpers/Flex'
 import PageGutters from '@/helpers/PageGutters'
-import BlocsThemeProvider from '@/helpers/BlocsThemeProvider'
 import { getAllPosts, BlogPostMeta } from 'src/lib/blog'
 
 type Props = { posts: BlogPostMeta[] }
@@ -19,8 +18,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 
 export default function BlogIndex({ posts }: Props) {
   return (
-    <BlocsThemeProvider>
-      <Box bg="background">
+    <Box bg="background">
         <Head>
           <title>Blog — Blocs</title>
           <meta
@@ -95,6 +93,5 @@ export default function BlogIndex({ posts }: Props) {
 
         <Footer />
       </Box>
-    </BlocsThemeProvider>
   )
 }

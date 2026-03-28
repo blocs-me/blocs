@@ -9,7 +9,6 @@ import Text from '@/design-system/Text'
 import Box from '@/helpers/Box'
 import Flex from '@/helpers/Flex'
 import PageGutters from '@/helpers/PageGutters'
-import BlocsThemeProvider from '@/helpers/BlocsThemeProvider'
 import { getAllPosts, getPostBySlug, BlogPostMeta } from 'src/lib/blog'
 
 function WidgetEmbed({
@@ -181,8 +180,7 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
 
 export default function BlogPost({ meta, mdxSource }: Props) {
   return (
-    <BlocsThemeProvider>
-      <Box bg="background">
+    <Box bg="background">
         <Head>
           <title>{meta.title} — Blocs Blog</title>
           <meta name="description" content={meta.description} />
@@ -236,6 +234,5 @@ export default function BlogPost({ meta, mdxSource }: Props) {
 
         <Footer />
       </Box>
-    </BlocsThemeProvider>
   )
 }

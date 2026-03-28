@@ -4,6 +4,8 @@ import GlobalStyle from '../styles/GlobalStyle'
 import Reset from '../styles/Reset'
 import theme from '../styles/theme'
 import Script from 'next/script'
+import SupabaseAuthProvider from '@/helpers/SupabaseAuthProvider'
+import BlocsThemeProvider from '@/helpers/BlocsThemeProvider'
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -13,11 +15,15 @@ function MyApp({ Component, pageProps }) {
         data-domain="blocs.me"
         src="https://analytics.aryanbhasin.com/js/script.tagged-events.js"
       />
-      <GlobalProvider>
-        <Reset />
-        <GlobalStyle />
-        <Component {...pageProps} />
-      </GlobalProvider>
+      <SupabaseAuthProvider>
+        <GlobalProvider>
+          <BlocsThemeProvider>
+            <Reset />
+            <GlobalStyle />
+            <Component {...pageProps} />
+          </BlocsThemeProvider>
+        </GlobalProvider>
+      </SupabaseAuthProvider>
     </ThemeProvider>
   )
 }

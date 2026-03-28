@@ -6,7 +6,6 @@ import Button from '@/design-system/Button'
 import Box from '@/helpers/Box'
 import Flex from '@/helpers/Flex'
 import PageGutters from '@/helpers/PageGutters'
-import BlocsThemeProvider from '@/helpers/BlocsThemeProvider'
 import Link from 'next/link'
 import { StepCard, BenefitCard, FAQItem } from '@/pages/WidgetMarketingPage/shared'
 import DummyCountdownPreview from '@/widgets/Countdown/DummyCountdownPreview'
@@ -72,7 +71,7 @@ const faqSchema = {
 
 export default function CountdownTimerPage() {
   return (
-    <BlocsThemeProvider>
+    <>
       <Box bg="background">
         <Head>
           <title>Countdown Timer for Notion — Blocs Pro</title>
@@ -339,6 +338,6 @@ export default function CountdownTimerPage() {
 
         <Footer />
       </Box>
-    </BlocsThemeProvider>
+    </>
   )
 }

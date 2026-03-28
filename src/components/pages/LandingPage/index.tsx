@@ -17,7 +17,6 @@ import ClockSection from './ClockSection'
 import CalendarSection from './CalendarSection'
 import QuoteSection from './QuoteSection'
 import WeatherSection from './WeatherSection'
-import BlocsThemeProvider from '@/helpers/BlocsThemeProvider'
 
 const isMaintenance = process.env.NEXT_PUBLIC_MAINTENANCE === 'yes'
 
@@ -48,8 +47,7 @@ const LandingPage = () => {
   const isSignedIn = user?.aud === 'authenticated'
 
   return (
-    <BlocsThemeProvider>
-      <Box bg="background" height="fit-content">
+    <Box bg="background" height="fit-content">
         <PageLayout>
           <Head>
             <title>Free Notion Widgets for Focus & Habits | Blocs</title>
@@ -258,7 +256,6 @@ const LandingPage = () => {
           </Box>
         </PageLayout>
       </Box>
-    </BlocsThemeProvider>
   )
 }
 

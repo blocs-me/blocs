@@ -6,7 +6,6 @@ import Button from '@/design-system/Button'
 import Box from '@/helpers/Box'
 import Flex from '@/helpers/Flex'
 import PageGutters from '@/helpers/PageGutters'
-import BlocsThemeProvider from '@/helpers/BlocsThemeProvider'
 import Link from 'next/link'
 import { StepCard, BenefitCard, FAQItem } from '@/pages/WidgetMarketingPage/shared'
 import DummyProgressBarPreview from '@/widgets/ProgressBar/DummyProgressBarPreview'
@@ -69,7 +68,7 @@ const faqSchema = {
 
 export default function ProgressBarWidgetPage() {
   return (
-    <BlocsThemeProvider>
+    <>
       <Box bg="background">
         <Head>
           <title>Progress Bar Widget for Notion — Blocs Pro</title>
@@ -261,6 +260,6 @@ export default function ProgressBarWidgetPage() {
 
         <Footer />
       </Box>
-    </BlocsThemeProvider>
+    </>
   )
 }

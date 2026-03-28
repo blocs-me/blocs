@@ -1,4 +1,3 @@
-import BlocsThemeProvider from '@/helpers/BlocsThemeProvider'
 import DummyPomodoro from '@/widgets/Pomodoro/DummyPomodoro'
 import {
   setDocumentTimelineStart,
@@ -25,17 +24,15 @@ const Realistic = () => {
 const PomodoroDummy = () => {
   return (
     <WidgetPage p="sm" bg="bg.notion">
-      <BlocsThemeProvider>
-        <PomodoroProvider>
-          <DummyPomodoro
-            height="auto"
-            width="100%"
-            maxWidth="385px"
-            minWidth="300px"
-          />
-          <Realistic />
-        </PomodoroProvider>
-      </BlocsThemeProvider>
+      <PomodoroProvider>
+        <DummyPomodoro
+          height="auto"
+          width="100%"
+          maxWidth="385px"
+          minWidth="300px"
+        />
+        <Realistic />
+      </PomodoroProvider>
     </WidgetPage>
   )
 }

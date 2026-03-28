@@ -1,13 +1,11 @@
 import { useRouter } from 'next/router'
-import { useEffect, useState, ComponentType } from 'react'
+import { useEffect, useState } from 'react'
 import getUrlHash from '@/hooks/useUrlHash/getUrlHash'
 import DashboardSkeleton from '@/pages/Dashboard/DashboardSkeleton'
 import { useUser } from '@supabase/auth-helpers-react'
 import { postReq } from '@/utils/fetchingUtils'
 import useNotifications from '@/design-system/Notifications/useNotifications'
 import Notifications from '@/design-system/Notifications'
-import BlocsThemeProvider from '@/helpers/BlocsThemeProvider'
-import SupabaseAuthProvider from '@/helpers/SupabaseAuthProvider'
 
 type UrlHashReturn = {
   access_token: string
@@ -25,18 +23,6 @@ const useUrlHash = () => {
   }, [])
 
   return hash as UrlHashReturn
-}
-
-const withProviders = (Component: ComponentType) => {
-  return () => (
-    <SupabaseAuthProvider>
-      <Notifications zIndex="2000">
-        <BlocsThemeProvider>
-          <Component />
-        </BlocsThemeProvider>
-      </Notifications>
-    </SupabaseAuthProvider>
-  )
 }
 
 const DashboardSignIn = () => {
@@ -66,7 +52,11 @@ const DashboardSignIn = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user])
 
-  return <DashboardSkeleton message={message} />
+  return (
+    <Notifications zIndex="2000">
+      <DashboardSkeleton message={message} />
+    </Notifications>
+  )
 }
 
-export default withProviders(DashboardSignIn)
+export default DashboardSignIn

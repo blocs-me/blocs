@@ -6,7 +6,6 @@ import Button from '@/design-system/Button'
 import Box from '@/helpers/Box'
 import Flex from '@/helpers/Flex'
 import PageGutters from '@/helpers/PageGutters'
-import BlocsThemeProvider from '@/helpers/BlocsThemeProvider'
 import Link from 'next/link'
 import { StepCard, BenefitCard, FAQItem } from '@/pages/WidgetMarketingPage/shared'
 import DummyQuotePreview from '@/widgets/Quote/DummyQuotePreview'
@@ -72,7 +71,7 @@ const faqSchema = {
 
 export default function QuoteWidgetPage() {
   return (
-    <BlocsThemeProvider>
+    <>
       <Box bg="background">
         <Head>
           <title>Quote of the Day Widget for Notion — Blocs Pro</title>
@@ -335,6 +334,6 @@ export default function QuoteWidgetPage() {
 
         <Footer />
       </Box>
-    </BlocsThemeProvider>
+    </>
   )
 }

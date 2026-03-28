@@ -6,7 +6,6 @@ import Button from '@/design-system/Button'
 import Box from '@/helpers/Box'
 import Flex from '@/helpers/Flex'
 import PageGutters from '@/helpers/PageGutters'
-import BlocsThemeProvider from '@/helpers/BlocsThemeProvider'
 import Link from 'next/link'
 import { StepCard, BenefitCard, FAQItem } from '@/pages/WidgetMarketingPage/shared'
 import DummyCalendarPreview from '@/widgets/Calendar/DummyCalendarPreview'
@@ -72,7 +71,7 @@ const faqSchema = {
 
 export default function CalendarWidgetPage() {
   return (
-    <BlocsThemeProvider>
+    <>
       <Box bg="background">
         <Head>
           <title>Calendar Widget for Notion — Blocs Pro</title>
@@ -335,6 +334,6 @@ export default function CalendarWidgetPage() {
 
         <Footer />
       </Box>
-    </BlocsThemeProvider>
+    </>
   )
 }

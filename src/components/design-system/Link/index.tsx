@@ -48,6 +48,7 @@ const Link = ({
   >
     <L href={href} style={{ textDecoration: 'none' }} {...(target ? { target } : {})}>
       <Text
+        as="span"
         color={color}
         fontWeight={fontWeight}
       >

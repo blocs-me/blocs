@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useRef } from 'react'
 
 export type CountdownParts = {
   years: number
@@ -83,6 +83,9 @@ export type CountdownConfig = {
 export function useCountdown(config: CountdownConfig) {
   const { endDate, countUp, visibleUnits } = config
   const endMs = endDate.getTime()
+  const visibleUnitsKey = visibleUnits?.join(',') ?? ''
+  const visibleUnitsRef = useRef(visibleUnits)
+  visibleUnitsRef.current = visibleUnits
 
   const [state, setState] = useState(() => {
     const result = computeCountdown(new Date(), endDate, countUp)
@@ -94,13 +97,14 @@ export function useCountdown(config: CountdownConfig) {
     const tick = () => {
       const target = new Date(endMs)
       const result = computeCountdown(new Date(), target, countUp)
-      const units = visibleUnits ?? autoDetectUnits(result.parts)
+      const units = visibleUnitsRef.current ?? autoDetectUnits(result.parts)
       setState({ ...result, visibleUnits: units })
     }
     tick()
     const interval = setInterval(tick, 1000)
     return () => clearInterval(interval)
-  }, [endMs, countUp, visibleUnits])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [endMs, countUp, visibleUnitsKey])
 
   return state
 }

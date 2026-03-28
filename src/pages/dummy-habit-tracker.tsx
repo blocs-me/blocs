@@ -1,4 +1,3 @@
-import BlocsThemeProvider from '@/helpers/BlocsThemeProvider'
 import { URLHashProvider } from '@/hooks/useUrlHash/useUrlHash'
 import DummyHabitTracker from '@/widgets/HabitTracker/DummyHabitTracker'
 import WidgetPage from '@/widgets/WidgetPage'
@@ -20,24 +19,22 @@ const habits = {
 
 const HabitTrackerDummyPage = () => {
   return (
-    <BlocsThemeProvider>
-      <WidgetPage p="sm" bg="bg.notion">
-        <URLHashProvider hash={{ role: 'blocs-user' }}>
-          <DummyHabitTracker
-            smallScreenAt="600px"
-            isEditable
-            habits={habits}
-            checkedValues={[1, 2]}
-            analyticsData={{
-              data: {
-                bestStreak: 60,
-                currentStreak: 40
-              }
-            }}
-          />
-        </URLHashProvider>
-      </WidgetPage>
-    </BlocsThemeProvider>
+    <WidgetPage p="sm" bg="bg.notion">
+      <URLHashProvider hash={{ role: 'blocs-user' }}>
+        <DummyHabitTracker
+          smallScreenAt="600px"
+          isEditable
+          habits={habits}
+          checkedValues={[1, 2]}
+          analyticsData={{
+            data: {
+              bestStreak: 60,
+              currentStreak: 40
+            }
+          }}
+        />
+      </URLHashProvider>
+    </WidgetPage>
   )
 }
 

@@ -1,5 +1,4 @@
 import Head from 'next/head'
-import BlocsThemeProvider from '@/helpers/BlocsThemeProvider'
 import { URLHashProvider } from '@/hooks/useUrlHash/useUrlHash'
 import HabitTracker from '@/widgets/HabitTracker'
 import DummyHabitTracker from '@/widgets/HabitTracker/DummyHabitTracker'
@@ -108,27 +107,25 @@ const DemoHabitTracker = () => {
   if (!loaded) return null
 
   return (
-    <BlocsThemeProvider>
-      <WidgetPage p="sm" bg="bg.notion" flexDirection="column">
-        <Head>
-          <meta name="robots" content="noindex" />
-        </Head>
-        <URLHashProvider hash={{ role: 'blocs-user' }}>
-          <DummyHabitTracker
-            smallScreenAt="600px"
-            isEditable
-            isAnalyticsHidden
-            habits={{ data: habits }}
-            checkedValues={checked}
-            onCheckedChange={handleCheck}
-            onAddHabit={handleAddHabit}
-            onRemoveHabit={handleRemoveHabit}
-            maxHabits={MAX_FREE_HABITS}
-          />
-          <PoweredByBlocs />
-        </URLHashProvider>
-      </WidgetPage>
-    </BlocsThemeProvider>
+    <WidgetPage p="sm" bg="bg.notion" flexDirection="column">
+      <Head>
+        <meta name="robots" content="noindex" />
+      </Head>
+      <URLHashProvider hash={{ role: 'blocs-user' }}>
+        <DummyHabitTracker
+          smallScreenAt="600px"
+          isEditable
+          isAnalyticsHidden
+          habits={{ data: habits }}
+          checkedValues={checked}
+          onCheckedChange={handleCheck}
+          onAddHabit={handleAddHabit}
+          onRemoveHabit={handleRemoveHabit}
+          maxHabits={MAX_FREE_HABITS}
+        />
+        <PoweredByBlocs />
+      </URLHashProvider>
+    </WidgetPage>
   )
 }
 

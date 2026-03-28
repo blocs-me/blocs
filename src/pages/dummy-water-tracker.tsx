@@ -1,4 +1,3 @@
-import BlocsThemeProvider from '@/helpers/BlocsThemeProvider'
 import DummyWaterTracker from '@/widgets/WaterTracker/DummyWaterTracker'
 import WidgetPage from '@/widgets/WidgetPage'
 import { useState, useEffect } from 'react'
@@ -14,13 +13,11 @@ const DummyWaterTrackerPage = () => {
 
   return (
     <WidgetPage bg="bg.notion" p="sm">
-      <BlocsThemeProvider>
-        <DummyWaterTracker
-          progress={progress}
-          onClickUp={() => setProgress(Math.min(3, progress + 1))}
-          onClickDown={() => setProgress(Math.max(0, progress - 1))}
-        />
-      </BlocsThemeProvider>
+      <DummyWaterTracker
+        progress={progress}
+        onClickUp={() => setProgress(Math.min(3, progress + 1))}
+        onClickDown={() => setProgress(Math.max(0, progress - 1))}
+      />
     </WidgetPage>
   )
 }

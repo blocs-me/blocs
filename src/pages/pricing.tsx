@@ -1,12 +1,7 @@
 import PricingPage from '@/pages/PricingPage'
-import BlocsThemeProvider from '@/helpers/BlocsThemeProvider'
 
 const Pricing = () => {
-  return (
-    <BlocsThemeProvider>
-      <PricingPage />
-    </BlocsThemeProvider>
-  )
+  return <PricingPage />
 }
 
 export default Pricing

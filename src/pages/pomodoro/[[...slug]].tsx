@@ -1,6 +1,5 @@
 import Head from 'next/head'
 import useNotifications from '@/design-system/Notifications/useNotifications'
-import BlocsThemeProvider from '@/helpers/BlocsThemeProvider'
 import { ColorModeProvider } from '@/hooks/useColorMode'
 import { useInitUrlHash } from '@/hooks/useUrlHash/useUrlHash'
 import { WidgetAuthProvider } from '@/hooks/useWidgetAuth'
@@ -36,15 +35,13 @@ const DemoPomodoro = () => {
       <Head>
         <meta name="robots" content="noindex" />
       </Head>
-      <BlocsThemeProvider>
-        <DummyPomodoro
-          height="auto"
-          width="100%"
-          maxWidth="385px"
-          minWidth="300px"
-        />
-        <PoweredByBlocs />
-      </BlocsThemeProvider>
+      <DummyPomodoro
+        height="auto"
+        width="100%"
+        maxWidth="385px"
+        minWidth="300px"
+      />
+      <PoweredByBlocs />
     </WidgetPage>
   )
 }

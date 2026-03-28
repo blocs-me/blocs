@@ -1,5 +1,4 @@
 import Head from 'next/head'
-import BlocsThemeProvider from '@/helpers/BlocsThemeProvider'
 import DummyWaterTracker from '@/widgets/WaterTracker/DummyWaterTracker'
 import WaterTracker from '@/widgets/WaterTracker'
 import WidgetPage from '@/widgets/WidgetPage'
@@ -75,14 +74,12 @@ const DemoWaterTracker = () => {
       <Head>
         <meta name="robots" content="noindex" />
       </Head>
-      <BlocsThemeProvider>
-        <DummyWaterTracker
-          progress={progress}
-          onClickUp={handleUp}
-          onClickDown={handleDown}
-        />
-        <PoweredByBlocs />
-      </BlocsThemeProvider>
+      <DummyWaterTracker
+        progress={progress}
+        onClickUp={handleUp}
+        onClickDown={handleDown}
+      />
+      <PoweredByBlocs />
     </WidgetPage>
   )
 }
