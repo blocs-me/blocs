@@ -1,102 +1,1827 @@
 [
-  { "text": "The only way to do great work is to love what you do.", "author": "Steve Jobs", "category": "motivation" },
-  { "text": "Done is better than perfect.", "author": "Sheryl Sandberg", "category": "productivity" },
-  { "text": "The best time to plant a tree was 20 years ago. The second best time is now.", "author": "Chinese Proverb", "category": "wisdom" },
-  { "text": "Creativity is intelligence having fun.", "author": "Albert Einstein", "category": "creativity" },
-  { "text": "Almost everything will work again if you unplug it for a few minutes, including you.", "author": "Anne Lamott", "category": "mindfulness" },
-  { "text": "It does not matter how slowly you go as long as you do not stop.", "author": "Confucius", "category": "motivation" },
-  { "text": "Focus on being productive instead of busy.", "author": "Tim Ferriss", "category": "productivity" },
-  { "text": "In the middle of difficulty lies opportunity.", "author": "Albert Einstein", "category": "wisdom" },
-  { "text": "The chief enemy of creativity is good sense.", "author": "Pablo Picasso", "category": "creativity" },
-  { "text": "The present moment is filled with joy and happiness. If you are attentive, you will see it.", "author": "Thich Nhat Hanh", "category": "mindfulness" },
-  { "text": "Success is not final, failure is not fatal: it is the courage to continue that counts.", "author": "Winston Churchill", "category": "motivation" },
-  { "text": "Amateurs sit and wait for inspiration, the rest of us just get up and go to work.", "author": "Stephen King", "category": "productivity" },
-  { "text": "The only true wisdom is in knowing you know nothing.", "author": "Socrates", "category": "wisdom" },
-  { "text": "Every child is an artist. The problem is how to remain an artist once we grow up.", "author": "Pablo Picasso", "category": "creativity" },
-  { "text": "Feelings come and go like clouds in a windy sky. Conscious breathing is my anchor.", "author": "Thich Nhat Hanh", "category": "mindfulness" },
-  { "text": "The secret of getting ahead is getting started.", "author": "Mark Twain", "category": "motivation" },
-  { "text": "Until we can manage time, we can manage nothing else.", "author": "Peter Drucker", "category": "productivity" },
-  { "text": "Knowing yourself is the beginning of all wisdom.", "author": "Aristotle", "category": "wisdom" },
-  { "text": "Imagination is the beginning of creation.", "author": "George Bernard Shaw", "category": "creativity" },
-  { "text": "Be where you are, not where you think you should be.", "author": "Unknown", "category": "mindfulness" },
-  { "text": "Believe you can and you're halfway there.", "author": "Theodore Roosevelt", "category": "motivation" },
-  { "text": "The way to get started is to quit talking and begin doing.", "author": "Walt Disney", "category": "productivity" },
-  { "text": "Turn your wounds into wisdom.", "author": "Oprah Winfrey", "category": "wisdom" },
-  { "text": "You can't use up creativity. The more you use, the more you have.", "author": "Maya Angelou", "category": "creativity" },
-  { "text": "Wherever you are, be there totally.", "author": "Eckhart Tolle", "category": "mindfulness" },
-  { "text": "What you get by achieving your goals is not as important as what you become by achieving your goals.", "author": "Zig Ziglar", "category": "motivation" },
-  { "text": "If you spend too much time thinking about a thing, you'll never get it done.", "author": "Bruce Lee", "category": "productivity" },
-  { "text": "The unexamined life is not worth living.", "author": "Socrates", "category": "wisdom" },
-  { "text": "Art is not what you see, but what you make others see.", "author": "Edgar Degas", "category": "creativity" },
-  { "text": "The mind is everything. What you think you become.", "author": "Buddha", "category": "mindfulness" },
-  { "text": "Don't watch the clock; do what it does. Keep going.", "author": "Sam Levenson", "category": "motivation" },
-  { "text": "Simplicity is the ultimate sophistication.", "author": "Leonardo da Vinci", "category": "productivity" },
-  { "text": "We do not see things as they are, we see them as we are.", "author": "Anaïs Nin", "category": "wisdom" },
-  { "text": "The desire to create is one of the deepest yearnings of the human soul.", "author": "Dieter F. Uchtdorf", "category": "creativity" },
-  { "text": "Peace comes from within. Do not seek it without.", "author": "Buddha", "category": "mindfulness" },
-  { "text": "Everything you've ever wanted is on the other side of fear.", "author": "George Addair", "category": "motivation" },
-  { "text": "It's not that I'm so smart, it's just that I stay with problems longer.", "author": "Albert Einstein", "category": "productivity" },
-  { "text": "The only thing I know is that I know nothing.", "author": "Socrates", "category": "wisdom" },
-  { "text": "To be creative means to be in love with life.", "author": "Osho", "category": "creativity" },
-  { "text": "Do every act of your life as though it were the very last act of your life.", "author": "Marcus Aurelius", "category": "mindfulness" },
-  { "text": "Your limitation—it's only your imagination.", "author": "Unknown", "category": "motivation" },
-  { "text": "Either you run the day or the day runs you.", "author": "Jim Rohn", "category": "productivity" },
-  { "text": "He who has a why to live can bear almost any how.", "author": "Friedrich Nietzsche", "category": "wisdom" },
-  { "text": "Creativity takes courage.", "author": "Henri Matisse", "category": "creativity" },
-  { "text": "The greatest weapon against stress is our ability to choose one thought over another.", "author": "William James", "category": "mindfulness" },
-  { "text": "It always seems impossible until it's done.", "author": "Nelson Mandela", "category": "motivation" },
-  { "text": "The key is not to prioritize what's on your schedule, but to schedule your priorities.", "author": "Stephen Covey", "category": "productivity" },
-  { "text": "You cannot find peace by avoiding life.", "author": "Virginia Woolf", "category": "wisdom" },
-  { "text": "Learn the rules like a pro, so you can break them like an artist.", "author": "Pablo Picasso", "category": "creativity" },
-  { "text": "In today's rush, we all think too much, seek too much, want too much, and forget about the joy of just being.", "author": "Eckhart Tolle", "category": "mindfulness" },
-  { "text": "I have not failed. I've just found 10,000 ways that won't work.", "author": "Thomas Edison", "category": "motivation" },
-  { "text": "Efficiency is doing things right; effectiveness is doing the right things.", "author": "Peter Drucker", "category": "productivity" },
-  { "text": "The mind that opens to a new idea never returns to its original size.", "author": "Albert Einstein", "category": "wisdom" },
-  { "text": "The world always seems brighter when you've just made something that wasn't there before.", "author": "Neil Gaiman", "category": "creativity" },
-  { "text": "Nature does not hurry, yet everything is accomplished.", "author": "Lao Tzu", "category": "mindfulness" },
-  { "text": "Hardships often prepare ordinary people for an extraordinary destiny.", "author": "C.S. Lewis", "category": "motivation" },
-  { "text": "Action is the foundational key to all success.", "author": "Pablo Picasso", "category": "productivity" },
-  { "text": "A life spent making mistakes is not only more honorable, but more useful than a life spent doing nothing.", "author": "George Bernard Shaw", "category": "wisdom" },
-  { "text": "Creativity is contagious, pass it on.", "author": "Albert Einstein", "category": "creativity" },
-  { "text": "When you realize nothing is lacking, the whole world belongs to you.", "author": "Lao Tzu", "category": "mindfulness" },
-  { "text": "Don't be pushed around by the fears in your mind. Be led by the dreams in your heart.", "author": "Roy T. Bennett", "category": "motivation" },
-  { "text": "Time is what we want most, but what we use worst.", "author": "William Penn", "category": "productivity" },
-  { "text": "The journey of a thousand miles begins with a single step.", "author": "Lao Tzu", "category": "wisdom" },
-  { "text": "Have no fear of perfection — you'll never reach it.", "author": "Salvador Dalí", "category": "creativity" },
-  { "text": "Be happy in the moment, that's enough. Each moment is all we need, not more.", "author": "Mother Teresa", "category": "mindfulness" },
-  { "text": "Whether you think you can or you think you can't, you're right.", "author": "Henry Ford", "category": "motivation" },
-  { "text": "Plans are nothing; planning is everything.", "author": "Dwight D. Eisenhower", "category": "productivity" },
-  { "text": "What we think, we become.", "author": "Buddha", "category": "wisdom" },
-  { "text": "The true sign of intelligence is not knowledge but imagination.", "author": "Albert Einstein", "category": "creativity" },
-  { "text": "Breathe. Let go. And remind yourself that this very moment is the only one you know you have for sure.", "author": "Oprah Winfrey", "category": "mindfulness" },
-  { "text": "The harder you work for something, the greater you'll feel when you achieve it.", "author": "Unknown", "category": "motivation" },
-  { "text": "Start where you are. Use what you have. Do what you can.", "author": "Arthur Ashe", "category": "productivity" },
-  { "text": "In three words I can sum up everything I've learned about life: it goes on.", "author": "Robert Frost", "category": "wisdom" },
-  { "text": "Creativity is allowing yourself to make mistakes. Art is knowing which ones to keep.", "author": "Scott Adams", "category": "creativity" },
-  { "text": "The quieter you become, the more you are able to hear.", "author": "Rumi", "category": "mindfulness" },
-  { "text": "If you want to achieve greatness stop asking for permission.", "author": "Unknown", "category": "motivation" },
-  { "text": "A year from now you may wish you had started today.", "author": "Karen Lamb", "category": "productivity" },
-  { "text": "Life can only be understood backwards; but it must be lived forwards.", "author": "Søren Kierkegaard", "category": "wisdom" },
-  { "text": "Every artist was first an amateur.", "author": "Ralph Waldo Emerson", "category": "creativity" },
-  { "text": "Smile, breathe, and go slowly.", "author": "Thich Nhat Hanh", "category": "mindfulness" },
-  { "text": "Go the extra mile. It's never crowded there.", "author": "Dr. Wayne D. Dyer", "category": "motivation" },
-  { "text": "Do the hard jobs first. The easy jobs will take care of themselves.", "author": "Dale Carnegie", "category": "productivity" },
-  { "text": "Not all those who wander are lost.", "author": "J.R.R. Tolkien", "category": "wisdom" },
-  { "text": "Curiosity about life in all of its aspects, I think, is still the secret of great creative people.", "author": "Leo Burnett", "category": "creativity" },
-  { "text": "With the new day comes new strength and new thoughts.", "author": "Eleanor Roosevelt", "category": "mindfulness" },
-  { "text": "Dream big and dare to fail.", "author": "Norman Vaughan", "category": "motivation" },
-  { "text": "You don't need more time, you need fewer distractions.", "author": "Unknown", "category": "productivity" },
-  { "text": "Happiness is not something ready made. It comes from your own actions.", "author": "Dalai Lama", "category": "wisdom" },
-  { "text": "The creative adult is the child who survived.", "author": "Ursula K. Le Guin", "category": "creativity" },
-  { "text": "Life is available only in the present moment.", "author": "Thich Nhat Hanh", "category": "mindfulness" },
-  { "text": "The future belongs to those who believe in the beauty of their dreams.", "author": "Eleanor Roosevelt", "category": "motivation" },
-  { "text": "Nothing is less productive than to make more efficient what should not be done at all.", "author": "Peter Drucker", "category": "productivity" },
-  { "text": "An unexamined life is not worth living.", "author": "Socrates", "category": "wisdom" },
-  { "text": "Imagination is more important than knowledge.", "author": "Albert Einstein", "category": "creativity" },
-  { "text": "Within you, there is a stillness and a sanctuary to which you can retreat at any time.", "author": "Hermann Hesse", "category": "mindfulness" },
-  { "text": "Small daily improvements over time lead to stunning results.", "author": "Robin Sharma", "category": "motivation" },
-  { "text": "Productivity is never an accident. It is always the result of a commitment to excellence.", "author": "Paul J. Meyer", "category": "productivity" },
-  { "text": "The only real failure is the failure to try.", "author": "Unknown", "category": "wisdom" },
-  { "text": "To live a creative life, we must lose our fear of being wrong.", "author": "Joseph Chilton Pearce", "category": "creativity" },
-  { "text": "The best way to capture moments is to pay attention. This is how we cultivate mindfulness.", "author": "Jon Kabat-Zinn", "category": "mindfulness" }
+  {
+    "text": "The only way to do great work is to love what you do.",
+    "author": "Steve Jobs",
+    "category": "motivation"
+  },
+  {
+    "text": "Done is better than perfect.",
+    "author": "Sheryl Sandberg",
+    "category": "productivity"
+  },
+  {
+    "text": "The best time to plant a tree was 20 years ago. The second best time is now.",
+    "author": "Chinese Proverb",
+    "category": "wisdom"
+  },
+  {
+    "text": "Creativity is intelligence having fun.",
+    "author": "Albert Einstein",
+    "category": "creativity"
+  },
+  {
+    "text": "Almost everything will work again if you unplug it for a few minutes, including you.",
+    "author": "Anne Lamott",
+    "category": "mindfulness"
+  },
+  {
+    "text": "It does not matter how slowly you go as long as you do not stop.",
+    "author": "Confucius",
+    "category": "motivation"
+  },
+  {
+    "text": "Focus on being productive instead of busy.",
+    "author": "Tim Ferriss",
+    "category": "productivity"
+  },
+  {
+    "text": "In the middle of difficulty lies opportunity.",
+    "author": "Albert Einstein",
+    "category": "wisdom"
+  },
+  {
+    "text": "The chief enemy of creativity is good sense.",
+    "author": "Pablo Picasso",
+    "category": "creativity"
+  },
+  {
+    "text": "The present moment is filled with joy and happiness. If you are attentive, you will see it.",
+    "author": "Thich Nhat Hanh",
+    "category": "mindfulness"
+  },
+  {
+    "text": "Success is not final, failure is not fatal: it is the courage to continue that counts.",
+    "author": "Winston Churchill",
+    "category": "motivation"
+  },
+  {
+    "text": "Amateurs sit and wait for inspiration, the rest of us just get up and go to work.",
+    "author": "Stephen King",
+    "category": "productivity"
+  },
+  {
+    "text": "The only true wisdom is in knowing you know nothing.",
+    "author": "Socrates",
+    "category": "wisdom"
+  },
+  {
+    "text": "Every child is an artist. The problem is how to remain an artist once we grow up.",
+    "author": "Pablo Picasso",
+    "category": "creativity"
+  },
+  {
+    "text": "Feelings come and go like clouds in a windy sky. Conscious breathing is my anchor.",
+    "author": "Thich Nhat Hanh",
+    "category": "mindfulness"
+  },
+  {
+    "text": "The secret of getting ahead is getting started.",
+    "author": "Mark Twain",
+    "category": "motivation"
+  },
+  {
+    "text": "Until we can manage time, we can manage nothing else.",
+    "author": "Peter Drucker",
+    "category": "productivity"
+  },
+  {
+    "text": "Knowing yourself is the beginning of all wisdom.",
+    "author": "Aristotle",
+    "category": "wisdom"
+  },
+  {
+    "text": "Imagination is the beginning of creation.",
+    "author": "George Bernard Shaw",
+    "category": "creativity"
+  },
+  {
+    "text": "Be where you are, not where you think you should be.",
+    "author": "Unknown",
+    "category": "mindfulness"
+  },
+  {
+    "text": "Believe you can and you're halfway there.",
+    "author": "Theodore Roosevelt",
+    "category": "motivation"
+  },
+  {
+    "text": "The way to get started is to quit talking and begin doing.",
+    "author": "Walt Disney",
+    "category": "productivity"
+  },
+  {
+    "text": "Turn your wounds into wisdom.",
+    "author": "Oprah Winfrey",
+    "category": "wisdom"
+  },
+  {
+    "text": "You can't use up creativity. The more you use, the more you have.",
+    "author": "Maya Angelou",
+    "category": "creativity"
+  },
+  {
+    "text": "Wherever you are, be there totally.",
+    "author": "Eckhart Tolle",
+    "category": "mindfulness"
+  },
+  {
+    "text": "What you get by achieving your goals is not as important as what you become by achieving your goals.",
+    "author": "Zig Ziglar",
+    "category": "motivation"
+  },
+  {
+    "text": "If you spend too much time thinking about a thing, you'll never get it done.",
+    "author": "Bruce Lee",
+    "category": "productivity"
+  },
+  {
+    "text": "The unexamined life is not worth living.",
+    "author": "Socrates",
+    "category": "wisdom"
+  },
+  {
+    "text": "Art is not what you see, but what you make others see.",
+    "author": "Edgar Degas",
+    "category": "creativity"
+  },
+  {
+    "text": "The mind is everything. What you think you become.",
+    "author": "Buddha",
+    "category": "mindfulness"
+  },
+  {
+    "text": "Don't watch the clock; do what it does. Keep going.",
+    "author": "Sam Levenson",
+    "category": "motivation"
+  },
+  {
+    "text": "Simplicity is the ultimate sophistication.",
+    "author": "Leonardo da Vinci",
+    "category": "productivity"
+  },
+  {
+    "text": "We do not see things as they are, we see them as we are.",
+    "author": "Anaïs Nin",
+    "category": "wisdom"
+  },
+  {
+    "text": "The desire to create is one of the deepest yearnings of the human soul.",
+    "author": "Dieter F. Uchtdorf",
+    "category": "creativity"
+  },
+  {
+    "text": "Peace comes from within. Do not seek it without.",
+    "author": "Buddha",
+    "category": "mindfulness"
+  },
+  {
+    "text": "Everything you've ever wanted is on the other side of fear.",
+    "author": "George Addair",
+    "category": "motivation"
+  },
+  {
+    "text": "It's not that I'm so smart, it's just that I stay with problems longer.",
+    "author": "Albert Einstein",
+    "category": "productivity"
+  },
+  {
+    "text": "The only thing I know is that I know nothing.",
+    "author": "Socrates",
+    "category": "wisdom"
+  },
+  {
+    "text": "To be creative means to be in love with life.",
+    "author": "Osho",
+    "category": "creativity"
+  },
+  {
+    "text": "Do every act of your life as though it were the very last act of your life.",
+    "author": "Marcus Aurelius",
+    "category": "mindfulness"
+  },
+  {
+    "text": "Your limitation—it's only your imagination.",
+    "author": "Unknown",
+    "category": "motivation"
+  },
+  {
+    "text": "Either you run the day or the day runs you.",
+    "author": "Jim Rohn",
+    "category": "productivity"
+  },
+  {
+    "text": "He who has a why to live can bear almost any how.",
+    "author": "Friedrich Nietzsche",
+    "category": "wisdom"
+  },
+  {
+    "text": "Creativity takes courage.",
+    "author": "Henri Matisse",
+    "category": "creativity"
+  },
+  {
+    "text": "The greatest weapon against stress is our ability to choose one thought over another.",
+    "author": "William James",
+    "category": "mindfulness"
+  },
+  {
+    "text": "It always seems impossible until it's done.",
+    "author": "Nelson Mandela",
+    "category": "motivation"
+  },
+  {
+    "text": "The key is not to prioritize what's on your schedule, but to schedule your priorities.",
+    "author": "Stephen Covey",
+    "category": "productivity"
+  },
+  {
+    "text": "You cannot find peace by avoiding life.",
+    "author": "Virginia Woolf",
+    "category": "wisdom"
+  },
+  {
+    "text": "Learn the rules like a pro, so you can break them like an artist.",
+    "author": "Pablo Picasso",
+    "category": "creativity"
+  },
+  {
+    "text": "In today's rush, we all think too much, seek too much, want too much, and forget about the joy of just being.",
+    "author": "Eckhart Tolle",
+    "category": "mindfulness"
+  },
+  {
+    "text": "I have not failed. I've just found 10,000 ways that won't work.",
+    "author": "Thomas Edison",
+    "category": "motivation"
+  },
+  {
+    "text": "Efficiency is doing things right; effectiveness is doing the right things.",
+    "author": "Peter Drucker",
+    "category": "productivity"
+  },
+  {
+    "text": "The mind that opens to a new idea never returns to its original size.",
+    "author": "Albert Einstein",
+    "category": "wisdom"
+  },
+  {
+    "text": "The world always seems brighter when you've just made something that wasn't there before.",
+    "author": "Neil Gaiman",
+    "category": "creativity"
+  },
+  {
+    "text": "Nature does not hurry, yet everything is accomplished.",
+    "author": "Lao Tzu",
+    "category": "mindfulness"
+  },
+  {
+    "text": "Hardships often prepare ordinary people for an extraordinary destiny.",
+    "author": "C.S. Lewis",
+    "category": "motivation"
+  },
+  {
+    "text": "Action is the foundational key to all success.",
+    "author": "Pablo Picasso",
+    "category": "productivity"
+  },
+  {
+    "text": "A life spent making mistakes is not only more honorable, but more useful than a life spent doing nothing.",
+    "author": "George Bernard Shaw",
+    "category": "wisdom"
+  },
+  {
+    "text": "Creativity is contagious, pass it on.",
+    "author": "Albert Einstein",
+    "category": "creativity"
+  },
+  {
+    "text": "When you realize nothing is lacking, the whole world belongs to you.",
+    "author": "Lao Tzu",
+    "category": "mindfulness"
+  },
+  {
+    "text": "Don't be pushed around by the fears in your mind. Be led by the dreams in your heart.",
+    "author": "Roy T. Bennett",
+    "category": "motivation"
+  },
+  {
+    "text": "Time is what we want most, but what we use worst.",
+    "author": "William Penn",
+    "category": "productivity"
+  },
+  {
+    "text": "The journey of a thousand miles begins with a single step.",
+    "author": "Lao Tzu",
+    "category": "wisdom"
+  },
+  {
+    "text": "Have no fear of perfection — you'll never reach it.",
+    "author": "Salvador Dalí",
+    "category": "creativity"
+  },
+  {
+    "text": "Be happy in the moment, that's enough. Each moment is all we need, not more.",
+    "author": "Mother Teresa",
+    "category": "mindfulness"
+  },
+  {
+    "text": "Whether you think you can or you think you can't, you're right.",
+    "author": "Henry Ford",
+    "category": "motivation"
+  },
+  {
+    "text": "Plans are nothing; planning is everything.",
+    "author": "Dwight D. Eisenhower",
+    "category": "productivity"
+  },
+  {
+    "text": "What we think, we become.",
+    "author": "Buddha",
+    "category": "wisdom"
+  },
+  {
+    "text": "The true sign of intelligence is not knowledge but imagination.",
+    "author": "Albert Einstein",
+    "category": "creativity"
+  },
+  {
+    "text": "Breathe. Let go. And remind yourself that this very moment is the only one you know you have for sure.",
+    "author": "Oprah Winfrey",
+    "category": "mindfulness"
+  },
+  {
+    "text": "The harder you work for something, the greater you'll feel when you achieve it.",
+    "author": "Unknown",
+    "category": "motivation"
+  },
+  {
+    "text": "Start where you are. Use what you have. Do what you can.",
+    "author": "Arthur Ashe",
+    "category": "productivity"
+  },
+  {
+    "text": "In three words I can sum up everything I've learned about life: it goes on.",
+    "author": "Robert Frost",
+    "category": "wisdom"
+  },
+  {
+    "text": "Creativity is allowing yourself to make mistakes. Art is knowing which ones to keep.",
+    "author": "Scott Adams",
+    "category": "creativity"
+  },
+  {
+    "text": "The quieter you become, the more you are able to hear.",
+    "author": "Rumi",
+    "category": "mindfulness"
+  },
+  {
+    "text": "If you want to achieve greatness stop asking for permission.",
+    "author": "Unknown",
+    "category": "motivation"
+  },
+  {
+    "text": "A year from now you may wish you had started today.",
+    "author": "Karen Lamb",
+    "category": "productivity"
+  },
+  {
+    "text": "Life can only be understood backwards; but it must be lived forwards.",
+    "author": "Søren Kierkegaard",
+    "category": "wisdom"
+  },
+  {
+    "text": "Every artist was first an amateur.",
+    "author": "Ralph Waldo Emerson",
+    "category": "creativity"
+  },
+  {
+    "text": "Smile, breathe, and go slowly.",
+    "author": "Thich Nhat Hanh",
+    "category": "mindfulness"
+  },
+  {
+    "text": "Go the extra mile. It's never crowded there.",
+    "author": "Dr. Wayne D. Dyer",
+    "category": "motivation"
+  },
+  {
+    "text": "Do the hard jobs first. The easy jobs will take care of themselves.",
+    "author": "Dale Carnegie",
+    "category": "productivity"
+  },
+  {
+    "text": "Not all those who wander are lost.",
+    "author": "J.R.R. Tolkien",
+    "category": "wisdom"
+  },
+  {
+    "text": "Curiosity about life in all of its aspects, I think, is still the secret of great creative people.",
+    "author": "Leo Burnett",
+    "category": "creativity"
+  },
+  {
+    "text": "With the new day comes new strength and new thoughts.",
+    "author": "Eleanor Roosevelt",
+    "category": "mindfulness"
+  },
+  {
+    "text": "Dream big and dare to fail.",
+    "author": "Norman Vaughan",
+    "category": "motivation"
+  },
+  {
+    "text": "You don't need more time, you need fewer distractions.",
+    "author": "Unknown",
+    "category": "productivity"
+  },
+  {
+    "text": "Happiness is not something ready made. It comes from your own actions.",
+    "author": "Dalai Lama",
+    "category": "wisdom"
+  },
+  {
+    "text": "The creative adult is the child who survived.",
+    "author": "Ursula K. Le Guin",
+    "category": "creativity"
+  },
+  {
+    "text": "Life is available only in the present moment.",
+    "author": "Thich Nhat Hanh",
+    "category": "mindfulness"
+  },
+  {
+    "text": "The future belongs to those who believe in the beauty of their dreams.",
+    "author": "Eleanor Roosevelt",
+    "category": "motivation"
+  },
+  {
+    "text": "Nothing is less productive than to make more efficient what should not be done at all.",
+    "author": "Peter Drucker",
+    "category": "productivity"
+  },
+  {
+    "text": "An unexamined life is not worth living.",
+    "author": "Socrates",
+    "category": "wisdom"
+  },
+  {
+    "text": "Imagination is more important than knowledge.",
+    "author": "Albert Einstein",
+    "category": "creativity"
+  },
+  {
+    "text": "Within you, there is a stillness and a sanctuary to which you can retreat at any time.",
+    "author": "Hermann Hesse",
+    "category": "mindfulness"
+  },
+  {
+    "text": "Small daily improvements over time lead to stunning results.",
+    "author": "Robin Sharma",
+    "category": "motivation"
+  },
+  {
+    "text": "Productivity is never an accident. It is always the result of a commitment to excellence.",
+    "author": "Paul J. Meyer",
+    "category": "productivity"
+  },
+  {
+    "text": "The only real failure is the failure to try.",
+    "author": "Unknown",
+    "category": "wisdom"
+  },
+  {
+    "text": "To live a creative life, we must lose our fear of being wrong.",
+    "author": "Joseph Chilton Pearce",
+    "category": "creativity"
+  },
+  {
+    "text": "The best way to capture moments is to pay attention. This is how we cultivate mindfulness.",
+    "author": "Jon Kabat-Zinn",
+    "category": "mindfulness"
+  },
+  {
+    "text": "The only people who never fail are those who never try.",
+    "author": "Ilka Chase",
+    "category": "motivation"
+  },
+  {
+    "text": "Failure is just another way to learn how to do something right.",
+    "author": "Marian Wright Edelman",
+    "category": "motivation"
+  },
+  {
+    "text": "I failed my way to success.",
+    "author": "Thomas Edison",
+    "category": "motivation"
+  },
+  {
+    "text": "Every failure brings with it the seed of an equivalent success.",
+    "author": "Napoleon Hill",
+    "category": "motivation"
+  },
+  {
+    "text": "Only those who dare to fail greatly can ever achieve greatly.",
+    "author": "John F. Kennedy",
+    "category": "motivation"
+  },
+  {
+    "text": "It is hard to fail, but it is worse never to have tried to succeed.",
+    "author": "Theodore Roosevelt",
+    "category": "motivation"
+  },
+  {
+    "text": "Hold fast to dreams, for if dreams die, life is a broken winged bird that cannot fly.",
+    "author": "Langston Hughes",
+    "category": "motivation"
+  },
+  {
+    "text": "Go confidently in the direction of your dreams. Live the life you have imagined.",
+    "author": "Henry David Thoreau",
+    "category": "motivation"
+  },
+  {
+    "text": "We can do anything we want to do if we stick to it long enough.",
+    "author": "Helen Keller",
+    "category": "motivation"
+  },
+  {
+    "text": "The more difficulties one has to encounter, the more significant and the higher in inspiration his life will be.",
+    "author": "Horace Bushnell",
+    "category": "motivation"
+  },
+  {
+    "text": "I was always looking outside myself for strength and confidence, but it comes from within. It is there all the time.",
+    "author": "Anna Freud",
+    "category": "motivation"
+  },
+  {
+    "text": "The difference between a successful person and others is not a lack of strength, not a lack of knowledge, but rather a lack in will.",
+    "author": "Vince Lombardi",
+    "category": "motivation"
+  },
+  {
+    "text": "The best way out is always through.",
+    "author": "Robert Frost",
+    "category": "motivation"
+  },
+  {
+    "text": "You miss 100 percent of the shots you don't take.",
+    "author": "Wayne Gretzky",
+    "category": "motivation"
+  },
+  {
+    "text": "Nothing will ever be attempted if all possible objections must first be overcome.",
+    "author": "Samuel Johnson",
+    "category": "motivation"
+  },
+  {
+    "text": "Success is the child of audacity.",
+    "author": "Benjamin Disraeli",
+    "category": "motivation"
+  },
+  {
+    "text": "The only place where success comes before work is in the dictionary.",
+    "author": "Vidal Sassoon",
+    "category": "motivation"
+  },
+  {
+    "text": "Being realistic is the most commonly traveled road to mediocrity.",
+    "author": "Will Smith",
+    "category": "motivation"
+  },
+  {
+    "text": "The road to success is always under construction.",
+    "author": "Arnold Palmer",
+    "category": "motivation"
+  },
+  {
+    "text": "Failure defeats losers, failure inspires winners.",
+    "author": "Robert T. Kiyosaki",
+    "category": "motivation"
+  },
+  {
+    "text": "A ship in harbor is safe, but that is not what ships are built for.",
+    "author": "John A. Shedd",
+    "category": "motivation"
+  },
+  {
+    "text": "Victory comes only after many struggles and countless defeats.",
+    "author": "Og Mandino",
+    "category": "motivation"
+  },
+  {
+    "text": "Try not to become a man of success, but rather try to become a man of value.",
+    "author": "Albert Einstein",
+    "category": "motivation"
+  },
+  {
+    "text": "Build your own dreams, or someone else will hire you to build theirs.",
+    "author": "Farrah Gray",
+    "category": "motivation"
+  },
+  {
+    "text": "You may be disappointed if you fail, but you are doomed if you don't try.",
+    "author": "Beverly Sills",
+    "category": "motivation"
+  },
+  {
+    "text": "The only limit to our realization of tomorrow will be our doubts of today.",
+    "author": "Franklin D. Roosevelt",
+    "category": "motivation"
+  },
+  {
+    "text": "It is never too late to be what you might have been.",
+    "author": "George Eliot",
+    "category": "motivation"
+  },
+  {
+    "text": "There is only one way to avoid criticism: do nothing, say nothing, and be nothing.",
+    "author": "Aristotle",
+    "category": "motivation"
+  },
+  {
+    "text": "When you have a dream, you've got to grab it and never let go.",
+    "author": "Carol Burnett",
+    "category": "motivation"
+  },
+  {
+    "text": "When everything seems to be going against you, remember that the airplane takes off against the wind, not with it.",
+    "author": "Henry Ford",
+    "category": "motivation"
+  },
+  {
+    "text": "There's no shortage of remarkable ideas, what's missing is the will to execute them.",
+    "author": "Seth Godin",
+    "category": "motivation"
+  },
+  {
+    "text": "A successful man is one who can lay a firm foundation with the bricks others have thrown at him.",
+    "author": "David Brinkley",
+    "category": "motivation"
+  },
+  {
+    "text": "Fall seven times, stand up eight.",
+    "author": "Japanese Proverb",
+    "category": "motivation"
+  },
+  {
+    "text": "Most great people have attained their greatest success just one step beyond their greatest failure.",
+    "author": "Napoleon Hill",
+    "category": "motivation"
+  },
+  {
+    "text": "If you cannot do great things, do small things in a great way.",
+    "author": "Napoleon Hill",
+    "category": "motivation"
+  },
+  {
+    "text": "The successful warrior is the average man, with laser-like focus.",
+    "author": "Bruce Lee",
+    "category": "motivation"
+  },
+  {
+    "text": "Risk more than others think is safe. Dream more than others think is practical.",
+    "author": "Howard Schultz",
+    "category": "motivation"
+  },
+  {
+    "text": "I am not a product of my circumstances. I am a product of my decisions.",
+    "author": "Stephen Covey",
+    "category": "motivation"
+  },
+  {
+    "text": "Nothing will work unless you do.",
+    "author": "Maya Angelou",
+    "category": "motivation"
+  },
+  {
+    "text": "Do or do not. There is no try.",
+    "author": "Yoda",
+    "category": "motivation"
+  },
+  {
+    "text": "What is not started will never get finished.",
+    "author": "Johann Wolfgang von Goethe",
+    "category": "motivation"
+  },
+  {
+    "text": "Our deepest fear is not that we are inadequate. Our deepest fear is that we are powerful beyond measure.",
+    "author": "Marianne Williamson",
+    "category": "motivation"
+  },
+  {
+    "text": "Act as if what you do makes a difference. It does.",
+    "author": "William James",
+    "category": "motivation"
+  },
+  {
+    "text": "You are never too old to set another goal or to dream a new dream.",
+    "author": "C.S. Lewis",
+    "category": "motivation"
+  },
+  {
+    "text": "Courage is not the absence of fear, but the triumph over it.",
+    "author": "Nelson Mandela",
+    "category": "motivation"
+  },
+  {
+    "text": "If you hear a voice within you say you cannot paint, then by all means paint, and that voice will be silenced.",
+    "author": "Vincent van Gogh",
+    "category": "motivation"
+  },
+  {
+    "text": "Perseverance is not a long race; it is many short races one after the other.",
+    "author": "Walter Elliot",
+    "category": "motivation"
+  },
+  {
+    "text": "The only impossible journey is the one you never begin.",
+    "author": "Tony Robbins",
+    "category": "motivation"
+  },
+  {
+    "text": "A diamond is a chunk of coal that did well under pressure.",
+    "author": "Henry Kissinger",
+    "category": "motivation"
+  },
+  {
+    "text": "Keep your face always toward the sunshine, and shadows will fall behind you.",
+    "author": "Walt Whitman",
+    "category": "motivation"
+  },
+  {
+    "text": "What lies behind us and what lies before us are tiny matters compared to what lies within us.",
+    "author": "Ralph Waldo Emerson",
+    "category": "motivation"
+  },
+  {
+    "text": "The man who moves a mountain begins by carrying away small stones.",
+    "author": "Confucius",
+    "category": "motivation"
+  },
+  {
+    "text": "Commitment leads to action. Action brings your dream closer.",
+    "author": "Marcia Wieder",
+    "category": "productivity"
+  },
+  {
+    "text": "Take time to deliberate; but when the time for action arrives, stop thinking and go in.",
+    "author": "Andrew Jackson",
+    "category": "productivity"
+  },
+  {
+    "text": "Arriving at one goal is the starting point to another.",
+    "author": "John Dewey",
+    "category": "productivity"
+  },
+  {
+    "text": "A goal is a dream with a deadline.",
+    "author": "Napoleon Hill",
+    "category": "productivity"
+  },
+  {
+    "text": "Goals are the fuel in the furnace of achievement.",
+    "author": "Brian Tracy",
+    "category": "productivity"
+  },
+  {
+    "text": "Take risks and you'll get the payoffs. Learn from your mistakes until you succeed.",
+    "author": "Bobby Flay",
+    "category": "productivity"
+  },
+  {
+    "text": "Do not wait to strike until the iron is hot; but make it hot by striking.",
+    "author": "William B. Sprague",
+    "category": "productivity"
+  },
+  {
+    "text": "Yesterday's home runs don't win today's games.",
+    "author": "Babe Ruth",
+    "category": "productivity"
+  },
+  {
+    "text": "Always deliver more than expected.",
+    "author": "Larry Page",
+    "category": "productivity"
+  },
+  {
+    "text": "Fail often so you can succeed sooner.",
+    "author": "Tom Kelley",
+    "category": "productivity"
+  },
+  {
+    "text": "He who begins many things finishes but few.",
+    "author": "German Proverb",
+    "category": "productivity"
+  },
+  {
+    "text": "Failing to plan is planning to fail.",
+    "author": "Chinese Proverb",
+    "category": "productivity"
+  },
+  {
+    "text": "Ideas are easy. Implementation is hard.",
+    "author": "Guy Kawasaki",
+    "category": "productivity"
+  },
+  {
+    "text": "Don't worry about failure; you only have to be right once.",
+    "author": "Drew Houston",
+    "category": "productivity"
+  },
+  {
+    "text": "Hire character. Train skill.",
+    "author": "Peter Schultz",
+    "category": "productivity"
+  },
+  {
+    "text": "Our business in life is not to get ahead of others, but to get ahead of ourselves.",
+    "author": "E. Joseph Cossman",
+    "category": "productivity"
+  },
+  {
+    "text": "You must either modify your dreams or magnify your skills.",
+    "author": "Jim Rohn",
+    "category": "productivity"
+  },
+  {
+    "text": "Whenever you are asked if you can do a job, tell them, certainly I can! Then get busy and find out how to do it.",
+    "author": "Theodore Roosevelt",
+    "category": "productivity"
+  },
+  {
+    "text": "The beginning is the most important part of the work.",
+    "author": "Plato",
+    "category": "productivity"
+  },
+  {
+    "text": "Well begun is half done.",
+    "author": "Aristotle",
+    "category": "productivity"
+  },
+  {
+    "text": "You don't have to see the whole staircase, just take the first step.",
+    "author": "Martin Luther King Jr.",
+    "category": "productivity"
+  },
+  {
+    "text": "If you want to make an easy job seem mighty hard, just keep putting off doing it.",
+    "author": "Olin Miller",
+    "category": "productivity"
+  },
+  {
+    "text": "Concentrate all your thoughts upon the work at hand. The sun's rays do not burn until brought to a focus.",
+    "author": "Alexander Graham Bell",
+    "category": "productivity"
+  },
+  {
+    "text": "Discipline is the bridge between goals and accomplishment.",
+    "author": "Jim Rohn",
+    "category": "productivity"
+  },
+  {
+    "text": "An ounce of action is worth a ton of theory.",
+    "author": "Ralph Waldo Emerson",
+    "category": "productivity"
+  },
+  {
+    "text": "Great acts are made up of small deeds.",
+    "author": "Lao Tzu",
+    "category": "productivity"
+  },
+  {
+    "text": "Work expands so as to fill the time available for its completion.",
+    "author": "C. Northcote Parkinson",
+    "category": "productivity"
+  },
+  {
+    "text": "Don't confuse activity with productivity. Many people are simply busy being busy.",
+    "author": "Robin Sharma",
+    "category": "productivity"
+  },
+  {
+    "text": "If you want something done, ask a busy person to do it.",
+    "author": "Lucille Ball",
+    "category": "productivity"
+  },
+  {
+    "text": "The secret of getting things done is to act.",
+    "author": "Dante Alighieri",
+    "category": "productivity"
+  },
+  {
+    "text": "Motivation is what gets you started. Habit is what keeps you going.",
+    "author": "Jim Rohn",
+    "category": "productivity"
+  },
+  {
+    "text": "Do first things first, and second things not at all.",
+    "author": "Peter Drucker",
+    "category": "productivity"
+  },
+  {
+    "text": "What gets measured gets managed.",
+    "author": "Peter Drucker",
+    "category": "productivity"
+  },
+  {
+    "text": "It is not enough to be busy. The question is: what are we busy about?",
+    "author": "Henry David Thoreau",
+    "category": "productivity"
+  },
+  {
+    "text": "By failing to prepare, you are preparing to fail.",
+    "author": "Benjamin Franklin",
+    "category": "productivity"
+  },
+  {
+    "text": "Lost time is never found again.",
+    "author": "Benjamin Franklin",
+    "category": "productivity"
+  },
+  {
+    "text": "If you love life, don't waste time, for time is what life is made up of.",
+    "author": "Bruce Lee",
+    "category": "productivity"
+  },
+  {
+    "text": "Don't count the days, make the days count.",
+    "author": "Muhammad Ali",
+    "category": "productivity"
+  },
+  {
+    "text": "Absorb what is useful, discard what is not, add what is uniquely your own.",
+    "author": "Bruce Lee",
+    "category": "productivity"
+  },
+  {
+    "text": "Vision without execution is hallucination.",
+    "author": "Thomas Edison",
+    "category": "productivity"
+  },
+  {
+    "text": "The least productive people are usually the ones who are most in favor of holding meetings.",
+    "author": "Thomas Sowell",
+    "category": "productivity"
+  },
+  {
+    "text": "Perfection is not attainable, but if we chase perfection we can catch excellence.",
+    "author": "Vince Lombardi",
+    "category": "productivity"
+  },
+  {
+    "text": "Success is the sum of small efforts repeated day in and day out.",
+    "author": "Robert Collier",
+    "category": "productivity"
+  },
+  {
+    "text": "Ordinary people think merely of spending time. Great people think of using it.",
+    "author": "Arthur Schopenhauer",
+    "category": "productivity"
+  },
+  {
+    "text": "Have a bias toward action — let's see something happen now.",
+    "author": "Lee Iacocca",
+    "category": "productivity"
+  },
+  {
+    "text": "Don't waste your life in doubts and fears; spend yourself on the work before you.",
+    "author": "Ralph Waldo Emerson",
+    "category": "wisdom"
+  },
+  {
+    "text": "Do not anticipate trouble or worry about what may never happen. Keep in the sunlight.",
+    "author": "Benjamin Franklin",
+    "category": "wisdom"
+  },
+  {
+    "text": "The mind that is anxious about future events is miserable.",
+    "author": "Seneca",
+    "category": "wisdom"
+  },
+  {
+    "text": "Years teach us more than books.",
+    "author": "Berthold Auerbach",
+    "category": "wisdom"
+  },
+  {
+    "text": "The only medicine for suffering, crime, and all the other woes of mankind, is wisdom.",
+    "author": "Thomas Huxley",
+    "category": "wisdom"
+  },
+  {
+    "text": "The art of being wise is knowing what to overlook.",
+    "author": "William James",
+    "category": "wisdom"
+  },
+  {
+    "text": "No man was ever wise by chance.",
+    "author": "Seneca",
+    "category": "wisdom"
+  },
+  {
+    "text": "The virtue lies in the struggle, not in the prize.",
+    "author": "Richard Monckton Milnes",
+    "category": "wisdom"
+  },
+  {
+    "text": "The whole problem with the world is that fools and fanatics are always so certain of themselves, but wiser people so full of doubts.",
+    "author": "Bertrand Russell",
+    "category": "wisdom"
+  },
+  {
+    "text": "If one does not know to which port one is sailing, no wind is favorable.",
+    "author": "Seneca",
+    "category": "wisdom"
+  },
+  {
+    "text": "Twenty years from now you will be more disappointed by the things that you didn't do than by the ones you did do.",
+    "author": "Mark Twain",
+    "category": "wisdom"
+  },
+  {
+    "text": "How you climb a mountain is more important than reaching the top.",
+    "author": "Yvon Chouinard",
+    "category": "wisdom"
+  },
+  {
+    "text": "It takes 20 years to build a reputation and five minutes to ruin it.",
+    "author": "Warren Buffett",
+    "category": "wisdom"
+  },
+  {
+    "text": "Everyone is a genius. But if you judge a fish by its ability to climb a tree, it will spend its whole life believing it is stupid.",
+    "author": "Albert Einstein",
+    "category": "wisdom"
+  },
+  {
+    "text": "A man must be big enough to admit his mistakes, smart enough to profit from them, and strong enough to correct them.",
+    "author": "John C. Maxwell",
+    "category": "wisdom"
+  },
+  {
+    "text": "A wise man learns by the mistakes of others, a fool by his own.",
+    "author": "Latin Proverb",
+    "category": "wisdom"
+  },
+  {
+    "text": "The diamond cannot be polished without friction, nor the man perfected without trials.",
+    "author": "Chinese Proverb",
+    "category": "wisdom"
+  },
+  {
+    "text": "Vision without action is a daydream. Action without vision is a nightmare.",
+    "author": "Japanese Proverb",
+    "category": "wisdom"
+  },
+  {
+    "text": "Sow a thought, reap an action; sow an action, reap a habit; sow a habit, reap a character; sow a character, reap a destiny.",
+    "author": "Chinese Proverb",
+    "category": "wisdom"
+  },
+  {
+    "text": "It's fine to celebrate success but it is more important to heed the lessons of failure.",
+    "author": "Bill Gates",
+    "category": "wisdom"
+  },
+  {
+    "text": "Success is a lousy teacher. It seduces smart people into thinking they can't lose.",
+    "author": "Bill Gates",
+    "category": "wisdom"
+  },
+  {
+    "text": "The best use of life is to spend it for something that outlasts it.",
+    "author": "William James",
+    "category": "wisdom"
+  },
+  {
+    "text": "The greatest glory in living lies not in never falling, but in rising every time we fall.",
+    "author": "Nelson Mandela",
+    "category": "wisdom"
+  },
+  {
+    "text": "It is the mark of an educated mind to be able to entertain a thought without accepting it.",
+    "author": "Aristotle",
+    "category": "wisdom"
+  },
+  {
+    "text": "Wise men speak because they have something to say; fools because they have to say something.",
+    "author": "Plato",
+    "category": "wisdom"
+  },
+  {
+    "text": "The measure of intelligence is the ability to change.",
+    "author": "Albert Einstein",
+    "category": "wisdom"
+  },
+  {
+    "text": "Judge a man by his questions rather than his answers.",
+    "author": "Voltaire",
+    "category": "wisdom"
+  },
+  {
+    "text": "The only thing we have to fear is fear itself.",
+    "author": "Franklin D. Roosevelt",
+    "category": "wisdom"
+  },
+  {
+    "text": "To know what you know and what you do not know, that is true knowledge.",
+    "author": "Confucius",
+    "category": "wisdom"
+  },
+  {
+    "text": "The greatest wealth is to live content with little.",
+    "author": "Plato",
+    "category": "wisdom"
+  },
+  {
+    "text": "We suffer more often in imagination than in reality.",
+    "author": "Seneca",
+    "category": "wisdom"
+  },
+  {
+    "text": "No one can make you feel inferior without your consent.",
+    "author": "Eleanor Roosevelt",
+    "category": "wisdom"
+  },
+  {
+    "text": "Experience is not what happens to you; it is what you do with what happens to you.",
+    "author": "Aldous Huxley",
+    "category": "wisdom"
+  },
+  {
+    "text": "The obstacle is the way.",
+    "author": "Marcus Aurelius",
+    "category": "wisdom"
+  },
+  {
+    "text": "What you do speaks so loudly that I cannot hear what you say.",
+    "author": "Ralph Waldo Emerson",
+    "category": "wisdom"
+  },
+  {
+    "text": "Patience is bitter, but its fruit is sweet.",
+    "author": "Jean-Jacques Rousseau",
+    "category": "wisdom"
+  },
+  {
+    "text": "The fool doth think he is wise, but the wise man knows himself to be a fool.",
+    "author": "William Shakespeare",
+    "category": "wisdom"
+  },
+  {
+    "text": "Time you enjoy wasting is not wasted time.",
+    "author": "Marthe Troly-Curtin",
+    "category": "wisdom"
+  },
+  {
+    "text": "The mind is not a vessel to be filled, but a fire to be kindled.",
+    "author": "Plutarch",
+    "category": "wisdom"
+  },
+  {
+    "text": "He who knows others is wise; he who knows himself is enlightened.",
+    "author": "Lao Tzu",
+    "category": "wisdom"
+  },
+  {
+    "text": "The pen is mightier than the sword.",
+    "author": "Edward Bulwer-Lytton",
+    "category": "wisdom"
+  },
+  {
+    "text": "By three methods we may learn wisdom: by reflection, which is noblest; by imitation, which is easiest; and by experience, which is the bitterest.",
+    "author": "Confucius",
+    "category": "wisdom"
+  },
+  {
+    "text": "When the student is ready, the teacher will appear.",
+    "author": "Lao Tzu",
+    "category": "wisdom"
+  },
+  {
+    "text": "The first step to wisdom is silence; the second is listening.",
+    "author": "Hebrew Proverb",
+    "category": "wisdom"
+  },
+  {
+    "text": "A person who says it cannot be done should not interrupt the person doing it.",
+    "author": "Chinese Proverb",
+    "category": "wisdom"
+  },
+  {
+    "text": "Keep away from people who try to belittle your ambitions. Small people always do that, but the really great make you feel that you too can become great.",
+    "author": "Mark Twain",
+    "category": "wisdom"
+  },
+  {
+    "text": "You cannot depend on your eyes when your imagination is out of focus.",
+    "author": "Mark Twain",
+    "category": "creativity"
+  },
+  {
+    "text": "Who looks outside, dreams. Who looks inside, awakes.",
+    "author": "Carl Jung",
+    "category": "creativity"
+  },
+  {
+    "text": "Insist on yourself. Never imitate.",
+    "author": "Ralph Waldo Emerson",
+    "category": "creativity"
+  },
+  {
+    "text": "If you're not embarrassed by the first version of your product, you've launched too late.",
+    "author": "Reid Hoffman",
+    "category": "creativity"
+  },
+  {
+    "text": "If you want to be inventive, you have to be willing to fail.",
+    "author": "Jeff Bezos",
+    "category": "creativity"
+  },
+  {
+    "text": "You don't learn to walk by following rules. You learn by doing and falling over.",
+    "author": "Richard Branson",
+    "category": "creativity"
+  },
+  {
+    "text": "I don't have big ideas. I sometimes have small ideas, which seem to work out.",
+    "author": "Matt Mullenweg",
+    "category": "creativity"
+  },
+  {
+    "text": "Creativity is seeing what others see and thinking what no one else ever thought.",
+    "author": "Albert Einstein",
+    "category": "creativity"
+  },
+  {
+    "text": "The creative process is a process of surrender, not control.",
+    "author": "Julia Cameron",
+    "category": "creativity"
+  },
+  {
+    "text": "Innovation distinguishes between a leader and a follower.",
+    "author": "Steve Jobs",
+    "category": "creativity"
+  },
+  {
+    "text": "The best way to predict the future is to create it.",
+    "author": "Peter Drucker",
+    "category": "creativity"
+  },
+  {
+    "text": "Logic will get you from A to B. Imagination will take you everywhere.",
+    "author": "Albert Einstein",
+    "category": "creativity"
+  },
+  {
+    "text": "If I had asked people what they wanted, they would have said faster horses.",
+    "author": "Henry Ford",
+    "category": "creativity"
+  },
+  {
+    "text": "Do not fear to be eccentric in opinion, for every opinion now accepted was once eccentric.",
+    "author": "Bertrand Russell",
+    "category": "creativity"
+  },
+  {
+    "text": "An idea that is not dangerous is unworthy of being called an idea at all.",
+    "author": "Oscar Wilde",
+    "category": "creativity"
+  },
+  {
+    "text": "There is no innovation and creativity without failure.",
+    "author": "Brené Brown",
+    "category": "creativity"
+  },
+  {
+    "text": "Originality is nothing but judicious imitation.",
+    "author": "Voltaire",
+    "category": "creativity"
+  },
+  {
+    "text": "The secret to creativity is knowing how to hide your sources.",
+    "author": "Albert Einstein",
+    "category": "creativity"
+  },
+  {
+    "text": "Creativity requires the courage to let go of certainties.",
+    "author": "Erich Fromm",
+    "category": "creativity"
+  },
+  {
+    "text": "Everything you can imagine is real.",
+    "author": "Pablo Picasso",
+    "category": "creativity"
+  },
+  {
+    "text": "Others have seen what is and asked why. I have seen what could be and asked why not.",
+    "author": "Pablo Picasso",
+    "category": "creativity"
+  },
+  {
+    "text": "Make visible what, without you, might perhaps never have been seen.",
+    "author": "Robert Bresson",
+    "category": "creativity"
+  },
+  {
+    "text": "The painter has the universe in his mind and hands.",
+    "author": "Leonardo da Vinci",
+    "category": "creativity"
+  },
+  {
+    "text": "Around here, we don't look backwards for very long. We keep moving forward, opening up new doors and doing new things.",
+    "author": "Walt Disney",
+    "category": "creativity"
+  },
+  {
+    "text": "The creation of something new is not accomplished by the intellect but by the play instinct.",
+    "author": "Carl Jung",
+    "category": "creativity"
+  },
+  {
+    "text": "Great things are done by a series of small things brought together.",
+    "author": "Vincent van Gogh",
+    "category": "creativity"
+  },
+  {
+    "text": "I begin with an idea and then it becomes something else.",
+    "author": "Pablo Picasso",
+    "category": "creativity"
+  },
+  {
+    "text": "The earth has music for those who listen.",
+    "author": "William Shakespeare",
+    "category": "creativity"
+  },
+  {
+    "text": "One must still have chaos in oneself to be able to give birth to a dancing star.",
+    "author": "Friedrich Nietzsche",
+    "category": "creativity"
+  },
+  {
+    "text": "In order to be irreplaceable one must always be different.",
+    "author": "Coco Chanel",
+    "category": "creativity"
+  },
+  {
+    "text": "Necessity is the mother of invention.",
+    "author": "Plato",
+    "category": "creativity"
+  },
+  {
+    "text": "Clean out a corner of your mind and creativity will instantly fill it.",
+    "author": "Dee Hock",
+    "category": "creativity"
+  },
+  {
+    "text": "The only unique contribution that we will ever make in this world will be born of our creativity.",
+    "author": "Brené Brown",
+    "category": "creativity"
+  },
+  {
+    "text": "A creative life is an amplified life. It's a bigger life, a happier life, an expanded life, and a hell of a lot more interesting life.",
+    "author": "Elizabeth Gilbert",
+    "category": "creativity"
+  },
+  {
+    "text": "You can't wait for inspiration. You have to go after it with a club.",
+    "author": "Jack London",
+    "category": "creativity"
+  },
+  {
+    "text": "The works must be conceived with fire in the soul but executed with clinical coolness.",
+    "author": "Joan Miró",
+    "category": "creativity"
+  },
+  {
+    "text": "Art is the lie that enables us to realize the truth.",
+    "author": "Pablo Picasso",
+    "category": "creativity"
+  },
+  {
+    "text": "Creativity is just connecting things.",
+    "author": "Steve Jobs",
+    "category": "creativity"
+  },
+  {
+    "text": "Imagination is the only weapon in the war against reality.",
+    "author": "Lewis Carroll",
+    "category": "creativity"
+  },
+  {
+    "text": "The position of the artist is humble. He is essentially a channel.",
+    "author": "Piet Mondrian",
+    "category": "creativity"
+  },
+  {
+    "text": "If you can dream it, you can do it.",
+    "author": "Walt Disney",
+    "category": "creativity"
+  },
+  {
+    "text": "Don't think. Thinking is the enemy of creativity.",
+    "author": "Ray Bradbury",
+    "category": "creativity"
+  },
+  {
+    "text": "One of the huge mistakes people make is that they try to force an interest on themselves. You don't choose your passions; your passions choose you.",
+    "author": "Jeff Bezos",
+    "category": "creativity"
+  },
+  {
+    "text": "The happiness of your life depends upon the quality of your thoughts.",
+    "author": "Marcus Aurelius",
+    "category": "mindfulness"
+  },
+  {
+    "text": "It is not easy to find happiness in ourselves, and it is not possible to find it elsewhere.",
+    "author": "Agnes Repplier",
+    "category": "mindfulness"
+  },
+  {
+    "text": "The only journey is the one within.",
+    "author": "Rainer Maria Rilke",
+    "category": "mindfulness"
+  },
+  {
+    "text": "Happiness is not a goal, but a by-product.",
+    "author": "Eleanor Roosevelt",
+    "category": "mindfulness"
+  },
+  {
+    "text": "Happiness is not a state to arrive at, but a manner of traveling.",
+    "author": "Margaret Lee Runbeck",
+    "category": "mindfulness"
+  },
+  {
+    "text": "Action may not always bring happiness; but there is no happiness without action.",
+    "author": "Benjamin Disraeli",
+    "category": "mindfulness"
+  },
+  {
+    "text": "Happiness depends more on the inward disposition of mind than on outward circumstances.",
+    "author": "Benjamin Franklin",
+    "category": "mindfulness"
+  },
+  {
+    "text": "I avoid looking forward or backward, and try to keep looking upward.",
+    "author": "Charlotte Brontë",
+    "category": "mindfulness"
+  },
+  {
+    "text": "The great lesson is that the sacred is in the ordinary, that it is to be found in one's daily life.",
+    "author": "Abraham Maslow",
+    "category": "mindfulness"
+  },
+  {
+    "text": "Life can be pulled by goals just as surely as it can be pushed by drives.",
+    "author": "Viktor Frankl",
+    "category": "mindfulness"
+  },
+  {
+    "text": "In between goals is a thing called life, that has to be lived and enjoyed.",
+    "author": "Sid Caesar",
+    "category": "mindfulness"
+  },
+  {
+    "text": "Everyone should carefully observe which way his heart draws him, and then choose that way with all his strength.",
+    "author": "Hasidic Proverb",
+    "category": "mindfulness"
+  },
+  {
+    "text": "Teachers open the door. You enter by yourself.",
+    "author": "Chinese Proverb",
+    "category": "mindfulness"
+  },
+  {
+    "text": "I learned not to worry so much about the outcome, but to concentrate on the step I was on.",
+    "author": "Steve Wozniak",
+    "category": "mindfulness"
+  },
+  {
+    "text": "Remembering you are going to die is the best way I know to avoid the trap of thinking you have something to lose.",
+    "author": "Steve Jobs",
+    "category": "mindfulness"
+  },
+  {
+    "text": "Live in each season as it passes; breathe the air, drink the drink, taste the fruit.",
+    "author": "Henry David Thoreau",
+    "category": "mindfulness"
+  },
+  {
+    "text": "There is nothing either good or bad, but thinking makes it so.",
+    "author": "William Shakespeare",
+    "category": "mindfulness"
+  },
+  {
+    "text": "He who is not contented with what he has, would not be contented with what he would like to have.",
+    "author": "Socrates",
+    "category": "mindfulness"
+  },
+  {
+    "text": "The wound is the place where the light enters you.",
+    "author": "Rumi",
+    "category": "mindfulness"
+  },
+  {
+    "text": "Yesterday is history, tomorrow is a mystery, today is a gift of God, which is why we call it the present.",
+    "author": "Bill Keane",
+    "category": "mindfulness"
+  },
+  {
+    "text": "Between stimulus and response there is a space. In that space is our power to choose our response.",
+    "author": "Viktor Frankl",
+    "category": "mindfulness"
+  },
+  {
+    "text": "You cannot always control what goes on outside. But you can always control what goes on inside.",
+    "author": "Wayne Dyer",
+    "category": "mindfulness"
+  },
+  {
+    "text": "The soul always knows what to do to heal itself. The challenge is to silence the mind.",
+    "author": "Caroline Myss",
+    "category": "mindfulness"
+  },
+  {
+    "text": "Be content with what you have; rejoice in the way things are. When you realize there is nothing lacking, the whole world belongs to you.",
+    "author": "Lao Tzu",
+    "category": "mindfulness"
+  },
+  {
+    "text": "The things that matter most must never be at the mercy of the things that matter least.",
+    "author": "Johann Wolfgang von Goethe",
+    "category": "mindfulness"
+  },
+  {
+    "text": "If you want to conquer the anxiety of life, live in the moment, live in the breath.",
+    "author": "Amit Ray",
+    "category": "mindfulness"
+  },
+  {
+    "text": "Knowing how to be solitary is central to the art of loving.",
+    "author": "bell hooks",
+    "category": "mindfulness"
+  },
+  {
+    "text": "To a mind that is still, the whole universe surrenders.",
+    "author": "Lao Tzu",
+    "category": "mindfulness"
+  },
+  {
+    "text": "Respond; don't react. Listen; don't talk. Think; don't assume.",
+    "author": "Raji Lukkoor",
+    "category": "mindfulness"
+  },
+  {
+    "text": "The only way to live is by accepting each minute as an unrepeatable miracle.",
+    "author": "Tara Brach",
+    "category": "mindfulness"
+  },
+  {
+    "text": "Happiness is the absence of the striving for happiness.",
+    "author": "Zhuangzi",
+    "category": "mindfulness"
+  },
+  {
+    "text": "Let go of the thoughts that don't make you strong.",
+    "author": "Karen Salmansohn",
+    "category": "mindfulness"
+  },
+  {
+    "text": "What we achieve inwardly will change outer reality.",
+    "author": "Plutarch",
+    "category": "mindfulness"
+  },
+  {
+    "text": "Tension is who you think you should be. Relaxation is who you are.",
+    "author": "Chinese Proverb",
+    "category": "mindfulness"
+  },
+  {
+    "text": "If you are depressed you are living in the past. If you are anxious you are living in the future. If you are at peace you are living in the present.",
+    "author": "Lao Tzu",
+    "category": "mindfulness"
+  },
+  {
+    "text": "Realize deeply that the present moment is all you ever have.",
+    "author": "Eckhart Tolle",
+    "category": "mindfulness"
+  },
+  {
+    "text": "Everything that has a beginning has an ending. Make your peace with that and all will be well.",
+    "author": "Jack Kornfield",
+    "category": "mindfulness"
+  },
+  {
+    "text": "In the end, just three things matter: how well we have lived, how well we have loved, how well we have learned to let go.",
+    "author": "Jack Kornfield",
+    "category": "mindfulness"
+  },
+  {
+    "text": "Rule your mind or it will rule you.",
+    "author": "Horace",
+    "category": "mindfulness"
+  },
+  {
+    "text": "Make happy those who are near, and those who are far will come.",
+    "author": "Chinese Proverb",
+    "category": "mindfulness"
+  },
+  {
+    "text": "Your calm mind is the ultimate weapon against your challenges.",
+    "author": "Bryant McGill",
+    "category": "mindfulness"
+  },
+  {
+    "text": "Do not dwell in the past, do not dream of the future, concentrate the mind on the present moment.",
+    "author": "Buddha",
+    "category": "mindfulness"
+  },
+  {
+    "text": "The secret of change is to focus all of your energy not on fighting the old, but on building the new.",
+    "author": "Socrates",
+    "category": "productivity"
+  },
+  {
+    "text": "Strive not to be a success, but rather to be of value.",
+    "author": "Albert Einstein",
+    "category": "productivity"
+  },
+  {
+    "text": "One percent better every day.",
+    "author": "James Clear",
+    "category": "productivity"
+  },
+  {
+    "text": "Never mistake motion for action.",
+    "author": "Ernest Hemingway",
+    "category": "productivity"
+  },
+  {
+    "text": "People often say that motivation doesn't last. Well, neither does bathing. That's why we recommend it daily.",
+    "author": "Zig Ziglar",
+    "category": "productivity"
+  },
+  {
+    "text": "To think is easy. To act is hard. But the hardest thing in the world is to act in accordance with your thinking.",
+    "author": "Johann Wolfgang von Goethe",
+    "category": "productivity"
+  },
+  {
+    "text": "Someday is not a day of the week.",
+    "author": "Janet Dailey",
+    "category": "productivity"
+  },
+  {
+    "text": "Without hustle, talent will only carry you so far.",
+    "author": "Gary Vaynerchuk",
+    "category": "productivity"
+  },
+  {
+    "text": "The two most important days in your life are the day you are born and the day you find out why.",
+    "author": "Mark Twain",
+    "category": "wisdom"
+  },
+  {
+    "text": "All that we are is the result of what we have thought.",
+    "author": "Buddha",
+    "category": "wisdom"
+  },
+  {
+    "text": "You must be the change you wish to see in the world.",
+    "author": "Mahatma Gandhi",
+    "category": "wisdom"
+  },
+  {
+    "text": "The only constant in life is change.",
+    "author": "Heraclitus",
+    "category": "wisdom"
+  },
+  {
+    "text": "I think, therefore I am.",
+    "author": "René Descartes",
+    "category": "wisdom"
+  },
+  {
+    "text": "To thine own self be true.",
+    "author": "William Shakespeare",
+    "category": "wisdom"
+  },
+  {
+    "text": "To create, one must first question everything.",
+    "author": "Eileen Gray",
+    "category": "creativity"
+  },
+  {
+    "text": "Creativity is the power to connect the seemingly unconnected.",
+    "author": "William Plomer",
+    "category": "creativity"
+  },
+  {
+    "text": "A truly creative person rids him or herself of all self-imposed limitations.",
+    "author": "Gerald Jampolsky",
+    "category": "creativity"
+  },
+  {
+    "text": "Without freedom, there is no creation.",
+    "author": "Jiddu Krishnamurti",
+    "category": "creativity"
+  },
+  {
+    "text": "Rules are what the artist breaks; the memorable never emerged from a formula.",
+    "author": "Bill Bernbach",
+    "category": "creativity"
+  },
+  {
+    "text": "The artist is not a special kind of person; rather each person is a special kind of artist.",
+    "author": "Meister Eckhart",
+    "category": "creativity"
+  },
+  {
+    "text": "Vulnerability is the birthplace of innovation, creativity, and change.",
+    "author": "Brené Brown",
+    "category": "creativity"
+  },
+  {
+    "text": "You see things and you say why. But I dream things that never were and I say why not.",
+    "author": "George Bernard Shaw",
+    "category": "creativity"
+  },
+  {
+    "text": "We are shaped by our thoughts; we become what we think.",
+    "author": "Buddha",
+    "category": "mindfulness"
+  },
+  {
+    "text": "Walk as if you are kissing the earth with your feet.",
+    "author": "Thich Nhat Hanh",
+    "category": "mindfulness"
+  },
+  {
+    "text": "Few of us ever live in the present. We are forever anticipating what is to come or remembering what has gone.",
+    "author": "Louis L'Amour",
+    "category": "mindfulness"
+  },
+  {
+    "text": "Nothing ever goes away until it has taught us what we need to know.",
+    "author": "Pema Chödrön",
+    "category": "mindfulness"
+  },
+  {
+    "text": "Calmness of mind is one of the beautiful jewels of wisdom.",
+    "author": "James Allen",
+    "category": "mindfulness"
+  },
+  {
+    "text": "Look past your thoughts, so you may drink the pure nectar of this moment.",
+    "author": "Rumi",
+    "category": "mindfulness"
+  },
+  {
+    "text": "One conscious breath in and out is a meditation.",
+    "author": "Eckhart Tolle",
+    "category": "mindfulness"
+  },
+  {
+    "text": "You only lose what you cling to.",
+    "author": "Buddha",
+    "category": "mindfulness"
+  },
+  {
+    "text": "Surrender to what is. Let go of what was. Have faith in what will be.",
+    "author": "Sonia Ricotti",
+    "category": "mindfulness"
+  },
+  {
+    "text": "Each morning we are born again. What we do today is what matters most.",
+    "author": "Buddha",
+    "category": "mindfulness"
+  },
+  {
+    "text": "Stop, look, and listen to your heart, hear what it's telling you.",
+    "author": "Diana Ross",
+    "category": "mindfulness"
+  },
+  {
+    "text": "Great things never come from comfort zones.",
+    "author": "Ben Francia",
+    "category": "motivation"
+  },
+  {
+    "text": "Knowledge speaks, but wisdom listens.",
+    "author": "Jimi Hendrix",
+    "category": "wisdom"
+  },
+  {
+    "text": "The best things in life aren't things.",
+    "author": "Art Buchwald",
+    "category": "creativity"
+  },
+  {
+    "text": "Life shrinks or expands in proportion to one's courage.",
+    "author": "Anaïs Nin",
+    "category": "creativity"
+  }
 ]
