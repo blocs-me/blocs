@@ -7,7 +7,7 @@ const useSignOutRedirect = () => {
   const router = useRouter()
 
   useEffect(() => {
-    const { data } = supabaseClient.auth.onAuthStateChange((event, session) => {
+    const { data } = supabaseClient.auth.onAuthStateChange((event) => {
       if (event === 'SIGNED_OUT') {
         router.push('/')
       }
@@ -15,7 +15,8 @@ const useSignOutRedirect = () => {
     return () => {
       data.subscription.unsubscribe()
     }
-  }, [supabaseClient, router])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [supabaseClient])
 }
 
 export default useSignOutRedirect

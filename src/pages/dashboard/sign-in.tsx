@@ -49,20 +49,22 @@ const DashboardSignIn = () => {
     if (error_code === '401') {
       router.push('/sign-in')
     }
-  }, [router, error_code]) // eslint-disable-line
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [error_code])
 
   useEffect(() => {
     if (user && !message) {
       postReq('/api/auth/sign-in', { email: user?.email })
         .then(() => {
-          router.push('/dashboard/pomodoro')
+          router.push('/dashboard')
         })
         .catch((error) => {
           console.error(error)
           notif.createError('Uh oh! Something went wrong when signing in')
         })
     }
-  }, [user, router]) // eslint-disable-line
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user])
 
   return <DashboardSkeleton message={message} />
 }

@@ -12,6 +12,7 @@ import useBlocsUser from '@/hooks/useBlocsUser'
 import useNotifications from '@/design-system/Notifications/useNotifications'
 import { useSupabaseClient } from '@supabase/auth-helpers-react'
 import { SignOutIcon } from 'src/icons/signout-icon'
+import Home from 'src/icons/home'
 import Stopwatch from 'src/icons/stopwatch'
 import { Writing } from 'src/icons/writing'
 import Drop from 'src/icons/drop-icon'
@@ -25,17 +26,22 @@ import { useEffect, useRef, useState } from 'react'
 import { isLifestylePro } from '@/lambda/helpers/subscriptionChecker'
 import Icon from '@/helpers/Icon'
 
-const tabs = [
+const primaryTabs = [
   { path: 'pomodoro', label: 'Pomodoro', icon: <Stopwatch /> },
   { path: 'habit-tracker', label: 'Habits', icon: <Writing /> },
   { path: 'water-tracker', label: 'Water', icon: <Drop /> },
+]
+
+const proTabs = [
   { path: 'countdown', label: 'Countdown', icon: <Hourglass /> },
   { path: 'progress-bar', label: 'Progress', icon: <ProgressBarIcon /> },
   { path: 'clock', label: 'Clock', icon: <ClockIcon /> },
   { path: 'calendar', label: 'Calendar', icon: <CalendarIcon /> },
   { path: 'quote', label: 'Quote', icon: <QuoteIcon /> },
-  { path: 'weather', label: 'Weather', icon: <WeatherIcon /> }
+  { path: 'weather', label: 'Weather', icon: <WeatherIcon /> },
 ]
+
+const allTabs = [...primaryTabs, ...proTabs]
 
 const Tab = ({ label, icon, isActive, onClick }) => (
   <Flex
@@ -233,12 +239,83 @@ const UpgradePill = () => {
   )
 }
 
+const MoreDropdown = ({ tabs, activePath, onNavigate, onClose }: {
+  tabs: typeof proTabs
+  activePath: string | undefined
+  onNavigate: (path: string) => void
+  onClose: () => void
+}) => {
+  const ref = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) {
+        onClose()
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [onClose])
+
+  return (
+    <Box
+      ref={ref}
+      position="absolute"
+      top="calc(100% + 4px)"
+      left="0"
+      width="180px"
+      bg="background"
+      borderRadius="md"
+      boxShadow="lg"
+      p="xs"
+      zIndex={200}
+      border="1px solid"
+      borderColor="primary.accent-2"
+    >
+      {tabs.map((tab) => (
+        <Box
+          key={tab.path}
+          as="button"
+          width="100%"
+          py="xs"
+          px="xs"
+          borderRadius="sm"
+          bg={activePath === tab.path ? 'brand.accent-5' : 'transparent'}
+          color={activePath === tab.path ? 'brand.accent-1' : 'foreground'}
+          css={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px',
+            border: 'none',
+            cursor: 'pointer',
+            fontSize: '13px',
+            fontWeight: activePath === tab.path ? 600 : 400,
+            '&:hover': { backgroundColor: 'var(--colors-primary-accent-2)' }
+          }}
+          onClick={() => {
+            onNavigate(tab.path)
+            onClose()
+          }}
+        >
+          <Icon fill="currentColor" stroke="currentColor" width="14px" height="14px" display="flex" as="span">
+            {tab.icon}
+          </Icon>
+          {tab.label}
+        </Box>
+      ))}
+    </Box>
+  )
+}
+
 const DashboardNav = () => {
   const { setTheme, setBackground } = useColorMode()
   const isDarkMode = useIsTrueDarkMode()
   const router = useRouter()
   const { path } = router.query
   const [showDropdown, setShowDropdown] = useState(false)
+  const [showMoreMenu, setShowMoreMenu] = useState(false)
+
+  const isProTabActive = proTabs.some((tab) => tab.path === path)
 
   const handleThemeChange = () => {
     if (isDarkMode) {
@@ -264,14 +341,20 @@ const DashboardNav = () => {
       <Flex alignItems="center" css={{ gap: '16px' }}>
         <Flex
           size="35px"
-          onClick={() => router.push('/')}
+          onClick={() => router.push('/dashboard')}
           css={{ cursor: 'pointer', flexShrink: 0 }}
         >
           <BlocsLogo />
         </Flex>
 
         <Flex css={{ gap: '4px' }} alignItems="center">
-          {tabs.map((tab) => (
+          <Tab
+            label="Home"
+            icon={<Home />}
+            isActive={!path}
+            onClick={() => router.push('/dashboard')}
+          />
+          {primaryTabs.map((tab) => (
             <Tab
               key={tab.path}
               label={tab.label}
@@ -280,6 +363,44 @@ const DashboardNav = () => {
               onClick={() => router.push(`/dashboard/${tab.path}`)}
             />
           ))}
+
+          <Box position="relative">
+            <Flex
+              as="button"
+              alignItems="center"
+              px="sm"
+              py="xs"
+              borderRadius="md"
+              bg={isProTabActive || showMoreMenu ? 'brand.accent-5' : 'transparent'}
+              color={isProTabActive || showMoreMenu ? 'brand.accent-1' : 'primary.accent-4'}
+              css={{
+                border: 'none',
+                cursor: 'pointer',
+                gap: '6px',
+                fontSize: '14px',
+                fontWeight: isProTabActive ? 600 : 400,
+                transition: 'all 0.15s ease',
+                '&:hover': {
+                  backgroundColor: isProTabActive || showMoreMenu ? undefined : 'var(--colors-primary-accent-2)',
+                  color: 'var(--colors-brand-accent-1)'
+                }
+              }}
+              onClick={() => setShowMoreMenu(!showMoreMenu)}
+            >
+              {isProTabActive
+                ? allTabs.find((t) => t.path === path)?.label
+                : 'More'}
+              <Box as="span" css={{ fontSize: '10px', marginLeft: '-2px' }}>▾</Box>
+            </Flex>
+            {showMoreMenu && (
+              <MoreDropdown
+                tabs={proTabs}
+                activePath={path as string}
+                onNavigate={(p) => router.push(`/dashboard/${p}`)}
+                onClose={() => setShowMoreMenu(false)}
+              />
+            )}
+          </Box>
         </Flex>
       </Flex>
 

@@ -16,6 +16,7 @@ const ClockDashboard = lazy(() => import('./ClockDashboard'))
 const CalendarDashboard = lazy(() => import('./CalendarDashboard'))
 const QuoteDashboard = lazy(() => import('./QuoteDashboard'))
 const WeatherDashboard = lazy(() => import('./WeatherDashboard'))
+import DashboardHome from './DashboardHome'
 import { useSessionContext, useUser } from '@supabase/auth-helpers-react'
 import Loader from '@/design-system/Loader'
 import Text from '@/design-system/Text'
@@ -62,13 +63,15 @@ const Dashboard = () => {
     if (user?.aud !== 'authenticated' && !session.isLoading) {
       router.push('/sign-in')
     }
-  }, [router, user, session])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user?.aud, session.isLoading])
 
   useEffect(() => {
     if (path && !validPaths.includes(path as string)) {
-      router.replace('/dashboard/pomodoro')
+      router.replace('/dashboard')
     }
-  }, [path, router])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [path])
 
   if (!user) {
     return <DashboardSkeleton />
@@ -119,6 +122,7 @@ const Dashboard = () => {
           {isMaintenance && <DashboardMaintenance />}
 
           <Suspense fallback={<LoadingScreen />}>
+            {!path && <DashboardHome />}
             {path === 'pomodoro' && !isMaintenance && (
               <MaybeProGate isPro={isPro}>
                 <WidgetAuthProvider>

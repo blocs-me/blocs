@@ -3,7 +3,7 @@ const nextSeoConfig = {
     title: 'Free Notion Widgets for Focus & Habits | Blocs',
     type: 'website',
     description:
-      'Free Notion widgets for focus and productivity. Embed a Pomodoro timer, Habit Tracker, and Water Tracker directly in your workspace. No sign-up required.',
+      'Free Notion widgets for focus and productivity. Pomodoro timer, habit tracker, water tracker, countdown, progress bar, clock, calendar, daily quotes, and live weather — all embeddable in your workspace.',
     images: [
       {
         url: 'https://blocs.me/blocs-social-banner.png',

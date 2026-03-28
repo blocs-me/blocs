@@ -112,7 +112,7 @@ const PricingPage = () => {
             color="primary.accent-4"
             textAlign="center"
             lineHeight={1.5}
-            maxWidth="700px"
+            maxWidth="800px"
             mb="sm"
           >
             Pomodoro, habits, water tracking, countdown timers, progress bars, clock, calendar, daily quotes, and live weather — fully customizable, embedded in your workspace.

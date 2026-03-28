@@ -48,10 +48,8 @@ const FeedbackNav = () => {
             </Flex>
 
             <Flex css={{ gap: '2rem' }} alignItems="center">
-                <Link href="/dashboard/pomodoro">
-                    <a>
-                        <LinkText>Dashboard</LinkText>
-                    </a>
+                <Link href="/dashboard">
+                    <LinkText>Dashboard</LinkText>
                 </Link>
                 <Avatar
                     variant="sm"

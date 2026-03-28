@@ -33,7 +33,7 @@ const FAQItem = ({ question, answer }: { question: string; answer: React.ReactNo
 const faqs = [
   {
     question: 'Is Blocs free to use?',
-    answer: 'Yes! Every Blocs widget (Pomodoro Timer, Water Tracker, Habit Tracker) is free to embed in Notion with no sign-up required. Blocs Pro unlocks additional features like custom presets, analytics, and theme customization.'
+    answer: 'Yes! Every Blocs widget is free to embed in Notion with no sign-up required. Blocs Pro unlocks additional features like custom presets, analytics, and theme customization.'
   },
   {
     question: 'How do I add a widget to my Notion page?',
@@ -41,7 +41,7 @@ const faqs = [
   },
   {
     question: 'What widgets does Blocs offer?',
-    answer: 'Blocs currently offers three widgets: a Pomodoro Timer for focused work sessions, a Water Tracker to monitor daily water intake, and a Habit Tracker for building daily habits. All are designed to work inside Notion.'
+    answer: 'Blocs offers nine widgets: Pomodoro Timer, Habit Tracker, Water Tracker, Countdown Timer, Progress Bar, Clock, Calendar, Quote of the Day, and Weather. All are designed to work inside Notion.'
   },
   {
     question: 'What is Blocs Pro?',
@@ -93,7 +93,7 @@ export default function FAQsPage() {
         <title>FAQs — Free Notion Widgets | Blocs</title>
         <meta
           name="description"
-          content="Frequently asked questions about Blocs: free Notion widgets for Pomodoro timing, water tracking, and habit tracking."
+          content="Frequently asked questions about Blocs: free Notion widgets including Pomodoro timer, habit tracker, water tracker, countdown, clock, calendar, quotes, and weather."
         />
         <link rel="canonical" href="https://blocs.me/faqs" />
         <meta property="og:type" content="website" />
@@ -101,7 +101,7 @@ export default function FAQsPage() {
         <meta property="og:title" content="FAQs — Free Notion Widgets | Blocs" />
         <meta
           property="og:description"
-          content="Frequently asked questions about Blocs: free Notion widgets for Pomodoro timing, water tracking, and habit tracking."
+          content="Frequently asked questions about Blocs: free Notion widgets including Pomodoro timer, habit tracker, water tracker, countdown, clock, calendar, quotes, and weather."
         />
         <meta property="og:image" content="https://blocs.me/blocs-social-banner.png" />
         <script

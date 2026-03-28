@@ -55,7 +55,7 @@ const LandingPage = () => {
             <title>Free Notion Widgets for Focus & Habits | Blocs</title>
             <meta
               name="description"
-              content="Free Notion widgets for focus and productivity. Embed a Pomodoro timer, Habit Tracker, and Water Tracker directly in your workspace. No sign-up required."
+              content="Free Notion widgets for focus and productivity. Pomodoro timer, habit tracker, water tracker, countdown, progress bar, clock, calendar, daily quotes, and live weather — all embeddable in your workspace."
             />
             <link rel="canonical" href="https://blocs.me" />
             <meta property="og:type" content="website" />
@@ -66,7 +66,7 @@ const LandingPage = () => {
             />
             <meta
               property="og:description"
-              content="Free Notion widgets for focus and productivity. Embed a Pomodoro timer, Habit Tracker, and Water Tracker directly in your workspace. No sign-up required."
+              content="Free Notion widgets for focus and productivity. Pomodoro timer, habit tracker, water tracker, countdown, progress bar, clock, calendar, daily quotes, and live weather — all embeddable in your workspace."
             />
             <meta
               property="og:image"
@@ -82,7 +82,7 @@ const LandingPage = () => {
             />
             <meta
               property="twitter:description"
-              content="Free Notion widgets for focus and productivity. Embed a Pomodoro timer, Habit Tracker, and Water Tracker directly in your workspace. No sign-up required."
+              content="Free Notion widgets for focus and productivity. Pomodoro timer, habit tracker, water tracker, countdown, progress bar, clock, calendar, daily quotes, and live weather — all embeddable in your workspace."
             />
             <meta
               property="twitter:image"
@@ -170,7 +170,7 @@ const LandingPage = () => {
                     mt="xs"
                     lineHeight={1.5}
                   >
-                    Embed a Pomodoro timer, habit tracker, water tracker, countdown timer, and progress bar directly in your Notion workspace.
+                    Embed a Pomodoro timer, habit tracker, water tracker, countdown, progress bar, clock, calendar, daily quotes, and live weather directly in your Notion workspace.
                   </Text>
                 </Box>
                 {isSignedIn ? (
@@ -183,7 +183,7 @@ const LandingPage = () => {
                     hoverBg="foreground"
                     hoverColor="background"
                     mt="sm"
-                    onClick={() => router.push('/dashboard/pomodoro')}
+                    onClick={() => router.push('/dashboard')}
                   >
                     Go to dashboard
                   </Button>

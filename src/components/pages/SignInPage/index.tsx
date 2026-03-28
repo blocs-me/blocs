@@ -74,7 +74,7 @@ const SignInPage = () => {
 
   useEffect(() => {
     if (user?.aud === 'authenticated') {
-      router.push('/dashboard/pomodoro')
+      router.push('/dashboard')
     }
   }, [user?.aud, router])
 
