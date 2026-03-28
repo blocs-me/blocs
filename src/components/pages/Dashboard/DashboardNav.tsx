@@ -20,6 +20,7 @@ import ProgressBarIcon from 'src/icons/progress-bar-icon'
 import ClockIcon from 'src/icons/clock-icon'
 import CalendarIcon from 'src/icons/calendar-icon'
 import QuoteIcon from 'src/icons/quote-icon'
+import WeatherIcon from 'src/icons/weather-icon'
 import { useEffect, useRef, useState } from 'react'
 import { isLifestylePro } from '@/lambda/helpers/subscriptionChecker'
 import Icon from '@/helpers/Icon'
@@ -32,7 +33,8 @@ const tabs = [
   { path: 'progress-bar', label: 'Progress', icon: <ProgressBarIcon /> },
   { path: 'clock', label: 'Clock', icon: <ClockIcon /> },
   { path: 'calendar', label: 'Calendar', icon: <CalendarIcon /> },
-  { path: 'quote', label: 'Quote', icon: <QuoteIcon /> }
+  { path: 'quote', label: 'Quote', icon: <QuoteIcon /> },
+  { path: 'weather', label: 'Weather', icon: <WeatherIcon /> }
 ]
 
 const Tab = ({ label, icon, isActive, onClick }) => (

@@ -83,6 +83,7 @@ const Footer = () => (
             <RegoLink href="/clock-widget">Clock & Timer</RegoLink>
             <RegoLink href="/calendar-widget">Calendar</RegoLink>
             <RegoLink href="/quote-widget">Quote of the Day</RegoLink>
+            <RegoLink href="/weather-widget">Weather</RegoLink>
           </Box>
         </Grid>
       </PageGutters>
