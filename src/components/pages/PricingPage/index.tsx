@@ -17,6 +17,7 @@ const features = [
   { label: 'Progress Bar', free: false },
   { label: 'Clock & Timer', free: false },
   { label: 'Calendar', free: false },
+  { label: 'Quote of the Day', free: false },
   { label: 'Edit Durations & Goals', free: false },
   { label: 'Unlimited Habits', free: false },
   { label: 'Analytics & Streaks', free: false },
@@ -113,11 +114,11 @@ const PricingPage = () => {
             maxWidth="700px"
             mb="sm"
           >
-            Pomodoro, habits, water tracking, countdown timers, and progress bars — fully customizable, embedded in your workspace.
+            Pomodoro, habits, water tracking, countdown timers, progress bars, clock, calendar, and daily quotes — fully customizable, embedded in your workspace.
           </Text>
 
-          <Flex css={{ gap: '8px' }} flexDirection="column" width="min(100%, 500px)" mb="sm">
-            <FeatureBullet text="5 widgets: Pomodoro, Habits, Water, Countdown, Progress Bar" />
+          <Flex css={{ gap: '8px' }} flexDirection="column" width="min(100%, 340px)" mb="sm">
+            <FeatureBullet text="8 widgets (full list below)" />
             <FeatureBullet text="Full customization & custom durations" />
             <FeatureBullet text="Analytics, streaks & progress charts" />
             <FeatureBullet text="No branding on your widgets" />
@@ -202,7 +203,7 @@ const PricingPage = () => {
                 alignItems="center"
               >
                 <Text fontSize="xs" fontWeight={700} color="foreground" m={0} css={{ flex: 1 }}>
-                  Feature
+                  Widgets & Features
                 </Text>
                 <Box width="60px" textAlign="center">
                   <Text fontSize="xs" fontWeight={700} color="foreground" m={0}>Free</Text>

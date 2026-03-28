@@ -15,6 +15,7 @@ import CountdownSection from './CountdownSection'
 import ProgressBarSection from './ProgressBarSection'
 import ClockSection from './ClockSection'
 import CalendarSection from './CalendarSection'
+import QuoteSection from './QuoteSection'
 import BlocsThemeProvider from '@/helpers/BlocsThemeProvider'
 
 const isMaintenance = process.env.NEXT_PUBLIC_MAINTENANCE === 'yes'
@@ -250,6 +251,7 @@ const LandingPage = () => {
               <ProgressBarSection />
               <ClockSection />
               <CalendarSection />
+              <QuoteSection />
             </Box>
           </Box>
         </PageLayout>
