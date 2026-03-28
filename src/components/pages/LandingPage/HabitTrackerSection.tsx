@@ -45,6 +45,7 @@ const HabitTrackerSection = () => {
       paraTwo={
         <Link href="/habit-tracker-widget" style={{ textDecoration: 'none' }}>
           <Button
+            className="plausible-event-name=Landing+See+Habit+Tracker"
             bg="brand.accent-1"
             color="background"
             borderRadius="sm"

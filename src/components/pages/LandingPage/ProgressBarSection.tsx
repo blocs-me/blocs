@@ -44,6 +44,7 @@ const ProgressBarSection = () => {
       paraTwo={
         <Link href="/progress-bar-widget" style={{ textDecoration: 'none' }}>
           <Button
+            className="plausible-event-name=Landing+See+Progress+Bar"
             bg="brand.accent-1"
             color="background"
             borderRadius="sm"

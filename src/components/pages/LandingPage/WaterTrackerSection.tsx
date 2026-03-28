@@ -29,6 +29,7 @@ const WaterTrackerSection = () => {
       paraTwo={
         <Link href="/water-tracker-widget" style={{ textDecoration: 'none' }}>
           <Button
+            className="plausible-event-name=Landing+See+Water+Tracker"
             bg="brand.accent-1"
             color="background"
             borderRadius="sm"

@@ -16,6 +16,7 @@ const PomodoroSection = () => {
       paraTwo={
         <Link href="/pomodoro-timer" style={{ textDecoration: 'none' }}>
           <Button
+            className="plausible-event-name=Landing+See+Pomodoro"
             bg="brand.accent-1"
             color="background"
             borderRadius="sm"

@@ -43,6 +43,7 @@ const QuoteSection = () => {
       paraTwo={
         <Link href="/quote-widget" style={{ textDecoration: 'none' }}>
           <Button
+            className="plausible-event-name=Landing+See+Quote"
             bg="brand.accent-1"
             color="background"
             borderRadius="sm"

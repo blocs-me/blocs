@@ -173,6 +173,7 @@ const LandingPage = () => {
                 </Box>
                 {isSignedIn ? (
                   <Button
+                    className="plausible-event-name=Landing+Go+To+Dashboard"
                     variant="outlined"
                     maxWidth={['300px']}
                     width="100%"
@@ -225,6 +226,7 @@ const LandingPage = () => {
                 )}
                 {!isSignedIn && (
                   <Box
+                    className="plausible-event-name=Landing+Explore+Widgets"
                     as="a"
                     href="#widgets"
                     mt="sm"

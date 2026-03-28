@@ -44,6 +44,7 @@ const CountdownSection = () => {
       paraTwo={
         <Link href="/countdown-timer" style={{ textDecoration: 'none' }}>
           <Button
+            className="plausible-event-name=Landing+See+Countdown"
             bg="brand.accent-1"
             color="background"
             borderRadius="sm"

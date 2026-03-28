@@ -43,6 +43,7 @@ const ClockSection = () => {
       paraTwo={
         <Link href="/clock-widget" style={{ textDecoration: 'none' }}>
           <Button
+            className="plausible-event-name=Landing+See+Clock"
             bg="brand.accent-1"
             color="background"
             borderRadius="sm"

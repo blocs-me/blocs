@@ -43,6 +43,7 @@ const CalendarSection = () => {
       paraTwo={
         <Link href="/calendar-widget" style={{ textDecoration: 'none' }}>
           <Button
+            className="plausible-event-name=Landing+See+Calendar"
             bg="brand.accent-1"
             color="background"
             borderRadius="sm"
