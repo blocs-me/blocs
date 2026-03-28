@@ -56,6 +56,7 @@ const ClockSection = () => {
           </Button>
         </Link>
       }
+      reverse
     >
       {() => (
         <Box

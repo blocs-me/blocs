@@ -56,7 +56,6 @@ const CalendarSection = () => {
           </Button>
         </Link>
       }
-      reverse
     >
       {() => (
         <Box
