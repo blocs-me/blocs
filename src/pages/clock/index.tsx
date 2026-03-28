@@ -29,7 +29,7 @@ const ClockWidget = ({ config }: { config: ReturnType<typeof configFromParams> }
     <div style={{ width: '100vw', height: '100vh', overflow: 'hidden', position: 'relative' }}>
       <WidgetSettingsPopover
         currentMode={activeMode}
-        onModeChange={setModeOverride}
+        onModeChange={(mode) => setModeOverride(mode as ClockTimerMode)}
       />
       {activeMode === 'clock' ? (
         <ClockModeWidget config={config} />

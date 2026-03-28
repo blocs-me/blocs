@@ -1,12 +1,28 @@
 import { useState, useRef, useEffect } from 'react'
-import type { ClockTimerMode } from './clockConfig'
 
-type Props = {
-  currentMode: ClockTimerMode
-  onModeChange: (mode: ClockTimerMode) => void
+type ModeOption = {
+  value: string
+  label: string
 }
 
-const WidgetSettingsPopover = ({ currentMode, onModeChange }: Props) => {
+type Props = {
+  currentMode: string
+  onModeChange: (mode: string) => void
+  modes?: ModeOption[]
+  dashboardPath?: string
+}
+
+const DEFAULT_MODES: ModeOption[] = [
+  { value: 'clock', label: 'Clock' },
+  { value: 'timer', label: 'Timer' }
+]
+
+const WidgetSettingsPopover = ({
+  currentMode,
+  onModeChange,
+  modes = DEFAULT_MODES,
+  dashboardPath = '/dashboard/clock'
+}: Props) => {
   const [open, setOpen] = useState(false)
   const popoverRef = useRef<HTMLDivElement>(null)
 
@@ -58,12 +74,12 @@ const WidgetSettingsPopover = ({ currentMode, onModeChange }: Props) => {
           fontSize: '13px'
         }}>
           <div style={{ padding: '4px 8px', color: '#888', fontSize: '11px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
-            Mode
+            View
           </div>
-          {(['clock', 'timer'] as const).map(mode => (
+          {modes.map(mode => (
             <button
-              key={mode}
-              onClick={() => { onModeChange(mode); setOpen(false) }}
+              key={mode.value}
+              onClick={() => { onModeChange(mode.value); setOpen(false) }}
               style={{
                 display: 'block',
                 width: '100%',
@@ -71,19 +87,19 @@ const WidgetSettingsPopover = ({ currentMode, onModeChange }: Props) => {
                 padding: '6px 8px',
                 border: 'none',
                 borderRadius: '4px',
-                backgroundColor: currentMode === mode ? '#f0f0f0' : 'transparent',
-                fontWeight: currentMode === mode ? 600 : 400,
+                backgroundColor: currentMode === mode.value ? '#f0f0f0' : 'transparent',
+                fontWeight: currentMode === mode.value ? 600 : 400,
                 color: '#333',
                 cursor: 'pointer',
                 fontSize: '13px'
               }}
             >
-              {mode === 'clock' ? 'Clock' : 'Timer'}
+              {mode.label}
             </button>
           ))}
           <div style={{ height: '1px', backgroundColor: '#e0e0e0', margin: '6px 0' }} />
           <a
-            href="/dashboard/clock"
+            href={dashboardPath}
             target="_blank"
             rel="noopener noreferrer"
             style={{

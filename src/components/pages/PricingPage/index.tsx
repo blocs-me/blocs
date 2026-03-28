@@ -16,6 +16,7 @@ const features = [
   { label: 'Countdown Timer', free: false },
   { label: 'Progress Bar', free: false },
   { label: 'Clock & Timer', free: false },
+  { label: 'Calendar', free: false },
   { label: 'Edit Durations & Goals', free: false },
   { label: 'Unlimited Habits', free: false },
   { label: 'Analytics & Streaks', free: false },
