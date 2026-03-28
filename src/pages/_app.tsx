@@ -6,8 +6,18 @@ import theme from '../styles/theme'
 import Script from 'next/script'
 import SupabaseAuthProvider from '@/helpers/SupabaseAuthProvider'
 import BlocsThemeProvider from '@/helpers/BlocsThemeProvider'
+import { useRouter } from 'next/router'
+import { useEffect } from 'react'
 
 function MyApp({ Component, pageProps }) {
+  const router = useRouter()
+
+  useEffect(() => {
+    const handleRouteChange = () => window.scrollTo(0, 0)
+    router.events.on('routeChangeComplete', handleRouteChange)
+    return () => router.events.off('routeChangeComplete', handleRouteChange)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
   return (
     <ThemeProvider theme={theme}>
       <Script
