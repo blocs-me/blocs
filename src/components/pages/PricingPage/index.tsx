@@ -44,21 +44,121 @@ const LockIcon = () => (
   </svg>
 )
 
-const FeatureBullet = ({ text }: { text: string }) => (
-  <Flex alignItems="center" css={{ gap: '10px' }}>
+const ComparisonTable = () => (
+  <Box width="min(100%, 500px)">
     <Box
-      width="22px"
-      height="22px"
-      borderRadius="50%"
-      bg="brand.accent-5"
-      css={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}
+      border="1px solid"
+      borderColor="primary.accent-2"
+      borderRadius="md"
+      overflow="hidden"
     >
-      <Text as="span" m={0} color="brand.accent-1" css={{ fontSize: '12px', fontWeight: 700 }}>
-        &#10003;
+      <Flex
+        px="md"
+        py="sm"
+        bg="primary.accent-2"
+        justifyContent="space-between"
+        alignItems="center"
+      >
+        <Text fontSize="xs" fontWeight={700} color="foreground" m={0} css={{ flex: 1 }}>
+          Widgets & Features
+        </Text>
+        <Box width="60px" textAlign="center">
+          <Text fontSize="xs" fontWeight={700} color="foreground" m={0}>Free</Text>
+        </Box>
+        <Box width="60px" textAlign="center">
+          <Text fontSize="xs" fontWeight={700} color="brand.accent-1" m={0}>Pro</Text>
+        </Box>
+      </Flex>
+
+      {features.map((f) => (
+        <Flex
+          key={f.label}
+          px="md"
+          py="xs"
+          justifyContent="space-between"
+          alignItems="center"
+          borderTop="1px solid"
+          borderColor="primary.accent-2"
+        >
+          <Text fontSize="sm" color="foreground" m={0} css={{ flex: 1 }}>
+            {f.label}
+          </Text>
+          <Box width="60px" textAlign="center">
+            {f.free ? <Check /> : <Cross />}
+          </Box>
+          <Box width="60px" textAlign="center">
+            <Check />
+          </Box>
+        </Flex>
+      ))}
+    </Box>
+  </Box>
+)
+
+const PricingCard = ({ onCheckout, isLoading }: { onCheckout: () => void; isLoading: boolean }) => (
+  <Box
+    width="min(100%, 380px)"
+    borderRadius="md"
+    border="2px solid"
+    borderColor="brand.accent-1"
+    overflow="hidden"
+  >
+    <Box px="md" py="sm">
+      <Flex justifyContent="space-between" alignItems="center" mb="xxs">
+        <Text fontSize="lg" fontWeight={700} color="foreground" m={0}>
+          Lifetime Access
+        </Text>
+        <Box
+          bg="brand.accent-5"
+          borderRadius="sm"
+          py="3px"
+          px="xs"
+        >
+          <Text fontSize="xxs" fontWeight={600} m={0} color="brand.accent-1">
+            ONE-TIME
+          </Text>
+        </Box>
+      </Flex>
+
+      <Text fontSize="sm" color="primary.accent-4" m={0} mb="xs">
+        Pay once, keep forever
+      </Text>
+
+      <Flex alignItems="baseline" mb="sm">
+        <Text fontSize="xxl" fontWeight={700} color="foreground" m={0} lineHeight={1}>
+          $17
+        </Text>
+      </Flex>
+
+      <Button
+        className="plausible-event-name=Checkout+Lifetime"
+        width="100%"
+        py="xs"
+        borderRadius="md"
+        fontSize="sm"
+        bg="brand.accent-1"
+        color="neutral.white"
+        onClick={onCheckout}
+        loading={isLoading}
+        disabled={isLoading}
+      >
+        Get Blocs Pro
+      </Button>
+
+      <Text fontSize="xs" color="primary.accent-4" textAlign="center" m={0} mt="xs">
+        No subscription. No recurring charges.
       </Text>
     </Box>
-    <Text fontSize="sm" color="foreground" m={0}>{text}</Text>
-  </Flex>
+
+    <Flex px="md" py="xs" bg="primary.accent-2" justifyContent="center" alignItems="center" css={{ gap: '6px' }}>
+      <Box color="primary.accent-4" css={{ display: 'flex', alignItems: 'center' }}>
+        <LockIcon />
+      </Box>
+      <Text fontSize="xxs" color="primary.accent-4" m={0}>
+        Secure payment via Stripe
+      </Text>
+    </Flex>
+  </Box>
 )
 
 const PricingPage = () => {
@@ -102,7 +202,7 @@ const PricingPage = () => {
             textAlign="center"
             lineHeight={1.3}
           >
-            Your productivity tools, inside Notion
+            The widgets Notion should&apos;ve built in
           </Text>
           <Text
             as="h2"
@@ -113,129 +213,19 @@ const PricingPage = () => {
             textAlign="center"
             lineHeight={1.5}
             maxWidth="800px"
-            mb="sm"
+            mb="xxs"
           >
             Pomodoro, habits, water tracking, countdown timers, progress bars, clock, calendar, daily quotes, and live weather — fully customizable, embedded in your workspace.
           </Text>
 
-          <Flex css={{ gap: '8px' }} flexDirection="column" width="min(100%, 340px)" mb="sm">
-            <FeatureBullet text="9 widgets (full list below)" />
-            <FeatureBullet text="Full customization & custom durations" />
-            <FeatureBullet text="Analytics, streaks & progress charts" />
-            <FeatureBullet text="No branding on your widgets" />
-          </Flex>
+          <Text fontSize="sm" color="primary.accent-4" m={0} mb="sm">
+            Trusted by 10,000+ Notion users
+          </Text>
 
-          <Box
-            width="min(100%, 380px)"
-            borderRadius="md"
-            border="2px solid"
-            borderColor="brand.accent-1"
-            overflow="hidden"
-          >
-            <Box px="md" py="sm">
-              <Flex justifyContent="space-between" alignItems="center" mb="xxs">
-                <Text fontSize="lg" fontWeight={700} color="foreground" m={0}>
-                  Lifetime Access
-                </Text>
-                <Box
-                  bg="brand.accent-5"
-                  borderRadius="sm"
-                  py="3px"
-                  px="xs"
-                >
-                  <Text fontSize="xxs" fontWeight={600} m={0} color="brand.accent-1">
-                    ONE-TIME
-                  </Text>
-                </Box>
-              </Flex>
+          <ComparisonTable />
 
-              <Text fontSize="sm" color="primary.accent-4" m={0} mb="xs">
-                Pay once, keep forever
-              </Text>
-
-              <Flex alignItems="baseline" mb="sm">
-                <Text fontSize="xxl" fontWeight={700} color="foreground" m={0} lineHeight={1}>
-                  $17
-                </Text>
-              </Flex>
-
-              <Button
-                className="plausible-event-name=Checkout+Lifetime"
-                width="100%"
-                py="xs"
-                borderRadius="md"
-                fontSize="sm"
-                bg="brand.accent-1"
-                color="neutral.white"
-                onClick={handleCheckout}
-                loading={isLoading}
-                disabled={isLoading}
-              >
-                Get Blocs Pro
-              </Button>
-
-              <Text fontSize="xs" color="primary.accent-4" textAlign="center" m={0} mt="xs">
-                No subscription. No recurring charges.
-              </Text>
-            </Box>
-
-            <Flex px="md" py="xs" bg="primary.accent-2" justifyContent="center" alignItems="center" css={{ gap: '6px' }}>
-              <Box color="primary.accent-4" css={{ display: 'flex', alignItems: 'center' }}>
-                <LockIcon />
-              </Box>
-              <Text fontSize="xxs" color="primary.accent-4" m={0}>
-                Secure payment via Stripe
-              </Text>
-            </Flex>
-          </Box>
-
-          <Box mt="lg" width="min(100%, 500px)">
-            <Box
-              border="1px solid"
-              borderColor="primary.accent-2"
-              borderRadius="md"
-              overflow="hidden"
-            >
-              <Flex
-                px="md"
-                py="sm"
-                bg="primary.accent-2"
-                justifyContent="space-between"
-                alignItems="center"
-              >
-                <Text fontSize="xs" fontWeight={700} color="foreground" m={0} css={{ flex: 1 }}>
-                  Widgets & Features
-                </Text>
-                <Box width="60px" textAlign="center">
-                  <Text fontSize="xs" fontWeight={700} color="foreground" m={0}>Free</Text>
-                </Box>
-                <Box width="60px" textAlign="center">
-                  <Text fontSize="xs" fontWeight={700} color="brand.accent-1" m={0}>Pro</Text>
-                </Box>
-              </Flex>
-
-              {features.map((f) => (
-                <Flex
-                  key={f.label}
-                  px="md"
-                  py="xs"
-                  justifyContent="space-between"
-                  alignItems="center"
-                  borderTop="1px solid"
-                  borderColor="primary.accent-2"
-                >
-                  <Text fontSize="sm" color="foreground" m={0} css={{ flex: 1 }}>
-                    {f.label}
-                  </Text>
-                  <Box width="60px" textAlign="center">
-                    {f.free ? <Check /> : <Cross />}
-                  </Box>
-                  <Box width="60px" textAlign="center">
-                    <Check />
-                  </Box>
-                </Flex>
-              ))}
-            </Box>
+          <Box mt="md">
+            <PricingCard onCheckout={handleCheckout} isLoading={isLoading} />
           </Box>
         </Flex>
         <Footer />
