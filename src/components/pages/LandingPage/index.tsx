@@ -50,21 +50,21 @@ const LandingPage = () => {
     <Box bg="background" height="fit-content">
         <PageLayout>
           <Head>
-            <title>Free Notion Widgets for Focus & Habits | Blocs</title>
+            <title>Free Notion Widgets for Productivity | Blocs</title>
             <meta
               name="description"
-              content="Free Notion widgets for focus and productivity. Pomodoro timer, habit tracker, water tracker, countdown, progress bar, clock, calendar, daily quotes, and live weather — all embeddable in your workspace."
+              content="Free Notion widgets for productivity. Pomodoro timer, habit tracker, water tracker, countdown, progress bar, clock, calendar, daily quotes, and live weather — all embeddable in your workspace."
             />
             <link rel="canonical" href="https://blocs.me" />
             <meta property="og:type" content="website" />
             <meta property="og:url" content="https://blocs.me/" />
             <meta
               property="og:title"
-              content="Free Notion Widgets for Focus & Habits | Blocs"
+              content="Free Notion Widgets for Productivity | Blocs"
             />
             <meta
               property="og:description"
-              content="Free Notion widgets for focus and productivity. Pomodoro timer, habit tracker, water tracker, countdown, progress bar, clock, calendar, daily quotes, and live weather — all embeddable in your workspace."
+              content="Free Notion widgets for productivity. Pomodoro timer, habit tracker, water tracker, countdown, progress bar, clock, calendar, daily quotes, and live weather — all embeddable in your workspace."
             />
             <meta
               property="og:image"
@@ -76,7 +76,7 @@ const LandingPage = () => {
             <meta property="twitter:url" content="https://blocs.me/" />
             <meta
               property="twitter:title"
-              content="Free Notion Widgets for Focus & Habits | Blocs"
+              content="Free Notion Widgets for Productivity | Blocs"
             />
             <meta
               property="twitter:description"
@@ -156,7 +156,7 @@ const LandingPage = () => {
                       color="brand.accent-1"
                       display="inline-block"
                     >
-                      Focus & Habits
+                      Productivity
                     </Box>
                   </Text>
                   <Text

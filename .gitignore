@@ -40,3 +40,4 @@ tsconfig.tsbuildinfo
 .env
 
 **/*.csv
+data/
