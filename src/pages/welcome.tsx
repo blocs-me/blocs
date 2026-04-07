@@ -116,7 +116,7 @@ const WelcomeContent = () => {
           </Box>
 
           <Text fontSize="sm" color="primary.accent-4" textAlign="center" mt="sm" lineHeight={1.6}>
-            Didn&apos;t get it?{' '}
+            Didn&apos;t get the email?{' '}
             <Link href="/sign-in">
               <Text
                 as="span"
@@ -124,7 +124,7 @@ const WelcomeContent = () => {
                 color="brand.accent-1"
                 css={{ cursor: 'pointer', textDecoration: 'underline' }}
               >
-                Request another link
+                Sign in directly with your email
               </Text>
             </Link>
           </Text>

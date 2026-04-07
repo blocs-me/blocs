@@ -158,11 +158,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             }
 
             // Send magic link so user can log in
-            const { error: otpError } = await supabaseAdmin.auth.admin.generateLink({
-              type: 'magiclink',
+            const { error: otpError } = await supabase.auth.signInWithOtp({
               email: customerEmail,
               options: {
-                redirectTo: 'https://blocs.me/dashboard/pomodoro'
+                emailRedirectTo: 'https://blocs.me/dashboard/pomodoro'
               }
             })
 

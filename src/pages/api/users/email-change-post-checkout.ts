@@ -70,11 +70,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     }
 
     // Send magic link to the new email
-    const { error: otpError } = await supabaseAdmin.auth.admin.generateLink({
-      type: 'magiclink',
+    const { error: otpError } = await supabase.auth.signInWithOtp({
       email: newEmail,
       options: {
-        redirectTo: 'https://blocs.me/dashboard/pomodoro'
+        emailRedirectTo: 'https://blocs.me/dashboard/pomodoro'
       }
     })
 
