@@ -177,8 +177,6 @@ const PricingPage = () => {
             </Text>
           </Flex>
 
-          <ComparisonTable />
-
           <Flex
             mt="md"
             flexDirection="column"
@@ -236,6 +234,8 @@ const PricingPage = () => {
               </Text>
             </Flex>
           </Flex>
+
+          <ComparisonTable />
 
           <Flex css={{ gap: '8px' }} flexDirection="column" width="min(100%, 340px)" mt="md">
             <FeatureBullet text="Unlock all 9 widgets" />
