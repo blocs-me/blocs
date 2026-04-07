@@ -100,8 +100,22 @@ const WelcomeContent = () => {
             m={0}
             lineHeight={1.6}
           >
-            Check your email for a magic link to access your Pro dashboard.
+            Sign in with your checkout email to access your Pro dashboard.
           </Text>
+
+          <Box mt="sm" width="100%">
+            <Link href="/sign-in" style={{ textDecoration: 'none' }}>
+              <Button
+                width="100%"
+                borderRadius="sm"
+                bg="brand.accent-1"
+                color="neutral.white"
+                py="xs"
+              >
+                Sign In
+              </Button>
+            </Link>
+          </Box>
 
           <Box
             mt="sm"
@@ -111,23 +125,9 @@ const WelcomeContent = () => {
             width="100%"
           >
             <Text fontSize="sm" color="foreground" textAlign="center" m={0} lineHeight={1.6}>
-              We created an account with your checkout email and sent a sign-in link. Click it to get started.
+              Use the same email you checked out with. We&apos;ll send you a magic link to access your dashboard.
             </Text>
           </Box>
-
-          <Text fontSize="sm" color="primary.accent-4" textAlign="center" mt="sm" lineHeight={1.6}>
-            Didn&apos;t get the email?{' '}
-            <Link href="/sign-in">
-              <Text
-                as="span"
-                fontSize="sm"
-                color="brand.accent-1"
-                css={{ cursor: 'pointer', textDecoration: 'underline' }}
-              >
-                Sign in directly with your email
-              </Text>
-            </Link>
-          </Text>
 
           {!emailChanged ? (
             <Box mt="sm" width="100%">

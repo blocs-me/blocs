@@ -157,18 +157,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
               throw new Error(`Failed to insert user row: ${insertError.message}`)
             }
 
-            // Send magic link so user can log in
-            const { error: otpError } = await supabase.auth.signInWithOtp({
-              email: customerEmail,
-              options: {
-                emailRedirectTo: 'https://blocs.me/dashboard/pomodoro'
-              }
-            })
-
-            if (otpError) {
-              console.error('Failed to send magic link:', otpError.message)
-            }
-
             user = { id: newUser.id, email: customerEmail, purchasedProducts: products, stripeCustomerId: customerId as string } as any
             break
           }

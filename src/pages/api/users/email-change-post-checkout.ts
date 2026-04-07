@@ -69,18 +69,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       return handle500Response(res)
     }
 
-    // Send magic link to the new email
-    const { error: otpError } = await supabase.auth.signInWithOtp({
-      email: newEmail,
-      options: {
-        emailRedirectTo: 'https://blocs.me/dashboard/pomodoro'
-      }
-    })
-
-    if (otpError) {
-      console.error('Failed to send magic link to new email:', otpError.message)
-    }
-
     handle200Response(res, { email: newEmail })
   } catch (err) {
     console.error('email-change-post-checkout error:', err.message)
