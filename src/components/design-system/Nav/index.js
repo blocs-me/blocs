@@ -9,16 +9,10 @@ import Icon from '@/helpers/Icon'
 import Box from '@/helpers/Box'
 import Text from '../Text'
 import BetaWrapper from '../BetaWrapper'
-import Stack from '@/helpers/Stack'
-import { useClickOutside } from '@/hooks/useClickOutside'
 import Avatar from '../Avatar'
 import Button from '../Button'
-import useMediaQuery from '@/hooks/useMediaQuery'
 import PageGutters from '@/helpers/PageGutters'
 import useIsTrueDarkMode from '@/hooks/useIsTrueDarkMode'
-import Sun from 'src/icons/sun'
-import Moon from 'src/icons/moon'
-import useColorMode from '@/hooks/useColorMode'
 import { useUser } from '@supabase/auth-helpers-react'
 import useBlocsUser from '@/hooks/useBlocsUser'
 import { BlocsLogo as Logo } from 'src/icons/blocs-logo'
@@ -63,64 +57,15 @@ export const NavLink = ({ href, text = '' }) => {
   )
 }
 
-const Hamburger = ({ open }) => {
-  return (
-    <Flex justifyContent="center" alignItems="center" flexDirection="column">
-      <Box
-        width="20px"
-        height="2px"
-        borderRadius="2px"
-        bg="foreground"
-        css={{
-          transition: 'transform 0.5s ease',
-          transform: open
-            ? 'rotate(45deg) translateY(1px)'
-            : 'rotate(0deg) translateY(-2px)',
-          transformOrigin: 'center center'
-        }}
-      />
-      <Box
-        width="20px"
-        height="2px"
-        borderRadius="2px"
-        bg="foreground"
-        css={{
-          transition: 'transform 0.5s ease',
-          transform: open
-            ? 'rotate(-45deg) translateY(-1px)'
-            : 'rotate(0deg) translateY(2px)',
-          transformOrigin: 'center center'
-        }}
-      />
-    </Flex>
-  )
-}
-
 const Nav = ({ title = '', links = [] }) => {
   const [hideNav, setHideNav] = useState(false)
-  const [showMobileNav, setShowMobileNav] = useState(false)
-  const isDesktop = useMediaQuery('(min-width: 992px)')
   const mobileNavContainer = useRef(null)
   const prevScrollPos = useRef(0)
   const isDarkMode = useIsTrueDarkMode()
-  const { setTheme, setBackground } = useColorMode()
   const user = useUser()
   const blocsUser = useBlocsUser()
 
   const isSignedIn = user?.aud === 'authenticated'
-
-  const handleThemeChange = (e) => {
-    e.stopPropagation()
-    e.preventDefault()
-
-    if (isDarkMode) {
-      setTheme('light')
-      setBackground('light')
-    } else {
-      setTheme('dark')
-      setBackground('dark')
-    }
-  }
 
   const handleScroll = (ev) => {
     const currentPos = window.scrollY
@@ -131,19 +76,6 @@ const Nav = ({ title = '', links = [] }) => {
 
     prevScrollPos.current = currentPos
   }
-
-  const toggleMobileNav = (e) => {
-    setShowMobileNav(!showMobileNav)
-  }
-
-  useClickOutside({
-    onClickOutside: () => !isDesktop && setShowMobileNav(false),
-    element: mobileNavContainer
-  })
-
-  useEffect(() => {
-    setShowMobileNav(isDesktop)
-  }, [isDesktop])
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll)
@@ -219,89 +151,32 @@ const Nav = ({ title = '', links = [] }) => {
             </Flex>
           )}
           <Flex
-            display={['flex', 'flex', , , 'none']}
-            justifyContent="flex-end"
             alignItems="center"
-            flex={1}
-            as="button"
-            onClick={(e) => toggleMobileNav()}
-            aria-label="Open / Close Main Navigation"
-            aria-pressed={showMobileNav}
+            justifyContent="flex-end"
+            height="100%"
+            css={{ flex: 1, gap: '16px' }}
           >
-            <Icon
-              size="20px"
-              css={{
-                lineHeight: 0,
-                height: 'fit-content',
-                pointerEvent: 'none'
-              }}
-            >
-              <Hamburger open={showMobileNav} />
-            </Icon>
+            <NavLink href="/" text="Home" />
+            <NavLink href="/pricing" text="pricing" />
+            <NavLink href="/blog" text="Blog" />
+            {!isSignedIn && (
+              <Link href="/sign-in" style={{ textDecoration: 'none' }}>
+                <Button className="plausible-event-name=Nav+Sign+In" variant="primary" borderRadius="sm">
+                  Sign In
+                </Button>
+              </Link>
+            )}
+            {isSignedIn && (
+              <Link href="/dashboard/pomodoro">
+                <Avatar
+                  loading={!blocsUser?.user}
+                  variant="sm"
+                  src={blocsUser.user?.data?.avatar_url}
+                  alt="User Profile"
+                />
+              </Link>
+            )}
           </Flex>
-          <Box
-            position={['fixed', 'fixed', , , 'relative']}
-            right={['sm', 'sm', , , 0]}
-            top={['calc(80px + 1rem)', 'calc(80px + 1rem)', , , 0]}
-            bg={['background', 'background', , , 'transparent']}
-            p={['md', 'md', , , 0]}
-            borderRadius={['md', 'md', , , 0]}
-            boxShadow={['lg', 'lg', , , 'none']}
-            height={['fit-content', , , , '100%']}
-            css={{
-              flex: 1,
-              opacity: 'var(--opacity)',
-              transform: 'var(--transform)',
-              transition: 'opacity 1s ease '
-            }}
-            style={{
-              '--opacity': showMobileNav ? 1 : 0,
-              '--transform': showMobileNav
-                ? 'translate3d(0, 0, 0)'
-                : 'translate3d(1000px, 0, 0)'
-            }}
-          >
-            <Stack
-              display="flex"
-              ml={[0, 0, , , 'md']}
-              pt={['sm', 'sm', , , '0']}
-              flexDirection={['column', 'column', , , 'row']}
-              alignItems="center"
-              justifyContent="flex-end"
-              height="100%"
-            >
-              <NavLink href="/" text="Home" />
-              <NavLink href="/pricing" text="pricing" />
-              <NavLink href="/blog" text="Blog" />
-              {!isSignedIn && (
-                <Box pt={['1.5rem', , , , '0']} pb={['0.5rem', '0.5rem', 0]}>
-                  <Link href="/sign-in" style={{ textDecoration: 'none' }}>
-                    <Button className="plausible-event-name=Nav+Sign+In" variant="primary" borderRadius="sm">
-                      Sign In
-                    </Button>
-                  </Link>
-                </Box>
-              )}
-              <Button
-                aria-label="Color Theme Toggle"
-                color="foreground"
-                icon={isDarkMode ? <Sun /> : <Moon />}
-                onClick={(e) => handleThemeChange(e)}
-              />
-              {isSignedIn && (
-                <Link href="/dashboard/pomodoro">
-
-                  <Avatar
-                    loading={!blocsUser?.user}
-                    variant="sm"
-                    src={blocsUser.user?.data?.avatar_url}
-                    alt="User Profile"
-                  />
-
-                </Link>
-              )}
-            </Stack>
-          </Box>
         </Flex>
       </PageGutters>
     </Box>
