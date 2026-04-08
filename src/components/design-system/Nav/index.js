@@ -156,7 +156,6 @@ const Nav = ({ title = '', links = [] }) => {
             height="100%"
             css={{ flex: 1, gap: '16px' }}
           >
-            <NavLink href="/" text="Home" />
             <NavLink href="/pricing" text="pricing" />
             <NavLink href="/blog" text="Blog" />
             {!isSignedIn && (
