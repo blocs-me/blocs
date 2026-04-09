@@ -160,7 +160,7 @@ const Nav = ({ title = '', links = [] }) => {
             <NavLink href="/blog" text="Blog" />
             {!isSignedIn && (
               <Link href="/sign-in" style={{ textDecoration: 'none' }}>
-                <Button className="plausible-event-name=Nav+Sign+In" variant="primary" borderRadius="sm">
+                <Button className="plausible-event-name=Nav+Sign+In" variant="primary" borderRadius="sm" fontSize="xs" py="xxs" px="xs" css={{ whiteSpace: 'nowrap' }}>
                   Sign In
                 </Button>
               </Link>
