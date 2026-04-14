@@ -2,7 +2,6 @@ import Head from 'next/head'
 import DummyWaterTracker from '@/widgets/WaterTracker/DummyWaterTracker'
 import WaterTracker from '@/widgets/WaterTracker'
 import WidgetPage from '@/widgets/WidgetPage'
-import Box from '@/helpers/Box'
 import Text from '@/design-system/Text'
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
@@ -75,13 +74,13 @@ const DemoWaterTracker = () => {
       <Head>
         <meta name="robots" content="noindex" />
       </Head>
-      <Box width="100%" css={{ overflow: 'hidden' }}>
-        <DummyWaterTracker
-          progress={progress}
-          onClickUp={handleUp}
-          onClickDown={handleDown}
-        />
-      </Box>
+      <DummyWaterTracker
+        width="100%"
+        maxWidth="400px"
+        progress={progress}
+        onClickUp={handleUp}
+        onClickDown={handleDown}
+      />
       <PoweredByBlocs />
     </WidgetPage>
   )
