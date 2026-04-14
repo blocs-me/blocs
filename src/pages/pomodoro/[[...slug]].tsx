@@ -31,7 +31,7 @@ const PoweredByBlocs = () => (
 
 const DemoPomodoro = () => {
   return (
-    <WidgetPage p="sm" bg="bg.notion">
+    <WidgetPage p="sm" bg="bg.notion" flexDirection="column">
       <Head>
         <meta name="robots" content="noindex" />
       </Head>

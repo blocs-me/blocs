@@ -122,7 +122,7 @@ const widgets = [
   { src: '/clock', title: 'Clock', height: '220px' },
   { src: '/calendar', title: 'Calendar', height: '320px' },
   { src: '/quote', title: 'Quote of the Day', height: '220px' },
-  { src: '/weather', title: 'Weather', height: '220px' },
+  { src: '/weather?lat=40.7128&lng=-74.0060&loc=New+York', title: 'Weather', height: '220px' },
 ]
 
 const WidgetGallery = () => (
@@ -149,10 +149,8 @@ const WidgetGallery = () => (
             borderRadius: '12px',
             overflow: 'hidden',
             scrollSnapAlign: 'start',
-            border: '1.5px solid',
             boxShadow: '0 2px 8px rgba(0,0,0,0.07)',
           }}
-          borderColor="primary.accent-2"
         >
           <iframe
             src={w.src}
@@ -295,11 +293,11 @@ const PricingPage = () => {
             </Flex>
           </Flex>
 
+          <WidgetGallery />
+
           <Box mt="md">
             <ComparisonTable />
           </Box>
-
-          <WidgetGallery />
         </Flex>
         <Footer />
       </Flex>

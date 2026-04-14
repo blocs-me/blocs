@@ -2,6 +2,7 @@ import Head from 'next/head'
 import DummyWaterTracker from '@/widgets/WaterTracker/DummyWaterTracker'
 import WaterTracker from '@/widgets/WaterTracker'
 import WidgetPage from '@/widgets/WidgetPage'
+import Box from '@/helpers/Box'
 import Text from '@/design-system/Text'
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
@@ -70,15 +71,17 @@ const DemoWaterTracker = () => {
   }
 
   return (
-    <WidgetPage bg="bg.notion" p="sm">
+    <WidgetPage bg="bg.notion" p="sm" flexDirection="column">
       <Head>
         <meta name="robots" content="noindex" />
       </Head>
-      <DummyWaterTracker
-        progress={progress}
-        onClickUp={handleUp}
-        onClickDown={handleDown}
-      />
+      <Box width="100%" css={{ overflow: 'hidden' }}>
+        <DummyWaterTracker
+          progress={progress}
+          onClickUp={handleUp}
+          onClickDown={handleDown}
+        />
+      </Box>
       <PoweredByBlocs />
     </WidgetPage>
   )
