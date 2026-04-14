@@ -114,21 +114,21 @@ const ComparisonTable = () => (
 )
 
 const widgets = [
-  { src: '/pomodoro', title: 'Pomodoro Timer', height: '340px' },
-  { src: '/water-tracker', title: 'Water Tracker', height: '340px' },
-  { src: '/habit-tracker', title: 'Habit Tracker', height: '340px' },
-  { src: '/countdown', title: 'Countdown Timer', height: '200px' },
-  { src: '/progress-bar', title: 'Progress Bar', height: '160px' },
-  { src: '/clock', title: 'Clock', height: '200px' },
-  { src: '/calendar', title: 'Calendar', height: '300px' },
-  { src: '/quote', title: 'Quote of the Day', height: '200px' },
-  { src: '/weather', title: 'Weather', height: '200px' },
+  { src: '/pomodoro', title: 'Pomodoro Timer', height: '380px' },
+  { src: '/water-tracker', title: 'Water Tracker', height: '380px' },
+  { src: '/habit-tracker', title: 'Habit Tracker', height: '380px' },
+  { src: '/countdown', title: 'Countdown Timer', height: '220px' },
+  { src: '/progress-bar', title: 'Progress Bar', height: '180px' },
+  { src: '/clock', title: 'Clock', height: '220px' },
+  { src: '/calendar', title: 'Calendar', height: '320px' },
+  { src: '/quote', title: 'Quote of the Day', height: '220px' },
+  { src: '/weather', title: 'Weather', height: '220px' },
 ]
 
 const WidgetGallery = () => (
   <Box
     width="100%"
-    mt="sm"
+    mt="md"
     mb="xs"
     css={{
       overflowX: 'auto',
@@ -138,12 +138,12 @@ const WidgetGallery = () => (
       '&::-webkit-scrollbar': { display: 'none' },
     }}
   >
-    <Flex css={{ gap: '12px', padding: '8px 4px 8px 4px' }} width="fit-content">
+    <Flex css={{ gap: '16px', padding: '8px 4px 8px 4px' }} width="fit-content">
       {widgets.map((w) => (
         <Box
           key={w.src}
           css={{
-            width: '220px',
+            width: '320px',
             height: w.height,
             flexShrink: 0,
             borderRadius: '12px',
@@ -231,8 +231,6 @@ const PricingPage = () => {
             </Text>
           </Flex>
 
-          <WidgetGallery />
-
           <Flex css={{ gap: '8px' }} flexDirection="column" width="min(100%, 340px)" mt="sm" mb="sm">
             <FeatureBullet text="Unlock all 9 widgets" />
             <FeatureBullet text="Full customization & custom durations" />
@@ -300,6 +298,8 @@ const PricingPage = () => {
           <Box mt="md">
             <ComparisonTable />
           </Box>
+
+          <WidgetGallery />
         </Flex>
         <Footer />
       </Flex>
