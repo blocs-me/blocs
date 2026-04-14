@@ -187,58 +187,36 @@ const LandingPage = () => {
                     Go to dashboard
                   </Button>
                 ) : (
-                  <Flex
-                    gap="sm"
-                    mt="sm"
-                    flexDirection={['column', , 'row']}
-                    alignItems="center"
-                  >
-                    <Link href="/pomodoro-timer" style={{ textDecoration: 'none' }}>
+                  <Flex flexDirection="column" alignItems="center" mt="sm" css={{ gap: '12px' }}>
+                    <Link href="/pricing" style={{ textDecoration: 'none' }}>
                       <Button
-                        className="plausible-event-name=CTA+Try+Pomodoro"
+                        className="plausible-event-name=CTA+Get+All+Widgets"
                         bg="brand.accent-1"
                         color="background"
                         borderRadius="sm"
                         fontSize="sm"
                         fontWeight="bold"
                         height="50px"
-                        minWidth="200px"
+                        minWidth="220px"
                         css={{ display: 'flex', alignItems: 'center', justifyContent: 'center', textDecoration: 'none' }}
                       >
-                        Try the Pomodoro Timer
+                        Get all 9 widgets — $17
                       </Button>
                     </Link>
-                    <Link href="/water-tracker-widget" style={{ textDecoration: 'none' }}>
-                      <Button
-                        className="plausible-event-name=CTA+Try+Water+Tracker"
-                        variant="outlined"
-                        borderRadius="sm"
-                        fontSize="sm"
-                        fontWeight="bold"
-                        height="50px"
-                        minWidth="200px"
-                        css={{ display: 'flex', alignItems: 'center', justifyContent: 'center', textDecoration: 'none' }}
-                      >
-                        Try the Water Tracker
-                      </Button>
-                    </Link>
+                    <Box
+                      className="plausible-event-name=Landing+Explore+Widgets"
+                      as="a"
+                      href="#widgets"
+                      color="primary.accent-4"
+                      css={{
+                        fontSize: '14px',
+                        textDecoration: 'underline',
+                        cursor: 'pointer'
+                      }}
+                    >
+                      Explore all widgets
+                    </Box>
                   </Flex>
-                )}
-                {!isSignedIn && (
-                  <Box
-                    className="plausible-event-name=Landing+Explore+Widgets"
-                    as="a"
-                    href="#widgets"
-                    mt="sm"
-                    color="primary.accent-4"
-                    css={{
-                      fontSize: '12px',
-                      textDecoration: 'underline',
-                      cursor: 'pointer'
-                    }}
-                  >
-                    Or explore all widgets
-                  </Box>
                 )}
               </Flex>
 

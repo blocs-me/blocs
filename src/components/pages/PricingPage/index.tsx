@@ -113,6 +113,60 @@ const ComparisonTable = () => (
   </Box>
 )
 
+const widgets = [
+  { src: '/pomodoro', title: 'Pomodoro Timer', height: '340px' },
+  { src: '/water-tracker', title: 'Water Tracker', height: '340px' },
+  { src: '/habit-tracker', title: 'Habit Tracker', height: '340px' },
+  { src: '/countdown', title: 'Countdown Timer', height: '200px' },
+  { src: '/progress-bar', title: 'Progress Bar', height: '160px' },
+  { src: '/clock', title: 'Clock', height: '200px' },
+  { src: '/calendar', title: 'Calendar', height: '300px' },
+  { src: '/quote', title: 'Quote of the Day', height: '200px' },
+  { src: '/weather', title: 'Weather', height: '200px' },
+]
+
+const WidgetGallery = () => (
+  <Box
+    width="100%"
+    mt="sm"
+    mb="xs"
+    css={{
+      overflowX: 'auto',
+      scrollSnapType: 'x mandatory',
+      WebkitOverflowScrolling: 'touch',
+      scrollbarWidth: 'none',
+      '&::-webkit-scrollbar': { display: 'none' },
+    }}
+  >
+    <Flex css={{ gap: '12px', padding: '8px 4px 8px 4px' }} width="fit-content">
+      {widgets.map((w) => (
+        <Box
+          key={w.src}
+          css={{
+            width: '220px',
+            height: w.height,
+            flexShrink: 0,
+            borderRadius: '12px',
+            overflow: 'hidden',
+            scrollSnapAlign: 'start',
+            border: '1.5px solid',
+            boxShadow: '0 2px 8px rgba(0,0,0,0.07)',
+          }}
+          borderColor="primary.accent-2"
+        >
+          <iframe
+            src={w.src}
+            title={w.title}
+            width="100%"
+            height="100%"
+            style={{ border: 'none', pointerEvents: 'none' }}
+          />
+        </Box>
+      ))}
+    </Flex>
+  </Box>
+)
+
 const PricingPage = () => {
   const [isLoading, setIsLoading] = useState(false)
 
@@ -170,15 +224,23 @@ const PricingPage = () => {
             Pomodoro, habits, water tracking, countdown timers, progress bars, clock, calendar, daily quotes, and live weather — fully customizable, embedded in your workspace.
           </Text>
 
-          <Flex alignItems="center" css={{ gap: '6px' }} mb="sm">
+          <Flex alignItems="center" css={{ gap: '6px' }} mb="xs">
             <Image src="/notion-logo.png" alt="Notion" width={18} height={18} />
             <Text fontSize="sm" fontWeight={600} color="foreground" m={0}>
               Trusted by 10,000+ Notion users
             </Text>
           </Flex>
 
+          <WidgetGallery />
+
+          <Flex css={{ gap: '8px' }} flexDirection="column" width="min(100%, 340px)" mt="sm" mb="sm">
+            <FeatureBullet text="Unlock all 9 widgets" />
+            <FeatureBullet text="Full customization & custom durations" />
+            <FeatureBullet text="Analytics, streaks & progress charts" />
+            <FeatureBullet text="Remove Blocs branding from embeds" />
+          </Flex>
+
           <Flex
-            mt="sm"
             flexDirection="column"
             alignItems="center"
             width="min(100%, 380px)"
@@ -238,13 +300,6 @@ const PricingPage = () => {
           <Box mt="md">
             <ComparisonTable />
           </Box>
-
-          <Flex css={{ gap: '8px' }} flexDirection="column" width="min(100%, 340px)" mt="md">
-            <FeatureBullet text="Unlock all 9 widgets" />
-            <FeatureBullet text="Full customization & custom durations" />
-            <FeatureBullet text="Analytics, streaks & progress charts" />
-            <FeatureBullet text="Remove Blocs branding from embeds" />
-          </Flex>
         </Flex>
         <Footer />
       </Flex>
