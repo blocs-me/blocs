@@ -75,7 +75,7 @@ const CopyLinkButton = ({ url, disabled = false }: { url: string; disabled?: boo
 
   const handleClick = () => {
     if (!isPro) {
-      setShowUpgrade(true)
+      setTimeout(() => setShowUpgrade(true), 0)
       return
     }
     if (!url || disabled) return
