@@ -27,9 +27,6 @@ import Button from '@/design-system/Button'
 import Home from 'src/icons/home'
 import Link from 'next/link'
 import DashboardMaintenance from '@/design-system/Maintenance/DashboardMaintenance'
-import ProGate from './ProGate'
-import useBlocsUser from '@/hooks/useBlocsUser'
-import { isLifestylePro } from '@/lambda/helpers/subscriptionChecker'
 
 const LoadingScreen = () => (
   <Flex flex="1" height="100%" minHeight="400px" justifyContent="center" alignItems="center">
@@ -42,11 +39,6 @@ const LoadingScreen = () => (
   </Flex>
 )
 
-const MaybeProGate = ({ isPro, children }: { isPro: boolean; children: React.ReactNode }) => {
-  if (isPro) return <>{children}</>
-  return <ProGate>{children}</ProGate>
-}
-
 const isMaintenance = process.env.NEXT_PUBLIC_MAINTENANCE === 'yes'
 const validPaths = ['pomodoro', 'habit-tracker', 'water-tracker', 'countdown', 'progress-bar', 'clock', 'calendar', 'quote', 'weather', 'plan']
 
@@ -56,8 +48,6 @@ const Dashboard = () => {
   const user = useUser()
   const session = useSessionContext()
   const isSmallScreen = useMediaQuery('(min-width: 768px)')
-  const { purchases } = useBlocsUser()
-  const isPro = isLifestylePro(purchases)
 
   useEffect(() => {
     if (user?.aud !== 'authenticated' && !session.isLoading) {
@@ -124,53 +114,35 @@ const Dashboard = () => {
           <Suspense fallback={<LoadingScreen />}>
             {!path && <DashboardHome />}
             {path === 'pomodoro' && !isMaintenance && (
-              <MaybeProGate isPro={isPro}>
-                <WidgetAuthProvider>
-                  <PomodoroProvider>
-                    <PomodoroDashboard />
-                  </PomodoroProvider>
-                </WidgetAuthProvider>
-              </MaybeProGate>
+              <WidgetAuthProvider>
+                <PomodoroProvider>
+                  <PomodoroDashboard />
+                </PomodoroProvider>
+              </WidgetAuthProvider>
             )}
             {path === 'habit-tracker' && !isMaintenance && (
-              <MaybeProGate isPro={isPro}>
-                <HabitTrackerDashboard />
-              </MaybeProGate>
+              <HabitTrackerDashboard />
             )}
             {path === 'water-tracker' && !isMaintenance && (
-              <MaybeProGate isPro={isPro}>
-                <WaterTrackerDashboard />
-              </MaybeProGate>
+              <WaterTrackerDashboard />
             )}
             {path === 'countdown' && !isMaintenance && (
-              <MaybeProGate isPro={isPro}>
-                <CountdownDashboard />
-              </MaybeProGate>
+              <CountdownDashboard />
             )}
             {path === 'progress-bar' && !isMaintenance && (
-              <MaybeProGate isPro={isPro}>
-                <ProgressBarDashboard />
-              </MaybeProGate>
+              <ProgressBarDashboard />
             )}
             {path === 'clock' && !isMaintenance && (
-              <MaybeProGate isPro={isPro}>
-                <ClockDashboard />
-              </MaybeProGate>
+              <ClockDashboard />
             )}
             {path === 'calendar' && !isMaintenance && (
-              <MaybeProGate isPro={isPro}>
-                <CalendarDashboard />
-              </MaybeProGate>
+              <CalendarDashboard />
             )}
             {path === 'quote' && !isMaintenance && (
-              <MaybeProGate isPro={isPro}>
-                <QuoteDashboard />
-              </MaybeProGate>
+              <QuoteDashboard />
             )}
             {path === 'weather' && !isMaintenance && (
-              <MaybeProGate isPro={isPro}>
-                <WeatherDashboard />
-              </MaybeProGate>
+              <WeatherDashboard />
             )}
             {path === 'plan' && !isMaintenance && (
               <PlanPage />
