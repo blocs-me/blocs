@@ -41,3 +41,4 @@ tsconfig.tsbuildinfo
 
 **/*.csv
 data/
+.gstack/
