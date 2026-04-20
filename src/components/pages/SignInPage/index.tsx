@@ -40,6 +40,7 @@ const SignInPage = () => {
   )
 
   const isReturningUser = storage.getItem('prevLoggedIn') === 'yes'
+  const isFromLanding = router.query.from === 'landing'
 
   const shouldPreventSignIn = lastSignedInAt
     ? (new Date().getTime() - new Date(lastSignedInAt).getTime()) /
@@ -109,12 +110,14 @@ const SignInPage = () => {
             fontWeight="bold"
             mb="xs"
           >
-            Sign in to Blocs
+            {isFromLanding ? 'Start embedding Notion widgets' : 'Sign in to Blocs'}
           </Text>
           <Text fontSize="md" color="primary.accent-4" textAlign="center" m={0}>
-            {isReturningUser
-              ? 'Welcome back! Enter your email for a sign-in link.'
-              : 'Enter your email and we\'ll send you a sign-in link. No password needed.'}
+            {isFromLanding
+              ? 'Enter your email to get started. We\'ll send a magic link — no password needed.'
+              : isReturningUser
+                ? 'Welcome back! Enter your email for a sign-in link.'
+                : 'Enter your email and we\'ll send you a sign-in link. No password needed.'}
           </Text>
           <Box mt="sm" />
           <form onSubmit={handleSignIn} css={{ width: '100%' }}>

@@ -4,7 +4,7 @@ import Box from '@/helpers/Box'
 import Flex from '@/helpers/Flex'
 import Button from '@/design-system/Button'
 import { postReq } from '@/utils/fetchingUtils'
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { NextSeo } from 'next-seo'
 import Nav from '@/design-system/Nav'
 import nextSeoConfig from '@/constants/next-seo.config'
@@ -125,45 +125,77 @@ const widgets = [
   { src: '/weather?lat=40.7128&lng=-74.0060&loc=New+York', title: 'Weather', height: '220px' },
 ]
 
-const WidgetGallery = () => (
-  <Box
-    width="100%"
-    mt="md"
-    mb="xs"
-    css={{
-      overflowX: 'auto',
-      scrollSnapType: 'x mandatory',
-      WebkitOverflowScrolling: 'touch',
-      scrollbarWidth: 'none',
-      '&::-webkit-scrollbar': { display: 'none' },
-    }}
-  >
-    <Flex css={{ gap: '16px', padding: '8px 4px 8px 4px' }} width="fit-content">
-      {widgets.map((w) => (
-        <Box
-          key={w.src}
-          css={{
-            width: '320px',
-            height: w.height,
-            flexShrink: 0,
-            borderRadius: '12px',
-            overflow: 'hidden',
-            scrollSnapAlign: 'start',
-            boxShadow: '0 2px 8px rgba(0,0,0,0.07)',
-          }}
-        >
-          <iframe
-            src={w.src}
-            title={w.title}
-            width="100%"
-            height="100%"
-            style={{ border: 'none', pointerEvents: 'none' }}
+const WidgetGallery = () => {
+  const [activeIndex, setActiveIndex] = useState(0)
+  const scrollRef = { current: null as HTMLDivElement | null }
+
+  const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
+    const el = e.currentTarget
+    const scrollLeft = el.scrollLeft
+    const cardWidth = 320 + 16
+    const index = Math.round(scrollLeft / cardWidth)
+    setActiveIndex(index)
+  }
+
+  return (
+    <Flex flexDirection="column" alignItems="center" width="100%" mt="md" mb="xs">
+      <Text fontSize="sm" fontWeight={600} color="primary.accent-4" m={0} mb="xs">
+        Preview all 9 widgets &rarr;
+      </Text>
+      <Box
+        width="100%"
+        ref={(el: HTMLDivElement | null) => { scrollRef.current = el }}
+        onScroll={handleScroll}
+        css={{
+          overflowX: 'auto',
+          scrollSnapType: 'x mandatory',
+          WebkitOverflowScrolling: 'touch',
+          scrollbarWidth: 'none',
+          '&::-webkit-scrollbar': { display: 'none' },
+        }}
+      >
+        <Flex css={{ gap: '16px', padding: '8px 4px 8px 4px' }} width="fit-content">
+          {widgets.map((w) => (
+            <Box
+              key={w.src}
+              css={{
+                width: '320px',
+                height: w.height,
+                flexShrink: 0,
+                borderRadius: '12px',
+                overflow: 'hidden',
+                scrollSnapAlign: 'start',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.07)',
+              }}
+            >
+              <iframe
+                src={w.src}
+                title={w.title}
+                width="100%"
+                height="100%"
+                style={{ border: 'none', pointerEvents: 'none' }}
+              />
+            </Box>
+          ))}
+        </Flex>
+      </Box>
+      <Flex mt="xs" css={{ gap: '6px' }}>
+        {widgets.map((w, i) => (
+          <Box
+            key={w.src}
+            css={{
+              width: i === activeIndex ? '16px' : '6px',
+              height: '6px',
+              borderRadius: '3px',
+              transition: 'all 0.2s ease',
+            }}
+            bg={i === activeIndex ? 'brand.accent-1' : 'primary.accent-3'}
           />
-        </Box>
-      ))}
+        ))}
+      </Flex>
     </Flex>
-  </Box>
-)
+  )
+}
 
 const PricingPage = () => {
   const [isLoading, setIsLoading] = useState(false)

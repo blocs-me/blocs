@@ -188,9 +188,9 @@ const LandingPage = () => {
                   </Button>
                 ) : (
                   <Flex flexDirection="column" alignItems="center" mt="sm" css={{ gap: '12px' }}>
-                    <Link href="/pricing" style={{ textDecoration: 'none' }}>
+                    <Link href="/sign-in?from=landing" style={{ textDecoration: 'none' }}>
                       <Button
-                        className="plausible-event-name=CTA+Get+All+Widgets"
+                        className="plausible-event-name=CTA+Start+Embedding"
                         bg="brand.accent-1"
                         color="background"
                         borderRadius="sm"
@@ -200,7 +200,7 @@ const LandingPage = () => {
                         minWidth="220px"
                         css={{ display: 'flex', alignItems: 'center', justifyContent: 'center', textDecoration: 'none' }}
                       >
-                        Get all 9 widgets — $17
+                        Start embedding widgets
                       </Button>
                     </Link>
                     <Box
