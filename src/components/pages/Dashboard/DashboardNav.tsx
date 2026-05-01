@@ -6,7 +6,6 @@ import useColorMode from '@/hooks/useColorMode'
 import { BlocsLogo } from 'src/icons/blocs-logo'
 import Moon from 'src/icons/moon'
 import Sun from 'src/icons/sun'
-import useIsTrueDarkMode from '@/hooks/useIsTrueDarkMode'
 import { useRouter } from 'next/router'
 import useBlocsUser from '@/hooks/useBlocsUser'
 import useNotifications from '@/design-system/Notifications/useNotifications'
@@ -308,8 +307,8 @@ const MoreDropdown = ({ tabs, activePath, onNavigate, onClose }: {
 }
 
 const DashboardNav = () => {
-  const { setTheme, setBackground } = useColorMode()
-  const isDarkMode = useIsTrueDarkMode()
+  const { setTheme, setBackground, colorMode } = useColorMode()
+  const isDarkMode = colorMode === 'dark'
   const router = useRouter()
   const { path } = router.query
   const [showDropdown, setShowDropdown] = useState(false)

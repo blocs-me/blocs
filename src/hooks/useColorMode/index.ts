@@ -125,9 +125,11 @@ const useColorMode = (customColorModes?: { [index: string]: Theme }) => {
     setBackground
   ])
 
+  const resolvedColorMode = cachedColorMode || DEFAULT_COLOR_MODE
+
   return {
     theme: currentTheme,
-    colorMode: (colorMode || DEFAULT_COLOR_MODE) as
+    colorMode: resolvedColorMode as
       | 'light'
       | 'dark'
       | 'nightSky'
