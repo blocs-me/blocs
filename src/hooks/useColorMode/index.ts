@@ -88,9 +88,11 @@ const useColorMode = (customColorModes?: { [index: string]: Theme }) => {
     colorModes[themeKey] || colorModes[DEFAULT_COLOR_MODE]
 
   const currentTheme = useMemo(() => {
-    if (!cachedColorMode || cachedColorMode?.toLowerCase() === 'auto') {
-      setTheme('auto')
+    if (cachedColorMode?.toLowerCase() === 'auto') {
       return getTheme(autoColorMode)
+    }
+    if (!cachedColorMode) {
+      return getTheme(DEFAULT_COLOR_MODE)
     }
     if (cachedColorMode) {
       setTheme(cachedColorMode)
@@ -103,12 +105,11 @@ const useColorMode = (customColorModes?: { [index: string]: Theme }) => {
   const getBackgroundColor = (colorMode) => backgroundColors[colorMode]
 
   const backgroundColor = useMemo(() => {
-    if (
-      !cachedBackgroundColorMode ||
-      backgroundColorMode?.toLowerCase() === 'auto'
-    ) {
-      setBackground('auto')
+    if (cachedBackgroundColorMode?.toLowerCase() === 'auto') {
       return getBackgroundColor(autoColorMode)
+    }
+    if (!cachedBackgroundColorMode) {
+      return getBackgroundColor(DEFAULT_COLOR_MODE)
     }
 
     if (cachedBackgroundColorMode) {
