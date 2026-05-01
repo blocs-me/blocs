@@ -1,0 +1,128 @@
+---
+title: "Spotify Player for Notion: How to Add Music to Your Workspace (2026)"
+date: "2026-04-30"
+description: "No native Spotify embed exists for Notion, but you can add a working player via iframe workarounds. Pair it with free Blocs productivity widgets for the ultimate focus workspace."
+---
+
+There is no official Spotify player widget for Notion. Spotify does not expose an embeddable widget that Notion's iframe security policy allows by default. However, there are a few real workarounds: you can embed the **Spotify open.spotify.com iframe code** using Notion's Embed block, and you can pair your music setup with free productivity widgets like a [Pomodoro timer](https://blocs.me/pomodoro-timer) or [habit tracker](https://blocs.me/habit-tracker-widget) that live directly inside Notion. This guide covers both.
+
+- Notion blocks direct Spotify embeds by default, but the open.spotify.com share link works as a workaround in many cases
+- The embed is view-only: you cannot control playback from inside Notion on all devices
+- Productivity widgets from [Blocs](https://blocs.me) fill the gap for timers, trackers, and focus tools that Notion natively lacks
+- Free options exist for core widgets; Pro unlocks additional widgets for a one-time $17 payment
+
+## Key Takeaways
+
+- Notion does not have an official Spotify widget or native music player
+- You can embed a Spotify playlist or track using the **/Embed** command and a Spotify share URL
+- Playback controls may not work on all devices due to Spotify and Notion iframe restrictions
+- For a complete focus workspace inside Notion, pair any music solution with embeddable productivity widgets like timers and trackers
+- Blocs offers free embeddable widgets (Pomodoro, Habit Tracker, Water Tracker) with no sign-up required
+
+## Can You Embed a Spotify Player in Notion?
+
+Technically, yes -- with caveats. Spotify provides shareable embed links for tracks, albums, playlists, and podcasts via `open.spotify.com`. Notion's Embed block can load external URLs as iframes, and many users report this works for displaying album art and track info. However, **interactive playback (play/pause/skip) is unreliable** inside the Notion iframe, particularly on desktop. Mobile is even more restricted.
+
+This matters because most people searching for a "Spotify player for Notion" want to control music without leaving their workspace. The honest answer: you can get a visual embed, but you will likely still need Spotify open in a separate window for full playback control.
+
+### How to Embed Spotify in Notion (Step by Step)
+
+1. **Open Spotify** and navigate to the track, playlist, or album you want to embed
+2. Click the three-dot menu (...) next to the item and select **Share > Copy link**
+3. In your Notion page, type **/Embed** and press Enter to insert an Embed block
+4. Paste the Spotify share URL (e.g., `https://open.spotify.com/playlist/...`) into the embed field
+5. Click **Embed link** and resize the block to fit your page layout
+
+If the embed shows a blank frame or a "cannot embed" error, try using the direct `open.spotify.com` link rather than the shortened `spotify.link` URL. Some users also find success embedding Spotify's [open player](https://open.spotify.com) via the URL directly rather than a share link.
+
+## Why the Spotify Embed Is Limited in Notion
+
+Notion restricts which external services can render interactive content inside its editor. Spotify's iframe embed uses a sandboxed player that requires specific permissions (autoplay, scripts) that Notion's security model limits. According to [discussions in the Notion community on Reddit](https://www.reddit.com/r/Notion/), most users end up with a static preview rather than a functional player.
+
+Additionally, Spotify requires a logged-in session for full playback. Since Notion's iframe does not pass authentication cookies the same way a browser tab does, you often see the embed but cannot play anything without logging in again inside the frame.
+
+### Alternatives to a Native Spotify Widget
+
+- **Open Spotify side by side:** Use a split-screen or window snapping tool to run Spotify alongside your Notion workspace. Simple and reliable.
+- **YouTube Music embeds:** YouTube links embed more reliably in Notion. Many lo-fi and focus music playlists are available on YouTube and work with Notion's embed block.
+- **Browser extensions:** Some extensions add a floating Spotify mini-player to your browser, accessible while Notion is open in another tab.
+- **Web players:** Services like [open.spotify.com](https://open.spotify.com) can be docked in a browser sidebar on supported browsers (Edge, Firefox) while you work in Notion.
+
+## Build a Better Focus Workspace in Notion With Productivity Widgets
+
+Most people searching for a Spotify player in Notion are really trying to build a **focus workspace**: a single Notion page where they can manage their work, track time, and stay in flow. Music is one piece of that. The bigger gap Notion has is the lack of interactive productivity tools.
+
+That is where [Blocs](https://blocs.me) comes in. Blocs offers embeddable widgets that drop directly into any Notion page via the same Embed block method. No apps to install, no separate dashboards.
+
+### Free Blocs Widgets for Your Focus Setup
+
+| Widget | What It Does | Free? |
+|--------|-------------|-------|
+| [Pomodoro Timer](https://blocs.me/pomodoro-timer) | 25/5 min work-break cycles, built-in session counter | Yes |
+| [Habit Tracker](https://blocs.me/habit-tracker-widget) | Daily habit streaks, visual check-off grid | Yes |
+| [Water Tracker](https://blocs.me/water-tracker-widget) | Hydration goal tracking with visual progress | Yes |
+| Countdown Timer | Date-based or duration countdown for deadlines | Pro |
+| Progress Bar | Visual goal completion bar, fully customizable | Pro |
+| Clock and Timer | Live clock with flip display, ambient time awareness | Pro |
+
+All free widgets work without creating an account. Just copy the embed URL, paste it into a Notion Embed block, and it is live.
+
+### How to Embed a Blocs Widget in Notion
+
+1. Go to the widget page (e.g., [blocs.me/pomodoro-timer](https://blocs.me/pomodoro-timer))
+2. Copy the embed URL shown on the page (e.g., `https://blocs.me/pomodoro`)
+3. In Notion, type **/Embed** and press Enter
+4. Paste the URL and click **Embed link**
+5. Resize the block to fit your layout
+
+<WidgetEmbed src="/pomodoro" title="Blocs Pomodoro Timer" />
+
+## Free vs. Pro: What You Get With Blocs
+
+The three core widgets (Pomodoro, Habit Tracker, Water Tracker) are completely free with default settings. No sign-up, no credit card.
+
+**Blocs Pro** is a one-time $17 payment (not a subscription) and unlocks:
+
+- All Pro-exclusive widgets: Countdown Timer, Progress Bar, Clock and Timer, Calendar, Quote of the Day, Weather
+- Custom durations and goals on all widgets
+- Unlimited habit tracking
+- Daily, weekly, and monthly analytics with streaks
+- Theme and color customization
+- No Blocs branding
+- Cloud sync across devices
+
+See the full breakdown at [blocs.me/pricing](https://blocs.me/pricing).
+
+## Frequently Asked Questions
+
+### Does Notion have an official Spotify widget?
+
+No. Notion does not have an official Spotify integration or native music player widget as of 2026. You can attempt to embed Spotify links using the Embed block, but interactive playback is unreliable due to iframe restrictions on both sides.
+
+### Can I control Spotify playback from inside Notion?
+
+In most cases, no. The Spotify embed inside Notion may display album art and track information, but play, pause, and skip controls often do not function because of how Notion sandboxes external iframes. Most users keep Spotify open in a separate window or browser tab.
+
+### What is the best way to add music to my Notion workflow?
+
+The most reliable approach is to run Spotify (or any music app) in a separate window alongside Notion. For browser-based focus music, YouTube embeds work more reliably than Spotify inside Notion's Embed block.
+
+### Are there any free productivity widgets I can embed in Notion?
+
+Yes. [Blocs](https://blocs.me) offers free embeddable widgets including a [Pomodoro Timer](https://blocs.me/pomodoro-timer), [Habit Tracker](https://blocs.me/habit-tracker-widget), and [Water Tracker](https://blocs.me/water-tracker-widget). They work via Notion's standard Embed block with no account required.
+
+### Will Blocs ever offer a music or Spotify widget for Notion?
+
+A dedicated music widget is something the Blocs team is exploring. In the meantime, the existing focus and productivity widgets cover most of what people want in a distraction-free Notion workspace. Check [blocs.me/blog](https://blocs.me/blog) for updates on new widgets.
+
+### How much does Blocs Pro cost?
+
+Blocs Pro is a one-time payment of $17. This is a lifetime license, not a monthly subscription. It unlocks all widgets, customization options, analytics, and cloud sync.
+
+## Build Your Focus Workspace Today
+
+While a fully interactive Spotify player inside Notion is not reliably possible today, you can still build a powerful focus workspace using the tools that do work. Start with the free Blocs Pomodoro Timer embedded on your main work page, pair it with a habit tracker for your daily goals, and run Spotify in a side window for music.
+
+It takes five minutes to set up and keeps everything you need visible in one place.
+
+[Try the free Pomodoro timer](https://blocs.me/pomodoro-timer) or [explore all Blocs widgets](https://blocs.me/pricing) to get started.
