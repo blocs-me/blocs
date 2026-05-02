@@ -10,6 +10,7 @@ import { useWeather } from '@/widgets/Weather/useWeather'
 import { WeatherWidgetConfig, getDefaultConfig, configToEmbedUrl } from '@/widgets/Weather/weatherConfig'
 import CopyLinkButton from '../CopyLinkButton'
 import HowToEmbedButton from '../HowToEmbedButton'
+import NewWidgetButton from '../NewWidgetButton'
 import storage from '@/utils/storage'
 
 const STORAGE_KEY = 'weatherConfig'
@@ -52,6 +53,7 @@ const WeatherDashboard = () => {
             Weather
           </Text>
           <Flex css={{ gap: '8px' }} alignItems="center">
+            <NewWidgetButton onClick={() => setConfig(getDefaultConfig())} />
             <HowToEmbedButton />
             <CopyLinkButton url={embedUrl} disabled={!hasLocation} />
           </Flex>

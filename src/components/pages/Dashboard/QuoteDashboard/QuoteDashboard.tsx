@@ -8,6 +8,7 @@ import { useQuote } from '@/widgets/Quote/useQuote'
 import { QuoteWidgetConfig, getDefaultConfig, configToEmbedUrl } from '@/widgets/Quote/quoteConfig'
 import CopyLinkButton from '../CopyLinkButton'
 import HowToEmbedButton from '../HowToEmbedButton'
+import NewWidgetButton from '../NewWidgetButton'
 import storage from '@/utils/storage'
 
 const STORAGE_KEY = 'quoteConfig'
@@ -47,6 +48,7 @@ const QuoteDashboard = () => {
             Quote of the Day
           </Text>
           <Flex css={{ gap: '8px' }} alignItems="center">
+            <NewWidgetButton onClick={() => setConfig(getDefaultConfig())} />
             <HowToEmbedButton />
             <CopyLinkButton url={embedUrl} />
           </Flex>

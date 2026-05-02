@@ -8,6 +8,7 @@ import { useCountdown, autoDetectUnits, computeCountdown } from '@/widgets/Count
 import { CountdownWidgetConfig, getDefaultConfig, configToEmbedUrl } from '@/widgets/Countdown/countdownConfig'
 import CopyLinkButton from '../CopyLinkButton'
 import HowToEmbedButton from '../HowToEmbedButton'
+import NewWidgetButton from '../NewWidgetButton'
 import storage from '@/utils/storage'
 
 const STORAGE_KEY = 'countdownConfig'
@@ -53,6 +54,7 @@ const CountdownDashboard = () => {
             Countdown Timer
           </Text>
           <Flex css={{ gap: '8px' }} alignItems="center">
+            <NewWidgetButton onClick={() => setConfig(getDefaultConfig())} />
             <HowToEmbedButton />
             <CopyLinkButton url={embedUrl} />
           </Flex>

@@ -9,6 +9,7 @@ import { useManualProgress, useDateRangeProgress, useCalendarProgress } from '@/
 import { ProgressWidgetConfig, getDefaultConfig, configToEmbedUrl } from '@/widgets/ProgressBar/progressBarConfig'
 import CopyLinkButton from '../CopyLinkButton'
 import HowToEmbedButton from '../HowToEmbedButton'
+import NewWidgetButton from '../NewWidgetButton'
 import storage from '@/utils/storage'
 
 const STORAGE_KEY = 'progressBarConfig'
@@ -97,6 +98,7 @@ const ProgressBarDashboard = () => {
             Progress Bar
           </Text>
           <Flex css={{ gap: '8px' }} alignItems="center">
+            <NewWidgetButton onClick={() => setConfig(getDefaultConfig())} />
             <HowToEmbedButton />
             <CopyLinkButton url={embedUrl} />
           </Flex>

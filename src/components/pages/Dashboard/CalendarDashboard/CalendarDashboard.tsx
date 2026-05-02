@@ -9,6 +9,7 @@ import { useCalendar } from '@/widgets/Calendar/useCalendar'
 import { CalendarWidgetConfig, getDefaultConfig, configToEmbedUrl } from '@/widgets/Calendar/calendarConfig'
 import CopyLinkButton from '../CopyLinkButton'
 import HowToEmbedButton from '../HowToEmbedButton'
+import NewWidgetButton from '../NewWidgetButton'
 import storage from '@/utils/storage'
 
 const STORAGE_KEY = 'calendarConfig'
@@ -47,6 +48,7 @@ const CalendarDashboard = () => {
             Calendar
           </Text>
           <Flex css={{ gap: '8px' }} alignItems="center">
+            <NewWidgetButton onClick={() => setConfig(getDefaultConfig())} />
             <HowToEmbedButton />
             <CopyLinkButton url={embedUrl} />
           </Flex>

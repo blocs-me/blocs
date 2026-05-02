@@ -10,6 +10,7 @@ import { useTimer } from '@/widgets/Clock/useTimer'
 import { ClockTimerWidgetConfig, getDefaultConfig, configToEmbedUrl } from '@/widgets/Clock/clockConfig'
 import CopyLinkButton from '../CopyLinkButton'
 import HowToEmbedButton from '../HowToEmbedButton'
+import NewWidgetButton from '../NewWidgetButton'
 import storage from '@/utils/storage'
 
 const STORAGE_KEY = 'clockConfig'
@@ -43,6 +44,7 @@ const ClockDashboard = () => {
             {config.mode === 'clock' ? 'Clock' : 'Timer'}
           </Text>
           <Flex css={{ gap: '8px' }} alignItems="center">
+            <NewWidgetButton onClick={() => setConfig(getDefaultConfig())} />
             <HowToEmbedButton />
             <CopyLinkButton url={embedUrl} />
           </Flex>
