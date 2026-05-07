@@ -1,0 +1,123 @@
+---
+title: "How to Add a Clock in Notion (The Easy Embed Method)"
+date: "2026-05-06"
+description: "Notion has no built-in clock. Add a free embeddable clock widget in 3 steps using Blocs – works as a flip clock, live time display, or countdown timer."
+---
+
+Notion doesn't have a built-in clock. The quickest way to add one is to embed a clock widget using Notion's `/embed` block. [Blocs](https://blocs.me) offers a free embeddable clock widget that lives directly inside your Notion page – no app switching, no installs. Paste one URL and you're done. Best for anyone who wants ambient time awareness while working in Notion.
+
+## Key Takeaways
+
+- Notion has no native clock feature – you need a third-party embed.
+- You can add a clock widget in Notion in under 2 minutes using an `/embed` block.
+- Blocs' [Clock & Timer widget](https://blocs.me/clock-widget) supports flip clock mode, 12/24-hour format, and custom themes.
+- The basic embed is free; Pro unlocks flip clock style, color themes, and full customization for a one-time $17 payment.
+- The widget syncs across devices – open your Notion workspace on any machine and the clock is live.
+
+## Why Notion Doesn't Have a Built-In Clock
+
+Notion is a document and database tool at its core. It handles text, tables, and structured data well, but real-time dynamic elements like a live clock fall outside its feature set. There's no native block for displaying the current time. The workaround the Notion team built in – the `/embed` block – is exactly what makes third-party widgets possible. Any URL that renders in an iframe can be embedded directly on a page.
+
+This means you don't need a browser extension, a separate app, or a complicated Notion template. You just need an embeddable clock URL.
+
+## How to Add a Clock in Notion: Step-by-Step
+
+### Step 1: Get your clock widget URL
+
+Go to [blocs.me/clock-widget](https://blocs.me/clock-widget). The Blocs Clock & Timer widget is a Pro feature, so you'll need a Blocs account. At $17 one-time (no subscription), you get lifetime access to the clock along with every other Blocs widget.
+
+Once logged in, your personal embed URL looks like this:
+
+```
+https://blocs.me/clock?token=YOUR_TOKEN
+```
+
+Copy that URL from your Blocs dashboard.
+
+### Step 2: Open your Notion page and add an embed block
+
+In your Notion page, type `/embed` and press Enter. Notion will open a prompt asking for a URL.
+
+### Step 3: Paste the URL and embed
+
+Paste your Blocs clock URL into the embed dialog and click "Embed link." The clock will appear inline on your page, showing the live current time. You can resize the block by dragging its edges to fit your layout.
+
+That's it. The clock is now live on your Notion page and updates in real time whenever the page is open.
+
+<WidgetEmbed src="/clock" title="Blocs Clock & Timer" height="200px" maxWidth="500px" />
+
+## What the Blocs Clock Widget Can Do
+
+The [Blocs Clock & Timer widget](https://blocs.me/clock-widget) is more than a basic digital clock. Here's what's included with Pro:
+
+| Feature | Details |
+|---|---|
+| Clock display modes | Standard digital, flip clock (animated) |
+| Time formats | 12-hour and 24-hour |
+| Theme customization | Dark, light, and custom color themes |
+| Seconds display | Toggle seconds on or off |
+| Cloud sync | Settings sync across all your devices |
+| No Blocs branding | Clean embed without "Powered by" watermarks |
+
+The flip clock mode is a standout feature – it gives your Notion workspace a retro analog feel with smooth card-flip animations as each digit changes. If you're going for an aesthetic Notion setup, this is the one to use. You can read more about it in the dedicated [flip clock for Notion guide](https://blocs.me/blog/flip-clock-for-notion).
+
+## Free vs. Pro: What Do You Get Without Paying?
+
+The Blocs Clock & Timer widget is a Pro-only widget. However, Blocs does offer three free widgets with no sign-up required: the [Pomodoro Timer](https://blocs.me/pomodoro-timer), the [Water Tracker](https://blocs.me/water-tracker), and the Habit Tracker.
+
+If you mainly want time awareness while working, the free Pomodoro timer is a solid alternative – it shows a countdown for your current work session and keeps you anchored to time blocks without needing a live clock. Check out the [Pomodoro timer for Notion guide](https://blocs.me/blog/notion-pomodoro-timer-widget) for setup instructions.
+
+For a live, always-on clock display, Pro is required. At $17 one-time – not a monthly subscription – it's a straightforward trade-off: pay once, use forever across all your Notion workspaces.
+
+## Other Ways People Try to Add a Clock in Notion (And Why They Fall Short)
+
+### Using the Notion formula property
+
+Notion's `now()` formula can display a timestamp inside a database property. But it only updates when you reload the page or trigger a sync – it doesn't tick in real time. It's useful for logging timestamps, not for ambient time display.
+
+### Screenshot or static image
+
+Some Notion aesthetic setups embed a static clock image. It looks good in screenshots but it's not a real clock – it shows whatever time the screenshot was taken.
+
+### Browser clock widgets
+
+Some users add a browser widget or extension to show the time in a sidebar. This works outside Notion but breaks the "everything in one workspace" flow. You're still switching contexts.
+
+An embeddable widget like Blocs keeps the clock inside your Notion page, visible while you work, without any of these trade-offs.
+
+## Tips for Using a Clock Widget in Your Notion Workspace
+
+- **Pin it to a dashboard page.** Create a home page in Notion with your clock, task list, and daily agenda in a multi-column layout. The clock acts as a permanent time anchor at the top of your day.
+- **Pair it with a Pomodoro timer.** Use the [Blocs clock widget](https://blocs.me/blog/notion-clock-widget) for ambient time awareness and embed a Pomodoro timer next to it for focused work sessions.
+- **Use a narrow column.** Notion's column blocks let you place the clock in a slim right-hand column while your main content takes up the left. This keeps it visible without dominating the layout.
+- **Match your theme.** Blocs Pro lets you customize colors. If your Notion workspace uses a dark theme, set the clock to match – it blends in as a native-feeling element rather than an obvious embed.
+
+## Frequently Asked Questions
+
+### Does Notion have a built-in clock feature?
+
+No. Notion doesn't include a live clock. The only way to display the current time in Notion is by embedding a third-party widget using Notion's `/embed` block.
+
+### Is the Blocs clock widget free?
+
+The Clock & Timer widget is part of Blocs Pro, which costs $17 as a one-time payment. There's no monthly fee. Blocs' free tier includes the Pomodoro Timer, Water Tracker, and Habit Tracker.
+
+### Will the clock show the correct time zone?
+
+Yes. The Blocs clock widget reads the local time from whichever device is viewing the page, so it automatically shows the correct time zone for each user.
+
+### Can I use the clock in Notion on mobile?
+
+Notion's mobile app has limited support for embedded iframes. The clock widget is best experienced in Notion's desktop app or web version. On mobile, the embed may not render.
+
+### Can I show seconds on the clock?
+
+Yes. The Blocs Clock & Timer widget has a toggle for showing or hiding seconds. You can also switch between 12-hour and 24-hour display formats in the settings.
+
+### What's the difference between the clock widget and the Pomodoro timer?
+
+The clock widget shows the current time and is always-on. The [Pomodoro timer](https://blocs.me/blog/best-notion-pomodoro-timer-embed) counts down a work session (typically 25 minutes) and is actively used for time-boxing tasks. Many users run both side by side.
+
+---
+
+Ready to add a clock to your Notion workspace? [Try the Blocs Clock widget](https://blocs.me/clock-widget) or explore the full widget suite at [blocs.me/pricing](https://blocs.me/pricing).
