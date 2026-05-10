@@ -1,0 +1,144 @@
+---
+title: "How to Track Mood in Notion (Free Methods + Embeddable Widgets)"
+date: "2026-05-09"
+description: "Track your mood in Notion using free databases, emoji scales, or embeddable widgets like Blocs. Step-by-step setup for beginners and power users."
+---
+
+The simplest way to track mood in Notion is to create a database with a **Select or Multi-select property** set to emoji mood levels (😞 😐 😊 😄), then log an entry each day. For a richer setup, add a **Number property** for a 1-5 scale, a **Text property** for notes, and a **Date property** for timestamps. If you want something visual and interactive without building it yourself, embed a [Blocs Habit Tracker widget](https://blocs.me/habit-tracker-widget) directly in your Notion page for streak tracking and built-in analytics.
+
+## Key Takeaways
+
+- Notion's native database tools let you log mood with Select properties and emoji scales, no templates required.
+- A Number (1-5) scale with a Daily average formula gives you trend data over time.
+- Gallery and Calendar views turn raw mood data into visual timelines.
+- Embeddable widgets like [Blocs](https://blocs.me) add streak tracking, analytics, and customizable goals inside Notion without leaving your workspace.
+- The Blocs Habit Tracker is free to use with no sign-up required.
+
+## Why Track Mood in Notion?
+
+Mood journaling has real mental health benefits. Research published by the [American Psychological Association](https://www.apa.org) consistently links regular emotional check-ins to reduced anxiety and better self-awareness. Notion is appealing for this because your mood log lives alongside your work, goals, and notes — no need for a separate app.
+
+The downside of using Notion natively is that it requires manual setup and lacks visual feedback like streaks or charts out of the box. That's where a well-designed embed makes a meaningful difference.
+
+## Method 1: Build a Mood Tracker Database in Notion
+
+This is the fully manual approach. It takes about 10 minutes to set up and costs nothing.
+
+### Step 1: Create a New Database
+
+In any Notion page, type `/table` and select **Table - Full page** or **Table - Inline**. Name it "Mood Log" or similar.
+
+### Step 2: Add Your Properties
+
+Delete the default properties and add the following:
+
+- **Date** (type: Date) — when you logged the entry
+- **Mood** (type: Select) — options like 😞 Low, 😐 Neutral, 😊 Good, 😄 Great
+- **Score** (type: Number) — a 1-5 numeric rating for charting
+- **Notes** (type: Text) — optional context: what happened, what affected your mood
+- **Energy** (type: Select) — optional secondary dimension
+
+### Step 3: Set Up Useful Views
+
+Add a **Gallery view** (grouped by Mood) for a visual snapshot, and a **Calendar view** (by Date) so you can see patterns over weeks. Filter the Calendar view to show only the current month.
+
+### Step 4: Add a Daily Reminder
+
+Notion doesn't have native reminders, but you can use a recurring reminder in your phone or a service like [Zapier](https://zapier.com) to ping you each evening. Some users create a pinned "Today's Check-In" filtered view that always shows just today's date to make logging faster.
+
+### Step 5: Track Trends with a Formula
+
+In a separate Notion database (or as a Linked View), you can use `rollup` and `formula` properties to calculate weekly averages. This is advanced — if you want analytics without the setup, skip to Method 2.
+
+| Property | Type | Purpose |
+|----------|------|---------|
+| Date | Date | When the entry was logged |
+| Mood | Select | Emoji / label scale |
+| Score | Number | Numeric 1-5 for trend analysis |
+| Notes | Text | Context and journaling |
+| Energy | Select | Secondary wellness dimension |
+
+## Method 2: Use the Blocs Habit Tracker Widget (Recommended)
+
+If you want streak tracking, visual progress, and built-in analytics — without wrestling with Notion formulas — the [Blocs Habit Tracker](https://blocs.me/habit-tracker-widget) is the fastest path. It embeds directly in any Notion page as an iframe, so you never leave your workspace.
+
+You can set up a "Mood Check-In" habit and log it daily with one tap. The free tier includes the core tracker with no sign-up required.
+
+### How to Embed the Blocs Habit Tracker in Notion
+
+1. Go to **blocs.me/habit-tracker** and copy the embed URL.
+2. In Notion, type `/embed` and paste the URL.
+3. Resize the embed block to fit your layout.
+4. That's it — the widget is live inside your Notion page.
+
+<WidgetEmbed src="/habit-tracker" title="Blocs Habit Tracker" />
+
+### Free vs. Pro Features
+
+| Feature | Free | Pro ($17 one-time) |
+|---------|------|-------------------|
+| Daily habit logging | Yes | Yes |
+| Streak tracking | Yes | Yes |
+| Unlimited habits | No (limited) | Yes |
+| Daily/weekly/monthly analytics | No | Yes |
+| Custom goals and durations | No | Yes |
+| Theme customization | No | Yes |
+| Cloud sync across devices | No | Yes |
+| No Blocs branding | No | Yes |
+
+Pro is a **$17 one-time payment**, not a subscription — lifetime access to all widgets and features. For anyone tracking mood seriously over months, the analytics and sync alone make it worth it.
+
+## Method 3: Use a Pre-Built Notion Template
+
+The Notion template gallery includes several community-built mood trackers. These are a middle ground — more polished than building from scratch, but still fully inside Notion with no external embeds needed. Limitations: no automated streak detection, and you'll need to maintain the formulas yourself if something breaks.
+
+Search "mood tracker" in the [Notion template gallery](https://www.notion.so/templates) to find free options. Paid templates are available on marketplaces like Gumroad, typically ranging from $3-$15.
+
+## Which Method Should You Use?
+
+| Situation | Best Approach |
+|-----------|--------------|
+| You want full control and love building in Notion | Method 1: DIY database |
+| You want streaks, analytics, and zero setup | Method 2: Blocs Habit Tracker |
+| You want something polished but fully native to Notion | Method 3: Template |
+| You're tracking multiple wellness habits alongside mood | Method 2: Blocs (handles multiple habits) |
+
+## Tips for Consistent Mood Logging
+
+- **Keep it fast.** If logging takes more than 30 seconds, you'll skip it. Use a single emoji scale as your primary input — detailed notes are optional.
+- **Log at the same time daily.** Evening works well because you can reflect on the whole day. Morning works if you want to set an intention.
+- **Track context, not just score.** A mood score without context is less useful over time. Even a two-word note ("bad sleep", "big presentation") adds a lot when you review weeks later.
+- **Review weekly.** Patterns only emerge when you look back. Set aside 5 minutes each Sunday to review the past week's entries.
+- **Don't aim for perfect data.** Missed days happen. A 70% completion rate over 3 months is far more useful than a 100% rate for one week.
+
+## Frequently Asked Questions
+
+### Can I track mood and other habits together in Notion?
+
+Yes. With the DIY database method, you can add as many Select or Number properties as you want — energy, sleep quality, exercise — alongside your mood score. With Blocs, you can create separate habit entries for each dimension you want to track and view them all in one embedded widget.
+
+### Does Blocs store my mood data on their servers?
+
+With the free tier, data is stored locally in your browser. With Blocs Pro, cloud sync is available so your data persists across devices. See the [Blocs FAQ page](https://blocs.me/faqs) for details on data handling.
+
+### Is there a Notion mood tracker template I can duplicate for free?
+
+Yes — the Notion template gallery has free community templates. You can also find more polished paid templates on community marketplaces. That said, the DIY setup described in Method 1 takes about 10 minutes and is fully customizable.
+
+### Can I see mood trends over time in Notion?
+
+With the native database approach, you can use a Number property (1-5 scale) combined with a Linked Database and rollup to compute weekly averages — but this requires formula knowledge. Blocs Pro includes built-in daily, weekly, and monthly analytics that surface trends automatically.
+
+### Does the Blocs Habit Tracker work on mobile Notion?
+
+Embeds in Notion work on desktop and mobile, though the mobile Notion app may render embeds differently depending on your device. The Blocs widgets are responsive and designed to work across screen sizes.
+
+### Is mood tracking actually useful, or is it just journaling busywork?
+
+Research consistently shows that regular emotional check-ins improve self-awareness and can help identify triggers for low mood. The key is consistency and occasional review — logging without ever looking back provides limited value. Even a simple weekly review of your entries makes the practice meaningful.
+
+## Start Tracking Today
+
+Mood tracking in Notion works best when the friction is low. Build a simple database if you want full control, or embed a Blocs Habit Tracker if you want streaks and analytics without the setup work.
+
+[Try the free Blocs Habit Tracker](https://blocs.me/habit-tracker-widget) — no account needed, embeds in Notion in under a minute. For full analytics, unlimited habits, and theme customization, [Blocs Pro](https://blocs.me/pricing) is a one-time $17 payment with lifetime access.
