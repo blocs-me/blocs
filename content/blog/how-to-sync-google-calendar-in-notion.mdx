@@ -1,0 +1,142 @@
+---
+title: "How to Sync Google Calendar in Notion (2026 Guide)"
+date: "2026-05-10"
+description: "Learn how to sync Google Calendar in Notion using embeds, iframes, and widgets. Free options, step-by-step setup, and the best calendar widget for Notion in 2026."
+---
+
+You can't natively sync Google Calendar inside Notion — but you can embed a live, interactive calendar view directly in any Notion page using Notion's embed block or a dedicated calendar widget. This works for anyone who wants to see their schedule without switching apps. The trade-off: Notion's built-in embed is read-only and basic, while third-party calendar widgets offer richer visuals and more control.
+
+- Notion has no official Google Calendar integration that writes back to Google.
+- The most practical method is embedding a Google Calendar public URL or using a widget like [Blocs' Calendar widget](https://blocs.me/calendar-widget).
+- Third-party tools can bridge the gap with two-way sync, but require separate app setups.
+
+## Key Takeaways
+
+- Notion does not natively sync with Google Calendar — you need an embed or third-party tool.
+- Embedding a Google Calendar via URL takes under 2 minutes and is completely free.
+- For a visual, styled calendar inside Notion, a widget like [Blocs Calendar](https://blocs.me/calendar-widget) is a better option.
+- Two-way sync (creating Notion events that appear in Google Calendar) requires tools like Zapier or Make.
+- The simplest read-only setup: copy your Google Calendar's public embed URL into a Notion embed block.
+
+## What "Syncing" Google Calendar in Notion Actually Means
+
+When most people ask how to sync Google Calendar in Notion, they usually want one of two things:
+
+- **Read-only view:** See upcoming events from Google Calendar displayed inside a Notion page, so they don't have to switch apps.
+- **Two-way sync:** Create or edit events in Notion and have them show up in Google Calendar, and vice versa.
+
+These are very different problems. Read-only embedding is fast and free. Two-way sync requires automation tools and ongoing maintenance. This guide covers both — start with the method that matches your actual need.
+
+## Method 1: Embed Google Calendar Directly in Notion (Free, Read-Only)
+
+This is the fastest approach. Google Calendar lets you generate a public embed URL for any calendar, and Notion's embed block can display it inline.
+
+### Step 1: Get your Google Calendar embed URL
+
+1. Open **Google Calendar** in a browser.
+2. In the left sidebar, click the three-dot menu next to the calendar you want to embed.
+3. Select **Settings and sharing**.
+4. Scroll down to **Integrate calendar**.
+5. Copy the **Public URL to this calendar** (not the embed code — just the URL).
+
+**Note:** Your calendar must be set to public for the embed to work. If it's a personal calendar you'd prefer to keep private, consider using a secondary calendar dedicated to non-sensitive events.
+
+### Step 2: Add it to Notion
+
+1. Open any Notion page.
+2. Type `/embed` and select the **Embed** block.
+3. Paste the Google Calendar URL into the input field.
+4. Click **Embed link**.
+
+Notion will render an inline Google Calendar view. You can resize the block by dragging the edges to fit your layout. Events update automatically as your Google Calendar changes.
+
+### Limitations of this method
+
+- The calendar is **read-only** — you can't create or edit events from within Notion.
+- The Google Calendar UI can look cluttered inside a Notion page and doesn't always match your workspace aesthetic.
+- Requires the calendar to be publicly accessible, which is a privacy trade-off.
+- Mobile Notion apps may not render embeds well.
+
+## Method 2: Use a Notion Calendar Widget (Better Visuals, More Control)
+
+If you want a calendar that actually looks good inside Notion and integrates with your workspace design, a dedicated [Notion calendar widget](https://blocs.me/blog/notion-calendar-widget) is the better route. [Blocs](https://blocs.me) offers a calendar widget built specifically for Notion embeds — it renders cleanly, supports date markers, and doesn't require your Google Calendar to be public.
+
+The [Blocs Calendar widget](https://blocs.me/calendar-widget) displays a full visual calendar with custom date markers. It's part of the Blocs Pro plan ($17 one-time payment), which also includes a weather widget, countdown timer, progress bar, and more — all embeddable in Notion.
+
+<WidgetEmbed src="/calendar" title="Blocs Calendar Widget" height="420px" maxWidth="420px" />
+
+### How to add a Blocs Calendar widget to Notion
+
+1. Go to [blocs.me/calendar-widget](https://blocs.me/calendar-widget) and get your embed URL.
+2. In Notion, type `/embed` and select the Embed block.
+3. Paste the Blocs Calendar URL and click **Embed link**.
+4. Resize to fit your page layout.
+
+This gives you a styled, always-visible calendar inside Notion — ideal for dashboards, project pages, or weekly planning layouts.
+
+## Method 3: Two-Way Sync with Automation Tools
+
+If you need events created in Notion to show up in Google Calendar (or the reverse), you'll need an automation layer. There's no native Notion-Google Calendar integration that handles this out of the box.
+
+### Using Zapier or Make (formerly Integromat)
+
+Both **Zapier** and **Make** support Notion and Google Calendar as app integrations. A typical workflow looks like this:
+
+- **Trigger:** A new database entry is added in Notion (e.g., a task with a date field).
+- **Action:** Zapier/Make creates a corresponding event in Google Calendar.
+
+The reverse also works: a new Google Calendar event can create a Notion database entry. This approach requires setting up and maintaining the automation, and free tiers on these platforms have task limits. It's best suited for teams or power users with specific workflow needs.
+
+### Using Notion's native API
+
+Developers can use the **Notion API** alongside the **Google Calendar API** to build a custom sync script. This is the most flexible option but requires coding knowledge and ongoing maintenance if either API changes.
+
+## Which Method Should You Use?
+
+| Method | Best For | Cost | Two-Way Sync | Setup Time |
+|---|---|---|---|---|
+| Google Calendar embed URL | Quick read-only view | Free | No | 2 minutes |
+| Blocs Calendar widget | Visual calendar in Notion dashboard | $17 one-time (Pro) | No | 5 minutes |
+| Zapier / Make automation | Two-way sync between apps | Free tier / paid plans | Yes | 30+ minutes |
+| Custom API script | Developers, custom workflows | Free (dev time) | Yes | Hours |
+
+For most Notion users, the Google Calendar embed covers the daily-driver use case: see your schedule, stay in your workspace. If you care about aesthetics and want a purpose-built Notion experience, the [Blocs Calendar widget](https://blocs.me/calendar-widget) is worth it. Only reach for Zapier or a custom script if you genuinely need events to flow both directions.
+
+## Tips for a Better Notion Calendar Setup
+
+- **Use a dedicated calendar:** Create a separate Google Calendar for your Notion workspace (e.g., "Work Planning") so you only embed what's relevant.
+- **Pair it with a Pomodoro timer:** A [productivity widget setup](https://blocs.me/blog/best-notion-widgets-for-productivity) inside Notion — calendar + timer + habit tracker — keeps your entire workflow in one place.
+- **Resize the embed:** Notion embeds are resizable. Drag the bottom edge down for a week or month view, or keep it compact for a sidebar-style layout.
+- **Check mobile rendering:** Notion's mobile app handles embeds inconsistently. If you primarily use Notion on mobile, test the embed on your device before committing to the layout.
+
+## FAQs
+
+### Does Notion have a native Google Calendar sync?
+
+No. As of 2026, Notion does not have a built-in two-way Google Calendar sync. You can embed a read-only calendar view using a public Google Calendar URL, or use automation tools like Zapier to push data between the two apps.
+
+### Will people be able to see my Google Calendar if I embed it in Notion?
+
+Anyone who has access to the Notion page will be able to see the embedded calendar. If your Notion workspace is shared with a team, embed a calendar with only the events you're comfortable sharing — or use a dedicated calendar created for this purpose.
+
+### Can I add events to Google Calendar from inside Notion?
+
+Not directly. The embed is read-only. To create events, you'll need to open Google Calendar directly or set up an automation via Zapier or Make that turns Notion database entries into calendar events.
+
+### What is the best calendar widget for Notion?
+
+For a visually clean, purpose-built calendar that lives inside Notion, the [Blocs Calendar widget](https://blocs.me/calendar-widget) is the best option. It's designed specifically for Notion embeds and includes date markers and theme customization. It's available as part of [Blocs Pro](https://blocs.me/pricing) for a $17 one-time payment.
+
+### Does the Google Calendar embed update automatically in Notion?
+
+Yes. The embedded calendar pulls data live from Google Calendar. Any new events you add in Google Calendar will appear in the Notion embed the next time the embed refreshes (usually on page reload).
+
+### Can I embed multiple Google Calendars in Notion?
+
+You can add multiple embed blocks, one per calendar. Alternatively, in Google Calendar you can create a merged calendar view and embed that single URL — it will show events from all included calendars in one block.
+
+## Start Building Your Notion Calendar Setup
+
+Embedding Google Calendar in Notion takes a few minutes and immediately reduces how often you switch between tabs. If you want to go further — with a purpose-built calendar widget, productivity timers, and habit tracking all in one Notion dashboard — check out what [Blocs](https://blocs.me) offers. The [Calendar widget](https://blocs.me/calendar-widget) and the full suite of [Notion productivity widgets](https://blocs.me/blog/best-notion-widgets-for-productivity) are available for a one-time $17 with no ongoing subscription.
+
+[Explore the Blocs Calendar widget](https://blocs.me/calendar-widget) or [see everything included in Pro](https://blocs.me/pricing).
