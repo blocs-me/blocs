@@ -1,0 +1,139 @@
+---
+title: "How to Show a Welcome Message in Notion (+ Make Your Dashboard Feel Personal)"
+date: "2026-05-12"
+description: "Show a welcome message in Notion using callout blocks, synced blocks, or quote widgets. Free methods + embeddable widgets to personalize your workspace."
+---
+
+Notion doesn't have a built-in "welcome message" feature, but you can fake one effectively using callout blocks, synced blocks, or an embedded quote widget. The best option for most users is a styled callout block at the top of your dashboard. It takes under two minutes to set up and requires no extra tools.
+
+- A callout block with an emoji gives you a clean, visible greeting at the top of any page.
+- Synced blocks let you update the message once and have it appear across multiple pages.
+- For a dynamic welcome (rotating quotes, live weather, a clock), you can embed a widget directly into Notion.
+- None of these methods require a paid Notion plan.
+
+## Key Takeaways
+
+- Use a **callout block** for the simplest static welcome message.
+- Use a **synced block** if you want the same message across multiple Notion pages.
+- Use a **toggle block** to hide the message after the first visit without deleting it.
+- For a dynamic, changing welcome (quotes, weather, a clock), embed a widget via URL.
+- All of these methods are free and work on Notion's free plan.
+
+## Method 1: Add a Callout Block (Simplest Option)
+
+A callout block is the fastest way to place a visible welcome message at the top of your Notion page. It stands out from body text and supports emoji, bold formatting, and color backgrounds.
+
+### How to do it
+
+1. Open the Notion page where you want the welcome message.
+2. Click at the top of the page content area (above any existing blocks).
+3. Type `/callout` and press Enter.
+4. Click the emoji on the left to pick one that fits your vibe (👋, ✨, 🏠, etc.).
+5. Type your message: "Welcome back! Here's what's on today" or something similar.
+6. Click the background color icon in the block toolbar to change the callout color if you want it to stand out more.
+
+That's it. The callout will appear at the top of your page every time you open it. You can bold text inside the callout, add links, or keep it plain.
+
+### Tips for making it look good
+
+- Use a light background color (yellow, blue, or green) to keep it easy to read.
+- Keep the message short: one or two lines is ideal.
+- Include a quick "today's focus" note or a link to your daily tasks database below the greeting.
+
+## Method 2: Use a Synced Block (For Multiple Pages)
+
+If you have a home dashboard, a work page, and a personal page, and you want the same welcome message on all of them, synced blocks are the right tool. Edit the original once and every copy updates automatically.
+
+### How to set it up
+
+1. Create your callout block (or any block) on one page and style it how you want.
+2. Click the **six-dot handle** to the left of the block to select it.
+3. Click **Turn into** and then select **Synced block**. (In newer Notion versions, look under the block menu for "Sync across pages".)
+4. The block turns red-outlined, indicating it's now synced.
+5. Copy the synced block (Ctrl/Cmd + C), navigate to another page, and paste it. It will stay linked to the original.
+
+Any edit you make to the original synced block will instantly appear on every page where it's pasted. This is useful if you rotate welcome messages weekly, for example changing the note to match the current week's goals.
+
+## Method 3: Use a Toggle Block to Hide It After Reading
+
+If you want a welcome message that's visible on first open but can be collapsed so it doesn't take up space, a toggle block works well.
+
+### How to do it
+
+1. Type `/toggle` at the top of your page and press Enter.
+2. Write your welcome message as the toggle heading (e.g., "👋 Welcome to your workspace").
+3. Add detail inside the toggle body: links to important pages, a note about the week's focus, or a checklist.
+4. Leave it open by default. Click the arrow to collapse it once you've read it.
+
+The toggle stays at the top of the page but takes up only one line when collapsed. It won't disappear, but it stops being visually prominent.
+
+## Method 4: Embed a Dynamic Welcome Widget
+
+Static text is fine, but some Notion users want something that changes each day. A rotating quote, a live clock, or even a weather widget can serve as a dynamic "welcome" to your workspace. These can be embedded directly into Notion using an iframe URL.
+
+[Blocs](https://blocs.me) offers embeddable widgets built specifically for Notion. The [Quote of the Day widget](https://blocs.me/quote-widget) pulls a fresh inspirational quote each day and displays it cleanly inside your Notion page. It behaves like a welcome message that refreshes itself.
+
+### How to embed a Blocs widget in Notion
+
+1. Go to [blocs.me](https://blocs.me) and copy the URL for the widget you want (e.g., `https://blocs.me/quote` for the Quote widget).
+2. In Notion, type `/embed` and press Enter.
+3. Paste the widget URL and click **Embed link**.
+4. Resize the embed block to fit your layout.
+
+The widget loads inside your Notion page. No app installation, no separate tab to open. The [Clock widget](https://blocs.me/clock-widget) also works well as a top-of-page element, giving you ambient time awareness the moment you open your workspace.
+
+<WidgetEmbed src="/quote" title="Blocs Quote of the Day" height="200px" maxWidth="500px" />
+
+### Free vs. Pro widgets
+
+The Quote of the Day and Clock widgets are part of Blocs Pro ($17 one-time payment, not a subscription). The [Habit Tracker](https://blocs.me/habit-tracker-widget), [Pomodoro Timer](https://blocs.me/pomodoro-timer), and Water Tracker widgets are free with no sign-up required.
+
+| Widget | Works as Welcome? | Free or Pro |
+|--------|-------------------|-------------|
+| Quote of the Day | Yes, rotates daily | Pro ($17 one-time) |
+| Clock & Timer | Yes, ambient time display | Pro ($17 one-time) |
+| Weather | Yes, sets the tone for the day | Pro ($17 one-time) |
+| Pomodoro Timer | Functional, not a greeting | Free |
+
+## Which Method Should You Use?
+
+Here's a quick guide based on what you actually want:
+
+- **You want something up in 60 seconds:** Callout block, no question.
+- **You manage multiple Notion pages:** Synced block so you only edit once.
+- **You want it collapsible:** Toggle block.
+- **You want it to feel alive and change daily:** Embed a Quote of the Day or Clock widget from Blocs.
+
+Most people end up combining these: a pinned callout block with a weekly focus note, plus an embedded quote or clock widget just below it for a bit of personality.
+
+## FAQs
+
+### Does Notion have a native welcome message or greeting feature?
+
+No. Notion doesn't have a dedicated welcome message feature. The closest native options are callout blocks, toggle blocks, and synced blocks. For a dynamic greeting that changes, you need to embed a third-party widget.
+
+### Can I show a different welcome message to different people?
+
+Not natively. Notion doesn't personalize page content per viewer. Everyone who opens the page sees the same message. If you share a workspace with a team, a generic "Welcome to the team dashboard" message works fine.
+
+### Will the welcome message disappear when I scroll?
+
+By default, all blocks scroll with the page. If you want it always visible, there's no built-in pin option in Notion. The closest workaround is keeping it at the very top and making it short enough that it stays in view on first load.
+
+### Can I use a quote widget as a welcome message for free?
+
+The Blocs Quote of the Day widget is part of the Pro plan ($17 one-time). The free widgets from Blocs (Pomodoro, Habit Tracker, Water Tracker) are functional tools rather than greeting-style displays. For a free dynamic element, a styled callout block with a manually updated weekly note is the practical alternative.
+
+### How do I remove or update the welcome message later?
+
+Click the block handle (six dots) next to the block and select **Delete** to remove it. To edit it, just click inside the block and type. If you used a synced block, editing the original updates all copies automatically.
+
+### Can I add a welcome message to a shared Notion template?
+
+Yes. Any block you place on a page will be included when you duplicate it as a template. Synced blocks do not sync across template duplicates (each copy becomes independent), so for templates, a plain callout block is more predictable.
+
+## Make Your Notion Dashboard Worth Opening
+
+A welcome message is a small touch, but it shapes how you feel the moment you open your workspace. A callout block takes a minute to add. An embedded widget takes two. Either way, it's worth doing if it makes you more likely to actually use your Notion setup consistently.
+
+If you want to go further, explore the free widgets at [blocs.me](https://blocs.me) to add interactive elements like a habit tracker or pomodoro timer directly to your dashboard. Or check out [interactive widgets for Notion](https://blocs.me/blog/interactive-widgets-for-notion) to see what else you can embed. For a full productivity-focused setup, [the best Notion widgets for productivity](https://blocs.me/blog/best-notion-widgets-for-productivity) covers the complete toolkit.
