@@ -10,9 +10,11 @@ import { UrlHash } from '../WaterTracker/types'
 
 type Props = {
   isChecked: boolean
+  isSelected?: boolean
   text: string
   id: string
   onChange: (val: string) => void
+  onSelect?: (val: string) => void
 }
 
 const StrikeThrough = styled.div`
@@ -37,25 +39,42 @@ const StrikeThrough = styled.div`
   }
 `
 
-const CheckboxWithText = ({ isChecked, onChange, id, text }: Props) => {
+const CheckboxWithText = ({ isChecked, isSelected, onChange, onSelect, id, text }: Props) => {
   const { role } = useUrlHash<UrlHash>()
-  const handleClick = (e: MouseEvent<HTMLDivElement>) => {
+  const handleCheckbox = (e: MouseEvent<HTMLDivElement>) => {
     e.preventDefault()
     e.stopPropagation()
     role === 'blocs-user' && onChange(id)
+  }
+
+  const handleTextClick = (e: MouseEvent<HTMLDivElement>) => {
+    e.preventDefault()
+    e.stopPropagation()
+    onSelect?.(id)
   }
 
   return (
     <Stack
       display="flex"
       mr="xs"
-      onClick={(e: MouseEvent<HTMLDivElement>) => handleClick(e)}
       css={{ cursor: 'pointer' }}
       alignItems="center"
     >
-      <Checkbox size="28px" isChecked={isChecked} />
+      <Box onClick={handleCheckbox}>
+        <Checkbox size="28px" isChecked={isChecked} />
+      </Box>
       <Box ml="xxs" />
-      <Box hoverColor="primary.accent-4" data-mask="habit-checkbox">
+      <Box
+        onClick={handleTextClick}
+        hoverColor="primary.accent-4"
+        data-mask="habit-checkbox"
+        css={{
+          borderRadius: '4px',
+          padding: '0 4px',
+          backgroundColor: isSelected ? 'var(--colors-brand-accent-5, rgba(224,0,121,0.08))' : 'transparent',
+          transition: 'background-color 0.15s ease'
+        }}
+      >
         <Text
           fontSize={'sm'}
           color={isChecked ? 'primary.accent-4' : 'foreground'}

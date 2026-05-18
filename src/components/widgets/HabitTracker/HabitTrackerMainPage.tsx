@@ -12,6 +12,7 @@ import FadeIn from '@/helpers/FadeIn'
 import { useDebouncedCallback } from 'beautiful-react-hooks'
 import { useFetchHabits } from './hooks/useFetchHabits'
 import useFetchHabitsAnalytics from './hooks/useFetchHabitsAnalytics'
+import useFetchHabitHistory from './hooks/useFetchHabitHistory'
 import useSaveHabitsAnalytics from './hooks/useSaveHabitsAnalytics'
 import { getCurrentISOString } from '../../../utils/dateUtils/getCurrentISOString'
 import CheckoboxesSkeleton from './CheckboxesSkeleton'
@@ -30,12 +31,18 @@ const HabitTrackerMainPage = ({ isAnalyticsHidden = false }) => {
   const isSmallScreen = useMediaQuery('(max-width: 600px)')
   const { data: habits } = useFetchHabits()
   const { data: analyticsData } = useFetchHabitsAnalytics()
+  const { history } = useFetchHabitHistory()
   const saveHabits = useSaveHabitsAnalytics()
   const scrollContainer = useRef<HTMLDivElement>(null)
   const columnOne = useRef<HTMLDivElement>(null)
+  const [selectedHabitId, setSelectedHabitId] = useState<string | null>(null)
 
   const handleOnChange = (habitId: string) => {
     saveHabits(habitId)
+  }
+
+  const handleHabitSelect = (habitId: string) => {
+    setSelectedHabitId(prev => prev === habitId ? null : habitId)
   }
 
   const [hideTopFade, setHideTopFade] = useState(true)
@@ -117,9 +124,11 @@ const HabitTrackerMainPage = ({ isAnalyticsHidden = false }) => {
                 {habits?.data?.map((d) => (
                   <CheckboxWithText
                     isChecked={analyticsData?.data?.habitsDone?.includes(d.id)}
+                    isSelected={selectedHabitId === d.id}
                     text={d.title}
                     id={d.id}
                     onChange={(id) => handleOnChange(id)}
+                    onSelect={(id) => handleHabitSelect(id)}
                     key={d.id}
                   />
                 ))}
@@ -138,6 +147,8 @@ const HabitTrackerMainPage = ({ isAnalyticsHidden = false }) => {
             <StreakGrid
               currentStreak={analyticsData?.data?.currentStreak || 0}
               bestStreak={analyticsData?.data?.bestStreak || 0}
+              selectedHabitId={selectedHabitId}
+              history={history}
             />
           </Flex>
         )}
