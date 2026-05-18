@@ -149,6 +149,7 @@ const HabitTrackerMainPage = ({ isAnalyticsHidden = false }) => {
               bestStreak={analyticsData?.data?.bestStreak || 0}
               selectedHabitId={selectedHabitId}
               history={history}
+              todayHabitsDone={analyticsData?.data?.habitsDone || []}
             />
           </Flex>
         )}

@@ -13,6 +13,7 @@ type Props = {
   bestStreak: number
   selectedHabitId?: string | null
   history?: HistoryDay[]
+  todayHabitsDone?: string[]
 }
 
 function computeHabitStreak(history: HistoryDay[], habitId: string) {
@@ -47,11 +48,23 @@ function computeHabitStreak(history: HistoryDay[], habitId: string) {
   return { current, best, cells }
 }
 
-const StreakGrid = ({ currentStreak, bestStreak, selectedHabitId, history }: Props) => {
+const StreakGrid = ({ currentStreak, bestStreak, selectedHabitId, history, todayHabitsDone }: Props) => {
+  const mergedHistory = useMemo(() => {
+    if (!history) return []
+    const todayKey = new Date().toISOString().slice(0, 10)
+    const hasToday = history.some((d) => d.date.slice(0, 10) === todayKey)
+    if (hasToday) {
+      return history.map((d) =>
+        d.date.slice(0, 10) === todayKey ? { ...d, habitsDone: todayHabitsDone || d.habitsDone } : d
+      )
+    }
+    return [...history, { date: todayKey, habitsDone: todayHabitsDone || [] }]
+  }, [history, todayHabitsDone])
+
   const habitStats = useMemo(() => {
-    if (!selectedHabitId || !history?.length) return null
-    return computeHabitStreak(history, selectedHabitId)
-  }, [selectedHabitId, history])
+    if (!selectedHabitId || !mergedHistory.length) return null
+    return computeHabitStreak(mergedHistory, selectedHabitId)
+  }, [selectedHabitId, mergedHistory])
 
   const displayStreak = habitStats ? habitStats.current : (currentStreak || 0)
   const displayBest = habitStats ? habitStats.best : (bestStreak || 0)
