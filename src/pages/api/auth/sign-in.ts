@@ -10,7 +10,7 @@ import Stripe from 'stripe'
 import { mapUserToBlocUserServer } from '@/lambda/helpers/supabase/mapDbToType'
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-  apiVersion: '2023-08-16',
+  apiVersion: '2026-04-22.dahlia',
   typescript: true
 })
 

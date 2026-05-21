@@ -7,7 +7,7 @@ import supabaseAdmin from '@/lambda/helpers/supabaseAdmin'
 import supabase from '@/lambda/helpers/supabase'
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-  apiVersion: '2023-08-16'
+  apiVersion: '2026-04-22.dahlia'
 })
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {

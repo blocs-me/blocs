@@ -4,7 +4,7 @@ import { handle400Response } from '../../../lambda-functions/helpers/handleRespo
 import getBlocsUser from '@/lambda/middlewares/getBlocsUser'
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-  apiVersion: '2023-08-16'
+  apiVersion: '2026-04-22.dahlia'
 })
 
 type Products = { price: string; quantity: number }[]
@@ -55,8 +55,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       }
     }
 
-    const paymentOptions: Partial<Stripe.Checkout.SessionCreateParams> =
-      (() => {
+    const paymentOptions = (() => {
         if (stripeCustomerId) return { customer: stripeCustomerId } // would happen on second purchase for signed in user
         if (customer_email) return { customer_email } // for signed in user
       })()

@@ -22,7 +22,7 @@ const cors = Cors({
 })
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-  apiVersion: '2023-08-16',
+  apiVersion: '2026-04-22.dahlia',
   typescript: true
 })
 
@@ -36,16 +36,6 @@ export const config = {
 
 function getPurchasedProductsBySubscription(
   itemLines: Stripe.SubscriptionItem[]
-): string[] {
-  const purchasedProducts = itemLines
-    .filter((item) => item.price.product !== null)
-    .map((item) => findProductNameById(item.price.product as string))
-
-  return purchasedProducts
-}
-
-function getPurchasedProductsByInvoice(
-  itemLines: Stripe.InvoiceLineItem[]
 ): string[] {
   const purchasedProducts = itemLines
     .filter((item) => item.price.product !== null)

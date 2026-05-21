@@ -3,7 +3,7 @@ import Stripe from 'stripe'
 import stripePriceIds from '@/constants/stripePriceIds'
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-  apiVersion: '2023-08-16'
+  apiVersion: '2026-04-22.dahlia'
 })
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -25,9 +25,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       allow_promotion_codes: true,
       success_url: `${req.headers.origin}/welcome?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${req.headers.origin}/pricing?canceled=true`,
-      automatic_tax: { enabled: true },
       invoice_creation: { enabled: true },
-      payment_intent_data: { setup_future_usage: 'on_session' }
+      payment_intent_data: { setup_future_usage: 'on_session' },
+      managed_payments: { enabled: true }
     })
 
     res.status(200).json({ url: session.url })
