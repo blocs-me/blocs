@@ -25,7 +25,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       allow_promotion_codes: true,
       success_url: `${req.headers.origin}/welcome?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${req.headers.origin}/pricing?canceled=true`,
-      invoice_creation: { enabled: true },
       managed_payments: { enabled: true }
     })
 
