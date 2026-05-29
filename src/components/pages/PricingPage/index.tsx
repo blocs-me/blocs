@@ -311,7 +311,7 @@ const PricingPage = () => {
                 loading={isLoading}
                 disabled={isLoading}
               >
-                Get Blocs Pro — $17
+                {isLoading ? 'Redirecting to checkout...' : 'Get Blocs Pro — $17'}
               </Button>
             </Box>
 

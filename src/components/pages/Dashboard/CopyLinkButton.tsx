@@ -57,7 +57,7 @@ const UpgradeModal = ({ visible, onClose }: { visible: boolean; onClose: () => v
           loading={isLoading}
           disabled={isLoading}
         >
-          Get Blocs Pro — $17
+          {isLoading ? 'Redirecting to checkout...' : 'Get Blocs Pro — $17'}
         </Button>
         <Text fontSize="xxs" color="primary.accent-4" m={0} textAlign="center">
           One-time payment · No subscription
