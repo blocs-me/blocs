@@ -1,0 +1,113 @@
+---
+title: "Best Budget Widget for Notion (Free & Embeddable)"
+date: "2026-05-30"
+description: "Looking for a budget widget for Notion? Discover free embeddable options, how to track spending inside Notion, and when Blocs widgets can help."
+---
+
+A dedicated budget widget for Notion doesn't exist yet as an embeddable iframe tool — but you can track spending inside Notion today using a combination of native databases and embeddable productivity widgets from [Blocs](https://blocs.me). This guide covers your real options, what to expect from each, and how to set up a functional budget tracker without leaving your Notion workspace.
+
+## Key Takeaways
+
+- No standalone embeddable budget widget for Notion currently exists as a ready-made iframe tool.
+- The most practical approach is a Notion database (manual or formula-based) paired with a [progress bar widget](https://blocs.me/progress-bar-widget) to visualize spending vs. goal.
+- Blocs offers a free Habit Tracker and Pomodoro Timer — a budget-specific widget is in development.
+- Most Notion users rely on manual database tables or duplicated community templates to manage budgets.
+- Blocs Pro is a one-time $17 payment — no subscriptions, no recurring fees.
+
+## What Is a Budget Widget for Notion?
+
+A budget widget for Notion would be an embeddable tool — typically an iframe — that lets you set a spending limit, log expenses, and visualize your financial progress directly inside a Notion page. Instead of jumping between a banking app, a spreadsheet, and your Notion workspace, everything lives in one place.
+
+Right now, purpose-built budget widgets for Notion are rare. Most "Notion budget trackers" you'll find online are database templates — not widgets. They require manual data entry into Notion's native table views, and they offer no visual feedback beyond a raw number. That gap is exactly what embeddable widget tools are starting to fill.
+
+## How to Track a Budget Inside Notion Today
+
+Until a dedicated budget widget is available, here's the most effective workflow for managing money inside Notion:
+
+### Option 1: Notion Database (Manual)
+
+Create a database with columns for Category, Amount, Date, and Type (income vs. expense). Add a formula column to calculate remaining budget. This works, but it's clunky — you're doing accounting in a notes tool.
+
+### Option 2: Progress Bar Widget + Notion Database
+
+This is the smarter approach. Set up your budget database for the raw numbers, then embed a [Blocs Progress Bar widget](https://blocs.me/progress-bar-widget) on the same page to visually track how close you are to your spending limit. The progress bar gives you an at-a-glance view your database alone can't.
+
+To embed it, create a new block in Notion, select **/embed**, and paste the widget URL:
+
+```
+https://blocs.me/progress-bar
+```
+
+<WidgetEmbed src="/progress-bar" title="Blocs Progress Bar Widget" height="150px" maxWidth="500px" />
+
+You can customize the bar's color, goal value, and label to match your budget category — whether that's monthly rent, groceries, or a savings target.
+
+### Option 3: Countdown Timer for Bill Due Dates
+
+Pair your budget tracker with a [Countdown Timer widget](https://blocs.me/countdown-timer) to stay aware of upcoming payment deadlines. Set it to your credit card due date or rent day so it's always visible in your Notion dashboard.
+
+<WidgetEmbed src="/countdown" title="Blocs Countdown Timer" height="200px" maxWidth="500px" />
+
+## Is a Dedicated Notion Budget Widget Coming?
+
+Yes — Blocs is actively working on expanding its widget library. A budget tracker widget for Notion is on the roadmap. It will offer embeddable spending tracking with category breakdowns and visual goal progress, all inside your Notion workspace. If you want to be notified when it launches, check back at [blocs.me](https://blocs.me) or sign up at [blocs.me/sign-in](https://blocs.me/sign-in).
+
+## What Blocs Widgets Work Well for Financial Tracking Now
+
+While a native budget widget is in development, these existing Blocs widgets are useful for anyone managing finances in Notion:
+
+| Widget | Use Case | Free or Pro? |
+|--------|----------|--------------|
+| [Progress Bar](https://blocs.me/progress-bar-widget) | Visualize budget used vs. remaining | Pro ($17 one-time) |
+| [Countdown Timer](https://blocs.me/countdown-timer) | Track days until bill due dates | Pro ($17 one-time) |
+| [Habit Tracker](https://blocs.me/habit-tracker-widget) | Build daily saving or spending-check habits | Free |
+| [Calendar Widget](https://blocs.me/calendar-widget) | Mark payment dates and bill cycles visually | Pro ($17 one-time) |
+
+All Pro widgets are unlocked with a single $17 one-time payment — no subscription required. You get lifetime access to every widget Blocs offers, including any new ones added to the suite.
+
+## Why Separate Budget Apps Don't Work Well With Notion
+
+The common workaround is using a dedicated app like a mobile budget tracker alongside Notion — but this creates the exact context-switching problem Notion is supposed to solve. You end up checking two places, manually copying numbers, and losing the "everything in one workspace" benefit entirely.
+
+Embeddable widgets solve this by living inside your Notion page. You don't open another tab. You don't switch apps. Your budget progress is right there next to your tasks, notes, and goals — the way a true second brain should work.
+
+## How to Set Up a Simple Budget Dashboard in Notion
+
+1. **Create a new Notion page** — call it "Monthly Budget" or "Finance Dashboard."
+2. **Add a database** — use a table with columns: Category, Budgeted Amount, Actual Spend, Difference.
+3. **Add a formula column** — use `prop("Budgeted Amount") - prop("Actual Spend")` to calculate remaining.
+4. **Embed a Progress Bar** — type `/embed`, paste `https://blocs.me/progress-bar`, set your monthly limit as the goal.
+5. **Add a Countdown Timer** — embed `https://blocs.me/countdown` and set it to your next payday or bill date.
+6. **Review weekly** — use Blocs' built-in analytics (Pro) to track patterns over time.
+
+## Frequently Asked Questions
+
+### Is there a free budget widget for Notion?
+
+Not as a ready-made iframe embed yet. The closest free option today is Blocs' [Habit Tracker](https://blocs.me/habit-tracker-widget) (free) combined with a Notion database for manual expense logging. A dedicated budget widget is in development.
+
+### Can I embed a budget tracker in Notion without coding?
+
+Yes. Using Blocs' embed approach, you paste a URL into a Notion `/embed` block — no code required. The widget renders inline on your page immediately.
+
+### What's the difference between a Notion budget template and a budget widget?
+
+A template is a pre-built database structure you duplicate into your workspace — you still do all the data entry manually. A widget is a live, interactive tool embedded directly on your page that handles logic and display for you.
+
+### Does Blocs Pro include a budget widget?
+
+Not yet — but a budget tracker is on the roadmap. Blocs Pro ($17 one-time) currently includes Progress Bar, Countdown Timer, Calendar, Clock, Weather, and Quote widgets, all of which can support a finance dashboard setup in Notion.
+
+### Can I track multiple budget categories in Notion?
+
+Yes — create a separate Notion database entry for each category (groceries, rent, entertainment) and embed a progress bar widget for each one on your dashboard page.
+
+### Do Blocs widgets sync across devices?
+
+Yes — Blocs Pro includes cloud sync, so your widget data and settings stay consistent whether you're on desktop or mobile.
+
+## Get Started
+
+The best budget widget for Notion is coming — and in the meantime, you can build a solid financial dashboard today using Blocs' Progress Bar and Countdown Timer. Start free with the Habit Tracker, or unlock the full widget suite with a one-time $17 Pro upgrade.
+
+[Try the Progress Bar widget](https://blocs.me/progress-bar-widget) &nbsp;|&nbsp; [See Blocs Pro pricing](https://blocs.me/pricing) &nbsp;|&nbsp; [Explore all Notion widgets](https://blocs.me)
