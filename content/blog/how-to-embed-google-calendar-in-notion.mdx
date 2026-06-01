@@ -1,0 +1,115 @@
+---
+title: "How to Embed a Google Calendar in Notion (2026 Guide)"
+date: "2026-05-31"
+description: "Learn how to embed a Google Calendar in Notion using iframes. Free step-by-step guide + a smarter Notion calendar widget alternative with analytics."
+---
+
+You can embed a Google Calendar in Notion by making it public, copying its embed URL from Google Calendar settings, and pasting it into a Notion `/embed` block. It works, but it comes with real limitations: no dark mode, no Notion-native styling, and a clunky iframe that breaks on mobile. For a cleaner experience, a dedicated [Notion calendar widget](https://blocs.me/calendar-widget) like Blocs gives you a fully styled, interactive calendar that lives inside your workspace.
+
+## Key Takeaways
+
+- Google Calendar can be embedded in Notion via its public share URL and Notion's `/embed` block — no paid tools needed.
+- The native Google Calendar embed has no dark mode, limited mobile support, and no Notion-style theming.
+- A Notion calendar widget (like [Blocs Calendar](https://blocs.me/blog/calendar-widget-for-notion)) offers date markers, theme customization, and analytics — all inside Notion.
+- Blocs Pro is a one-time $17 payment, not a subscription — access the calendar widget and all other widgets for life.
+
+## How to Embed a Google Calendar in Notion: Step-by-Step
+
+### Step 1 — Make Your Google Calendar Public
+
+Google Calendar embeds only work if the calendar is set to public. Open **Google Calendar** in a browser, click the three-dot menu next to the calendar you want to embed, and select **Settings and sharing**. Under "Access permissions for events," check **Make available to public**. Note: this makes all event titles visible to anyone with the link.
+
+### Step 2 — Get the Embed Code
+
+Scroll down to the **Integrate calendar** section. You'll see an "Embed code" field with a full `<iframe>` snippet. Copy only the URL inside the `src="..."` attribute — that's the part you need for Notion. It looks something like:
+
+`https://calendar.google.com/calendar/embed?src=your_calendar_id&ctz=Your%2FTimezone`
+
+### Step 3 — Add an Embed Block in Notion
+
+Open the Notion page where you want the calendar. Type `/embed` and select the **Embed** block from the menu. Paste the Google Calendar embed URL into the box and click **Embed link**. Notion will render the calendar inline on the page.
+
+### Step 4 — Resize the Embed
+
+Drag the bottom edge of the embed block to make it taller. Google Calendar works best at a height of at least 500px — anything smaller and the monthly grid becomes unreadable. Width adjusts automatically to your page column.
+
+### Step 5 — Test It
+
+Switch to **Full page** view or share the page with a teammate to confirm the calendar loads correctly. If you see a blank box, double-check that the calendar is set to public in Step 1.
+
+## Limitations of the Google Calendar Embed in Notion
+
+The native embed works, but it has several pain points that come up quickly in daily use:
+
+- **No dark mode.** The Google Calendar iframe always renders in light mode, which looks jarring inside a dark-themed Notion workspace.
+- **No Notion-native styling.** Fonts, colors, and layout are entirely Google's — it never feels like part of your workspace.
+- **Mobile is broken.** Notion's mobile app often fails to render embedded iframes correctly. The Google Calendar embed is particularly bad on small screens.
+- **Privacy trade-off.** Making a calendar public means event titles are visible to anyone who finds the URL — a real concern for personal or sensitive schedules.
+- **No interactivity beyond viewing.** You can't create or edit events from within Notion. It's read-only.
+- **Slow load times.** Google Calendar is a full web app. Embedding it loads significantly more than a lightweight widget would.
+
+## A Better Alternative: A Native Notion Calendar Widget
+
+If what you actually want is a clean, usable calendar inside Notion, a purpose-built [Notion calendar widget](https://blocs.me/blog/notion-calendar-widget) is a much better fit than the Google Calendar iframe. The difference comes down to purpose: Google Calendar is built to manage a full calendar application. A Notion calendar widget is built to live inside a Notion page.
+
+[Blocs](https://blocs.me) offers a calendar widget that embeds directly into any Notion page as a lightweight iframe. You get:
+
+- Visual date markers to highlight important days
+- Full theme customization to match your workspace's look and feel
+- Clean, minimal UI — no Google branding or cluttered event list
+- Works on mobile inside Notion
+- No need to make any external calendar public
+
+<WidgetEmbed src="/calendar" title="Blocs Calendar Widget" height="420px" maxWidth="420px" />
+
+The Blocs Calendar widget is available with [Blocs Pro](https://blocs.me/pricing) — a one-time $17 payment that also unlocks every other widget (countdown timer, progress bar, weather, clock, and more). No monthly fees.
+
+For more context on how it compares to building calendar views manually in Notion, see [this deeper look at calendar widgets for Notion](https://blocs.me/blog/calendar-widget-for-notion).
+
+## Google Calendar Embed vs. Blocs Calendar Widget
+
+| Feature | Google Calendar Embed | Blocs Calendar Widget |
+|---|---|---|
+| Dark mode support | No | Yes |
+| Notion-style theming | No | Yes |
+| Mobile friendly | Poor | Yes |
+| Requires public calendar | Yes | No |
+| Date markers / highlights | No | Yes |
+| Lightweight load | No (full app) | Yes |
+| Cost | Free | $17 one-time (Pro) |
+
+## Can You Sync Google Calendar With Notion Natively?
+
+As of 2026, Notion does not offer native two-way Google Calendar sync in its standard product. Notion Calendar (the standalone app from Notion) does connect to Google Calendar — but that's a separate application, not an embedded view inside a Notion page. If syncing events bidirectionally is your goal, check out [this guide on syncing Google Calendar in Notion](https://blocs.me/blog/how-to-sync-google-calendar-in-notion) for the full options.
+
+## FAQs
+
+### Why is my Google Calendar embed showing a blank white box in Notion?
+
+The most common cause is that the calendar hasn't been made public. Go back to Google Calendar settings and confirm "Make available to public" is enabled. Also check that you copied only the URL from the `src` attribute, not the full `<iframe>` HTML tag.
+
+### Can I embed a private Google Calendar in Notion?
+
+No. Google only provides embed URLs for public calendars. If you need a private calendar view inside Notion, a widget like Blocs Calendar (which doesn't pull from Google Calendar) is the better path.
+
+### Does the Google Calendar embed update automatically?
+
+Yes — once embedded, the iframe displays live data from your Google Calendar. Any events you add or edit in Google Calendar will appear in the Notion embed the next time the page loads.
+
+### Can I create or edit Google Calendar events from inside Notion?
+
+No. The embed is read-only. You can view events but clicking on them will either do nothing or redirect you out of Notion to Google Calendar.
+
+### Will the Google Calendar embed work in Notion's mobile app?
+
+Not reliably. Notion's mobile app has inconsistent iframe support, and the Google Calendar embed often shows as blank or fails to scroll correctly on phones and tablets.
+
+### Is there a free Notion calendar widget?
+
+Most purpose-built Notion calendar widgets, including Blocs Calendar, are Pro features. Blocs Pro is $17 as a one-time payment — not a recurring subscription — and includes the calendar widget plus every other Blocs widget.
+
+## Wrapping Up
+
+Embedding a Google Calendar in Notion is straightforward if you follow the steps above. For a quick view of a public calendar, it gets the job done. But if you want something that actually fits inside your workspace — themed, mobile-friendly, and not dependent on making your schedule public — a dedicated [Notion calendar widget](https://blocs.me/calendar-widget) is worth the one-time upgrade.
+
+Try the Blocs Calendar widget or explore the full suite of widgets at [blocs.me](https://blocs.me).
