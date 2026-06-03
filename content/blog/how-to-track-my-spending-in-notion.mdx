@@ -1,0 +1,132 @@
+---
+title: "How to Track Your Spending in Notion (Free Templates + Widgets)"
+date: "2026-06-03"
+description: "Learn how to track spending in Notion using databases, formulas, and free embeddable widgets. Set up a budget tracker in minutes — no complex templates needed."
+---
+
+The fastest way to track spending in Notion is to create a database with columns for Date, Category, Amount, and Notes, then use a rollup or formula to sum totals. For visual progress tracking, embed a free [progress bar widget](https://blocs.me/progress-bar-widget) or [habit tracker](https://blocs.me/habit-tracker-widget) directly in your Notion page to stay on top of budget goals without leaving your workspace.
+
+- Notion databases handle raw expense logging well — categories, tags, and filters are built-in
+- Formulas and rollups let you calculate monthly totals and budget vs. actual comparisons automatically
+- Embedded widgets (progress bars, habit trackers) add visual accountability that plain databases lack
+
+## Key Takeaways
+
+- You can build a functional spending tracker in Notion using just a database and a few formula columns — no paid templates required
+- Adding a progress bar widget gives you an at-a-glance budget view inside Notion without switching apps
+- The biggest limitation of Notion alone: it doesn't auto-import transactions, so you'll be entering expenses manually
+- Pairing Notion with embeddable widgets from [Blocs](https://blocs.me) turns a static log into an interactive dashboard
+- Free setup takes under 15 minutes; visual enhancements like charts or streaks are available via Blocs Pro ($17 one-time)
+
+## What You Need Before You Start
+
+You only need a free Notion account. No third-party integrations, no paid templates. The approach below is manual — you log expenses yourself — which works well if you want a lightweight habit rather than a fully automated finance system.
+
+If you want automation (bank syncing, auto-categorization), Notion isn't the right primary tool. But as a daily log and reflection space, it's hard to beat.
+
+## How to Set Up a Spending Tracker Database in Notion
+
+### Step 1: Create a New Database
+
+In any Notion page, type `/table` and select "Table view — Full page" or "Table view — Inline." Give it a name like "Expenses 2026."
+
+### Step 2: Set Up Your Columns
+
+Delete the default columns and add these:
+
+- **Name** (Text) — what you spent money on
+- **Date** (Date) — when the transaction happened
+- **Amount** (Number, format as currency) — the spend amount
+- **Category** (Select) — e.g., Food, Transport, Subscriptions, Entertainment
+- **Payment Method** (Select) — e.g., Card, Cash, Bank Transfer
+- **Notes** (Text) — optional context
+
+### Step 3: Add a Monthly Budget Formula
+
+Create a new page (not inside the database) called "Budget Dashboard." Add a linked view of your Expenses database filtered to the current month. Then add a property called **Over Budget?** using a formula like:
+
+```
+prop("Amount") > 50
+```
+
+Adjust the threshold per category. You can also add a **Running Total** column using Notion's rollup feature if you structure expenses under monthly parent pages.
+
+### Step 4: Create Category Views
+
+Add filtered views to your database — one per category (Food, Transport, etc.). This lets you see where the most is going at a glance without complex filtering every time.
+
+### Step 5: Add a Budget Goal Row
+
+Some people add a "Budget" row at the top of each category view showing the monthly limit. It's not a formula — just a reference entry — but it creates a visual anchor when scanning the list.
+
+## How to Add Visual Budget Tracking with Widgets
+
+Databases are great for logging, but they don't give you the instant visual feedback that keeps a habit alive. That's where embedded widgets come in.
+
+You can embed a [progress bar widget](https://blocs.me/progress-bar-widget) directly in your Notion Budget Dashboard page to represent how much of a budget you've used. Set the goal to your monthly budget total and update the current value as you log expenses. It takes about 30 seconds to set up.
+
+<WidgetEmbed src="/progress-bar" title="Blocs Progress Bar" height="150px" maxWidth="500px" />
+
+For spending habits you want to build (like logging every purchase daily), the [habit tracker widget](https://blocs.me/habit-tracker-widget) works well too. Treat "logged today's spending" as a daily habit to check off — this kind of behavioral reinforcement is more effective than just having data sitting in a database.
+
+<WidgetEmbed src="/habit-tracker" title="Blocs Habit Tracker" />
+
+### How to Embed a Widget in Notion
+
+1. Go to [blocs.me](https://blocs.me) and open the widget you want
+2. Copy the widget URL (e.g., `https://blocs.me/progress-bar`)
+3. In Notion, type `/embed` and paste the URL
+4. Resize the embed block to fit your layout
+
+That's it. The widget lives inside Notion — no new app, no new tab.
+
+## Free vs. Pro: What Do You Actually Need?
+
+| Feature | Free | Blocs Pro ($17 one-time) |
+|---|---|---|
+| Habit tracker (daily logging habit) | Yes — basic | Unlimited habits + streaks + analytics |
+| Progress bar widget | No (Pro only) | Yes — custom goals, themes, colors |
+| Countdown timer (e.g., end of month deadline) | No (Pro only) | Yes |
+| Weekly/monthly analytics | No | Yes — built into widgets |
+| Cloud sync across devices | No | Yes |
+| No Blocs branding | No | Yes |
+
+For most people, the free tier is enough to get started. If you want progress bars with custom budget goals and streak tracking for daily logging, Pro pays for itself quickly — and it's a one-time $17, not a recurring subscription.
+
+## Limitations of Tracking Spending in Notion
+
+Notion is a manual system. It won't pull in transactions from your bank, flag unusual charges, or send you alerts when you're close to a budget limit. If those features matter to you, a dedicated finance app sits alongside Notion rather than replacing it.
+
+Where Notion wins: it's already where you plan your week, set goals, and reflect. Keeping spending data in the same workspace means you're more likely to actually look at it. The [progress tracking approach](https://blocs.me/blog/how-to-track-progress-in-notion) applies to budgets the same way it applies to fitness or reading goals.
+
+## Frequently Asked Questions
+
+### Can Notion automatically import my bank transactions?
+
+No. Notion doesn't have native bank integrations. You'd need a third-party automation tool like Zapier or Make to push transactions into a Notion database, which adds complexity. Most people who use Notion for spending just log manually — it takes under a minute per day.
+
+### What's the best Notion template for tracking spending?
+
+There's no single "best" template — the most useful one is one you'll actually use. Start with a simple 5-column database (Date, Amount, Category, Payment Method, Notes) rather than a complex template you'll abandon. Add visual widgets once the habit is established.
+
+### Is there a free budget widget for Notion?
+
+The [Blocs Habit Tracker](https://blocs.me/habit-tracker-widget) is free and works well for logging daily spending habits. The Progress Bar widget (great for budget vs. actual tracking) is available on Blocs Pro, which is a $17 one-time payment. See the [Blocs pricing page](https://blocs.me/pricing) for a full breakdown.
+
+### Can I track spending by category in Notion?
+
+Yes. Use a Select property for Category, then create filtered database views — one per category. You can also group by Category in a single view to see totals side by side. Add a Sum calculation at the bottom of the Amount column for instant totals.
+
+### How is this different from just using a spreadsheet?
+
+Notion combines your spending log with everything else — your goals, weekly reviews, habit tracking. A spreadsheet is more powerful for complex formulas, but Notion wins on context. When your budget data lives next to your goals and notes, you're more likely to actually act on it.
+
+### Does Blocs offer a dedicated budget or finance widget?
+
+Not yet — a dedicated budget widget is on the roadmap. In the meantime, the [Progress Bar widget](https://blocs.me/progress-bar-widget) works well as a visual budget tracker, and the [Blocs budget widget guide](https://blocs.me/blog/budget-widget-for-notion) covers the best current approach in detail.
+
+## Start Tracking Today
+
+The setup above takes under 15 minutes. Create the database, add 3-5 categories, and log your first expense. Then embed a habit tracker to make daily logging a check-off behavior rather than something you remember only at the end of the month.
+
+If you want the visual progress bar layer on top, [Blocs Pro](https://blocs.me/pricing) is $17 once — no subscription, no annual renewal. Try the free widgets first to see if the embed approach fits how you use Notion.
