@@ -67,6 +67,28 @@ describe('computeCountdown', () => {
     expect(result.parts.weeks).toBe(3)
     expect(result.parts.days).toBe(0)
   })
+
+  it('rolls hidden larger units down into the largest visible unit', () => {
+    // ~33 days out: full breakdown is 1 month 1 week
+    const now = new Date('2026-03-24T00:00:00Z')
+    const end = new Date('2026-04-26T00:00:00Z')
+
+    const full = computeCountdown(now, end, false)
+    expect(full.parts.months).toBe(1)
+
+    // Hiding months/years should fold that month back into weeks (~4 weeks)
+    const weeksDown = computeCountdown(now, end, false, ['weeks', 'days', 'hours', 'minutes', 'seconds'])
+    expect(weeksDown.parts.weeks).toBe(4)
+    expect(weeksDown.parts.months).toBe(0)
+  })
+
+  it('rolls everything into a single visible unit', () => {
+    const now = new Date('2026-03-24T00:00:00Z')
+    const end = new Date('2026-03-31T00:00:00Z') // exactly 7 days
+    const result = computeCountdown(now, end, false, ['days'])
+
+    expect(result.parts.days).toBe(7)
+  })
 })
 
 describe('autoDetectUnits', () => {
