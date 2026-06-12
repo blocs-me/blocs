@@ -67,7 +67,13 @@ const sitemap = {
     '/dummy-habit-tracker',
     '/welcome',
     '/sign-in',
-    '/feedback'
+    '/feedback',
+    '/progress-bar',
+    '/calendar',
+    '/quote',
+    '/countdown',
+    '/clock',
+    '/weather'
   ],
   transform: async (config, pagePath) => {
     let lastmod = null

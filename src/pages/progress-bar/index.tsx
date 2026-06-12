@@ -1,3 +1,4 @@
+import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useMemo } from 'react'
 import { configFromParams, ProgressWidgetConfig } from '@/widgets/ProgressBar/progressBarConfig'
@@ -15,7 +16,12 @@ const ProgressBarPage = () => {
 
   if (!config) return null
 
-  return <ProgressBarWidget config={config} />
+  return (
+    <>
+      <Head><meta name="robots" content="noindex" /></Head>
+      <ProgressBarWidget config={config} />
+    </>
+  )
 }
 
 const ProgressBarWidget = ({ config }: { config: ProgressWidgetConfig }) => {

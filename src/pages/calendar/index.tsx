@@ -1,3 +1,4 @@
+import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useMemo, useState } from 'react'
 import { configFromParams } from '@/widgets/Calendar/calendarConfig'
@@ -17,7 +18,12 @@ const CalendarPage = () => {
 
   if (!config) return null
 
-  return <CalendarWidget config={config} />
+  return (
+    <>
+      <Head><meta name="robots" content="noindex" /></Head>
+      <CalendarWidget config={config} />
+    </>
+  )
 }
 
 const CalendarWidget = ({ config }: { config: ReturnType<typeof configFromParams> }) => {

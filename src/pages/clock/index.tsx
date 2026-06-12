@@ -1,3 +1,4 @@
+import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useMemo, useState } from 'react'
 import { configFromParams } from '@/widgets/Clock/clockConfig'
@@ -18,7 +19,12 @@ const ClockPage = () => {
 
   if (!config) return null
 
-  return <ClockWidget config={config} />
+  return (
+    <>
+      <Head><meta name="robots" content="noindex" /></Head>
+      <ClockWidget config={config} />
+    </>
+  )
 }
 
 const ClockWidget = ({ config }: { config: ReturnType<typeof configFromParams> }) => {

@@ -1,3 +1,4 @@
+import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useMemo } from 'react'
 import { configFromParams } from '@/widgets/Weather/weatherConfig'
@@ -18,22 +19,30 @@ const WeatherPage = () => {
   if (!config) return null
   if (!config.latitude && !config.longitude) {
     return (
-      <div style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: '100vw',
-        height: '100vh',
-        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-        fontSize: '14px',
-        color: '#999',
-      }}>
-        Set a location in the dashboard to see weather
-      </div>
+      <>
+        <Head><meta name="robots" content="noindex" /></Head>
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          width: '100vw',
+          height: '100vh',
+          fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+          fontSize: '14px',
+          color: '#999',
+        }}>
+          Set a location in the dashboard to see weather
+        </div>
+      </>
     )
   }
 
-  return <WeatherWidget config={config} />
+  return (
+    <>
+      <Head><meta name="robots" content="noindex" /></Head>
+      <WeatherWidget config={config} />
+    </>
+  )
 }
 
 const WeatherWidget = ({ config }: { config: ReturnType<typeof configFromParams> }) => {

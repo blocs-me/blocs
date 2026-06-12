@@ -1,3 +1,4 @@
+import Head from 'next/head'
 import { useRouter } from 'next/router'
 import CountdownDisplay from '@/widgets/Countdown/CountdownDisplay'
 import { useCountdown } from '@/widgets/Countdown/useCountdown'
@@ -14,7 +15,12 @@ const CountdownPage = () => {
 
   if (!config) return null
 
-  return <CountdownWidget config={config} />
+  return (
+    <>
+      <Head><meta name="robots" content="noindex" /></Head>
+      <CountdownWidget config={config} />
+    </>
+  )
 }
 
 const CountdownWidget = ({ config }: { config: ReturnType<typeof configFromParams> }) => {
