@@ -9,7 +9,7 @@ import Text from '@/design-system/Text'
 import Box from '@/helpers/Box'
 import Flex from '@/helpers/Flex'
 import PageGutters from '@/helpers/PageGutters'
-import { getAllPosts, getPostBySlug, BlogPostMeta } from 'src/lib/blog'
+import { getAllPosts, getPostBySlug, getRelatedPosts, BlogPostMeta } from 'src/lib/blog'
 
 function WidgetEmbed({
   src,
@@ -159,6 +159,7 @@ const mdxComponents = {
 type Props = {
   meta: BlogPostMeta
   mdxSource: MDXRemoteSerializeResult
+  relatedPosts: BlogPostMeta[]
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -171,14 +172,16 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
   const remarkGfm = (await import('remark-gfm')).default
-  const { meta, content } = getPostBySlug(params!.slug as string)
+  const slug = params!.slug as string
+  const { meta, content } = getPostBySlug(slug)
   const mdxSource = await serialize(content, {
     mdxOptions: { remarkPlugins: [remarkGfm as any], rehypePlugins: [] }
   })
-  return { props: { meta, mdxSource } }
+  const relatedPosts = getRelatedPosts(slug, 3)
+  return { props: { meta, mdxSource, relatedPosts } }
 }
 
-export default function BlogPost({ meta, mdxSource }: Props) {
+export default function BlogPost({ meta, mdxSource, relatedPosts }: Props) {
   return (
     <Box bg="background">
         <Head>
@@ -229,6 +232,44 @@ export default function BlogPost({ meta, mdxSource }: Props) {
             </Text>
 
             <MDXRemote {...mdxSource} components={mdxComponents} />
+
+            {relatedPosts.length > 0 && (
+              <Box mt="lg" pt="md" borderTop="solid 1px" borderColor="primary.accent-1">
+                <Text as="h2" fontSize="md" fontWeight="bold" color="foreground" m={0} mb="sm">
+                  Related Articles
+                </Text>
+                {relatedPosts.map((post) => (
+                  <Link
+                    key={post.slug}
+                    href={`/blog/${post.slug}`}
+                    style={{ textDecoration: 'none' }}
+                  >
+                    <Box
+                      py="xs"
+                      css={{
+                        '&:hover p': { color: 'var(--colors-brand-accent-1)' },
+                        transition: 'opacity 0.2s',
+                        '&:hover': { opacity: 0.85 }
+                      }}
+                    >
+                      <Text
+                        as="p"
+                        fontSize="sm"
+                        fontWeight={600}
+                        color="foreground"
+                        m={0}
+                        css={{ transition: 'color 0.2s' }}
+                      >
+                        {post.title}
+                      </Text>
+                      <Text fontSize="xs" color="primary.accent-4" m={0} lineHeight={1.5}>
+                        {post.description}
+                      </Text>
+                    </Box>
+                  </Link>
+                ))}
+              </Box>
+            )}
           </Flex>
         </PageGutters>
 

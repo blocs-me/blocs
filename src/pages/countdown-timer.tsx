@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import { GetStaticProps } from 'next'
 import Nav from '@/design-system/Nav'
 import Footer from '@/design-system/Footer'
 import Text from '@/design-system/Text'
@@ -7,8 +8,9 @@ import Box from '@/helpers/Box'
 import Flex from '@/helpers/Flex'
 import PageGutters from '@/helpers/PageGutters'
 import Link from 'next/link'
-import { StepCard, BenefitCard, FAQItem } from '@/pages/WidgetMarketingPage/shared'
+import { StepCard, BenefitCard, FAQItem, RelatedArticles } from '@/pages/WidgetMarketingPage/shared'
 import DummyCountdownPreview from '@/widgets/Countdown/DummyCountdownPreview'
+import { getPostsByKeywords, BlogPostMeta } from 'src/lib/blog'
 
 const faqs = [
   {
@@ -69,7 +71,14 @@ const faqSchema = {
   }))
 }
 
-export default function CountdownTimerPage() {
+type Props = { relatedPosts: BlogPostMeta[] }
+
+export const getStaticProps: GetStaticProps<Props> = async () => {
+  const relatedPosts = getPostsByKeywords(['countdown', 'timer', 'notion'], 5)
+  return { props: { relatedPosts } }
+}
+
+export default function CountdownTimerPage({ relatedPosts }: Props) {
   return (
     <>
       <Box bg="background">
@@ -335,6 +344,8 @@ export default function CountdownTimerPage() {
             </Flex>
           </PageGutters>
         </Box>
+
+        <RelatedArticles posts={relatedPosts} />
 
         <Footer />
       </Box>

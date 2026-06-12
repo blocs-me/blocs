@@ -50,6 +50,7 @@ const sitemap = {
   generateIndexSitemap: false,
   exclude: [
     '/dashboard/*',
+    '/dashboard',
     '/main-analytics',
     '/main-habit-tracker',
     '/main-pomodoro',
@@ -63,7 +64,10 @@ const sitemap = {
     '/dummy-pomodoro',
     '/dummy-pomodoro-analytics',
     '/account-deletion',
-    '/dummy-habit-tracker'
+    '/dummy-habit-tracker',
+    '/welcome',
+    '/sign-in',
+    '/feedback'
   ],
   transform: async (config, pagePath) => {
     let lastmod = null

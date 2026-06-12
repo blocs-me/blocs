@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import { GetStaticProps } from 'next'
 import Nav from '@/design-system/Nav'
 import Footer from '@/design-system/Footer'
 import Text from '@/design-system/Text'
@@ -7,8 +8,9 @@ import Box from '@/helpers/Box'
 import Flex from '@/helpers/Flex'
 import PageGutters from '@/helpers/PageGutters'
 import Link from 'next/link'
-import { StepCard, BenefitCard, FAQItem } from '@/pages/WidgetMarketingPage/shared'
+import { StepCard, BenefitCard, FAQItem, RelatedArticles } from '@/pages/WidgetMarketingPage/shared'
 import DummyCalendarPreview from '@/widgets/Calendar/DummyCalendarPreview'
+import { getPostsByKeywords, BlogPostMeta } from 'src/lib/blog'
 
 const faqs = [
   {
@@ -69,7 +71,14 @@ const faqSchema = {
   }))
 }
 
-export default function CalendarWidgetPage() {
+type Props = { relatedPosts: BlogPostMeta[] }
+
+export const getStaticProps: GetStaticProps<Props> = async () => {
+  const relatedPosts = getPostsByKeywords(['calendar', 'notion', 'schedule'], 5)
+  return { props: { relatedPosts } }
+}
+
+export default function CalendarWidgetPage({ relatedPosts }: Props) {
   return (
     <>
       <Box bg="background">
@@ -331,6 +340,8 @@ export default function CalendarWidgetPage() {
             </Flex>
           </PageGutters>
         </Box>
+
+        <RelatedArticles posts={relatedPosts} />
 
         <Footer />
       </Box>

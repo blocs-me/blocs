@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import { GetStaticProps } from 'next'
 import Nav from '@/design-system/Nav'
 import Footer from '@/design-system/Footer'
 import Text from '@/design-system/Text'
@@ -7,7 +8,8 @@ import Box from '@/helpers/Box'
 import Flex from '@/helpers/Flex'
 import PageGutters from '@/helpers/PageGutters'
 import Link from 'next/link'
-import { CopyWidgetButton, StepCard, BenefitCard, FAQItem } from '@/pages/WidgetMarketingPage/shared'
+import { CopyWidgetButton, StepCard, BenefitCard, FAQItem, RelatedArticles } from '@/pages/WidgetMarketingPage/shared'
+import { getPostsByKeywords, BlogPostMeta } from 'src/lib/blog'
 
 const WIDGET_URL = 'https://blocs.me/habit-tracker'
 
@@ -66,7 +68,14 @@ const faqSchema = {
   }))
 }
 
-export default function HabitTrackerWidgetPage() {
+type Props = { relatedPosts: BlogPostMeta[] }
+
+export const getStaticProps: GetStaticProps<Props> = async () => {
+  const relatedPosts = getPostsByKeywords(['habit', 'tracker', 'streak'], 5)
+  return { props: { relatedPosts } }
+}
+
+export default function HabitTrackerWidgetPage({ relatedPosts }: Props) {
   return (
     <>
       <Box bg="background">
@@ -393,6 +402,8 @@ export default function HabitTrackerWidgetPage() {
             </Flex>
           </PageGutters>
         </Box>
+
+        <RelatedArticles posts={relatedPosts} />
 
         <Footer />
       </Box>

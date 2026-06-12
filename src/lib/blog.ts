@@ -45,3 +45,36 @@ export function getPostBySlug(slug: string) {
     content
   }
 }
+
+export function getRelatedPosts(currentSlug: string, count = 3): BlogPostMeta[] {
+  const allPosts = getAllPosts().filter((p) => p.slug !== currentSlug)
+  const keywords = currentSlug.split('-').filter((w) => w.length > 3)
+
+  const scored = allPosts.map((post) => {
+    const postWords = post.slug.split('-')
+    const score = keywords.reduce(
+      (acc, kw) => acc + (postWords.includes(kw) ? 1 : 0),
+      0
+    )
+    return { post, score }
+  })
+
+  scored.sort((a, b) => b.score - a.score || (a.post.date > b.post.date ? -1 : 1))
+  return scored.slice(0, count).map((s) => s.post)
+}
+
+export function getPostsByKeywords(keywords: string[], count = 5): BlogPostMeta[] {
+  const allPosts = getAllPosts()
+  const scored = allPosts.map((post) => {
+    const slug = post.slug.toLowerCase()
+    const title = post.title.toLowerCase()
+    const score = keywords.reduce(
+      (acc, kw) => acc + (slug.includes(kw) ? 2 : 0) + (title.includes(kw) ? 1 : 0),
+      0
+    )
+    return { post, score }
+  })
+
+  scored.sort((a, b) => b.score - a.score || (a.post.date > b.post.date ? -1 : 1))
+  return scored.filter((s) => s.score > 0).slice(0, count).map((s) => s.post)
+}

@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import { GetStaticProps } from 'next'
 import Nav from '@/design-system/Nav'
 import Footer from '@/design-system/Footer'
 import Text from '@/design-system/Text'
@@ -7,8 +8,9 @@ import Box from '@/helpers/Box'
 import Flex from '@/helpers/Flex'
 import PageGutters from '@/helpers/PageGutters'
 import Link from 'next/link'
-import { StepCard, BenefitCard, FAQItem } from '@/pages/WidgetMarketingPage/shared'
+import { StepCard, BenefitCard, FAQItem, RelatedArticles } from '@/pages/WidgetMarketingPage/shared'
 import DummyQuotePreview from '@/widgets/Quote/DummyQuotePreview'
+import { getPostsByKeywords, BlogPostMeta } from 'src/lib/blog'
 
 const faqs = [
   {
@@ -69,7 +71,14 @@ const faqSchema = {
   }))
 }
 
-export default function QuoteWidgetPage() {
+type Props = { relatedPosts: BlogPostMeta[] }
+
+export const getStaticProps: GetStaticProps<Props> = async () => {
+  const relatedPosts = getPostsByKeywords(['quote', 'motivation', 'notion'], 5)
+  return { props: { relatedPosts } }
+}
+
+export default function QuoteWidgetPage({ relatedPosts }: Props) {
   return (
     <>
       <Box bg="background">
@@ -331,6 +340,8 @@ export default function QuoteWidgetPage() {
             </Flex>
           </PageGutters>
         </Box>
+
+        <RelatedArticles posts={relatedPosts} />
 
         <Footer />
       </Box>

@@ -1,8 +1,11 @@
 import { useState } from 'react'
+import Link from 'next/link'
 import Text from '@/design-system/Text'
 import Button from '@/design-system/Button'
 import Box from '@/helpers/Box'
 import Flex from '@/helpers/Flex'
+import PageGutters from '@/helpers/PageGutters'
+import type { BlogPostMeta } from 'src/lib/blog'
 
 export const CopyWidgetButton = ({ url }: { url: string }) => {
   const [copied, setCopied] = useState(false)
@@ -99,3 +102,47 @@ export const FAQItem = ({ question, answer }: { question: string; answer: string
     </Text>
   </Box>
 )
+
+export const RelatedArticles = ({ posts }: { posts: BlogPostMeta[] }) => {
+  if (!posts.length) return null
+  return (
+    <Box py="lg">
+      <PageGutters>
+        <Flex flexDirection="column" maxWidth="700px" mx="auto">
+          <Text as="h2" fontSize="lg" fontWeight="bold" color="foreground" m={0} mb="sm">
+            Related Articles
+          </Text>
+          {posts.map((post) => (
+            <Link key={post.slug} href={`/blog/${post.slug}`} style={{ textDecoration: 'none' }}>
+              <Box
+                py="xs"
+                borderBottom="solid 1px"
+                borderColor="primary.accent-1"
+                css={{
+                  '&:hover h3': { color: 'var(--colors-brand-accent-1)' },
+                  transition: 'opacity 0.2s',
+                  '&:hover': { opacity: 0.85 }
+                }}
+              >
+                <Text
+                  as="h3"
+                  fontSize="sm"
+                  fontWeight={600}
+                  color="foreground"
+                  m={0}
+                  mb="4px"
+                  css={{ transition: 'color 0.2s' }}
+                >
+                  {post.title}
+                </Text>
+                <Text fontSize="xs" color="primary.accent-4" m={0} lineHeight={1.5}>
+                  {post.description}
+                </Text>
+              </Box>
+            </Link>
+          ))}
+        </Flex>
+      </PageGutters>
+    </Box>
+  )
+}

@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import { GetStaticProps } from 'next'
 import Nav from '@/design-system/Nav'
 import Footer from '@/design-system/Footer'
 import Text from '@/design-system/Text'
@@ -7,8 +8,9 @@ import Box from '@/helpers/Box'
 import Flex from '@/helpers/Flex'
 import PageGutters from '@/helpers/PageGutters'
 import Link from 'next/link'
-import { StepCard, BenefitCard, FAQItem } from '@/pages/WidgetMarketingPage/shared'
+import { StepCard, BenefitCard, FAQItem, RelatedArticles } from '@/pages/WidgetMarketingPage/shared'
 import DummyProgressBarPreview from '@/widgets/ProgressBar/DummyProgressBarPreview'
+import { getPostsByKeywords, BlogPostMeta } from 'src/lib/blog'
 
 const faqs = [
   {
@@ -66,7 +68,14 @@ const faqSchema = {
   }))
 }
 
-export default function ProgressBarWidgetPage() {
+type Props = { relatedPosts: BlogPostMeta[] }
+
+export const getStaticProps: GetStaticProps<Props> = async () => {
+  const relatedPosts = getPostsByKeywords(['progress', 'bar', 'notion'], 5)
+  return { props: { relatedPosts } }
+}
+
+export default function ProgressBarWidgetPage({ relatedPosts }: Props) {
   return (
     <>
       <Box bg="background">
@@ -257,6 +266,8 @@ export default function ProgressBarWidgetPage() {
             </Flex>
           </PageGutters>
         </Box>
+
+        <RelatedArticles posts={relatedPosts} />
 
         <Footer />
       </Box>
