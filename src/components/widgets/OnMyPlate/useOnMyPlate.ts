@@ -23,8 +23,14 @@ export const PLATE_CAPACITY = 12
 // Golden angle produces an even, organic phyllotaxis (sunflower) spread so
 // bubbles fan out from the centre as more are added.
 const GOLDEN_ANGLE = Math.PI * (3 - Math.sqrt(5))
-const SPREAD = 0.22
-const MAX_RADIUS = 0.74
+// How far (as a fraction of the plate box, measured from the centre) the
+// outer edge of a bubble is allowed to reach. Leaves a margin inside the rim.
+const PLATE_USABLE = 0.46
+// Bubble radius as a fraction of the spiral spacing constant. Keeping this at
+// ~half the spacing means neighbouring bubbles touch at most, never overlap.
+const PACK_RADIUS = 0.46
+const MIN_DIAMETER = 0.11
+const MAX_DIAMETER = 0.3
 
 function clamp(min: number, value: number, max: number): number {
   return Math.max(min, Math.min(max, value))
@@ -75,17 +81,17 @@ export function computePlateLayout(items: string[], itemColor: string): PlateLay
   const labels = items.filter((item) => item.trim().length > 0)
   const count = labels.length
 
-  // Bubbles shrink slightly as the plate gets busier so they keep their place.
-  const baseSize = clamp(0.1, 0.2 - count * 0.006, 0.2)
+  // Spiral spacing constant, chosen so the outermost bubble's edge lands just
+  // inside the plate. Bubble size is then derived from this spacing so bubbles
+  // never overlap (up to capacity) and the plate fills evenly as items grow.
+  const spacing = count <= 1 ? PLATE_USABLE : PLATE_USABLE / (Math.sqrt(count - 1) + PACK_RADIUS)
+  const size = clamp(MIN_DIAMETER, 2 * PACK_RADIUS * spacing, MAX_DIAMETER)
 
   const bubbles: PlateBubble[] = labels.map((label, i) => {
-    const radius = Math.min(MAX_RADIUS, SPREAD * Math.sqrt(i))
+    const radius = spacing * Math.sqrt(i)
     const theta = i * GOLDEN_ANGLE
-    const x = 0.5 + Math.cos(theta) * radius * 0.5
-    const y = 0.5 + Math.sin(theta) * radius * 0.5
-
-    const sizeVariation = 1 + ((i % 3) - 1) * 0.06
-    const size = baseSize * sizeVariation
+    const x = 0.5 + Math.cos(theta) * radius
+    const y = 0.5 + Math.sin(theta) * radius
     const color = shadeColor(itemColor, ((i % 5) - 2) * 0.08)
 
     return { label, x, y, size, color, textColor: readableTextColor(color) }

@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { computePlateLayout, shadeColor } from './useOnMyPlate'
 import { OnMyPlateConfig } from './onMyPlateConfig'
 
@@ -6,16 +6,6 @@ type Props = Pick<
   OnMyPlateConfig,
   'title' | 'showTitle' | 'items' | 'theme' | 'plateStyle' | 'plateColor' | 'itemColor' | 'showCount'
 >
-
-function clamp(min: number, value: number, max: number): number {
-  return Math.max(min, Math.min(max, value))
-}
-
-function truncate(label: string, maxChars: number): string {
-  const trimmed = label.trim()
-  if (trimmed.length <= maxChars) return trimmed
-  return `${trimmed.slice(0, Math.max(1, maxChars - 1))}…`
-}
 
 const OnMyPlateDisplay = ({
   title,
@@ -27,22 +17,36 @@ const OnMyPlateDisplay = ({
   itemColor,
   showCount = true
 }: Props) => {
-  const gradientId = useMemo(() => `plate-grad-${Math.random().toString(36).slice(2)}`, [])
   const { bubbles, statusText } = useMemo(
     () => computePlateLayout(items, itemColor),
     [items, itemColor]
   )
 
+  // Tap a bubble to read its full label in the caption below (works on touch,
+  // where hover tooltips don't). Tapping again clears it.
+  const [selected, setSelected] = useState<number | null>(null)
+  useEffect(() => setSelected(null), [bubbles.length])
+
   const isDark = theme === 'dark'
   const bgColor = isDark ? '#1a1a1a' : '#ffffff'
   const titleColor = isDark ? '#cccccc' : '#666666'
   const captionColor = isDark ? '#9a9a9a' : '#888888'
-
   const rimColor = shadeColor(plateColor, -0.1)
+
+  const plateBackground =
+    plateStyle === 'ceramic'
+      ? `radial-gradient(circle at 32% 28%, ${shadeColor(plateColor, 0.18)}, ${plateColor} 68%, ${shadeColor(plateColor, -0.07)} 100%)`
+      : plateStyle === 'matte'
+        ? plateColor
+        : 'transparent'
+
   const plateShadow =
     plateStyle === 'minimal'
       ? 'none'
-      : `drop-shadow(0 4px 12px rgba(0,0,0,${isDark ? 0.45 : 0.16}))`
+      : `0 6px 18px rgba(0,0,0,${isDark ? 0.5 : 0.16})`
+
+  const selectedLabel = selected !== null ? bubbles[selected]?.label : undefined
+  const caption = selectedLabel ?? (showCount ? statusText : undefined)
 
   return (
     <div
@@ -75,100 +79,130 @@ const OnMyPlateDisplay = ({
         </div>
       )}
 
-      <div style={{ width: 'min(80%, 300px)', maxWidth: '100%', lineHeight: 0 }}>
-        <svg viewBox="0 0 100 100" width="100%" role="img" aria-label={title || 'On my plate'}>
-          <defs>
-            <radialGradient id={gradientId} cx="35%" cy="30%" r="80%">
-              <stop offset="0%" stopColor={shadeColor(plateColor, 0.18)} />
-              <stop offset="70%" stopColor={plateColor} />
-              <stop offset="100%" stopColor={shadeColor(plateColor, -0.07)} />
-            </radialGradient>
-          </defs>
+      <div
+        style={{
+          position: 'relative',
+          width: 'min(86%, 320px)',
+          aspectRatio: '1 / 1',
+          margin: '0 auto',
+          // Lets the bubble text scale with the plate via cqmin units.
+          containerType: 'size'
+        } as React.CSSProperties}
+      >
+        {/* Plate */}
+        <div
+          style={{
+            position: 'absolute',
+            inset: 0,
+            borderRadius: '50%',
+            background: plateBackground,
+            border: plateStyle === 'minimal' ? `2px solid ${plateColor}` : 'none',
+            boxShadow: plateShadow
+          }}
+        />
+        {/* Inner rim */}
+        <div
+          style={{
+            position: 'absolute',
+            inset: '18%',
+            borderRadius: '50%',
+            border: `1.5px solid ${plateStyle === 'minimal' ? plateColor : rimColor}`,
+            opacity: plateStyle === 'minimal' ? 0.35 : 0.5,
+            pointerEvents: 'none'
+          }}
+        />
 
-          <g style={{ filter: plateShadow }}>
-            {plateStyle === 'ceramic' && (
-              <>
-                <circle cx="50" cy="50" r="48" fill={`url(#${gradientId})`} />
-                <circle cx="50" cy="50" r="39" fill="none" stroke={rimColor} strokeWidth="0.7" opacity="0.55" />
-              </>
-            )}
-            {plateStyle === 'matte' && (
-              <>
-                <circle cx="50" cy="50" r="48" fill={plateColor} />
-                <circle cx="50" cy="50" r="39" fill="none" stroke={rimColor} strokeWidth="0.7" opacity="0.5" />
-              </>
-            )}
-            {plateStyle === 'minimal' && (
-              <>
-                <circle cx="50" cy="50" r="47" fill="none" stroke={plateColor} strokeWidth="1.6" />
-                <circle cx="50" cy="50" r="39" fill="none" stroke={plateColor} strokeWidth="0.6" opacity="0.4" />
-              </>
-            )}
-          </g>
+        {bubbles.length === 0 && (
+          <div
+            style={{
+              position: 'absolute',
+              inset: 0,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: captionColor,
+              fontSize: '6cqmin',
+              textAlign: 'center',
+              padding: '0 20%'
+            }}
+          >
+            Nothing here yet
+          </div>
+        )}
 
-          {bubbles.length === 0 && (
-            <text
-              x="50"
-              y="50"
-              fill={captionColor}
-              fontSize="4"
-              textAnchor="middle"
-              dominantBaseline="central"
+        {bubbles.map((bubble, i) => {
+          const diameterCq = bubble.size * 100
+          const showLabel = diameterCq >= 8.5
+          const fontSize = Math.max(3.1, diameterCq * 0.2)
+          const isSelected = selected === i
+
+          return (
+            <button
+              key={`${bubble.label}-${i}`}
+              type="button"
+              title={bubble.label}
+              aria-label={bubble.label}
+              onClick={() => setSelected((prev) => (prev === i ? null : i))}
+              style={{
+                position: 'absolute',
+                left: `${bubble.x * 100}%`,
+                top: `${bubble.y * 100}%`,
+                width: `${diameterCq}%`,
+                height: `${diameterCq}%`,
+                transform: `translate(-50%, -50%) scale(${isSelected ? 1.08 : 1})`,
+                borderRadius: '50%',
+                border: 'none',
+                padding: '0 6%',
+                background: bubble.color,
+                color: bubble.textColor,
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                textAlign: 'center',
+                boxShadow: isSelected
+                  ? `0 0 0 2px ${bgColor}, 0 0 0 4px ${bubble.color}, 0 4px 10px rgba(0,0,0,0.2)`
+                  : '0 1px 3px rgba(0,0,0,0.16)',
+                transition: 'transform 0.12s ease, box-shadow 0.12s ease',
+                zIndex: isSelected ? 2 : 1,
+                fontFamily: 'inherit'
+              }}
             >
-              Nothing here yet
-            </text>
-          )}
-
-          {bubbles.map((bubble, i) => {
-            const cx = bubble.x * 100
-            const cy = bubble.y * 100
-            const r = bubble.size * 50
-            const showLabel = r >= 6.5
-            const fontSize = clamp(2.6, r * 0.5, 4.4)
-            const maxChars = Math.max(3, Math.round(r * 0.85))
-
-            return (
-              <g key={`${bubble.label}-${i}`}>
-                <title>{bubble.label}</title>
-                <circle
-                  cx={cx}
-                  cy={cy}
-                  r={r}
-                  fill={bubble.color}
-                  stroke="rgba(0,0,0,0.08)"
-                  strokeWidth="0.4"
-                />
-                {showLabel && (
-                  <text
-                    x={cx}
-                    y={cy}
-                    fill={bubble.textColor}
-                    fontSize={fontSize}
-                    fontWeight={500}
-                    textAnchor="middle"
-                    dominantBaseline="central"
-                  >
-                    {truncate(bubble.label, maxChars)}
-                  </text>
-                )}
-              </g>
-            )
-          })}
-        </svg>
+              {showLabel && (
+                <span
+                  style={{
+                    fontSize: `${fontSize}cqmin`,
+                    fontWeight: 500,
+                    lineHeight: 1.05,
+                    display: '-webkit-box',
+                    WebkitLineClamp: 2,
+                    WebkitBoxOrient: 'vertical',
+                    overflow: 'hidden',
+                    wordBreak: 'break-word'
+                  }}
+                >
+                  {bubble.label}
+                </span>
+              )}
+            </button>
+          )
+        })}
       </div>
 
-      {showCount && (
+      {(caption || showCount) && (
         <div
           style={{
             fontSize: '12px',
-            fontWeight: 500,
-            color: captionColor,
+            fontWeight: selectedLabel ? 600 : 500,
+            color: selectedLabel ? titleColor : captionColor,
             marginTop: '14px',
+            minHeight: '16px',
+            maxWidth: '90%',
             letterSpacing: '0.3px',
             textAlign: 'center'
           }}
         >
-          {statusText}
+          {caption}
         </div>
       )}
     </div>
