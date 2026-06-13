@@ -11,6 +11,7 @@ const HabitTrackerDashboard = lazy(() => import('./HabitTrackerDashboard'))
 const WaterTrackerDashboard = lazy(() => import('./WaterTrackerDashboard'))
 const PlanPage = lazy(() => import('./PlanPage'))
 const CountdownDashboard = lazy(() => import('./CountdownDashboard'))
+const OnMyPlateDashboard = lazy(() => import('./OnMyPlateDashboard'))
 const ProgressBarDashboard = lazy(() => import('./ProgressBarDashboard'))
 const ClockDashboard = lazy(() => import('./ClockDashboard'))
 const CalendarDashboard = lazy(() => import('./CalendarDashboard'))
@@ -40,7 +41,7 @@ const LoadingScreen = () => (
 )
 
 const isMaintenance = process.env.NEXT_PUBLIC_MAINTENANCE === 'yes'
-const validPaths = ['pomodoro', 'habit-tracker', 'water-tracker', 'countdown', 'progress-bar', 'clock', 'calendar', 'quote', 'weather', 'plan']
+const validPaths = ['pomodoro', 'habit-tracker', 'water-tracker', 'countdown', 'on-my-plate', 'progress-bar', 'clock', 'calendar', 'quote', 'weather', 'plan']
 
 const Dashboard = () => {
   const router = useRouter()
@@ -128,6 +129,9 @@ const Dashboard = () => {
             )}
             {path === 'countdown' && !isMaintenance && (
               <CountdownDashboard />
+            )}
+            {path === 'on-my-plate' && !isMaintenance && (
+              <OnMyPlateDashboard />
             )}
             {path === 'progress-bar' && !isMaintenance && (
               <ProgressBarDashboard />

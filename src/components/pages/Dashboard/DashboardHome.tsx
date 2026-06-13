@@ -7,6 +7,7 @@ import Stopwatch from 'src/icons/stopwatch'
 import { Writing } from 'src/icons/writing'
 import Drop from 'src/icons/drop-icon'
 import Hourglass from 'src/icons/hourglass'
+import PlateIcon from 'src/icons/plate-icon'
 import ProgressBarIcon from 'src/icons/progress-bar-icon'
 import ClockIcon from 'src/icons/clock-icon'
 import CalendarIcon from 'src/icons/calendar-icon'
@@ -18,6 +19,7 @@ const widgets = [
   { path: 'habit-tracker', label: 'Habit Tracker', description: 'Build daily habits with streaks', icon: <Writing /> },
   { path: 'water-tracker', label: 'Water Tracker', description: 'Track your daily water intake', icon: <Drop /> },
   { path: 'countdown', label: 'Countdown', description: 'Count down to important dates', icon: <Hourglass /> },
+  { path: 'on-my-plate', label: 'On My Plate', description: 'A visual snapshot of your mental load', icon: <PlateIcon /> },
   { path: 'progress-bar', label: 'Progress Bar', description: 'Visualize progress toward goals', icon: <ProgressBarIcon /> },
   { path: 'clock', label: 'Clock', description: 'Live clock for your workspace', icon: <ClockIcon /> },
   { path: 'calendar', label: 'Calendar', description: 'Minimal calendar widget', icon: <CalendarIcon /> },

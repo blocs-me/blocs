@@ -12,6 +12,7 @@ import PomodoroSection from './PomodoroSection'
 import WaterTrackerSection from './WaterTrackerSection'
 import HabitTrackerSection from './HabitTrackerSection'
 import CountdownSection from './CountdownSection'
+import OnMyPlateSection from './OnMyPlateSection'
 import ProgressBarSection from './ProgressBarSection'
 import ClockSection from './ClockSection'
 import CalendarSection from './CalendarSection'
@@ -227,6 +228,7 @@ const LandingPage = () => {
               <WaterTrackerSection />
               <HabitTrackerSection />
               <CountdownSection />
+              <OnMyPlateSection />
               <ProgressBarSection />
               <ClockSection />
               <CalendarSection />
