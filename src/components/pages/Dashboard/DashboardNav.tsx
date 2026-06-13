@@ -16,6 +16,7 @@ import Stopwatch from 'src/icons/stopwatch'
 import { Writing } from 'src/icons/writing'
 import Drop from 'src/icons/drop-icon'
 import Hourglass from 'src/icons/hourglass'
+import PlateIcon from 'src/icons/plate-icon'
 import ProgressBarIcon from 'src/icons/progress-bar-icon'
 import ClockIcon from 'src/icons/clock-icon'
 import CalendarIcon from 'src/icons/calendar-icon'
@@ -33,6 +34,7 @@ const primaryTabs = [
 
 const proTabs = [
   { path: 'countdown', label: 'Countdown', icon: <Hourglass /> },
+  { path: 'on-my-plate', label: 'On My Plate', icon: <PlateIcon /> },
   { path: 'progress-bar', label: 'Progress', icon: <ProgressBarIcon /> },
   { path: 'clock', label: 'Clock', icon: <ClockIcon /> },
   { path: 'calendar', label: 'Calendar', icon: <CalendarIcon /> },
