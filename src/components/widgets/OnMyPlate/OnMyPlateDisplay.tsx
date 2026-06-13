@@ -133,7 +133,7 @@ const OnMyPlateDisplay = ({
         {bubbles.map((bubble, i) => {
           const diameterCq = bubble.size * 100
           const showLabel = diameterCq >= 8.5
-          const fontSize = Math.max(3.1, diameterCq * 0.2)
+          const fontSize = Math.max(2.8, diameterCq * 0.16)
           const isSelected = selected === i
 
           return (
@@ -172,13 +172,13 @@ const OnMyPlateDisplay = ({
                 <span
                   style={{
                     fontSize: `${fontSize}cqmin`,
-                    fontWeight: 500,
-                    lineHeight: 1.05,
-                    display: '-webkit-box',
-                    WebkitLineClamp: 2,
-                    WebkitBoxOrient: 'vertical',
+                    fontWeight: 600,
+                    lineHeight: 1.1,
+                    maxWidth: '100%',
+                    minWidth: 0,
+                    whiteSpace: 'nowrap',
                     overflow: 'hidden',
-                    wordBreak: 'break-word'
+                    textOverflow: 'ellipsis'
                   }}
                 >
                   {bubble.label}
