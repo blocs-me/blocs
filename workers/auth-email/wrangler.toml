@@ -1,0 +1,12 @@
+name = "blocs-auth-email"
+main = "src/index.js"
+compatibility_date = "2024-09-23"
+
+[vars]
+FROM_EMAIL = "noreply@e.blocs.me"
+FROM_NAME = "Blocs"
+
+# Secrets (set via `wrangler secret put`):
+# - CF_ACCOUNT_ID
+# - CF_EMAIL_API_TOKEN
+# - SEND_EMAIL_HOOK_SECRET (the full v1,whsec_... value from Supabase dashboard)
