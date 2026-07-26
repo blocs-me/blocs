@@ -1,0 +1,140 @@
+---
+title: "Google Calendar Widget for Notion: Best Options in 2026"
+date: "2026-07-24"
+description: "Looking for a Google Calendar widget for Notion? Compare the best free and paid options, including embeddable widgets that work directly inside your workspace."
+---
+
+If you want a Google Calendar widget for Notion, the honest answer is that true two-way Google Calendar sync inside Notion doesn't exist natively. Your best options are either embedding a read-only Google Calendar iframe or using a dedicated Notion calendar widget like [Blocs](https://blocs.me) that lives inside your workspace. This guide is for Notion users who want their schedule visible without leaving their pages. Key trade-offs: Google's embed is free but read-only and ugly; Blocs' calendar widget is polished and interactive but Pro-only ($17 one-time).
+
+- Notion has no native Google Calendar sync as of 2026
+- Google Calendar's public embed URL works in Notion's embed block, but it's read-only and not mobile-friendly
+- Blocs offers a visual calendar widget that embeds directly in any Notion page via iframe
+- The $17 Blocs Pro plan is a one-time payment, not a subscription
+
+## Key Takeaways
+
+- Google Calendar can be embedded in Notion as a read-only iframe using the public calendar URL
+- The embed is limited: no event creation, no mobile support, and a dated UI
+- Blocs' calendar widget is a purpose-built alternative that renders cleanly inside Notion pages
+- For users who need a visual, interactive calendar inside Notion, Blocs Pro is the most practical option
+- Third-party tools like Zapier can automate syncing Google Calendar events to a Notion database, but this requires setup and a paid Zapier plan
+
+## What Is a Google Calendar Widget for Notion?
+
+A Google Calendar widget for Notion is any embed or integration that surfaces your Google Calendar events directly on a Notion page. Because Notion supports `/embed` blocks, you can paste an iframe URL into a page and display content from external sources, including Google Calendar's public embed link.
+
+The result looks like a calendar inside your Notion workspace, but it behaves like a web page view, not a live integration. You can see events, but you can't create or edit them from within Notion. For many users, this is enough. For others, it's frustrating.
+
+## How to Embed Google Calendar in Notion (Free Method)
+
+This is the simplest approach and costs nothing. It works by using Google Calendar's built-in "publish and embed" feature to generate an iframe URL, then pasting that into a Notion embed block.
+
+### Step 1: Get your Google Calendar embed link
+
+Open [Google Calendar](https://calendar.google.com) on desktop. Go to **Settings** (gear icon) then select the specific calendar you want to share. Scroll to the **Integrate calendar** section. Copy the **Embed code** — it will look like an iframe tag with a long URL inside the `src` attribute. Copy just the URL portion (starting with `https://calendar.google.com/calendar/embed?...`).
+
+### Step 2: Make the calendar public
+
+For the embed to work, the calendar needs to be set to public. Under **Access permissions** on the same settings page, check "Make available to public." Note that this means anyone with the link can view your events, so avoid doing this for calendars containing sensitive information.
+
+### Step 3: Embed it in Notion
+
+Open the Notion page where you want the calendar. Type `/embed` and select the Embed block. Paste the Google Calendar URL into the prompt and press Enter. Resize the embed block to your liking. The calendar will render inline on the page.
+
+### Limitations of the free Google Calendar embed
+
+- **Read-only:** You cannot create, edit, or delete events from within Notion
+- **No mobile support:** The Google Calendar embed doesn't render well on mobile devices or the Notion mobile app
+- **Styling mismatch:** The Google Calendar UI doesn't adapt to Notion's dark mode or your page theme
+- **Privacy trade-off:** The calendar must be set to public for the embed to function
+- **Refresh lag:** The embed can take a few minutes to reflect newly added events
+
+## Best Google Calendar Widget Alternatives for Notion
+
+If the raw Google Calendar embed doesn't meet your needs, here are the main alternatives, ranked by how well they integrate with a Notion-first workflow.
+
+| Option | Type | Cost | Mobile-Friendly | Interactive |
+|--------|------|------|-----------------|-------------|
+| Google Calendar embed | Native iframe | Free | No | Read-only |
+| [Blocs Calendar Widget](https://blocs.me/calendar-widget) | Embeddable widget | $17 one-time (Pro) | Yes | Yes (date markers, date-range tracking) |
+| Zapier Google Calendar to Notion | Automation sync | Zapier paid plan required | Yes (via Notion DB) | Yes (Notion database view) |
+| Indify | Embeddable widget | Free / paid subscription | Partial | Limited |
+
+### Blocs Calendar Widget
+
+The [Blocs Calendar Widget](https://blocs.me/calendar-widget) is a purpose-built embeddable calendar designed specifically to live inside Notion pages. Unlike the Google Calendar iframe, it's styled to look clean inside Notion, supports dark mode, and includes features like visual date markers and date-range tracking. You embed it the same way as any Blocs widget: copy the embed URL and drop it into a Notion embed block.
+
+It's part of Blocs Pro, which costs $17 as a one-time payment (not a recurring subscription). That single payment covers all Blocs Pro widgets, including the calendar, countdown timer, progress bar, clock, weather widget, and more.
+
+### Zapier automation
+
+If you genuinely need your Google Calendar events to appear as Notion database entries, Zapier can automate that. You set up a Zap that triggers whenever a Google Calendar event is created or updated, then creates a matching record in a Notion database. This gives you full Notion database views (table, calendar, gallery) with your actual event data. The downside is that Zapier requires a paid plan for multi-step Zaps, and it's a one-way sync unless you build additional triggers.
+
+### Indify
+
+Indify offers embeddable Notion widgets including a calendar widget. It works similarly to Blocs in that you get a widget URL to paste into Notion. However, Indify operates on a subscription model, and its widget selection and customization options are more limited compared to Blocs Pro.
+
+## How to Add the Blocs Calendar Widget to Notion
+
+The Blocs Calendar Widget is the cleanest way to get a visual calendar inside Notion that actually looks like it belongs there. Here's how to set it up:
+
+### Step 1: Get Blocs Pro
+
+The calendar widget is a Pro feature. Visit [blocs.me/pricing](https://blocs.me/pricing) to purchase Blocs Pro for a one-time payment of $17. Once you've signed in, all Pro widgets are available immediately.
+
+### Step 2: Copy the calendar widget embed URL
+
+From your Blocs dashboard, navigate to the Calendar widget. Copy the embed URL (it will look like `https://blocs.me/calendar` with your account parameters).
+
+### Step 3: Embed it in Notion
+
+Open your Notion page. Type `/embed`, select the Embed block, paste the Blocs calendar URL, and press Enter. The widget will render inline. You can resize and reposition it like any other Notion block.
+
+### Step 4: Customize
+
+Through the Blocs dashboard, you can adjust the calendar theme, color scheme, and other display options. Changes reflect in the embed automatically, no re-pasting required.
+
+<WidgetEmbed src="/calendar" title="Blocs Calendar Widget" height="420px" maxWidth="420px" />
+
+## Free vs. Pro: What Do You Actually Need?
+
+If you just want to glance at your Google Calendar events without leaving Notion and you don't mind a read-only view, the free Google Calendar embed does the job. It takes five minutes to set up and costs nothing.
+
+If you want a widget that looks polished, works on mobile, supports customization, and integrates cleanly with your Notion aesthetic, Blocs Pro is the better choice. The $17 one-time price covers the calendar widget plus everything else in the Blocs suite.
+
+If you need actual data sync so that Google Calendar events become searchable, filterable Notion database entries, the Zapier route is your only real option, but it comes with ongoing subscription costs and setup complexity.
+
+## Related Notion Calendar Resources
+
+If you're exploring calendar and scheduling options for Notion, these guides cover adjacent topics:
+
+- [How to embed Google Calendar in Notion](https://blocs.me/blog/how-to-embed-google-calendar-in-notion) — step-by-step walkthrough of the native embed method
+- [How to sync Google Calendar in Notion](https://blocs.me/blog/how-to-sync-google-calendar-in-notion) — covers automation approaches beyond basic embedding
+- [Notion Calendar Widget guide](https://blocs.me/blog/notion-calendar-widget) — overview of calendar widget options for Notion users
+- [Calendar widget for Notion](https://blocs.me/blog/calendar-widget-for-notion) — comparison of available calendar widgets
+
+## Frequently Asked Questions
+
+### Can I sync Google Calendar with Notion for free?
+
+Not with full two-way sync, no. The free Google Calendar embed shows your events as a read-only view. For true sync where events become Notion database records, you need a tool like Zapier, which has its own paid plan. Blocs offers a visual calendar widget as a polished alternative for users who just need to see a calendar inside Notion.
+
+### Does the Google Calendar embed work on Notion mobile?
+
+No. Notion's embed block on mobile renders a static image or a link to the embedded page rather than an interactive iframe. The Google Calendar embed doesn't function interactively on the Notion mobile app. The Blocs Calendar Widget is designed to be mobile-friendly.
+
+### Is the Blocs Calendar Widget a Google Calendar replacement?
+
+It's a visual calendar for your Notion workspace, not a Google Calendar integration. It won't pull in your existing Google Calendar events. It's best for users who want a clean calendar display or date-tracking widget embedded in their Notion pages, not for those who need to see their Google Calendar appointments.
+
+### How much does Blocs Pro cost?
+
+Blocs Pro is $17 as a one-time payment. There's no subscription or renewal fee. It includes the Calendar Widget, Countdown Timer, Progress Bar, Clock and Timer, Quote of the Day, and Weather Widget, plus advanced features like theme customization, analytics, and cloud sync. See [blocs.me/pricing](https://blocs.me/pricing) for full details.
+
+### What's the easiest calendar widget for Notion beginners?
+
+The easiest option is the [Blocs Calendar Widget](https://blocs.me/calendar-widget). You copy one URL, paste it into a Notion embed block, and you're done. No Google account settings to configure, no public calendar privacy trade-offs, and no automation setup.
+
+### Can I use Notion's built-in calendar view instead of a widget?
+
+Yes. Notion databases support a Calendar view that lets you see database entries laid out on a calendar based on a date property. This is a solid free option if your goal is to visualize tasks or events already stored in a Notion database. It doesn't connect to Google Calendar, but for Notion-native workflows, it's often the right tool for the job.
