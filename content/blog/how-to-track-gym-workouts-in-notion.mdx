@@ -1,0 +1,142 @@
+---
+title: "How to Track Your Gym Workouts in Notion (With Embeddable Widgets)"
+date: "2026-07-25"
+description: "Track gym workouts in Notion using a habit tracker, progress bar, and countdown widgets. Free embeds, no extra apps needed. Step-by-step setup guide."
+---
+
+The most effective way to track gym workouts in Notion is to combine a structured workout log database with embeddable widgets for habits, progress, and session timing, all inside a single Notion page. This approach works best for people who already live in Notion and want to avoid juggling a separate fitness app. The main trade-off: Notion's native database is powerful but static. Widgets like [Blocs](https://blocs.me) add the interactive layer (streaks, progress bars, timers) that Notion can't do on its own.
+
+- Notion's database system can log sets, reps, weight, and notes with no plugins required.
+- Embeddable habit tracker widgets let you mark training days and build streaks without leaving Notion.
+- A progress bar widget gives you a visual read on how far through a program or goal you are.
+
+## Key Takeaways
+
+- Build a Notion workout log database to record each session's exercises, sets, reps, and weight.
+- Embed a habit tracker to mark training days and track consistency streaks.
+- Use a countdown timer widget to stay on track during rest periods or circuits.
+- Add a progress bar to visualize how close you are to a goal (e.g., weeks completed in a program).
+- All of this lives in one Notion page. No separate app needed.
+
+## How to Set Up a Workout Log in Notion
+
+Start with a simple database. This is the backbone of your gym tracker and requires nothing beyond a free Notion account.
+
+### Step 1: Create a Workout Log Database
+
+In a new Notion page, type `/table` and create an inline database. Add these properties:
+
+- **Name** (default): The workout name or focus (e.g., "Push Day", "Leg Day")
+- **Date** (Date property): When you trained
+- **Exercises** (Text or Multi-select): Movements covered
+- **Duration** (Number): Minutes in the gym
+- **Notes** (Text): How it felt, PRs, adjustments
+- **Rating** (Select): 1-5 scale for session quality
+
+Each row becomes one workout session. Over time, filtering by week or month gives you a clear picture of training frequency and volume.
+
+### Step 2: Add Views for Better Visibility
+
+Notion lets you create multiple views of the same database. Add a **Calendar view** to see which days you trained at a glance, and a **Gallery view** grouped by muscle group or workout type. This takes about two minutes and makes the database considerably more useful than a flat list.
+
+### Step 3: Create a Template for Each Session
+
+Use Notion's database templates to pre-fill your exercise list for recurring workouts. Create a "Push Day" template that already has bench press, overhead press, and tricep work listed. When you log a session, you open the template and fill in the numbers rather than starting from scratch.
+
+## How to Embed a Habit Tracker for Gym Consistency
+
+Logging workouts is one thing. Sticking to a schedule is another. A [habit tracker for Notion](https://blocs.me/blog/habit-tracker-for-notion) embedded directly on your dashboard turns training into a visible streak you don't want to break.
+
+[Blocs](https://blocs.me) offers a free embeddable habit tracker widget. Embed it in any Notion page using the `/embed` block and pasting the widget URL. No sign-up required for the free version.
+
+<WidgetEmbed src="/habit-tracker" title="Blocs Habit Tracker" />
+
+### How to Embed the Habit Tracker
+
+1. Go to your Notion gym dashboard page.
+2. Type `/embed` and select "Embed".
+3. Paste `https://blocs.me/habit-tracker` as the embed URL.
+4. Click "Embed link". The widget will load inline.
+5. Resize it to fit your layout.
+
+Each day you train, check it off in the widget. The tracker shows your current streak and recent history. With [Blocs Pro](https://blocs.me/pricing) (a one-time $17 payment), you unlock unlimited habits, daily/weekly/monthly analytics, custom colors, and streak data, useful if you're tracking gym days alongside other habits like sleep or nutrition.
+
+For more detail on setup, see the full guide on [Notion habit tracker widgets](https://blocs.me/blog/notion-habit-tracker-widget).
+
+## How to Add a Progress Bar to Your Fitness Goals
+
+A progress bar widget adds a visual layer to goal tracking. If you're running a 12-week strength program, a progress bar showing "Week 7 of 12" is more motivating than a number in a database cell.
+
+Blocs' [progress bar widget](https://blocs.me/progress-bar-widget) is a Pro feature. Embed it the same way as the habit tracker using the `/embed` block. You can configure the bar to reflect workout count, program weeks, or any numeric target. Custom colors and themes let you match it to your workspace aesthetic.
+
+<WidgetEmbed src="/progress-bar" title="Blocs Progress Bar" height="150px" maxWidth="500px" />
+
+See the broader guide on [how to track progress in Notion](https://blocs.me/blog/how-to-track-progress-in-notion) for more ways to visualize goal completion.
+
+## How to Use a Timer Widget During Workouts
+
+Rest intervals matter, especially for strength training. Resting too little cuts performance; resting too long kills intensity. A countdown timer embedded in your Notion workout page removes the guesswork.
+
+The [Blocs Countdown Timer](https://blocs.me/countdown-timer) (Pro) lets you set custom durations. Embed it on the same page as your workout log. Set it to 90 seconds for compound lifts or 60 seconds for accessory work, then start it between sets without switching apps.
+
+<WidgetEmbed src="/countdown" title="Blocs Countdown Timer" height="200px" maxWidth="500px" />
+
+The free [Pomodoro timer embed](https://blocs.me/blog/how-to-embed-pomodoro-in-notion) is another option if you prefer session-based training blocks (e.g., 25 minutes of focused circuit work followed by a break).
+
+## Putting It Together: A Gym Tracker Dashboard in Notion
+
+Here's the structure of a complete gym tracking page in Notion:
+
+| Section | Notion Element | Purpose |
+|---|---|---|
+| Training Log | Inline database (table + calendar view) | Log each session with exercises, sets, reps, weight |
+| Consistency Tracker | Blocs Habit Tracker (free embed) | Mark training days, build streaks |
+| Goal Progress | Blocs Progress Bar (Pro) | Visualize program completion or rep/weight goals |
+| Rest Timer | Blocs Countdown Timer (Pro) | Time rest intervals between sets |
+| Session Focus | Blocs Pomodoro Timer (free) | Structure longer training blocks |
+
+All of this sits on one Notion page. You open it on your phone before training, log sets as you go, and check off your habit at the end. Nothing leaves the workspace.
+
+For inspiration on how fitness-focused Notion setups look with widgets, see [best fitness Notion widgets](https://blocs.me/blog/best-fitness-notion-widgets) and the detailed walkthrough on [how to track gym progress in Notion](https://blocs.me/blog/how-to-track-gym-progress-in-notion).
+
+## Free vs. Pro: What You Actually Need
+
+You can build a solid gym tracker with entirely free tools:
+
+- Notion free tier handles the database, templates, and views.
+- Blocs Habit Tracker (free) covers daily training check-ins.
+- Blocs Pomodoro Timer (free) works for session timing.
+
+Blocs Pro ($17 one-time, not a subscription) adds the Countdown Timer for rest intervals, the Progress Bar for goal visualization, advanced analytics, unlimited habits, streak data, and custom themes. If you're serious about tracking and want the full interactive dashboard, it's a single payment for lifetime access.
+
+## FAQs
+
+### Can I track workouts in Notion for free?
+
+Yes. Notion's free tier supports databases, templates, and multiple views. The Blocs Habit Tracker and Pomodoro Timer are also free to embed. The only features behind a paywall are Blocs Pro extras like the Countdown Timer and Progress Bar.
+
+### Do I need to install anything to use Blocs widgets in Notion?
+
+No installation required. Use Notion's `/embed` block and paste the widget URL. The widget loads inline as an iframe. No browser extension, no third-party integration.
+
+### Can I log individual exercises, sets, and reps in Notion?
+
+Yes. A Notion database with text, number, and select properties can capture all of this. For granular tracking (each set as a row), use a sub-database linked to each workout entry. For simpler logging, a text block per exercise in the page body works fine.
+
+### Is there a Notion template for gym tracking?
+
+Notion's template gallery includes several fitness trackers. You can also build one from scratch in under 10 minutes using the structure above. Adding Blocs widgets on top of any template gives you the interactive elements Notion can't provide natively.
+
+### Can I use my Notion gym tracker on mobile?
+
+Notion's mobile app supports databases and most block types. Blocs widgets embedded via iframe may not render in the Notion mobile app due to platform restrictions, but they work fully in any mobile browser.
+
+### Does Blocs sync data across devices?
+
+Cloud sync is a Blocs Pro feature. Free widgets reset if you clear browser data. Pro users get persistent data tied to their account, accessible from any device.
+
+## Start Tracking Today
+
+The setup takes less than 15 minutes: create the database, embed the habit tracker, and you have a functional gym log inside Notion before your next session. Add the timer and progress bar when you're ready to go deeper.
+
+[Try the free Habit Tracker](https://blocs.me/habit-tracker-widget) or [explore all Blocs widgets](https://blocs.me/pricing) to build your full fitness dashboard.
