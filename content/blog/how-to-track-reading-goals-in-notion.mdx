@@ -1,0 +1,157 @@
+---
+title: "How to Track Your Reading Goals in Notion (With Embeddable Widgets)"
+date: "2026-07-26"
+description: "Track reading goals in Notion using databases, habit trackers, and free embeddable widgets. Step-by-step guide for 2026 – no complex templates needed."
+---
+
+The most effective way to track reading goals in Notion is to combine a simple database for logging books with an embedded habit tracker widget that holds your daily reading streak. [Blocs](https://blocs.me) offers a free habit tracker you can embed directly in your Notion page in under two minutes, no sign-up needed. It suits readers who want visual progress without building a complex template from scratch. The trade-off: Notion's native databases give you rich metadata (ratings, genres, notes), while widgets add the accountability layer databases alone can't provide.
+
+- Notion databases can store unlimited books with custom properties (status, rating, pages, genre).
+- A daily reading habit tracked over 30 days increases completion rates significantly, according to [habit research from James Clear](https://jamesclear.com/habit-stacking).
+- Blocs' habit tracker is free to embed with no account required; the Pro plan ($17 one-time) unlocks streaks, analytics, and unlimited habits.
+
+## Key Takeaways
+
+- Build a Notion reading database with properties for Status, Pages Read, Rating, and Genre.
+- Use a Gallery or Board view to visualize your "Currently Reading" and "To Read" shelves.
+- Embed a [Blocs habit tracker widget](https://blocs.me/habit-tracker-widget) to log daily reading and maintain streaks.
+- Add a [progress bar widget](https://blocs.me/progress-bar-widget) (Pro) to show how far through your annual reading goal you are.
+- Use Notion's Linked Databases to surface reading stats on your dashboard without duplicating data.
+
+## What Does a Reading Tracker in Notion Look Like?
+
+A Notion reading tracker is a database where each row is a book. You assign properties like Status (To Read, Reading, Finished), Pages Read, Total Pages, Star Rating, Genre, and Start/Finish Date. Views let you slice that data into a reading list, a finished shelf, or a stats dashboard, all in one workspace.
+
+The native database approach is powerful for cataloguing books, but it doesn't push you to actually read every day. That accountability gap is where embedded widgets make a real difference. Combining both is the most effective setup.
+
+## How to Set Up a Reading Database in Notion?
+
+Create a new full-page database in Notion and add the following properties. This takes about five minutes and requires no template download.
+
+### Step 1: Create the database
+
+1. Open Notion and type `/database`, then choose **Table – Full page**.
+2. Name it "Reading List" or "Books 2026".
+
+### Step 2: Add core properties
+
+| Property Name | Type | Purpose |
+|---|---|---|
+| Title | Title (default) | Book name |
+| Author | Text | Author name |
+| Status | Select | To Read / Reading / Finished / Abandoned |
+| Pages Read | Number | Track progress through the book |
+| Total Pages | Number | Used to calculate % complete |
+| Rating | Select (★ to ★★★★★) | Personal score after finishing |
+| Genre | Multi-select | Filter by category |
+| Date Started | Date | Track how long each book took |
+| Date Finished | Date | Calculate reading speed over time |
+
+### Step 3: Add a Formula property for % progress
+
+Add a **Formula** property named "Progress". Use this formula:
+
+```
+round(prop("Pages Read") / prop("Total Pages") * 100)
+```
+
+This gives you a clean percentage for each book you're currently reading.
+
+### Step 4: Create useful views
+
+- **Board view (grouped by Status)**: See your whole library at a glance, similar to Goodreads shelves.
+- **Gallery view (filtered to "Finished")**: A visual "books I've read" shelf.
+- **Table view (filtered to "Reading")**: Focus only on active books.
+- **Gallery view (filtered to "To Read")**: Your backlog queue.
+
+## How to Track Your Annual Reading Goal in Notion?
+
+Set a target number of books for the year (e.g., 24 books in 2026) and use a Linked Database filtered to "Status = Finished" to count completions. A `Count` rollup or a filtered view count gives you your running total. Pair this with an embedded progress bar widget to make the goal visual.
+
+Notion's native progress display is limited to numbers and text. For a visual bar that updates as you finish books, embed the [Blocs Progress Bar widget](https://blocs.me/progress-bar-widget) on your reading dashboard. Set your target (e.g., 24) and manually update your count each time you finish a book. It's a Pro feature, but at a $17 one-time payment it's significantly cheaper than recurring subscription tools.
+
+### How to embed a progress bar in Notion
+
+1. On your reading dashboard page in Notion, type `/embed` and choose the **Embed** block.
+2. Paste the widget URL: `https://blocs.me/progress-bar`
+3. Resize the block to fit your layout.
+4. The widget loads inline in your Notion page, no app switching needed.
+
+## How to Build a Daily Reading Habit in Notion?
+
+A reading database tracks what you've read. A habit tracker holds you accountable for reading every day. Embed a Blocs habit tracker directly on your Notion dashboard and add "Read 20 minutes" as a daily habit. Check it off each day to build a streak, with weekly analytics showing which days you slipped.
+
+<WidgetEmbed src="/habit-tracker" title="Blocs Habit Tracker" />
+
+### How to embed the Blocs habit tracker in Notion
+
+1. Go to your Notion reading dashboard and type `/embed`.
+2. Paste `https://blocs.me/habit-tracker` as the embed URL.
+3. Add a habit called "Read" or "Read 20 min".
+4. Check it off daily directly inside Notion.
+
+The free tier gives you the core habit tracker with default settings. **Blocs Pro ($17 one-time)** adds unlimited habits, daily and weekly analytics, streaks, and theme customization, so you can track reading alongside other habits like journaling or exercise without cluttering your dashboard.
+
+For more on using Notion for habit tracking, see our guide on [habit tracker for Notion](https://blocs.me/blog/habit-tracker-for-notion).
+
+## Free vs. Pro: Which Blocs Features Do You Need for Reading Goals?
+
+| Feature | Free | Pro ($17 one-time) |
+|---|---|---|
+| Habit tracker (daily reading check-off) | Yes (up to 3 habits) | Yes (unlimited habits) |
+| Streaks and analytics | No | Yes (daily/weekly/monthly) |
+| Progress bar widget | No | Yes |
+| Countdown timer (to year-end reading goal) | No | Yes |
+| Theme customization | No | Yes |
+| Cloud sync across devices | No | Yes |
+| No Blocs branding | No | Yes |
+
+For most readers, the free habit tracker is enough to get started. Upgrade to Pro if you want streak analytics to understand your reading patterns, or the progress bar to visualize your annual goal.
+
+## How to Combine Your Reading Database and Widgets into One Dashboard?
+
+Create a dedicated "Reading Dashboard" page in Notion. Use two-column layouts to place your embedded widgets alongside linked database views. This keeps your whole reading system in one place without leaving Notion.
+
+Suggested dashboard layout:
+
+- **Top row:** Blocs Habit Tracker (left) + Blocs Progress Bar (right)
+- **Middle row:** Linked Database filtered to "Status = Reading" (your current books)
+- **Bottom row:** Linked Database filtered to "Status = Finished" (your shelf, sorted by Date Finished)
+
+This setup means you never need a separate reading app. Everything, from daily accountability to book metadata to year-end progress, lives in your existing Notion workspace.
+
+If you're already tracking other habits alongside reading, see how to use the [Notion habit tracker widget](https://blocs.me/blog/notion-habit-tracker-widget) for a broader habit stack.
+
+## FAQs
+
+### Can you track pages read per day in Notion?
+
+Yes. Add a "Pages Read Today" number property to your active book entry and update it daily. You can also create a separate "Daily Reading Log" database with Date and Pages columns, then use a Rollup in your book database to sum total pages read. It's manual but effective inside Notion's native toolset.
+
+### Is there a free reading tracker for Notion?
+
+You can build a free reading tracker in Notion using a database (no extra tools needed). For a daily habit check-off widget embedded directly in Notion, Blocs offers a free habit tracker at [blocs.me/habit-tracker-widget](https://blocs.me/habit-tracker-widget). No account or sign-up required to start.
+
+### How do I set a books-per-year goal in Notion?
+
+Create a filtered view of your reading database showing only "Finished" books and use the **Count** aggregation at the bottom of the column to see your total. Then embed a Blocs progress bar widget and set your target number (e.g., 24 books) to visualize how close you are. The progress bar is a Pro feature at $17 one-time.
+
+### What is the best Notion template for reading goals?
+
+Rather than relying on a downloaded template that quickly becomes stale, build a simple database with Status, Pages, and Rating properties, then embed a habit tracker widget for daily accountability. As of July 2026, this combination is more flexible and maintainable than most pre-built templates, and the habit tracker is free.
+
+### Does Blocs work on mobile Notion?
+
+Blocs widgets are embedded as iframes, which Notion supports on desktop (web and app). On Notion's mobile app, embed blocks are sometimes limited depending on the device and Notion version. For full widget interactivity, the desktop Notion app or browser is recommended. Cloud sync (Pro) means your habit data carries over across sessions.
+
+### Can I track multiple reading goals at once in Notion?
+
+Yes. Set separate goals as individual habits in the Blocs habit tracker (e.g., "Read fiction", "Read non-fiction", "Read 20 min"). With Blocs Pro you get unlimited habits plus weekly analytics showing completion rates per habit, making it easy to see which goals you're hitting and which need attention.
+
+## Start Tracking Your Reading in Notion Today
+
+Building a reading tracker in Notion doesn't require a complex template. A simple database plus an embedded habit widget gives you the structure (what you've read) and the accountability (whether you read today). Both are free to start.
+
+For a deeper look at building reading-specific trackers, see the [reading tracker for Notion](https://blocs.me/blog/reading-tracker-for-notion) guide. To track other goals alongside reading, the [how to track goals in Notion](https://blocs.me/blog/how-to-track-goals-in-notion) guide covers the broader system.
+
+[Try the free habit tracker](https://blocs.me/habit-tracker-widget) and add it to your Notion reading dashboard in under two minutes.
