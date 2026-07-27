@@ -5,13 +5,14 @@ import usePatchWaterTrackerSettings from './hooks/usePatchSettings'
 import { useForm } from 'react-hook-form'
 import Button from '@/design-system/Button'
 import WidgetModal from '../WidgetModal/WidgetModal'
+import { getGoalBounds } from './goalBounds'
 
 const UpdateGoalForm = () => {
   const { data: settings } = useWaterTrackerSettings()
   const { patchGoal, loadingGoal } = usePatchWaterTrackerSettings()
   const goal = settings?.data?.goal
-  const max = 10
-  const min = 1
+  const units = settings?.data?.units || 'liter'
+  const { min, max, label } = getGoalBounds(units)
 
   const {
     register,
@@ -41,7 +42,7 @@ const UpdateGoalForm = () => {
       <NumberInput
         type="number"
         ariaLabel="Set Daily Goal"
-        label="Goal (litres)"
+        label={label}
         {...register('goal', {
           required: true,
           valueAsNumber: true,
@@ -50,7 +51,7 @@ const UpdateGoalForm = () => {
         })}
         min={min}
         max={max}
-        error={errors.goal ? 'Goal must be between {min} & {max}' : false}
+        error={errors.goal ? `Goal must be between ${min} & ${max}` : false}
       />
       <Button
         mt="sm"

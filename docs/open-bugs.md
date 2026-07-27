@@ -43,3 +43,11 @@ This is a React reconciler crash during a component re-render. `i is not a funct
 - `src/components/design-system/BarChart/useBarChart/useBarChart.ts` — `stepY` uses `height - (timePeriod === 'weekly' ? 50 : 20)`. Labels need 50px of bottom space.
 - `src/components/design-system/BarChart/XAxisLabels.tsx` — the label component itself.
 - `src/components/widgets/AnalyticsBarChart/AnalyticsBarChart.tsx` — the wrapper that uses `useResizeObserver` to measure height and pass it to `BarChart`.
+
+---
+
+## 3. `useAnalyticsBarChartDateRange.test.tsx` — 2 date-dependent test failures
+
+**Symptom**: `bun run test:git` reports 2 failures in `src/components/widgets/AnalyticsBarChart/useAnalyticsBarChartDateRange.test.tsx`. Fails on a clean `main` checkout too (verified via `git stash`), so it is pre-existing and unrelated to widget code changes.
+
+**Likely cause**: The test asserts against hard-coded date ranges that assume a fixed "today", so it drifts out of correctness as the real date advances. Fix by mocking the system clock (`jest.useFakeTimers().setSystemTime(...)`) rather than relying on the current date.

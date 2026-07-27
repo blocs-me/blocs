@@ -28,7 +28,11 @@ const faqs = [
   },
   {
     question: 'Can I change my daily water goal?',
-    answer: 'With Blocs Pro, you can set a custom daily goal anywhere from 1 to 10 liters. The free version uses a default goal of 3 liters.'
+    answer: 'With Blocs Pro, you can set a custom daily goal anywhere from 1 to 10 liters (or the equivalent in ounces). The free version uses a default goal of 3 liters.'
+  },
+  {
+    question: 'Can I switch between liters and ounces?',
+    answer: 'Yes. With Blocs Pro, open the widget menu and tap the units button to toggle between liters and ounces. Your goal and progress convert automatically.'
   },
   {
     question: 'Can I see my water intake over time?',

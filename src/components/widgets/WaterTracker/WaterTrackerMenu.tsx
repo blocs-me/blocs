@@ -54,10 +54,8 @@ const WaterTrackerMenu = () => {
   }
 
   const handleUnitsChange = async () => {
-    const units = ['liter', 'ounce']
-    const pos = units.indexOf(settings?.data?.units)
-    const nextMode = pos === 1 ? 0 : pos + 1
-    const nextUnit = units[nextMode] as 'liter' | 'ounce'
+    const currentUnit = settings?.data?.units === 'ounce' ? 'ounce' : 'liter'
+    const nextUnit = currentUnit === 'ounce' ? 'liter' : 'ounce'
 
     await patchUnits(nextUnit)
     mutateSettings()
@@ -103,15 +101,15 @@ const WaterTrackerMenu = () => {
           >
             {colorModeText[colorMode]}
           </ButtonGroupButton>
-          {/* <ButtonGroupButton
+          <ButtonGroupButton
             disabled={loadingUnits}
             loading={loadingUnits}
             icon={<Drop />}
             css={{ textTransform: 'capitalize' }}
             onClick={() => handleUnitsChange()}
           >
-            {settings?.data?.units}
-          </ButtonGroupButton> */}
+            {settings?.data?.units === 'ounce' ? 'Ounces' : 'Liters'}
+          </ButtonGroupButton>
           <ButtonGroupButton
             icon={<Pencil />}
             onClick={(e) => {
