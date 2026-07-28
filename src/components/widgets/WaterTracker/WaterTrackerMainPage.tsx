@@ -15,6 +15,7 @@ import useWaterTrackerSettings from './hooks/useWaterTrackerSettings'
 import useNotifications from '@/design-system/Notifications/useNotifications'
 import { literToOunce } from '@/utils/math/literToOunce'
 import { ounceToLiter } from '@/utils/math'
+import { getProgressStep } from './progressStep'
 import useSaveAnalytics from './hooks/useSaveAnalytics'
 import useWaterLatestTrackerAnalytics from './hooks/useLatestWaterTrackerAnalytics'
 import Button from '@/design-system/Button'
@@ -48,7 +49,7 @@ const WaterTrackerMainPage = () => {
       ? ounceToLiter(settings?.data?.goal, false)
       : settings?.data?.goal || 4
   const notif = useNotifications()
-  const progressStep = units === 'liter' ? 1 : Number(GOAL) / Math.floor(GOAL)
+  const progressStep = getProgressStep(units)
   const saveAnalytics = useSaveAnalytics()
   const { data: latestAnalytics } = useWaterLatestTrackerAnalytics()
 
