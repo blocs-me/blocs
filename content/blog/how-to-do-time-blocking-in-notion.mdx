@@ -1,0 +1,145 @@
+---
+title: "How to Do Time Blocking in Notion (With Embedded Timers)"
+date: "2026-08-08"
+description: "Learn how to set up time blocking in Notion with free embeddable widgets. A practical guide to scheduling, focus blocks, and built-in timers — no extra apps needed."
+---
+
+Time blocking in Notion works best when you pair a simple database schedule with an embedded timer — so you stay in one workspace instead of juggling tabs. [Blocs](https://blocs.me) lets you embed a free Pomodoro timer or countdown directly inside any Notion page. It takes about five minutes to set up and works on any Notion plan, including free.
+
+## Key Takeaways
+
+- Time blocking means assigning every hour of your day to a specific task in advance — not just making a to-do list.
+- Notion's calendar view and timeline view are the two best built-in layouts for visualizing time blocks.
+- Embedding a timer widget (Pomodoro or countdown) turns a static Notion schedule into an active focus environment.
+- Blocs offers free embeddable timers that work inside Notion with no account required.
+- The full Blocs suite (countdown timer, progress bar, calendar widget, and more) unlocks for a one-time $17 payment.
+
+## What is Time Blocking?
+
+Time blocking is a scheduling method where you divide your day into dedicated chunks and assign each block to one specific task or category of work. Rather than working from an open to-do list and picking tasks reactively, you plan when each task happens. [Research consistently shows](https://www.cal.com/blog/time-blocking) that time blocking reduces context switching and helps people finish more meaningful work in a day.
+
+## Why Use Notion for Time Blocking?
+
+Notion is a strong fit for time blocking because a single database can act as your schedule, task list, and reference notes at once. You can switch between table, calendar, and timeline views of the same data without duplicating anything. Most dedicated calendar apps force you to maintain two systems — one for scheduling and one for the actual work context. Notion keeps both in one place.
+
+The main limitation Notion has out of the box is that it is a static workspace. You can see your time blocks, but there is nothing to keep you on track while you are actually working inside a block. That gap is where an embedded timer makes the real difference.
+
+## How to Set Up a Time Blocking Database in Notion
+
+### Step 1: Create a new database
+
+Open any Notion page and type `/database`, then select "Database – Inline." Give it a name like "Daily Schedule" or "Time Blocks."
+
+### Step 2: Add the right properties
+
+Your database needs at minimum:
+
+- **Name** — the task or focus area for the block
+- **Date** — set the property type to "Date" and enable the time toggle so you can enter start and end times
+- **Category** — a "Select" property with values like Deep Work, Admin, Meetings, Breaks
+- **Status** — a "Status" property to mark blocks as Not Started, In Progress, or Done
+
+### Step 3: Switch to Calendar or Timeline view
+
+Click "Add a view" and choose Calendar (for a day/week overview) or Timeline (for multi-day project planning). Both views read your Date property automatically. Calendar view is better for daily time blocking; Timeline is better for weekly planning across projects.
+
+### Step 4: Create your blocks for tomorrow
+
+Do this the evening before. Drag blocks directly in Calendar view or type entries in the table. Be specific about start and end times. Blocks of 60 to 90 minutes tend to work better than 30-minute micro-slots because they give deep work tasks room to breathe.
+
+### Step 5: Add a timer to your focus block pages
+
+Each database entry in Notion opens as a full page. Open a deep work block and embed a timer at the top so it is the first thing you see when you start that block. This is covered in detail below.
+
+## How to Add a Timer to Your Notion Time Blocks
+
+Notion supports iframe embeds via the `/embed` command. Blocs provides free timer widgets that you paste in as a URL — no sign-up required. The timer lives directly inside your Notion page and keeps running as long as the page is open.
+
+### Embed a Pomodoro Timer (Free)
+
+The [Blocs Pomodoro timer](https://blocs.me/blog/pomodoro-timer-for-notion) is the most practical fit for time blocking. It runs a 25-minute work session followed by a 5-minute break automatically, matching the classic Pomodoro technique popularized by Francesco Cirillo in the 1980s.
+
+1. Inside a Notion page, type `/embed` and press Enter.
+2. Paste the URL: `https://blocs.me/pomodoro`
+3. Click "Embed link."
+4. Resize the embed to your liking.
+
+<WidgetEmbed src="/pomodoro" title="Blocs Pomodoro Timer" />
+
+### Embed a Countdown Timer (Pro)
+
+If you prefer a single countdown for a specific block length rather than Pomodoro cycles, the [Blocs countdown timer](https://blocs.me/blog/countdown-timer-for-notion) lets you set any custom duration. This is a Pro widget, available with the $17 one-time Blocs Pro upgrade. Embed it using `https://blocs.me/countdown`.
+
+<WidgetEmbed src="/countdown" title="Blocs Countdown Timer" height="200px" maxWidth="500px" />
+
+### Add a Progress Bar to Track Block Completion (Pro)
+
+A [progress bar widget](https://blocs.me/blog/notion-progress-bar-widget) embedded at the top of a project page gives you an at-a-glance view of how far through a deliverable you are. This pairs well with time blocking because it answers the question you always ask mid-block: "Am I on track?" Embed using `https://blocs.me/progress-bar`.
+
+<WidgetEmbed src="/progress-bar" title="Blocs Progress Bar" height="150px" maxWidth="500px" />
+
+## Time Blocking Strategies That Work in Notion
+
+### Theme your days
+
+Assign each weekday a category focus: Mondays for planning, Tuesdays and Wednesdays for deep work, Thursdays for meetings, Fridays for review. This cuts decision fatigue because you know each day's shape before it starts. Create a recurring database template in Notion for each day theme.
+
+### Use buffer blocks
+
+Leave 15-20% of your schedule unblocked. Tasks run over. Meetings start late. Buffer blocks absorb the overflow without breaking your entire day's plan. In Notion calendar view, these show up as white space, which is intentional, not a gap.
+
+### Batch similar tasks
+
+Group emails, Slack messages, and admin tasks into one 30-minute block rather than scattering them throughout the day. Deep work (writing, coding, design) gets its own uninterrupted 90-minute block. The Pomodoro timer embedded on those pages reinforces the boundary.
+
+### Review and adjust each evening
+
+Open your Notion schedule at the end of the day and drag any incomplete blocks to tomorrow. Set your Status property to Done for finished blocks. Over time, you build a searchable record of where your hours actually went — which most calendar apps don't give you.
+
+## Free vs. Pro: Which Blocs Widgets Do You Need for Time Blocking?
+
+| Widget | Use case in time blocking | Free? |
+|--------|--------------------------|-------|
+| Pomodoro Timer | 25/5 focus cycles inside work blocks | Yes |
+| Countdown Timer | Custom block duration countdown | Pro ($17 one-time) |
+| Progress Bar | Track completion of a project block | Pro ($17 one-time) |
+| Clock & Timer | Ambient time awareness while working | Pro ($17 one-time) |
+| Calendar Widget | Visual calendar overview inside Notion | Pro ($17 one-time) |
+
+For most people, the free Pomodoro timer is enough to get started. The Pro widgets become worthwhile once you want custom block lengths, a live clock visible while working, or a visual calendar summary on your Notion dashboard. All Pro features unlock for a single $17 payment, not a recurring subscription — see the [Blocs pricing page](https://blocs.me/pricing) for details.
+
+## What Are the Most Common Time Blocking Mistakes in Notion?
+
+The three most common mistakes are over-scheduling (filling every hour with no buffer), treating blocks as fixed commitments instead of flexible guides, and not reviewing your schedule at the end of the day. Notion's database history and status tracking are useful precisely because they show you the pattern of slippage over time, which lets you calibrate block lengths to reality rather than optimism.
+
+## FAQs
+
+### Should I use Calendar view or Timeline view for time blocking in Notion?
+
+Use Calendar view for daily time blocking — it shows a single day or week with your time slots laid out visually. Use Timeline view for project-based planning across multiple days or weeks. Both pull from the same database, so you can switch between them anytime without changing your data.
+
+### Can I add a working timer inside Notion?
+
+Yes. Use Notion's `/embed` command and paste a Blocs widget URL (e.g., `https://blocs.me/pomodoro`). The timer runs as an interactive iframe inside your Notion page. You can start, stop, and reset it without leaving Notion. The [embed setup takes under two minutes](https://blocs.me/blog/how-to-embed-pomodoro-in-notion).
+
+### Does time blocking actually improve productivity?
+
+Time blocking is more effective than unstructured to-do lists for most knowledge workers because it forces you to confront whether you have enough hours for your task list. It also reduces context switching, which [research from the American Psychological Association](https://www.apa.org/topics/research/multitasking) shows can cost up to 40% of productive time. The method works best when blocks include buffer time and are reviewed daily.
+
+### How long should each time block be in Notion?
+
+Deep work blocks work best at 60 to 90 minutes. Administrative tasks (email, scheduling, quick replies) can be batched into 30-minute blocks. Meetings are naturally fixed. Most people start with blocks that are too short — 30 minutes rarely gives enough runway to get into a focused state before the timer ends.
+
+### Is Blocs free to use in Notion?
+
+The Pomodoro Timer, Water Tracker, and Habit Tracker are free with no sign-up required. Paste the embed URL into Notion and they work immediately. Advanced widgets like the Countdown Timer, Progress Bar, Clock, Calendar, and Weather are available with [Blocs Pro](https://blocs.me/pricing) for a one-time $17 payment.
+
+### Do I need a special Notion template for time blocking?
+
+No template is required. A basic Notion database with a Date property (with time enabled) and a Category select property is enough to start. Templates can help if you want a pre-built layout, but the overhead of a complex template often gets in the way when you are starting out. Build simple and add structure as you need it.
+
+## Get Started
+
+Set up your time blocking database today using the steps above, then add the [free Blocs Pomodoro timer](https://blocs.me/pomodoro-timer) to your first deep work block. It takes five minutes and you can use it immediately without creating an account. If you find yourself wanting custom block lengths or a live clock while working, the full [Blocs Pro suite](https://blocs.me/pricing) is available for a single $17 payment.
+
+For more on getting the most from Notion as a productivity workspace, see the guide on [how to manage time better in Notion](https://blocs.me/blog/how-to-manage-time-better-in-notion) and the roundup of [best free productivity Notion widgets](https://blocs.me/blog/best-free-productivity-notion-widgets).
