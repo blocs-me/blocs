@@ -1,0 +1,139 @@
+---
+title: "How to Track Your Period in Notion (Free Template + Widget Setup)"
+date: "2026-08-13"
+description: "Track your period in Notion using a free database template or embed habit widgets. Step-by-step setup guide for cycle logging, symptoms, and mood tracking."
+---
+
+The most practical way to track your period in Notion is to combine a simple database template for logging cycle dates with an embedded habit tracker widget for daily symptom and mood tracking. This setup works for anyone who already lives in Notion and wants to avoid juggling a separate period-tracking app. The main trade-off: Notion gives you full flexibility but no automatic cycle predictions out of the box.
+
+## Key Takeaways
+
+- You can track period dates, symptoms, flow, and mood entirely inside Notion using a database.
+- Adding an embedded [habit tracker widget](https://blocs.me/habit-tracker-widget) from Blocs lets you log daily entries without leaving your Notion workspace.
+- A free Notion database setup takes under 10 minutes and requires no plugins or paid tools.
+- For richer daily tracking (streaks, analytics, custom habits like "cramps" or "mood"), [Blocs Pro](https://blocs.me/pricing) adds those features for a one-time $17 payment.
+- Notion does not calculate cycle predictions automatically; for that, you'd need a dedicated app alongside your Notion log.
+
+## Why Track Your Period in Notion?
+
+If you already use Notion as your daily planner, health journal, or habit dashboard, keeping period data there means one less app to open. You can cross-reference cycle days with your mood logs, energy levels, sleep notes, or workout schedule, which is harder to do in siloed period apps. It also means your data stays in your workspace, under your control, in a format you can query and export.
+
+The downside is that Notion is not purpose-built for cycle tracking. You won't get automatic period predictions, fertile window estimates, or push-notification reminders unless you build those manually or connect third-party automations. For basic logging and symptom awareness, though, Notion works well.
+
+## How to Set Up a Period Tracker Database in Notion
+
+Create a new Notion database and add the following properties. This covers the essentials for a functional cycle log without overcomplicating the setup.
+
+### Step 1: Create a new database
+
+In any Notion page, type `/database` and select "Table – Full page." Name it something like "Cycle Log" or "Period Tracker."
+
+### Step 2: Add the right properties
+
+Delete the default "Tags" property and replace it with these:
+
+| Property Name | Property Type | What It Tracks |
+|---|---|---|
+| Date | Date | The specific day you're logging |
+| Cycle Day | Number | Day 1 = first day of period |
+| Flow | Select | None / Spotting / Light / Medium / Heavy |
+| Symptoms | Multi-select | Cramps, Bloating, Headache, Fatigue, Acne, etc. |
+| Mood | Select | Great / Good / Okay / Low / Irritable |
+| Energy | Select | High / Medium / Low |
+| Notes | Text | Free-form observations |
+
+### Step 3: Add a calendar view
+
+Click "Add a view" and select "Calendar," using the "Date" property. This gives you a visual monthly overview of your cycle at a glance. Keep the table view as your primary data entry point and the calendar as a read-only summary.
+
+### Step 4: Add a filtered view for period days
+
+Create a second table view filtered to show only rows where "Flow" is not "None." Name it "Period Days Only." This lets you quickly calculate cycle length by comparing the first date of each period cluster.
+
+### Step 5: Calculate your cycle length manually
+
+Notion doesn't do date arithmetic automatically in databases without formulas. Add a "Formula" property named "Days Since Last Period" and use Notion's `dateBetween()` formula referencing your Date property and a hardcoded reference date. You'll need to update the reference date each cycle start, which is a limitation of this approach.
+
+## How to Enhance Period Tracking with a Habit Tracker Widget
+
+A Notion database handles date-based logging well, but daily entry can feel tedious when you're filling in multiple fields. Embedding a [habit tracker widget](https://blocs.me/blog/how-to-track-habits-in-notion) directly in your Notion page lets you mark daily cycle-related habits (took supplements, did light exercise, drank enough water) with a single tap, without opening the database.
+
+[Blocs](https://blocs.me) offers a free embeddable habit tracker widget you can drop into any Notion page. It runs inside an iframe, so it lives right alongside your cycle log, your journal, or your weekly planner.
+
+### How to embed the Blocs Habit Tracker in Notion
+
+1. Open the Notion page where you want the tracker.
+2. Type `/embed` and select the Embed block.
+3. Paste this URL: `https://blocs.me/habit-tracker`
+4. Press Enter. The widget loads inline in your page.
+5. Set up habits like "Period started", "Took iron supplement", "Mild cramps", "Low energy day" and check them each day.
+
+<WidgetEmbed src="/habit-tracker" title="Blocs Habit Tracker" />
+
+The free tier supports basic habit tracking. With [Blocs Pro](https://blocs.me/pricing) (one-time $17 payment), you unlock unlimited habits, daily and weekly analytics, streaks, and theme customization, which is useful for tracking longer-term cycle patterns like energy fluctuations across phases.
+
+## What to Track During Each Cycle Phase?
+
+Tracking more than just period start/end dates gives you actionable patterns over time. Here's a phase-by-phase breakdown of useful data points:
+
+| Phase | Approximate Days | Useful Things to Log |
+|---|---|---|
+| Menstrual | Days 1-5 | Flow level, cramps intensity, fatigue, mood |
+| Follicular | Days 6-13 | Energy, motivation, skin clarity, appetite |
+| Ovulatory | Days 14-16 | Discharge changes, libido, social energy |
+| Luteal | Days 17-28 | PMS symptoms, bloating, mood shifts, sleep quality |
+
+You can add "Phase" as a Select property in your Notion database and fill it in manually each entry, or tag entries retroactively once you know your average cycle length. Tracking these over 3+ months often reveals patterns (for example, consistently low energy on days 20-23) that help with planning workouts, social commitments, and rest days. This pairs well with a [workout tracker in Notion](https://blocs.me/blog/how-to-track-gym-workouts-in-notion) if you're syncing training load with cycle phases.
+
+## Should You Also Track Mood and Mental Health?
+
+For many people, the most useful data from period tracking is emotional and mental health patterns, not just physical symptoms. Mood shifts during the luteal phase are common and trackable. Adding a mood log alongside your cycle data helps you distinguish cycle-related mood changes from external stressors.
+
+Blocs also offers a [mental health tracking setup in Notion](https://blocs.me/blog/how-to-track-mental-health-in-notion) and a [daily mood tracker widget](https://blocs.me/blog/daily-mood-tracker-for-notion) that embeds the same way as the habit tracker. Combining a mood widget with your cycle database gives you a fuller picture of how your cycle affects your mental wellbeing over time.
+
+## Free vs. Pro: What Do You Actually Need?
+
+For basic period logging, the free setup described in this guide covers everything. Here's what each tier offers in practice:
+
+| Feature | Free (Notion database + free widget) | Blocs Pro ($17 one-time) |
+|---|---|---|
+| Daily habit/symptom logging | Yes (up to 3 habits) | Yes (unlimited habits) |
+| Cycle date database | Yes (manual Notion database) | Yes |
+| Streaks and analytics | No | Daily, weekly, monthly views |
+| Theme customization | No | Yes |
+| Cloud sync across devices | No | Yes |
+| No Blocs branding | No | Yes |
+
+If you're tracking daily symptoms across multiple cycle phases and want to see trends over weeks or months, Pro is worth it for the analytics alone. If you just want to log period start and end dates, the free database + free habit widget is all you need.
+
+## FAQs
+
+### Does Notion have a built-in period tracker?
+
+No. Notion does not include a native period tracking feature. You need to build a database manually or use an embedded widget. The setup described in this guide uses a Notion database for logging and an optional embedded habit tracker widget for daily tracking without switching apps.
+
+### Can Notion predict my next period?
+
+Not automatically. Notion databases don't generate predictions without custom formulas or third-party automation tools like Zapier. You can approximate predictions manually by tracking cycle length over several months and noting the average. For automated predictions, a dedicated app like Clue or Flo works better alongside your Notion log.
+
+### Is the Blocs habit tracker widget free to embed in Notion?
+
+Yes. The [Blocs Habit Tracker](https://blocs.me/habit-tracker-widget) is free for basic use with up to 3 habits and default settings. No sign-up is required. Blocs Pro (one-time $17 payment) unlocks unlimited habits, analytics, streaks, and theme customization.
+
+### How do I log symptoms quickly in Notion without opening a database?
+
+Embed a Blocs habit tracker widget on your main Notion dashboard page. Set up habits matching your common symptoms (cramps, fatigue, bloating). You can check them with one click directly from the embed, without navigating to a separate database page.
+
+### Can I track multiple health metrics alongside my period in Notion?
+
+Yes. You can embed multiple Blocs widgets on one Notion page, such as a habit tracker for symptoms and a water tracker for hydration (which can fluctuate with cycle phases). You can also link your cycle database to a mood log or [workout tracker](https://blocs.me/blog/how-to-track-gym-workouts-in-notion) using Notion's relation property for a cross-referenced health dashboard.
+
+### Does my cycle data stay private in Notion?
+
+Notion data is stored in Notion's cloud and is subject to their privacy policy. Your period tracking database is only accessible to you unless you explicitly share the page. The Blocs widget embeds run in an iframe and do not access or read your Notion database content.
+
+## Get Started
+
+The fastest path: create your Notion cycle log database using the property setup above, then embed the free Blocs habit tracker on the same page for daily symptom check-ins. As of mid-2026, this remains the most flexible no-cost approach for people who want period tracking inside their existing Notion workspace rather than in a separate app.
+
+If you want streaks, analytics, and unlimited habits, [Blocs Pro is $17 once](https://blocs.me/pricing), with no recurring subscription. That's the full setup from zero to a functional cycle-aware health dashboard in Notion.
