@@ -1,0 +1,144 @@
+---
+title: "How to See Your Year in Pixels in Notion (Mood Grid + Habit Tracker Setup)"
+date: "2026-08-16"
+description: "See your year in pixels in Notion with a color-coded mood grid. Free setup guide using Notion databases + embeddable Blocs habit tracker widgets."
+---
+
+The fastest way to see your year in pixels in Notion is to build a database where each row is one day, assign a color-coded **Select** property for mood, and switch to Gallery view so every entry displays as a colored tile. For a fully visual, zero-maintenance version, embed the [Blocs Habit Tracker widget](https://blocs.me/habit-tracker-widget) directly inside your Notion page — it tracks streaks and daily completions with built-in analytics, no manual coloring required.
+
+- A native Notion database approach takes about 15 minutes to set up but requires daily manual entry.
+- The [Blocs](https://blocs.me) Habit Tracker is free to embed and shows a visual daily grid automatically.
+- Blocs Pro ($17 one-time) unlocks weekly/monthly analytics, streak data, and a full [Calendar widget](https://blocs.me/calendar-widget) for date-range views.
+
+## Key Takeaways
+
+- A "year in pixels" is a color-coded grid where each square represents one day — typically colored by mood or habit completion.
+- Notion's native Gallery view can approximate this, but requires daily manual input and has no built-in analytics.
+- Embedding the Blocs Habit Tracker automates the visual grid and adds streaks, trend data, and custom colors.
+- Blocs Pro costs $17 once (not a subscription) and adds a Calendar widget that shows color-marked dates across weeks and months.
+- Both methods live inside Notion — no separate app needed.
+
+## What Is a Year in Pixels?
+
+A year in pixels is a visual journaling method popularized by bullet journalers. You assign a color to each mood level (e.g., green = great, yellow = okay, red = rough), then fill in one square per day. At the end of the year you have a mosaic that shows your emotional patterns at a glance — which months were hardest, whether weekends consistently looked different from weekdays, and so on.
+
+The concept spread widely through physical bullet journals and dedicated apps like [Year in Pixels](https://yearinpixels.com) and [Daylio](https://daylio.net) before Notion users started recreating it inside their workspaces. The appeal is obvious: your mood data lives next to your goals, notes, and projects instead of in a separate silo.
+
+## How to Build a Year in Pixels Natively in Notion
+
+You can approximate a year-in-pixels grid using only Notion's built-in database tools. The trade-off is manual effort — you have to create each day's entry and color it yourself.
+
+### Step 1: Create a new database
+
+Create a full-page database (table view) called "Year in Pixels 2026" or similar. Each row will represent one day.
+
+### Step 2: Add a Date property and a Mood property
+
+Add a **Date** property (name it "Day") and a **Select** property (name it "Mood"). In the Select field, add options like: *Great, Good, Okay, Rough, Terrible* — and assign each a distinct color using Notion's built-in color picker.
+
+### Step 3: Switch to Gallery view
+
+Click **Add a view** and choose **Gallery**. Set the card preview to "None" and enable **Fit image**. Now each entry shows as a colored tile based on its Select property. You can group by month to see monthly columns side by side.
+
+### Step 4: Pre-populate the year (optional)
+
+To have all 365 days ready to fill in, you'll need to manually create rows or use a CSV import. There's no native Notion feature to bulk-generate dated rows, so this step is tedious. Some users create a [Notion template](https://www.notion.so/help/templates) button that adds today's date automatically.
+
+### Step 5: Fill in daily
+
+Each evening, open the page and click your day's tile to set the mood color. That's it — your gallery becomes a growing pixel mosaic over time.
+
+| Pros | Cons |
+|------|------|
+| Free, no extra tools | Manual setup and daily entry |
+| Fully customizable layout | No streaks or analytics |
+| Lives in your existing Notion workspace | Gallery view has limited color density at scale |
+| Works on any Notion plan | No reminders or auto-tracking |
+
+## How to Embed a Visual Habit Grid in Notion with Blocs
+
+The Blocs Habit Tracker gives you a visual daily completion grid — the same pixel-by-pixel format — without manual database management. It's an embeddable widget that lives directly inside your Notion page via an iframe. The free tier requires no sign-up and tracks up to 3 habits with a daily grid display.
+
+### Step 1: Get the embed URL
+
+Go to [blocs.me/habit-tracker-widget](https://blocs.me/habit-tracker-widget) and copy the embed URL: `https://blocs.me/habit-tracker`
+
+### Step 2: Embed it in Notion
+
+In Notion, type `/embed` and paste the URL. Resize the block so the full grid is visible. The widget renders an interactive daily tracker with color-coded completion squares — exactly the "pixel" aesthetic.
+
+### Step 3: Customize your habits
+
+Click the settings gear inside the widget to name your habits and choose colors for each. With Blocs Pro you can also set custom goals, add unlimited habits, and enable weekly/monthly analytics so you can see patterns across the whole year.
+
+<WidgetEmbed src="/habit-tracker" title="Blocs Habit Tracker" />
+
+| Feature | Free | Pro ($17 one-time) |
+|---------|------|-------------------|
+| Daily pixel/completion grid | Yes | Yes |
+| Number of habits | Up to 3 | Unlimited |
+| Streak tracking | Basic | Full streaks + best streak |
+| Weekly/monthly analytics | No | Yes |
+| Custom colors and themes | Default only | Full customization |
+| Cloud sync across devices | No | Yes |
+
+## How to Get a Full Year Calendar View in Notion?
+
+The [Blocs Calendar widget](https://blocs.me/calendar-widget) (Pro) gives you a visual monthly calendar with color-marked dates inside Notion. While it doesn't replace a 365-square annual grid, it's the closest embeddable calendar available for Notion and pairs well with the Habit Tracker for a complete yearly picture. Embed it with `https://blocs.me/calendar` and resize to show the full month.
+
+<WidgetEmbed src="/calendar" title="Blocs Calendar Widget" height="420px" maxWidth="420px" />
+
+## Which Method Should You Use?
+
+| Use case | Best option |
+|----------|-------------|
+| You want a mood-color grid with full creative control | Native Notion Gallery database |
+| You want a habit-based pixel grid with zero setup | Blocs Habit Tracker (free) |
+| You want streaks, analytics, and yearly patterns | Blocs Habit Tracker Pro ($17 once) |
+| You want a monthly visual calendar inside Notion | Blocs Calendar widget (Pro) |
+| You want a progress indicator for the year | [Blocs Yearly Progress Bar](https://blocs.me/blog/yearly-progress-bar-for-notion) |
+
+Most people end up combining both: the native database for freeform mood journaling, and the Blocs Habit Tracker for structured daily habits. Both live in the same Notion page, and neither requires leaving your workspace.
+
+## Related Trackers Worth Adding to Your Notion Page
+
+If you're building a personal dashboard around a year-in-pixels theme, these Blocs widgets pair well with the habit grid:
+
+- [Progress tracking in Notion](https://blocs.me/blog/how-to-track-progress-in-notion) — for project or goal completion bars alongside your daily grid.
+- [Daily mood tracker for Notion](https://blocs.me/blog/daily-mood-tracker-for-notion) — a dedicated mood log if you want richer journaling beyond a single color pick.
+- [Gym progress tracker for Notion](https://blocs.me/blog/how-to-track-gym-progress-in-notion) — if fitness is one of your tracked habits, this covers the workout logging side.
+- [Yearly progress bar for Notion](https://blocs.me/blog/yearly-progress-bar-for-notion) — a visual countdown of how much of the year remains, perfect alongside a pixel grid.
+
+## FAQs
+
+### What is a "year in pixels" in Notion?
+
+A year in pixels in Notion is a visual system where each day of the year is represented by a colored square, typically reflecting your mood or habit completion. It's usually built as a Gallery-view database with color-coded Select properties, giving you a mosaic overview of the whole year at a glance.
+
+### Can I do a year in pixels in Notion for free?
+
+Yes. The native Notion Gallery database method is completely free and requires no external tools. The Blocs Habit Tracker widget is also free to embed (no sign-up required) and gives you a daily pixel grid for up to 3 habits automatically.
+
+### Is there a Notion template for year in pixels?
+
+Yes — the Notion template gallery and third-party sites like [Notion Pages](https://notionpages.com) have community-built year-in-pixels templates. However, most are static setups that still require daily manual entry. For automation and analytics, an embeddable widget like Blocs provides more functionality out of the box.
+
+### Does Blocs have a dedicated year-in-pixels widget?
+
+Not as a standalone product, but the Blocs Habit Tracker shows a scrollable daily completion grid with color coding that serves the same visual purpose. For a full calendar view inside Notion, the Blocs Calendar widget (Pro) shows color-marked dates across months. A dedicated year-grid view is on the roadmap.
+
+### Will my year-in-pixels data sync across devices?
+
+Native Notion databases sync everywhere your Notion account is logged in. Blocs Habit Tracker data syncs across devices with Blocs Pro ($17 one-time). The free Blocs tier stores data locally in your browser, so switching devices will start fresh unless you upgrade.
+
+### Should I track mood or habits in my year-in-pixels setup?
+
+It depends on your goal. Mood tracking gives you a richer emotional record but is more subjective. Habit tracking is more actionable — you can see exactly which days you completed (or missed) a specific routine. Many users track both: one database for mood, the Blocs widget for habit pixels.
+
+## Try It Inside Your Notion Page
+
+The quickest way to get a visual daily grid in Notion is to embed the free Blocs Habit Tracker. No account needed — just copy the URL and paste it as an embed block.
+
+- [Try the free Habit Tracker widget](https://blocs.me/habit-tracker-widget)
+- [Explore the Calendar widget (Pro)](https://blocs.me/calendar-widget)
+- [See what's in Blocs Pro ($17 one-time)](https://blocs.me/pricing)
