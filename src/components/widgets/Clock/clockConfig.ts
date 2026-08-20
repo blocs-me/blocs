@@ -10,6 +10,8 @@ export type ClockTimerWidgetConfig = {
   showTitle: boolean
   numberColor: string
   labelColor: string
+  // Multiplier applied to the display's base font sizes (1 = default)
+  fontScale: number
   // Clock mode
   format: '12h' | '24h'
   showSeconds: boolean
@@ -32,6 +34,7 @@ export function getDefaultConfig(): ClockTimerWidgetConfig {
     showTitle: false,
     numberColor: '',
     labelColor: '',
+    fontScale: 1,
     format: '12h',
     showSeconds: true,
     showDate: false,
@@ -42,6 +45,12 @@ export function getDefaultConfig(): ClockTimerWidgetConfig {
     duration: 300,
     autoStart: false
   }
+}
+
+function parseFontScale(raw: string | null, fallback: number): number {
+  if (raw === null) return fallback
+  const value = Number(raw)
+  return Number.isFinite(value) && value > 0 ? value : fallback
 }
 
 export function configFromParams(params: URLSearchParams): ClockTimerWidgetConfig {
@@ -55,6 +64,7 @@ export function configFromParams(params: URLSearchParams): ClockTimerWidgetConfi
     showTitle: params.get('showTitle') === '1',
     numberColor: params.get('numColor') || '',
     labelColor: params.get('labelColor') || '',
+    fontScale: parseFontScale(params.get('scale'), defaults.fontScale),
     format: params.get('fmt') === '24' ? '24h' : '12h',
     showSeconds: params.get('sec') !== '0',
     showDate: params.get('date') === '1',
@@ -77,6 +87,7 @@ export function configToParams(config: ClockTimerWidgetConfig): string {
   if (config.showTitle) params.set('showTitle', '1')
   if (config.numberColor) params.set('numColor', config.numberColor)
   if (config.labelColor) params.set('labelColor', config.labelColor)
+  if (config.fontScale !== 1) params.set('scale', String(config.fontScale))
 
   if (config.mode === 'clock') {
     if (config.format === '24h') params.set('fmt', '24')

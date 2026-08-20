@@ -72,6 +72,7 @@ const ClockModeWidget = ({ config }: { config: ReturnType<typeof configFromParam
       theme={config.theme}
       numberColor={config.numberColor}
       labelColor={config.labelColor}
+      fontScale={config.fontScale}
     />
   )
 }
@@ -97,6 +98,7 @@ const TimerModeWidget = ({ config }: { config: ReturnType<typeof configFromParam
       theme={config.theme}
       numberColor={config.numberColor}
       labelColor={config.labelColor}
+      fontScale={config.fontScale}
     />
   )
 }

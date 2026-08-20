@@ -14,6 +14,7 @@ describe('clockConfig', () => {
       expect(config.direction).toBe('up')
       expect(config.duration).toBe(300)
       expect(config.autoStart).toBe(false)
+      expect(config.fontScale).toBe(1)
     })
   })
 
@@ -33,12 +34,14 @@ describe('clockConfig', () => {
         showDate: true,
         dateFormat: 'long',
         timezone: 'Asia/Tokyo',
-        showTimezone: true
+        showTimezone: true,
+        fontScale: 1.5
       }
 
       const params = configToParams(config)
       const restored = configFromParams(new URLSearchParams(params))
 
+      expect(restored.fontScale).toBe(1.5)
       expect(restored.mode).toBe('clock')
       expect(restored.style).toBe('flip')
       expect(restored.theme).toBe('dark')
@@ -108,6 +111,17 @@ describe('clockConfig', () => {
       const restored = configFromParams(new URLSearchParams('fmt=24'))
       expect(restored.format).toBe('24h')
     })
+
+    it('parses scale as a numeric font scale', () => {
+      const restored = configFromParams(new URLSearchParams('scale=2'))
+      expect(restored.fontScale).toBe(2)
+    })
+
+    it('falls back to default font scale for invalid scale values', () => {
+      expect(configFromParams(new URLSearchParams('scale=abc')).fontScale).toBe(1)
+      expect(configFromParams(new URLSearchParams('scale=0')).fontScale).toBe(1)
+      expect(configFromParams(new URLSearchParams('scale=-3')).fontScale).toBe(1)
+    })
   })
 
   describe('configToParams', () => {
@@ -147,6 +161,7 @@ describe('clockConfig', () => {
       expect(params).not.toContain('theme=')
       expect(params).not.toContain('fmt=')
       expect(params).not.toContain('showTitle=')
+      expect(params).not.toContain('scale=')
     })
   })
 })

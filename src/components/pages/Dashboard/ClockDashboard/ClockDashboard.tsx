@@ -106,6 +106,7 @@ const ClockPreview = ({ config }: { config: ClockTimerWidgetConfig }) => {
       theme={config.theme}
       numberColor={config.numberColor}
       labelColor={config.labelColor}
+      fontScale={config.fontScale}
     />
   )
 }
@@ -131,6 +132,7 @@ const TimerPreview = ({ config }: { config: ClockTimerWidgetConfig }) => {
       theme={config.theme}
       numberColor={config.numberColor}
       labelColor={config.labelColor}
+      fontScale={config.fontScale}
     />
   )
 }

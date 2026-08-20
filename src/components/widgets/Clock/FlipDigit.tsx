@@ -4,17 +4,7 @@ type Props = {
   digit: string
   color: string
   bgColor: string
-}
-
-const CARD_STYLE: React.CSSProperties = {
-  position: 'relative',
-  display: 'inline-flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  width: '44px',
-  height: '64px',
-  perspective: '300px',
-  overflow: 'hidden'
+  scale?: number
 }
 
 const HALF_STYLE: React.CSSProperties = {
@@ -29,15 +19,26 @@ const HALF_STYLE: React.CSSProperties = {
   backfaceVisibility: 'hidden'
 }
 
-const DIGIT_STYLE: React.CSSProperties = {
-  fontSize: '48px',
-  fontWeight: 700,
-  fontVariantNumeric: 'tabular-nums',
-  lineHeight: '64px',
-  fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
-}
+const FlipDigit = ({ digit, color, bgColor, scale = 1 }: Props) => {
+  const cardStyle: React.CSSProperties = {
+    position: 'relative',
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: `${44 * scale}px`,
+    height: `${64 * scale}px`,
+    perspective: '300px',
+    overflow: 'hidden'
+  }
 
-const FlipDigit = ({ digit, color, bgColor }: Props) => {
+  const digitStyle: React.CSSProperties = {
+    fontSize: `${48 * scale}px`,
+    fontWeight: 700,
+    fontVariantNumeric: 'tabular-nums',
+    lineHeight: `${64 * scale}px`,
+    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+  }
+
   const [displayDigit, setDisplayDigit] = useState(digit)
   const [prevDigit, setPrevDigit] = useState(digit)
   const [flipping, setFlipping] = useState(false)
@@ -64,7 +65,7 @@ const FlipDigit = ({ digit, color, bgColor }: Props) => {
   const dividerColor = bgColor === '#1a1a1a' ? '#1a1a1a' : '#d0d0d0'
 
   return (
-    <div style={CARD_STYLE}>
+    <div style={cardStyle}>
       {/* Top half — static, shows current */}
       <div style={{
         ...HALF_STYLE,
@@ -72,7 +73,7 @@ const FlipDigit = ({ digit, color, bgColor }: Props) => {
         borderRadius: '6px 6px 0 0',
         backgroundColor: cardBg
       }}>
-        <span style={{ ...DIGIT_STYLE, color, position: 'relative', top: '50%' }}>
+        <span style={{ ...digitStyle, color, position: 'relative', top: '50%' }}>
           {flipping ? prevDigit : displayDigit}
         </span>
       </div>
@@ -84,7 +85,7 @@ const FlipDigit = ({ digit, color, bgColor }: Props) => {
         borderRadius: '0 0 6px 6px',
         backgroundColor: cardBg
       }}>
-        <span style={{ ...DIGIT_STYLE, color, position: 'relative', top: '-50%' }}>
+        <span style={{ ...digitStyle, color, position: 'relative', top: '-50%' }}>
           {displayDigit}
         </span>
       </div>
@@ -111,7 +112,7 @@ const FlipDigit = ({ digit, color, bgColor }: Props) => {
           animation: 'flipDown 0.3s ease-in forwards',
           zIndex: 2
         }}>
-          <span style={{ ...DIGIT_STYLE, color, position: 'relative', top: '50%' }}>
+          <span style={{ ...digitStyle, color, position: 'relative', top: '50%' }}>
             {prevDigit}
           </span>
         </div>

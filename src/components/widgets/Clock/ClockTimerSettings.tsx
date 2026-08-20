@@ -15,6 +15,13 @@ const COMMON_TIMEZONES = [
   'Africa/Cairo', 'Africa/Johannesburg', 'Africa/Lagos'
 ]
 
+const FONT_SIZE_PRESETS = [
+  { label: 'S', value: 0.75 },
+  { label: 'M', value: 1 },
+  { label: 'L', value: 1.5 },
+  { label: 'XL', value: 2 }
+]
+
 const DURATION_PRESETS = [
   { label: '1 min', value: 60 },
   { label: '5 min', value: 300 },
@@ -106,6 +113,21 @@ const ClockTimerSettings = ({ config, onChange }: Props) => {
       <Flex css={{ gap: '4px' }} mb="xxs">
         {(['light', 'dark'] as const).map(t => (
           <ModeButton key={t} label={t} active={config.theme === t} onClick={() => onChange({ theme: t })} />
+        ))}
+      </Flex>
+
+      <Box height="1px" bg="primary.accent-1" my="xxs" />
+
+      {/* Font Size */}
+      <Row><Label>Font Size</Label></Row>
+      <Flex css={{ gap: '4px' }} mb="xxs">
+        {FONT_SIZE_PRESETS.map(p => (
+          <ModeButton
+            key={p.value}
+            label={p.label}
+            active={config.fontScale === p.value}
+            onClick={() => onChange({ fontScale: p.value })}
+          />
         ))}
       </Flex>
 

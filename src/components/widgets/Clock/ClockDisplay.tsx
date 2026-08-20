@@ -16,6 +16,7 @@ type Props = {
   theme: 'light' | 'dark'
   numberColor?: string
   labelColor?: string
+  fontScale?: number
 }
 
 const ClockDisplay = ({
@@ -33,7 +34,8 @@ const ClockDisplay = ({
   style,
   theme,
   numberColor,
-  labelColor
+  labelColor,
+  fontScale = 1
 }: Props) => {
   const isDark = theme === 'dark'
   const numColor = numberColor || (isDark ? '#ffffff' : '#333333')
@@ -76,6 +78,7 @@ const ClockDisplay = ({
           ampm={ampm}
           numColor={numColor}
           lblColor={lblColor}
+          fontScale={fontScale}
         />
       )}
 
@@ -88,6 +91,7 @@ const ClockDisplay = ({
           numColor={numColor}
           lblColor={lblColor}
           bgColor={bgColor}
+          fontScale={fontScale}
         />
       )}
 
@@ -97,6 +101,7 @@ const ClockDisplay = ({
           ampm={ampm}
           numColor={numColor}
           lblColor={lblColor}
+          fontScale={fontScale}
         />
       )}
 
@@ -116,15 +121,16 @@ const ClockDisplay = ({
   )
 }
 
-const DigitalDisplay = ({ timeString, ampm, numColor, lblColor }: {
+const DigitalDisplay = ({ timeString, ampm, numColor, lblColor, fontScale }: {
   timeString: string
   ampm?: string
   numColor: string
   lblColor: string
+  fontScale: number
 }) => (
   <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px' }}>
     <span style={{
-      fontSize: '56px',
+      fontSize: `${56 * fontScale}px`,
       fontWeight: 700,
       color: numColor,
       fontFamily: '"SF Mono", "Cascadia Code", "Fira Code", monospace',
@@ -136,7 +142,7 @@ const DigitalDisplay = ({ timeString, ampm, numColor, lblColor }: {
     </span>
     {ampm && (
       <span style={{
-        fontSize: '18px',
+        fontSize: `${18 * fontScale}px`,
         fontWeight: 600,
         color: lblColor,
         marginLeft: '4px'
@@ -147,7 +153,7 @@ const DigitalDisplay = ({ timeString, ampm, numColor, lblColor }: {
   </div>
 )
 
-const FlipDisplay = ({ hours, minutes, seconds, ampm, numColor, lblColor, bgColor }: {
+const FlipDisplay = ({ hours, minutes, seconds, ampm, numColor, lblColor, bgColor, fontScale }: {
   hours: string
   minutes: string
   seconds?: string
@@ -155,28 +161,30 @@ const FlipDisplay = ({ hours, minutes, seconds, ampm, numColor, lblColor, bgColo
   numColor: string
   lblColor: string
   bgColor: string
+  fontScale: number
 }) => {
   const digits = (val: string) => val.padStart(2, '0').split('')
 
   const renderGroup = (value: string) => (
     <div style={{ display: 'flex', gap: '3px' }}>
       {digits(value).map((d, i) => (
-        <FlipDigit key={i} digit={d} color={numColor} bgColor={bgColor} />
+        <FlipDigit key={i} digit={d} color={numColor} bgColor={bgColor} scale={fontScale} />
       ))}
     </div>
   )
 
+  const dotSize = 6 * fontScale
   const colon = (
     <div style={{
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'center',
-      gap: '10px',
+      gap: `${10 * fontScale}px`,
       padding: '0 4px',
-      height: '64px'
+      height: `${64 * fontScale}px`
     }}>
-      <div style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: numColor }} />
-      <div style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: numColor }} />
+      <div style={{ width: `${dotSize}px`, height: `${dotSize}px`, borderRadius: '50%', backgroundColor: numColor }} />
+      <div style={{ width: `${dotSize}px`, height: `${dotSize}px`, borderRadius: '50%', backgroundColor: numColor }} />
     </div>
   )
 
@@ -193,7 +201,7 @@ const FlipDisplay = ({ hours, minutes, seconds, ampm, numColor, lblColor, bgColo
       )}
       {ampm && (
         <span style={{
-          fontSize: '16px',
+          fontSize: `${16 * fontScale}px`,
           fontWeight: 600,
           color: lblColor,
           marginLeft: '8px',
@@ -207,15 +215,16 @@ const FlipDisplay = ({ hours, minutes, seconds, ampm, numColor, lblColor, bgColo
   )
 }
 
-const MinimalDisplay = ({ timeString, ampm, numColor, lblColor }: {
+const MinimalDisplay = ({ timeString, ampm, numColor, lblColor, fontScale }: {
   timeString: string
   ampm?: string
   numColor: string
   lblColor: string
+  fontScale: number
 }) => (
   <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px' }}>
     <span style={{
-      fontSize: '64px',
+      fontSize: `${64 * fontScale}px`,
       fontWeight: 300,
       color: numColor,
       lineHeight: 1,
@@ -226,7 +235,7 @@ const MinimalDisplay = ({ timeString, ampm, numColor, lblColor }: {
     </span>
     {ampm && (
       <span style={{
-        fontSize: '20px',
+        fontSize: `${20 * fontScale}px`,
         fontWeight: 400,
         color: lblColor
       }}>

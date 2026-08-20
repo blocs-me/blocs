@@ -14,6 +14,7 @@ type Props = {
   theme: 'light' | 'dark'
   numberColor?: string
   labelColor?: string
+  fontScale?: number
 }
 
 const pad = (n: number) => String(n).padStart(2, '0')
@@ -30,7 +31,8 @@ const TimerDisplay = ({
   style,
   theme,
   numberColor,
-  labelColor
+  labelColor,
+  fontScale = 1
 }: Props) => {
   const isDark = theme === 'dark'
   const numColor = numberColor || (isDark ? '#ffffff' : '#333333')
@@ -70,7 +72,7 @@ const TimerDisplay = ({
       )}
 
       {style === 'digital' && (
-        <DigitalTimer timeString={timeString} numColor={numColor} isFinished={isFinished} />
+        <DigitalTimer timeString={timeString} numColor={numColor} isFinished={isFinished} fontScale={fontScale} />
       )}
 
       {style === 'flip' && (
@@ -81,11 +83,12 @@ const TimerDisplay = ({
           numColor={numColor}
           bgColor={bgColor}
           isFinished={isFinished}
+          fontScale={fontScale}
         />
       )}
 
       {style === 'minimal' && (
-        <MinimalTimer timeString={timeString} numColor={numColor} isFinished={isFinished} />
+        <MinimalTimer timeString={timeString} numColor={numColor} isFinished={isFinished} fontScale={fontScale} />
       )}
 
       <TimerControls
@@ -100,13 +103,14 @@ const TimerDisplay = ({
   )
 }
 
-const DigitalTimer = ({ timeString, numColor, isFinished }: {
+const DigitalTimer = ({ timeString, numColor, isFinished, fontScale }: {
   timeString: string
   numColor: string
   isFinished: boolean
+  fontScale: number
 }) => (
   <span style={{
-    fontSize: '56px',
+    fontSize: `${56 * fontScale}px`,
     fontWeight: 700,
     color: numColor,
     fontFamily: '"SF Mono", "Cascadia Code", "Fira Code", monospace',
@@ -119,35 +123,37 @@ const DigitalTimer = ({ timeString, numColor, isFinished }: {
   </span>
 )
 
-const FlipTimer = ({ hours, minutes, seconds, numColor, bgColor, isFinished }: {
+const FlipTimer = ({ hours, minutes, seconds, numColor, bgColor, isFinished, fontScale }: {
   hours?: string
   minutes: string
   seconds: string
   numColor: string
   bgColor: string
   isFinished: boolean
+  fontScale: number
 }) => {
   const digits = (val: string) => val.padStart(2, '0').split('')
 
   const renderGroup = (value: string) => (
     <div style={{ display: 'flex', gap: '3px' }}>
       {digits(value).map((d, i) => (
-        <FlipDigit key={i} digit={d} color={numColor} bgColor={bgColor} />
+        <FlipDigit key={i} digit={d} color={numColor} bgColor={bgColor} scale={fontScale} />
       ))}
     </div>
   )
 
+  const dotSize = 6 * fontScale
   const colon = (
     <div style={{
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'center',
-      gap: '10px',
+      gap: `${10 * fontScale}px`,
       padding: '0 4px',
-      height: '64px'
+      height: `${64 * fontScale}px`
     }}>
-      <div style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: numColor }} />
-      <div style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: numColor }} />
+      <div style={{ width: `${dotSize}px`, height: `${dotSize}px`, borderRadius: '50%', backgroundColor: numColor }} />
+      <div style={{ width: `${dotSize}px`, height: `${dotSize}px`, borderRadius: '50%', backgroundColor: numColor }} />
     </div>
   )
 
@@ -166,13 +172,14 @@ const FlipTimer = ({ hours, minutes, seconds, numColor, bgColor, isFinished }: {
   )
 }
 
-const MinimalTimer = ({ timeString, numColor, isFinished }: {
+const MinimalTimer = ({ timeString, numColor, isFinished, fontScale }: {
   timeString: string
   numColor: string
   isFinished: boolean
+  fontScale: number
 }) => (
   <span style={{
-    fontSize: '64px',
+    fontSize: `${64 * fontScale}px`,
     fontWeight: 300,
     color: numColor,
     lineHeight: 1,
