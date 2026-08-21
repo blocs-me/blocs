@@ -7,27 +7,8 @@ import Pomodoro from '@/widgets/Pomodoro'
 import DummyPomodoro from '@/widgets/Pomodoro/DummyPomodoro'
 import { PomodoroProvider } from '@/widgets/Pomodoro/usePomodoroStore'
 import WidgetPage from '@/widgets/WidgetPage'
-import Text from '@/design-system/Text'
+import MadeWithBlocs from '@/design-system/MadeWithBlocs'
 import { useRouter } from 'next/router'
-
-const PoweredByBlocs = () => (
-  <a
-    href="https://blocs.me/pomodoro-timer"
-    target="_blank"
-    rel="noopener noreferrer"
-    style={{ textDecoration: 'none' }}
-  >
-    <Text
-      fontSize="10px"
-      textAlign="center"
-      color="primary.accent-4"
-      mt="8px"
-      mb={0}
-    >
-      Powered by Blocs
-    </Text>
-  </a>
-)
 
 const DemoPomodoro = () => {
   return (
@@ -41,7 +22,7 @@ const DemoPomodoro = () => {
         maxWidth="385px"
         minWidth="300px"
       />
-      <PoweredByBlocs />
+      <MadeWithBlocs href="https://blocs.me/pomodoro-timer" />
     </WidgetPage>
   )
 }

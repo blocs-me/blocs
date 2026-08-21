@@ -5,6 +5,7 @@ import { configFromParams } from '@/widgets/Quote/quoteConfig'
 import { useQuote } from '@/widgets/Quote/useQuote'
 import QuoteDisplay from '@/widgets/Quote/QuoteDisplay'
 import WidgetSettingsPopover from '@/widgets/Clock/WidgetSettingsPopover'
+import MadeWithBlocs from '@/design-system/MadeWithBlocs'
 
 const QuotePage = () => {
   const router = useRouter()
@@ -72,6 +73,7 @@ const QuoteWidget = ({ config }: { config: ReturnType<typeof configFromParams> }
         quoteColor={config.quoteColor}
         authorColor={config.authorColor}
       />
+      <MadeWithBlocs floating href="https://blocs.me/quote-widget" />
     </div>
   )
 }

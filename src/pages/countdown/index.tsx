@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import CountdownDisplay from '@/widgets/Countdown/CountdownDisplay'
 import { useCountdown } from '@/widgets/Countdown/useCountdown'
 import { configFromParams } from '@/widgets/Countdown/countdownConfig'
+import MadeWithBlocs from '@/design-system/MadeWithBlocs'
 import { useMemo } from 'react'
 
 const CountdownPage = () => {
@@ -43,6 +44,7 @@ const CountdownWidget = ({ config }: { config: ReturnType<typeof configFromParam
         labelColor={config.labelColor}
         theme={config.theme}
       />
+      <MadeWithBlocs floating href="https://blocs.me/countdown-timer" />
     </div>
   )
 }

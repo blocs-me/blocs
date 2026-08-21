@@ -2,7 +2,7 @@ import Head from 'next/head'
 import DummyWaterTracker from '@/widgets/WaterTracker/DummyWaterTracker'
 import WaterTracker from '@/widgets/WaterTracker'
 import WidgetPage from '@/widgets/WidgetPage'
-import Text from '@/design-system/Text'
+import MadeWithBlocs from '@/design-system/MadeWithBlocs'
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
 import storage from '@/utils/storage'
@@ -26,25 +26,6 @@ const loadProgress = (): number => {
 const saveProgress = (progress: number) => {
   storage.setItem(STORAGE_KEY, JSON.stringify({ date: getTodayKey(), progress }))
 }
-
-const PoweredByBlocs = () => (
-  <a
-    href="https://blocs.me/water-tracker-widget"
-    target="_blank"
-    rel="noopener noreferrer"
-    style={{ textDecoration: 'none' }}
-  >
-    <Text
-      fontSize="10px"
-      textAlign="center"
-      color="primary.accent-4"
-      mt="8px"
-      mb={0}
-    >
-      Powered by Blocs
-    </Text>
-  </a>
-)
 
 const DemoWaterTracker = () => {
   const [progress, setProgress] = useState(0)
@@ -81,7 +62,7 @@ const DemoWaterTracker = () => {
         onClickUp={handleUp}
         onClickDown={handleDown}
       />
-      <PoweredByBlocs />
+      <MadeWithBlocs href="https://blocs.me/water-tracker-widget" />
     </WidgetPage>
   )
 }

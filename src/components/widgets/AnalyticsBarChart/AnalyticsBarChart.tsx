@@ -191,7 +191,7 @@ const AnalyticsBarChart = ({
           </Suspense>
         </Box>
       )}
-      <PoweredBy type="bar-chart" />
+      <PoweredBy />
     </Flex>
   )
 }

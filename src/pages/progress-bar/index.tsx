@@ -5,6 +5,7 @@ import { configFromParams, ProgressWidgetConfig } from '@/widgets/ProgressBar/pr
 import ProgressBarDisplay, { CalendarDisplay } from '@/widgets/ProgressBar/ProgressBarDisplay'
 import ProgressBarControls from '@/widgets/ProgressBar/ProgressBarControls'
 import { useManualProgress, useDateRangeProgress, useCalendarProgress } from '@/widgets/ProgressBar/useProgressBar'
+import MadeWithBlocs from '@/design-system/MadeWithBlocs'
 
 const ProgressBarPage = () => {
   const router = useRouter()
@@ -25,9 +26,17 @@ const ProgressBarPage = () => {
 }
 
 const ProgressBarWidget = ({ config }: { config: ProgressWidgetConfig }) => {
-  if (config.mode === 'manual') return <ManualWidget config={config} />
-  if (config.mode === 'dateRange') return <DateRangeWidget config={config} />
-  return <CalendarWidget config={config} />
+  const widget =
+    config.mode === 'manual' ? <ManualWidget config={config} /> :
+    config.mode === 'dateRange' ? <DateRangeWidget config={config} /> :
+    <CalendarWidget config={config} />
+
+  return (
+    <>
+      {widget}
+      <MadeWithBlocs floating href="https://blocs.me/progress-bar-widget" />
+    </>
+  )
 }
 
 const ManualWidget = ({ config }: { config: ProgressWidgetConfig }) => {

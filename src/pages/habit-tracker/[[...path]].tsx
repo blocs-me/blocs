@@ -3,7 +3,7 @@ import { URLHashProvider } from '@/hooks/useUrlHash/useUrlHash'
 import HabitTracker from '@/widgets/HabitTracker'
 import DummyHabitTracker from '@/widgets/HabitTracker/DummyHabitTracker'
 import WidgetPage from '@/widgets/WidgetPage'
-import Text from '@/design-system/Text'
+import MadeWithBlocs from '@/design-system/MadeWithBlocs'
 import { useRouter } from 'next/router'
 import { useState, useEffect, useCallback } from 'react'
 import storage from '@/utils/storage'
@@ -45,25 +45,6 @@ const loadChecked = (): number[] => {
 const saveChecked = (checked: number[]) => {
   storage.setItem(CHECKED_STORAGE_KEY, JSON.stringify({ date: getTodayKey(), checked }))
 }
-
-const PoweredByBlocs = () => (
-  <a
-    href="https://blocs.me/habit-tracker-widget"
-    target="_blank"
-    rel="noopener noreferrer"
-    style={{ textDecoration: 'none' }}
-  >
-    <Text
-      fontSize="10px"
-      textAlign="center"
-      color="primary.accent-4"
-      mt="8px"
-      mb={0}
-    >
-      Powered by Blocs
-    </Text>
-  </a>
-)
 
 const DemoHabitTracker = () => {
   const [habits, setHabits] = useState<Habit[]>([])
@@ -123,7 +104,7 @@ const DemoHabitTracker = () => {
           onRemoveHabit={handleRemoveHabit}
           maxHabits={MAX_FREE_HABITS}
         />
-        <PoweredByBlocs />
+        <MadeWithBlocs href="https://blocs.me/habit-tracker-widget" />
       </URLHashProvider>
     </WidgetPage>
   )
