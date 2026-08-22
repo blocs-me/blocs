@@ -69,6 +69,58 @@ const PomodoroPresets = () => {
   const hideForm = () => setShowForm(false)
   const hideDeleteModal = () => setShowDeleteModal(false)
 
+  // Persist the selected preset server-side as the active one. localStorage
+  // (where currentPreset is cached) is partitioned inside the Notion iframe, so
+  // the embed can only recover the user's choice from the server. The embed
+  // loads the active preset first (see getPomodoroPresets/sortPresetsActiveFirst).
+  const persistActivePreset = async (preset) => {
+    if (!preset?.id || preset.id === '0' || !token) return
+
+    // Optimistically move the active flag to the selected preset and reorder it
+    // to the front, mirroring the server (getPomodoroPresets returns the active
+    // preset first, and the main page loads data[0]).
+    mutate(
+      [POMODORO_PRESETS_PATH, token],
+      (cached) => {
+        if (!cached) return cached
+        const flagged = cached.data.map((p) => ({
+          ...p,
+          defaultPreset: p.id === preset.id
+        }))
+        return {
+          ...cached,
+          data: [
+            ...flagged.filter((p) => p.id === preset.id),
+            ...flagged.filter((p) => p.id !== preset.id)
+          ]
+        }
+      },
+      false
+    )
+
+    try {
+      await fetch(POMODORO_PRESETS_PATH, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          id: preset.id,
+          label: preset.label,
+          labelColor: preset.labelColor,
+          pomodoroInterval: preset.pomodoroInterval,
+          shortBreakInterval: preset.shortBreakInterval,
+          longBreakInterval: preset.longBreakInterval,
+          defaultPreset: true
+        })
+      })
+    } catch (e) {
+      // Re-sync from the server if the write failed.
+      mutate([POMODORO_PRESETS_PATH, token])
+    }
+  }
+
   useEffect(() => {
     presets && mutate(POMODORO_PRESETS_PATH)
   }, [presets])
@@ -191,6 +243,7 @@ const PomodoroPresets = () => {
                 showForm={showForm}
                 initEditForm={initEditForm}
                 initDeleteForm={initDeleteForm}
+                onSelect={persistActivePreset}
                 preset={preset}
                 key={preset.id}
                 selected={currentPreset?.id === preset?.id}

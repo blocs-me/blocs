@@ -37,7 +37,8 @@ const PresetItem = ({
   selected = false,
   preset = {},
   initEditForm,
-  initDeleteForm
+  initDeleteForm,
+  onSelect = () => {}
 }) => {
   const [menuOpen, setMenuOpen] = useState(false)
   const pomodoroDispatch = usePomodoroDispatch()
@@ -68,6 +69,7 @@ const PresetItem = ({
   const handleClick = () => {
     resetPomodoro()
     pomodoroDispatch(setCurrentPomodoroPreset(preset))
+    onSelect(preset)
   }
 
   const handleDelete = (e) => {

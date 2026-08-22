@@ -1,6 +1,7 @@
 import supabase from '@/lambda/helpers/supabase'
 import { IPomodoroPreset } from '@/gtypes/pomodoro-preset'
 import { mapPomodoroPresetToType } from '@/lambda/helpers/supabase/mapDbToType'
+import sortPresetsActiveFirst from './sortPresetsActiveFirst'
 
 const defaultPresetData = {
   longBreakInterval: 600000,
@@ -57,7 +58,7 @@ const getPomodoroPresets = async (req, res, rest) => {
         : remappedPresets.filter((preset) => !preset?.isDeleted)
 
     res.status(200).json({
-      data: data || []
+      data: sortPresetsActiveFirst(data || [])
     })
   } catch (err) {
     res.status(502).json({ error: 'something went wrong' })
