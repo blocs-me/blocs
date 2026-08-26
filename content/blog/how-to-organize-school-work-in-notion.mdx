@@ -1,0 +1,150 @@
+---
+title: "How to Organize Your School Work in Notion (A Practical 2026 Guide)"
+date: "2026-08-25"
+description: "Learn how to organize school work in Notion with a step-by-step setup: assignment tracker, study schedule, and free embeddable widgets for students."
+---
+
+The best way to organize school work in Notion is to build three core pages: an assignment tracker database, a weekly study schedule, and a subject hub. Students who centralize notes, deadlines, and habits in one workspace spend less time context-switching between apps. Notion's free plan covers all of this. Adding embeddable productivity widgets (timers, habit trackers) takes it further without leaving the page.
+
+## Key Takeaways
+
+- Build an assignment tracker database with status, due date, and subject filters as your foundation.
+- Create a weekly study schedule using a simple table or calendar view inside Notion.
+- Add a subject hub so notes, resources, and tasks for each class live in one place.
+- Embed a Pomodoro timer and habit tracker directly in your Notion dashboard — no extra apps needed.
+- Notion's free plan is enough for most students; Blocs widgets are free to start and embed as iframes.
+
+## Why Is Notion Good for Organizing School Work?
+
+Notion combines a note-taking app, task manager, and database in one place. Instead of juggling Google Docs for notes, a separate to-do app for tasks, and a calendar for deadlines, everything lives in one workspace you can access from any device. As of 2026, Notion's free plan includes unlimited pages, basic databases, and web clipping — more than enough for a student setup.
+
+The biggest practical advantage: you can link related content. An assignment page can reference the lecture notes for that topic, the rubric PDF, and your draft — all connected without copying anything.
+
+## How Do You Build an Assignment Tracker in Notion?
+
+Create a new database (table view) with these properties: Name (the assignment), Subject (select), Due Date (date), Status (select: Not Started / In Progress / Done), and Priority (select: High / Medium / Low). Filter by status to see only active work. Sort by due date so the most urgent items are always at the top.
+
+### Step-by-step setup
+
+1. Create a new page and choose **Table** as the view type.
+2. Rename the default "Name" column to "Assignment".
+3. Add a *Select* property called "Subject" and add your classes as options.
+4. Add a *Date* property called "Due Date".
+5. Add a *Select* property called "Status" with options: Not Started, In Progress, Done.
+6. Click **Filter** and hide rows where Status = Done so the table stays clean.
+7. Sort by Due Date (ascending) so urgent work surfaces automatically.
+
+One tip: add a *Formula* property called "Days Left" using `dateBetween(prop("Due Date"), now(), "days")`. It shows exactly how many days remain, which makes priority obvious at a glance.
+
+## How Do You Set Up a Subject Hub in Notion?
+
+A subject hub is a top-level page for each class that holds everything related to it: lecture notes, readings, past exams, and a filtered view of your assignment tracker showing only that subject's tasks. This prevents scattered notes and means you always know where to go before a study session.
+
+### What to include in each subject page
+
+- **Linked database view**: A filtered view of your assignment tracker (filter: Subject = this class).
+- **Notes section**: Sub-pages per lecture or topic, organized by week or unit.
+- **Resources**: Links to syllabi, textbook PDFs, course websites.
+- **Key dates**: Exam dates, drop deadlines, project milestones.
+
+Use a *toggle* block to collapse older weeks of notes so the page doesn't feel overwhelming as the semester goes on.
+
+## How Do You Create a Weekly Study Schedule in Notion?
+
+Build a simple table with days of the week as columns and time blocks as rows. Block study sessions directly in the cells alongside fixed commitments (classes, work). Alternatively, use a linked calendar view of your assignment database to see deadlines visually by week.
+
+### Two approaches compared
+
+| Approach | Best for | Setup time |
+|---|---|---|
+| Simple weekly table | Visual time-blockers who prefer a grid | 5 minutes |
+| Calendar view of assignment DB | Deadline-driven students who want task context | 2 minutes (if DB exists) |
+
+The calendar view is usually more useful because it connects directly to your real tasks rather than being a separate document you have to keep in sync.
+
+## How Do You Add Productivity Widgets to Your Notion Study Dashboard?
+
+Notion supports iframes, which means you can embed interactive tools directly into any page. [Blocs](https://blocs.me) offers a suite of embeddable widgets built specifically for Notion — paste a URL into a Notion embed block and the widget lives inside your workspace.
+
+The most useful widgets for students:
+
+### Pomodoro Timer
+
+A Pomodoro timer breaks study sessions into focused intervals (typically 25 minutes on, 5 minutes off). Embedding one in your study dashboard means you never need to open a separate app or browser tab. The [Blocs Pomodoro timer](https://blocs.me/pomodoro-timer) is free and works out of the box with no sign-up.
+
+<WidgetEmbed src="/pomodoro" title="Blocs Pomodoro Timer" />
+
+### Habit Tracker
+
+Consistent study habits matter as much as the study sessions themselves. An embedded [habit tracker](https://blocs.me/habit-tracker-widget) lets you log daily habits (review notes, read 20 pages, complete one problem set) without switching apps. The free tier covers basic daily tracking.
+
+<WidgetEmbed src="/habit-tracker" title="Blocs Habit Tracker" />
+
+### How to embed a Blocs widget in Notion
+
+1. Open the widget page on [blocs.me](https://blocs.me) (e.g., `blocs.me/pomodoro`).
+2. Copy the embed URL shown on the page.
+3. In Notion, type `/embed` and select the Embed block.
+4. Paste the URL and click **Embed link**.
+5. Resize the embed block to fit your layout.
+
+## What Is Free and What Requires an Upgrade?
+
+Blocs offers three widgets free with no account required: the Pomodoro Timer, Habit Tracker, and Water Tracker. Pro unlocks additional widgets (Countdown Timer, Progress Bar, Calendar, Weather, Quote of the Day, Clock) plus custom goals, analytics, streak tracking, and theme customization. Pro is a one-time payment of $17 — not a subscription — which makes it cost-effective for students on a budget.
+
+| Feature | Free | Pro ($17 one-time) |
+|---|---|---|
+| Pomodoro Timer | Yes (default settings) | Yes (custom durations) |
+| Habit Tracker | Yes (basic) | Yes (unlimited habits, analytics) |
+| Water Tracker | Yes (basic) | Yes (custom goals, analytics) |
+| Countdown Timer | No | Yes |
+| Progress Bar | No | Yes |
+| Calendar Widget | No | Yes |
+| Streaks and analytics | No | Yes (daily/weekly/monthly) |
+| Theme customization | No | Yes |
+
+See the full breakdown at [blocs.me/pricing](https://blocs.me/pricing).
+
+## What Should a Complete Student Notion Setup Look Like?
+
+A practical student workspace has four main pages at the top level: a Dashboard (overview + widgets), an Assignment Tracker (the database), a Subject Hub (one sub-page per class), and a Resources folder (syllabi, templates, reference sheets). The dashboard is the page you open first thing — keep it clean, put the most urgent tasks at the top, and embed your timer and habit tracker so everything you need for a study session is in one view.
+
+Suggested dashboard layout:
+
+- **Top section:** Linked view of assignment tracker (filtered to In Progress + due this week)
+- **Middle section:** Embedded Pomodoro timer + Habit tracker side by side
+- **Bottom section:** Quick links to each subject hub
+
+Students who want more structure can explore the [Notion study hub widgets guide](https://blocs.me/blog/notion-study-hub-widgets) or the roundup of [notion productivity widgets for students](https://blocs.me/blog/notion-productivity-widgets-for-students) for more embedded tool ideas.
+
+## Frequently Asked Questions
+
+### Is Notion free for students?
+
+Yes. Notion's free plan includes unlimited pages, basic databases, and collaboration for up to 10 guests — enough for a full student setup. Notion also offers a free Education plan with additional features for verified students and educators, available at notion.so/students.
+
+### Do I need a template to organize school work in Notion?
+
+No. Starting from scratch with a simple assignment tracker database is faster than adapting a complex template. Build what you actually use: an assignment table, a weekly view, and one page per subject. Add complexity only when you hit a real limitation.
+
+### Do Blocs widgets work inside Notion?
+
+Yes. Blocs widgets embed as iframes using Notion's built-in Embed block. Type `/embed` in any Notion page, paste the widget URL, and it renders interactively inline. No browser extensions or third-party integrations required.
+
+### Can I use a Pomodoro timer inside Notion?
+
+Yes. Embed the [Blocs Pomodoro timer](https://blocs.me/pomodoro-timer) directly in your study dashboard using a Notion embed block. It's free, requires no sign-up, and runs inside your workspace so you don't need a separate tab or app.
+
+### Should students use a habit tracker in Notion?
+
+For students trying to build consistent study routines, yes. Tracking habits like "reviewed notes today" or "completed daily reading" provides a visible streak that reinforces behavior. An embedded tracker like [Blocs Habit Tracker](https://blocs.me/blog/notion-habit-tracker-widget) is simpler than building a manual Notion database for the same purpose.
+
+### Why would a student use a water tracker in Notion?
+
+Hydration directly affects focus and cognitive performance during long study sessions. The [Blocs Water Tracker](https://blocs.me/water-tracker-widget) embeds in your dashboard as a visual reminder to drink water throughout the day — small habit, measurable impact.
+
+---
+
+Ready to build your student workspace? Start with the free Pomodoro timer and habit tracker — no account needed. Visit [blocs.me](https://blocs.me) to copy the embed URLs and drop them into your Notion dashboard today.
+
+Want to see everything Blocs offers? [Compare free vs. Pro](https://blocs.me/pricing) or browse the [best aesthetic student Notion widgets](https://blocs.me/blog/best-aesthetic-student-notion-widgets) for more setup inspiration.
