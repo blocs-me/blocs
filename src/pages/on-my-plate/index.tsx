@@ -2,7 +2,6 @@ import { useRouter } from 'next/router'
 import { useMemo } from 'react'
 import OnMyPlateDisplay from '@/widgets/OnMyPlate/OnMyPlateDisplay'
 import { configFromParams } from '@/widgets/OnMyPlate/onMyPlateConfig'
-import MadeWithBlocs from '@/design-system/MadeWithBlocs'
 
 const OnMyPlatePage = () => {
   const router = useRouter()
@@ -26,7 +25,6 @@ const OnMyPlatePage = () => {
         itemColor={config.itemColor}
         showCount={config.showCount}
       />
-      <MadeWithBlocs floating href="https://blocs.me/whats-on-my-plate" />
     </div>
   )
 }

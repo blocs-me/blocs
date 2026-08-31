@@ -7,7 +7,6 @@ import WeatherDisplay from '@/widgets/Weather/WeatherDisplay'
 import ForecastRow from '@/widgets/Weather/ForecastRow'
 import CompactWeather from '@/widgets/Weather/CompactWeather'
 import WidgetSettingsPopover from '@/widgets/Clock/WidgetSettingsPopover'
-import MadeWithBlocs from '@/design-system/MadeWithBlocs'
 
 const WeatherPage = () => {
   const router = useRouter()
@@ -138,7 +137,6 @@ const WeatherWidget = ({ config }: { config: ReturnType<typeof configFromParams>
           )}
         </div>
       )}
-      <MadeWithBlocs floating href="https://blocs.me/weather-widget" />
     </div>
   )
 }

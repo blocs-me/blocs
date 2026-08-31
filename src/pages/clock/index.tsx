@@ -7,7 +7,6 @@ import { useTimer } from '@/widgets/Clock/useTimer'
 import ClockDisplay from '@/widgets/Clock/ClockDisplay'
 import TimerDisplay from '@/widgets/Clock/TimerDisplay'
 import WidgetSettingsPopover from '@/widgets/Clock/WidgetSettingsPopover'
-import MadeWithBlocs from '@/design-system/MadeWithBlocs'
 import type { ClockTimerMode } from '@/widgets/Clock/clockConfig'
 
 const ClockPage = () => {
@@ -43,7 +42,6 @@ const ClockWidget = ({ config }: { config: ReturnType<typeof configFromParams> }
       ) : (
         <TimerModeWidget config={config} />
       )}
-      <MadeWithBlocs floating href="https://blocs.me/clock-widget" />
     </div>
   )
 }

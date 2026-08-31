@@ -6,7 +6,6 @@ import { useCalendar } from '@/widgets/Calendar/useCalendar'
 import MonthView from '@/widgets/Calendar/MonthView'
 import YearView from '@/widgets/Calendar/YearView'
 import WidgetSettingsPopover from '@/widgets/Clock/WidgetSettingsPopover'
-import MadeWithBlocs from '@/design-system/MadeWithBlocs'
 import type { CalendarView } from '@/widgets/Calendar/calendarConfig'
 
 const CalendarPage = () => {
@@ -93,7 +92,6 @@ const CalendarWidget = ({ config }: { config: ReturnType<typeof configFromParams
           onNextYear={calendar.goToNextYear}
         />
       )}
-      <MadeWithBlocs floating href="https://blocs.me/calendar-widget" />
     </div>
   )
 }
