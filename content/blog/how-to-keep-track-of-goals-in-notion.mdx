@@ -1,0 +1,149 @@
+---
+title: "How to Keep Track of Your Goals in Notion (With Live Progress Widgets)"
+date: "2026-08-31"
+description: "Learn how to track goals in Notion using databases, progress bars, habit trackers & free embeddable widgets. No extra apps needed — everything lives in your workspace."
+---
+
+The best way to keep track of your goals in Notion is to combine a simple goals database with embeddable progress widgets that give you a live visual on how you're doing — without leaving your workspace. Notion's built-in databases handle the structure; widgets like [Blocs](https://blocs.me) handle the at-a-glance feedback. This approach works for students, professionals, and anyone who already lives in Notion and doesn't want yet another app.
+
+- Notion databases can hold any type of goal: habits, projects, reading lists, fitness targets.
+- Progress bars and habit trackers embedded as iframes give instant visual feedback without switching tabs.
+- Blocs' free tier covers Habit Tracker, Progress Bar context, and Pomodoro Timer — no sign-up required.
+
+## Key Takeaways
+
+- Build a goals database in Notion with a "Status" property and formula-driven progress percentages.
+- Use filtered views (Board, Gallery, or Timeline) to surface active goals without clutter.
+- Embed a [Habit Tracker widget](https://blocs.me/habit-tracker-widget) to log daily actions tied to your goals.
+- Add a [Progress Bar widget](https://blocs.me/progress-bar-widget) for a visual completion indicator on long-term goals.
+- Use a [Countdown Timer](https://blocs.me/countdown-timer) to create deadline urgency inside your Notion goal page.
+- Blocs widgets are free to start and embed with one URL — no Notion integration or API key required.
+
+## What Does Notion Give You Natively for Goal Tracking?
+
+Notion's database system is genuinely capable for goal tracking out of the box. You can create a "Goals" database with properties for category, target date, a numeric progress field, and a status select. Formula properties let you calculate a completion percentage automatically. Views like Board (Kanban) or Gallery let you see goals by status at a glance, and the Timeline view maps goals against dates.
+
+Where native Notion falls short is **real-time visual feedback**. There's no built-in widget that shows a live progress bar, a daily habit streak, or a countdown to a deadline. For that, you need to embed something external.
+
+## How to Set Up a Goals Database in Notion
+
+### Step 1: Create the Database
+
+In any Notion page, type `/database` and choose "Table — Full page." Name it "Goals 2026" or similar. Add the following properties:
+
+- **Goal** (Title) — the goal name, e.g., "Run a 5K"
+- **Category** (Select) — Health, Career, Finance, Learning, etc.
+- **Target Date** (Date)
+- **Progress %** (Number, formatted as Percent)
+- **Status** (Select: Not Started, In Progress, Done)
+- **Notes** (Text) — weekly reflection notes
+
+### Step 2: Add Filtered Views
+
+Add a Board view grouped by "Status" so you can drag goals from "Not Started" to "In Progress" to "Done." Add a Gallery view filtered to show only "In Progress" goals — this becomes your active dashboard. Hide done goals from your main view to reduce noise.
+
+### Step 3: Link Milestones as Sub-Pages
+
+Each goal row can open into a full Notion page. Use that sub-page for milestones, action steps, and weekly check-ins. This keeps your goals database clean at the top level while giving you space for detailed planning inside each goal.
+
+## Why Should You Embed Widgets for Goal Tracking in Notion?
+
+Widgets close the loop between your goal plan and your daily behavior. A database tells you *what* you want to achieve; a habit tracker tells you *whether you showed up today*; a progress bar tells you *how far you've come*. Having all three in one Notion page means you check your goals, log your actions, and see your progress without opening a second app — which is the most common reason goal systems collapse.
+
+Blocs widgets embed via a simple URL. Paste the link into Notion using the `/embed` block, resize the iframe, and it works live. There's nothing to install, no OAuth flow, and no separate account required for the free widgets.
+
+## What Are the Best Widgets for Goal Tracking in Notion?
+
+| Widget | Best For | Free? | Embed URL |
+|--------|----------|-------|-----------|
+| [Habit Tracker](https://blocs.me/habit-tracker-widget) | Daily goal-supporting habits | Yes (basic) | blocs.me/habit-tracker |
+| [Progress Bar](https://blocs.me/progress-bar-widget) | Visual % complete on long-term goals | Pro | blocs.me/progress-bar |
+| [Countdown Timer](https://blocs.me/countdown-timer) | Deadline urgency for time-bound goals | Pro | blocs.me/countdown |
+| [Pomodoro Timer](https://blocs.me/pomodoro-timer) | Focused work sessions on goal tasks | Yes | blocs.me/pomodoro |
+| [Water Tracker](https://blocs.me/water-tracker-widget) | Health/wellness goals | Yes (basic) | blocs.me/water-tracker |
+
+### Habit Tracker: Your Daily Goal Check-In
+
+Most long-term goals succeed or fail at the daily behavior level. The [Blocs Habit Tracker](https://blocs.me/habit-tracker-widget) lets you define up to 3 habits on the free tier (unlimited with Pro) and check them off each day directly inside Notion. Pro users also get streaks, weekly and monthly analytics, and custom colors — useful for seeing patterns in which goals get consistent attention and which don't. You can read more in the dedicated guide on [Notion widgets for habit tracking](https://blocs.me/blog/notion-widgets-for-habit-tracking).
+
+<WidgetEmbed src="/habit-tracker" title="Blocs Habit Tracker" />
+
+### Progress Bar: See How Far You've Come
+
+A [Progress Bar widget](https://blocs.me/progress-bar-widget) is ideal for goals with a clear numeric target: pages read, pounds lost, dollars saved, kilometers run. Set your start point and end target, and the bar updates as you log progress. Embed it at the top of your goal's sub-page for an immediate visual anchor every time you open it. For project-level use, see also the guide on [project progress bars for Notion](https://blocs.me/blog/project-progress-bar-for-notion).
+
+<WidgetEmbed src="/progress-bar" title="Blocs Progress Bar" height="150px" maxWidth="500px" />
+
+### Countdown Timer: Make Deadlines Visible
+
+If a goal has a fixed end date — a race, a product launch, a savings target by December — a live countdown creates healthy urgency. The [Blocs Countdown Timer](https://blocs.me/countdown-timer) embeds directly on your goal page and ticks down in real time. It's a Pro-only feature, but it's one of the highest-impact additions for time-bound goal tracking.
+
+<WidgetEmbed src="/countdown" title="Blocs Countdown Timer" height="200px" maxWidth="500px" />
+
+## How Do You Embed a Blocs Widget in Notion?
+
+Embedding takes under a minute. Open the Notion page where you want the widget. Type `/embed` and select "Embed." Paste the widget URL (e.g., `https://blocs.me/habit-tracker`) and press Enter. Notion will render the widget inline. Drag the resize handle to adjust the height. That's it — no API keys, no integration setup, no third-party account required for free widgets.
+
+For a deeper walkthrough of different goal types, the [how to track goals in Notion](https://blocs.me/blog/how-to-track-goals-in-notion) guide covers goal database setups in detail, and the [how to track habits in Notion](https://blocs.me/blog/how-to-track-habits-in-notion) guide focuses specifically on building daily habit systems.
+
+## What Is Free vs. What Requires Blocs Pro?
+
+Blocs has a free tier that requires no account: the Habit Tracker (up to 3 habits, default settings), the Pomodoro Timer, and the Water Tracker are all free to embed right now. Blocs Pro unlocks the full widget suite — Progress Bar, Countdown Timer, Calendar, Clock, Quote of the Day, and Weather — plus custom goals, unlimited habits, streaks, analytics, theme customization, and cloud sync. Pro is a **one-time payment of $17**, not a subscription. See the full breakdown at [blocs.me/pricing](https://blocs.me/pricing).
+
+| Feature | Free | Pro ($17 one-time) |
+|---------|------|-------------------|
+| Habit Tracker (3 habits) | Yes | Yes |
+| Pomodoro Timer | Yes | Yes |
+| Water Tracker | Yes | Yes |
+| Progress Bar | No | Yes |
+| Countdown Timer | No | Yes |
+| Unlimited habits + streaks | No | Yes |
+| Weekly/monthly analytics | No | Yes |
+| Custom colors and themes | No | Yes |
+| Cloud sync across devices | No | Yes |
+
+## What Does a Complete Goal Tracking Setup Look Like?
+
+Here's a practical layout for a single goal page in Notion, using "Get fit in 2026" as the example:
+
+- **Top of page:** Progress Bar widget set to 0-100% (weight lost, workouts completed, etc.)
+- **Below that:** Habit Tracker with daily habits: "30-min workout," "8 glasses of water," "Sleep by 11pm"
+- **Sidebar or callout block:** Countdown Timer to your target date (e.g., 90 days out)
+- **Database section:** A simple table of weekly milestones with checkboxes
+- **Reflection toggle:** A collapsed toggle block for weekly notes — what worked, what didn't
+
+This setup takes about 15 minutes to build. Everything updates live. You open one Notion page and know exactly where you stand.
+
+## FAQs
+
+### Does Notion have built-in goal tracking?
+
+Notion doesn't have a dedicated goal-tracking feature, but its database system is flexible enough to build one. You can create a goals database with progress percentages, status properties, and target dates. For visual progress feedback — live bars, habit streaks, countdowns — you'll need to embed external widgets like those from Blocs.
+
+### What is the best free widget for goal tracking in Notion?
+
+The Blocs Habit Tracker is the best free option for most people. It lets you define daily habits tied to your goals and check them off directly inside Notion. No sign-up needed. The Pomodoro Timer is a close second for goal-focused work sessions. Both are free and embed with a single URL paste.
+
+### Can I track multiple goals in one Notion workspace?
+
+Yes. Build a single "Goals 2026" database and use filtered views to see goals by category or status. Each goal row opens into its own sub-page where you can embed individual widgets. You can have a fitness goal page with a progress bar, a reading goal page with a countdown, and a savings goal page with a habit tracker — all inside the same workspace.
+
+### Is Blocs a subscription?
+
+No. Blocs Pro is a one-time payment of $17 with lifetime access. There's no monthly or annual fee. The free tier (Habit Tracker, Pomodoro Timer, Water Tracker) is free forever with no account required.
+
+### What's the difference between tracking habits and tracking goals in Notion?
+
+Goals are outcomes you want to reach (run a 5K, read 24 books, save $5,000). Habits are the daily actions that get you there (run 20 minutes, read 30 pages, transfer $50). Effective goal tracking in Notion combines both: a goals database for the big picture and a habit tracker widget for the daily actions that compound over time.
+
+### Does embedding widgets slow down Notion pages?
+
+Slightly, but it's negligible for most users. Notion loads iframes asynchronously, so they don't block the page from rendering. If you have a very widget-heavy page, consolidate widgets on a dedicated dashboard page and link to it from your goals database rather than embedding on every row.
+
+## Start Tracking Your Goals in Notion Today
+
+The system works best when you start simple: one goals database, one habit tracker, one review cadence per week. You can always add a progress bar and countdown timer once the habit of checking your goals page is established.
+
+The free Habit Tracker is the easiest place to start — paste `https://blocs.me/habit-tracker` into a Notion embed block and you're live in under a minute. If you want the full toolkit (progress bars, countdowns, analytics), the $17 one-time Pro upgrade covers everything.
+
+[Try the free Habit Tracker](https://blocs.me/habit-tracker-widget) — or [explore all Blocs widgets](https://blocs.me/pricing) to see what fits your goal system.
