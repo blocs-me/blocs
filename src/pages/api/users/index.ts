@@ -4,7 +4,7 @@ import {
   handle500Response
 } from '../../../lambda-functions/helpers/handleResponses'
 import getBlocsUser from '@/lambda/middlewares/getBlocsUser'
-import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs'
+import supabase from '@/lambda/helpers/supabase'
 import {
   BlocsUserServer,
   BlocsUserClient
@@ -42,7 +42,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
   if (req.method === 'DELETE') {
     const blocsUser = await getBlocsUser(req, res)
-    const supabase = createServerSupabaseClient({ req, res })
 
     try {
       await supabase.from('users').delete().eq('id', blocsUser.id)

@@ -1,13 +1,16 @@
 import Rest from '@/lambda/lib/rest'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs'
+import supabase from '@/lambda/helpers/supabase'
 import { handle401Response } from '@/lambda/helpers/handleResponses'
 import { handle500Response } from '../../../lambda-functions/helpers/handleResponses'
 
 const saveUserAvatar = async (req: NextApiRequest, res: NextApiResponse) => {
   const { avatar_url } = req.body
-  const supabase = createServerSupabaseClient({ req, res })
-  const { data, error } = await supabase.auth.getUser()
+  // Auth-helpers client authenticates the caller from cookies; table operations
+  // go through the service-role `supabase` client (bypasses RLS).
+  const supabaseAuth = createServerSupabaseClient({ req, res })
+  const { data, error } = await supabaseAuth.auth.getUser()
 
   if (error) {
     return handle401Response(res)

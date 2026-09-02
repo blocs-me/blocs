@@ -4,7 +4,7 @@ import {
   handle400Response,
   handle500Response
 } from '../../../lambda-functions/helpers/handleResponses'
-import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs'
+import supabase from '@/lambda/helpers/supabase'
 import getBlocsUser from '@/lambda/middlewares/getBlocsUser'
 const ajv = new Ajv()
 
@@ -34,7 +34,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     if (blocsUser) {
       try {
-        const supabase = createServerSupabaseClient({ req, res })
         await supabase.from('users').update({ name }).eq('id', blocsUser.id)
 
         res.status(200).json({})

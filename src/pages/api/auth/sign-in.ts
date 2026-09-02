@@ -8,6 +8,7 @@ import { supabaseQueryGuard } from '../../../lambda-functions/helpers/supabase/q
 import { BlocsUserServer } from '../../../global-types/blocs-user'
 import Stripe from 'stripe'
 import { mapUserToBlocUserServer } from '@/lambda/helpers/supabase/mapDbToType'
+import supabase from '@/lambda/helpers/supabase'
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
   apiVersion: '2026-04-22.dahlia',
@@ -25,12 +26,15 @@ const getClientUserData = (blocsUser: BlocsUserServer) => ({
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'POST') {
     try {
-      const supabase = createServerSupabaseClient({
+      // Auth-helpers client reads the caller's session from cookies; all table
+      // operations go through the service-role `supabase` client (bypasses RLS).
+      const supabaseAuth = createServerSupabaseClient({
         req,
         res
       })
 
-      const { data: authData, error: authError } = await supabase.auth.getUser()
+      const { data: authData, error: authError } =
+        await supabaseAuth.auth.getUser()
 
       if (authError) throw authError
 

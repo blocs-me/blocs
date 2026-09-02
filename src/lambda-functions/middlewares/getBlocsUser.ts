@@ -3,11 +3,14 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import { BlocsUserServer as BlocsUser } from '../../global-types/blocs-user'
 import { supabaseQueryGuard } from '../helpers/supabase/queryGuard'
 import { mapUserToBlocUserServer } from '../helpers/supabase/mapDbToType'
+import supabase from '@/lambda/helpers/supabase'
 
 const getBlocsUser = async (req: NextApiRequest, res: NextApiResponse) => {
-  const supabase = createServerSupabaseClient({ req, res })
+  // Auth-helpers client reads the caller's session from cookies; table reads go
+  // through the service-role `supabase` client, which bypasses RLS.
+  const supabaseAuth = createServerSupabaseClient({ req, res })
 
-  const { data, error } = await supabase.auth.getUser()
+  const { data, error } = await supabaseAuth.auth.getUser()
 
   if (error) {
     console.error(error)
