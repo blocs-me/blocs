@@ -1,4 +1,4 @@
-import { transformResponse } from './useWeather'
+import { transformResponse, fetchWeatherJson } from './useWeather'
 
 const sampleApiResponse = {
   current: {
@@ -99,5 +99,52 @@ describe('transformResponse', () => {
     const { current: f } = transformResponse(data, 'fahrenheit')
     expect(f.temp).toBe(14) // -10°C = 14°F
     expect(f.feelsLike).toBe(5) // -15°C = 5°F
+  })
+})
+
+describe('fetchWeatherJson', () => {
+  const okJson = { current: {}, daily: {} }
+
+  afterEach(() => {
+    jest.restoreAllMocks()
+  })
+
+  it('returns parsed json on a successful response', async () => {
+    global.fetch = jest.fn().mockResolvedValue({
+      ok: true,
+      json: async () => okJson,
+    }) as any
+    await expect(fetchWeatherJson('url', 2, 0)).resolves.toEqual(okJson)
+    expect(global.fetch).toHaveBeenCalledTimes(1)
+  })
+
+  it('retries a transient 503 and then succeeds', async () => {
+    global.fetch = jest
+      .fn()
+      .mockResolvedValueOnce({ ok: false, status: 503 })
+      .mockResolvedValueOnce({ ok: true, json: async () => okJson }) as any
+    await expect(fetchWeatherJson('url', 2, 0)).resolves.toEqual(okJson)
+    expect(global.fetch).toHaveBeenCalledTimes(2)
+  })
+
+  it('throws after exhausting retries on persistent 5xx', async () => {
+    global.fetch = jest.fn().mockResolvedValue({ ok: false, status: 503 }) as any
+    await expect(fetchWeatherJson('url', 2, 0)).rejects.toThrow('HTTP 503')
+    expect(global.fetch).toHaveBeenCalledTimes(3) // initial + 2 retries
+  })
+
+  it('does not retry a 4xx response', async () => {
+    global.fetch = jest.fn().mockResolvedValue({ ok: false, status: 404 }) as any
+    await expect(fetchWeatherJson('url', 2, 0)).rejects.toThrow('HTTP 404')
+    expect(global.fetch).toHaveBeenCalledTimes(1)
+  })
+
+  it('retries a network error and then succeeds', async () => {
+    global.fetch = jest
+      .fn()
+      .mockRejectedValueOnce(new Error('network down'))
+      .mockResolvedValueOnce({ ok: true, json: async () => okJson }) as any
+    await expect(fetchWeatherJson('url', 2, 0)).resolves.toEqual(okJson)
+    expect(global.fetch).toHaveBeenCalledTimes(2)
   })
 })

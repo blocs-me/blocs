@@ -60,6 +60,38 @@ export function transformResponse(data: ApiResponse, unit: TempUnit): { current:
   return { current, forecast }
 }
 
+function delay(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms))
+}
+
+// open-meteo's free API intermittently load-sheds with 5xx responses. Retry
+// transient server/network errors so a single blip doesn't leave the widget
+// showing "unavailable" until the next 15-minute refresh. 4xx are not retried.
+export async function fetchWeatherJson(
+  url: string,
+  retries = 2,
+  delayMs = 2000
+): Promise<ApiResponse> {
+  for (let attempt = 0; ; attempt++) {
+    let res: Response
+    try {
+      res = await fetch(url)
+    } catch (e) {
+      if (attempt < retries) {
+        await delay(delayMs)
+        continue
+      }
+      throw e
+    }
+    if (res.ok) return res.json()
+    if (res.status >= 500 && attempt < retries) {
+      await delay(delayMs)
+      continue
+    }
+    throw new Error(`HTTP ${res.status}`)
+  }
+}
+
 function buildApiUrl(lat: number, lng: number, tz: string, days: number): string {
   const params = new URLSearchParams({
     latitude: lat.toString(),
@@ -96,9 +128,7 @@ export function useWeather(config: UseWeatherConfig) {
     if (!latitude && !longitude) return
     try {
       const url = buildApiUrl(latitude, longitude, timezone, forecastDays)
-      const res = await fetch(url)
-      if (!res.ok) throw new Error(`HTTP ${res.status}`)
-      const data: ApiResponse = await res.json()
+      const data = await fetchWeatherJson(url)
       const result = transformResponse(data, tempUnit)
       setCurrent(result.current)
       setForecast(result.forecast)

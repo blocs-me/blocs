@@ -38,7 +38,9 @@ const WidgetSettingsPopover = ({
   }, [open])
 
   return (
-    <div ref={popoverRef} style={{ position: 'absolute', top: '8px', right: '8px', zIndex: 10 }}>
+    // Top-left: Notion's own hover toolbar (Comment, alignment, caption) sits
+    // top-right over the embed and would otherwise cover the settings cog.
+    <div ref={popoverRef} style={{ position: 'absolute', top: '8px', left: '8px', zIndex: 10 }}>
       <button
         onClick={() => setOpen(prev => !prev)}
         style={{
@@ -64,7 +66,7 @@ const WidgetSettingsPopover = ({
         <div style={{
           position: 'absolute',
           top: '28px',
-          right: 0,
+          left: 0,
           backgroundColor: '#fff',
           border: '1px solid #e0e0e0',
           borderRadius: '8px',
