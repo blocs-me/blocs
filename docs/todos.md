@@ -12,3 +12,12 @@ system date, so they fail on any day where the computed start isn't a Monday.
 Discovered 2026-08-20 while adding the Clock font-size setting (the tests were
 already failing on the base commit; the Clock change is unrelated). Fix by
 mocking the clock in the test (e.g. `jest.useFakeTimers().setSystemTime(...)`).
+
+## Habit tracker analytics table name mismatch
+
+`src/lambda-functions/routers/habit-tracker/deleteHabit.ts` queries
+`habit_trackers_analytics` (plural "trackers"), while every other habit-tracker
+router uses `habit_tracker_analytics`. One of them is wrong — likely deleteHabit
+targets a non-existent table, so deleting a habit may silently fail to remove its
+analytics rows. Discovered 2026-09-02 during the Supabase RLS incident. Verify
+the real table name in Supabase and fix the odd one out.
