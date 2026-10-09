@@ -1,0 +1,101 @@
+---
+title: "How to Track My Calories in Notion (2026 Guide + Free Widget)"
+date: "2026-10-08"
+description: "Track calories in Notion with a free database template and a daily goal widget. Step-by-step 2026 setup guide, plus Pro streak tracking for $17 one-time."
+---
+
+The fastest way to track your calories in Notion is to build a simple food log database with calorie and macro properties, then pair it with an embedded habit widget (like the [Blocs Habit Tracker](https://blocs.me/habit-tracker-widget)) to visually check off whether you hit your goal each day. This setup works for anyone who wants calorie tracking without leaving Notion or paying for a separate nutrition app. Notion's database tooling is free and fully customizable, but you build and maintain the formulas yourself; most adults need roughly 1,600-3,000 calories a day depending on age, sex, and activity level ([CDC](https://www.cdc.gov/healthyweight/calorie_counting/index.html)), so your target will vary. Blocs' widget layer adds the visual, no-formula streak tracking Notion doesn't do natively, with Pro unlocking custom goals and analytics for a $17 one-time payment (not a subscription).
+
+## Key Takeaways
+
+- Notion has no built-in calorie counter, you build one with a database using Number properties for calories, protein, carbs, and fat.
+- A rollup or formula property can sum your daily totals automatically once entries are linked to a date.
+- Embedding a widget like the [Blocs Habit Tracker](https://blocs.me/habit-tracker-widget) directly on your Notion page lets you check off "stayed under my calorie goal" each day without touching a formula.
+- Blocs' free tier covers basic daily check-ins at no cost; Pro ($17 one-time) adds custom goals, streaks, and weekly/monthly analytics.
+- Pairing a calorie log with a [water tracker widget](https://blocs.me/water-tracker-widget) covers two of the most common daily health metrics in one page.
+
+## How do I track calories in Notion?
+
+Create a database with properties for Food, Calories, Protein, Carbs, Fat, and Date, then log each meal as a new entry. Add a linked "Daily Totals" view that groups entries by date and uses a Sum rollup to show how many calories you've eaten that day versus your target.
+
+### Step 1: Create a food log database
+
+Add a new full-page database called "Food Log." Give it properties for Food Name (Title), Calories (Number), Protein/Carbs/Fat (Number), Meal (Select: Breakfast, Lunch, Dinner, Snack), and Date (Date).
+
+### Step 2: Build a daily totals rollup
+
+Create a second database called "Daily Log" with one entry per date. Add a Relation property linking to Food Log entries from that day, then add a Rollup property that sums the Calories field. This gives you a running daily total without manual math.
+
+### Step 3: Set up calendar and board views
+
+Switch your Food Log to a Calendar view to see meals by day, and add a Board view grouped by Meal to spot patterns (like consistently high-calorie dinners). Notion's own [template gallery](https://www.notion.so/templates) has free nutrition and meal-planning templates you can duplicate as a starting point rather than building from scratch.
+
+## Does Notion have a built-in calorie tracker?
+
+No. Notion is a database and notes tool, not a nutrition app, so it has no native calorie counter, food database, or barcode scanner. Everything from macro columns to daily totals has to be built manually with properties, formulas, or rollups, which is flexible but takes setup time compared to a dedicated app.
+
+## How do I add a daily calorie goal widget to Notion?
+
+Embed a free widget as an iframe directly on your Notion page using the Embed block, then paste a widget URL like [blocs.me/habit-tracker-widget](https://blocs.me/habit-tracker-widget). This gives you a visual daily checkbox and streak counter for "hit my calorie goal" that sits right next to your food log, no coding required.
+
+Here's what that looks like embedded on a page:
+
+<WidgetEmbed src="/habit-tracker" title="Blocs Habit Tracker" />
+
+*Embed path: /habit-tracker, used here to track a daily "stayed within calorie goal" habit alongside your food log.*
+
+### Setup steps
+
+1. Go to [blocs.me/habit-tracker-widget](https://blocs.me/habit-tracker-widget) and copy the embed link.
+2. In Notion, type `/embed` and paste the link.
+3. Rename the habit to something like "Hit calorie goal" or "Logged all meals."
+4. Resize the block so it sits next to your Daily Log table.
+
+## What's free vs. Pro for tracking calories in Notion?
+
+The food log database itself is always free since it's built on standard Notion properties. The free Blocs Habit Tracker adds a basic daily check-in for one habit at a time, with Blocs Pro branding. Pro removes that limit.
+
+| Feature | Free | Blocs Pro ($17 one-time) |
+|---|---|---|
+| Notion food log database | Yes | Yes |
+| Daily calorie goal check-in widget | 1 habit, default style | Unlimited habits |
+| Streak history | Current streak only | Weekly/monthly analytics |
+| Custom goals (e.g., calorie range, protein target) | No | Yes |
+| Theme matching your Notion workspace | No | Yes |
+| Branding | Blocs logo shown | Removed |
+
+Blocs doesn't currently offer a full food/macro database widget (that part still lives in your Notion tables), it's focused on the visual habit, streak, and goal layer that sits on top of your data. A dedicated nutrition widget isn't on the roadmap yet, but the Habit Tracker is the practical workaround most users reach for today.
+
+## What else should I track alongside calories in Notion?
+
+Hydration and sleep are the two metrics most commonly tracked next to calories, since all three feed into general health goals. A [water tracker widget](https://blocs.me/blog/water-tracker-widget-for-notion) embedded under your calorie log covers daily hydration in the same page, and the U.S. [Dietary Guidelines for Americans](https://www.dietaryguidelines.gov/) recommend pairing calorie awareness with consistent water intake as part of a basic nutrition routine.
+
+## FAQs
+
+### Can I scan barcodes to log calories in Notion?
+
+No, Notion has no barcode scanning or food database, so every entry (including calorie and macro values) has to be typed in manually or copied from a nutrition label or app like MyFitnessPal.
+
+### Will my calorie totals update automatically each day?
+
+Yes, if you use a Rollup property linked from your Daily Log to your Food Log entries, Notion recalculates the sum automatically every time you add or edit a meal entry for that date.
+
+### Is the Blocs Habit Tracker a calorie counter?
+
+No, it's a visual daily check-in and streak tool, not a nutrition database. It's best used to track whether you hit a goal (like staying under a calorie target) that you calculate separately in a Notion database.
+
+### Do I need Blocs Pro to track calories in Notion?
+
+No, the free Blocs Habit Tracker covers one daily goal check-in at no cost. Pro ($17 one-time) is only needed if you want unlimited habits, custom goal ranges, and streak analytics across weeks and months.
+
+### What's the easiest Notion calorie template to start with?
+
+A single database with Food, Calories, Macros, Meal, and Date properties is the simplest setup. You can duplicate a starter template from [Notion's own template gallery](https://www.notion.so/templates) instead of building every property from scratch.
+
+### How many calories should my daily goal be?
+
+It depends on age, sex, height, and activity level, the [CDC](https://www.cdc.gov/healthyweight/calorie_counting/index.html) estimates most adults need between 1,600 and 3,000 calories per day. Set your Notion goal property to match a target from a doctor, dietitian, or a calculator based on these guidelines.
+
+## Try it in your workspace
+
+Build your Food Log database first, then add the free Habit Tracker to check off your calorie goal each day without extra formulas. If you want unlimited habits, custom goal ranges, and streak history, see [Blocs Pro](https://blocs.me/pricing) for the $17 one-time upgrade. For more setup ideas, browse [how to add a habit tracker to Notion](https://blocs.me/blog/how-to-add-habit-tracker-to-notion) or explore [the best habit tracking widgets for Notion](https://blocs.me/blog/best-habit-tracking-notion-widgets).
