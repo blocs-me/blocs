@@ -1,0 +1,102 @@
+---
+title: "How to Set a Daily Reminder in Notion (2026 Guide)"
+date: "2026-10-10"
+description: "Notion has no native recurring reminder. Learn the @remind workaround, 3 free ways to automate daily alerts, and how Blocs widgets add visual daily cues."
+---
+
+Notion's built-in `@remind` command only fires once, on a single date, it does not repeat daily on its own. For a true recurring reminder, you need either a database automation workaround or a visual daily cue like a [habit tracker widget](https://blocs.me/habit-tracker-widget) embedded directly on your dashboard. Three facts worth knowing before you build your setup: Notion's native reminder notification only pushes to mobile/desktop if the app is open or notifications are enabled ([Notion Help: Reminders](https://www.notion.so/help/reminders)); recurring reminders require either a database with a repeating template or a third-party automation tool like Zapier; and free, no-signup widgets like [Blocs' Habit Tracker](https://blocs.me/habit-tracker-widget) give you a persistent visual reminder that doesn't rely on push notifications at all.
+
+## Key Takeaways
+
+- Notion's native `@remind` or `/remind` command sets a one-time, date-specific reminder, it does not repeat automatically.
+- To get a true daily repeating reminder, you need a recurring database template or a third-party automation (Notion itself has no "repeat daily" toggle as of October 2026).
+- A simpler, no-setup alternative is embedding a visual widget (habit tracker, countdown, or pomodoro) that sits on your dashboard as a constant visual cue.
+- Blocs offers a free Habit Tracker, Pomodoro Timer, and Water Tracker with no sign-up required; Pro unlocks unlimited habits, streak analytics, and custom themes for $17 one time (not a subscription).
+
+## How do you set a native reminder in Notion?
+
+Type `@remind` or `/remind` inside any page, then pick a date and time from the calendar that pops up. Notion inserts a mention that triggers a notification at that exact moment, but only once, on that specific date ([Notion Help Center](https://www.notion.so/help/reminders)).
+
+### Step-by-step: setting a one-time reminder
+
+- Open any page or block where you want the reminder to live.
+- Type `@` followed by "remind" or use the `/remind` slash command.
+- Select a date and, optionally, a time.
+- Notion highlights the mention in red once it's overdue, and sends a notification if you have desktop or mobile notifications enabled.
+
+This works well for one-off deadlines, but it has no "repeat every day" setting, so you'll need a workaround for recurring reminders ([Notion Help: Notifications](https://www.notion.so/help/mobile-and-desktop-notifications)).
+
+## How do you make a reminder repeat every day in Notion?
+
+Notion has no native "repeat daily" toggle, so recurring reminders require either a database template that auto-generates a new entry each day, or a third-party automation tool (like Zapier or Make) that resets the `@remind` date on a schedule. Both options take setup time and ongoing maintenance.
+
+The most common database-based workaround:
+
+- Create a database (e.g., "Daily Reminders") with a Date property.
+- Open any entry, click the "..." menu, and set it as the default template with "Repeat" turned on in the template settings (available on paid Notion plans with recurring templates enabled).
+- Each day, Notion duplicates the template entry with a fresh date and reminder mention.
+
+If that feels like overkill for a simple daily nudge, like "drink water" or "do today's habit check-in", a persistent visual widget on your dashboard is a lower-maintenance alternative.
+
+## What's a simpler alternative to native reminders?
+
+Embedding a visual widget directly on your Notion dashboard works as a passive daily reminder: every time you open that page, you see your streak, your progress bar, or your timer, no notification setup required. This is how tools like [Blocs](https://blocs.me) are used by people who found Notion's reminder system too manual for daily habits.
+
+<WidgetEmbed src="/habit-tracker" title="Blocs Habit Tracker" />
+
+Unlike a one-time `@remind` mention, a habit tracker widget stays visible on the page every time you open Notion, functioning as a built-in visual cue rather than a notification you have to remember to check. See our full walkthrough on [how to add a habit tracker to Notion](https://blocs.me/blog/how-to-add-habit-tracker-to-notion).
+
+## What are the best Notion widgets for daily reminders?
+
+The three most useful widget types for building a daily reminder habit in Notion are a habit tracker (for check-ins), a countdown timer (for deadlines), and a pomodoro timer (for daily focus sessions). Each solves a different "remind me to..." use case without relying on Notion's limited native reminder system.
+
+| Widget | Best for | Free tier | Pro features |
+|---|---|---|---|
+| [Habit Tracker](https://blocs.me/habit-tracker-widget) | Daily check-ins, streaks | Yes, basic tracker | Unlimited habits, weekly/monthly analytics |
+| [Pomodoro Timer](https://blocs.me/pomodoro-timer) | Daily focus session reminders | Yes, basic timer | Custom durations, session history |
+| [Countdown Timer](https://blocs.me/countdown-timer) | One-off deadline reminders | Pro only | Custom target dates, themes |
+
+Explore more combinations in our roundup of [best habit tracking Notion widgets](https://blocs.me/blog/best-habit-tracking-notion-widgets), or see how a timer-based reminder works in [how to use a Pomodoro timer in Notion](https://blocs.me/blog/how-to-use-a-pomodoro-timer-in-notion).
+
+## Is the free version enough, or do I need Pro?
+
+Blocs' free tier (Habit Tracker, Pomodoro Timer, Water Tracker) covers basic daily reminders with no sign-up, which is enough for most single-habit use cases. Pro ($17 one-time payment) adds unlimited habits, streak analytics, custom themes, and the Countdown Timer, useful if you're tracking multiple daily routines.
+
+- **Free:** One habit, default styling, no account needed, works instantly when embedded.
+- **Pro ($17 one-time):** Unlimited habits, daily/weekly/monthly analytics, theme customization, cloud sync, no Blocs branding, plus access to Countdown Timer, Progress Bar, Clock, Calendar, Quote of the Day, and Weather widgets.
+
+Full breakdown on the [pricing page](https://blocs.me/pricing).
+
+## Do Blocs widgets send push notifications?
+
+No, Blocs widgets are visual, not push-based: they display your reminder, streak, or countdown on the page itself rather than sending a phone notification. This trade-off means no setup for alerts, but you do need to actually open the Notion page to see the cue, similar to a visible sticky note rather than an alarm.
+
+## FAQs
+
+### Can I set a recurring daily reminder natively in Notion?
+
+Not with a simple toggle. Notion's `@remind` command is one-time only; recurring reminders require a database template with repeat settings or a third-party automation tool like Zapier ([Notion Help Center](https://www.notion.so/help/reminders)).
+
+### Will Notion send me a push notification for my reminder?
+
+Yes, if you've enabled mobile or desktop notifications in Notion's settings and the reminder date/time has passed, Notion sends a push alert ([Notion Help: Notifications](https://www.notion.so/help/mobile-and-desktop-notifications)).
+
+### Are Blocs reminder widgets free?
+
+Yes, the Habit Tracker, Pomodoro Timer, and Water Tracker are free with no sign-up required. Pro features like unlimited habits and analytics cost $17 as a one-time payment, not a subscription.
+
+### How do I embed a Blocs widget in Notion?
+
+Copy the widget URL (e.g., blocs.me/habit-tracker), paste it into a Notion page, and select "Embed" from the menu that appears. The widget renders live inside your page.
+
+### Can I track more than one daily reminder with Blocs?
+
+On the free tier, you get one habit slot. Pro unlocks unlimited habits so you can track multiple daily reminders (water, exercise, journaling, etc.) on a single dashboard.
+
+### What's the best Notion setup for someone who forgets daily tasks?
+
+Pair a visible habit tracker widget (for the "did I do it" cue) with Notion's native `@remind` for hard deadlines. The widget catches habitual tasks you'd otherwise forget to check; the native reminder handles one-off dates.
+
+## Try a daily reminder widget
+
+If Notion's built-in reminders feel too manual for daily habits, embed a free widget and see your streak every time you open the page. [Try the free Habit Tracker](https://blocs.me/habit-tracker-widget) or [explore all Pro widgets](https://blocs.me/pricing).
