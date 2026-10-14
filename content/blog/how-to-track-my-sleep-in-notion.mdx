@@ -1,0 +1,100 @@
+---
+title: "How to Track My Sleep in Notion (2026 Guide): Templates, Databases, and Widgets"
+date: "2026-10-13"
+description: "Track sleep in Notion with a database for duration/quality plus a free Habit Tracker widget for streaks. No sign-up, 2 minutes to set up."
+---
+
+The fastest way to track sleep in Notion is to combine a simple database (bedtime, wake time, duration, quality) with a visual habit-streak widget so you can see consistency at a glance. This works for anyone who wants sleep data inside the same workspace they already use for tasks and notes, without installing a separate health app.
+
+- A basic Notion sleep database takes about 5 minutes to build with 4-5 properties.
+- Adults need 7+ hours of sleep per night; roughly 1 in 3 US adults don't get enough, according to the [CDC](https://www.cdc.gov/sleep/about/index.html).
+- Blocs' [Habit Tracker widget](https://blocs.me/habit-tracker-widget) is free, embeds directly into any Notion page, and requires no sign-up for the default version.
+
+## Key Takeaways
+
+- Notion has no native sleep tracker, so you build one with a database (for data) or a widget (for streaks), or both.
+- A database is best for detail: exact bedtime, wake time, duration, and quality notes.
+- A habit-tracker widget is best for consistency: a visual grid showing which nights you hit your sleep goal.
+- Blocs doesn't currently have a dedicated sleep-tracker widget, but the [Habit Tracker](https://blocs.me/habit-tracker-widget) can be set up as a "slept 7+ hours" habit, and a dedicated sleep widget is on our roadmap.
+- Free tier covers one habit with default settings; Blocs Pro ($17 one-time, not a subscription) unlocks unlimited habits, streak analytics, and theme customization.
+
+## What is the best way to track sleep in Notion?
+
+The best setup pairs a Notion database (for logging exact sleep data) with a visual habit widget (for tracking consistency over time). The database captures numbers; the widget makes the pattern obvious without opening a table every morning.
+
+### Step 1: Build a sleep log database
+
+Create a new database with these properties:
+
+- **Date** (date property)
+- **Bedtime** and **Wake time** (text or date-with-time properties)
+- **Duration** (formula property calculating the difference between wake time and bedtime)
+- **Quality** (select: Poor / Fair / Good / Great, or a 1-5 number rating)
+- **Notes** (text, for caffeine, screen time, stress, etc.)
+
+Add a formula like `dateBetween(prop("Wake time"), prop("Bedtime"), "hours")` to auto-calculate duration so you're not doing mental math at 7am.
+
+### Step 2: Add a visual habit widget for consistency
+
+A database table is great for detail but bad for a quick glance. Embed a habit-tracker widget above or beside your log so you can see your streak of "good sleep nights" without opening the full database.
+
+<WidgetEmbed src="/habit-tracker" title="Blocs Habit Tracker" />
+
+Set the habit to something binary, like "In bed by 11pm" or "Slept 7+ hours," and check it off each morning. The grid view makes multi-week patterns (like weekend sleep debt) obvious in a way a text table isn't.
+
+## How do I track sleep duration and quality in Notion?
+
+Track duration with a formula property that subtracts bedtime from wake time, and track quality with a simple select or number rating filled in each morning. Add a rollup or chart view (via a linked database or third-party chart embed) to visualize weekly averages.
+
+For a lighter-weight option, skip the formula and just log hours slept as a number (e.g., 7.5). It's less precise but faster to fill in daily, which matters more for consistency than precision, per general sleep-tracking guidance from the [Sleep Foundation](https://www.sleepfoundation.org/sleep-hygiene/sleep-tracking).
+
+## Are there Notion sleep tracker templates?
+
+Yes. Notion's own [template gallery](https://www.notion.so/templates) and community creators publish free sleep-log templates, but most are static databases without a glanceable visual streak. If you want the data-logging benefit of a template plus a live visual indicator, pair any sleep database template with an embedded Blocs widget rather than relying on the database alone.
+
+## What's free vs. Pro for sleep tracking with Blocs?
+
+| Feature | Free | Pro ($17 one-time) |
+|---|---|---|
+| Habit Tracker widget | 1 habit, default theme | Unlimited habits |
+| Streak history | Current streak only | Daily/weekly/monthly analytics |
+| Theme customization | No | Yes (colors, dark/light) |
+| Branding | Blocs logo shown | No branding |
+| Cloud sync across devices | No | Yes |
+
+See full details on the [pricing page](https://blocs.me/pricing). The $17 fee is paid once, not a recurring subscription.
+
+## FAQs
+
+### Does Blocs have a dedicated sleep tracker widget?
+
+Not yet. Blocs currently offers Pomodoro, Water, and Habit Tracker widgets for free, plus Countdown, Progress Bar, Clock, Calendar, Quote, and Weather widgets with Pro. A dedicated sleep widget is on the roadmap; in the meantime, the Habit Tracker widget works well for tracking sleep consistency as a daily habit.
+
+### Can I track exact sleep hours with Blocs?
+
+The Habit Tracker widget is designed for yes/no daily habits (like "slept 7+ hours"), not minute-by-minute duration logging. For exact hours, use a Notion database with a duration formula, and use the widget alongside it for the visual streak.
+
+### How do I calculate sleep duration automatically in Notion?
+
+Add a formula property that subtracts your Bedtime date-time property from your Wake time date-time property, converted to hours (e.g., `dateBetween(prop("Wake time"), prop("Bedtime"), "hours")`). This updates automatically every time you log new times.
+
+### Is tracking sleep in Notion free?
+
+Yes, building a sleep database in Notion is free, and embedding the Blocs Habit Tracker widget's default version is also free with no sign-up required. Pro features (unlimited habits, analytics, themes, no branding) cost $17 one-time.
+
+### Can I sync sleep data from a smartwatch or phone app into Notion?
+
+Not directly through Blocs. Some users use third-party automation tools (like Zapier or native app exports) to push wearable sleep data into a Notion database, which you can then pair with a Blocs widget for the visual layer. This requires separate integration tools outside of Blocs.
+
+### What's a simpler alternative to a full sleep database?
+
+If a full database with formulas feels like too much upkeep, just embed the [Habit Tracker widget](https://blocs.me/habit-tracker-widget) and track one binary sleep habit (like "in bed by 11pm"). It takes seconds to check off daily and still gives you a visual streak.
+
+## Related reading
+
+- [How to add a habit tracker to Notion](https://blocs.me/blog/how-to-add-habit-tracker-to-notion)
+- [Best habit-tracking Notion widgets](https://blocs.me/blog/best-habit-tracking-notion-widgets)
+- [Best free Notion habit tracker widgets](https://blocs.me/blog/best-free-notion-habit-tracker-widgets)
+- [Notion widgets for habit tracking](https://blocs.me/blog/notion-widgets-for-habit-tracking)
+
+Want to try it in your own workspace? Copy the embed URL for the [Habit Tracker widget](https://blocs.me/habit-tracker-widget) and drop it into any Notion page, or explore all widgets on the [Blocs homepage](https://blocs.me).
