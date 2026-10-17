@@ -1,0 +1,113 @@
+---
+title: "How to Build a Fitness Tracker in Notion (2026 Step-by-Step Guide)"
+date: "2026-10-17"
+description: "Learn how to build a fitness tracker in Notion in 2026 with a free database template plus embeddable widgets for water, habits, and workout streaks."
+---
+
+The fastest way to build a fitness tracker in Notion is to combine a workout log database (tracking exercise, sets, reps, and weight) with embedded widgets for the metrics a database can't visualize well, like daily water intake and habit streaks. This hybrid approach takes about 15 minutes to set up and works for strength training, cardio, or general wellness goals.
+
+- **Best for:** People who already live in Notion and don't want a separate fitness app
+- **Setup time:** ~15 minutes for a basic version, longer if you add custom properties and views
+- **Trade-off:** Databases are flexible but take manual logging; widgets add visual tracking (streaks, charts) with one click, no typing
+- **Cost:** $0 to start - Notion's database features are free, and [Blocs](https://blocs.me)' basic widgets (water tracker, habit tracker) are free with no sign-up
+
+## What is a Notion fitness tracker?
+
+A Notion fitness tracker is a database or page inside Notion used to log workouts, body metrics, water intake, and health habits in one place. Most people build it from a table database with properties like exercise name, sets, reps, weight, and date, then add views to filter by week or workout type.
+
+Notion's own [template gallery](https://www.notion.so/templates) offers free starting points for fitness and workout tracking, which you can duplicate and customize rather than building from scratch.
+
+## How do you build a workout log database in Notion?
+
+Create a new database (table view), then add properties for Date, Exercise, Sets, Reps, Weight, and a relation to a "Workout Days" page if you want to group exercises by session. Add a formula property for total volume (sets × reps × weight) if you want progress math done automatically.
+
+### Step-by-step setup
+
+- **1. Create the database.** Type `/table` in a Notion page and choose "Table - Full page."
+- **2. Add core properties.** Date, Exercise Name, Category (e.g., Legs, Cardio, Upper Body), Sets, Reps, Weight, Notes.
+- **3. Add views.** Create a Board view grouped by Category, and a Calendar view by Date so you can see training frequency at a glance.
+- **4. Add a formula (optional).** Use `prop("Sets") * prop("Reps") * prop("Weight")` to auto-calculate training volume per entry.
+- **5. Build a dashboard page.** Link your database views plus any widgets (see below) on a single "Fitness" page for a one-stop view.
+
+## Why add widgets instead of only database fields?
+
+Database properties are great for structured data like sets and reps, but poor at showing visual progress like hydration streaks or daily habit completion at a glance. Embedded widgets fill that gap by rendering interactive, clickable trackers directly on the page without extra apps.
+
+This is where [Blocs](https://blocs.me) fits in: it's a set of embeddable productivity widgets you drop into Notion as an iframe, so your fitness page gets live visual tracking without leaving your workspace.
+
+### Widgets that pair well with a fitness tracker
+
+| Widget | What it tracks | Free or Pro |
+|---|---|---|
+| [Water Tracker](https://blocs.me/water-tracker-widget) | Daily hydration goal with visual fill | Free (basic) |
+| [Habit Tracker](https://blocs.me/habit-tracker-widget) | Workout streaks, daily movement goals | Free (basic) |
+| [Pomodoro Timer](https://blocs.me/pomodoro-timer) | Timed workout intervals or rest periods | Free (basic) |
+| [Progress Bar](https://blocs.me/progress-bar-widget) | Weight loss goals, race training progress | Pro only |
+| [Countdown Timer](https://blocs.me/countdown-timer) | Days until a race, event, or goal weigh-in | Pro only |
+
+Here's what the water tracker looks like embedded directly in a fitness page:
+
+<WidgetEmbed src="/water-tracker" title="Blocs Water Tracker" />
+
+And a habit tracker for logging workout streaks:
+
+<WidgetEmbed src="/habit-tracker" title="Blocs Habit Tracker" />
+
+## How do you embed a widget in Notion?
+
+To embed a Blocs widget, go to [blocs.me/pricing](https://blocs.me/pricing) or the widget's dedicated page, copy the embed URL, then in Notion type `/embed` and paste the link. Notion renders it as a live iframe that updates and syncs in real time, no plugin or sign-up required for the free widgets.
+
+### Setup steps
+
+- Open the widget page (e.g., [blocs.me/habit-tracker-widget](https://blocs.me/habit-tracker-widget))
+- Copy the widget's embed URL
+- In your Notion fitness page, type `/embed` and select "Embed link"
+- Paste the URL and resize the block to fit your layout
+
+## What should you track for general fitness goals?
+
+For general fitness, track workout frequency (habit streak), daily water intake, body weight trend, and session notes - that's enough data to see patterns without turning tracking into a chore. The [CDC's physical activity guidelines](https://www.cdc.gov/physicalactivity/basics/adults/index.htm) recommend at least 150 minutes of moderate activity per week, which a simple habit tracker can log day by day.
+
+## Is Blocs free to use for fitness tracking?
+
+Yes, Blocs' Water Tracker, Habit Tracker, and Pomodoro Timer are free with default settings and no sign-up required. Upgrading to [Blocs Pro](https://blocs.me/pricing) ($17 one-time, not a subscription) unlocks custom goals, unlimited habits, weekly/monthly analytics, and Pro-only widgets like Progress Bar and Countdown Timer.
+
+## Free vs. Pro for fitness tracking
+
+| Feature | Free | Pro ($17 one-time) |
+|---|---|---|
+| Water tracker | Default daily goal | Custom goals + history |
+| Habit/streak tracker | 1-3 habits | Unlimited habits + streak analytics |
+| Workout timers | Basic Pomodoro | Countdown + Clock widgets |
+| Progress toward a goal weight/race | Not available | Progress Bar widget |
+| Theme matching your Notion setup | Default theme | Full customization |
+
+## FAQs
+
+### Do I need a Notion template to build a fitness tracker?
+
+No. Notion's [template gallery](https://www.notion.so/templates) offers starting points, but you can build a fully functional fitness tracker from scratch using a single table database with 15 minutes of setup.
+
+### Can I track workouts and habits without any paid tools?
+
+Yes. Notion's database features are free, and Blocs' basic Water Tracker and Habit Tracker widgets are free with no sign-up, which covers hydration and streak tracking at no cost.
+
+### What's the difference between a habit tracker and a workout database?
+
+A habit tracker shows yes/no completion and streaks for recurring goals (like "worked out today"), while a workout database stores detailed exercise data like sets, reps, and weight for progress analysis over time.
+
+### Can I see weekly or monthly fitness trends in Notion?
+
+Database views (Calendar, Board, Timeline) show trends from your logged data, and Blocs Pro adds built-in weekly/monthly analytics directly inside the habit and water tracker widgets without manual charting.
+
+### Will embedding widgets slow down my Notion page?
+
+No. Blocs widgets are lightweight iframes designed for Notion embeds and load independently of your page content, so they don't affect database performance.
+
+### Does Blocs offer a dedicated workout or exercise widget?
+
+Not yet. Blocs currently covers water, habits, timers, and goal progress, and a dedicated workout-logging widget is on the roadmap.
+
+## Get started
+
+Build your database first, then add the free [water tracker](https://blocs.me/water-tracker-widget) and [habit tracker](https://blocs.me/habit-tracker-widget) widgets to your Notion fitness page. For goal-based tracking like race countdowns or weight-loss progress bars, check out [Blocs Pro](https://blocs.me/pricing) for a one-time $17 upgrade.
