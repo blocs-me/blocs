@@ -1,0 +1,86 @@
+---
+title: "How to Add a Countdown Timer to Notion (2026 Guide)"
+date: "2026-10-18"
+description: "Add a live countdown timer to Notion in under 2 minutes by embedding a widget URL. See the free formula method vs. Blocs' $17 one-time Pro timer."
+---
+
+The fastest way to add a countdown timer to Notion is to paste a widget URL into an `/embed` block, since Notion has no native live-ticking timer. Best for students, launch teams, and anyone tracking a deadline or event. [Blocs' Countdown Timer](https://blocs.me/countdown-timer) embeds in seconds, updates in real time, and is part of a $17 one-time Pro unlock (not a subscription) rather than a recurring app fee.
+
+## Key Takeaways
+
+- Notion has no built-in countdown block: you either embed a web widget or build a static date formula.
+- Embedding a widget URL via `/embed` takes under 2 minutes and requires no plugin install.
+- Native Notion formulas can calculate "days remaining" but won't tick down live in seconds/minutes.
+- Blocs' live countdown timer is a Pro-only widget, bundled with Calendar, Progress Bar, and Clock for a one-time $17 payment.
+
+## What is the easiest way to add a countdown timer to Notion?
+
+The easiest way is embedding a hosted countdown widget using Notion's native `/embed` command, which turns any widget URL into a live, interactive block on the page. This avoids formulas, databases, or third-party plugins, and works on desktop, mobile, and shared Notion pages alike.
+
+This is exactly how Blocs' widgets are designed to work: you grab a URL and drop it straight into your workspace. Here's what the live timer looks like embedded on a page:
+
+<WidgetEmbed src="/countdown" title="Blocs Countdown Timer" height="200px" maxWidth="500px" />
+
+## Can Notion build a countdown timer natively?
+
+Notion can show a static "days until" count using a formula property, but it cannot render a live, second-by-second countdown without an embed. Formulas recalculate only when the page refreshes, so they're fine for date tracking but not for real-time urgency displays like a launch clock or exam timer.
+
+If you just need "12 days left," a formula column referencing `dateBetween(prop("Target Date"), now(), "days")` works. If you want a visual, ticking countdown that updates while someone is viewing the page, you need an embedded widget instead.
+
+### How to embed the widget
+
+1. Open the Notion page where you want the timer.
+2. Type `/embed` and select the Embed block.
+3. Paste your widget URL (e.g., a configured [Blocs Countdown Timer](https://blocs.me/countdown-timer) link).
+4. Resize the block to fit your layout: full-width for a dashboard, small for a sidebar.
+
+Related setup guides, including [how to embed a Pomodoro timer](https://blocs.me/blog/how-to-embed-pomodoro-in-notion) and [how to embed a calculator](https://blocs.me/blog/how-to-embed-a-calculator-in-notion), follow the same embed-block pattern.
+
+## What can I customize on a Notion countdown timer?
+
+With Blocs Pro, you can set a custom target date and time, label the event (e.g., "Launch Day" or "Finals"), and adjust the color theme to match your workspace. Free formula-based countdowns, by contrast, only show plain numbers with no theming.
+
+- Custom end date/time down to the minute
+- Editable event label and theme color
+- No Blocs branding on Pro
+- Works alongside other Pro widgets like the [Calendar](https://blocs.me/calendar-widget) and [Progress Bar](https://blocs.me/progress-bar-widget) for a full project dashboard
+
+## Is the Notion countdown timer free or paid?
+
+Blocs' live countdown timer is a Pro-only widget, unlocked for a one-time $17 payment rather than a monthly subscription. The free Blocs tier covers the [Pomodoro Timer](https://blocs.me/pomodoro-timer), [Water Tracker](https://blocs.me/water-tracker-widget), and [Habit Tracker](https://blocs.me/habit-tracker-widget), but not the countdown.
+
+| Method | Live ticking | Customization | Cost |
+|---|---|---|---|
+| Notion formula column | No (static days count) | None | Free |
+| Blocs Countdown Timer | Yes | Date, label, theme | $17 one-time (Pro) |
+| Other embeddable widget sites | Varies | Often limited or ad-supported | Free or subscription |
+
+See the full breakdown of what's included on the [Blocs pricing page](https://blocs.me/pricing).
+
+## Frequently Asked Questions
+
+### Does Notion have a built-in timer?
+
+No. Notion has no native timer or countdown block as of October 2026. Any ticking timer on a Notion page is an embedded third-party widget using Notion's standard `/embed` command.
+
+### Is embedding a widget safe in Notion?
+
+Yes, as long as the widget is served over HTTPS and comes from a reputable provider. Notion embeds load the widget in a sandboxed iframe, so it can't access your workspace data or edit your pages.
+
+### Can I use multiple countdown timers on one page?
+
+Yes. You can embed as many widget blocks as you want on a single Notion page, each pointing to a different countdown URL for separate deadlines, exams, or launches.
+
+### Does the countdown update for everyone viewing the page?
+
+Yes, the countdown recalculates live for every viewer based on their local device time, since it's rendered by the widget itself rather than cached by Notion.
+
+### Do I need a Notion plugin to add a timer?
+
+No. Notion doesn't support traditional plugins; everything is done through native embed blocks. You don't install anything, you just paste a URL.
+
+## Try it in your workspace
+
+If you want a countdown that actually ticks, not just a static day count, grab the [Blocs Countdown Timer](https://blocs.me/countdown-timer) and drop it into your Notion page in under two minutes. It's part of the one-time $17 Pro unlock alongside the Calendar, Progress Bar, and Clock widgets, so you can build a full event dashboard without adding another subscription.
+
+[See what's included with Blocs Pro →](https://blocs.me/pricing)
