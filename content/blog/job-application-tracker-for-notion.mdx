@@ -1,0 +1,92 @@
+---
+title: "Job Application Tracker for Notion: Free Setup + Blocs Widgets (2026)"
+date: "2026-10-25"
+description: "Build a free job application tracker in Notion using a database plus Blocs' Habit Tracker, Progress Bar, and Calendar widgets. No app-switching required."
+---
+
+As of October 2026, Blocs does not yet offer one single widget called a "job application tracker" - but you can build a fully functional tracker today by pairing a simple Notion database with three existing [Blocs](https://blocs.me) widgets: the free Habit Tracker (daily application goals), the Pro Progress Bar (monthly application targets), and the Pro Calendar (interview dates). This combo works for active job seekers who want visual motivation without installing a separate job-tracking app, and it's free to start since the Habit Tracker requires no sign-up. The trade-off: you're assembling a system rather than using a single purpose-built tracker, so it takes 10-15 minutes to set up.
+
+## Key Takeaways
+
+- Habit Tracker and the underlying Notion database are both free - no credit card needed.
+- A one-time $17 [Blocs Pro](https://blocs.me/pricing) upgrade unlocks the Progress Bar and Calendar widgets used in this setup, plus unlimited habits and analytics.
+- A dedicated Blocs job application tracker widget is on the roadmap but not live yet - this guide is the best current workaround.
+
+## What is the best job application tracker for Notion?
+
+The best current setup combines a Notion database (to log company, role, status, and dates) with embedded Blocs widgets that visualize progress: a Habit Tracker for "applied today" streaks, a Progress Bar for monthly application quotas, and a Calendar for interview scheduling. This beats a plain database alone because it adds at-a-glance motivation without leaving Notion.
+
+### Why not just use a Notion database by itself?
+
+A database (table or board view) is the backbone of any tracker and works fine on its own for logging data. The problem is databases don't give you a quick visual signal of momentum - you have to open filters and sort views to see how you're doing. Widgets solve that by sitting at the top of the page as a persistent, glanceable summary.
+
+| Approach | Setup time | Cost | Visual motivation |
+|---|---|---|---|
+| Plain Notion database | 5 min | Free | Low (requires opening filtered views) |
+| Community Notion template | 2 min (duplicate) | Free - $20+ | Medium (static, rarely updates) |
+| Database + Blocs widgets | 10-15 min | Free, or $17 one-time for Pro widgets | High (live streaks, progress bar, calendar) |
+
+## How do you set up a job application tracker in Notion?
+
+Create a Notion database with columns for Company, Role, Status, Date Applied, and Interview Date, then embed three Blocs widgets above it: Habit Tracker for a daily "applied today" check-in, Progress Bar for a monthly goal, and Calendar for upcoming interviews. Each widget is a single iframe embed, so no plugins or integrations are required.
+
+### Step 1: Build the database
+
+- Add a new full-page database with a Board view grouped by Status (Applied, Interview, Offer, Rejected).
+- Columns: Company (title), Role (text), Status (select), Date Applied (date), Interview Date (date), Notes (text).
+
+### Step 2: Add the Habit Tracker for daily consistency
+
+Job searching stalls when there's no daily accountability. Set up a "Submit 1+ application" habit in the free Habit Tracker so you get a visible streak every day you apply - the same mechanism people use for [habit tracking in Notion](https://blocs.me/blog/best-habit-tracking-notion-widgets) generally.
+
+<WidgetEmbed src="/habit-tracker" title="Blocs Habit Tracker" />
+
+To embed it, go to any Notion page, type `/embed`, and paste:
+
+`https://blocs.me/habit-tracker`
+
+### Step 3: Add a Progress Bar for your monthly target
+
+Set a goal like "40 applications this month" and update the Progress Bar as you log new rows in your database. This is the same pattern used for [goal progress bars in Notion](https://blocs.me/blog/notion-progress-bar-widget) - it turns an abstract target into a visual fill you want to complete.
+
+<WidgetEmbed src="/progress-bar" title="Blocs Progress Bar" height="200px" maxWidth="500px" />
+
+### Step 4: Add the Calendar for interview dates
+
+Once applications convert to interviews, drop those dates into the Calendar widget so they're visible without opening the database. Pair this with a [countdown timer](https://blocs.me/blog/how-to-add-a-countdown-timer-to-notion) for your next interview if you want a literal clock ticking down.
+
+<WidgetEmbed src="/calendar" title="Blocs Calendar" height="420px" maxWidth="500px" />
+
+## Is there a free job application tracker for Notion?
+
+Yes - the Notion database itself is free, and Blocs' Habit Tracker (used for daily application streaks) is also free with no sign-up required. The Progress Bar and Calendar widgets used for monthly goals and interview scheduling are part of [Blocs Pro](https://blocs.me/pricing), a $17 one-time payment rather than a subscription.
+
+## Why doesn't Blocs have a dedicated job tracker widget yet?
+
+Blocs currently focuses on time, habit, and goal-visualization widgets (Pomodoro, Habit Tracker, Water Tracker, Progress Bar, Calendar, Countdown, Clock, Quote, Weather). A purpose-built job application tracker widget is on the roadmap but not released as of October 2026 - this guide's database-plus-widgets combo is the closest equivalent available today.
+
+## FAQs
+
+### Can I track interview stages visually in Notion?
+
+Yes - use a Board view grouped by Status (Applied, Phone Screen, Interview, Offer, Rejected) so cards move across stages as you update them, and add the Calendar widget on top to surface interview dates without opening the board.
+
+### How many job applications should I set as a monthly goal?
+
+There's no universal number since it depends on your field and how targeted your applications are, but many career coaches suggest setting a consistent weekly volume (e.g., 10-15 applications) rather than a single large monthly figure, so you keep a steady weekly application habit going.
+
+### Does this setup sync across devices?
+
+The Notion database syncs natively through your Notion account. Blocs widget data (habit streaks, progress bar values) syncs across devices only on the Pro plan; the free tier stores data locally to the browser/page.
+
+### Can I customize the colors of the Habit Tracker or Progress Bar to match my job search board?
+
+Yes, on Blocs Pro you can customize widget themes and colors so they match the rest of your Notion workspace, including the job tracker page.
+
+### What if I want reminders to apply every day?
+
+Blocs widgets don't send push notifications; the Habit Tracker's visual streak is the accountability mechanism. For reminders, pair it with Notion's own reminder feature on a linked task.
+
+## Try it in your own workspace
+
+Set up the free Habit Tracker first to build your daily application streak, then decide if the Progress Bar and Calendar are worth the one-time $17 upgrade for your job search. [Try the free Habit Tracker](https://blocs.me/habit-tracker-widget) or [explore all Blocs widgets](https://blocs.me/pricing).
