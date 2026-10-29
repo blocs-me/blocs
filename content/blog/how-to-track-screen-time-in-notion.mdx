@@ -1,0 +1,115 @@
+---
+title: "How to Track Your Screen Time in Notion (2026 Guide)"
+date: "2026-10-29"
+description: "Track screen time in Notion free with a manual log, your phone's Screen Time data, or a daily habit widget. Step-by-step setup, no extra app needed."
+---
+
+The fastest way to track screen time in Notion is to pull the daily total from your phone's built-in Screen Time (iOS) or Digital Wellbeing (Android) report and log it as a daily habit check-in inside a Notion widget, rather than building a database from scratch. This works for anyone who wants a visual, low-effort log without installing a separate tracking app.
+
+- **Who it's for:** People who already check their phone's built-in screen time report and want that number visible next to their other daily habits in Notion.
+- **Trade-off:** Notion has no native API hook into your phone's OS-level screen time data, so some manual entry (or a 1-tap habit check-in) is unavoidable.
+- **Data point:** A free [Blocs Habit Tracker](https://blocs.me/habit-tracker-widget) embed lets you log a "stayed under X hours" habit in one tap, with unlimited habits and streak analytics on Blocs Pro ($17 one-time).
+- **Data point:** Average global screen time hovers around 6-7 hours per day across mobile and desktop according to industry benchmarking from [data.ai's State of Mobile report](https://www.data.ai/en/go/state-of-mobile-2024), which is the kind of baseline most people compare their own Notion log against.
+
+## Key Takeaways
+
+- Notion can't read your phone's screen time data automatically; you log it manually or treat it as a daily habit.
+- A simple Notion database (date, hours, app breakdown, notes) works for anyone who wants raw data and charts.
+- A habit-style widget is faster for daily use: check a box for "under 2 hours" instead of typing numbers every night.
+- Advanced users can automate data entry with Notion's API and a tool like Zapier or Make, pulling exports from screen time apps.
+- Blocs' free Habit Tracker covers one screen time habit at no cost; Pro ($17 one-time) unlocks unlimited habits and weekly/monthly analytics.
+
+## How do I track screen time in Notion?
+
+Check your phone's built-in screen time total (Settings > Screen Time on iOS, or Settings > Digital Wellbeing on Android), then log that number into Notion once a day, either in a database row or by checking off a "screen time goal met" habit in an embedded widget. There's no native sync between your phone's OS and Notion, so the entry step is manual either way.
+
+Most people pick one of three setups depending on how much detail they want:
+
+- **Manual database:** A table with Date, Total Hours, Top App, and Notes properties. Best if you want to analyze trends later.
+- **Daily habit check-in:** A single yes/no habit like "Under 2 hours today?" tracked in a widget. Best for quick daily accountability.
+- **API automation:** Pulling exported screen time data into Notion via the [Notion API](https://developers.notion.com) and a no-code automation tool. Best for people comfortable setting up integrations.
+
+## How do I build a manual screen time database?
+
+Create a new Notion database with four properties: Date, Hours, Top App, and Notes. Add one row per day, type in the total from your phone's screen time report, and use a bar chart view (via a Notion chart embed or a simple linked gallery) to spot patterns over a week or month.
+
+1. Create a new full-page database and name it "Screen Time Log."
+2. Add properties: Date (date), Hours (number), Top App (text), Notes (text).
+3. Each evening, open your phone's Screen Time or Digital Wellbeing report and copy the total into a new row.
+4. Switch to a timeline or board view grouped by week to see trends.
+
+This method gives you the most detail, but it's slower than a one-tap habit check, and it's easy to abandon after a week or two if the manual entry feels like a chore. If you've already set up habit tracking for other routines, our guide on [how to track daily habits in Notion](https://blocs.me/blog/how-to-track-daily-habits-in-notion) covers the same database pattern in more depth.
+
+## Can I track screen time as a habit instead of a database?
+
+Yes. Instead of logging exact hours, set a daily goal (for example, "under 2 hours of social media") and check it off in a habit-tracker widget embedded directly in your Notion page. This turns screen time into a pass/fail habit, which takes seconds per day instead of typing numbers.
+
+Embed a free Blocs Habit Tracker directly on your Notion dashboard page and add "Screen Time Goal" as one of your habits:
+
+<WidgetEmbed src="/habit-tracker" title="Blocs Habit Tracker" />
+
+Paste the widget URL into Notion using `/embed`, and it displays like any other block, no plugin or separate app required. This is the same approach covered in our [Notion habit tracker widget](https://blocs.me/blog/notion-habit-tracker-widget) guide and our roundup of [best free Notion habit tracker widgets](https://blocs.me/blog/best-free-notion-habit-tracker-widgets).
+
+## Can I automate screen time data into Notion?
+
+You can automate screen time logging by exporting data from apps like RescueTime or Toggl Track and routing it into a Notion database through the [Notion API](https://developers.notion.com) and a no-code tool such as Zapier or Make. This removes manual typing but requires setting up an integration and an API key.
+
+At a high level: connect your screen time source to Zapier or Make, map the daily total to a Notion database property, and schedule the automation to run once a day. This is the most "hands-off" option, but it adds setup time and a dependency on a third-party tracking app, which is why most casual users stick with manual entry or a habit widget instead.
+
+## Which method should I actually use?
+
+For most people, a habit widget is the best balance of effort and consistency; a manual database is better if you want detailed analysis; automation is only worth it if you're already using a dedicated screen time app and want zero daily typing.
+
+| Method | Setup effort | Daily effort | Best for |
+|---|---|---|---|
+| Manual database | Low | Medium (type numbers) | Detailed weekly/monthly analysis |
+| Habit widget | Low | Low (one tap) | Daily accountability, building a streak |
+| API automation | High | None | Users already on RescueTime/Toggl who want zero manual entry |
+
+## What's free vs. Pro for habit-based screen time tracking?
+
+The free Blocs Habit Tracker lets you track one habit (like a screen time goal) at no cost, with no sign-up required. Blocs Pro, a $17 one-time payment (not a subscription), unlocks unlimited habits, streak history, weekly/monthly analytics, and theme customization.
+
+| Feature | Free | Pro ($17 one-time) |
+|---|---|---|
+| Habits tracked | 1 | Unlimited |
+| Daily check-ins | Yes | Yes |
+| Weekly/monthly analytics | No | Yes |
+| Theme customization | No | Yes |
+| Cloud sync across devices | No | Yes |
+
+If you want a deeper comparison of aesthetic options beyond the default style, see our [best aesthetic Notion habit tracker widgets](https://blocs.me/blog/best-aesthetic-habit-tracker-notion-widgets) roundup, or our dedicated piece on a [screen time tracker for Notion](https://blocs.me/blog/screen-time-tracker-for-notion).
+
+## FAQs
+
+### Does Notion have a built-in screen time tracker?
+
+No. Notion has no native screen time feature or OS-level integration. You either build a manual database, embed a habit-tracking widget, or connect a third-party app through the Notion API.
+
+### Can I pull iPhone Screen Time into Notion automatically?
+
+Not directly. Apple doesn't expose a public Screen Time API, so there's no official automatic sync. Most people copy the daily total from Settings > Screen Time by hand, or use a workaround through a separate tracking app that does offer an export.
+
+### What's the fastest way to log screen time daily?
+
+A habit-tracker widget embedded in Notion is fastest: set a goal like "under 2 hours" and tap a checkbox once a day, instead of typing exact numbers into a database row.
+
+### Is there a free way to track screen time in Notion?
+
+Yes. The [Blocs Habit Tracker](https://blocs.me/habit-tracker-widget) is free for one habit with no sign-up, which covers a single daily screen time goal at no cost.
+
+### How do I see screen time trends over time?
+
+Use a manual database with a Date and Hours property, then switch to a timeline or chart view grouped by week. For streak-based trends instead of raw hours, Blocs Pro adds weekly and monthly analytics on top of the habit widget.
+
+### Can I track multiple digital wellbeing goals at once?
+
+Yes, but the free Habit Tracker only supports one habit at a time. Blocs Pro ($17 one-time) removes that limit so you can track screen time alongside other goals like sleep, water intake, or reading.
+
+## Ready to start tracking?
+
+Embed the free Habit Tracker on your Notion dashboard and set your first screen time goal today, no account required to try it.
+
+[Try the free Habit Tracker →](https://blocs.me/habit-tracker-widget)
+
+Want unlimited habits and analytics across devices? Check [Blocs Pro pricing](https://blocs.me/pricing) for the one-time $17 upgrade.
