@@ -1,0 +1,99 @@
+---
+title: "Net Worth Tracker for Notion: Free Setup Guide (2026)"
+date: "2026-10-30"
+description: "Track your net worth in Notion for free with a simple assets-minus-liabilities database, then visualize progress toward your goal with Blocs' Progress Bar widget."
+---
+
+The fastest way to track net worth in Notion is a two-property database (Assets, Liabilities) with a formula that subtracts one from the other, paired with a visual progress widget toward your target number. [Blocs](https://blocs.me)' free Progress Bar widget handles the visualization piece, embeds directly in your Notion page, and a dedicated net worth tracker widget is in development.
+
+- Blocs offers 3 widgets free with no sign-up: Pomodoro Timer, Water Tracker, and Habit Tracker.
+- Blocs Pro unlocks the Progress Bar, Countdown Timer, Calendar, Clock, Quote, and Weather widgets for a single $17 one-time payment (not a subscription).
+- A minimum-viable net worth database in Notion needs only two formula properties: total assets and total liabilities.
+
+## Key Takeaways
+
+- You can build a working net worth tracker in Notion in under 10 minutes using a database and a subtraction formula.
+- Notion has no native progress-bar visualization for financial goals, so most people either leave numbers as raw text or embed a widget.
+- Blocs' [Progress Bar widget](https://blocs.me/progress-bar-widget) can visualize progress toward any numeric goal, including a net worth target, inside Notion.
+- A dedicated, finance-specific net worth tracker widget isn't live yet on Blocs, but it's on the roadmap.
+- Pairing a monthly "update net worth" habit in the [Habit Tracker widget](https://blocs.me/habit-tracker-widget) keeps the database from going stale.
+
+## What is a net worth tracker for Notion?
+
+A net worth tracker for Notion is a database or widget that calculates your total assets minus total liabilities and displays the result, usually alongside a trend or goal visual. In Notion specifically, this is typically built as a database with rollup or formula properties, since Notion has no built-in net worth feature.
+
+Most setups fall into three categories: a manual database with formulas, a duplicated community template, or a database combined with an embedded visual widget for the goal-tracking piece. The database method works fine for calculation, but Notion's native progress bars are limited to percentage-of-total within a single property, which makes it awkward to show "progress toward $100K" as a clean visual without extra formula gymnastics.
+
+## How do you track net worth in Notion?
+
+Create a database with an Assets property, a Liabilities property, and a formula property that subtracts Liabilities from Assets. Add a Date property for monthly snapshots so you can chart the trend over time using Notion's built-in chart view.
+
+### Step 1: Build the database
+
+Set up columns for individual asset accounts (checking, savings, investments) and liability accounts (credit cards, loans). Use number properties formatted as currency.
+
+### Step 2: Add the net worth formula
+
+Create a formula property: `prop("Total Assets") - prop("Total Liabilities")`. If you're tracking individual accounts in rows rather than columns, use a rollup to sum assets and a separate rollup to sum liabilities, then subtract.
+
+### Step 3: Snapshot monthly
+
+Add a new row (or update values) each month with the date. Switch to a chart view grouped by date to see your net worth trend line over time, similar to the approach described in our guide on [how to track progress in Notion](https://blocs.me/blog/how-to-track-progress-in-notion).
+
+## How can you visualize net worth progress in Notion?
+
+Notion's native progress bars only show percentage-complete within a single number property, not progress toward an external goal like a dollar figure. An embedded progress widget solves this by letting you set a custom goal and current value, then rendering a visual bar directly in your page.
+
+Here's how that looks using Blocs' Progress Bar widget, set to a sample net worth goal:
+
+<WidgetEmbed src="/progress-bar" title="Blocs Progress Bar Widget" height="150px" maxWidth="500px" />
+
+You set the target number (say, $100,000) and the current value (pulled manually from your database for now), and the bar fills in accordingly. It's not pulling data live from your net worth formula yet, but it gives you a clean visual anchor for the goal that a plain database can't.
+
+## Is there a dedicated net worth tracker widget for Notion?
+
+Not yet as a purpose-built, single-click widget. Blocs is actively developing a dedicated net worth tracker widget with asset/liability inputs and automatic trend charts, but in the meantime the Progress Bar widget covers the visual goal-tracking piece while your database handles the math.
+
+If you want a reminder system so the database doesn't go stale, pair it with a recurring habit. See our breakdown of the best setups in [best goal-tracking Notion widgets](https://blocs.me/blog/best-goal-tracking-notion-widgets) and [best habit-tracking Notion widgets](https://blocs.me/blog/best-habit-tracking-notion-widgets) for ideas on building that habit loop around your financial check-ins.
+
+## What's free vs. Pro for net worth tracking with Blocs?
+
+The database and formula setup in Notion is free regardless of which tools you use. Blocs' Habit Tracker (for your monthly check-in reminder) is free with no sign-up, while the Progress Bar widget used for visualizing your net worth goal requires Blocs Pro.
+
+| Feature | Free | Blocs Pro ($17 one-time) |
+|---|---|---|
+| Notion database + formula | Yes (built natively in Notion) | Yes |
+| Monthly check-in habit reminder | Yes (Habit Tracker widget) | Unlimited habits + streak analytics |
+| Visual progress bar toward goal | No | Yes (Progress Bar widget) |
+| Theme customization / no branding | No | Yes |
+| Cloud sync across devices | No | Yes |
+
+Full details are on the [pricing page](https://blocs.me/pricing) — it's a single $17 payment, not a recurring subscription.
+
+## FAQs
+
+### Does Notion have a built-in net worth tracker?
+
+No. Notion has no native financial tracking feature. You have to build a database manually using number and formula properties, or duplicate a community template that already includes this setup.
+
+### Can I automatically sync bank balances into my Notion net worth tracker?
+
+Not natively. Notion doesn't support direct bank API connections, so most people update asset and liability numbers manually each month, or use a third-party integration tool like Zapier or Make to push data from a spreadsheet.
+
+### What's the simplest net worth formula in Notion?
+
+Subtract total liabilities from total assets: `prop("Assets") - prop("Liabilities")`. Add individual account rows and a rollup if you want a category-level breakdown instead of two flat numbers.
+
+### Is there a free net worth tracker widget for Notion?
+
+Not a dedicated one yet. Blocs offers a free Habit Tracker you can use for a monthly net-worth update reminder, and the Progress Bar for visualizing your goal is part of Blocs Pro ($17 one-time).
+
+### How often should I update my net worth tracker?
+
+Monthly is the common cadence, since most account balances and statements update on that cycle. Weekly updates are usually unnecessary noise for a net worth figure, unlike daily habit or water tracking.
+
+### Will Blocs release a dedicated net worth tracker widget?
+
+It's in development. Until it launches, combining a Notion database (for the math) with the Progress Bar widget (for the goal visual) is the closest free-to-low-cost setup available.
+
+Want to see the visual piece in your own Notion page? [Try the Progress Bar widget](https://blocs.me/progress-bar-widget) toward your own net worth goal, or [explore all Blocs widgets](https://blocs.me/pricing) for $17 one-time.
