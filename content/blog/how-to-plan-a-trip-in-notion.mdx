@@ -1,0 +1,103 @@
+---
+title: "How to Plan a Trip in Notion: Step-by-Step Guide (2026)"
+date: "2026-11-03"
+description: "Plan a trip in Notion using a database for your itinerary, a packing checklist, and free embeddable widgets for countdowns and calendars. Full 2026 setup guide."
+---
+
+The fastest way to plan a trip in Notion is to build one page with three parts: a database for your itinerary (dates, locations, bookings), a checklist for packing and to-dos, and a visual widget like a [countdown timer](https://blocs.me/countdown-timer) or [calendar](https://blocs.me/calendar-widget) so you can see how much time is left before departure at a glance. This setup works for solo trips, group trips, and even multi-city itineraries, and it's free to start.
+
+## Key Takeaways
+
+- A Notion trip planner needs three core blocks: an itinerary database, a packing/task checklist, and a budget tracker.
+- Use relation and rollup properties to link flights, hotels, and activities to specific days.
+- Embed a free countdown widget or calendar widget directly in your page so the trip timeline is visible without opening another database view.
+- Notion's native database views (Gallery, Timeline, Board) each solve a different trip-planning problem: Timeline for day-by-day flow, Gallery for visual inspiration boards, Board for booking status.
+- Blocs widgets embed as iframes, so they update in real time and need no plugin installation.
+
+## What is the best way to plan a trip in Notion?
+
+The best way to plan a trip in Notion is to create a single dashboard page that houses a linked database for your day-by-day itinerary, a toggle list for packing and pre-trip tasks, and an embedded widget showing the countdown to departure. This keeps flights, bookings, budget, and timeline in one place instead of scattered across apps, notes, and screenshots.
+
+Notion's flexibility is exactly why travelers use it: a trip touches dozens of small decisions (visas, bookings, packing, budget) that are easy to lose track of in email threads. For an existing structure to build from, our [travel itinerary widget for Notion](https://blocs.me/blog/travel-itinerary-widget-for-notion) post walks through a ready-made itinerary layout you can duplicate and adapt.
+
+## How do you set up a trip planner database in Notion?
+
+Set up a trip planner database by creating a new table with columns for Date, Time, Activity, Location, Cost, and Status (Booked/Pending). Switch the default view to Timeline to see the trip laid out chronologically, then add a Calendar view as a second tab for a month-at-a-glance check of travel dates.
+
+### Step-by-step setup
+
+- **Create the database.** Add a new "Table" block and name it "Itinerary."
+- **Add properties.** Date, Time, Location, Category (Flight/Hotel/Activity/Food), Cost, and a checkbox for "Booked."
+- **Add a Timeline view** so each day's plan reads left to right.
+- **Add a Board view** grouped by Category to quickly see all flights vs. all activities.
+- **Link a budget rollup** that sums the Cost column so your total spend updates automatically as you add rows.
+
+## How do you see how much time is left before a trip in Notion?
+
+Notion has no native countdown feature, so the standard workaround is a formula property that subtracts today's date from the trip date, or an embedded countdown widget placed at the top of the trip page. The widget approach is more visual and updates live without needing to reopen a formula column.
+
+Here's what a live countdown looks like embedded directly in a trip-planning page using [Blocs](https://blocs.me)' free countdown widget:
+
+<WidgetEmbed src="/countdown" title="Blocs Countdown Timer" height="200px" maxWidth="500px" />
+
+Because it's an iframe embed, it keeps counting down in real time every time you open the page, which is useful if you're sharing the trip page with travel companions who want to check "how many days left" without digging through the database. For a dedicated breakdown, see our [guide to adding a countdown timer to Notion](https://blocs.me/blog/how-to-add-a-countdown-timer-to-notion).
+
+## How do you track trip dates on a calendar in Notion?
+
+Track trip dates on a calendar in Notion by switching your itinerary database to Calendar view, or by embedding a standalone calendar widget on your trip dashboard so flight dates, check-in/check-out days, and activity days are visually marked without needing to click into the database.
+
+<WidgetEmbed src="/calendar" title="Blocs Calendar Widget" height="420px" maxWidth="420px" />
+
+This is particularly useful for multi-city trips where overlapping bookings (a flight landing the same day a hotel reservation starts) are easy to miss in a plain list view. More setup detail is in our [Notion calendar widget guide](https://blocs.me/blog/notion-calendar-widget).
+
+## How do you build a packing list and budget tracker for a trip in Notion?
+
+Build a packing list with a simple checklist database grouped by category (Clothes, Electronics, Documents, Toiletries), and track budget with a database that has a Cost column and a rollup property summing totals against a fixed trip budget figure.
+
+- **Packing list:** Checkbox database, grouped by category, with a "Packed" toggle.
+- **Budget tracker:** Table with Expense, Category, Cost, and Currency columns, summed with a rollup at the bottom.
+- **Shared view:** If traveling with others, share the page and use a "Paid by" property so costs can be split later.
+
+## Free vs. Pro: what do you actually need?
+
+For most solo trip planning, Notion's native databases plus Blocs' free widgets are enough. Pro is worth it mainly for custom countdown durations, themed widgets that match your travel dashboard aesthetic, and cross-device sync if you're planning from both a laptop and phone.
+
+| Need | Free tier | Blocs Pro ($17 one-time) |
+|---|---|---|
+| Countdown to departure | Default countdown style | Custom dates, flip-clock style, theme matching |
+| Calendar for trip dates | Not included in free tier | Full calendar widget with date markers |
+| Habit/packing reminders | [Basic habit tracker](https://blocs.me/habit-tracker-widget) included | Unlimited habits, streak analytics |
+| Cross-device sync | Not included | Included |
+| Branding | Blocs branding shown | No branding |
+
+Blocs Pro is a **one-time $17 payment**, not a subscription, so a single purchase covers every future trip you plan. See [pricing](https://blocs.me/pricing) for full details.
+
+## FAQs
+
+### Can I use a free Notion trip planner template?
+
+Yes. You can duplicate a free community template or build your own database from scratch using Date, Location, and Cost properties; Notion itself doesn't charge for database creation, so the planner structure is free regardless of which route you take.
+
+### Does Notion have a built-in countdown for trips?
+
+No, Notion doesn't have a native countdown block. The common workarounds are a date-difference formula property or an embedded countdown widget like the one shown above, which displays live without needing to recalculate a formula manually.
+
+### Can multiple people edit the same trip plan in Notion?
+
+Yes. Notion supports shared pages and real-time collaborative editing, so travel companions can add their own flights, expenses, or packing items to the same database simultaneously.
+
+### What's the easiest view for a multi-city itinerary?
+
+Timeline view is generally easiest for multi-city trips because it lays out each leg chronologically along a horizontal bar, making overlapping dates or gaps between cities immediately visible.
+
+### Do I need to install anything to add widgets to my trip page?
+
+No. Blocs widgets are embedded via a simple iframe link pasted into a Notion embed block, so there's no plugin or app installation required.
+
+### Is Blocs Pro a subscription?
+
+No. Blocs Pro is a one-time $17 payment that unlocks lifetime access to all widgets, including the countdown timer and calendar, with no recurring charges.
+
+## Get started
+
+If you already have a Notion trip page, the quickest addition is a countdown or calendar widget. Both are free to try. [Try the countdown timer](https://blocs.me/countdown-timer) or [explore the calendar widget](https://blocs.me/calendar-widget) and paste the embed link straight into your trip dashboard.
