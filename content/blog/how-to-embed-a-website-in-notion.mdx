@@ -1,0 +1,95 @@
+---
+title: "How to Embed a Website in Notion (2026 Step-by-Step Guide)"
+date: "2026-11-08"
+description: "Learn how to embed a website in Notion in 3 steps using the /embed command. Includes fixes for blocked embeds and free widget examples you can add today."
+---
+
+To embed a website in Notion, type `/embed` on any page, paste the site's URL, and press enter – Notion wraps it in an iframe block automatically. This works for most sites, but some (like Google Docs or banking portals) block embedding via a security header called X-Frame-Options, so you'll see a blank box instead. The fix is usually to find a dedicated embed-friendly URL or use a tool built for Notion embedding, like [Blocs](https://blocs.me), which offers free widgets (Pomodoro timer, habit tracker, water tracker) designed specifically to render inside Notion's embed block.
+
+- **Setup time:** under 30 seconds for a working embed
+- **Success rate:** works on the majority of modern websites; sites with strict framing policies (banking, Google Workspace apps) will fail
+- **Free option:** Notion's native embed block costs nothing and requires no plugins
+
+## What does it mean to embed a website in Notion?
+
+Embedding a website in Notion means placing a live, interactive version of that page inside an iframe block on your Notion page, rather than just a static link or screenshot. The embedded content updates in real time and you can scroll, click, or interact with it without leaving Notion. Notion uses the standard HTML `<iframe />` element under the hood ([WHATWG HTML spec](https://html.spec.whatwg.org/multipage/iframe-embed-object.html)), the same technology browsers use to show embedded YouTube videos or maps on any webpage.
+
+## How do I embed a website in Notion?
+
+Open the Notion page where you want the embed, type `/embed`, paste the full URL (including https://), and press Enter. Notion fetches the page and displays it in a resizable iframe block directly on the page.
+
+### Step 1: Open the slash command menu
+
+Click into any block on your Notion page and type `/embed`. Notion's command menu will show "Embed" as an option – select it.
+
+### Step 2: Paste the website URL
+
+Paste the full link (make sure it starts with `http://` or `https://`) into the input box and hit "Embed link." According to [Notion's official help documentation](https://www.notion.so/help/embed-and-connect-other-apps), the platform supports generic embeds for any URL, plus enhanced embeds for 1,800+ specific apps and tools.
+
+### Step 3: Resize and position the block
+
+Once embedded, drag the handles on the corners or edges of the block to resize it. You can also drag the block up or down, or next to other content, just like any other Notion block.
+
+## Why isn't my embed showing up?
+
+If your embed shows a blank or broken box, the source website is almost certainly blocking iframes using the `X-Frame-Options` or `Content-Security-Policy` HTTP header. This is a deliberate security measure many sites (especially login-gated apps) use to prevent their pages from being displayed inside another site's frame ([MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options)).
+
+Common sites that block embedding this way include Google Docs, most banking dashboards, and many SaaS admin panels. There's no workaround on your end for these – the fix has to happen on the source site. This is exactly why purpose-built embeddable tools exist: products designed for Notion embedding (widgets, trackers, timers) are built without these restrictions so they always render correctly.
+
+## What's the difference between an embed block and a bookmark block?
+
+An embed block renders the live, interactive page inside an iframe, while a bookmark block just shows a static preview card (title, thumbnail, and URL) that links out to the original site. Use embeds when you want live, interactive content directly on the page; use bookmarks when you just want a clickable reference.
+
+| Block Type | Interactive? | Updates Live? | Best For |
+|---|---|---|---|
+| Embed | Yes | Yes | Widgets, dashboards, calculators |
+| Bookmark | No | No | Reference links, articles |
+| Link preview | No | Partial | Quick link context |
+
+## What are the best websites to embed in Notion for productivity?
+
+The best embeddable sites for productivity are ones purpose-built to live inside Notion, such as timers, trackers, and widgets, because they're designed to render correctly every time and don't require logins that trigger iframe blocking. [Blocs](https://blocs.me) offers a free set of these: a [Pomodoro timer](https://blocs.me/pomodoro-timer), a [water tracker](https://blocs.me/water-tracker-widget), and a [habit tracker](https://blocs.me/habit-tracker-widget) – all embeddable with no sign-up.
+
+Here's what the water tracker looks like once embedded:
+
+<WidgetEmbed src="/water-tracker" title="Blocs Water Tracker" />
+
+Setup is the same three-step process described above: type `/embed`, paste the widget's URL (e.g., `blocs.me/water-tracker`), and resize. For more ideas on what to track this way, see our guide on [how to add a habit tracker to Notion](https://blocs.me/blog/how-to-add-habit-tracker-to-notion).
+
+## Free vs. Pro: what do you get with Blocs widgets?
+
+Blocs' Pomodoro timer, water tracker, and habit tracker are free to embed with default settings and no account required. Upgrading to Blocs Pro ($17 one-time, not a subscription) unlocks custom durations and goals, unlimited habits, analytics with streaks, theme customization, no branding, and Pro-only widgets like the [countdown timer](https://blocs.me/countdown-timer), [calendar](https://blocs.me/calendar-widget), and [clock](https://blocs.me/clock-widget).
+
+| Feature | Free | Pro ($17 one-time) |
+|---|---|---|
+| Pomodoro / Water / Habit Tracker | Yes (default settings) | Yes (fully customizable) |
+| Custom durations & goals | No | Yes |
+| Analytics & streaks | No | Yes |
+| Countdown, Calendar, Clock, Weather, Quote widgets | No | Yes |
+| Branding removed | No | Yes |
+
+## FAQs
+
+### Can you embed any website in Notion?
+
+No. Most websites can be embedded, but any site that sets an X-Frame-Options or frame-ancestors header to block iframing – common for login-protected apps like Google Docs or banking sites – will fail to display inside Notion's embed block.
+
+### Is embedding a website in Notion free?
+
+Yes, Notion's native `/embed` command is a free feature available on every plan, including the free tier. Third-party widgets you embed may have their own free or paid tiers, like Blocs, which offers three widgets free with no sign-up.
+
+### Why does my embedded widget look cut off?
+
+Drag the resize handles on the corners of the embed block to expand its height and width. Most widgets, including Blocs', are built to scale responsively once resized.
+
+### Does embedding slow down my Notion page?
+
+Embeds load as iframes, so each one adds a small load request when the page opens. A handful of embeds (2-5) on a single page typically won't cause noticeable slowdown, but dozens on one page can.
+
+### Can I embed a website on Notion mobile?
+
+Yes, embeds display on Notion's iOS and Android apps, though some sites render differently on mobile viewports than on desktop.
+
+## Try it yourself
+
+Pick a widget, copy its URL, and paste it into a Notion `/embed` block to see it live in under a minute. Browse [all Blocs widgets and pricing](https://blocs.me/pricing) or start with the free [Pomodoro timer](https://blocs.me/pomodoro-timer).
