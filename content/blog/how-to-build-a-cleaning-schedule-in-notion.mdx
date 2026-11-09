@@ -1,0 +1,84 @@
+---
+title: "How to Build a Cleaning Schedule in Notion (2026 Guide)"
+date: "2026-11-09"
+description: "Build a free cleaning schedule in Notion using a database, recurring views, and an embeddable habit tracker widget. No templates to buy, no app switching."
+---
+
+The fastest way to build a cleaning schedule in Notion is to create a database with a "frequency" property (daily, weekly, monthly), filter it into separate views for each room or task type, and embed a free habit tracker widget next to it so you can actually check off whether the cleaning happened. This works for solo users, roommates, and families, and takes under 15 minutes to set up. As of November 2026, Notion still has no native recurring-task feature, which is the main limitation you need to work around.
+
+- Notion databases don't support true recurring tasks, so most cleaning schedules rely on a "frequency" property plus filtered views instead of auto-generating new rows.
+- A simple database + 3-4 filtered views (Daily, Weekly, Monthly, By Room) covers most households without needing a paid template.
+- Pairing the schedule with a [habit tracker widget](https://blocs.me/habit-tracker-widget) adds visual streaks, which drives more consistent follow-through than a checkbox list alone.
+
+## What is the easiest way to build a cleaning schedule in Notion?
+
+The easiest method is a single database table with columns for Task, Room, Frequency, and Last Completed, then four saved views that filter by frequency. This avoids building a complex recurring-task automation and gives you a schedule you can scan in seconds, whether you're checking "what's due today" or "what needs doing this month."
+
+### 1. Create the cleaning tasks database
+
+Add a new full-page database and create these properties: **Task** (title), **Room** (select: Kitchen, Bathroom, Bedroom, Living Room), **Frequency** (select: Daily, Weekly, Biweekly, Monthly), and **Last Done** (date). List out every recurring chore you actually do, from "wipe counters" to "deep clean fridge."
+
+### 2. Build filtered views for each frequency
+
+Duplicate the default view three times and filter each by Frequency equals Daily, Weekly, or Monthly. This turns one messy list into a clear rotation: open the Daily view every morning, the Weekly view once a week, and so on. You can further group by Room if multiple people split chores.
+
+### 3. Add a "status" or checkbox property
+
+A checkbox column (Done This Period) lets you tick off tasks as you go. Because Notion won't automatically reset checkboxes on a schedule, most people either uncheck manually at the start of each period or use a button/automation to reset the weekly view.
+
+### 4. Track consistency with a visual widget
+
+A checklist tells you what to clean, but it doesn't show you whether you're actually sticking to the schedule over time. That's the gap a habit tracker widget fills, it gives you a visual streak so skipped weeks are obvious at a glance instead of buried in a database.
+
+## How do you track whether cleaning actually happened?
+
+You track it by embedding a habit tracker widget directly below your cleaning database so each chore (or chore category) gets its own streak row. Blocs offers a free, no-signup habit tracker widget built specifically for this: you embed one URL in Notion and mark chores complete without opening a separate app.
+
+<WidgetEmbed src="/habit-tracker" title="Blocs Habit Tracker" />
+
+To add it: open any Notion page, type `/embed`, paste `https://blocs.me/habit-tracker`, and resize the block. It runs live inside your Notion page, right next to your cleaning database. For step-by-step setup details, see our guide on [how to add a habit tracker to Notion](https://blocs.me/blog/how-to-add-habit-tracker-to-notion).
+
+## Free vs. Pro: what's the difference for a cleaning schedule?
+
+The free habit tracker covers basic daily/weekly chore tracking with default settings and no sign-up. Blocs Pro ($17 one-time, not a subscription) unlocks unlimited habits, custom goals, streak analytics, and theme matching, useful once your cleaning schedule grows past a handful of chores or multiple people are using it.
+
+| Feature | Free | Pro ($17 one-time) |
+|---|---|---|
+| Habit tracker widget | Yes (default settings) | Yes (fully customizable) |
+| Number of chores/habits tracked | Limited | Unlimited |
+| Weekly/monthly streak analytics | No | Yes |
+| Theme/color customization | No | Yes |
+| Visual calendar view of chore history | No | Yes ([Calendar widget](https://blocs.me/calendar-widget)) |
+| Remove Blocs branding | No | Yes |
+
+If you want a full month-at-a-glance view of which days chores were completed, the Pro [Calendar widget](https://blocs.me/calendar-widget) adds date markers on top of your habit streaks, useful for spotting patterns like "bathroom cleaning always slips on weekends." See full pricing at [blocs.me/pricing](https://blocs.me/pricing).
+
+## Should you add a timer for cleaning sessions?
+
+Yes, a short timer helps for time-boxed cleaning sprints like "15 minutes on the kitchen." A [Pomodoro timer widget](https://blocs.me/blog/notion-pomodoro-timer-widget) embedded next to your cleaning database works well for this, since it's designed for fixed-length focus bursts rather than open-ended tasks. It's free and requires no sign-up, same as the habit tracker.
+
+## FAQs
+
+### Does Notion have a built-in cleaning schedule template?
+
+No. Notion has no native recurring-task or cleaning-schedule feature. You either build a database with frequency filters manually, use a third-party Notion template, or pair a database with an embeddable tracking widget like the ones from [Blocs](https://blocs.me).
+
+### Can I share the cleaning schedule with roommates or family?
+
+Yes. If the Notion page is shared with edit access, anyone can check off tasks in the database and interact with embedded widgets. Each person's updates sync in real time since the widget and database live on the same shared page.
+
+### Do I need to pay for a cleaning schedule in Notion?
+
+No. The database structure is entirely free, and Blocs' basic habit tracker, water tracker, and Pomodoro timer are also free with no sign-up required. Pro features ($17 one-time) are only needed if you want unlimited chores, analytics, or a visual calendar.
+
+### How do I reset checkboxes for a new week automatically?
+
+Notion doesn't auto-reset checkboxes on its own. Some users build a button automation that unchecks all "Done" boxes in a view on a set day; otherwise, a visual habit tracker widget is often simpler since it logs each day's completion separately instead of relying on a single reusable checkbox.
+
+### What's the difference between a cleaning schedule and a habit tracker?
+
+A cleaning schedule tells you what to do and how often; a habit tracker records whether you actually did it over time. Using both together, a database for the task list and a widget for the streak, gives you planning and accountability in one page.
+
+## Try it in your workspace
+
+Set up your cleaning database, then drop in a free Blocs widget to see which chores you're actually keeping up with. [Try the free habit tracker](https://blocs.me/habit-tracker-widget) or [explore all Blocs widgets](https://blocs.me/pricing) to add calendar and analytics features later.
