@@ -1,0 +1,92 @@
+---
+title: "How to Embed a YouTube Video in Notion (2026 Guide)"
+date: "2026-11-10"
+description: "Embed a YouTube video in Notion in under 30 seconds by pasting the link or using /video. Free, no plugins needed. Steps, fixes, and pro tips inside."
+---
+
+The fastest way to embed a YouTube video in Notion is to paste the video's URL directly into any page and select "Embed" when the link preview pops up. This works on desktop and mobile, costs nothing, and takes under 30 seconds. It's built for anyone using Notion for study notes, content planning, or a personal dashboard. The only catch: private or age-restricted videos sometimes won't preview and need the dedicated `/video` block instead.
+
+## Key Takeaways
+
+- Pasting a YouTube URL into Notion triggers an automatic embed prompt (no plugin required).
+- The `/video` slash command is the most reliable fallback if auto-embed fails.
+- Notion supports both single videos and full YouTube playlists as embeds.
+- Private, unlisted, or restricted videos may show a blank box instead of a player.
+- Pairing a video embed with a tool like a [Pomodoro timer](https://blocs.me/pomodoro-timer) turns a static page into a usable study or work dashboard.
+
+## What is the easiest way to embed a YouTube video in Notion?
+
+The easiest way is to copy the video's URL from YouTube, paste it on an empty line in your Notion page, and choose "Embed" from the menu that appears. Notion automatically detects YouTube links and renders a playable video block, no extra steps or third-party tools required.
+
+### Method 1: Paste the link directly
+
+- Open the YouTube video and copy its URL (the share link or the one in your address bar).
+- Click into any Notion page and paste it on its own line.
+- A small menu appears with options like "Create bookmark," "Create embed," and "Paste as link." Choose **Embed**.
+- Resize the block by dragging its corner once it loads.
+
+### Method 2: Use the /video slash command
+
+- Type `/video` and press enter on the "Video" block option.
+- Paste the YouTube URL into the field that appears and click "Embed link."
+- This method is more reliable for links that don't auto-trigger the embed menu, and it's also how you'd embed self-hosted or non-YouTube video files.
+
+### Method 3: Generic /embed block
+
+If the video-specific block doesn't render correctly, try `/embed` instead. It uses Notion's broader embed system (the same one used for Figma, Google Maps, and other iframe-based content) and tends to catch edge cases the dedicated video block misses. This is the same underlying mechanism covered in our guide on [how to embed a website in Notion](https://blocs.me/blog/how-to-embed-a-website-in-notion).
+
+## Why won't my YouTube video embed in Notion?
+
+A video usually fails to embed in Notion because it's set to private, age-restricted, or has embedding disabled by the uploader in YouTube's own settings. Notion can only display what YouTube's player allows; if the creator blocked external embedding, Notion will show a blank or broken block regardless of the method used.
+
+Before troubleshooting further, confirm the video plays correctly on a fresh, logged-out YouTube tab. If it doesn't play there, it won't play in Notion either. YouTube's own [video embedding help page](https://support.google.com/youtube/answer/171780) explains how creators can toggle embedding permissions from Studio, which is the most common root cause.
+
+## Can you embed a YouTube playlist in Notion?
+
+Yes, you can embed a full YouTube playlist in Notion the same way you'd embed a single video: paste the playlist URL and select "Embed," or use `/video` and paste the playlist link into the field. Notion renders the playlist as a scrollable player rather than a single clip.
+
+## How do you pair video embeds with productivity tools in Notion?
+
+A video embed alone is passive. Most people watching tutorials, lectures, or workout videos in Notion get more value by adding a timer or tracker next to it, turning a video page into an actual work session rather than just a note. This is the same embed-in-Notion approach [Blocs](https://blocs.me) uses for its widgets: iframe-based, no sign-up required for the basics, and dropped directly onto the page next to your content.
+
+For example, next to a tutorial video you could embed a Pomodoro timer to structure your focus blocks:
+
+<WidgetEmbed src="/pomodoro" title="Blocs Pomodoro Timer" />
+
+This pattern works well for a few common setups:
+
+- **Study pages:** lecture video + Pomodoro timer for timed review sessions.
+- **Workout logs:** workout video + [habit tracker](https://blocs.me/habit-tracker-widget) to log streaks.
+- **Hydration/wellness dashboards:** a video playlist + [water tracker](https://blocs.me/water-tracker-widget) running alongside it.
+
+Blocs' Pomodoro Timer, Water Tracker, and Habit Tracker are free with default settings and need no account to try. Blocs Pro ($17, one-time, not a subscription) unlocks custom durations, unlimited habits, analytics, and theme matching if you want the dashboard to look fully custom. See our breakdown of [the best productivity Notion widgets](https://blocs.me/blog/best-productivity-notion-widgets) for more combinations, or check [widgets built specifically for students](https://blocs.me/blog/notion-productivity-widgets-for-students) if you're pairing video lectures with study tools.
+
+## FAQs
+
+### Does embedding a YouTube video in Notion cost anything?
+
+No. Embedding YouTube videos in Notion is a native, free feature available on every Notion plan, including the free tier. There's no premium requirement or add-on needed to paste and embed a video link.
+
+### Will the embedded video autoplay in Notion?
+
+No, embedded YouTube videos in Notion do not autoplay by default. Visitors need to click the play button manually, which matches standard YouTube embed behavior used across most websites.
+
+### Can I embed a YouTube Short in Notion?
+
+Yes, YouTube Shorts can be embedded the same way as regular videos: copy the Shorts URL and paste it into Notion, then select Embed. The aspect ratio will display as a vertical frame rather than the standard widescreen player.
+
+### Does embedding a video slow down my Notion page?
+
+Slightly, since each embed loads an iframe that pulls data from YouTube's servers. Pages with many video embeds can feel slower to load than text-only pages, so it's worth limiting embeds to one or two per page for performance.
+
+### Can I embed a video on a Notion page I share publicly?
+
+Yes, embedded videos display for anyone viewing a published or shared Notion page, as long as the underlying YouTube video itself is public or unlisted. Private videos won't play even if the Notion page is shared.
+
+### What's the difference between /video and /embed in Notion?
+
+The `/video` block is purpose-built for video URLs (YouTube, Vimeo, direct video files), while `/embed` is a general-purpose block for any iframe-compatible content, including maps, PDFs, and widgets. Both can render a YouTube link, but `/video` is the more direct option.
+
+## Build more than a video page
+
+Once your videos are embedded, the next step for most people is turning that page into an actual working dashboard, timers for focus sessions, trackers for habits, or a calendar for deadlines. Browse the full set of embeddable tools on the [Blocs homepage](https://blocs.me), or go straight to [try the free Pomodoro timer](https://blocs.me/pomodoro-timer) next to your next tutorial video. If you want everything (countdowns, calendar, clock, quote of the day, weather) unlocked at once, Pro is a $17 one-time payment, viewable on the [pricing page](https://blocs.me/pricing).
