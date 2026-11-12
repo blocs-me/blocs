@@ -1,0 +1,103 @@
+---
+title: "How to Track Your Subscriptions in Notion (2026 Guide)"
+date: "2026-11-11"
+description: "Track subscriptions in Notion with a free database template plus a live countdown widget for renewal dates. Step-by-step setup, no extra app required."
+---
+
+The fastest way to track subscriptions in Notion is to build a simple database with columns for cost, billing cycle, and renewal date, then sort it by "next renewal" so upcoming charges always float to the top. For a visual reminder, embed a live countdown widget like [Blocs](https://blocs.me) next to the table so you see exactly how many days are left before you're charged. This works for freelancers juggling 5-10 SaaS tools, families managing streaming services, or anyone trying to cut recurring costs.
+
+- A Notion database takes about 10 minutes to set up and costs nothing on the free plan.
+- Adding a formula field can auto-flag subscriptions renewing within 7 days.
+- Pairing the database with an embedded countdown widget removes the need to open a separate renewal date or calendar app.
+
+## Key Takeaways
+
+- Build a Notion database with properties for Name, Cost, Billing Cycle, Category, and Next Renewal Date.
+- Use a formula property to calculate days remaining and flag anything renewing soon.
+- Group or filter by billing cycle (monthly vs. yearly) to see your real recurring spend at a glance.
+- Embed a countdown widget for a visual, at-a-glance reminder instead of relying on Notion's text-only date fields.
+- Free Notion plans handle this setup fine; you don't need a paid Notion workspace for subscription tracking.
+
+## What's the best way to track subscriptions in Notion?
+
+The best way is a single database (table view) with one row per subscription, tracking name, monthly or annual cost, billing date, and category. Add a formula property that calculates days until renewal so you can sort or filter for anything due soon, turning a static list into an active budgeting tool.
+
+## How do I build a subscription tracker database in Notion?
+
+Create a new database and add these properties, then populate one row per service you pay for:
+
+### 1. Set up the core properties
+
+- **Name** (Title) - e.g., Netflix, Spotify, Adobe Creative Cloud
+- **Cost** (Number, formatted as currency)
+- **Billing Cycle** (Select: Monthly, Yearly, Weekly)
+- **Next Renewal** (Date)
+- **Category** (Select: Streaming, Software, Fitness, etc.)
+- **Status** (Select: Active, Cancelled, Trial)
+
+### 2. Add a "days left" formula
+
+Use a Formula property like `dateBetween(prop("Next Renewal"), now(), "days")` to show how many days remain. Sort the table by this column ascending so the most urgent renewals sit at the top.
+
+### 3. Create views for spending insight
+
+Add a Board view grouped by Category to see where money goes, and a filtered view that only shows subscriptions renewing in the next 7 days, useful for catching anything you meant to cancel.
+
+## Can I get a visual reminder before a subscription renews?
+
+Yes. Notion's own date fields are text-only, so many people embed a countdown widget next to their subscription table for a glanceable visual cue. Set the target date to match your subscription's next billing date, and the widget counts down automatically every time you open the page.
+
+This is where a tool like Blocs' [Countdown Timer](https://blocs.me/countdown-timer) is useful, you paste the embed link into your subscriptions page and it displays live days/hours/minutes until the charge hits, no database formula required for the visual part:
+
+<WidgetEmbed src="/countdown" title="Blocs Countdown Timer" height="200px" maxWidth="500px" />
+
+You can set up one countdown per high-priority subscription (like an annual plan you might forget about) alongside your full database for everything else.
+
+## Free vs. Pro: what's included for subscription tracking?
+
+Building the subscription database itself is entirely free in Notion. Blocs' Countdown Timer is a Pro-only widget, available for a one-time $17 payment (not a subscription) rather than another recurring charge on top of the services you're trying to track.
+
+| Feature | Free | Pro ($17 one-time) |
+|---|---|---|
+| Notion database with formulas/views | Yes | Yes |
+| Countdown Timer widget embed | No | Yes |
+| Custom target dates per widget | — | Yes |
+| Theme customization to match your Notion page | — | Yes |
+| No Blocs branding on widgets | — | Yes |
+
+See the full breakdown on the [pricing page](https://blocs.me/pricing).
+
+## Other Notion widgets worth pairing with a subscription tracker
+
+A subscription tracker often sits on a finance or "life admin" dashboard page alongside other recurring routines. If you're already building that page, a few related setups are worth checking:
+
+- [How to add a countdown timer to Notion](https://blocs.me/blog/how-to-add-a-countdown-timer-to-notion) walks through the embed step in more detail.
+- [How to add a habit tracker to Notion](https://blocs.me/blog/how-to-add-habit-tracker-to-notion) is useful if you want a monthly "review subscriptions" habit alongside your tracker.
+- [Best goal-tracking Notion widgets](https://blocs.me/blog/best-goal-tracking-notion-widgets) covers options if your subscription review ties into a bigger savings goal.
+- [Best time-tracking Notion widgets](https://blocs.me/blog/best-time-tracking-notion-widgets) is handy if you're also auditing how much time (not just money) different subscriptions cost you.
+
+## FAQs
+
+### Do I need a Notion template to track subscriptions?
+
+No. A basic database with Name, Cost, Billing Cycle, and Next Renewal properties covers most people's needs and takes a few minutes to set up from scratch, no template download required.
+
+### Can Notion automatically remind me before a subscription renews?
+
+Notion doesn't send push notifications for date properties by default, though you can use Notion's built-in reminders on a date field to get an in-app or email alert a day before renewal.
+
+### Is tracking subscriptions in Notion free?
+
+Yes, building the database itself is free on any Notion plan. Only optional visual add-ons, like Blocs' Countdown Timer widget, require a separate one-time payment.
+
+### How do I see my total monthly subscription cost?
+
+Add a formula or use the "Sum" calculation at the bottom of your Cost column, filtered to Monthly billing cycle, to get a running total of what you pay each month.
+
+### Can I track both monthly and annual subscriptions in one table?
+
+Yes. Use the Billing Cycle select property to separate them, then create a formula that normalizes annual costs to a monthly equivalent (annual cost divided by 12) for accurate side-by-side comparison.
+
+## Try it in your own workspace
+
+Set up your subscription database first, then add a free countdown reminder for the one subscription you're most likely to forget. [Explore the Countdown Timer widget](https://blocs.me/countdown-timer) or check [pricing](https://blocs.me/pricing) for full Pro access.
