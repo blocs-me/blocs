@@ -1,0 +1,100 @@
+---
+title: "How to Track My Grades in Notion: Step-by-Step Guide (2026)"
+date: "2026-11-12"
+description: "Track your grades in Notion with a database, GPA formula, and a visual progress widget. Free step-by-step setup for 2026, plus free Blocs widgets."
+---
+
+The fastest way to track your grades in Notion is to build a simple database with columns for course, assignment, weight, and score, then add a formula property to auto-calculate your running average or GPA. For a visual gut-check of how close you are to a target grade, embed a free widget like [Blocs](https://blocs.me)' Progress Bar on the same page. This setup works for one class or an entire semester, costs nothing to start, and takes about 10 minutes to build.
+
+## Key Takeaways
+
+- A Notion database with a weighted-average formula is the most reliable way to track grades without a spreadsheet.
+- Rollup and formula properties let Notion calculate your course average automatically as you add new scores.
+- A visual progress widget (like a progress bar toward a GPA goal) makes it easier to see trends at a glance than a table of numbers alone.
+- Free Notion-native tools cover the basics; Blocs' free widgets add visual tracking with zero extra apps or sign-up.
+
+## What's the best way to track grades in Notion?
+
+The best way to track grades in Notion is a database (table or board view) with one row per assignment, a "Weight" number property, a "Score" number property, and a formula property that multiplies the two to calculate your weighted average per course. This avoids manual math and updates automatically as you log new grades.
+
+### Step 1: Create the grades database
+
+Add a new full-page database and create these properties:
+
+- **Course** (select or relation to a Classes database)
+- **Assignment** (title)
+- **Category** (select: Homework, Quiz, Exam, Project)
+- **Weight (%)** (number)
+- **Score (%)** (number)
+
+### Step 2: Add the weighted average formula
+
+Create a formula property that multiplies Weight by Score for each row, then group by Course and use a Sum rollup divided by total weight to get your running course average. If you prefer a simpler version, a basic formula like `prop("Score") * (prop("Weight") / 100)` works for per-assignment contribution, and you can total it at the group level.
+
+### Step 3: Convert average to a letter grade (optional)
+
+Use an `if()` formula chain to convert your numeric average into a letter grade, e.g. 90+ = A, 80-89 = B, and so on. This is a common pattern in Notion's own [formula documentation](https://www.notion.com/help/formulas) for conditional logic.
+
+## How do I visualize my grade progress in Notion?
+
+Embed a progress bar widget next to your grades database and set the goal to your target grade (e.g., 90% for an A). The bar fills automatically as your average updates, giving you a visual sense of progress that a table of numbers doesn't provide on its own.
+
+Notion databases are great for raw data, but they're not built for at-a-glance visuals. A lightweight embed solves that without leaving the page:
+
+<WidgetEmbed src="/progress-bar" title="Blocs Progress Bar" height="150px" maxWidth="500px" />
+
+Set the goal value to your target percentage (e.g., 90 for an A average) and update the current value whenever you recalculate your grade. See more setup examples in our guide on [how to add a progress bar to Notion](https://blocs.me/blog/how-to-add-a-progress-bar-to-notion) and our breakdown of the [Progress Bar widget](https://blocs.me/progress-bar-widget) itself.
+
+## Can I track study habits alongside my grades?
+
+Yes. Pairing a habit tracker with your grades database helps you see the correlation between study consistency and score trends. Log daily study sessions, reading, or homework completion in a separate tracker on the same dashboard page.
+
+<WidgetEmbed src="/habit-tracker" title="Blocs Habit Tracker" />
+
+This is useful if you're trying to diagnose why a grade dropped, more missed study days often shows up right before a lower score. For more ideas on combining trackers, see our list of [best Notion widgets for students](https://blocs.me/blog/best-notion-widgets-for-students) and [best habit tracking Notion widgets](https://blocs.me/blog/best-habit-tracking-notion-widgets).
+
+## Free vs. Pro: what's the difference?
+
+The free tier covers the core building blocks (progress bar basics via Notion's own linked views, plus Blocs' free Habit Tracker). Pro unlocks goal customization, unlimited tracked items, and analytics that show trends over a full semester instead of just the current snapshot.
+
+| Feature | Free | Blocs Pro ($17 one-time) |
+|---|---|---|
+| Notion grade database + formulas | Yes (built into Notion) | Yes |
+| Habit tracker for study sessions | Yes, default settings | Unlimited habits, streak analytics |
+| Progress bar for GPA/grade goal | Not available | Yes, custom goals and themes |
+| Weekly/monthly trend analytics | No | Yes |
+| Theme customization (match your planner) | No | Yes |
+
+Blocs Pro is a **one-time $17 payment**, not a subscription, for lifetime access to every widget including Progress Bar, Calendar, and Countdown Timer. See the full breakdown on the [pricing page](https://blocs.me/pricing).
+
+## How do I track upcoming deadlines and exams?
+
+Add a calendar widget to your grades dashboard to mark exam dates, project due dates, and grade-release days. A visual calendar is easier to scan than a list view when you're planning study time around multiple classes.
+
+Blocs' Calendar widget (part of Pro) is designed for exactly this, see our post on the [Google Calendar widget for Notion](https://blocs.me/blog/google-calendar-widget-for-notion) for sync options, or explore the [Calendar widget](https://blocs.me/calendar-widget) directly.
+
+## FAQs
+
+### Can Notion automatically calculate my GPA?
+
+Yes, using a formula property that converts letter or percentage grades to a GPA scale (e.g., A=4.0, B=3.0) and averages them across courses, weighted by credit hours if needed. This requires manual formula setup but runs automatically afterward.
+
+### Is there a free Notion grade tracker template?
+
+Notion's own template gallery and many community creators offer free grade tracker templates with pre-built formulas. You can also build your own in under 15 minutes using the steps above if you want full control over categories and weighting.
+
+### Do I need a separate app to track grades visually?
+
+No. Embeddable widgets like Blocs' Progress Bar and Habit Tracker run directly inside your Notion page as an iframe, so you don't need to open a separate app or dashboard to see visual progress.
+
+### Does Blocs have a dedicated grade tracker widget?
+
+Not yet, but it's on our radar. In the meantime, the Progress Bar widget works well for tracking a single grade or GPA goal, and the Habit Tracker covers study consistency. We're exploring a dedicated academic tracker for a future release.
+
+### Can I track grades for multiple classes on one page?
+
+Yes. Use a single database with a "Course" select property, then filter or group by course to see each class's average separately while keeping everything on one Notion page.
+
+## Try it in your Notion workspace
+
+Start with a basic grades database and formula, then drop in a free Blocs widget to visualize your progress. Try the free [Habit Tracker](https://blocs.me/habit-tracker-widget) for study sessions, or explore the [Progress Bar widget](https://blocs.me/progress-bar-widget) to track your grade goal. Copy the embed URL and paste it into any Notion page, no sign-up required for the free widgets.
