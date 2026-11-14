@@ -1,0 +1,89 @@
+---
+title: "Bill Tracker for Notion: The Best Free Setup in 2026"
+date: "2026-11-13"
+description: "Blocs doesn't have a dedicated bill tracker yet, but pairing a Notion database with the free Blocs Habit Tracker widget gives you visual, recurring bill reminders in 2026."
+---
+
+The best free way to build a bill tracker for Notion in 2026 is to pair a native Notion database (for due dates, amounts, and payment status) with a visual recurring-reminder widget like the free [Blocs Habit Tracker](/habit-tracker-widget) embedded directly on your dashboard. [Blocs](https://blocs.me) doesn't currently sell a dedicated "bill tracker" widget, but a dedicated bill tracker is on its product roadmap. This setup works for freelancers, students, and anyone managing 5+ recurring payments.
+
+- Notion's own template gallery lists dozens of community-built bill trackers, mostly as databases with relation and rollup properties ([Notion Templates](https://www.notion.so/templates)).
+- Blocs' free tier includes the Pomodoro Timer, Water Tracker, and Habit Tracker widgets with no sign-up required; a one-time $17 Pro upgrade unlocks unlimited habits, analytics, and streaks.
+- A dedicated bill-tracker widget is not yet live on Blocs, so this guide covers the best hybrid workaround until it ships.
+
+## Key Takeaways
+
+- Notion doesn't have a built-in bill tracker, but it's easy to build one with a database and formula properties for due dates and status.
+- Blocs doesn't offer a dedicated bill-tracker widget as of November 2026, but one is planned for a future release.
+- The free [Habit Tracker widget](/habit-tracker-widget) can double as a visual "did I pay this?" reminder for recurring bills, embedded right next to your bill database.
+- For a more robust setup, Blocs Pro ($17 one-time) adds unlimited tracked items and monthly analytics so you can see payment streaks over time.
+
+## What is a bill tracker for Notion?
+
+A bill tracker for Notion is a database or widget that lists recurring payments (rent, subscriptions, utilities) along with due dates, amounts, and payment status, so you can see at a glance what's paid and what's coming up. Notion has no native bill-tracking template built in, which is why most people assemble one from a database plus formulas, or embed a third-party widget for visual reminders.
+
+## How do you track bills in Notion?
+
+Track bills in Notion by creating a database with properties for bill name, amount, due date, recurrence, and a checkbox or status field for "paid." Use a formula property to flag overdue items in red, and a linked calendar view to see due dates by month. For visual daily reminders, embed a widget like Blocs' Habit Tracker alongside the database.
+
+### Step-by-step setup
+
+1. **Create the database.** Add properties: Bill Name (title), Amount (number), Due Date (date), Recurrence (select: weekly/monthly/yearly), and Status (checkbox or select).
+2. **Add a formula for overdue flags.** Use `if(and(not(Status), Due Date < now()), "Overdue", "On track")` so late bills visually stand out. Notion's own guide to relations and rollups explains how to build these kinds of conditional formulas ([Notion Help: Relations & Rollups](https://www.notion.so/help/relations-and-rollups)).
+3. **Add a calendar view** filtered by Due Date so bills show up on a monthly grid.
+4. **Embed a reminder widget.** Since bills are recurring, treat each bill category as a "habit" (e.g., "Pay rent," "Pay internet") inside the [Blocs Habit Tracker](/habit-tracker-widget) so you get a visual streak of on-time payments next to your database.
+
+Here's what that widget looks like embedded on the page:
+
+<WidgetEmbed src="/habit-tracker" title="Blocs Habit Tracker" />
+
+Toggle each bill off as "paid" the same way you'd check off a habit, no separate app required.
+
+## Does Blocs have a dedicated bill tracker widget?
+
+No, as of November 2026 Blocs does not offer a standalone bill-tracker widget. The company currently offers Pomodoro, Water, and Habit trackers for free, plus Pro widgets like Countdown, Progress Bar, Clock, Calendar, Quote, and Weather. A dedicated bill tracker is on Blocs' roadmap for future release.
+
+In the meantime, the Habit Tracker is the closest fit: it supports unlimited recurring items on [Blocs Pro](/pricing) and renders cleanly as an embedded iframe, so it works well as a "did I pay this bill" checklist even though it wasn't purpose-built for finance.
+
+## Notion database vs. widget vs. template: which should you use?
+
+| Approach | Best for | Cost | Visual on dashboard? |
+|---|---|---|---|
+| Native Notion database | Detailed amounts, history, filtering | Free | Only if embedded as a view |
+| Community bill-tracker template | Quick setup, pre-built formulas | Usually free | Depends on template design |
+| Blocs Habit Tracker (workaround) | Visual streaks for recurring payments | Free (basic) / $17 one-time for Pro | Yes, embedded widget |
+
+## What's free vs. what needs Blocs Pro?
+
+The basic Habit Tracker is free with no sign-up and supports default settings for tracking recurring items. Blocs Pro is a $17 one-time payment (not a subscription) that unlocks unlimited habits/bills, monthly analytics and streaks, theme customization, and removes Blocs branding. Compare full details on the [pricing page](/pricing).
+
+## FAQs
+
+### Does Notion have a built-in bill tracker?
+
+No. Notion has no native bill-tracking feature, but its flexible database system lets you build one using date, number, and formula properties, or by installing a community template from the [Notion template gallery](https://www.notion.so/templates).
+
+### Is there a free bill tracker widget for Notion?
+
+There's no dedicated free bill-tracker widget yet from Blocs, but the free [Habit Tracker widget](/habit-tracker-widget) can be repurposed to check off recurring bills, and it requires no sign-up.
+
+### Will Blocs add a dedicated bill tracker?
+
+Blocs has indicated a dedicated bill tracker is planned for a future release, joining its existing lineup of Pomodoro, Water, Habit, Countdown, Progress Bar, Clock, Calendar, Quote, and Weather widgets.
+
+### How do I embed a tracker widget in Notion?
+
+Copy the widget's embed URL (for example blocs.me/habit-tracker), paste it into a Notion page, and select "Embed" from the link preview menu. The widget then renders live inside your workspace.
+
+### Can I track multiple bills with the free Habit Tracker?
+
+The free tier supports a limited number of tracked items with default settings. Unlimited bills/habits plus analytics and streaks require [Blocs Pro](/pricing) ($17 one-time).
+
+## Related reading
+
+- [Best free Notion habit tracker widgets](https://blocs.me/blog/best-free-notion-habit-tracker-widgets)
+- [How to add a habit tracker to Notion](https://blocs.me/blog/how-to-add-habit-tracker-to-notion)
+- [Water tracker widget for Notion](https://blocs.me/blog/water-tracker-widget-for-notion)
+
+## Ready to set up your bill reminders?
+
+Start with a free Notion database for the numbers, then embed the [Blocs Habit Tracker](/habit-tracker-widget) for a visual, no-sign-up way to check off recurring bills as you pay them. Want unlimited bills and monthly payment streaks? See what's included with [Blocs Pro](/pricing).
