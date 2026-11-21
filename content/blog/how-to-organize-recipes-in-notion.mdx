@@ -1,0 +1,113 @@
+---
+title: "How to Organize Your Recipes in Notion (2026 Guide + Free Template Tips)"
+date: "2026-11-21"
+description: "Organize recipes in Notion with a searchable database, tags, and meal-planning views. Step-by-step 2026 guide plus free widgets to track cooking time and habits."
+---
+
+The best way to organize recipes in Notion is to build a single database with properties for cuisine, meal type, prep time, and tags, then create filtered views (gallery for browsing, table for editing, calendar for meal planning). This works well for home cooks who want one searchable hub instead of scattered bookmarks, screenshots, and sticky notes.
+
+- A single Notion recipe database typically needs 6-8 properties to stay useful without becoming overwhelming.
+- Gallery view with recipe cover images is the most common layout for browsing recipes visually.
+- Linking a recipe database to a weekly planner database lets you build a meal plan and auto-generate a shopping list from relations.
+
+## Key Takeaways
+
+- Use one Notion database for all recipes, not separate pages per recipe collection.
+- Core properties: Cuisine, Meal Type, Prep Time, Difficulty, Tags, Source URL, Rating.
+- Create at least 3 views: Gallery (browse), Table (edit), Calendar (meal plan).
+- Use relations to connect recipes to a weekly meal planner and a grocery list database.
+- Add a [Blocs Calendar widget](https://blocs.me/calendar-widget) for a visual meal-planning view, and a [Blocs Pomodoro Timer](https://blocs.me/pomodoro-timer) or [Habit Tracker](https://blocs.me/habit-tracker-widget) to stay consistent with meal prep.
+
+## How do I set up a recipe database in Notion?
+
+Create a new full-page database, add a Gallery view as the default, and set up properties for Cuisine (select), Meal Type (multi-select), Prep Time (number), Difficulty (select), Tags (multi-select), Source URL (URL), and Rating (select or number). Each recipe becomes its own page with the full method written inside.
+
+Start simple. Many people over-build their first recipe database with 15+ properties and abandon it within a month because entering a recipe feels like filling out a form. Seven or eight well-chosen properties cover almost every filtering and sorting need you'll actually use.
+
+### Recommended properties
+
+| Property | Type | Purpose |
+|---|---|---|
+| Name | Title | Recipe name (default) |
+| Cuisine | Select | Italian, Mexican, etc. |
+| Meal Type | Multi-select | Breakfast, dinner, snack |
+| Prep Time | Number | Minutes, for filtering "quick meals" |
+| Difficulty | Select | Easy / Medium / Hard |
+| Tags | Multi-select | Vegetarian, meal-prep, kid-friendly |
+| Source URL | URL | Link back to original recipe or blog |
+| Rating | Select | Track which recipes are keepers |
+
+## What views should I create for a Notion recipe database?
+
+Create a Gallery view with recipe photos as the main browsing screen, a Table view with all properties visible for quick edits, and a Calendar or linked-database view for weekly meal planning. Add filtered views like "Under 30 Minutes" or "Vegetarian" for fast access to specific needs.
+
+Gallery view is the closest thing Notion has to a recipe-box feel: cover images, titles, and a couple of key tags at a glance. For meal planning specifically, a calendar-style view (either Notion's native calendar database view, or a dedicated widget) makes it much easier to see what you're eating each day without opening every page.
+
+If you want a cleaner visual calendar to plan meals that sits right next to your recipe database without the native calendar's limitations, you can embed one directly on the page:
+
+<WidgetEmbed src="/calendar" title="Blocs Calendar Widget" height="420px" maxWidth="420px" />
+
+This is useful if you're already assigning cook days in a separate planner and want a simple visual that's easier to glance at than a dense Notion calendar view.
+
+## How do I link recipes to a meal planner and grocery list?
+
+Create two more databases: a Meal Planner (one row per day, with a relation field to Recipes) and a Grocery List (rollup from recipe ingredients, or a simple multi-select checklist). Use Notion's relation and rollup properties to pull recipe names and prep times straight into your weekly plan automatically.
+
+The relation property is what makes this system actually save time instead of just looking organized. Once a recipe is linked to a planner row, you don't retype anything, you just reference it. Rollups can then pull in prep time or difficulty so your weekly view shows total cook time at a glance, which is handy for deciding whether Wednesday night needs a 15-minute recipe or can afford a 45-minute one.
+
+## What's the easiest way to stay consistent with meal prep?
+
+Pair your recipe database with a visible habit tracker for meal-prep days and a timer for active cooking sessions. Tracking a simple "prepped meals this week" habit keeps the system from becoming a database you built once and never maintained, which is the most common reason recipe organization systems fail.
+
+A lightweight habit tracker embedded right on your kitchen or planning page works well here:
+
+<WidgetEmbed src="/habit-tracker" title="Blocs Habit Tracker" />
+
+And for the actual cooking, a visible countdown or timer widget means you're not relying on your phone (which pulls you out of Notion and into notifications):
+
+<WidgetEmbed src="/pomodoro" title="Blocs Pomodoro Timer" />
+
+Both the [Habit Tracker](https://blocs.me/habit-tracker-widget) and [Pomodoro Timer](https://blocs.me/pomodoro-timer) are free with no sign-up required, and they embed as an iframe directly on the page, so you never have to leave Notion to check progress or start a timer. Related setups for timing and planning are covered in [how to use a Pomodoro timer in Notion](https://blocs.me/blog/how-to-use-a-pomodoro-timer-in-notion) and [connecting a calendar widget to Notion](https://blocs.me/blog/google-calendar-widget-for-notion).
+
+## Free vs. Pro: what's the difference?
+
+The core Notion database setup above (properties, views, relations) is entirely free and built into Notion itself, no extra tool required. If you add Blocs widgets for meal planning or meal-prep habits, the Habit Tracker and Pomodoro Timer are free with default settings, while custom durations, unlimited habits, streak analytics, and theme matching require [Blocs Pro](https://blocs.me/pricing) ($17 one-time, not a subscription).
+
+| Feature | Free | Pro ($17 one-time) |
+|---|---|---|
+| Habit Tracker (for meal prep) | Yes, default settings | Unlimited habits, streaks, analytics |
+| Pomodoro Timer (for cooking) | Yes, default timer | Custom durations, theme match |
+| Calendar Widget (meal plan view) | Not available | Included |
+| Notion recipe database itself | Fully free (native Notion) | N/A |
+
+## FAQs
+
+### Do I need a Notion template to organize recipes?
+
+No. A template can save setup time, but a recipe database with the properties listed above (Cuisine, Meal Type, Prep Time, Tags, Source URL) takes about 10 minutes to build from scratch and gives you full control over the structure.
+
+### Can I import recipes from websites automatically?
+
+Notion's web clipper lets you save a recipe page's URL and basic content into a database row, but ingredient lists and formatting usually need manual cleanup. There's no fully automatic recipe parser built into Notion.
+
+### How do I avoid duplicate recipes in my database?
+
+Sort your Table view by Name alphabetically before adding new entries, or use the Source URL property as a quick duplicate check, since the same recipe will have the same link.
+
+### Should I use one database for all meal types?
+
+Yes, one database with a Meal Type multi-select filter is easier to maintain than separate databases for breakfast, lunch, and dinner, since most meal-planning views need to pull from all of them at once.
+
+### How do I add a visual timer for cooking steps directly in Notion?
+
+Embed a widget using Notion's "Embed" block and paste the widget's URL. The [Blocs Pomodoro Timer](https://blocs.me/pomodoro-timer) works as a visible countdown for active cook time, free, with no account required. See [how to add a countdown timer to Notion](https://blocs.me/blog/how-to-add-a-countdown-timer-to-notion) for the step-by-step embed process.
+
+### What's the fastest way to plan a week of meals in Notion?
+
+Build a Meal Planner database with a relation to your Recipes database, one row per day, and view it as a weekly calendar. Pair it with a visual [calendar widget](https://blocs.me/calendar-widget) if you want a cleaner at-a-glance view than Notion's native calendar.
+
+## Start simple, then layer on the extras
+
+Build your recipe database first with the core properties, get it populated with a week or two of recipes, then decide whether a visual calendar or meal-prep habit tracker is worth adding. [Blocs](https://blocs.me) widgets embed directly into any Notion page in under a minute and don't require you to leave your workspace.
+
+[Try the free Habit Tracker](https://blocs.me/habit-tracker-widget) or [explore all widgets on Blocs Pro](https://blocs.me/pricing).
