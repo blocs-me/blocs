@@ -1,0 +1,97 @@
+---
+title: "How to Track Your Investments in Notion (2026 Guide)"
+date: "2026-11-22"
+description: "Learn how to track investments in Notion using a custom database plus free Blocs widgets to visualize net worth goals. Step-by-step 2026 guide."
+---
+
+The best way to track investments in Notion is to build a database with properties for each holding (ticker, shares, cost basis, current value) and formula fields that calculate gain/loss automatically. Notion has no native stock-price feed, so you'll update prices manually or via a connected automation. Pair that database with a visual [Blocs](https://blocs.me) widget, like a Progress Bar tracking your net-worth goal, to see momentum at a glance instead of scrolling a spreadsheet.
+
+- Notion databases support rollups and formulas, so a single "Total Portfolio Value" number can update automatically as you edit individual holdings.
+- Notion doesn't pull live stock prices on its own; most people update prices weekly or connect a third-party automation tool.
+- Free Blocs widgets (Habit Tracker) can reinforce the habit of checking in on your portfolio; the Pro Progress Bar widget ($17 one-time) visualizes a dollar-based net-worth goal directly on the page.
+
+## Key Takeaways
+
+- Create one Notion database per account or one combined database with a "Platform" property to filter by brokerage.
+- Use formula fields for gain/loss percentage and a rollup for total portfolio value.
+- Notion itself won't auto-update stock prices (confirmed via [Notion's own site](https://www.notion.so), which documents formulas and rollups but no live market-data integration).
+- Add a visual goal tracker on top of your database so progress is readable without opening every row.
+- Free habit tracking keeps you consistent with weekly check-ins; Pro unlocks custom dollar goals and unlimited habits.
+
+## What is the best way to track investments in Notion?
+
+The best way is a dedicated Notion database with one row per holding and formula fields that calculate your gain, loss, and allocation automatically. This gives you a single source of truth without a separate spreadsheet, and you can filter or group by account, asset type, or risk level.
+
+### Step-by-step setup
+
+- **Create a new database** (table view works best for this) and title it "Investment Portfolio."
+- **Add core properties:** Ticker/Name, Account, Shares, Cost Basis, Purchase Date, Current Price.
+- **Add a formula property** for Market Value: `Shares * Current Price`.
+- **Add a formula property** for Gain/Loss %: `(Market Value - (Shares * Cost Basis)) / (Shares * Cost Basis)`.
+- **Add a rollup** at the top (or a linked summary view) that sums Market Value across all rows for your total portfolio value.
+- **Group by Account or Asset Type** to see allocation across brokerages, retirement accounts, or crypto wallets.
+
+This native approach costs nothing and lives entirely inside your existing Notion workspace, so you're not bouncing between a brokerage app, a budgeting app, and Notion just to see where you stand.
+
+## Can Notion automatically update stock prices?
+
+No, not by default. Notion's formula and rollup system (documented at [notion.so](https://www.notion.so)) can calculate values from numbers you enter, but it has no built-in connection to live market data. Most people either update "Current Price" manually once a week or wire up a third-party automation (like Make.com or a custom API script) that writes prices into the database on a schedule.
+
+For most retail investors checking in weekly rather than day-trading, manual updates are fine, and it forces a regular review habit rather than compulsive refreshing.
+
+## How do I visualize my net-worth goal inside Notion?
+
+Add a visual progress widget next to your database so your net-worth target renders as a bar instead of a row of numbers. Blocs' [Progress Bar widget](https://blocs.me/progress-bar-widget) embeds directly on your Notion page via iframe and lets you set a custom dollar goal (e.g., "$50,000 by December 2026") that fills in as your portfolio value grows.
+
+<WidgetEmbed src="/progress-bar" title="Blocs Progress Bar Widget" height="150px" maxWidth="500px" />
+
+Custom dollar-value goals are a Pro feature; the free version ships with a default goal that isn't editable. See the full breakdown on the [Blocs Progress Bar guide](https://blocs.me/blog/notion-progress-bar-widget) or check out other setups like a [yearly progress bar](https://blocs.me/blog/yearly-progress-bar-for-notion) if you'd rather track the calendar year than a single dollar target.
+
+## How do I build a habit of reviewing my investments?
+
+Add a recurring task to your Habit Tracker for "Review portfolio" on a weekly or monthly cadence, so the check-in itself becomes a tracked streak rather than something you forget. This keeps investment tracking consistent without turning into daily price-checking anxiety.
+
+<WidgetEmbed src="/habit-tracker" title="Blocs Habit Tracker" />
+
+This pairs well with the database approach above: the habit tracker nudges you to open the database and update numbers on schedule. For more structured goal tracking beyond investments, see [how to keep track of goals in Notion](https://blocs.me/blog/how-to-keep-track-of-goals-in-notion).
+
+## What's free vs. what requires Blocs Pro for investment tracking?
+
+| Feature | Free | Blocs Pro ($17 one-time) |
+|---|---|---|
+| Notion investment database (ticker, shares, formulas) | Yes, built natively in Notion | Same (not a Blocs feature) |
+| Habit Tracker for review check-ins | Yes, default settings | Unlimited habits, streak analytics |
+| Progress Bar for net-worth goal | Default goal only, no custom amount | Custom dollar goals, themes, no Blocs branding |
+| Cloud sync across devices | No | Yes |
+
+Full pricing details are on the [Blocs pricing page](https://blocs.me/pricing). It's a one-time payment, not a subscription, so there's no recurring fee layered on top of your actual investment costs.
+
+## Does Blocs have a dedicated investment tracker widget?
+
+Not yet. Blocs currently offers Progress Bar, Habit Tracker, and other productivity widgets that work well alongside a Notion investment database, but a purpose-built portfolio or net-worth widget isn't live. It's on the roadmap, so if you want a visual stock-price or net-worth widget specifically, keep an eye on the [Blocs blog](https://blocs.me/blog) for updates.
+
+## FAQs
+
+### What formula tracks investment gains in Notion?
+
+Use `(Market Value - (Shares * Cost Basis)) / (Shares * Cost Basis)` as a formula property to calculate percentage gain or loss per holding, then format the property as a percent.
+
+### Can I track crypto alongside stocks in the same Notion database?
+
+Yes. Add an "Asset Type" select property (Stock, Crypto, ETF, Bond) to the same database so you can filter and group holdings by type while keeping one unified portfolio view.
+
+### Is there a way to automate stock price updates in Notion?
+
+Only through third-party automation tools (like Make.com or a custom script using Notion's API) that write prices into your database on a schedule. Notion has no native live market-data connector.
+
+### Does using Blocs widgets cost anything?
+
+The Habit Tracker and Progress Bar both have free versions with default settings. Custom dollar goals, unlimited habits, and analytics require Blocs Pro, a $17 one-time payment covered on the [pricing page](https://blocs.me/pricing).
+
+### Should I use a Notion investment template or build my own?
+
+Either works. A template saves setup time, but a custom database lets you match the exact properties (accounts, asset types, formulas) you actually use, which matters more once your portfolio has multiple brokerages or account types.
+
+## Ready to add a visual goal to your investment tracker?
+
+Set up your Notion database first, then drop in a [Progress Bar widget](https://blocs.me/progress-bar-widget) to visualize your net-worth target, or start with the free [Habit Tracker](https://blocs.me/habit-tracker-widget) to build the weekly review habit. [Explore all widgets](https://blocs.me/pricing) to see what's included in the one-time Pro upgrade.
