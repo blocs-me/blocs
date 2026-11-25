@@ -1,0 +1,93 @@
+---
+title: "How to Track Your Car Maintenance in Notion (2026 Setup Guide)"
+date: "2026-11-25"
+description: "Track car maintenance in Notion with a free database template plus a habit tracker and countdown timer widget for service reminders. Setup guide for 2026."
+---
+
+The fastest way to track your car maintenance in Notion is to build a simple database (vehicle, service type, date, mileage, cost, next-due date) and pair it with a visual reminder widget so you actually see upcoming services instead of forgetting them in a buried page. This works for one car or a whole household fleet.
+
+## Key Takeaways
+
+- A basic Notion maintenance database needs 6 core properties: Service, Date, Mileage, Cost, Next Due Date, and Notes.
+- Most manufacturers recommend oil changes every 5,000-7,500 miles for conventional engines and tire rotations every 5,000-8,000 miles, though you should always confirm with your owner's manual.
+- Pairing your database with a visual widget (like a [habit tracker](https://blocs.me/habit-tracker-widget) or [countdown timer](https://blocs.me/countdown-timer)) cuts missed-service rates because the reminder sits on the page you already open, instead of inside a filtered database view.
+
+## What do you need to track for car maintenance in Notion?
+
+You need five data points at minimum: the service performed, the date it was done, the odometer reading, the cost, and the next due date or mileage. These five fields let you build every view you'll actually use: upcoming services, cost history, and per-vehicle logs.
+
+If you own multiple vehicles, add a "Vehicle" relation or select property so you can filter the same database by car instead of duplicating pages. Optional but useful fields: shop/mechanic name, warranty status, and a file upload property for receipts.
+
+## How do you set up a car maintenance tracker in Notion?
+
+Create a new database, add the core properties listed above, then build three views: a Table view sorted by Next Due Date, a Calendar view for visual scheduling, and a Gallery view grouped by vehicle. This takes about 10-15 minutes for a single car.
+
+### 1. Create the database
+
+Start a new page, insert a full-page database, and name it "Car Maintenance Log." Add properties: Service (select: Oil Change, Tire Rotation, Brake Pads, Inspection, etc.), Date (date), Mileage (number), Cost (number, format as currency), Next Due Date (date), and Notes (text).
+
+### 2. Build a "due soon" view
+
+Add a Table view, filter where Next Due Date is within the next 30 days, and sort ascending. This becomes your at-a-glance "what needs attention" list without scrolling through your full history.
+
+### 3. Add a visual reminder widget
+
+Databases are great for records but easy to forget because they're not visually loud. Embedding a widget directly on your dashboard page solves that, since it's the first thing you see when you open Notion.
+
+A [habit tracker widget](https://blocs.me/habit-tracker-widget) works well for recurring, frequency-based maintenance (checking tire pressure monthly, washing/waxing, fluid top-offs) because it gives you a visual streak and daily/weekly grid. For a specific hard deadline (like "next oil change in 18 days" or "registration renewal in 42 days"), a [countdown timer](https://blocs.me/countdown-timer) is a better fit since it counts down to one fixed date.
+
+*Try the habit tracker below for recurring checks like tire pressure or fluid levels:*
+
+<WidgetEmbed src="/habit-tracker" title="Blocs Habit Tracker" />
+
+## What's free vs. what requires Blocs Pro?
+
+The Habit Tracker runs free with default settings and no sign-up, which covers basic recurring maintenance checks. Blocs Pro ($17 one-time, not a subscription) unlocks unlimited habits, custom durations, streak analytics, and the Countdown Timer for exact service due dates plus theme customization to match your dashboard.
+
+| Feature | Free | Pro ($17 one-time) |
+|---|---|---|
+| Habit Tracker (recurring checks) | Yes, default settings | Unlimited habits, streak analytics |
+| Countdown Timer (exact due dates) | Not included | Yes |
+| Theme customization | No | Yes |
+| Cloud sync across devices | No | Yes |
+| Blocs branding | Shown | Removed |
+
+See the full breakdown on the [pricing page](https://blocs.me/pricing).
+
+## Which Blocs widget should I use for car maintenance reminders?
+
+Use the Habit Tracker for repeating, frequency-based tasks (checking oil level monthly, washing the car weekly) and the Countdown Timer for one-time deadlines tied to a specific date (next inspection, registration renewal, a scheduled oil change appointment). Most people end up using both side by side.
+
+If you track multiple vehicles with different service schedules, consider adding a [countdown timer for each vehicle's next major service](https://blocs.me/blog/how-to-add-a-countdown-timer-to-notion), and a single shared habit tracker for the quick weekly/monthly checks that apply across your fleet. For broader dashboard inspiration, see our roundups on the [best habit tracking widgets for Notion](https://blocs.me/blog/best-habit-tracking-notion-widgets) and [notion widgets for habit tracking](https://blocs.me/blog/notion-widgets-for-habit-tracking).
+
+## How often should I actually service my car?
+
+Intervals vary by manufacturer and engine type, but general guidance is: oil changes every 5,000-7,500 miles (3,000 for older or high-mileage engines), tire rotations every 5,000-8,000 miles, brake inspections every 10,000-12,000 miles, and cabin air filters every 12,000-15,000 miles. Always check your specific owner's manual for exact numbers, since these ranges differ by make and model.
+
+## FAQs
+
+### Can I track multiple cars in one Notion database?
+
+Yes. Add a Vehicle select or relation property to your maintenance database, then filter or group each view by vehicle. This keeps one shared log instead of duplicating databases per car.
+
+### Does Notion send automatic reminders for due maintenance?
+
+Notion itself doesn't send push notifications for database date fields unless you set up a linked reminder or use the Notion mobile app's date-based notifications, which are limited. A visual widget like a [countdown timer](https://blocs.me/countdown-timer) solves this by making the due date impossible to miss on your dashboard.
+
+### What's the difference between the Habit Tracker and Countdown Timer for this use case?
+
+The Habit Tracker is built for recurring, repeatable actions with streak tracking (good for weekly fluid checks), while the Countdown Timer counts down to one fixed date (good for "next oil change due in 14 days"). Use the Habit Tracker for routines and the Countdown Timer for deadlines.
+
+### Is there a free Notion car maintenance template?
+
+Many free community templates exist in Notion's own template gallery, but most are static databases with no visual reminder. Pairing any template with a free [Blocs Habit Tracker](https://blocs.me/habit-tracker-widget) adds the visual nudge most templates lack.
+
+### Do I need Blocs Pro to track car maintenance in Notion?
+
+No. The free Habit Tracker covers basic recurring checks with no sign-up required. Pro ($17 one-time) is worth it if you want the Countdown Timer for exact due dates, unlimited habits, and analytics across multiple vehicles.
+
+### Can I embed Blocs widgets without leaving Notion?
+
+Yes. Every Blocs widget is an embeddable iframe, so you paste the widget URL into a Notion page using the `/embed` command and it renders inline, updating live without opening a separate app.
+
+Set up your maintenance database once, then add a [free Habit Tracker](https://blocs.me/habit-tracker-widget) to keep recurring checks visible, or explore [Blocs Pro](https://blocs.me/pricing) for the Countdown Timer and multi-vehicle analytics.
